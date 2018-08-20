@@ -1,5 +1,5 @@
 <?php
-	include_once ROOTPATH."/config.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 	include_once "controler/seguranca.php";
 	protegePagina();
  ?>

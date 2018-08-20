@@ -1,6 +1,6 @@
 <?php
     include_once "conexao.php";
-    include_once ROOTPATH."/config.php";
+    include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
     include_once  MODELPATH."/usuario.php";
 
     $_SG['versao'] = "v1.0";           // Abre uma conexão com o servidor MySQL?

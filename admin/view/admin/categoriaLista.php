@@ -1,5 +1,5 @@
 <?php
-    include_once ROOTPATH."/config.php";
+    include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
     include_once CONTROLLERPATH."/controlUsuario.php";
     include_once MODELPATH."/usuario.php";
     include_once CONTROLLERPATH."/seguranca.php";
