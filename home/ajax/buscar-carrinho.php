@@ -46,15 +46,17 @@ if(count($itens) > 0){
         
                 <?php foreach($itens as $item): ?>
                     <tr>
-                        <td><?=$item['nome']?></td>
+                        <td><strong><?=$item['nome']?></strong></td>
                         <td><?=html_entity_decode($item['descricao'])?></td>
-                        <td><img src="../admin/<?=$item['foto']?>"></td>
+                        <td><img style="width:200px;heigth:150px;" src="../admin/<?=$item['foto']?>"></td>
                     </tr>
             <?php endforeach;
     
     echo "</tbody>
         </table>
-        </div>";
+        </div>
+        <button class='btn btn-default'>Finalizar pedido</button>";
+
 
 }else{
     echo "<h1>NENHUM ITEM NO CARRINHO</h1>";
