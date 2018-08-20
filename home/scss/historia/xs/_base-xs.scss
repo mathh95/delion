@@ -1,0 +1,81 @@
+@font-face {
+    font-family: "Century Gothic Regular";
+    src: url("../../fonts/gothic.ttf");
+}
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../../fonts/gothicb.ttf");
+}
+
+body{
+    font-family: $font_main;
+    > .historia {
+        padding-top: 20px;
+        > .texto {
+            @include make-xs-column(12);
+            font-size: 14px;
+            padding-bottom: 10px;
+            padding-right: 0px;
+            padding-left: 0px;
+            > p {
+                text-align: justify;
+                > strong , b {
+                    font-family: $font_main_bold;
+                }
+            }
+        }
+        > .imagem {
+            @include make-xs-column(12);
+            padding-right: 0px;
+            padding-left: 0px;
+            > div {
+                padding: 0px;
+                padding-bottom: 15px;
+                > img {
+                    @include img-responsive();
+                    margin-left: auto;
+                }
+            }
+        }
+    }
+    > .imagens {
+        > div {
+            @include make-xs-column(12);
+            padding-right: 0px;
+            padding-left: 0px;
+            > .imagem {
+                position: relative;
+                margin-top: 34px;
+                > img {
+                    @include img-responsive();
+                    @include center-block();
+                }
+            }
+            > .info {
+                background-clip: padding-box; 
+                background-color: #000000;
+                height: 97px;
+                width: 100%;
+                position: relative;
+                bottom: 15px;
+                > .texto {
+                    text-align: center;
+                    font-size: 13px;
+                    color: #FFFFFF;
+                    padding-top: 45px;
+                    padding-right: 10px;
+                    padding-left: 10px;
+                }
+            }
+            > img {
+                @include img-responsive();
+                @include center-block();
+                position: absolute;
+                bottom: 70px;
+                width: 80px;
+                left: 104px;
+                z-index: 25; 
+            }
+        }
+    }
+}

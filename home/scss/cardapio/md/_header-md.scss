@@ -1,0 +1,129 @@
+@font-face {
+    font-family: "Century Gothic Regular";
+    src: url("../../fonts/gothic.ttf");
+}
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../../fonts/gothicb.ttf");
+}
+
+body{
+    font-family: $font_main;
+    > header{
+        background-color: #000000;
+        > .container{
+            padding-bottom: 15px;
+            > .logo {
+                @include make-md-column(4);
+                padding-top: 15px;
+                padding-right: 0px;
+                > img {
+                    @include img-responsive();
+                    @include center-block();
+                    max-width: 87%;
+                }
+                > div {
+                    font-size: 14px;
+                    text-align: right;
+                    color: #FFFFFF;
+                    padding-right: 30px;
+                }
+            }
+
+            > .infos {
+                @include make-md-column(2);
+                @include make-md-column-offset(6);
+                padding-left: 0px;
+                padding-top: 20px;
+                color: #FFFFFF;
+                font-size: 12px;
+                font-weight: bold;
+                > .rede-social {
+                    > a {
+                        @include make-md-column(4);
+                        padding: 0px;
+                        padding-top: 15px;
+                        padding-right: 5px;
+                        > img {
+                            @include img-responsive();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    > #navegacao{
+        background: #BE392A;
+        > .container{
+            padding: 0px; 
+            > #navegacao__content{
+                @include make-md-column(12);
+                padding: 0px; 
+                .navbar{
+                    border-radius: 0;
+                    border: none;
+                    box-shadow: none;
+                    background: #BE392A;
+                    margin-bottom: 0px;
+                    > .container-fluid{
+                        > #bs-navbar-collapse-1 {
+                            > ul {
+                                font-weight: bold;
+                                > li {
+                                    height: 50px;
+                                    > a {
+                                        color: white;
+                                        > img {
+                                            width: 27px;
+                                            height: 25px;
+                                            @include center-block();
+                                        }
+                                    }
+                                }
+                                > .active{
+                                    > a {
+                                        color: #000000;
+                                        background-color: #BE392A;
+                                        padding-bottom: 15px;
+                                        padding-top: 15px;
+                                        > img {
+                                            width: 27px;
+                                            height: 25px;
+                                            @include center-block();
+                                        }
+                                    }
+                                }
+                            }
+                            > form {
+                                padding: 0px;
+                                padding-right: 15px;
+                                > div {
+                                    > input {
+                                        border: none;
+                                        border-radius: 0px;
+                                        width: 265px;
+                                    }
+                                    > span {
+                                        > button{
+                                            border: 1px solid white;
+                                            margin-top: 0px;
+                                            background-color: #be392a;
+                                            padding-bottom: 4px;
+                                            padding-top: 4px;
+                                            font-weight: bold;
+                                            color: white;
+                                            border-radius: 0px;
+                                            padding-bottom: 7px;
+                                            padding-top: 6px;
+                                            height: 34px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

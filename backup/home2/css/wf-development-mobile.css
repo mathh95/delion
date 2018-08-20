@@ -1,0 +1,162 @@
+@media (max-width: 1200px) {
+    .nav-left li {
+        font-size: 20px;
+        padding: 9px 38px 0px 0;
+    }
+    
+    .nav-right li {
+        font-size: 20px;
+        padding: 9px 0 0px 38px;
+    }
+    
+    .logo {
+        max-width: 35%;
+        margin-top: -38px;
+    }
+}
+
+
+@media (max-width: 992px) {
+    
+    .form-contact {
+        width: 100%;
+        float: none;
+    }
+    
+    .sidebar {
+        width: 100%;
+        float: none;
+        padding: 0 0 0 0;
+    }
+    
+    .nav-left li {
+        font-size: 20px;
+        padding: 9px 24px 0px 0;
+    }
+
+    .nav-right li {
+        font-size: 20px;
+        padding: 9px 0 0px 24px;
+    }
+
+    .logo {
+        max-width: 35%;
+        margin-top: -22px;
+    }
+    
+    .box-footer h2 {
+        font-size: 26px;
+    }
+    
+    .box-footer-2 {
+        font-size: 14px;
+    }
+    .icons-footer {
+        font-size: 15px !important;
+    }
+    
+    .google-play img {
+        width: 88%;
+    }
+    .apple-store img {
+        width: 96%;
+    }
+    
+    .img-item {
+        width: 100%;
+        float: none;
+    }
+    
+    .item-description {
+        float: none;
+        width: 100%;
+        padding: 0 0 0 0;
+    }
+}
+
+@media (max-width: 768px) {
+    
+    .super-nav {
+        margin-top: 0px;
+    }
+    
+    .slider {
+        display: none;
+    }
+    .dropdown-menu {
+        width: 100%;
+    }
+    .nav-left {
+        position: relative;
+        z-index: 1;
+        margin-top: 52px;
+        width: 100%;    
+        display: none;
+        float: none;
+        background-color: #FFF1D5;
+    }
+    
+    .nav-left li {
+        padding: 10px 15px 2px 15px;
+        float: none;
+    }
+    
+    .nav-right {
+        position: relative;
+        z-index: 0;
+        width: 100%;
+        display: none;
+        float: none;
+        background-color: #FFF1D5;
+        margin-top: -10px;
+    }
+    
+    .nav-right li {
+        padding: 10px 15px 2px 15px;
+        float: none;
+    }
+    
+    .logo {
+        display: none;
+    }
+    .logo-mobile {
+        display: block;
+        padding: 5px 0;
+    }
+    
+    #btn-toggle {
+        display: block;
+    }
+    .box-footer {
+        width: 100%;
+        overflow: hidden;
+        float: none;
+    }
+    .copy-left {
+        float: none;
+        text-align: center;
+    }
+    
+    .copy-the-right {
+        float: none;
+        text-align: center;
+    }
+    
+    .copy-right {
+        width: 100%;
+        height: 90px;
+    }
+}
+
+
+
+@media (max-width: 592px) {
+    .list-destaque li {
+        width: 100%;
+        float: none;
+        padding: 8px 0;
+    }
+} 
+
+
+

@@ -1,0 +1,83 @@
+a:link      {text-decoration: none;}
+a:visited   {text-decoration: none;}
+a:hover     {text-decoration: none;}
+
+.titulo {
+	font-family: Tahoma, Arial;
+	font-size: 11px;
+	color: #000000;
+}
+a:link.titulo       { color: #000000; text-decoration: none;}
+a:visited.titulo    { color: #000000; text-decoration: none;}
+a:hover.titulo      { color: #CC0000; text-decoration: none;}
+a:link:hover.titulo { color: #CC0000; text-decoration: none;}
+.titulo2 {
+	font-family: Tahoma, Arial;
+	font-size: 10px;
+	font-weight: bold;
+	color: #000000;
+}
+.texto {
+	font-family: Tahoma, Arial;
+	font-size: 10px;
+	color: #000000;
+}
+.textp {
+	font-family: Tahoma, Arial;
+	font-size: 11px;
+	color: #000000;
+}
+a:link.textp       { color: #000000; text-decoration: none;}
+a:visited.textp    { color: #000000; text-decoration: none;}
+a:hover.textp      { color: #CC0000; text-decoration: none;}
+a:link:hover.textp { color: #CC0000; text-decoration: none;}
+.form {
+	font-family: Tahoma, Arial;
+	font-size: 11px;
+	color: #666666;
+	background-image: url(../img/bg_form.jpg);
+	padding-left: 1px;
+	border: 1px solid #CCCCCC;
+}
+.botao {
+	font-family: Tahoma, Arial;
+	font-size: 10px;
+	font-weight: bold;
+	color: #000000;
+	background-image: url(../img/botao_bg.jpg);
+	height: 19px;
+	border: 1px solid #CCCCCC;
+}
+.form2 {
+	font-family: Tahoma, Arial;
+	font-size: 11px;
+	color: #666666;
+	background-image: url(../img/bg_form.jpg);
+	padding-left: 1px;
+	border: 1px solid #CCCCCC;
+	width: 180px;
+}
+.hide {	display: none; }
+.show {
+	display: block;
+	background-color: #FFFFFF;
+	padding: 4px;
+	border: 1px solid #CCCCCC;
+	width: 200px;
+	position:absolute;
+}
+.show2 {
+	display: block;
+}
+
+#foto{
+	float: left;
+    height: 134px;
+    text-align: center;
+    width: 105px;	
+}
+
+#foto .img_foto{
+    height: 100px;
+    width: 100px;	
+}

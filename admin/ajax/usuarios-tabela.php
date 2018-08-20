@@ -1,0 +1,60 @@
+<?php
+include_once ROOTPATH."/config.php";
+include_once CONTROLLERPATH."/seguranca.php";
+include_once CONTROLLERPATH."/controlUsuario.php";
+include_once MODELPATH."/usuario.php";
+protegePagina();
+
+$controle=new controlerUsuario($_SG['link']);
+
+$usuarios = $controleUsuario->selectAll();
+$permissao =  json_decode($usuarioPermissao->getPermissao());	
+if(in_array('usuario', $permissao)){
+	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
+	<thead>
+		<h1 class=\"page-header\">Lista de Usuários</h1>
+		<tr>
+    		<th width='20%' style='text-align: center;'>Nome</th>
+    		<th width='15%' style='text-align: center;'>Login</th>
+    		<th width='15%' style='text-align: center;'>Perfil</th>
+            <th width='15%' style='text-align: center;'>Editar</th>
+            <th width='15%' style='text-align: center;'>Apagar</th>
+        </tr>
+	<tbody>";
+	foreach ($usuarios as &$usuario) {
+		if(($usuario->getCod_usuario()!=$_SESSION['usuarioID']) && ($usuario->getFlag_bloqueado()==0)){
+			$mensagem='Usuário excluído com sucesso!';
+			$titulo='Excluir';
+			echo "<tr name='resutaldo' id='status".$usuario->getCod_usuario()."'>
+			 	<td style='text-align: center;' name='nome'>".$usuario->getNome()."</td>
+			 	<td style='text-align: center;' name='login'>".$usuario->getLogin()."</td>
+			 	<td style='text-align: center;' name='perfil'>".$usuario->getDsCod_perfil()."</td>
+			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='usuario-view.php?cod=".$usuario->getCod_usuario()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+			 	<td style='text-align: center;' name='status'  ><button type='button' onclick=\"removeUsuario(".$usuario->getCod_usuario().");\" class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
+			</tr>";
+		}
+	}
+}else{
+	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
+	<thead>
+		<h1 class=\"page-header\">Lista de Usuários</h1>
+		<tr>
+    		<th width='20%' style='text-align: center;'>Nome</th>
+    		<th width='15%' style='text-align: center;'>Login</th>
+    		<th width='15%' style='text-align: center;'>Perfil</th>
+            <th width='15%' style='text-align: center;'>Editar</th>
+        </tr>
+	<tbody>";
+	foreach ($usuarios as &$usuario) {
+		if(($usuario->getCod_usuario()!=$_SESSION['usuarioID']) && ($usuario->getFlag_bloqueado()==0)){
+			echo "<tr name='resutaldo' id='status".$usuario->getCod_usuario()."'>
+			 	<td style='text-align: center;' name='nome'>".$usuario->getNome()."</td>
+			 	<td style='text-align: center;' name='login'>".$usuario->getLogin()."</td>
+			 	<td style='text-align: center;' name='perfil'>".$usuario->getDsCod_perfil()."</td>
+			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='usuario-view.php?cod=".$usuario->getCod_usuario()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+			</tr>";
+		}
+	}
+}
+echo "</tbody></table>";
+?>
