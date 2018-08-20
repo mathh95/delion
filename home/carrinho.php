@@ -218,7 +218,7 @@ session_start();
 				<img src="img/Logo_Branca.png">
 
 				<div>Toda hora é hora de um bom café!</div>
-
+<!-- testando commit  -->
 			</div>
 
 			<div class="infos">
