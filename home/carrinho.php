@@ -162,13 +162,13 @@ session_start();
 
 					        	<li><a href="historia.php">História</a></li>
 
-					        	<li class="active"><a href="cardapio.php">Cardápio</a></li>
+					        	<li><a href="cardapio.php">Cardápio</a></li>
 
 					        	<li><a href="contato.php">Contato</a></li>
 
                                 <li><a href="localizacao.php">Localização</a></li>
                                 
-                                <li><a href="carrinho.php">Carrinho <span><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
+                                <li class="active"><a href="carrinho.php">Carrinho <span><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 
 					   		</ul>
 

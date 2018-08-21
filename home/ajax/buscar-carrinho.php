@@ -37,23 +37,25 @@ if(count($itens) > 0){
                 <thead>
                     <tr>
                         <th>Produto</th>
-                        <th>Descrição</th>
+                        <th>Preço Unitário</th>
                         <th>Foto</th>
                     </tr>
                 </thead>
                 <tbody>
         
-                <?php foreach($itens as $item): ?>
+                <?php $total = 0; 
+                foreach($itens as $item): ?>
                     <tr>
                         <td><strong><?=$item['nome']?></strong></td>
-                        <td><?=html_entity_decode($item['descricao'])?></td>
+                        <td>R$ <?=$item['preco']?></td>
                         <td><img style="width:200px;heigth:150px;" src="../admin/<?=$item['foto']?>"></td>
                     </tr>
-            <?php endforeach;
+            <?php $total += $item['preco']; endforeach;
     
     echo "</tbody>
         </table>
         </div>
+        <p>Valor total do pedido: R$".$total."</p>
         <button class='btn btn-default'>Finalizar pedido</button>";
 
 
