@@ -71,7 +71,7 @@
                 echo "Nome: ".$this->nome."<br>";
                 echo "Login: ".$this->login."<br>";
                 echo "Senha: ".$this->senha."<br>";
-                echo "Telefone: ".$this->Telefone."<br>";
+                echo "Telefone: ".$this->telefone."<br>";
             }
         }
 ?>
