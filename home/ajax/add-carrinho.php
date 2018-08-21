@@ -14,7 +14,6 @@ session_start();
 
 // include_once "../lib/alert.php";
  $id = 0;
- $qtd = 0;
 
 if(isset($_GET['id']) && !empty($_GET['id'])){
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -25,16 +24,15 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
     }
 
     // $_SESSION['carrinho'][] = $id;
-    array_push($_SESSION['carrinho'], $id);
 
-    print_r($_SESSION['carrinho']);
-
-    $qtd = count($_SESSION['carrinho']);
-
+    if(!in_array($id, $_SESSION['carrinho'], true)){
+        
+        array_push($_SESSION['carrinho'], $id);
+        //essa sessão está sendo startada na index do projeto
+        $_SESSION['quantidadeCarrinho']++;
+    }
 }
 
-if($qtd != 0){
-    $_SESSION['quantidadeCarrinho'] = $qtd;
-}
+
 
 ?>
