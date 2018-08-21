@@ -1,7 +1,7 @@
 <?php 
-    //include_once MODELPATH."/cliente.php";
-    include_once "/xampp/htdocs/delion/admin/model/cliente.php";
-    include_once "/xampp/htdocs/delion/admin/controler/seguranca.php";
+    include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
+    include_once MODELPATH."/cliente.php";
+    include_once CONTROLLERPATH."/seguranca.php";
     protegePagina();
 
     class controlCliente{
@@ -62,6 +62,86 @@
                     return -1;
                 }
             }
+
+            function selectAll(){
+                try{
+                    $clientes = array();
+                    $stmt=$this->pdo->prepare("SELECT * FROM cliente");
+                    $executa= $stmt->execute();
+                    if ($executa){
+                        if ($stmt->rowCount() > 0 ){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                                $cliente = new cliente();
+                                $cliente->setCod_cliente($result->cod_cliente);
+                                $cliente->setLogin($result->login);
+                                $cliente->setNome($result->nome);
+                                $cliente->setSenha($result->senha);
+                                $cliente->setTelefone($result->telefone);
+                                array_push($clientes,$cliente);
+                            }
+                        }else{
+                            echo "Sem resultados";
+                            return -1;
+                        }
+                        return $clientes;
+                    }else{
+                        return -1;
+                    }
+
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function select($parametro,$modo){
+                $stmt;
+                $cliente= new cliente;
+                try{
+                    if($modo==1){
+                        $nome=$parametro . "%";
+                        $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE nome LIKE :parametro");
+                        $stmt->bindParam(":parametro", $nome, PDO::PARAM_STR);
+                    }elseif ($modo==2) {
+                        $cod_cliente=$parametro;
+                        $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE cod_cliente=:parametro");
+                        $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+                    }
+                    $executa=$stmt->execute();
+                    if ($executa){
+                        if($stmt->rowCount() > 0){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                                $cliente->setCod_cliente($result->cod_cliente);
+                                $cliente->setLogin($result->login);
+                                $cliente->setNome($result->nome);
+                                $cliente->setSenha($result->senha);
+                                $cliente->setTelefone($result->telefone);
+                            }
+                        }
+                        return $cliente;
+                    }else{
+                        return -1;
+                    }
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function countCliente(){
+                try{
+                    $stmt=$this->pdo->prepare("SELECT COUNT(*) AS clientes FROM cliente");
+                    $stmt->execute();
+                    $result=$stmt->fetch(PDO::FETCH_OBJ);
+                    return $result->clientes;
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
   // Cria tabela cliente no banco      
 /*         function createTable(){
             try{
@@ -99,5 +179,8 @@
     $clientet->setNome("teste2");
     $clientet->setTelefone("22222");
     $clientet->setSenha("teste2"); */
-    $teste->update($clientet);
+    $cliente=$teste->select("ar", 1);
+    echo $cliente->getNome();
+
+
 ?>
