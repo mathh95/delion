@@ -34,9 +34,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
 }
 
 if($qtd != 0){
-    echo $qtd;
-}else{
-    echo "0";
+    $_SESSION['quantidadeCarrinho'] = $qtd;
 }
 
 ?>

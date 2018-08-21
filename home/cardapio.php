@@ -168,7 +168,7 @@ session_start();
 
 								<li><a href="localizacao.php">Localização</a></li>
 								
-								<li><a href="carrinho.php">Carrinho<span id="qtd">0</span></a></li>
+								<li><a href="carrinho.php">Carrinho<span><?=$_SESSION['quantidadeCarrinho']?></span></a></li>
 
 					   		</ul>
 
@@ -435,10 +435,10 @@ session_start();
 
 				data: {id: id},
 
-				success:function(res){
-					console.log(res);
-					$('#qtd').text(res);
-				}, 
+				// success:function(res){
+				// 	// console.log(res);
+				// 	$('#qtd').text(res);
+				// }, 
 				error: function(erro){
 					console.log(erro);
 				}
