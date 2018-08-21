@@ -1,6 +1,9 @@
 <?php 
 
-	// session_start();
+	session_start();
+	if(!isset($_SESSION['quantidadeCarrinho'])){
+		$_SESSION['quantidadeCarrinho'] = 0;
+	}
 
 	include_once "../admin/controler/conexao.php";
 
@@ -170,7 +173,7 @@
 
 								<li><a href="localizacao.php">Localização</a></li>
 								
-								<li><a href="carrinho.php">Carrinho</a></li>
+								<li><a href="carrinho.php">Carrinho <span><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 
 					   		</ul>
 
@@ -506,7 +509,7 @@
 
       		});
 
-    	});
+    	});	
 
     	$(document).ready(function(){
 
@@ -523,6 +526,12 @@
       		});
 
     	});
+
+		// $(document).ready(function(){
+			
+		// 	$('#qtd').html($_SESSION['quantidadeCarrinho']);
+			
+		// });
 
 	</script>
 

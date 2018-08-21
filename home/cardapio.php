@@ -168,7 +168,7 @@ session_start();
 
 								<li><a href="localizacao.php">Localização</a></li>
 								
-								<li><a href="carrinho.php">Carrinho<span><?=$_SESSION['quantidadeCarrinho']?></span></a></li>
+								<li><a href="carrinho.php">Carrinho <span><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 
 					   		</ul>
 
