@@ -29,7 +29,6 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
         
         array_push($_SESSION['carrinho'], $id);
         //essa sessão está sendo startada na index do projeto
-        $_SESSION['quantidadeCarrinho']++;
     }
 }
 

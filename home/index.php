@@ -1,9 +1,6 @@
 <?php 
 
 	session_start();
-	if(!isset($_SESSION['quantidadeCarrinho'])){
-		$_SESSION['quantidadeCarrinho'] = 0;
-	}
 
 	include_once "../admin/controler/conexao.php";
 
@@ -526,12 +523,6 @@
       		});
 
     	});
-
-		// $(document).ready(function(){
-			
-		// 	$('#qtd').html($_SESSION['quantidadeCarrinho']);
-			
-		// });
 
 	</script>
 
