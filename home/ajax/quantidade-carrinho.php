@@ -21,8 +21,17 @@ if($acao == "+"){
     $_SESSION['totalCarrinho'] += $preco;
     echo "<p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>";
 }elseif($acao == "-"){
-    $_SESSION['totalCarrinho'] -= $preco;
-    echo "<p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>";
+    if(isset($_GET['id']) && !empty($_GET['id'])){
+        $id = $_GET['id'];
+        foreach($_SESSION['carrinho'] as $key => $value){
+            if($id == $value){
+                unset($_SESSION['carrinho'][$key]);
+            }
+        }
+    }else{
+        $_SESSION['totalCarrinho'] -= $preco;
+        echo "<p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>";
+    }
 }
 
 

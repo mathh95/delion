@@ -47,7 +47,7 @@ if(count($itens) > 0){
                 <?php $total = 0; 
                 $i = 0;
                 foreach($itens as $item): ?>
-                    <tr id="idLinha<?=$i?>">
+                    <tr id="idLinha<?=$i?>" data-id="<?=$item['cod_cardapio']?>">
                         <td><strong><?=$item['nome']?></strong></td>
                         <td id="preco<?=$i?>" data-preco="<?=$item['preco']?>">R$ <?=$item['preco']?></td>
                         <td><input id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true"><button id="adicionarUnidade" data-linha="<?=$i?>" class="btn btn-success">+</button><button id="removerUnidade" data-linha="<?=$i?>" class="btn btn-danger">-</button></td>
@@ -98,9 +98,10 @@ if(count($itens) > 0){
         
         var acao = "-";
         var linha = $(this).data('linha');
+        var id = $("#idLinha"+linha).data('id');
         var qtdAtual = $("#qtdUnidade"+linha).val();
         var preco = $("#preco"+linha).data('preco');
-        var qtdTotal = parseInt(qtdAtual);
+        var qtdTotal = parseInt(qtdAtual); 
         qtdTotal-= 1;
 
         if(qtdTotal > 0){
@@ -124,7 +125,7 @@ if(count($itens) > 0){
 
             url: 'ajax/quantidade-carrinho.php',
 
-            data: {acao: acao, preco: preco},
+            data: {acao: acao, preco: preco, id: id},
 
             success:function(resultado){
                 $("#total").html(resultado);
