@@ -47,7 +47,7 @@ if(count($itens) > 0){
                 <?php $total = 0; 
                 $i = 0;
                 foreach($itens as $item): ?>
-                    <tr>
+                    <tr id="idLinha<?=$i?>">
                         <td><strong><?=$item['nome']?></strong></td>
                         <td id="preco<?=$i?>" data-preco="<?=$item['preco']?>">R$ <?=$item['preco']?></td>
                         <td><input id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true"><button id="adicionarUnidade" data-linha="<?=$i?>" class="btn btn-success">+</button><button id="removerUnidade" data-linha="<?=$i?>" class="btn btn-danger">-</button></td>
@@ -100,9 +100,12 @@ if(count($itens) > 0){
         var linha = $(this).data('linha');
         var qtdAtual = $("#qtdUnidade"+linha).val();
         var preco = $("#preco"+linha).data('preco');
-        var qtdInt = parseInt(qtdAtual);
-        $.ajax({
-            //falta pensar em uma forma de mandar o preço pra outra página...
+        var qtdTotal = parseInt(qtdAtual);
+        qtdTotal-= 1;
+
+        if(qtdTotal > 0){
+            $.ajax({
+            
             type: 'GET',
 
             url: 'ajax/quantidade-carrinho.php',
@@ -111,9 +114,26 @@ if(count($itens) > 0){
 
             success:function(resultado){
                 $("#total").html(resultado);
-                $("#qtdUnidade"+linha).val(qtdInt-= 1);
+                $("#qtdUnidade"+linha).val(qtdTotal);
             }
         });
+        }else if(qtdTotal <= 0){
+            $.ajax({
+            
+            type: 'GET',
+
+            url: 'ajax/quantidade-carrinho.php',
+
+            data: {acao: acao, preco: preco},
+
+            success:function(resultado){
+                $("#total").html(resultado);
+                var tr = $("#idLinha"+linha).fadeOut(1000, function(){
+                    tr.remove();
+                });
+            }
+        });
+        }
     });
 
 </script>
