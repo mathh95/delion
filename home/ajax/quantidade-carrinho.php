@@ -28,6 +28,8 @@ if($acao == "+"){
                 unset($_SESSION['carrinho'][$key]);
             }
         }
+        $_SESSION['totalCarrinho'] -= $preco;
+        echo "<p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>";
     }else{
         $_SESSION['totalCarrinho'] -= $preco;
         echo "<p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>";
