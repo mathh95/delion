@@ -14,16 +14,13 @@ session_start();
 
 // include_once "../lib/alert.php";
 
-$qtdAtual = $_GET['qtdAtual'];
 $preco = $_GET['preco'];
 $acao = $_GET['acao'];
 
 if($acao == "+"){
-    $qtdAtual += 1;
     $_SESSION['totalCarrinho'] += $preco;
     echo "<p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>";
 }elseif($acao == "-"){
-    $qtdAtual -= 1;
     $_SESSION['totalCarrinho'] -= $preco;
     echo "<p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>";
 }
