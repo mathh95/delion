@@ -13,23 +13,15 @@ session_start();
 // require_once "../controler/controlCardapio.php";
 
 // include_once "../lib/alert.php";
- $id = 0;
 
-if(isset($_GET['id']) && !empty($_GET['id'])){
-    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-    if(!isset($_SESSION['carrinho'])){
-        $_SESSION['carrinho'] = array();
-        // print_r($_SESSION['carrinho']);
-        // exit;
-    }
+$qtdAtual = $_GET['qtdAtual'];
+$preco = $_GET['preco'];
+$acao = $_GET['acao'];
 
-    // $_SESSION['carrinho'][] = $id;
-
-    if(!in_array($id, $_SESSION['carrinho'], true)){
-        
-        array_push($_SESSION['carrinho'], $id);
-        //essa sessão está sendo startada na index do projeto
-    }
+if($acao == "+"){
+    $qtdAtual += 1;
+    $_SESSION['totalCarrinho'] += $preco;
+    echo "<p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>";
 }
 
 
