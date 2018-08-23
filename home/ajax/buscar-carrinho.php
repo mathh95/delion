@@ -38,7 +38,7 @@ if(count($itens) > 0){
 
    
         <h1>Lista de produtos no carrinho</h1>
-        <div class="table-responsive">
+        <div class="table-responsive categoria">
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
@@ -55,11 +55,11 @@ if(count($itens) > 0){
                 $i = 0;
                 foreach($itens as $item): ?>
                     <tr id="idLinha<?=$i?>" data-id="<?=$item['cod_cardapio']?>">
-                        <td><button id="removeItem" data-linha="<?=$i?>" class="btn btn-danger">X</button></td>
+                        <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?=$i?>" class="fas fa-trash-alt btn"></i></td>
                         <td><strong><?=$item['nome']?></strong></td>
                         <td id="preco<?=$i?>" data-preco="<?=$item['preco']?>">R$ <?=$item['preco']?></td>
                         <td id="subtotal<?=$i?>">R$ <?=$item['preco']?></td>
-                        <td><input id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true"><button id="adicionarUnidade" data-linha="<?=$i?>" class="btn btn-success">+</button><button id="removerUnidade" data-linha="<?=$i?>" class="btn btn-danger">-</button></td>
+                        <td><input style="border:none;" id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true"><i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?=$i?>" class="fas fa-cart-plus fa-lg btn"></i><i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?=$i?>" class="fas fa-cart-arrow-down fa-lg btn"></i></td>
                     </tr>
             <?php $i++; $total += $item['preco']; endforeach;
             $_SESSION['totalCarrinho'] = $total;
@@ -67,7 +67,7 @@ if(count($itens) > 0){
     echo "</tbody>
         </table>
         </div>
-        <p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>
+        <strong><p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p></strong>
         <button class='btn btn-default'>Finalizar pedido</button>
         <a onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho</button></a>";
 
@@ -183,6 +183,10 @@ if(count($itens) > 0){
             }
         });
         }
+    });
+
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
     });
 
 </script>
