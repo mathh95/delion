@@ -17,6 +17,7 @@ session_start();
 $preco = $_GET['preco'];
 $acao = $_GET['acao'];
 
+
 //função pra aumentar a quantidade de um item no carrinho
 if($acao == "+"){
     $_SESSION['totalCarrinho'] += $preco;
@@ -51,7 +52,9 @@ if($acao == "+"){
         echo "<p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>";
     }
 }
-
-
-
+// função para esvaziar o carrinho
+elseif($acao == "esv"){
+    $_SESSION['totalCarrinho'] = 0;
+    $_SESSION['carrinho'] = array();
+}
 ?>

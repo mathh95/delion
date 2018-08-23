@@ -18,6 +18,12 @@ $itens = array();
 $cardapio = new controlerCardapio(conecta());
 // $_SESSION['carrinho'] = ['14','16','17'];
 
+//     function esvazia(){
+//         $_SESSION['carrinho'] = array();
+//         $_SESSION['totalCarrinho'] = 0;
+//         header("Location: ".HOMEPATH); 
+// }
+
 
 if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
     $itens = $_SESSION['carrinho'];
@@ -62,9 +68,10 @@ if(count($itens) > 0){
         </table>
         </div>
         <p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>
-        <button class='btn btn-default'>Finalizar pedido</button>";
+        <button class='btn btn-default'>Finalizar pedido</button>
+        <a onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho</button></a>";
 
-        
+
 }else{
     echo "<h1>NENHUM ITEM NO CARRINHO</h1>";
 }
@@ -72,6 +79,18 @@ if(count($itens) > 0){
 ?>
 
 <script>
+
+    function esvaziar(){
+        var acao = "esv";
+
+        $.ajax({
+            type: 'GET',
+
+            url: 'ajax/quantidade-carrinho.php',
+
+            data: {acao: acao},
+        });
+    }
 
     $(document).on("click", "#removeItem", function(){
         var acao = "rem";
