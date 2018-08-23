@@ -45,8 +45,8 @@ if(count($itens) > 0){
                         <th>Excluir</th>
                         <th>Produto</th>
                         <th>Preço Unitário</th>
+                        <th>Subtotal</th>
                         <th>Quantidade</th>
-                        <th>Foto</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,8 +58,8 @@ if(count($itens) > 0){
                         <td><button id="removeItem" data-linha="<?=$i?>" class="btn btn-danger">X</button></td>
                         <td><strong><?=$item['nome']?></strong></td>
                         <td id="preco<?=$i?>" data-preco="<?=$item['preco']?>">R$ <?=$item['preco']?></td>
+                        <td id="subtotal<?=$i?>">R$ <?=$item['preco']?></td>
                         <td><input id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true"><button id="adicionarUnidade" data-linha="<?=$i?>" class="btn btn-success">+</button><button id="removerUnidade" data-linha="<?=$i?>" class="btn btn-danger">-</button></td>
-                        <td><img style="width:200px;heigth:150px;" src="../admin/<?=$item['foto']?>"></td>
                     </tr>
             <?php $i++; $total += $item['preco']; endforeach;
             $_SESSION['totalCarrinho'] = $total;
@@ -122,6 +122,7 @@ if(count($itens) > 0){
         var qtdAtual = $("#qtdUnidade"+linha).val();
         var preco = $("#preco"+linha).data('preco');
         var qtdInt = parseInt(qtdAtual);
+        var subtotal = preco * (qtdInt+1);
        
         $.ajax({
             //falta pensar em uma forma de mandar o preço pra outra página...
@@ -134,6 +135,7 @@ if(count($itens) > 0){
             success:function(resultado){
                 $("#total").html(resultado);
                 $("#qtdUnidade"+linha).val(qtdInt+= 1);
+                $("#subtotal"+linha).html("R$ "+subtotal);
             }
         });
     });
@@ -147,6 +149,7 @@ if(count($itens) > 0){
         var preco = $("#preco"+linha).data('preco');
         var qtdTotal = parseInt(qtdAtual); 
         qtdTotal-= 1;
+        var subtotal = preco * qtdTotal;
 
         if(qtdTotal > 0){
             $.ajax({
@@ -160,6 +163,7 @@ if(count($itens) > 0){
             success:function(resultado){
                 $("#total").html(resultado);
                 $("#qtdUnidade"+linha).val(qtdTotal);
+                $("#subtotal"+linha).html("R$ "+subtotal);
             }
         });
         }else if(qtdTotal <= 0){
