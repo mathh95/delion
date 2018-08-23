@@ -68,8 +68,8 @@ if(count($itens) > 0){
         </table>
         </div>
         <strong><p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p></strong>
-        <button class='btn btn-default'>Finalizar pedido</button>
-        <a onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho</button></a>";
+        <button style='float:right;' class='btn btn-default'>Finalizar pedido</button>
+        <a style='float:right;' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho</button></a>";
 
 
 }else{
