@@ -168,7 +168,7 @@ session_start();
 
                                 <li><a href="localizacao.php">Localização</a></li>
                                 
-                                <li class="active"><a href="carrinho.php">Carrinho <span><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
+                                <li class="active"><a href="carrinho.php">Carrinho <span id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 
 					   		</ul>
 
@@ -393,25 +393,25 @@ session_start();
 
 		});
 
-		function buscar (pagina, busca, tipo){
+		// function buscar (pagina, busca, tipo){
 
-			$.ajax({
+		// 	$.ajax({
 
-				type:'GET',
+		// 		type:'GET',
 
-				url: 'ajax/buscar-cardapio.php',
+		// 		url: 'ajax/buscar-cardapio.php',
 
-				data: {page: pagina , search: busca, tipo: tipo },
+		// 		data: {page: pagina , search: busca, tipo: tipo },
 
-				success:function(resultado){
+		// 		success:function(resultado){
 
-					$('.produtos').html(resultado);
+		// 			$('.produtos').html(resultado);
 
-				}
+		// 		}
 
-			});
+		// 	});
 
-		}
+		// }
 
         $(document).ready(function(){
             

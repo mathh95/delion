@@ -36,6 +36,7 @@ if(count($itens) > 0){
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
+                        <th>Excluir</th>
                         <th>Produto</th>
                         <th>Preço Unitário</th>
                         <th>Quantidade</th>
@@ -48,6 +49,7 @@ if(count($itens) > 0){
                 $i = 0;
                 foreach($itens as $item): ?>
                     <tr id="idLinha<?=$i?>" data-id="<?=$item['cod_cardapio']?>">
+                        <td><button id="removeItem" data-linha="<?=$i?>" class="btn btn-danger">X</button></td>
                         <td><strong><?=$item['nome']?></strong></td>
                         <td id="preco<?=$i?>" data-preco="<?=$item['preco']?>">R$ <?=$item['preco']?></td>
                         <td><input id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true"><button id="adicionarUnidade" data-linha="<?=$i?>" class="btn btn-success">+</button><button id="removerUnidade" data-linha="<?=$i?>" class="btn btn-danger">-</button></td>
@@ -70,6 +72,29 @@ if(count($itens) > 0){
 ?>
 
 <script>
+
+    $(document).on("click", "#removeItem", function(){
+        var acao = "rem";
+        var linha = $(this).data('linha');
+        var id = $("#idLinha"+linha).data('id');
+        var qtdAtual = $("#qtdUnidade"+linha).val();
+        var preco = $("#preco"+linha).data('preco');
+
+        $.ajax({
+            type: 'GET',
+
+            url: 'ajax/quantidade-carrinho.php',
+
+            data: {acao: acao, preco: preco, qtdAtual: qtdAtual, id: id},
+
+            success:function(resultado){
+                $("#total").html(resultado);
+                var tr = $("#idLinha"+linha).fadeOut(1000, function(){
+                    tr.remove();
+                });
+            }
+        });
+    });
 
     $(document).on("click", "#adicionarUnidade", function(){
         

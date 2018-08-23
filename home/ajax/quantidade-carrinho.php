@@ -17,9 +17,11 @@ session_start();
 $preco = $_GET['preco'];
 $acao = $_GET['acao'];
 
+//função pra aumentar a quantidade de um item no carrinho
 if($acao == "+"){
     $_SESSION['totalCarrinho'] += $preco;
     echo "<p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>";
+//função para diminuir uma quantidade de um item no carrinho
 }elseif($acao == "-"){
     if(isset($_GET['id']) && !empty($_GET['id'])){
         $id = $_GET['id'];
@@ -32,6 +34,20 @@ if($acao == "+"){
         echo "<p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>";
     }else{
         $_SESSION['totalCarrinho'] -= $preco;
+        echo "<p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>";
+    }
+//função para remover todas as unidades de um item do carrinho
+}elseif($acao == "rem"){
+    if(isset($_GET['id']) && !empty($_GET['id'])){
+        $id = $_GET['id'];
+        $qtd = $_GET['qtdAtual'];
+        foreach($_SESSION['carrinho'] as $key => $value){
+            if($id == $value){
+                unset($_SESSION['carrinho'][$key]);
+            }
+        }
+        $aux = $qtd * $preco;
+        $_SESSION['totalCarrinho']-= $aux;
         echo "<p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p>";
     }
 }
