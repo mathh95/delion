@@ -41,7 +41,7 @@ if(count($itens) > 0){
         <div class="table-responsive categoria">
             <table class="table table-hover table-condensed">
                 <thead>
-                    <tr>
+                    <tr id="cabecalhoTabela">
                         <th>Excluir</th>
                         <th>Produto</th>
                         <th>Preço Unitário</th>
@@ -108,7 +108,7 @@ if(count($itens) > 0){
 
             success:function(resultado){
                 $("#total").html(resultado);
-                var tr = $("#idLinha"+linha).fadeOut(1000, function(){
+                var tr = $("#idLinha"+linha).fadeOut(100, function(){
                     tr.remove();
                 });
             }
@@ -177,7 +177,7 @@ if(count($itens) > 0){
 
             success:function(resultado){
                 $("#total").html(resultado);
-                var tr = $("#idLinha"+linha).fadeOut(1000, function(){
+                var tr = $("#idLinha"+linha).fadeOut(100, function(){
                     tr.remove();
                 });
             }
