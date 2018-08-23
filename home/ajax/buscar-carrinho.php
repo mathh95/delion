@@ -56,7 +56,7 @@ if(count($itens) > 0){
                 foreach($itens as $item): ?>
                     <tr id="idLinha<?=$i?>" data-id="<?=$item['cod_cardapio']?>">
                         <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?=$i?>" class="fas fa-trash-alt btn"></i></td>
-                        <td><strong><?=$item['nome']?></strong></td>
+                        <td class="text-uppercase"><strong><?=$item['nome']?></strong></td>
                         <td id="preco<?=$i?>" data-preco="<?=$item['preco']?>">R$ <?=$item['preco']?></td>
                         <td id="subtotal<?=$i?>">R$ <?=$item['preco']?></td>
                         <td><input style="border:none;" id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true"><i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?=$i?>" class="fas fa-cart-plus fa-lg btn"></i><i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?=$i?>" class="fas fa-cart-arrow-down fa-lg btn"></i></td>
@@ -67,9 +67,9 @@ if(count($itens) > 0){
     echo "</tbody>
         </table>
         </div>
-        <strong><p id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p></strong>
-        <button style='float:right;' class='btn btn-default'>Finalizar pedido</button>
-        <a style='float:right;' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho</button></a>";
+        <strong><p class='text-right' id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p></strong>
+        <button style='float:right;margin:10px;' class='btn btn-default'>Finalizar pedido</button>
+        <a style='float:right;margin:10px;' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho</button></a>";
 
 
 }else{
