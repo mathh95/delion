@@ -57,9 +57,11 @@ if(count($itens) > 0){
                     <tr id="idLinha<?=$i?>" data-id="<?=$item['cod_cardapio']?>">
                         <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?=$i?>" class="fas fa-trash-alt btn"></i></td>
                         <td class="text-uppercase"><strong><?=$item['nome']?></strong></td>
-                        <td id="preco<?=$i?>" data-preco="<?=$item['preco']?>">R$ <?=$item['preco']?></td>
-                        <td id="subtotal<?=$i?>">R$ <?=$item['preco']?></td>
-                        <td><input style="border:none;" id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true"><i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?=$i?>" class="fas fa-cart-plus fa-lg btn"></i><i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?=$i?>" class="fas fa-cart-arrow-down fa-lg btn"></i></td>
+                        <td id="preco<?=$i?>" data-preco="<?=$item['preco']?>"><strong>R$ <?=$item['preco']?></strong></td>
+                        <td id="subtotal<?=$i?>"><strong>R$ <?=$item['preco']?></strong></td>
+                        <td><input style="border:none;background-color:transparent;width:30px;" id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true">
+                            <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?=$i?>" class="fas fa-cart-plus fa-lg btn"></i>
+                            <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?=$i?>" class="fas fa-cart-arrow-down fa-lg btn"></i></td>
                     </tr>
             <?php $i++; $total += $item['preco']; endforeach;
             $_SESSION['totalCarrinho'] = $total;
