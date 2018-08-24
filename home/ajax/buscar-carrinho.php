@@ -137,7 +137,7 @@ if(count($itens) > 0){
             success:function(resultado){
                 $("#total").html(resultado);
                 $("#qtdUnidade"+linha).val(qtdInt+= 1);
-                $("#subtotal"+linha).html("R$ "+subtotal);
+                $("#subtotal"+linha).html("<strong>R$ "+subtotal+"</strong>");
             }
         });
     });
@@ -165,7 +165,7 @@ if(count($itens) > 0){
             success:function(resultado){
                 $("#total").html(resultado);
                 $("#qtdUnidade"+linha).val(qtdTotal);
-                $("#subtotal"+linha).html("R$ "+subtotal);
+                $("#subtotal"+linha).html("<strong>R$ "+subtotal+"</strong>");
             }
         });
         }else if(qtdTotal <= 0){
