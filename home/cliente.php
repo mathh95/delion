@@ -71,6 +71,11 @@ session_start();
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/contato/lg/style-lg.css"/>
 
+	<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
 
 <body>
@@ -172,10 +177,10 @@ session_start();
 					        	<li><a href="contato.php">Contato</a></li>
 
 								<li><a href="localizacao.php">Localização</a></li>
+
+								<li class="active"><a href="cliente.php">Cliente</a></li>
 								
-								<li><a href="carrinho.php">Carrinho <span><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
-                                
-                                <li class="active" ><a href="cliente.php">Área do cliente</a></li>
+								<li class="active"><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> <span style="background-color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 
 					   		</ul>
 
@@ -209,30 +214,30 @@ session_start();
 
 	<div class="container contato">
 
-		<div class="solicitacao" style="margin-left:25%; margin-top:10%;">
+		<div class="solicitacao" style="margin-top:10%;">
 
 			<form action="controler/validarAcesso.php" method="POST">
 
-				<div>
+    			<div>
 
-					<input name="login" type="text" required placeholder="Login">
+        			<input name="login" type="text" required placeholder="Login">
 
-				</div>
+    			</div>
 
-				<div>
+    			<div>
 
-					<input name="senha" type="password" required placeholder="Senha">
+        			<input name="senha" type="password" required placeholder="Senha">
 
-				</div>
+    			</div>
 
-				<button type="submit">ENVIAR</button>
+    			<button type="submit">ENVIAR</button>
 
 			</form>
 			<a href="cadastroCliente.php"><button>CADASTRAR</button></a>
 
 		</div>
 
-<!-- 		<div class="imagem">
+		<div class="imagem">
 
 		<?php
 
@@ -254,7 +259,7 @@ session_start();
 
 		?>
 
-		</div> -->
+		</div>
 
 	</div>
 
@@ -507,6 +512,10 @@ session_start();
             }  
 
         });
+
+		$(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+    });
 
 	</script>
 

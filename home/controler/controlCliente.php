@@ -173,7 +173,7 @@
                 $stmt= $this->pdo->prepare("CREATE TABLE cliente(
                     cod_cliente INT PRIMARY KEY AUTO_INCREMENT,
                     nome VARCHAR(255) NOT NULL,
-                    login VARCHAR(255) NOT NULL,
+                    login VARCHAR(255) NOT NULL UNIQUE,
                     senha VARCHAR(32) NOT NULL,
                     telefone VARCHAR(15) NOT NULL 
                 )");

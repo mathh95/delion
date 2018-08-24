@@ -169,6 +169,8 @@ session_start();
 					        	<li><a href="contato.php">Contato</a></li>
 
 								<li><a href="localizacao.php">Localização</a></li>
+
+								<li><a href="cliente.php">Cliente</a></li>
 								
 								<li class="active"><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> <span style="background-color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 
