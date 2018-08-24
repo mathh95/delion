@@ -7,16 +7,22 @@
         private $pdo;
         function insert($usuario){
             try{
+                $login=$usuario->getLogin();
+                $senha=md5($usuario->getSenha());
+                $email=$usuario->getEmail();
+                $nome=$usuario->getNome();
+                $cod_perfil=$usuario->getCod_perfil();
+                $flag_bloqueado=$usuario->getFlag_bloqueado();
+                $permissao=$usuario->getPermissao();
                 $stmte =$this->pdo->prepare("INSERT INTO usuario(login, senha, email, nome, cod_perfil, flag_bloqueado, permissao)
                 VALUES (:login, :senha, :email, :nome, :cod_perfil, :flag_bloqueado, :permissao)");
-                $usuario->setSenha(password_hash($usuario->getSenha(), PASSWORD_DEFAULT));
-                $stmte->bindParam(":login", $usuario->getLogin(), PDO::PARAM_STR);
-                $stmte->bindParam(":senha", md5($usuario->getSenha()), PDO::PARAM_STR);
-                $stmte->bindParam(":email", $usuario->getEmail(), PDO::PARAM_STR);
-                $stmte->bindParam(":nome", $usuario->getNome(), PDO::PARAM_STR);
-                $stmte->bindParam(":cod_perfil", $usuario->getCod_perfil() , PDO::PARAM_INT);
-                $stmte->bindParam(":flag_bloqueado", $usuario->getFlag_bloqueado() , PDO::PARAM_INT);
-                $stmte->bindParam(":permissao", $usuario->getPermissao(), PDO::PARAM_STR);
+                $stmte->bindParam(":login", $login, PDO::PARAM_STR);
+                $stmte->bindParam(":senha", $senha, PDO::PARAM_STR);
+                $stmte->bindParam(":email", $email, PDO::PARAM_STR);
+                $stmte->bindParam(":nome", $nome, PDO::PARAM_STR);
+                $stmte->bindParam(":cod_perfil", $cod_perfil , PDO::PARAM_INT);
+                $stmte->bindParam(":flag_bloqueado", $flag_bloqueado , PDO::PARAM_INT);
+                $stmte->bindParam(":permissao", $permissao, PDO::PARAM_STR);
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;

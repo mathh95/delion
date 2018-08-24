@@ -54,8 +54,7 @@
                 $this->telefone = $telefone;
             }
 
-            function construct($cod_cliente,$nome,$login,$senha,$telefone){
-                $this->cod_cliente=$cod_cliente;
+            function construct($nome,$login,$senha,$telefone){
                 $this->nome=$nome;
                 $this->login=$login;
                 $this->senha=$senha;

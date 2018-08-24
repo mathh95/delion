@@ -2,7 +2,6 @@
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
     include_once MODELPATH."/cliente.php";
     include_once CONTROLLERPATH."/seguranca.php";
-    protegePagina();
 
     class controlCliente{
         private $pdo;
@@ -11,7 +10,7 @@
                 try{
                     $nome=$cliente->getNome();
                     $login=$cliente->getLogin();
-                    $senha=md5(password_hash($cliente->getSenha(), PASSWORD_DEFAULT));
+                    $senha=hash_hmac("md5",$cliente->getSenha(), "senha");
                     $telefone=$cliente->getTelefone();
                     $stmt=$this->pdo->prepare("INSERT INTO cliente(nome, login, senha, telefone)
                     VALUES (:nome, :login, :senha, :telefone) ");
@@ -141,7 +140,33 @@
                     return -1;
                 }
             }
-
+            
+            function validaCliente($login,$senha){
+                try{
+                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE login=:login");
+                    $stmt->bindParam(":login", $login, PDO::PARAM_STR);
+                    $executa=$stmt->execute();
+                    if ($executa){
+                        if($stmt->rowCount()>0){
+                            $result=$stmt->fetch(PDO::FETCH_OBJ);
+                            $senhah=$result->senha;
+                            $senha=hash_hmac("md5",$senha, "senha");                            
+                            if(hash_equals($senha,$senhah)){
+                                $_SESSION['cliente']= new cliente;
+                                $_SESSION['cliente']->setCod_cliente($result->cod_cliente);
+                                $_SESSION['cliente']->setLogin($result->login);
+                                $_SESSION['cliente']->setNome($result->nome);
+                                $_SESSION['cliente']->setTelefone($result->telefone);
+                                return 2;
+                            }
+                        }
+                        return 1;
+                    }
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
   // Cria tabela cliente no banco      
 /*         function createTable(){
             try{
@@ -171,16 +196,4 @@
             $this->pdo=$pdo;
         }
     }
-
-    $teste=new controlCliente($_SG['link']);
-    $clientet= new cliente;
-/*     $clientet->setCod_cliente(5);
-    $clientet->setLogin("teste2");
-    $clientet->setNome("teste2");
-    $clientet->setTelefone("22222");
-    $clientet->setSenha("teste2"); */
-    $cliente=$teste->select("ar", 1);
-    echo $cliente->getNome();
-
-
 ?>
