@@ -2,7 +2,6 @@
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
     include_once MODELPATH."/cliente.php";
     include_once CONTROLLERPATH."/seguranca.php";
-
     class controlCliente{
         private $pdo;
 
@@ -152,11 +151,10 @@
                             $senhah=$result->senha;
                             $senha=hash_hmac("md5",$senha, "senha");                            
                             if(hash_equals($senha,$senhah)){
-                                $_SESSION['cliente']= new cliente;
-                                $_SESSION['cliente']->setCod_cliente($result->cod_cliente);
-                                $_SESSION['cliente']->setLogin($result->login);
-                                $_SESSION['cliente']->setNome($result->nome);
-                                $_SESSION['cliente']->setTelefone($result->telefone);
+                                $_SESSION['cod_cliente']=$result->cod_cliente;
+                                $_SESSION['nome']=$result->nome;
+                                $_SESSION['login']=$result->login;
+                                $_SESSION['telefone']=$result->telefone;
                                 return 2;
                             }
                         }

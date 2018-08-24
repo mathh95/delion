@@ -2,17 +2,20 @@
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
     include_once MODELPATH."/cliente.php";
     include_once "controlCliente.php";
+        $cod_cliente= $_POST['cod_cliente'];
         $nome= $_POST['nome'];
         $login=$_POST['login'];
-        $senha=$_POST['senha'];
         $telefone=$_POST['telefone'];
         $cliente = new cliente;
-        $cliente->construct($nome,$login,$senha,$telefone);
+        $cliente->setLogin($login);
+        $cliente->setNome($nome);
+        $cliente->setTelefone($telefone);
+        $cliente->setCod_cliente($cod_cliente);
         $control = new controlCliente($_SG['link']);
-        $result=$control->insert($cliente);
+        $result=$control->update($cliente);
         if ($result > 0){
-            $control->validaCliente($cliente->getLogin(),$cliente->getSenha());
-            header("Location: ../");
+            echo "sucesso";
+            //header("Location: ../");
         }else{
             echo "erro";
         }

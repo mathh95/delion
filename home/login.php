@@ -7,11 +7,7 @@ session_start();
 
 	include_once "controler/controlBanner.php";
 
-    include_once "controler/controlImagem.php";
-    
-    include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
-
-    include_once MODELPATH."/cliente.php";
+	include_once "controler/controlImagem.php";
 
 	$controleEmpresa=new controlerEmpresa(conecta());
 
@@ -218,28 +214,50 @@ session_start();
 
 	<div class="container contato">
 
-		<div class="solicitacao" style="margin-left:25%; margin-top:10%;">
-			<form action="controler/alterarCliente.php" method="POST">
-                    <input name="cod_cliente" type="hidden" value="<?php echo $_SESSION['cod_cliente'];?>">
-    			<div>
-        			<input name="nome" type="text" required placeholder="Nome" value="<?php echo $_SESSION['nome'];?>">
+		<div class="solicitacao" style="margin-top:10%;">
 
-    			</div>
+			<form action="controler/validarAcesso.php" method="POST">
+
     			<div>
 
-        			<input name="login" type="text" required placeholder="Login" value="<?php echo $_SESSION['login'];?>">
+        			<input name="login" type="text" required placeholder="Login">
 
     			</div>
-				<div>
 
-					<input name="telefone" type="number" required placeholder="Telefone" value="<?php echo $_SESSION['telefone'];?>">
+    			<div>
 
-				</div>
-                <button> ALTERAR SENHA </button>
-    			<button type="submit">ALTERAR</button>
-                
+        			<input name="senha" type="password" required placeholder="Senha">
+
+    			</div>
+
+    			<button type="submit">ENVIAR</button>
 
 			</form>
+			<a href="cadastroCliente.php"><button>CADASTRAR</button></a>
+
+		</div>
+
+		<div class="imagem">
+
+		<?php
+
+		$i = 0; 
+
+		foreach ($imagens as $imagem) {
+
+			$pagina = json_decode($imagem->getPagina());
+
+			if (in_array('contato', $pagina) && ($i < 2)) {
+
+				echo "<div><img src='../admin/".$imagem->getFoto()."'></div>";
+
+				$i++;
+
+			}
+
+		}
+
+		?>
 
 		</div>
 
