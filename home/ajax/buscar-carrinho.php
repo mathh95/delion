@@ -16,19 +16,14 @@ include_once "../lib/alert.php";
 
 $itens = array();
 $cardapio = new controlerCardapio(conecta());
-// $_SESSION['carrinho'] = ['14','16','17'];
 
-//     function esvazia(){
-//         $_SESSION['carrinho'] = array();
-//         $_SESSION['totalCarrinho'] = 0;
-//         header("Location: ".HOMEPATH); 
-// }
 
 
 if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
     $itens = $_SESSION['carrinho'];
 }else{
     $_SESSION['carrinho'] = array();
+    $_SESSION['qtd'] = array();
     $itens = $_SESSION['carrinho'];
 }
 if(count($itens) > 0){
@@ -70,7 +65,7 @@ if(count($itens) > 0){
         </table>
         </div>
         <strong><p class='text-right' id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p></strong>
-        <button style='float:right;margin:10px;' class='btn btn-default'>Finalizar pedido <i class='far fa-envelope fa-lg'></i></button>
+        <button id='finalizar' style='float:right;margin:10px;' class='btn btn-default'>Finalizar pedido <i class='far fa-envelope fa-lg'></i></button>
         <a style='float:right;margin:10px;' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho <i class='fas fa-trash-alt fa-lg'></i></button></a>";
 
 
@@ -81,6 +76,10 @@ if(count($itens) > 0){
 ?>
 
 <script>
+
+    $(document).on("click", "#finalizar", function(){
+
+    });
 
     function esvaziar(){
         var acao = "esv";
