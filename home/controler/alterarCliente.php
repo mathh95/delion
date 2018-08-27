@@ -3,9 +3,9 @@
     include_once MODELPATH."/cliente.php";
     include_once "controlCliente.php";
         $cod_cliente= $_POST['cod_cliente'];
-        $nome= $_POST['nome'];
-        $login=$_POST['login'];
-        $telefone=$_POST['telefone'];
+        $nome= addslashes(htmlspecialchars($_POST['nome']));
+        $login=addslashes(htmlspecialchars($_POST['login']));
+        $telefone=addslashes(htmlspecialchars($_POST['telefone']));
         $cliente = new cliente;
         $cliente->setLogin($login);
         $cliente->setNome($nome);

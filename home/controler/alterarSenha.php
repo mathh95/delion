@@ -1,9 +1,9 @@
 <?php 
     include_once("controlCliente.php");
     $cod_cliente = $_POST['cod_cliente'];
-    $senha = $_POST['senha'];
-    $confirma = $_POST['confirma'];
-    $novaSenha = $_POST['novaSenha'];
+    $senha = addslashes(htmlspecialchars($_POST['senha']));
+    $confirma = addslashes(htmlspecialchars($_POST['confirma']));
+    $novaSenha = addslashes(htmlspecialchars($_POST['novaSenha']));
     if ( $confirma === $novaSenha ){
         $control = new controlCliente($_SG['link']);
         $result=$control->updateSenha($cod_cliente,$senha,$novaSenha);
