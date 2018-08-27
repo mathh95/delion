@@ -54,6 +54,9 @@ if($acao == "+"){
         foreach($_SESSION['carrinho'] as $key => $value){
             if($id == $value){
                 unset($_SESSION['carrinho'][$key]);
+                unset($_SESSION['qtd'][$key]);
+                sort($_SESSION['carrinho']);
+                sort($_SESSION['qtd']);
             }
         }
         $aux = $qtd * $preco;
