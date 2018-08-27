@@ -21,6 +21,9 @@ $cardapio = new controlerCardapio(conecta());
 
 if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
     $itens = $_SESSION['carrinho'];
+    foreach ($_SESSION['qtd'] as $key => $value) {
+        $_SESSION['qtd'][$key] = 1;
+    }
 }else{
     $_SESSION['carrinho'] = array();
     $_SESSION['qtd'] = array();
@@ -33,6 +36,8 @@ if(count($itens) > 0){
 
    
         <h1>Lista de produtos no carrinho</h1>
+        <?php print_r($_SESSION['qtd']); ?>
+        <?php print_r($_SESSION['carrinho']); ?>
         <div class="table-responsive categoria">
             <table class="table table-hover table-condensed">
                 <thead>
@@ -78,7 +83,16 @@ if(count($itens) > 0){
 <script>
 
     $(document).on("click", "#finalizar", function(){
+        
+        $.ajax({
+            type: 'GET',
 
+            url: 'ajax/enviarEmailPedido.php',
+
+            success:function(resultado){
+                alert("Funcionou");
+            }
+        });
     });
 
     function esvaziar(){
@@ -131,7 +145,7 @@ if(count($itens) > 0){
 
             url: 'ajax/quantidade-carrinho.php',
 
-            data: {acao: acao, preco: preco},
+            data: {acao: acao, preco: preco, qtdAtual: qtdAtual, linha: linha},
 
             success:function(resultado){
                 $("#total").html(resultado);
@@ -159,7 +173,7 @@ if(count($itens) > 0){
 
             url: 'ajax/quantidade-carrinho.php',
 
-            data: {acao: acao, preco: preco},
+            data: {acao: acao, preco: preco, qtdAtual: qtdAtual, linha: linha},
 
             success:function(resultado){
                 $("#total").html(resultado);
