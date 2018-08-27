@@ -73,7 +73,6 @@
                                 $cliente->setCod_cliente($result->cod_cliente);
                                 $cliente->setLogin($result->login);
                                 $cliente->setNome($result->nome);
-                                $cliente->setSenha($result->senha);
                                 $cliente->setTelefone($result->telefone);
                                 array_push($clientes,$cliente);
                             }
@@ -113,7 +112,6 @@
                                 $cliente->setCod_cliente($result->cod_cliente);
                                 $cliente->setLogin($result->login);
                                 $cliente->setNome($result->nome);
-                                $cliente->setSenha($result->senha);
                                 $cliente->setTelefone($result->telefone);
                             }
                         }
@@ -160,6 +158,48 @@
                         }
                         return 1;
                     }
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function updateSenha($cod_cliente, $senha, $novaSenha){
+                try{       
+                    $cliente=new cliente;
+                    $senha = hash_hmac("md5", $senha, "senha");
+                    $novaSenha = hash_hmac("md5", $novaSenha, "senha");         
+                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE cod_cliente=:parametro");
+                    $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+                    $executa=$stmt->execute();
+                    if ($executa){
+                        if($stmt->rowCount() > 0){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                                $cliente->setCod_cliente($result->cod_cliente);
+                                $cliente->setLogin($result->login);
+                                $cliente->setNome($result->nome);
+                                $cliente->setSenha($result->senha);
+                                $cliente->setTelefone($result->telefone);
+                            }
+                            if ($cliente->getSenha() == $senha){
+                                $stmt=$this->pdo->prepare("UPDATE cliente SET senha=:novaSenha WHERE cod_cliente=:parametro");
+                                $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+                                $stmt->bindParam(":novaSenha", $novaSenha, PDO::PARAM_STR);
+                                $executa=$stmt->execute();
+                                if ($executa){
+                                    return 2;
+                                }else{
+                                    return -1;
+                                }
+                            }else{
+                                return -2;
+                            }
+                        }
+                                                
+                    }else{
+                        return -1;
+                    }
+                    
                 }catch(PDOException $e){
                     echo $e->getMessage();
                     return -1;
