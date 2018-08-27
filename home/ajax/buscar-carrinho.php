@@ -16,6 +16,9 @@ include_once "../lib/alert.php";
 
 $itens = array();
 $cardapio = new controlerCardapio(conecta());
+// $pedido = new controlerCarrinho(conecta());
+
+// $pedido->setPedido();
 
 
 
@@ -90,7 +93,7 @@ if(count($itens) > 0){
             url: 'ajax/enviarEmailPedido.php',
 
             success:function(resultado){
-                alert("Funcionou");
+                alert("EU VO MATA O JAVA SCRIPTOKKKKK");
             }
         });
     });

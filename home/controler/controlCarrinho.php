@@ -1,55 +1,49 @@
 <?php
+// session_start();
+ini_set("allow_url_include", true);
+include_once $_SERVER['DOCUMENT_ROOT']."/config.php";    
+include_once MODELPATH."/cardapio.php";
 
-// ini_set("allow_url_include", true);
-// include_once $_SERVER['DOCUMENT_ROOT']."/config.php";    
-// include_once MODELPATH."/cardapio.php";
+class controlerCarrinho{
 
-// class controlCarrinho{
+    private $pdo;
 
-//     private $pdo;
+    function __construct($pdo){
 
-//     function __construct($pdo){
+        $this->pdo=$pdo;
+    }
 
-//         $this->pdo=$pdo;
+    function setPedido(){
 
-//     }
+        $idCliente = $_SESSION['cod_cliente'];
+        $valor = $_SESSION['totalCarrinho'];
+        $status = 1;
 
+        $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, status = :status");
 
+        $sql->bindValue(":idCliente", $idCliente);
+        // $sql->bindValue(":data", $data);
+        $sql->bindValue(":valor", $valor);
+        $sql->bindValue(":status", $status);
 
-//     public function index(){
+        $sql->execute();
 
-//         if(isset($_SESSION['carrinho'])){
-//             $itens = $_SESSION['carrinho'];
-//         }
-//         if(count($itens)){
+        $idPedido = $this->pdo->lastInsertId();
 
-//              $sql = "SELECT * FROM cardapio WHERE cod_cardapio IN (".implode(',', $itens).")";
-//              $sql = $this->db->query($sql);
- 
-//              if($sql->rowCount() > 0){
-//                  $produtos = $sql->fecthAll();
-//              }
-//              //return $produtos;
-//         }else{
-//             header("Location: ".HOMEPATH);
-//         }
+        foreach($_SESSION['carrinho'] as $key => $value){
+            $sql = $this->pdo->prepare("INSERT INTO item_pedido SET cod_produto = :cod_produto, cod_pedido = :cod_pedido, quantidade = :quantidade");
 
-       
-//     }
+            $sql->bindValue(":cod_produto", $_SESSION['carrinho'][$key]);
+            $sql->bindValue(":cod_pedido", $idPedido);
+            $sql->bindValue(":quantidade", $_SESSION['qtd'][$key]);
 
+            $sql->execute();
+        }
 
-//     public function adicionarCarrinho($id = ""){
-//         if(!empty($id)){
-//             if(!isset($_SESSION['carrinho'])){
-//                 $_SESSION['carrinho'] = array();
-//             }
+        $_SESSION['carrinho'] = array();
+        $_SESSION['qtd'] = array();
+        $_SESSION['totalCarrinho'] = array();
+    }
 
-//             $_SESSION['carrinho'][] = $id;
-//         }
-//     }
-
-
-// }
-
-
+}
 ?>

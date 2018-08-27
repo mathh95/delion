@@ -6,6 +6,7 @@
 
         private $cod_cardapio;
         private $nome;
+        private $preco;
         private $descricao;
         private $foto;
         private $categoria;
@@ -17,6 +18,9 @@
         }
         function getNome(){
             return $this->nome;
+        }
+        function getPreco(){
+            return $this->preco;
         }
         function getDescricao(){
             return $this->descricao;
@@ -41,6 +45,9 @@
         function setNome($nome){
             $this->nome=$nome;
         }
+        function setPreco($preco){
+            $this->preco = $preco;
+        }
         function setDescricao($descricao){
             $this->descricao=$descricao;
         }
@@ -61,8 +68,9 @@
 
         function __construct(){
         }
-        function construct($nome,$descricao,$foto,$categoria,$flag_ativo){
+        function construct($nome,$preco,$descricao,$foto,$categoria,$flag_ativo){
             $this->nome=$nome;
+            $this->preco = $preco;
             $this->descricao=$descricao;
             $this->foto=$foto;
             $this->categoria=$categoria;
@@ -71,6 +79,7 @@
         function show(){
             echo "Código do cardapio:".$this->cod_cardapio."<br>";
             echo "Nome:".$this->nome."<br>";
+            echo "Preco: ".$this->preco."<br>";
             echo "Descricao:".$this->descricao."<br>";
             echo "Foto:".$this->foto."<br>";
             echo "Categoria:".$this->categoria."<br>";
