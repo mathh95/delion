@@ -222,32 +222,43 @@ session_start();
 
 	<div class="container contato">
 
-		<div class="solicitacao" style="margin-left:25%; margin-top:10%;">
-			<form action="controler/alterarCliente.php" method="POST">
-                    <input name="cod_cliente" type="hidden" value="<?php echo $_SESSION['cod_cliente'];?>">
-    			<div>
-        			<input name="nome" type="text" required placeholder="Nome" value="<?php echo $_SESSION['nome'];?>">
+		<div class="solicitacao">
+			<form action="alterarCliente.php">
 
-    			</div>
-    			<div>
-
-        			<input name="login" type="text" required placeholder="Login" value="<?php echo $_SESSION['login'];?>">
-
-    			</div>
-				<div>
-
-					<input name="telefone" type="number" required placeholder="Telefone" value="<?php echo $_SESSION['telefone'];?>">
-
-				</div>
-    			<button type="submit">ALTERAR</button>
-                
-
+    			<button type="submit">ALTERAR DADOS</button>
+								
 			</form>
+			<form action="alterarSenha.php">
 
-                <a href="alterarSenha.php"><button>ALTERAR SENHA</button></a>
+				<button type="submit">ALTERAR SENHA</button>
+
+            </form>
 
 		</div>
 
+		<div class="imagem">
+
+			<?php
+
+			$i = 0; 
+
+			foreach ($imagens as $imagem) {
+
+				$pagina = json_decode($imagem->getPagina());
+
+				if (in_array('contato', $pagina) && ($i < 2)) {
+
+					echo "<div><img src='../admin/".$imagem->getFoto()."'></div>";
+
+					$i++;
+
+				}
+
+			}
+
+			?>
+
+		</div>
 	</div>
 
 	<div class="container imagens">

@@ -218,7 +218,7 @@ session_start();
 
 	<div class="container contato">
 
-		<div class="solicitacao" style="margin-left:25%; margin-top:10%;">
+		<div class="solicitacao">
 
 			<form action="controler/businesCliente.php" method="POST">
 
@@ -248,6 +248,30 @@ session_start();
     			<button type="submit">CADASTRAR</button>
 
 			</form>
+
+		</div>
+
+		<div class="imagem">
+
+			<?php
+
+			$i = 0; 
+
+			foreach ($imagens as $imagem) {
+
+				$pagina = json_decode($imagem->getPagina());
+
+				if (in_array('contato', $pagina) && ($i < 2)) {
+
+					echo "<div><img src='../admin/".$imagem->getFoto()."'></div>";
+
+					$i++;
+
+				}
+
+			}
+
+			?>
 
 		</div>
 
