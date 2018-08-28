@@ -1,5 +1,5 @@
 <?php
-// session_start();
+//  session_start();
 ini_set("allow_url_include", true);
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php";    
 include_once MODELPATH."/cardapio.php";
@@ -13,7 +13,9 @@ class controlerCarrinho{
         $this->pdo=$pdo;
     }
 
-    function setPedido(){
+    function index(){}
+
+    public function setPedido(){
 
         $idCliente = $_SESSION['cod_cliente'];
         $valor = $_SESSION['totalCarrinho'];
