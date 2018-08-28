@@ -1,7 +1,7 @@
 $(document).on("click", "#finalizar", function(){
         
     $.ajax({
-        type: 'GET',
+        type: 'POST',
 
         url: 'ajax/enviarEmailPedido.php',
 
