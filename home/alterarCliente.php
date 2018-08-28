@@ -223,27 +223,25 @@ session_start();
 	<div class="container contato">
 
 		<div class="solicitacao">
-			<form action="controler/alterarSenha.php" method="POST">
+			<form action="controler/alterarCliente.php" method="POST">
                     <input name="cod_cliente" type="hidden" value="<?php echo $_SESSION['cod_cliente'];?>">
     			<div>
-
-        			<input name="senha" type="text" required placeholder="Senha antiga">
+        			<input name="nome" type="text" required placeholder="Nome" value="<?php echo $_SESSION['nome'];?>">
 
     			</div>
-                <div>
-
-                    <input name="novaSenha" type="password" required placeholder="Nova senha">
-
-                </div>
     			<div>
 
-        			<input name="confirma" type="password" required placeholder="Confirmar senha">
+        			<input name="login" type="text" required placeholder="Login" value="<?php echo $_SESSION['login'];?>">
 
     			</div>
+				<div>
+
+					<input name="telefone" type="number" required placeholder="Telefone" value="<?php echo $_SESSION['telefone'];?>">
+
+				</div>
 
     			<button type="submit">ALTERAR</button>
-                
-
+								
 			</form>
 
 		</div>
@@ -271,7 +269,6 @@ session_start();
 			?>
 
 		</div>
-
 	</div>
 
 	<div class="container imagens">

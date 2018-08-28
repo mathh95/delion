@@ -214,7 +214,7 @@ session_start();
 
 	<div class="container contato">
 
-		<div class="solicitacao" style="margin-top:10%;">
+		<div class="solicitacao">
 
 			<form action="controler/validarAcesso.php" method="POST">
 
@@ -233,8 +233,10 @@ session_start();
     			<button type="submit">ENVIAR</button>
 
 			</form>
-			<a href="cadastroCliente.php"><button>CADASTRAR</button></a>
-
+			<form action="cadastroCliente.php">
+				<button type="submit">CADASTRAR</button>
+			</form>
+			
 		</div>
 
 		<div class="imagem">
