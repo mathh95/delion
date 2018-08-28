@@ -23,6 +23,7 @@ $mail = new PHPMailer();
     
     try{
         //Server Settings
+        $mail->CharSet = 'UTF-8';
         $mail->SMTPDebug = 2;
         $mail->isSMTP();
         $mail->Host = '192.168.1.18';
