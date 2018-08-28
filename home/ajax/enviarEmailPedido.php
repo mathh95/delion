@@ -39,8 +39,25 @@ $mail = new PHPMailer();
 
         //Content
         $mail->isHTML(true);
-        $mail->Subject = 'blablbalbalbalba';
-        $mail->Body = 'Essa é uma mensagem de teste';
+        $mail->Subject = 'Pedido Delion Café!';
+        $mail->Body = '<h1>Lista de produtos</h1>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Quantidade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+        foreach($_SESSION['carrinho'] as $key => $value){
+            $mail->Body.= "<tr>
+                                <td>".$_SESSION['carrinho'][$key]."</td>
+                                <td>".$_SESSION['qtd'][$key]."</td> 
+                           </tr>";
+        }
+        $mail->Body.="</tbody>
+                       </table>
+                       <p>Valor total do pedido: ".$_SESSION['totalCarrinho']."</p>";
         $mail->AltBody = 'Nem sei oque é isso kkkkkk';
 
         $mail->send();
