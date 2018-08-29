@@ -36,7 +36,7 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
         $mail->CharSet = 'UTF-8';
         $mail->SMTPDebug = 2;
         $mail->isSMTP();
-        $mail->Host = '192.168.1.18';
+        $mail->Host = '192.168.1.14';
         $mail->SMTPAuth = false;
         $mail->Username = 'vitor';
         $mail->Password = 'vitor';
@@ -87,7 +87,7 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
 
     echo "<script>window.location='/';alert('Pedido enviado com sucesso!');</script>";
 }else{
-    echo 2;
+    echo "<script>window.location='/home/cliente.php';alert('É preciso estar logado para efetuar um pedido!');</script>";
 }
     
     
