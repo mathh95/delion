@@ -1,18 +1,18 @@
-$(document).on("click", "#finalizar", function(){
+// $(document).on("click", "#finalizar", function(){
         
-    $.ajax({
-        type: 'POST',
+//     $.ajax({
+//         type: 'POST',
 
-        url: 'ajax/enviarEmailPedido.php',
+//         url: 'ajax/enviarEmailPedido.php',
 
-        success:function(resultado){
-            alert("EU VO MATA O JAVA SCRIPTOKKKKK");
-        },
-        error: function (request, status, error) {
-            alert(request.responseText);
-        }
-    }); 
-});
+//         success:function(resultado){
+//             alert("EU VO MATA O JAVA SCRIPTOKKKKK");
+//         },
+//         error: function (request, status, error) {
+//             alert(request.responseText);
+//         }
+//     }); 
+// });
 
 function esvaziar(){
     var acao = "esv";

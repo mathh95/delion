@@ -85,9 +85,9 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
 
     $pedido->setPedido();
 
-    return 1;
+    echo "<script>window.location='/';alert('Pedido enviado com sucesso!');</script>";
 }else{
-    return 2;
+    echo 2;
 }
     
     
