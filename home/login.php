@@ -212,13 +212,17 @@ session_start();
 
 	</div>
 
-	<div class="container contato">
+	<div class="container cliente">
 
 		<div class="solicitacao">
 
 			<form action="controler/validarAcesso.php" method="POST">
+			
+				<p>Acesso à área do cliente</p>
 
     			<div>
+
+					<p>Login</p>
 
         			<input name="login" type="text" required placeholder="Login">
 
@@ -226,15 +230,17 @@ session_start();
 
     			<div>
 
+					<p>Senha</p>
+
         			<input name="senha" type="password" required placeholder="Senha">
 
     			</div>
 
-    			<button type="submit">ENVIAR</button>
+    			<button type="submit">ENTRAR</button>
 
 			</form>
 			<form action="cadastroCliente.php">
-				<button type="submit">CADASTRAR</button>
+				<button class="botao-esquerda" type="submit">CADASTRAR</button>
 			</form>
 			
 		</div>

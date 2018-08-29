@@ -17,6 +17,18 @@ body {
     }
 }
 
+.botao-esquerda{
+    width: 171px;
+    height: 34px;
+    border: none;
+    background-color: #be392a;
+    color: #FFFFFF;
+    font-family: $font_main_bold;
+    font-size: 15px;
+    text-align: center;
+    float: left;
+}
+
 body{
     font-family: $font_main;
     input::-webkit-input-placeholder,
@@ -35,20 +47,28 @@ body{
     textarea:-ms-input-placeholder {
       color: #000000;
     }
-    > .contato {
+    > .cliente {
         padding-top: 25px;
         padding-bottom: 5px;
         > .solicitacao {
             @include make-sm-column(6);
             height: 392px;
             > form {
+                > p{
+                    font-family: $font_main_bold;
+                    font-size: 24px;
+                }
                 > div {
                     @include make-sm-column(12);
                     padding-left: 0px;
                     padding-right: 0px;
-                    height: 30px;
+                    height: 60px;
                     margin-top: 9px;
                     margin-bottom: 9px;
+                    > p{
+                        font-family: $font_main_bold;
+                        font-size: 14px;
+                    }
                     > input {
                         height: 36px;
                         width: 100%;

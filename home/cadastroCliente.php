@@ -216,18 +216,24 @@ session_start();
 
 	</div>
 
-	<div class="container contato">
+	<div class="container cliente">
 
 		<div class="solicitacao">
 
 			<form action="controler/businesCliente.php" method="POST">
+				
+				<p>Cadastro de cliente</p>
 
     			<div>
+					
+					<p>Nome:</p>
 
         			<input name="nome" type="text" required placeholder="Nome">
 
     			</div>
     			<div>
+
+					<p>Login:</p>
 
         			<input name="login" type="text" required placeholder="Login">
 
@@ -235,16 +241,20 @@ session_start();
 
 				<div>
 
+					<p>Senha:</p>
+
 					<input name="senha" type="password" required placeholder="Senha">
 
 				</div>
 
 				<div>
 
+					<p>Telefone:</p>
+
 					<input name="telefone" type="number" required placeholder="Telefone">
 
 				</div>
-
+				
     			<button type="submit">CADASTRAR</button>
 
 			</form>

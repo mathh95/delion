@@ -220,21 +220,31 @@ session_start();
 
 	</div>
 
-	<div class="container contato">
+	<div class="container cliente">
 
 		<div class="solicitacao">
 			<form action="controler/alterarCliente.php" method="POST">
+
+				<p>Alterar dados da sua conta</p>
+
                     <input name="cod_cliente" type="hidden" value="<?php echo $_SESSION['cod_cliente'];?>">
     			<div>
+
+					<p>Nome:</p>
+
         			<input name="nome" type="text" required placeholder="Nome" value="<?php echo $_SESSION['nome'];?>">
 
     			</div>
     			<div>
 
+					<p>Login:</p>
+
         			<input name="login" type="text" required placeholder="Login" value="<?php echo $_SESSION['login'];?>">
 
     			</div>
 				<div>
+
+					<p>Telefone:</p>
 
 					<input name="telefone" type="number" required placeholder="Telefone" value="<?php echo $_SESSION['telefone'];?>">
 

@@ -220,19 +220,41 @@ session_start();
 
 	</div>
 
-	<div class="container contato">
+	<div class="container cliente">
 
 		<div class="solicitacao">
-			<form action="alterarCliente.php">
 
-    			<button type="submit">ALTERAR DADOS</button>
-								
+			
+			<form action="alterarCliente.php">
+			<p>Área do cliente</p>	
+				<div>
+
+					<button class="botao-esquerda" type="submit">ALTERAR DADOS</button>
+									
+				</div>
+
 			</form>
+
 			<form action="alterarSenha.php">
 
-				<button type="submit">ALTERAR SENHA</button>
+				<div>
 
-            </form>
+					<button class="botao-esquerda" type="submit">ALTERAR SENHA</button>
+
+				</div>
+
+			</form>
+
+			<form action="">
+
+				<div>
+
+					<button class="botao-esquerda" type="submit">LISTAR PEDIDOS</button>
+
+				</div>
+
+			</form>
+
 
 		</div>
 
