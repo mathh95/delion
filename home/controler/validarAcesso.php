@@ -6,6 +6,10 @@
     $senha = addslashes(htmlspecialchars($_POST['senha']));
     $teste=$control->validaCliente($login, $senha);
     if ($teste==2){
-        header("Location: ../");
+        if (isset($_SESSION['carrinho'])){
+            header("Location:../carrinho.php");
+        }else{
+            header("Location: ../");
+        }
     }
 ?>
