@@ -19,8 +19,18 @@ use PHPMailer\PHPMailer\PHPMailer;
   
 
 $pedido = new controlerCarrinho(conecta());
+$cardapio = new controlerCardapio(conecta());
 $mail = new PHPMailer();
-    
+
+if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
+    $itens = $_SESSION['carrinho'];
+}
+if($itens > 0){
+    $itens = $cardapio->buscarVariosId($itens);
+}
+
+if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
+
     try{
         //Server Settings
         $mail->CharSet = 'UTF-8';
@@ -46,14 +56,21 @@ $mail = new PHPMailer();
                                 <thead>
                                     <tr>
                                         <th>Item</th>
+                                        <th>Nome</th>
                                         <th>Quantidade</th>
+                                        <th>Unidade</th>
+                                        <th>Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>';
         foreach($_SESSION['carrinho'] as $key => $value){
+            $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['preco'];
             $mail->Body.= "<tr>
                                 <td>".$_SESSION['carrinho'][$key]."</td>
+                                <td>".$itens[$key]['nome']."</td>
                                 <td>".$_SESSION['qtd'][$key]."</td> 
+                                <td>R$ ".$itens[$key]['preco']."</td>
+                                <td>R$ ".$subtotal."</td>
                            </tr>";
         }
         $mail->Body.="</tbody>
@@ -67,6 +84,13 @@ $mail = new PHPMailer();
     }
 
     $pedido->setPedido();
+
+    return 1;
+}else{
+    return 2;
+}
+    
+    
 
 
 
