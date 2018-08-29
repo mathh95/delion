@@ -101,6 +101,18 @@ body{
                     text-align: center;
                     float: right;
                 }
+
+                > .botao-esquerda{
+                    width: 171px;
+                    height: 34px;
+                    border: none;
+                    background-color: #be392a;
+                    color: #FFFFFF;
+                    font-family: $font_main_bold;
+                    font-size: 15px;
+                    text-align: center;
+                    float: left;
+                }
             } 
         }
         > .imagem {
