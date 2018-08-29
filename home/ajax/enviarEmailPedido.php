@@ -87,7 +87,7 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
 
     echo "<script>window.location='/';alert('Pedido enviado com sucesso!');</script>";
 }else{
-    echo "<script>window.location='/home/cliente.php';alert('É preciso estar logado para efetuar um pedido!');</script>";
+    echo "<script>window.location='/home/login.php';alert('É preciso estar logado para efetuar um pedido!');</script>";
 }
     
     
