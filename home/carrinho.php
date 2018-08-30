@@ -38,6 +38,8 @@ session_start();
 
 <head>
 
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
 	<meta charset="UTF-8">
 
 	<title>Delion Café - Cafeteria - Foz do Iguaçu</title>
@@ -125,7 +127,7 @@ session_start();
 
 	</header>
 
-	<div id="navegacao">
+	<div class="container-fluid" id="navegacao">
 
 		<div class="container">
 

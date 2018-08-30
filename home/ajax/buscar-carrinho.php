@@ -59,13 +59,14 @@ if(count($itens) > 0){
                 $i = 0;
                 foreach($itens as $item): ?>
                     <tr id="idLinha<?=$i?>" data-id="<?=$item['cod_cardapio']?>">
-                        <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?=$i?>" class="fas fa-trash-alt btn"></i></td>
-                        <td class="text-uppercase"><strong><?=$item['nome']?></strong></td>
-                        <td id="preco<?=$i?>" data-preco="<?=$item['preco']?>"><strong>R$ <?=$item['preco']?></strong></td>
-                        <td id="subtotal<?=$i?>"><strong>R$ <?=$item['preco']?></strong></td>
-                        <td><input class="quantidadeItemTabela" id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true">
-                            <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?=$i?>" class="fas fa-cart-plus fa-lg btn"></i>
-                            <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?=$i?>" class="fas fa-cart-arrow-down fa-lg btn"></i></td>
+                        <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?=$i?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
+                        <td class="text-uppercase nomeProdutoTabela"><strong><?=$item['nome']?></strong></td>
+                        <td class="precoProdutoTabela" id="preco<?=$i?>" data-preco="<?=$item['preco']?>"><strong>R$ <?=$item['preco']?></strong></td>
+                        <td class="subtotalProdutoTabela" id="subtotal<?=$i?>"><strong>R$ <?=$item['preco']?></strong></td>
+                        <td>
+                            <input class="quantidadeItemTabela" id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true">
+                            <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?=$i?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
+                            <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?=$i?>" class="fas fa-cart-arrow-down fa-lg btn iconeExcluirProdutoTabela"></i></td>
                     </tr>
             <?php $i++; $total += $item['preco']; endforeach;
             $_SESSION['totalCarrinho'] = $total;

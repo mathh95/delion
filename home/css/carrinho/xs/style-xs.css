@@ -135,17 +135,17 @@ body {
     body > .menu > .menu-lateral {
       position: relative;
       float: left;
-      width: 100%;
+      width: 25%;
       min-height: 1px;
       padding-left: 15px;
       padding-right: 15px;
       background-color: #BE392A;
-      width: 165px !important;
+      width: 270px !important;
       margin-left: 15px;
-      padding-left: 13px;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      /*  > a:nth-child(1) {
+      padding-left: 20px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      /* > a:nth-child(2) {
           > img {
               width: 17px;
               padding-left: 0px;
@@ -158,10 +158,9 @@ body {
       body > .menu > .menu-lateral > a {
         width: 100%;
         display: block;
-        padding-bottom: 5px;
-        padding-top: 5px; }
+        padding-bottom: 10px;
+        padding-top: 10px; }
         body > .menu > .menu-lateral > a > img {
-          width: 27px;
           padding-left: 0px;
           display: inline; }
         body > .menu > .menu-lateral > a > div {
@@ -171,8 +170,8 @@ body {
       body > .menu > .menu-lateral > a:hover {
         text-decoration: none; }
         body > .menu > .menu-lateral > a:hover > div {
-          color: #000;
-          font-family: "Century Gothic Bold"; }
+          font-family: "Century Gothic Bold";
+          color: #000; }
       body > .menu > .menu-lateral > a:focus {
         text-decoration: none; }
         body > .menu > .menu-lateral > a:focus > div {
@@ -181,7 +180,7 @@ body {
     body > .menu > .imagem {
       position: relative;
       float: left;
-      width: 0%;
+      width: 75%;
       min-height: 1px;
       padding-left: 15px;
       padding-right: 15px; }
@@ -189,110 +188,74 @@ body {
         display: block;
         max-width: 100%;
         height: auto; }
-  body > .produtos > .categoria {
-    font-family: "Century Gothic Bold";
-    font-size: 14px;
-    color: #FFFFFF;
-    width: 317px;
-    background-color: #000000;
-    border: 5px solid #BE392A;
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
-    margin-left: 15px;
-    padding-left: 15px; }
-  body > .produtos > .produto {
-    display: inline-block;
-    padding-top: 7px;
-    margin-left: 15px;
-    padding-right: 15px;
-    width: 317px;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    padding-right: 0px;
-    border: 1px solid #000;
-    border-left: 0px;
-    border-right: 0px;
-    border-top: 0px; }
-    body > .produtos > .produto > .imagem {
-      position: relative;
-      float: left;
-      width: 100%;
-      min-height: 1px;
-      padding-left: 15px;
-      padding-right: 15px;
-      padding-left: 0px;
-      margin-botton: 10px; }
-      body > .produtos > .produto > .imagem > .titulo {
-        font-size: 14px;
-        text-align: center;
-        padding-bottom: 8px; }
-      body > .produtos > .produto > .imagem > img {
-        display: block;
-        max-width: 100%;
-        height: auto;
-        border: 1px solid #000000;
-        border-top: 0px;
-        border-left: 0px;
-        border-bottom: 0px;
-        padding-left: 0px;
-        padding-right: 0px; }
-    body > .produtos > .produto > .descricao {
-      position: relative;
-      float: left;
-      width: 100%;
-      min-height: 1px;
-      padding-left: 15px;
-      padding-right: 15px;
-      padding-left: 0px;
-      padding-right: 0px; }
-      body > .produtos > .produto > .descricao > .titulo {
-        font-size: 14px;
-        text-align: center;
-        padding-bottom: 8px; }
-      body > .produtos > .produto > .descricao > .compartilhar {
-        float: right;
-        background: none;
-        border: none; }
-        body > .produtos > .produto > .descricao > .compartilhar > img {
-          float: right;
-          width: 20px;
-          height: 20px; }
-  body > .produtos > .paginacao {
-    text-align: right;
-    padding-right: 30px; }
-    body > .produtos > .paginacao > nav > ul > li > a {
+  body > .itens > h1 {
+    font-family: "Century Gothic Bold"; }
+  body > .itens > .carrinho > .tabela_itens {
+    position: relative;
+    float: left;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px; }
+    body > .itens > .carrinho > .tabela_itens #cabecalhoTabela {
+      color: white;
+      background-color: black;
+      border-style: solid;
+      border-bottom-width: 5px;
+      border-top-width: 0;
+      border-left-width: 0;
+      border-right-width: 0;
+      border-bottom-color: #be392a;
       font-family: "Century Gothic Bold";
-      background-color: #000000;
-      border: 2px solid #FFFFFF;
-      padding-left: 0px;
-      padding-top: 0px;
-      padding-right: 6px;
-      border-top-width: 0px;
-      border-bottom-width: 0px;
-      padding-bottom: 1px;
-      border-right-width: 2px;
-      width: 25px;
-      height: 21px;
-      color: #FFFFFF; }
-    body > .produtos > .paginacao > nav > ul > li:first-child > a, body > .produtos > .paginacao > nav > ul li:last-child > a {
-      border-radius: 0px;
-      padding-left: 0px;
-      padding-top: 0px;
-      padding-right: 6px;
-      border-top-width: 0px;
-      border-bottom-width: 0px;
-      padding-bottom: 1px;
-      border-right-width: 2px;
-      width: 25px;
-      height: 21px; }
-    body > .produtos > .paginacao > nav > ul > li:first-child > a {
-      padding-right: 8px; }
-    body > .produtos > .paginacao > nav > ul > li.active > a {
-      background-color: #BE392A;
-      border-color: #BE392A;
-      width: 20px;
-      padding-left: 5px; }
+      font-size: 9px; }
+    body > .itens > .carrinho > .tabela_itens .iconeRemoverProdutoTabela {
+      font-size: 9px; }
+    body > .itens > .carrinho > .tabela_itens .nomeProdutoTabela {
+      font-size: 9px; }
+    body > .itens > .carrinho > .tabela_itens .precoProdutoTabela {
+      font-size: 9px; }
+    body > .itens > .carrinho > .tabela_itens .subtotalProdutoTabela {
+      font-size: 9px; }
+    body > .itens > .carrinho > .tabela_itens .quantidadeItemTabela {
+      border: none;
+      background-color: transparent;
+      width: 30px;
+      float: left; }
+    body > .itens > .carrinho > .tabela_itens .iconeAdicionarProdutoTabela {
+      font-size: 9px;
+      float: right; }
+    body > .itens > .carrinho > .tabela_itens .iconeExcluirProdutoTabela {
+      font-size: 9px;
+      float: right; }
+  body > .itens > .rodapeCarrinho {
+    margin-left: 16.6666666667%;
+    position: relative;
+    float: left;
+    width: 83.3333333333%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px; }
+    body > .itens > .rodapeCarrinho p {
+      font-size: 25px;
+      font-family: "Century Gothic Bold"; }
+    body > .itens > .rodapeCarrinho .botaoCarrinhoEnviar {
+      float: right;
+      margin: 10px;
+      background-color: #000;
+      border-color: #000;
+      color: #ffffff; }
+    body > .itens > .rodapeCarrinho .botaoCarrinhoEsvaziar {
+      float: right;
+      margin: 10px; }
+  body > .whatsapp {
+    position: fixed;
+    right: 36px;
+    bottom: 80px;
+    height: 42px;
+    width: 42px;
+    z-index: 9999; }
+    body > .whatsapp > a > img {
+      width: 50px; }
 
 @font-face {
   font-family: "Century Gothic Regular";
