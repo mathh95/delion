@@ -199,6 +199,20 @@
                                         </ul>
 
                                     </li>
+                                    
+                                    <li class="dropdown">
+    
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
+                                        
+                                        <ul class="dropdown-menu">
+                                            
+                                            <li><a href="cliente.php">Cadastro</a></li>
+                                                
+                                            <li><a href="clienteLista.php">Listar</a></li>
+                                            
+                                        </ul>
+
+                                    </li>       
 
                                 </ul>
 

@@ -65,6 +65,13 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Imagens <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="imagem.php">Cadastro</a></li>
+                                        <li><a href="imagemLista.php">Listar</a></li>
+                                    </ul>
+                                </li>                                
+                                <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Evento <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="evento.php">Cadastro</a></li>
@@ -92,6 +99,13 @@
                                         <li><a href="miniBannerLista.php">Listar</a></li>
                                     </ul>
                                 </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="cliente.php">Cadastro</a></li>
+                                        <li><a href="clienteLista.php">Listar</a></li>
+                                    </ul>
+                                </li>                                
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">

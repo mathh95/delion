@@ -104,7 +104,7 @@
 
                                 <ul class="nav navbar-nav">
 
-                                    <li class="dropdown">
+                                    <li class="dropdown active">
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuários <span class="caret"></span></a>
 
@@ -118,7 +118,7 @@
 
                                     </li>
 
-                                    <li class="dropdown active">
+                                    <li class="dropdown">
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Empresa <span class="caret"></span></a>
 
@@ -213,6 +213,19 @@
                                         </ul>
 
                                     </li>
+                                    <li class="dropdown">
+    
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
+                                        
+                                        <ul class="dropdown-menu">
+                                            
+                                            <li><a href="cliente.php">Cadastro</a></li>
+                                                
+                                            <li><a href="clienteLista.php">Listar</a></li>
+                                            
+                                        </ul>
+
+                                    </li>       
 
                                 </ul>
 

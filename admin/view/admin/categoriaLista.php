@@ -60,7 +60,7 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Banner <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Banners <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="banner.php">Cadastro</a></li>
                                         <li><a href="bannerLista.php">Listar</a></li>
@@ -101,6 +101,13 @@
                                         <li><a href="miniBannerLista.php">Listar</a></li>
                                     </ul>
                                 </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">                                        
+                                        <li><a href="cliente.php">Cadastro</a></li>                                            
+                                        <li><a href="clienteLista.php">Listar</a></li>                                        
+                                    </ul>
+                                </li>       
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">
