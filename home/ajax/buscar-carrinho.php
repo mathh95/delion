@@ -63,7 +63,7 @@ if(count($itens) > 0){
                         <td class="text-uppercase"><strong><?=$item['nome']?></strong></td>
                         <td id="preco<?=$i?>" data-preco="<?=$item['preco']?>"><strong>R$ <?=$item['preco']?></strong></td>
                         <td id="subtotal<?=$i?>"><strong>R$ <?=$item['preco']?></strong></td>
-                        <td><input style="border:none;background-color:transparent;width:30px;" id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true">
+                        <td><input class="quantidadeItemTabela" id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true">
                             <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?=$i?>" class="fas fa-cart-plus fa-lg btn"></i>
                             <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?=$i?>" class="fas fa-cart-arrow-down fa-lg btn"></i></td>
                     </tr>

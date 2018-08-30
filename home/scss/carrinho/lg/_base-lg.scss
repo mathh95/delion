@@ -71,11 +71,6 @@ body{
     > .itens {
         > .carrinho {
             > .tabela_itens{
-                // @include make-lg-column(9);
-                // > tbody > tr:hover {
-                //     background-color: $table-bg-hover;
-                // }
-
                 #cabecalhoTabela{
                     color:white;
                     background-color:black; 
@@ -88,60 +83,12 @@ body{
                     font-family: "Century Gothic Bold";
                     font-size: 14px;
                 }
-            }
-        }
-        > .produto {
-            display: flex;
-            padding-top: 7px;
-            border: 2px solid #000000;
-            border-top: 0px;
-            border-left: 0px;
-            border-right: 0px;
-            margin-left: 15px;
-            padding-right: 15px;
-            width: 1110px;
-            padding-bottom: 10px;
-            padding-right: 0px;
-            > .imagem {
-                @include make-lg-column(4);
-                padding-left: 0px;
-                > .titulo {
-                    font-size: 14px;
-                    text-align: center;
-                    padding-bottom: 8px;
-                }
-                > img {
-                    @include img-responsive();
-                    border: 1px solid #000000;
-                    border-top: 0px;
-                    border-left: 0px;
-                    border-bottom: 0px;
-                    padding-left: 0px;
-                    padding-right: 16px
+                .quantidadeItemTabela{
+                    border:none;
+                    background-color:transparent;
+                    width:30px;
                 }
             }
-            > .descricao {
-                @include make-lg-column(8);
-                padding-left: 0px;
-                padding-right: 0px;
-                > .titulo {
-                    font-size: 14px;
-                    text-align: center;
-                    padding-bottom: 8px;
-                }
-                // > .texto {
-                // }
-                > .compartilhar {
-                    float: right;
-                    background: none;
-                    border: none;
-                    > img {
-                        float: right;
-                        width: 20px;
-                        height: 20px;
-                    }
-                }
-            }   
         }
         > .paginacao {
              @include make-lg-column(12);
