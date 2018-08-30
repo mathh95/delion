@@ -14,6 +14,8 @@
             
             private $telefone;
 
+            private $status;
+
             function getCod_cliente(){
                 return $this->cod_cliente;
             }
@@ -32,6 +34,10 @@
 
             function getTelefone(){
                 return $this->telefone;
+            }
+            
+            function getStatus(){
+                return $this->status;
             }
 
             function setCod_cliente($cod_cliente){
@@ -54,11 +60,16 @@
                 $this->telefone = $telefone;
             }
 
-            function construct($nome,$login,$senha,$telefone){
+            function setStatus($status){
+                $this->status= $status;
+            }
+
+            function construct($nome,$login,$senha,$telefone,$status){
                 $this->nome=$nome;
                 $this->login=$login;
                 $this->senha=$senha;
                 $this->telefone=$telefone;
+                $this->status=$status;
             }
 
             function __construct(){

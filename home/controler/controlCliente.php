@@ -11,13 +11,14 @@
                     $login=$cliente->getLogin();
                     $senha=hash_hmac("md5",$cliente->getSenha(), "senha");
                     $telefone=$cliente->getTelefone();
-                    $stmt=$this->pdo->prepare("INSERT INTO cliente(nome, login, senha, telefone)
-                    VALUES (:nome, :login, :senha, :telefone) ");
+                    $status=$cliente->getStatus();
+                    $stmt=$this->pdo->prepare("INSERT INTO cliente(nome, login, senha, telefone, status)
+                    VALUES (:nome, :login, :senha, :telefone, :status) ");
                     $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
                     $stmt->bindParam(":login", $login, PDO::PARAM_STR);
                     $stmt->bindParam(":senha", $senha, PDO::PARAM_STR);
                     $stmt->bindParam(":telefone", $telefone, PDO::PARAM_STR);
-
+                    $stmt->bindParam(":status", $status, PDO::PARAM_INT);
                     $executa=$stmt->execute();
 
                     if ($executa){
@@ -113,6 +114,7 @@
                                 $cliente->setLogin($result->login);
                                 $cliente->setNome($result->nome);
                                 $cliente->setTelefone($result->telefone);
+                                $cliente->setStatus($result->status);
                             }
                         }
                         return $cliente;
@@ -213,7 +215,8 @@
                     nome VARCHAR(255) NOT NULL,
                     login VARCHAR(255) NOT NULL UNIQUE,
                     senha VARCHAR(32) NOT NULL,
-                    telefone VARCHAR(15) NOT NULL 
+                    telefone VARCHAR(15) NOT NULL,
+                    status BOOLEAN NOT NULL
                 )");
                 $exec= $stmt->execute();
                 if ($exec){

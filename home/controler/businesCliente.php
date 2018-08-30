@@ -6,8 +6,9 @@
         $login=addslashes(htmlspecialchars($_POST['login']));
         $senha=addslashes(htmlspecialchars($_POST['senha']));
         $telefone=addslashes(htmlspecialchars($_POST['telefone']));
+        $status=1;
         $cliente = new cliente;
-        $cliente->construct($nome,$login,$senha,$telefone);
+        $cliente->construct($nome,$login,$senha,$telefone,$status);
         $control = new controlCliente($_SG['link']);
         $result=$control->insert($cliente);
         if ($result > 0){
