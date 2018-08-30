@@ -15,17 +15,18 @@ body{
         > .menu-lateral {
             @include make-sm-column(3);
             background-color: #BE392A;
-            width: 165px !important;
+            width: 270px !important;
             margin-left: 15px;
-            padding-left: 13px;
-            padding-top: 5px;
+            padding-left: 20px;
+            padding-top: 15px;
+            padding-bottom: 15px;
             > a {
                 width: 100%;
                 display: block;
-                padding-bottom: 5px;
-                padding-bottom: 5px;
+                padding-bottom: 10px;
+                padding-top: 10px;
                 > img {
-                    width: 27px;
+                    // width: 27px;
                     padding-left: 0px;
                     display: inline;
                 }
@@ -35,21 +36,21 @@ body{
                     padding-left: 20px;
                 }
             }
-           /*  > a:nth-child(1) {
-               > img {
-                   width: 17px;
-                   padding-left: 0px;
-                   margin-left: 5px;
-               }
-               > div {
-                   padding-left: 25px;
-               }
-           } */
+            /* > a:nth-child(2) {
+                > img {
+                    width: 17px;
+                    padding-left: 0px;
+                    margin-left: 5px;
+                }
+                > div {
+                    padding-left: 25px;
+                }
+            } */
             > a:hover{
                 text-decoration: none;
                 > div {
-                    color: #000;
                     font-family: $font_main_bold;
+                    color: #000;
                 }
             }
             > a:focus{
@@ -67,178 +68,62 @@ body{
             }
         }
     }
-    > .produtos {
-        > .categoria {
-            font-family: $font_main_bold;
-            font-size: 14px;
-            color: #FFFFFF;
-            width: 690px;
-            background-color: #000000;
-            border: 5px solid #BE392A;
-            border-top: 0px;
-            border-left: 0px;
-            border-right: 0px;
-            margin-left: 15px;
-            padding-left: 15px;
+    > .itens {
+        > h1{
+            font-family: "Century Gothic Bold";
         }
-        > .produto {
-            display: flex;
-            padding-top: 7px;
-            border: 2px solid #000000;
-            border-top: 0px;
-            border-left: 0px;
-            border-right: 0px;
-            margin-left: 15px;
-            padding-right: 15px;
-            width: 690px;
-            padding-bottom: 10px;
-            padding-right: 0px;
-            > .imagem {
-                @include make-sm-column(4);
-                padding-left: 0px;
-                > .titulo {
+        > .carrinho {
+            > .tabela_itens{
+                @include make-sm-column(12);
+                #cabecalhoTabela{
+                    color:white;
+                    background-color:black; 
+                    border-style:solid; 
+                    border-bottom-width:5px;
+                    border-top-width:0;
+                    border-left-width:0;
+                    border-right-width:0;
+                    border-bottom-color: rgb(190, 57, 42);
+                    font-family: "Century Gothic Bold";
                     font-size: 14px;
-                    text-align: center;
-                    padding-bottom: 8px;
                 }
-                > img {
-                    @include img-responsive();
-                    border: 1px solid #000000;
-                    border-top: 0px;
-                    border-left: 0px;
-                    border-bottom: 0px;
-                    padding-left: 0px;
-                    padding-right: 16px
+                .quantidadeItemTabela{
+                    border:none;
+                    background-color:transparent;
+                    width:30px;
                 }
             }
-            > .descricao {
-                @include make-sm-column(8);
-                padding-left: 0px;
-                padding-right: 0px;
-                > .titulo {
-                    font-size: 14px;
-                    text-align: center;
-                    padding-bottom: 8px;
-                }
-                > .texto {
-                }
-                > .compartilhar {
-                    float: right;
-                    background: none;
-                    border: none;
-                    > img {
-                        float: right;
-                        width: 20px;
-                        height: 20px;
-                    }
-                }
-            }   
         }
-        > .paginacao {
-            text-align: right;
-            padding-right: 30px;
-            > nav {
-                > ul {
-                    > li {
-                        > a {
-                            font-family: $font_main_bold;
-                            background-color: #000000;
-                            border: 2px solid #FFFFFF;
-                            padding-left: 0px;
-                            padding-top: 0px;
-                            padding-right: 3px;
-                            border-top-width: 0px;
-                            border-bottom-width: 0px;
-                            padding-bottom: 1px;
-                            border-right-width: 2px;
-                            width: 25px;
-                            height: 21px;
-                            color: #FFFFFF;
-                        }
-                        > #\31  {
-                            padding-right: 6px;
-                        }
-                        > #\32 {
-                            padding-right: 6px;
-                        }
-                        > #\33  {
-                            padding-right: 6px;
-                        }
-                        > #\34  {
-                            padding-right: 6px;
-                        }
-                        > #\35  {
-                            padding-right: 6px;
-                        }
-                        > #\36  {
-                            padding-right: 6px;
-                        }
-                        > #\37  {
-                            padding-right: 6px;
-                        }
-                        > #\38  {
-                            padding-right: 6px;
-                        }
-                        > #\39  {
-                            padding-right: 6px;
-                        }
-                    }
-                    > li:first-child, li:last-child {
-                        >a{
-                            border-radius: 0px;
-                            padding-left: 0px;
-                            padding-top: 0px;
-                            padding-right: 6px;
-                            border-top-width: 0px;
-                            border-bottom-width: 0px;
-                            padding-bottom: 1px;
-                            border-right-width: 2px;
-                            width: 25px;
-                            height: 21px;
-                        }
-                    }
-                    > li:first-child {
-                        >a{
-                            padding-right: 8px;
-                        }
-                    }
-                    > li.active {
-
-                        > a {
-                            background-color: #BE392A;
-                            border-color:  #BE392A;
-                            width: 20px;
-                            padding-left: 0px;
-                        }
-                        > #\31  {
-                            padding-right: 5px;
-                        }
-                        > #\32 {
-                            padding-right: 5px;
-                        }
-                        > #\33  {
-                            padding-right: 5px;
-                        }
-                        > #\34  {
-                            padding-right: 5px;
-                        }
-                        > #\35  {
-                            padding-right: 5px;
-                        }
-                        > #\36  {
-                            padding-right: 5px;
-                        }
-                        > #\37  {
-                            padding-right: 5px;
-                        }
-                        > #\38  {
-                            padding-right: 5px;
-                        }
-                        > #\39  {
-                            padding-right: 5px;
-                        }
-                    }
-                }
+        > .rodapeCarrinho{
+            @include make-sm-column-offset(2);
+            @include make-sm-column(10);
+            p{
+                font-size: 25px;
+                font-family: "Century Gothic Bold";
+            }
+            .botaoCarrinhoEnviar{
+                float:right;
+                margin:10px;
+                background-color: #000;
+                border-color:#000;
+                color: #ffffff;
+            }
+            .botaoCarrinhoEsvaziar{
+                float:right;
+                margin:10px;
+            }
+        } 
+    }
+    > .whatsapp {
+        position: fixed;
+        right: 36px;
+        bottom: 80px;
+        height: 42px;
+        width: 42px;
+        z-index: 9999;
+        > a {
+            > img {
+                width: 50px;
             }
         }
     }
