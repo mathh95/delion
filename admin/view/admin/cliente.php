@@ -232,7 +232,7 @@
 
         <div class="container-fluid">
 
-            <form class="form-horizontal" id="form-cadastro-usuario" method="post" action="../../controler/businesUsuario.php">
+            <form class="form-horizontal" id="form-cadastro-cliente" method="post" action="../../controler/businesCliente.php">
 
                 <div class="col-md-12">
 
@@ -264,7 +264,7 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 
-                                <input class="form-control" placeholder="Usuário" name="login" value="" required  type="text">
+                                <input class="form-control" placeholder="Login" name="login" value="" required  type="text">
 
                             </div>
 
@@ -284,131 +284,17 @@
 
                             <br>
 
-                            <small>E-mail:</small>
+                            <small>Telefone:</small>
 
                             <br>
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
 
-                                <input class="form-control" placeholder="E-mail" name="email" value="" type="email">
+                                <input class="form-control" placeholder="Telefone" name="telefone" value="" type="number">
 
-                            </div>
-
-                            <br>
-
-                            <small>Perfil:</small>
-
-                            <br>
-
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
-
-                                <select class="form-control" name="perfil" required>
-
-                                    <option value='0'>Administrador</option>
-
-                                </select>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-1"></div>
-
-                        <div class="col-md-5">
-
-                            <h3>Permissões</h3>
-
-                            <div class="checkbox">
-
-                                <ul>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="Usuários" name="1permissao" value="usuario">Usuários
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="empresa" name="2permissao" value="empresa">Empresa
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="banners" name="3permissao" value="banner">Banners
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="imagem" name="4permissao" value="imagem">Imagens
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="evento" name="5permissao" value="evento">Evento
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="categoria" name="6permissao" value="categoria">Categoria
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="cardapio" name="7permissao" value="cardapio">Cardápio
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="cardapio" name="8permissao" value="cliente">Cliente
-
-                                        </label>
-
-                                    </li>
-
-                                </ul>
-
-                            </div>
+                            </div>     
 
                             <br>
 
@@ -428,7 +314,7 @@
 
                         $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                        if (in_array('usuario', $permissao)){ ?>
+                        if (in_array('cliente', $permissao)){ ?>
 
                             <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Salvar</button>
 
@@ -470,8 +356,6 @@
 
             function confereSenha() {
 
-            //if(validar($("#senha1").val())){
-
                 if($("#senha1").val().length>5){
 
                     $("#alteraSenha").submit();
@@ -481,12 +365,6 @@
                     alertComum('Erro!','Senhas devem conter no mínimo 6 caracteres!',2);
 
                 }
-
-            //}else{
-
-            //    alertComum('Erro!','Senhas devem conter apenas letras e números!',2);
-
-            //}
 
             }
 

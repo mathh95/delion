@@ -2,19 +2,19 @@
 
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 
+    include_once CONTROLLERPATH."/seguranca.php";
+
     include_once CONTROLLERPATH."/controlUsuario.php";
+
+    include_once HOMEPATH."home/controler/controlCliente.php";
 
     include_once MODELPATH."/usuario.php";
 
-    include_once CONTROLLERPATH."/seguranca.php";
+    include_once MODELPATH."/cliente.php";
 
     $_SESSION['permissaoPagina']=0;
 
     protegePagina();
-
-    $controleUsuario = new controlerUsuario($_SG['link']);
-
-    $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 ?>
 
@@ -24,7 +24,39 @@
 
     <head>
 
-        <?php include VIEWPATH."/cabecalho.html" ?>
+        <meta charset="utf-8">
+
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <meta name="description" content="">
+
+        <meta name="author" content="">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Área Administrativa</title>
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link href="../../vendor/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="../../vendor/bootstrap3/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="../../dist/css/normalize.css">
+
+        <link rel="stylesheet" href="../../dist/css/main.css">
+
+        <script src="../../dist/js/vendor/modernizr-2.8.3.min.js"></script>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+
+        <!--[if lt IE 9]>
+
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+        <![endif]-->
 
     </head>
 
@@ -98,7 +130,7 @@
 
                                 <ul class="nav navbar-nav">
 
-                                    <li class="dropdown active">
+                                    <li class="dropdown active ">
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuários <span class="caret"></span></a>
 
@@ -208,6 +240,20 @@
 
                                     </li>
 
+                                    <li class="dropdown active ">
+
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
+                                    
+                                        <ul class="dropdown-menu">
+                                            
+                                            <li><a href="cliente.php">Cadastro</a></li>
+                                                
+                                            <li><a href="clienteLista.php">Listar</a></li>
+                                        
+                                        </ul>
+
+                                    </li>
+
                                 </ul>
 
                             </div><!--/.nav-collapse -->
@@ -230,9 +276,33 @@
 
         </header>
 
+        <?php
+
+            $controle = new controlCliente($_SG['link']);
+
+            $cliente = $controle->select($_GET['cod'], 2);
+
+            $controleUsuario= new controlerUsuario($_SG['link']);
+
+            $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
+
+            $permissaos=json_decode($usuarioPermissao->getPermissao());
+
+            $p="[";
+
+            foreach ($permissaos as $permissao) {
+
+                $p.='"'.$permissao.'",';
+
+            }
+
+            $p.="]";
+
+        ?>
+
         <div class="container-fluid">
 
-            <form class="form-horizontal" id="form-cadastro-usuario" method="post" action="../../controler/businesUsuario.php">
+            <form class="form-horizontal" id="form-cadastro-cliente" method="post" action="../../controler/alterarCliente.php">
 
                 <div class="col-md-12">
 
@@ -250,7 +320,9 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 
-                                <input class="form-control" placeholder="Nome" name="nome" value="" required autofocus type="text">
+                                <input class="form-control" placeholder="Nome" name="nome" value="<?=$cliente->getNome(); ?>" required autofocus type="text">
+
+                                <input type="text" class="form-control"  style="display:none" id="cod" name="cod_cliente" maxlength="50" value="<?=  $cliente->getCod_cliente(); ?>" >
 
                             </div>
 
@@ -264,155 +336,27 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 
-                                <input class="form-control" placeholder="Usuário" name="login" value="" required  type="text">
+                                <input class="form-control" placeholder="Login" name="login" value="<?=$cliente->getLogin(); ?>" required  type="text">
 
                             </div>
 
                             <br>
 
-                            <small>Senha:</small>
+                            <small>Telefone:</small>
 
                             <br>
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
 
-                                <input class="form-control" placeholder="Senha" name="senha" value="" required  type="password">
-
-                            </div>
-
-                            <br>
-
-                            <small>E-mail:</small>
-
-                            <br>
-
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-
-                                <input class="form-control" placeholder="E-mail" name="email" value="" type="email">
-
-                            </div>
-
-                            <br>
-
-                            <small>Perfil:</small>
-
-                            <br>
-
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
-
-                                <select class="form-control" name="perfil" required>
-
-                                    <option value='0'>Administrador</option>
-
-                                </select>
+                                <input class="form-control" placeholder="Telefone" name="telefone" value="<?=$cliente->getTelefone(); ?>" type="number">
 
                             </div>
 
                         </div>
 
                         <div class="col-md-1"></div>
-
-                        <div class="col-md-5">
-
-                            <h3>Permissões</h3>
-
-                            <div class="checkbox">
-
-                                <ul>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="Usuários" name="1permissao" value="usuario">Usuários
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="empresa" name="2permissao" value="empresa">Empresa
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="banners" name="3permissao" value="banner">Banners
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="imagem" name="4permissao" value="imagem">Imagens
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="evento" name="5permissao" value="evento">Evento
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="categoria" name="6permissao" value="categoria">Categoria
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="cardapio" name="7permissao" value="cardapio">Cardápio
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="cardapio" name="8permissao" value="cliente">Cliente
-
-                                        </label>
-
-                                    </li>
-
-                                </ul>
-
-                            </div>
-
-                            <br>
-
-                        </div>
 
                     </div>
 
@@ -428,9 +372,9 @@
 
                         $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                        if (in_array('usuario', $permissao)){ ?>
+                        if (in_array('cliente', $permissao)){ ?>
 
-                            <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Salvar</button>
+                            <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o""></i> Alterar</button>
 
                         <?php } ?>
 
@@ -438,7 +382,7 @@
 
                         <div class="pull-right">
 
-                            <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
+                            <a href="clienteLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Voltar</a>
 
                         </div>
 
@@ -464,33 +408,19 @@
 
         </footer>
 
-        <?php include VIEWPATH."/rodape.html" ?>
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 
-        <script>
+        <script>window.jQuery || document.write('<script src="../../dist/js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
 
-            function confereSenha() {
+        <script src="../../vendor/bootstrap3/js/bootstrap.min.js"></script>
 
-            //if(validar($("#senha1").val())){
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 
-                if($("#senha1").val().length>5){
+        <script src="../../vendor/bootstrap3/js/ie10-viewport-bug-workaround.js"></script>
 
-                    $("#alteraSenha").submit();
+        <script src="../../dist/js/plugins.js"></script>
 
-                }else{
-
-                    alertComum('Erro!','Senhas devem conter no mínimo 6 caracteres!',2);
-
-                }
-
-            //}else{
-
-            //    alertComum('Erro!','Senhas devem conter apenas letras e números!',2);
-
-            //}
-
-            }
-
-        </script>
+        <script src="../../dist/js/main.js"></script>
 
     </body>
 

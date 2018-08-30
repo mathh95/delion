@@ -434,6 +434,16 @@
 
                                     </li>
 
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="cliente" name="8permissao" value="cliente">Cliente
+
+                                        </label>
+
+                                    </li>                                    
+
                                 </ul>
 
                             </div>

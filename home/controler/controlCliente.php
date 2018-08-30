@@ -11,13 +11,14 @@
                     $login=$cliente->getLogin();
                     $senha=hash_hmac("md5",$cliente->getSenha(), "senha");
                     $telefone=$cliente->getTelefone();
-                    $stmt=$this->pdo->prepare("INSERT INTO cliente(nome, login, senha, telefone)
-                    VALUES (:nome, :login, :senha, :telefone) ");
+                    $status=$cliente->getStatus();
+                    $stmt=$this->pdo->prepare("INSERT INTO cliente(nome, login, senha, telefone, status)
+                    VALUES (:nome, :login, :senha, :telefone, :status) ");
                     $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
                     $stmt->bindParam(":login", $login, PDO::PARAM_STR);
                     $stmt->bindParam(":senha", $senha, PDO::PARAM_STR);
                     $stmt->bindParam(":telefone", $telefone, PDO::PARAM_STR);
-
+                    $stmt->bindParam(":status", $status, PDO::PARAM_INT);
                     $executa=$stmt->execute();
 
                     if ($executa){
@@ -74,6 +75,7 @@
                                 $cliente->setLogin($result->login);
                                 $cliente->setNome($result->nome);
                                 $cliente->setTelefone($result->telefone);
+                                $cliente->setStatus($result->status);
                                 array_push($clientes,$cliente);
                             }
                         }else{
@@ -100,7 +102,7 @@
                         $nome=$parametro . "%";
                         $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE nome LIKE :parametro");
                         $stmt->bindParam(":parametro", $nome, PDO::PARAM_STR);
-                    }elseif ($modo==2) {
+                    }elseif($modo==2){
                         $cod_cliente=$parametro;
                         $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE cod_cliente=:parametro");
                         $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
@@ -113,6 +115,7 @@
                                 $cliente->setLogin($result->login);
                                 $cliente->setNome($result->nome);
                                 $cliente->setTelefone($result->telefone);
+                                $cliente->setStatus($result->status);
                             }
                         }
                         return $cliente;
@@ -205,6 +208,25 @@
                     return -1;
                 }
             }
+
+            function delete($cod_cliente){
+                try{
+                    $status=0;
+                    $parametro=$cod_cliente;
+                    $stmt=$this->pdo->prepare("UPDATE cliente SET status=:status WHERE cod_cliente=:parametro");
+                    $stmt->bindParam("status",$status,PDO::PARAM_INT);
+                    $stmt->bindParam("parametro",$parametro,PDO::PARAM_INT);
+                    $executa=$stmt->execute();
+                    if ($executa){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
   // Cria tabela cliente no banco      
 /*         function createTable(){
             try{
@@ -213,7 +235,8 @@
                     nome VARCHAR(255) NOT NULL,
                     login VARCHAR(255) NOT NULL UNIQUE,
                     senha VARCHAR(32) NOT NULL,
-                    telefone VARCHAR(15) NOT NULL 
+                    telefone VARCHAR(15) NOT NULL,
+                    status BOOLEAN NOT NULL
                 )");
                 $exec= $stmt->execute();
                 if ($exec){
