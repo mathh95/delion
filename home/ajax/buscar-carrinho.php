@@ -42,7 +42,7 @@ if(count($itens) > 0){
         <h1>Lista de produtos no carrinho</h1>
         <?php //print_r($_SESSION['qtd']); ?>
         <?php //print_r($_SESSION['carrinho']); ?>
-        <div class="carrinho">
+        <div class="carrinho row">
             <table class="tabela_itens table table-hover table-responsive table-condensed">
                 <thead>
                     <tr id="cabecalhoTabela" >
@@ -73,9 +73,11 @@ if(count($itens) > 0){
     echo "</tbody>
         </table>
         </div>
-        <strong><p class='text-right' id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p></strong>
-        <a href='../home/ajax/enviarEmailPedido.php'><button id='finalizar' style='float:right;margin:10px;' class='btn btn-default'>Finalizar pedido <i class='far fa-envelope fa-lg'></i></button></a>
-        <a style='float:right;margin:10px;' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho <i class='fas fa-trash-alt fa-lg'></i></button></a>";
+        <div class='rodapeCarrinho row'>
+            <strong><p class='text-right' id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p></strong>
+            <a href='../home/ajax/enviarEmailPedido.php'><button id='finalizar' class='btn btn-default botaoCarrinhoEnviar'>Finalizar pedido <i class='far fa-envelope fa-lg'></i></button></a>
+            <a onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger botaoCarrinhoEsvaziar'>Esvaziar carrinho <i class='fas fa-trash-alt fa-lg'></i></button></a>
+        </div>";
 
         
 

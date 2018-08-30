@@ -200,99 +200,50 @@ body {
         display: block;
         max-width: 100%;
         height: auto; }
-  body > .itens > .carrinho > .tabela_itens #cabecalhoTabela {
-    color: white;
-    background-color: black;
-    border-style: solid;
-    border-bottom-width: 5px;
-    border-top-width: 0;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-bottom-color: #be392a;
-    font-family: "Century Gothic Bold";
-    font-size: 14px; }
-  body > .itens > .carrinho > .tabela_itens .quantidadeItemTabela {
-    border: none;
-    background-color: transparent;
-    width: 30px; }
-  body > .itens > .paginacao {
+  body > .itens > .carrinho > .tabela_itens {
     position: relative;
     min-height: 1px;
     padding-left: 15px;
-    padding-right: 15px;
-    text-align: right;
-    padding-right: 30px; }
+    padding-right: 15px; }
     @media (min-width: 1200px) {
-      body > .itens > .paginacao {
+      body > .itens > .carrinho > .tabela_itens {
         float: left;
         width: 100%; } }
-    body > .itens > .paginacao > nav > ul > li > a {
+    body > .itens > .carrinho > .tabela_itens #cabecalhoTabela {
+      color: white;
+      background-color: black;
+      border-style: solid;
+      border-bottom-width: 5px;
+      border-top-width: 0;
+      border-left-width: 0;
+      border-right-width: 0;
+      border-bottom-color: #be392a;
       font-family: "Century Gothic Bold";
-      background-color: #000000;
-      border: 2px solid #FFFFFF;
-      padding-left: 0px;
-      padding-top: 0px;
-      padding-right: 2px;
-      border-top-width: 0px;
-      border-bottom-width: 0px;
-      padding-bottom: 1px;
-      border-right-width: 2px;
-      width: 25px;
-      height: 21px;
-      color: #FFFFFF; }
-    body > .itens > .paginacao > nav > ul > li > #\31 {
-      padding-right: 6px; }
-    body > .itens > .paginacao > nav > ul > li > #\32 {
-      padding-right: 6px; }
-    body > .itens > .paginacao > nav > ul > li > #\33 {
-      padding-right: 6px; }
-    body > .itens > .paginacao > nav > ul > li > #\34 {
-      padding-right: 6px; }
-    body > .itens > .paginacao > nav > ul > li > #\35 {
-      padding-right: 6px; }
-    body > .itens > .paginacao > nav > ul > li > #\36 {
-      padding-right: 6px; }
-    body > .itens > .paginacao > nav > ul > li > #\37 {
-      padding-right: 6px; }
-    body > .itens > .paginacao > nav > ul > li > #\38 {
-      padding-right: 6px; }
-    body > .itens > .paginacao > nav > ul > li > #\39 {
-      padding-right: 6px; }
-    body > .itens > .paginacao > nav > ul > li:first-child > a, body > .itens > .paginacao > nav > ul li:last-child > a {
-      border-radius: 0px;
-      padding-left: 0px;
-      padding-top: 0px;
-      padding-right: 6px;
-      border-top-width: 0px;
-      border-bottom-width: 0px;
-      padding-bottom: 1px;
-      border-right-width: 2px;
-      width: 25px;
-      height: 21px; }
-    body > .itens > .paginacao > nav > ul > li:first-child > a {
-      padding-right: 8px; }
-    body > .itens > .paginacao > nav > ul > li.active > a {
-      background-color: #BE392A;
-      border-color: #BE392A;
-      width: 20px; }
-    body > .itens > .paginacao > nav > ul > li.active > #\31 {
-      padding-right: 4px; }
-    body > .itens > .paginacao > nav > ul > li.active > #\32 {
-      padding-right: 4px; }
-    body > .itens > .paginacao > nav > ul > li.active > #\33 {
-      padding-right: 4px; }
-    body > .itens > .paginacao > nav > ul > li.active > #\34 {
-      padding-right: 4px; }
-    body > .itens > .paginacao > nav > ul > li.active > #\35 {
-      padding-right: 4px; }
-    body > .itens > .paginacao > nav > ul > li.active > #\36 {
-      padding-right: 4px; }
-    body > .itens > .paginacao > nav > ul > li.active > #\37 {
-      padding-right: 4px; }
-    body > .itens > .paginacao > nav > ul > li.active > #\38 {
-      padding-right: 4px; }
-    body > .itens > .paginacao > nav > ul > li.active > #\39 {
-      padding-right: 4px; }
+      font-size: 14px; }
+    body > .itens > .carrinho > .tabela_itens .quantidadeItemTabela {
+      border: none;
+      background-color: transparent;
+      width: 30px; }
+  body > .itens > .rodapeCarrinho {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px; }
+    @media (min-width: 1200px) {
+      body > .itens > .rodapeCarrinho {
+        margin-left: 66.6666666667%; } }
+    @media (min-width: 1200px) {
+      body > .itens > .rodapeCarrinho {
+        float: left;
+        width: 33.3333333333%; } }
+    body > .itens > .rodapeCarrinho .botaoCarrinhoEnviar {
+      float: right;
+      margin: 10px;
+      background-color: #000;
+      color: #ffffff; }
+    body > .itens > .rodapeCarrinho .botaoCarrinhoEsvaziar {
+      float: right;
+      margin: 10px; }
   body > .whatsapp {
     position: fixed;
     right: 36px;

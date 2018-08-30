@@ -71,6 +71,7 @@ body{
     > .itens {
         > .carrinho {
             > .tabela_itens{
+                @include make-lg-column(12);
                 #cabecalhoTabela{
                     color:white;
                     background-color:black; 
@@ -90,113 +91,20 @@ body{
                 }
             }
         }
-        > .paginacao {
-             @include make-lg-column(12);
-            text-align: right;
-            padding-right: 30px;
-            > nav {
-                > ul {
-                    > li {
-                        > a {
-                            font-family: $font_main_bold;
-                            background-color: #000000;
-                            border: 2px solid #FFFFFF;
-                            padding-left: 0px;
-                            padding-top: 0px;
-                            padding-right: 2px;
-                            border-top-width: 0px;
-                            border-bottom-width: 0px;
-                            padding-bottom: 1px;
-                            border-right-width: 2px;
-                            width: 25px;
-                            height: 21px;
-                            color: #FFFFFF;
-                        }
-                        > #\31  {
-                            padding-right: 6px;
-                        }
-                        > #\32 {
-                            padding-right: 6px;
-                        }
-                        > #\33  {
-                            padding-right: 6px;
-                        }
-                        > #\34  {
-                            padding-right: 6px;
-                        }
-                        > #\35  {
-                            padding-right: 6px;
-                        }
-                        > #\36  {
-                            padding-right: 6px;
-                        }
-                        > #\37  {
-                            padding-right: 6px;
-                        }
-                        > #\38  {
-                            padding-right: 6px;
-                        }
-                        > #\39  {
-                            padding-right: 6px;
-                        }
-                    }
-                    > li:first-child, li:last-child {
-                        >a{
-                            border-radius: 0px;
-                            padding-left: 0px;
-                            padding-top: 0px;
-                            padding-right: 6px;
-                            border-top-width: 0px;
-                            border-bottom-width: 0px;
-                            padding-bottom: 1px;
-                            border-right-width: 2px;
-                            width: 25px;
-                            height: 21px;
-                        }
-                    }
-                    > li:first-child {
-                        >a{
-                            padding-right: 8px;
-                        }
-                    }
-                    > li.active {
-
-                        > a {
-                            background-color: #BE392A;
-                            border-color:  #BE392A;
-                            width: 20px;
-                        }
-                        > #\31  {
-                            padding-right: 4px;
-                        }
-                        > #\32 {
-                            padding-right: 4px;
-                        }
-                        > #\33  {
-                            padding-right: 4px;
-                        }
-                        > #\34  {
-                            padding-right: 4px;
-                        }
-                        > #\35  {
-                            padding-right: 4px;
-                        }
-                        > #\36  {
-                            padding-right: 4px;
-                        }
-                        > #\37  {
-                            padding-right: 4px;
-                        }
-                        > #\38  {
-                            padding-right: 4px;
-                        }
-                        > #\39  {
-                            padding-right: 4px;
-                        }
-                    }
-                }
+        > .rodapeCarrinho{
+            @include make-lg-column-offset(8);
+            @include make-lg-column(4);
+            .botaoCarrinhoEnviar{
+                float:right;
+                margin:10px;
+                background-color: #000;
+                color: #ffffff;
             }
-        }
+            .botaoCarrinhoEsvaziar{
+                float:right;
+                margin:10px;
+            }
+        } 
     }
     > .whatsapp {
         position: fixed;
