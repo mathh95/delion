@@ -34,7 +34,7 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
     try{
         //Server Settings
         $mail->CharSet = 'UTF-8';
-        $mail->SMTPDebug = 2;
+        $mail->SMTPDebug = 0;
         $mail->isSMTP();
         $mail->Host = '192.168.1.14';
         $mail->SMTPAuth = false;

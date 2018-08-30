@@ -60,13 +60,13 @@ session_start();
 
 	<link rel="stylesheet" type="text/css" href="css/vendors/jssocials-theme-minima.css"/>
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/cardapio/xs/style-xs.css"/>
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/carrinho/xs/style-xs.css"/>
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/cardapio/sm/style-sm.css"/>
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/carrinho/sm/style-sm.css"/>
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/cardapio/md/style-md.css"/>
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/carrinho/md/style-md.css"/>
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/cardapio/lg/style-lg.css"/>
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/carrinho/lg/style-lg.css"/>
 
 	<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
