@@ -42,10 +42,10 @@ if(count($itens) > 0){
         <h1>Lista de produtos no carrinho</h1>
         <?php //print_r($_SESSION['qtd']); ?>
         <?php //print_r($_SESSION['carrinho']); ?>
-        <div class="table-responsive categoria">
-            <table class="table table-hover table-condensed">
+        <div class="carrinho">
+            <table class="tabela_itens table table-hover table-responsive table-condensed">
                 <thead>
-                    <tr id="cabecalhoTabela">
+                    <tr id="cabecalhoTabela" >
                         <th>Excluir</th>
                         <th>Produto</th>
                         <th>Preço Unitário</th>
