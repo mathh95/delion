@@ -200,6 +200,8 @@ body {
         display: block;
         max-width: 100%;
         height: auto; }
+  body > .itens > h1 {
+    font-family: "Century Gothic Bold"; }
   body > .itens > .carrinho > .tabela_itens {
     position: relative;
     min-height: 1px;
@@ -236,10 +238,14 @@ body {
       body > .itens > .rodapeCarrinho {
         float: left;
         width: 33.3333333333%; } }
+    body > .itens > .rodapeCarrinho p {
+      font-size: 25px;
+      font-family: "Century Gothic Bold"; }
     body > .itens > .rodapeCarrinho .botaoCarrinhoEnviar {
       float: right;
       margin: 10px;
       background-color: #000;
+      border-color: #000;
       color: #ffffff; }
     body > .itens > .rodapeCarrinho .botaoCarrinhoEsvaziar {
       float: right;

@@ -69,6 +69,9 @@ body{
         }
     }
     > .itens {
+        > h1{
+            font-family: "Century Gothic Bold";
+        }
         > .carrinho {
             > .tabela_itens{
                 @include make-lg-column(12);
@@ -94,10 +97,15 @@ body{
         > .rodapeCarrinho{
             @include make-lg-column-offset(8);
             @include make-lg-column(4);
+            p{
+                font-size: 25px;
+                font-family: "Century Gothic Bold";
+            }
             .botaoCarrinhoEnviar{
                 float:right;
                 margin:10px;
                 background-color: #000;
+                border-color:#000;
                 color: #ffffff;
             }
             .botaoCarrinhoEsvaziar{
