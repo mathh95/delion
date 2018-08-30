@@ -208,6 +208,17 @@ footer img {
   margin-top: 15px;
 }
 
+/*
+  Form Cadastro Cliente
+*/
+#form-cadastro-cliente img {
+    width: 210px;
+    height: 210px;
+  }
+  
+  #form-cadastro-cliente .btn-kionux {
+    margin-top: 15px;
+  }
 
 /*
  Login

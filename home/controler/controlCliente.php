@@ -75,6 +75,7 @@
                                 $cliente->setLogin($result->login);
                                 $cliente->setNome($result->nome);
                                 $cliente->setTelefone($result->telefone);
+                                $cliente->setStatus($result->status);
                                 array_push($clientes,$cliente);
                             }
                         }else{
@@ -101,7 +102,7 @@
                         $nome=$parametro . "%";
                         $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE nome LIKE :parametro");
                         $stmt->bindParam(":parametro", $nome, PDO::PARAM_STR);
-                    }elseif ($modo==2) {
+                    }elseif($modo==2){
                         $cod_cliente=$parametro;
                         $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE cod_cliente=:parametro");
                         $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
@@ -202,6 +203,25 @@
                         return -1;
                     }
                     
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function delete($cod_cliente){
+                try{
+                    $status=0;
+                    $parametro=$cod_cliente;
+                    $stmt=$this->pdo->prepare("UPDATE cliente SET status=:status WHERE cod_cliente=:parametro");
+                    $stmt->bindParam("status",$status,PDO::PARAM_INT);
+                    $stmt->bindParam("parametro",$parametro,PDO::PARAM_INT);
+                    $executa=$stmt->execute();
+                    if ($executa){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
                 }catch(PDOException $e){
                     echo $e->getMessage();
                     return -1;
