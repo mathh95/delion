@@ -85,9 +85,9 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
 
     $pedido->setPedido();
 
-    echo "<script>window.location='/';alert('Pedido enviado com sucesso!');</script>";
+    msgRedireciona("Sucesso", "Pedido solicitado com sucesso!", 1,"/");
 }else{
-    echo "<script>window.location='/home/login.php';alert('É preciso estar logado para efetuar um pedido!');</script>";
+    msgRedireciona("Favor Logar", "É preciso estar logado para efetuar o pedido!", 0,"/home/login.php");
 }
     
     
