@@ -121,7 +121,9 @@ body{
                     text-align: center;
                     padding-bottom: 8px;
                 }
-                > .texto {
+                #addCarrinho:hover {
+                    background-color: #000;
+                    color: #FFFFFF;
                 }
                 > .compartilhar {
                     float: right;
