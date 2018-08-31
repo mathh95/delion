@@ -157,9 +157,11 @@
                                 $_SESSION['login']=$result->login;
                                 $_SESSION['telefone']=$result->telefone;
                                 return 2;
+                            }else{
+                                return 1;
                             }
                         }
-                        return 1;
+                        return 0;
                     }
                 }catch(PDOException $e){
                     echo $e->getMessage();
