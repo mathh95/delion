@@ -43,8 +43,6 @@ session_start();
 	<meta charset="UTF-8">
 
 	<title>Delion Café - Cafeteria - Foz do Iguaçu</title>
-	
-	<link rel="stylesheet" href="css/carrinho/carrinho.css">
 
 	<link rel="shortcut icon" href="img/favicon.png">
 

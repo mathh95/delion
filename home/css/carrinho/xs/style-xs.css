@@ -189,7 +189,14 @@ body {
         max-width: 100%;
         height: auto; }
   body > .itens > h1 {
-    font-family: "Century Gothic Bold"; }
+    position: relative;
+    float: left;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-family: "Century Gothic Bold";
+    text-align: center; }
   body > .itens > .carrinho > .tabela_itens {
     position: relative;
     float: left;
@@ -207,7 +214,7 @@ body {
       border-right-width: 0;
       border-bottom-color: #be392a;
       font-family: "Century Gothic Bold";
-      font-size: 9px; }
+      font-size: 12px; }
     body > .itens > .carrinho > .tabela_itens .iconeRemoverProdutoTabela {
       font-size: 9px; }
     body > .itens > .carrinho > .tabela_itens .nomeProdutoTabela {

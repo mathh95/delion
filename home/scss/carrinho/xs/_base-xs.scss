@@ -70,7 +70,9 @@ body{
     }
     > .itens {
         > h1{
+            @include make-xs-column(12);
             font-family: "Century Gothic Bold";
+            text-align: center;
         }
         > .carrinho {
             > .tabela_itens{
@@ -85,7 +87,7 @@ body{
                     border-right-width:0;
                     border-bottom-color: rgb(190, 57, 42);
                     font-family: "Century Gothic Bold";
-                    font-size: 9px;
+                    font-size: 12px;
                 }
                 .iconeRemoverProdutoTabela{
                     font-size: 9px;
