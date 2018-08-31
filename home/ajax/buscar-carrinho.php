@@ -39,7 +39,7 @@ if(count($itens) > 0){
 ?>
 
         <script type="text/javascript" src="js/buscar-carrinho.js"></script>
-        <h1>Pedido</h1>
+        <h1 class="text-center">Pedido</h1>
         <?php //print_r($_SESSION['qtd']); ?>
         <?php //print_r($_SESSION['carrinho']); ?>
         <div class="carrinho row">
