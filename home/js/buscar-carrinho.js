@@ -45,6 +45,7 @@ $(document).on("click", "#removeItem", function(){
             var tr = $("#idLinha"+linha).fadeOut(100, function(){
                 tr.remove();
             });
+            $("#spanCarrinho").html(parseInt($("#spanCarrinho").text()) - 1);
         }
     });
 });
