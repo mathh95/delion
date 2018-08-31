@@ -31,6 +31,10 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
         array_push($_SESSION['carrinho'], $id);
         array_push($_SESSION['qtd'], 1);
         //essa sessão está sendo startada na index do projeto
+
+        echo count($_SESSION['carrinho']);
+    }else{
+        echo count($_SESSION['carrinho']);
     }
 }
 

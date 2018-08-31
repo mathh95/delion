@@ -342,7 +342,7 @@ session_start();
 			</div>
 
 		</div>
-
+		<?php var_dump($_SESSION['carrinho']); ?>
 	</div>
 
 	<div class="whatsapp">
@@ -441,6 +441,9 @@ session_start();
 		$(document).on("click", "#addCarrinho", function(){
 			var url = $(this).data('url');
 			var id = $(this).data('cod');
+			// var quantidade = $("#spanCarrinho").data('quantidade');
+						
+			// console.log(quantidade+1);
 
 			$.ajax({
 				
@@ -450,15 +453,20 @@ session_start();
 
 				data: {id: id},
 
-				// success:function(res){
-				// 	// console.log(res);
-				// 	$('#qtd').text(res);
-				// }, 
+				success:function(res){
+					$("#spanCarrinho").html(res);
+					$("body,html").animate({scrollTop: 0 }, 800);
+				}, 
 				error: function(erro){
 					console.log(erro);
 				}
 			});
 		});
+
+		// $(document).on("click", "addCarrinho", function(event) {
+		// 	event.preventDefault();
+		// 	$('html').animate({scrollTop: 0}, 300);
+        // });
 
 		function buscar (pagina, busca, tipo){
 

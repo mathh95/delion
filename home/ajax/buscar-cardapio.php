@@ -48,7 +48,11 @@ session_start();
 
         }
 
-
+        // if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
+        //     $quantidadeCarrinho = count($_SESSION['carrinho']);
+        // }else{
+        //     $quantidadeCarrinho = 0;
+        // }
 
         $quantidade = $controleCardapio->select($busca,1);
 
@@ -102,7 +106,7 @@ session_start();
 
                         <div class='texto'>".html_entity_decode($item->getDescricao())."</div>
                         
-                        <a href='#'><button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button></a>
+                        <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button>
 
                     </div>
 
@@ -329,7 +333,7 @@ session_start();
                     <div class='texto'>".html_entity_decode($item->getDescricao())."
                     <p>".$item->getPreco()."</p>
                     
-                    <a href='#'><button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button></a>
+                    <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button>
 
                     </div>
 
