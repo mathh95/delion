@@ -3,6 +3,7 @@
 ini_set("allow_url_include", true);
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php";    
 include_once MODELPATH."/cardapio.php";
+include_once MODELPATH."/pedido.php";
 
 class controlerCarrinho{
 
@@ -45,6 +46,32 @@ class controlerCarrinho{
         $_SESSION['carrinho'] = array();
         $_SESSION['qtd'] = array();
         $_SESSION['totalCarrinho'] = array();
+    }
+
+    function selectPedido($cod_cliente){
+        $parametro = $cod_cliente;
+        $pedidos= array();
+        $stmt=$this->pdo->prepare("SELECT * FROM pedido WHERE cliente=:parametro ORDER BY data DESC, cod_pedido DESC");
+        $stmt->bindParam(":parametro", $parametro, PDO::PARAM_INT);
+        $executa=$stmt->execute();
+        if ($executa) {
+            if ($stmt->rowCount() > 0 ){
+                while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                    $pedido = new pedido();
+                    $pedido->setCod_pedido($result->cod_pedido);
+                    $pedido->setData($result->data);
+                    $pedido->setValor($result->valor);
+                    $pedido->setStatus($result->status);
+                    array_push($pedidos,$pedido);  
+                }
+            }else{
+                echo "Sem resultados";
+                return -1;
+            }
+            return $pedidos;
+        }else {
+            return -1;
+        }
     }
 
 }

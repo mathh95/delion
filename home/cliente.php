@@ -247,7 +247,7 @@ session_start();
 
 			</form>
 
-			<form action="">
+			<form action="listarPedidos.php">
 
 				<div>
 
