@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 // ini_set('display_errors', true);
 
 // date_default_timezone_set('America/Sao_Paulo');
@@ -34,6 +35,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
 
         echo count($_SESSION['carrinho']);
     }else{
+        echo "<script>alert('Este item já está no carrinho!');</script>";
         echo count($_SESSION['carrinho']);
     }
 }
