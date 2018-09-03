@@ -15,7 +15,15 @@ require_once '../../phpmailer/src/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
     
-
+$html = "<head>
+            <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
+            <style>
+            .swal-overlay {
+                background-color: black;
+              }
+            </style>
+         </head>
+         <body>";
   
 
 $pedido = new controlerCarrinho(conecta());
@@ -85,9 +93,11 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
 
     $pedido->setPedido();
 
-    msgRedireciona("Sucesso", "Pedido solicitado com sucesso!", 1,"/");
+    $html.= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home'});</script></body>";
+    echo $html;
 }else{
-    msgRedireciona("Favor Logar", "É preciso estar logado para efetuar o pedido!", 0,"/home/login.php");
+    $html.= "<script>swal('É preciso estar logado para efetuar um pedido!', 'Estamos te mandando para tela de login...', 'error').then((value) => {window.location='/home/login.php'});</script></body>";
+    echo $html;
 }
     
     
