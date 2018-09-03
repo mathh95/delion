@@ -57,13 +57,13 @@ session_start();
 
 	<link rel="stylesheet" type="text/css" href="css/vendors/jssocials-theme-minima.css" />
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/carrinho/xs/style-xs.css" />
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/pedido/xs/style-xs.css" />
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/carrinho/sm/style-sm.css" />
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/pedido/sm/style-sm.css" />
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/carrinho/md/style-md.css" />
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/pedido/md/style-md.css" />
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/carrinho/lg/style-lg.css" />
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/pedido/lg/style-lg.css" />
 
 	<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -222,14 +222,15 @@ session_start();
 	</div>
 
 
-	<div class="container itens tabela">
+	<div class="container itens">
         <table class="tabela_itens table table-hover table-responsive table-condensed">
             <thead>
                 <h1 class="text-center">Lista de Pedidos</h1>
                 <tr id="cabecalhoTabela">
-                    <th width='20%' style='text-align: center;'>Data</th>
+                    <th width='35%' style='text-align: center;'>Data</th>
                     <th width='15%' style='text-align: center;'>Valor</th>
-                    <th width='15%' style='text-align: center;'>Status</th>
+					<th width='15%' style='text-align: center;'>Status</th>
+					<th width='35%' style='text-align: center;'>Itens do pedido</th>
                 </tr>
             </thead>
             <tbody>
@@ -237,11 +238,12 @@ session_start();
                     $pedidos=$controleCarrinho->selectPedido($_SESSION['cod_cliente']);
                     foreach ($pedidos as &$pedido) {
                             //$mensagem='Cliente excluído com sucesso!';
-                            $titulo='Excluir';
+                            //$titulo='Excluir';
                             echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
                                 <td style='text-align: center;' name='data'>".$pedido->getData()."</td>
                                 <td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
-                                <td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
+								<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
+								<td style='text-align: center;' name='editar'><a href='pedido.php?cod=".$pedido->getCod_pedido()."'><button class='btn btn-kionux'>Itens</button></a></td>
                             </tr>";  
                     }                  
                 ?>

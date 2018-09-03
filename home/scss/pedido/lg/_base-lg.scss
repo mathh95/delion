@@ -1,0 +1,112 @@
+@font-face {
+    font-family: "Century Gothic Regular";
+    src: url("../../fonts/gothic.ttf");
+}
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../../fonts/gothicb.ttf");
+}
+
+body{
+
+    #cabecalhoTabela{
+        color:white;
+        background-color:black; 
+        border-style:solid; 
+        border-bottom-width:5px;
+        border-top-width:0;
+        border-left-width:0;
+        border-right-width:0;
+        border-bottom-color: rgb(190, 57, 42);
+        font-family: "Century Gothic Bold";
+        font-size: 14px;
+    }
+    font-family: $font_main;
+    > .menu {
+        padding-bottom: 15px;
+        padding-top: 15px;
+        > .menu-lateral {
+            @include make-lg-column(3);
+            background-color: #BE392A;
+            width: 270px !important;
+            margin-left: 15px;
+            padding-left: 20px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            > a {
+                width: 100%;
+                display: block;
+                padding-bottom: 10px;
+                padding-top: 10px;
+                > img {
+                    // width: 27px;
+                    padding-left: 0px;
+                    display: inline;
+                }
+                > div {
+                    display: inline;
+                    color: #ffffff;
+                    padding-left: 20px;
+                }
+            }
+            /* > a:nth-child(2) {
+                > img {
+                    width: 17px;
+                    padding-left: 0px;
+                    margin-left: 5px;
+                }
+                > div {
+                    padding-left: 25px;
+                }
+            } */
+            > a:hover{
+                text-decoration: none;
+                > div {
+                    font-family: $font_main_bold;
+                    color: #000;
+                }
+            }
+            > a:focus{
+                text-decoration: none;
+                > div {
+                    color: #000;
+                    font-family: $font_main_bold;
+                }
+            }
+        }
+        > .imagem {
+            @include make-lg-column(9);
+            > img {
+                @include img-responsive();
+            }
+        }
+    }
+    > .itens {
+        > h1{
+            font-family: "Century Gothic Bold";
+        }
+        > .pedido {
+            > .tabela_itens{
+                @include make-lg-column(12);
+                .quantidadeItemTabela{
+                    border:none;
+                    background-color:transparent;
+                    width:30px;
+                }
+            }
+        }
+    }
+    > .whatsapp {
+        position: fixed;
+        right: 36px;
+        bottom: 80px;
+        height: 42px;
+        width: 42px;
+        z-index: 9999;
+        > a {
+            > img {
+                width: 50px;
+            }
+        }
+    }
+}
