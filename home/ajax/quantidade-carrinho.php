@@ -35,6 +35,10 @@ if($acao == "+"){
                 unset($_SESSION['qtd'][$key]);
                 sort($_SESSION['carrinho']);
                 sort($_SESSION['qtd']);
+
+                if(count($_SESSION['carrinho']) < 1){
+                    echo "<script>swal('Carrinho vazio!!').then((value) => {window.location='/home/cardapio.php'});</script>";
+                }
             }
         }
         $_SESSION['totalCarrinho'] -= $preco;
@@ -57,6 +61,10 @@ if($acao == "+"){
                 unset($_SESSION['qtd'][$key]);
                 sort($_SESSION['carrinho']);
                 sort($_SESSION['qtd']);
+
+                if(count($_SESSION['carrinho']) < 1){
+                    echo "<script>swal('Carrinho vazio!!').then((value) => {window.location='/home/cardapio.php'});</script>";
+                }
             }
         }
         $aux = $qtd * $preco;
