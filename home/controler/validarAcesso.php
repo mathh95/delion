@@ -7,8 +7,8 @@
     $senha = addslashes(htmlspecialchars($_POST['senha']));
     $result=$control->validaCliente($login, $senha);
     if ($result == 2 ){
-        if (isset($_SESSION['carrinho'])){
-            header("Location:../carrinho.php");
+        if (isset($_SESSION['carrinho']) and !empty($_SESSION['carrinho'])){
+            header("Location:../carrinho.php");   
         }else{
             header("Location: ../");
         }

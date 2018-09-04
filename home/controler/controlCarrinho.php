@@ -60,7 +60,7 @@ class controlerCarrinho{
                 while($result=$stmt->fetch(PDO::FETCH_OBJ)){
                     $pedido = new pedido();
                     $pedido->setCod_pedido($result->cod_pedido);
-                    $pedido->setData($result->data);
+                    $pedido->setData(new DateTime($result->data));
                     $pedido->setValor($result->valor);
                     $pedido->setStatus($result->status);
                     array_push($pedidos,$pedido);  

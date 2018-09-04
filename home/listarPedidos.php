@@ -240,7 +240,7 @@ session_start();
                             //$mensagem='Cliente excluído com sucesso!';
                             //$titulo='Excluir';
                             echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
-                                <td style='text-align: center;' name='data'>".$pedido->getData()."</td>
+                                <td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
                                 <td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
 								<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
 								<td style='text-align: center;' name='editar'><a href='pedido.php?cod=".$pedido->getCod_pedido()."'><button class='btn btn-kionux'>Itens</button></a></td>
