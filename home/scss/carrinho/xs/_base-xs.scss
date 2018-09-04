@@ -71,6 +71,7 @@ body{
     > .itens {
         >.carrinhoVazio{
             > .imagemCarrinhoVazio{
+                text-align: center;
                 // @include make-xs-column(4);
             }
             .textoCarrinhoVazio{

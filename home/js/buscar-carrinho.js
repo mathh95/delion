@@ -70,7 +70,7 @@ $(document).on("click", "#adicionarUnidade", function(){
         success:function(resultado){
             $("#total").html(resultado);
             $("#qtdUnidade"+linha).val(qtdInt+= 1);
-            $("#subtotal"+linha).html("<strong>R$ "+subtotal+"</strong>");
+            $("#subtotal"+linha).html("<strong>R$ "+subtotal.toFixed(2)+"</strong>");
         }
     });
 });
@@ -98,7 +98,7 @@ $(document).on("click", "#removerUnidade", function(){
         success:function(resultado){
             $("#total").html(resultado);
             $("#qtdUnidade"+linha).val(qtdTotal);
-            $("#subtotal"+linha).html("<strong>R$ "+subtotal+"</strong>");
+            $("#subtotal"+linha).html("<strong>R$ "+subtotal.toFixed(2)+"</strong>");
         }
     });
     }else if(qtdTotal <= 0){

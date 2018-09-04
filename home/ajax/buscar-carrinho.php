@@ -61,8 +61,8 @@ if(count($itens) > 0){
                     <tr id="idLinha<?=$i?>" data-id="<?=$item['cod_cardapio']?>">
                         <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?=$i?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
                         <td class="text-uppercase nomeProdutoTabela"><strong><?=$item['nome']?></strong></td>
-                        <td class="precoProdutoTabela" id="preco<?=$i?>" data-preco="<?=$item['preco']?>"><strong>R$ <?=$item['preco']?></strong></td>
-                        <td class="subtotalProdutoTabela" id="subtotal<?=$i?>"><strong>R$ <?=$item['preco']?></strong></td>
+                        <td class="precoProdutoTabela" id="preco<?=$i?>" data-preco="<?=$item['preco']?>"><strong>R$ <?=number_format($item['preco'], 2);?></strong></td>
+                        <td class="subtotalProdutoTabela" id="subtotal<?=$i?>"><strong>R$ <?=number_format($item['preco'], 2);?></strong></td>
                         <td>
                             <input class="quantidadeItemTabela" id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true">
                             <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?=$i?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
@@ -75,11 +75,11 @@ if(count($itens) > 0){
         </table>
         </div>
         <div class='rodapeCarrinho row'>
-            <strong><p class='text-right' id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p></strong>
+            <strong><p class='text-right' id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCarrinho'], 2)."</p></strong>
             <a href='../home/ajax/enviarEmailPedido.php'><button id='finalizar' class='btn btn-default botaoCarrinhoEnviar'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
             <a onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger botaoCarrinhoEsvaziar'>Esvaziar carrinho <i class='fas fa-trash-alt'></i></button></a>
         </div>";
-
+    
         
 
 // $pedido->finalizarPedido();

@@ -44,7 +44,7 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
         $mail->CharSet = 'UTF-8';
         $mail->SMTPDebug = 0;
         $mail->isSMTP();
-        $mail->Host = '192.168.1.42';
+        $mail->Host = '192.168.1.20';
         $mail->SMTPAuth = false;
         $mail->Username = 'vitor';
         $mail->Password = 'vitor';
@@ -81,13 +81,13 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
                                 <td height='15%'>".$_SESSION['nome']."</td>
                                 <td height='15%'>".$itens[$key]['nome']."</td>
                                 <td height='15%'>".$_SESSION['qtd'][$key]."</td> 
-                                <td height='15%'>R$ ".$itens[$key]['preco']."</td>
-                                <td height='15%'>R$ ".$subtotal."</td>
+                                <td height='15%'>R$ ".number_format($itens[$key]['preco'], 2)."</td>
+                                <td height='15%'>R$ ".number_format($subtotal, 2)."</td>
                            </tr>";
         }
         $mail->Body.="</tbody>
                        </table>
-                       <p>Valor total do pedido: ".$_SESSION['totalCarrinho']."</p>";
+                       <p>Valor total do pedido: ".number_format($_SESSION['totalCarrinho'], 2)."</p>";
         $mail->AltBody = 'Nem sei oque é isso kkkkkk';
 
         $mail->send();
