@@ -69,6 +69,22 @@ body{
         }
     }
     > .itens {
+        >.carrinhoVazio{
+            > .imagemCarrinhoVazio{
+                @include make-lg-column(4);
+            }
+            .textoCarrinhoVazio{
+                @include make-lg-column(8);
+                margin-top: 20px;
+                > .tituloCarrinhoVazio{
+                    font-family: $font_main_bold;
+                    color: #BE392A;
+                }
+                > p{
+                    font-family: $font_main_bold;
+                }
+            }
+        }
         > h1{
             font-family: "Century Gothic Bold";
         }

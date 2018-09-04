@@ -85,7 +85,16 @@ if(count($itens) > 0){
 // $pedido->finalizarPedido();
 
 }else{
-    echo "<h1>NENHUM ITEM NO CARRINHO</h1>";
+    echo "<div class='container row carrinhoVazio' style='margin:20px;'>
+            <div class='imagemCarrinhoVazio'>
+                <img src='img/carrinho_vazio.png'>
+            </div>
+            <div class='textoCarrinhoVazio'>
+                <h1 class='text-left tituloCarrinhoVazio'>Seu carrinho ainda está vazio!!</h1>
+                <p>Quer conhecer nossos produtos ? Dê uma olhada no nosso cardápio, você pode pedir antecipado, ou pedir para entregar, confira!</p>
+            </div>
+          </div>";
+          
 }
 
 ?>

@@ -64,7 +64,9 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
                                 <thead>
                                     <tr>
                                         <th width='20%' height='20%'>Item</th>
-                                        <th width='20%'>Nome</th>
+                                        <th width='20%'>Data</th>
+                                        <th width='20%'>Cliente</th>
+                                        <th width='20%'>Produto</th>
                                         <th width='20%'>Quantidade</th>
                                         <th width='20%'>Unidade</th>
                                         <th width='20%'>Subtotal</th>
@@ -75,6 +77,8 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
             $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['preco'];
             $mail->Body.= "<tr>
                                 <td height='20%'>".$_SESSION['carrinho'][$key]."</td>
+                                <td height='20%'>".date("r")."</td>
+                                <td height='20%'>".$_SESSION['nome']."</td>
                                 <td height='20%'>".$itens[$key]['nome']."</td>
                                 <td height='20%'>".$_SESSION['qtd'][$key]."</td> 
                                 <td height='20%'>R$ ".$itens[$key]['preco']."</td>
