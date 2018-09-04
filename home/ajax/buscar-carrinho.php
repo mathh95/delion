@@ -76,8 +76,8 @@ if(count($itens) > 0){
         </div>
         <div class='rodapeCarrinho row'>
             <strong><p class='text-right' id='total'>Valor total do pedido: R$".$_SESSION['totalCarrinho']."</p></strong>
-            <a href='../home/ajax/enviarEmailPedido.php'><button id='finalizar' class='btn btn-default botaoCarrinhoEnviar'>Finalizar pedido <i class='far fa-envelope fa-lg'></i></button></a>
-            <a onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger botaoCarrinhoEsvaziar'>Esvaziar carrinho <i class='fas fa-trash-alt fa-lg'></i></button></a>
+            <a href='../home/ajax/enviarEmailPedido.php'><button id='finalizar' class='btn btn-default botaoCarrinhoEnviar'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
+            <a onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger botaoCarrinhoEsvaziar'>Esvaziar carrinho <i class='fas fa-trash-alt'></i></button></a>
         </div>";
 
         

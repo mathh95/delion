@@ -63,26 +63,26 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
                             <table width='100%' border='1px'>
                                 <thead>
                                     <tr>
-                                        <th width='20%' height='20%'>Item</th>
-                                        <th width='20%'>Data</th>
-                                        <th width='20%'>Cliente</th>
-                                        <th width='20%'>Produto</th>
-                                        <th width='20%'>Quantidade</th>
-                                        <th width='20%'>Unidade</th>
-                                        <th width='20%'>Subtotal</th>
+                                        <th width='15%' height='20%'>Item</th>
+                                        <th width='15%'>Data</th>
+                                        <th width='15%'>Cliente</th>
+                                        <th width='15%'>Produto</th>
+                                        <th width='15%'>Quantidade</th>
+                                        <th width='15%'>Unidade</th>
+                                        <th width='15%'>Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>";
         foreach($_SESSION['carrinho'] as $key => $value){
             $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['preco'];
             $mail->Body.= "<tr>
-                                <td height='20%'>".$_SESSION['carrinho'][$key]."</td>
-                                <td height='20%'>".date("r")."</td>
-                                <td height='20%'>".$_SESSION['nome']."</td>
-                                <td height='20%'>".$itens[$key]['nome']."</td>
-                                <td height='20%'>".$_SESSION['qtd'][$key]."</td> 
-                                <td height='20%'>R$ ".$itens[$key]['preco']."</td>
-                                <td height='20%'>R$ ".$subtotal."</td>
+                                <td height='15%'>".$_SESSION['carrinho'][$key]."</td>
+                                <td height='15%'>".date("r")."</td>
+                                <td height='15%'>".$_SESSION['nome']."</td>
+                                <td height='15%'>".$itens[$key]['nome']."</td>
+                                <td height='15%'>".$_SESSION['qtd'][$key]."</td> 
+                                <td height='15%'>R$ ".$itens[$key]['preco']."</td>
+                                <td height='15%'>R$ ".$subtotal."</td>
                            </tr>";
         }
         $mail->Body.="</tbody>
