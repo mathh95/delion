@@ -237,8 +237,6 @@ session_start();
                 <?php 
                     $pedidos=$controleCarrinho->selectPedido($_SESSION['cod_cliente']);
                     foreach ($pedidos as &$pedido) {
-                            //$mensagem='Cliente excluído com sucesso!';
-                            //$titulo='Excluir';
                             echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
                                 <td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
                                 <td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>

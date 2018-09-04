@@ -190,6 +190,9 @@
                                         <li><a href="clienteLista.php">Listar</a></li>
                                     </ul>
                                 </li>
+                                <li class="dropdown">
+                                    <a href="pedidoLista.php">Pedido</a>
+                                </li>    
                             </ul>
                         </div>
 

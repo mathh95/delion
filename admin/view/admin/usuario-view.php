@@ -250,6 +250,9 @@
                                         </ul>
                                     
                                     </li>
+                                    <li class="dropdown">
+                                    <a href="pedidoLista.php">Pedido</a>
+                                </li>    
 
                                 </ul>
 
@@ -457,7 +460,18 @@
 
                                         </label>
 
-                                    </li>                                    
+                                    </li>
+                                    
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="pedido" name="9permissao" value="pedido">Pedido
+
+                                        </label>
+
+                                    </li>
+
 
                                 </ul>
 

@@ -44,7 +44,7 @@
                         </div>
                         <div id="navbar" class="collapse navbar-collapse pull-left">
                             <ul class="nav navbar-nav">
-                                <li class="dropdown active ">
+                                <li class="dropdown ">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuários <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="usuario.php">Cadastro</a></li>
@@ -65,12 +65,12 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Imagens <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Imagens <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="imagem.php">Cadastro</a></li>
                                         <li><a href="imagemLista.php">Listar</a></li>
                                     </ul>
-                                </li>                                
+                                </li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Evento <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
@@ -106,9 +106,9 @@
                                         <li><a href="clienteLista.php">Listar</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdown active ">
                                     <a href="pedidoLista.php">Pedido</a>
-                                </li>                                
+                                </li>
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">
@@ -123,29 +123,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <?php include "../../ajax/usuarios-tabela.php"; ?>
+                <?php include "../../ajax/item-tabela.php"; ?>
             </div>
         </div>
     </div>
     <?php include VIEWPATH."/rodape.html" ?>
-    <script src="../../js/alert.js"></script>
-    <script type="text/javascript">
-        function removeUsuario(usuario){
-            msgConfirmacao('Confirmação','Deseja Realmente remover o usuário?',
-                function(linha){
-                    var url ='../../ajax/excluir-usuario.php?usuario='+usuario;
-                    $.get(url, function(dataReturn) {
-                        if (dataReturn > 0) {
-                            msgGenerico("Excluir!","Usuário excluído com sucesso!",1,function(){});
-                            $("#status"+usuario).remove();
-                        }else{
-                            msgGenerico("Erro!","Não foi possível excluir o usuário!",2,function(){});
-                        }
-                    });  
-                },
-                function(){}
-            );
-        }
-    </script>
 </body>
 </html>

@@ -101,5 +101,45 @@ class controlerCarrinho{
         }        
     }
 
+    function selectAllPedido(){
+        $pedidos=array();
+        $stmt=$this->pdo->prepare("SELECT pedido.cod_pedido, pedido.data, pedido.valor, pedido.status, cliente.nome, cliente.telefone FROM pedido INNER JOIN cliente ON pedido.cliente = cliente.cod_cliente");
+        $executa=$stmt->execute();
+        if ($executa) {
+            if ($stmt->rowCount() > 0) {
+                while ($result=$stmt->fetch(PDO::FETCH_OBJ)) {
+                    $pedido = new pedido();
+                    $pedido->setCod_pedido($result->cod_pedido);
+                    $pedido->setData(new DateTime($result->data));
+                    $pedido->setValor($result->valor);
+                    $pedido->setStatus($result->status);
+                    $pedido->setCliente($result->nome);
+                    $pedido->telefone=($result->telefone);
+                    array_push($pedidos,$pedido);
+                }
+            }else{
+                echo "Sem resultados";
+                return -1;
+
+            }
+            return $pedidos;
+        }else{
+            return -1;
+        }
+
+    }
+
+    function alterarStatusPedido($cod_pedido,$status){
+        $parametro=$cod_pedido;
+        $stmt=$this->pdo->prepare("UPDATE pedido SET status=:status WHERE cod_pedido=:parametro");
+        $stmt->bindParam("status",$status,PDO::PARAM_INT);
+        $stmt->bindParam("parametro",$parametro,PDO::PARAM_INT);
+        $executa=$stmt->execute();
+        if ($executa) {
+            return 1;
+        }else{
+            return -1;
+        }
+    }
 }
 ?>

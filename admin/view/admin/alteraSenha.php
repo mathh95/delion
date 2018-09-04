@@ -225,7 +225,10 @@
                                             
                                         </ul>
 
-                                    </li>       
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="pedidoLista.php">Pedido</a>
+                                    </li>          
 
                                 </ul>
 

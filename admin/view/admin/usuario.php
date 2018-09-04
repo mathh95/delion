@@ -220,7 +220,10 @@
                                     
                                     </ul>
                                 
-                                </li>                                    
+                                </li> 
+                                <li class="dropdown">
+                                    <a href="pedidoLista.php">Pedido</a>
+                                </li>                                       
 
                                 </ul>
 
@@ -414,7 +417,18 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="cardapio" name="8permissao" value="cliente">Cliente
+                                            <input type="checkbox" id="cliente" name="8permissao" value="cliente">Cliente
+
+                                        </label>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="pedido" name="9permissao" value="pedido">Pedido
 
                                         </label>
 
