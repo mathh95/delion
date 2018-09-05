@@ -46,12 +46,11 @@ if(in_array('pedido', $permissao)){
 	<thead>
 		<h1 class=\"page-header\">Lista de Pedidos</h1>
 		<tr>
-    		<th width='20%' style='text-align: center;'>Data</th>
+    		<th width='25%' style='text-align: center;'>Data</th>
 			<th width='15%' style='text-align: center;'>Nome do cliente</th>
-			<th width='20%' style='text-align: center;'>Telefone do cliente</th>
+			<th width='30%' style='text-align: center;'>Telefone do cliente</th>
 			<th width='15%' style='text-align: center;'>Valor total</th>
 			<th width='15%' style='text-align: center;'>Status</th>
-			<th width='15%' style='text-align: center;'>Lista de itens</th>
         </tr>
 	<tbody>";
 	foreach ($pedidos as &$pedido) {
@@ -63,7 +62,6 @@ if(in_array('pedido', $permissao)){
 				<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
-				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='itemLista.php?cod=".$pedido->getCod_pedido()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Itens</button></a></td>
 			</tr>";
 	}
 }
