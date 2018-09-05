@@ -78,6 +78,9 @@ session_start();
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<meta name = "google-signin-client_id" content="1044402294470-aoav6sv71tfvv9kemu3qfvt1u5mhenol.apps.googleusercontent.com">
 </head>
 
 <body>
@@ -244,6 +247,10 @@ session_start();
 			<form action="cadastroCliente.php">
 				<button class="botao-esquerda" type="submit">CADASTRAR</button>
 			</form>
+
+			<div class="g-signin2" data-onsuccess="onSignIn"></div>
+			
+			<a href="#" onclick="signOut();">Sign out</a>
 			
 		</div>
 
@@ -446,6 +453,22 @@ session_start();
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 	<script>
+
+	function onSignIn(googleUser) {
+		var profile = googleUser.getBasicProfile();
+		console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		console.log('Name: ' + profile.getName());
+		console.log('Image URL: ' + profile.getImageUrl());
+		console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	}
+
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function () {
+		console.log('User signed out.');
+		});
+	}
+
 
 		$(document).ready(function(){
 
