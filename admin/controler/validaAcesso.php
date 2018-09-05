@@ -14,7 +14,6 @@
 
     include_once "seguranca.php";
     $retorno=validaUsuario($usuario,$password);
-    echo $retorno;
     if ($retorno==1) {
         // $aux=insertLog($_SG['link'],1,2);
         // if($aux==1){
@@ -25,9 +24,11 @@
        
         header("Location: ../sistema.php");
     } else {
-        if ($retorno>-2) {
+        if ($retorno==-1) {
             msgRedireciona('Erro ao acessar!','Senha incorreta!',2,'../view/login.html');
-        }else{
+        }elseif($retorno==-2){
+            msgRedireciona('Erro ao acessar!','Usuário bloqueado!',2,'../view/login.html');
+        }elseif ($retorno==-3) {
             msgRedireciona('Erro ao acessar!','Login ou senha incorretos!',2,'../view/login.html');
         }
     }
