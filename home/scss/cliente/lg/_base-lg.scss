@@ -114,11 +114,10 @@ body{
                     }
                 }
                 
-            } 
-            > .login_google{
-                > .botao_google{
-                     @include make-lg-column(12); 
-                }
+            }
+            > .botao_google{
+                    @include make-lg-column(12); 
+                    margin-top: 15px;
             }
         }
         > .imagem {

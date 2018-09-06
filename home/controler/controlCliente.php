@@ -34,6 +34,32 @@
                 }
             }
 
+            function insertGoogle($cliente){
+                try{
+                    $nome = $cliente->getNome();
+                    $login = $cliente->getLogin();
+                    $idGoogle = $cliente->getIdGoogle();
+                    $status = $cliente->getStatus();
+
+                    $stmt = $this->pdo->prepare("INSERT INTO cliente(nome, login, status, id_google) VALUES (:nome, :login, :status, :idGoogle)");
+                    $stmt->bindValue(":nome", $nome);
+                    $stmt->bindValue(":login", $login);
+                    $stmt->bindValue(":status", $status);
+                    $stmt->bindValue(":idGoogle", $idGoogle);
+
+                    $executa = $stmt->execute();
+
+                    if($executa){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
             function update($cliente){
                 try{
                     $cod_cliente=$cliente->getCod_cliente();
@@ -106,6 +132,10 @@
                         $cod_cliente=$parametro;
                         $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE cod_cliente=:parametro");
                         $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+                    }elseif ($modo == 3) {
+                        $login = $parametro;
+                        $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE login = :login");
+                        $stmt->bindParam(":login", $login, PDO::PARAM_STR);
                     }
                     $executa=$stmt->execute();
                     if ($executa){

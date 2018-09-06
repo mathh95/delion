@@ -16,6 +16,8 @@
 
             private $status;
 
+            private $idGoogle;
+
             function getCod_cliente(){
                 return $this->cod_cliente;
             }
@@ -63,6 +65,15 @@
             function setStatus($status){
                 $this->status= $status;
             }
+
+            function setIdGoogle($idGoogle){
+                $this->idGoogle = $idGoogle;
+            }
+
+            function getIdGoogle(){
+                return $this->idGoogle;
+            }
+
 
             function construct($nome,$login,$senha,$telefone,$status){
                 $this->nome=$nome;

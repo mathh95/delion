@@ -397,16 +397,27 @@ session_start();
 
 	function onSignIn(googleUser) {
 		var profile = googleUser.getBasicProfile();
-		console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-		console.log('Name: ' + profile.getName());
-		console.log('Image URL: ' + profile.getImageUrl());
-		console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+		var idCliente =  profile.getId(); // Do not send to your backend! Use an ID token instead.
+		var nomeCliente = profile.getName();
+		var emailCliente = profile.getEmail();
+
+		$.ajax({
+			type: 'POST',
+
+			url: 'controler/businesCliente.php',
+
+			data: {idGoogle: idCliente, nomeCliente: nomeCliente, emailCliente: emailCliente},
+
+			success:function(resultado){
+				alert(resultado);
+			}
+		});
 	}
 
 	function signOut() {
 		var auth2 = gapi.auth2.getAuthInstance();
 		auth2.signOut().then(function () {
-		console.log('User signed out.');
+		alert('User signed out.');
 		});
 	}
 
