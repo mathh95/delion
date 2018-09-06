@@ -217,7 +217,7 @@ session_start();
 
 	</div>
 
-	<div class="container cliente">
+	<div class="container-fluid cliente row">
 
 		<div class="solicitacao">
 
@@ -241,102 +241,43 @@ session_start();
 
     			</div>
 
-    			<button type="submit">ENTRAR</button>
+				<button type="submit">ENTRAR</button>
+				
+				
+				<a href="cadastroCliente.php"><button class="botao-cadastro" type="button">CADASTRAR</button></a>
+						
 
 			</form>
-			<form action="cadastroCliente.php">
-				<button class="botao-esquerda" type="submit">CADASTRAR</button>
-			</form>
 
-			<div class="g-signin2" data-onsuccess="onSignIn"></div>
+			<div class="container botao_google row">
+				<div class="g-signin2" data-onsuccess="onSignIn"></div>
+						
+				<a href="#" onclick="signOut();">Sign out</a>
+			</div>
+
 			
-			<a href="#" onclick="signOut();">Sign out</a>
-			
-		</div>
+		</div>		
 
 		<div class="imagem">
 
-		<?php
+			<?php
 
-		$i = 0; 
+				echo "<div><img src='../admin/".$imagens[9]->getFoto()."'></div>";
 
-		foreach ($imagens as $imagem) {
-
-			$pagina = json_decode($imagem->getPagina());
-
-			if (in_array('contato', $pagina) && ($i < 2)) {
-
-				echo "<div><img src='../admin/".$imagem->getFoto()."'></div>";
-
-				$i++;
-
-			}
-
-		}
-
-		?>
-
+			?>
 		</div>
 
 	</div>
 
-	<div class="container imagens">
-
-	<?php
-
-	$j = 0;
-
-	foreach ($miniBanners as $miniBanner) {
-
-		$pagina = json_decode($miniBanner->getPagina());
-
-		if (in_array('contato', $pagina) && ($j < 3) ) {
-
-		echo"
-
-		<div>
-
-			<div class='imagem'>
-
-				<img src='../admin/".$miniBanner->getFoto()."'>
-
-			</div>
-
-		</div>
-
-		";
-
-		$j++;
-
-		}
-
-	}
-
-	?>
-
 	</div>
 
-	<div class="container banner hidden-xs visible-sm-* visible-md-* visible-lg-* visible-xl-*">
+	<!-- <div class="login_google container-fluid row">
 
-	<?php 
+		<h1>Você pode logar pelo Google se preferir!</h1>
 
-		foreach ($banners as $banner) {
+		
 
-			$pagina = json_decode($miniBanner->getPagina());
-
-			if (in_array('contato', $pagina)) {
-
-				echo "<img src='../admin/".$banner->getFoto()."'>";
-
-				break;
-
-			}
-
-		}
-
-	?>
-
-	</div>
+	</div> -->
 
 	<footer class="container-fluid">
 
