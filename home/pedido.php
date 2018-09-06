@@ -4,7 +4,11 @@ session_start();
 
 	include_once "controler/controlEmpresa.php";
 
-    include_once "controler/controlCarrinho.php";
+	include_once "controler/controlCarrinho.php";
+	
+	include_once "controler/segurancaCliente.php";
+
+	protegeCliente();
 
     $controleCarrinho=new controlerCarrinho(conecta());
 

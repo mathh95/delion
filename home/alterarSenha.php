@@ -11,7 +11,11 @@ session_start();
     
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
 
-    include_once MODELPATH."/cliente.php";
+	include_once MODELPATH."/cliente.php";
+	
+	include_once "controler/segurancaCliente.php";
+
+	protegeCliente();
 
 	$controleEmpresa=new controlerEmpresa(conecta());
 

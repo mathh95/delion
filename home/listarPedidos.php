@@ -4,7 +4,11 @@ session_start();
 
 	include_once "controler/controlEmpresa.php";
 
-    include_once "controler/controlCarrinho.php";
+	include_once "controler/controlCarrinho.php";
+	
+	include_once "controler/segurancaCliente.php";
+
+	protegeCliente();
 
     $controleCarrinho=new controlerCarrinho(conecta());
 
@@ -241,7 +245,7 @@ session_start();
                                 <td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
                                 <td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
 								<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
-								<td style='text-align: center;' name='editar'><a href='pedido.php?cod=".$pedido->getCod_pedido()."'><button class='btn btn-kionux'>Itens</button></a></td>
+								<td style='text-align: center;' name='editar'><a href='pedido.php?cod=".$pedido->getCod_pedido()."'><button class='btn btn-default'>Itens</button></a></td>
                             </tr>";  
                     }                  
                 ?>
