@@ -178,11 +178,11 @@ session_start();
 
 								<li><a href="localizacao.php">Localização</a></li>
 
-								<?php if(isset($_SESSION['cod_cliente'])){
-									echo "<li class=" . 'active' . "><a href=" .'cliente.php' .">Cliente</a></li>";
-								}else{
-									echo "<li><a href=" . 'login.php' . ">Login </a></li>";
-								} ?>
+								<?php if(isset($_SESSION['cod_cliente']) && !isset($_SESSION['telefone'])){
+									echo "<li><a href='logout.php' onclick='signOut()'>Logout</a></li>";
+								}else if(isset($_SESSION['cod_cliente'])){
+									echo "<li><a href='logout.php'>Logout</a></li>";
+								}?>
 								
 								<li class="active"><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> <span style="background-color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 

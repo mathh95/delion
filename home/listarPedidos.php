@@ -195,9 +195,9 @@ session_start();
 											<?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 
 								<?php if(isset($_SESSION['cod_cliente']) && !isset($_SESSION['telefone'])){
-									echo "<li><a href=" .'logout.php' ."><button onclick='signOut()'>Logout</button></a></li>";
+									echo "<li><a href='logout.php' onclick='signOut()'>Logout</a></li>";
 								}else if(isset($_SESSION['cod_cliente'])){
-									echo "<li><a href=" .'logout.php' ."><button>Logout</button></a></li>";
+									echo "<li><a href='logout.php'>Logout</a></li>";
 								}?>
 
 
