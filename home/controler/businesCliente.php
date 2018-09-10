@@ -40,6 +40,25 @@
                 }
             }
 
+        }elseif (isset($_POST['id']) && !empty($_POST['id'])) {
+            $idFacebook=$_POST['id'];
+            $control = new controlCliente ($_SG['link']);
+            $result=$control->select($idFacebook,4);
+            if ($result->getCod_cliente()){
+                echo 'achou capichaba';
+            }else{
+                $cliente = new cliente;
+                $cliente->setNome($_POST['nome']);
+                $cliente->setLogin($_POST['email']);
+                $cliente->setStatus(1);
+                $cliente->setIdFacebook($idFacebook);
+                $result = $control->insertFacebook($cliente);
+                if ($result > 0){
+                    echo "sucesso";
+                }else{
+                    echo "erro";
+                }
+            }
         }else{
         
             $nome= addslashes(htmlspecialchars($_POST['nome']));

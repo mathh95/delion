@@ -18,6 +18,8 @@
 
             private $idGoogle;
 
+            private $idFacebook;
+
             function getCod_cliente(){
                 return $this->cod_cliente;
             }
@@ -40,6 +42,10 @@
             
             function getStatus(){
                 return $this->status;
+            }
+            
+            function getIdFacebook(){
+                return $this->idFacebook;
             }
 
             function setCod_cliente($cod_cliente){
@@ -72,6 +78,10 @@
 
             function getIdGoogle(){
                 return $this->idGoogle;
+            }
+
+            function setIdFacebook($idFacebook){
+                $this->idFacebook=$idFacebook;
             }
 
 

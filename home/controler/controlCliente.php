@@ -60,6 +60,32 @@
                 }
             }
 
+            function insertFacebook($cliente){
+                try{
+                    $nome = $cliente->getNome();
+                    $login = $cliente->getLogin();
+                    $idFacebook = $cliente->getIdFacebook();
+                    $status = $cliente->getStatus();
+
+                    $stmt = $this->pdo->prepare("INSERT INTO cliente (nome, login, status, id_facebook) VALUES (:nome, :login, :status, :idFacebook");
+                    $stmt->bindParam("nome", $nome, PDO::PARAM_STR);
+                    $stmt->bindParam("login", $login, PDO::PARAM_STR);
+                    $stmt->bindParam("status", $status, PDO::PARAM_INT);
+                    $stmt->bindParam("idFacebook", $idFacebook, PDO::PARAM_STR);
+
+                    $executa = $stmt->execute();
+
+                    if ($executa){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
             function update($cliente){
                 try{
                     $cod_cliente=$cliente->getCod_cliente();
@@ -136,6 +162,10 @@
                         $login = $parametro;
                         $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE login = :login");
                         $stmt->bindParam(":login", $login, PDO::PARAM_STR);
+                    }elseif ($modo == 4) {
+                        $idFacebook= $parametro;
+                        $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE id_facebook=:parametro");
+                        $stmt->bindParam(":parametro", $parametro, PDO::PARAM_INT);
                     }
                     $executa=$stmt->execute();
                     if ($executa){
