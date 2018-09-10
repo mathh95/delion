@@ -47,6 +47,8 @@ session_start();
 
 <head>
 
+	<script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
+
 	<meta charset="UTF-8">
 
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -184,9 +186,9 @@ session_start();
 								<li class="active"><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> <span style="background-color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 								
 								<?php if(isset($_SESSION['cod_cliente']) && !isset($_SESSION['telefone'])){
-									echo "<li><a href='logout.php' onclick='signOut()'>Logout</a></li>";
+									echo "<li><a href='#' onclick='signOut()'>Logout</a></li>";
 								}else if(isset($_SESSION['cod_cliente'])){
-									echo "<li><a href='logout.php'>Logout</a></li>";
+									echo "<li><a href='#' onclick='deslogar()'>Logout</a></li>";
 								}?>
 								
 					   		</ul>
@@ -427,13 +429,18 @@ session_start();
 		gapi.load('auth2', function() {
 			gapi.auth2.init();
 		});
-		}
+	}
 
-		function signOut() {
+	function signOut() {
 			var auth2 = gapi.auth2.getAuthInstance();
 			auth2.signOut().then(function () {
-			alert('User signed out.');
+				swal("Deslogado!", "Obrigado pela visita!!", "error").then((value) => {window.location="/home/logout.php"});
 			});
+		}
+
+
+		function deslogar(){
+			swal("Deslogado!", "Obrigado pela visita!!", "error").then((value) => {window.location="/home/logout.php"});
 		}
 
 	$(document).ready(function(){
