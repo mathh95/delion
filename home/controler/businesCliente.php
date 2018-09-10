@@ -22,7 +22,7 @@
                 $_SESSION['nome']=$cliente->getNome();
                 $_SESSION['login']=$cliente->getLogin();
 
-                echo "Bem-vindo ".$_SESSION['cod_cliente'];
+                echo $_SESSION['nome'];
                 
             }else{
 

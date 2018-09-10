@@ -47,6 +47,14 @@ session_start();
 
 <head>
 
+	<script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
+            
+	<style>
+	.swal-overlay {
+		background-color: black;
+		}
+	</style>
+
 	<meta charset="UTF-8">
 
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -251,8 +259,6 @@ session_start();
 
 			<div class="container botao_google row">
 				<div class="g-signin2" data-onsuccess="onSignIn"></div>
-						
-				<a href="#" onclick="signOut();">Sign out</a>
 			</div>
 
 			
@@ -409,17 +415,18 @@ session_start();
 			data: {idGoogle: idCliente, nomeCliente: nomeCliente, emailCliente: emailCliente},
 
 			success:function(resultado){
-				alert(resultado);
+				swal("Login efetuado com sucesso!", resultado, "success").then((value) => {window.location="/home"});
 			}
 		});
 	}
 
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function () {
-		alert('User signed out.');
-		});
-	}
+	// function signOut() {
+	// 	// gapi.auth2.init();
+	// 	var auth2 = gapi.auth2.getAuthInstance();
+	// 	auth2.signOut().then(function () {
+	// 		alert('User signed out.');
+	// 	});
+	// }
 
 
 		$(document).ready(function(){

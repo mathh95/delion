@@ -78,6 +78,9 @@ session_start();
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<meta name = "google-signin-client_id" content="1044402294470-aoav6sv71tfvv9kemu3qfvt1u5mhenol.apps.googleusercontent.com">
 </head>
 
 <body>
@@ -188,8 +191,10 @@ session_start();
 								
 								<li class="active"><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> <span style="background-color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 								
-								<?php if(isset($_SESSION['cod_cliente'])){
-									echo "<li><a href=" .'logout.php' .">Logout</a></li>";
+								<?php if(isset($_SESSION['cod_cliente']) && !isset($_SESSION['telefone'])){
+									echo "<li><a href=" .'logout.php' ."><button onclick='signOut()'>Logout</button></a></li>";
+								}else if(isset($_SESSION['cod_cliente'])){
+									echo "<li><a href=" .'logout.php' ."><button>Logout</button></a></li>";
 								}?>
 								
 					   		</ul>
@@ -454,7 +459,22 @@ session_start();
 
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
+	<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
 	<script>
+
+		function onLoad() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+		});
+		}
+
+		function signOut() {
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function () {
+			alert('User signed out.');
+			});
+		}
 
 		$(document).ready(function(){
 
