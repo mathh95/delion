@@ -403,7 +403,7 @@ session_start();
 
 	function onSignIn(googleUser) {
 		var profile = googleUser.getBasicProfile();
-		var idCliente =  profile.getId(); // Do not send to your backend! Use an ID token instead.
+		var idCliente =  profile.getId(); 
 		var nomeCliente = profile.getName();
 		var emailCliente = profile.getEmail();
 
