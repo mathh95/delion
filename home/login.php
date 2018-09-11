@@ -2,7 +2,7 @@
 session_start();
 
 	if(isset($_SESSION['cod_cliente'])){
-		header("Location: /home")
+		header("Location: /home");
 	}
 
 	include_once "../admin/controler/conexao.php";
