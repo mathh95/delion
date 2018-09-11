@@ -235,30 +235,36 @@ session_start();
 
 
 	<div class="container itens">
-        <table class="tabela_itens table table-hover table-responsive table-condensed">
-            <thead>
-                <h1 class="text-center">Lista de Pedidos</h1>
-                <tr id="cabecalhoTabela">
-                    <th width='35%' style='text-align: center;'>Data</th>
-                    <th width='15%' style='text-align: center;'>Valor</th>
-					<th width='15%' style='text-align: center;'>Status</th>
-					<th width='35%' style='text-align: center;'>Itens do pedido</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    $pedidos=$controleCarrinho->selectPedido($_SESSION['cod_cliente']);
-                    foreach ($pedidos as &$pedido) {
-                            echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
-                                <td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
-                                <td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
-								<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
-								<td style='text-align: center;' name='editar'><a href='pedido.php?cod=".$pedido->getCod_pedido()."'><button class='btn btn-default'>Itens</button></a></td>
-                            </tr>";  
-                    }                  
-                ?>
-            </tbody>
-        </table>
+		<?php 
+			$pedidos=$controleCarrinho->selectPedido($_SESSION['cod_cliente']);
+			if ($pedidos == -1) {
+				echo "<h1 class\"page-header\" style=\"text-align:center;\">Não possui pedidos realizados</h1>";
+			}else {
+				echo 
+					"<table class=\"tabela_itens table table-hover table-responsive table-condensed\">
+						<thead>
+							<h1 class=\"text-center\">Lista de Pedidos</h1>
+							<tr id=\"cabecalhoTabela\">
+								<th width='35%' style='text-align: center;'>Data</th>
+								<th width='15%' style='text-align: center;'>Valor</th>
+								<th width='15%' style='text-align: center;'>Status</th>
+								<th width='35%' style='text-align: center;'>Itens do pedido</th>
+							</tr>
+						</thead>
+						<tbody>";
+								foreach ($pedidos as &$pedido) {
+										echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
+											<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
+											<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+											<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
+											<td style='text-align: center;' name='editar'><a href='pedido.php?cod=".$pedido->getCod_pedido()."'><button class='btn btn-default'>Itens</button></a></td>
+										</tr>";  
+								}                  
+								echo "
+						</tbody>
+					</table>";
+			}
+		?>
 	</div>
 
 	<footer class="container-fluid">

@@ -66,7 +66,6 @@ class controlerCarrinho{
                     array_push($pedidos,$pedido);  
                 }
             }else{
-                echo "Sem resultados";
                 return -1;
             }
             return $pedidos;
