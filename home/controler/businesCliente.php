@@ -56,7 +56,7 @@
                     if ($result == 2){
                         echo "sucesso";
                     }else{
-                        alertJSVoltarPagina("Erro!","Erro, não foi possível logar.", 2);
+                        echo -1;
                     }
                 }else{
                     $result=$control->updateFacebook($cod_cliente, $idFacebook);
@@ -65,10 +65,10 @@
                         if ($result == 2){
                             echo "sucesso";
                         }else{
-                            alertJSVoltarPagina("Erro!","Erro, não foi possível logar.", 2);
+                            echo -1;
                         }
                     }else{
-                        alertJSVoltarPagina("Erro!","Erro, não foi possível logar.", 2);
+                        echo -1;
                     }
                 }
             }else{
@@ -83,10 +83,10 @@
                     if ($result == 2){
                         echo "sucesso";
                     }else{
-                        alertJSVoltarPagina("Erro!","Erro, não foi possível logar.", 2);
+                        echo -1;
                     }
                 }else{
-                    alertJSVoltarPagina("Erro!","Erro, não foi possível cadastrar.", 2);
+                    echo -1;
                 }
             }
         }else{
@@ -108,6 +108,6 @@
             }
         }
     }else{
-        header("Location:../");
+        echo -1;
     }   
 ?>
