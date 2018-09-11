@@ -1,6 +1,10 @@
 <?php 
 session_start();
 
+	if(isset($_SESSION['cod_cliente'])){
+		header("Location: /home")
+	}
+
 	include_once "../admin/controler/conexao.php";
 
 	include_once "controler/controlEmpresa.php";
@@ -49,11 +53,11 @@ session_start();
 
 	<script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
             
-	<style>
+	<!-- <style>
 	.swal-overlay {
 		background-color: black;
-		}
-	</style>
+	}
+	</style> -->
 
 	<meta charset="UTF-8">
 
@@ -416,7 +420,7 @@ session_start();
 			data: {idGoogle: idCliente, nomeCliente: nomeCliente, emailCliente: emailCliente},
 
 			success:function(resultado){
-				swal("Login efetuado com sucesso!", resultado, "success").then((value) => {window.location="/home"});
+				swal("Login efetuado com sucesso!", "Bem vindo!", "success").then((value) => {window.location="/home"});
 			}
 		});
 	}
