@@ -265,7 +265,7 @@ session_start();
 
 				<div class="g-signin2 login_google" data-onsuccess="onSignIn"></div>
 
-				<div class="fb-login-button login_facebook" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
+				<div class="fb-login-button login_facebook" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" data-onlogin="loginFb()"></div>
 
 			</div>
 
