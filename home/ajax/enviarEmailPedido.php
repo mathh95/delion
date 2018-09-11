@@ -17,11 +17,11 @@ use PHPMailer\PHPMailer\PHPMailer;
     
 $html = "<head>
             <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
-            <style>
-            .swal-overlay {
-                background-color: black;
-              }
-            </style>
+            // <style>
+            // .swal-overlay {
+            //     background-color: black;
+            //   }
+            // </style>
          </head>
          <body>";
   
@@ -32,80 +32,80 @@ $mail = new PHPMailer();
 
 if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
     $itens = $_SESSION['carrinho'];
-}
-if($itens > 0){
-    $itens = $cardapio->buscarVariosId($itens);
-}
 
-if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
-
-    try{
-        //Server Settings
-        $mail->CharSet = 'UTF-8';
-        $mail->SMTPDebug = 0;
-        $mail->isSMTP();
-        $mail->Host = '192.168.1.20';
-        $mail->SMTPAuth = false;
-        $mail->Username = 'vitor';
-        $mail->Password = 'vitor';
-        // $mail->SMTPSecure = 'tls';
-        $mail->Port = 1025;
-
-        //Recipients
-        $mail->setFrom('vitormatheussb@gmail.com', 'Vitor');
-        $mail->addAddress('vitormatheussb@gmail.com', 'Vitor');
-        $mail->addReplyTo('vitormatheussb@gmail.com');
-
-        //Content
-        $mail->isHTML(true);
-        $mail->Subject = 'Pedido Delion Café!';
-        $mail->Body = "<h1>Lista de produtos</h1>
-                            <table width='100%' border='1px'>
-                                <thead>
-                                    <tr>
-                                        <th width='15%' height='20%'>Item</th>
-                                        <th width='15%'>Data</th>
-                                        <th width='15%'>Cliente</th>
-                                        <th width='15%'>Produto</th>
-                                        <th width='15%'>Quantidade</th>
-                                        <th width='15%'>Unidade</th>
-                                        <th width='15%'>Subtotal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>";
-        foreach($_SESSION['carrinho'] as $key => $value){
-            $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['preco'];
-            $mail->Body.= "<tr>
-                                <td height='15%'>".$_SESSION['carrinho'][$key]."</td>
-                                <td height='15%'>".date("r")."</td>
-                                <td height='15%'>".$_SESSION['nome']."</td>
-                                <td height='15%'>".$itens[$key]['nome']."</td>
-                                <td height='15%'>".$_SESSION['qtd'][$key]."</td> 
-                                <td height='15%'>R$ ".number_format($itens[$key]['preco'], 2)."</td>
-                                <td height='15%'>R$ ".number_format($subtotal, 2)."</td>
-                           </tr>";
-        }
-        $mail->Body.="</tbody>
-                       </table>
-                       <p>Valor total do pedido: ".number_format($_SESSION['totalCarrinho'], 2)."</p>";
-        $mail->AltBody = 'Nem sei oque é isso kkkkkk';
-
-        $mail->send();
-    }catch(Exception $e){
-        echo $mail->ErrorInfo;
+    if($itens > 0){
+        $itens = $cardapio->buscarVariosId($itens);
     }
-
-    $pedido->setPedido();
-
-    $html.= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home'});</script></body>";
-    echo $html;
-}else{
-    $html.= "<script>swal('É preciso estar logado para efetuar um pedido!', 'Estamos te mandando para tela de login...', 'error').then((value) => {window.location='/home/login.php'});</script></body>";
+    
+    if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
+    
+        try{
+            //Server Settings
+            $mail->CharSet = 'UTF-8';
+            $mail->SMTPDebug = 0;
+            $mail->isSMTP();
+            $mail->Host = '192.168.1.20';
+            $mail->SMTPAuth = false;
+            $mail->Username = 'vitor';
+            $mail->Password = 'vitor';
+            // $mail->SMTPSecure = 'tls';
+            $mail->Port = 1025;
+    
+            //Recipients
+            $mail->setFrom('vitormatheussb@gmail.com', 'Vitor');
+            $mail->addAddress('vitormatheussb@gmail.com', 'Vitor');
+            $mail->addReplyTo('vitormatheussb@gmail.com');
+    
+            //Content
+            $mail->isHTML(true);
+            $mail->Subject = 'Pedido Delion Café!';
+            $mail->Body = "<h1>Lista de produtos</h1>
+                                <table width='100%' border='1px'>
+                                    <thead>
+                                        <tr>
+                                            <th width='15%' height='20%'>Item</th>
+                                            <th width='15%'>Data</th>
+                                            <th width='15%'>Cliente</th>
+                                            <th width='15%'>Produto</th>
+                                            <th width='15%'>Quantidade</th>
+                                            <th width='15%'>Unidade</th>
+                                            <th width='15%'>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
+            foreach($_SESSION['carrinho'] as $key => $value){
+                $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['preco'];
+                $mail->Body.= "<tr>
+                                    <td height='15%'>".$_SESSION['carrinho'][$key]."</td>
+                                    <td height='15%'>".date("r")."</td>
+                                    <td height='15%'>".$_SESSION['nome']."</td>
+                                    <td height='15%'>".$itens[$key]['nome']."</td>
+                                    <td height='15%'>".$_SESSION['qtd'][$key]."</td> 
+                                    <td height='15%'>R$ ".number_format($itens[$key]['preco'], 2)."</td>
+                                    <td height='15%'>R$ ".number_format($subtotal, 2)."</td>
+                               </tr>";
+            }
+            $mail->Body.="</tbody>
+                           </table>
+                           <p>Valor total do pedido: ".number_format($_SESSION['totalCarrinho'], 2)."</p>";
+            $mail->AltBody = 'Nem sei oque é isso kkkkkk';
+    
+            $mail->send();
+        }catch(Exception $e){
+            echo $mail->ErrorInfo;
+        }
+    
+        $pedido->setPedido();
+    
+        $html.= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home'});</script></body>";
+        echo $html;
+    }else{
+        $html.= "<script>swal('É preciso estar logado para efetuar um pedido!', 'Estamos te mandando para tela de login...', 'error').then((value) => {window.location='/home/login.php'});</script></body>";
+        echo $html;
+    }
+}else {
+    $html.= "<script>swal('Acesso negado!!', 'É preciso ter itens no carrinho!', 'error').then((value) => {window.location='/home/cardapio.php'});</script></body>";
     echo $html;
 }
-    
-    
-
-
 
 ?>
