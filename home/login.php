@@ -265,6 +265,7 @@ session_start();
 				<div class="g-signin2" data-onsuccess="onSignIn"></div>
 			</div>
 
+			<div class="fb-login-button" data-onlogin="loginFb()"></div>
 			
 		</div>		
 
@@ -432,6 +433,43 @@ session_start();
 	// 	});
 	// }
 
+		window.fbAsyncInit = function() {
+		FB.init({
+		appId      : '859682904420135',
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v3.1'
+		});
+		
+		FB.AppEvents.logPageView();   
+		
+	};
+
+	(function(d, s, id){
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.id = id;
+		js.src = "https://connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+
+
+	function loginFb() {
+        FB.api('/me',{fields: 'name, email'}, function(response) {
+			var id =  response.id; 
+			var nome = response.name;
+			var email = response.email;
+			$.ajax({
+				type: 'POST',
+				url: 'controler/businesCliente.php',
+				data: {id: id, nome: nome, email: email},
+				success:function(resultado){
+					alert(resultado);
+				}
+			});
+		});
+        
+    }
 
 		$(document).ready(function(){
 
