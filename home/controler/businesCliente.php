@@ -43,22 +43,25 @@
 
         }elseif (isset($_POST['id']) && !empty($_POST['id'])) {
             $control = new controlCliente ($_SG['link']);
-            $result=$control->select($_POST['email'],3);
+            $nome=addslashes(htmlspecialchars($_POST['nome']));
+            $login=addslashes(htmlspecialchars($_POST['email']));
+            $idFacebook=addslashes(htmlspecialchars($_POST['id']));
+            $result=$control->select($login,3);
             if ($result->getCod_cliente()){
                 $cod_cliente=$result->getCod_cliente();
                 $nome=$result->getNome();
                 $login=$result->getLogin();
-                if ($result->getIdFacebook() and $result->getIdFacebook() == $_POST['id']){
-                    $result=$control->validaRedeSocial($login,$_POST['id'],0);
+                if ($result->getIdFacebook() and $result->getIdFacebook() == $idFacebook){
+                    $result=$control->validaRedeSocial($login,$idFacebook,0);
                     if ($result == 2){
                         echo "sucesso";
                     }else{
                         alertJSVoltarPagina("Erro!","Erro, não foi possível logar.", 2);
                     }
                 }else{
-                    $result=$control->updateFacebook($cod_cliente, $_POST['id']);
+                    $result=$control->updateFacebook($cod_cliente, $idFacebook);
                     if ($result > 0){
-                        $result=$control->validaRedeSocial($login,$_POST['id'],0);
+                        $result=$control->validaRedeSocial($login, $idFacebook,0);
                         if ($result == 2){
                             echo "sucesso";
                         }else{
@@ -70,13 +73,13 @@
                 }
             }else{
                 $cliente = new cliente;
-                $cliente->setNome($_POST['nome']);
-                $cliente->setLogin($_POST['email']);
+                $cliente->setNome($nome);
+                $cliente->setLogin($login);
                 $cliente->setStatus(1);
-                $cliente->setIdFacebook($_POST['id']);
+                $cliente->setIdFacebook($idFacebook);
                 $result = $control->insertFacebook($cliente);
                 if ($result > 0){
-                    $result=$control->validaRedeSocial($_POST['email'],$_POST['id'], 0);
+                    $result=$control->validaRedeSocial($login,$idFacebook, 0);
                     if ($result == 2){
                         echo "sucesso";
                     }else{

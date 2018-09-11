@@ -468,7 +468,7 @@ session_start();
 				url: 'controler/businesCliente.php',
 				data: {id: id, nome: nome, email: email},
 				success:function(resultado){
-					alert(resultado);
+				swal("Login efetuado com sucesso!", "Bem vindo!", "success").then((value) => {window.location="/home"});
 				}
 			});
 		});
