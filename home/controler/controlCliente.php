@@ -67,7 +67,7 @@
                     $idFacebook = $cliente->getIdFacebook();
                     $status = $cliente->getStatus();
 
-                    $stmt = $this->pdo->prepare("INSERT INTO cliente (nome, login, status, id_facebook) VALUES (:nome, :login, :status, :idFacebook");
+                    $stmt = $this->pdo->prepare("INSERT INTO cliente (nome, login, status, id_facebook) VALUES (:nome, :login, :status, :idFacebook)");
                     $stmt->bindParam("nome", $nome, PDO::PARAM_STR);
                     $stmt->bindParam("login", $login, PDO::PARAM_STR);
                     $stmt->bindParam("status", $status, PDO::PARAM_INT);
@@ -114,6 +114,22 @@
                 }
             }
 
+            function updateFacebook($cod_cliente,$idFacebook){
+                try{
+                    $stmt=$this->pdo->prepare("UPDATE cliente SET id_facebook=:idFacebook WHERE cod_cliente=:cod_cliente");
+                    $stmt->bindParam(":idFacebook", $idFacebook, PDO::PARAM_STR);
+                    $stmt->bindParam(":cod_cliente", $cod_cliente, PDO::PARAM_INT);
+                    $executa=$stmt->execute();
+                    if ($executa){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
             function selectAll(){
                 try{
                     $clientes = array();
@@ -176,6 +192,7 @@
                                 $cliente->setNome($result->nome);
                                 $cliente->setTelefone($result->telefone);
                                 $cliente->setStatus($result->status);
+                                $cliente->setIdFacebook($result->id_facebook);
                             }
                         }
                         return $cliente;
@@ -219,6 +236,49 @@
                                 return 2;
                             }else{
                                 return 1;
+                            }
+                        }
+                        return 0;
+                    }
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            //valida cliente pelas redes sociais
+            //MODO 0 = FACEBOOK
+            //MODO 1 = GOOGLE
+            function validaRedeSocial($login,$parametro,$modo){
+                try{
+                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE login=:login");
+                    $stmt->bindParam(":login", $login, PDO::PARAM_STR);
+                    $executa=$stmt->execute();
+                    if ($executa){
+                        if($stmt->rowCount()>0){
+                            $result=$stmt->fetch(PDO::FETCH_OBJ);
+                            if($modo == 0){
+                                $idFacebook=$result->id_facebook;
+                                if ($parametro == $idFacebook){
+                                    $_SESSION['cod_cliente']=$result->cod_cliente;
+                                    $_SESSION['nome']=$result->nome;
+                                    $_SESSION['login']=$result->login;
+                                    $_SESSION['telefone']=$result->telefone;
+                                    return 2;
+                                }else{
+                                    return 1;
+                                }
+                            }elseif ($modo == 1) {
+                                $idGoogle=$result->id_google;
+                                if ($parametro == $idGoogle){
+                                    $_SESSION['cod_cliente']=$result->cod_cliente;
+                                    $_SESSION['nome']=$result->nome;
+                                    $_SESSION['login']=$result->login;
+                                    $_SESSION['telefone']=$result->telefone;
+                                    return 2;
+                                }else{
+                                    return 1;
+                                }
                             }
                         }
                         return 0;

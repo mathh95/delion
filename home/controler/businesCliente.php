@@ -3,6 +3,7 @@
     include_once MODELPATH."/cliente.php";
     include_once "controlCliente.php";
     include_once CONTROLLERPATH."/seguranca.php";
+    include_once "../lib/alert.php";
 
         if(isset($_POST['idGoogle']) && !empty($_POST['idGoogle'])){
 
@@ -41,22 +42,48 @@
             }
 
         }elseif (isset($_POST['id']) && !empty($_POST['id'])) {
-            $idFacebook=$_POST['id'];
             $control = new controlCliente ($_SG['link']);
-            $result=$control->select($idFacebook,4);
+            $result=$control->select($_POST['email'],3);
             if ($result->getCod_cliente()){
-                echo 'achou capichaba';
+                $cod_cliente=$result->getCod_cliente();
+                $nome=$result->getNome();
+                $login=$result->getLogin();
+                if ($result->getIdFacebook() and $result->getIdFacebook() == $_POST['id']){
+                    $result=$control->validaRedeSocial($login,$_POST['id'],0);
+                    if ($result == 2){
+                        echo "sucesso";
+                    }else{
+                        alertJSVoltarPagina("Erro!","Erro, não foi possível logar.", 2);
+                    }
+                }else{
+                    $result=$control->updateFacebook($cod_cliente, $_POST['id']);
+                    if ($result > 0){
+                        $result=$control->validaRedeSocial($login,$_POST['id'],0);
+                        if ($result == 2){
+                            echo "sucesso";
+                        }else{
+                            alertJSVoltarPagina("Erro!","Erro, não foi possível logar.", 2);
+                        }
+                    }else{
+                        alertJSVoltarPagina("Erro!","Erro, não foi possível logar.", 2);
+                    }
+                }
             }else{
                 $cliente = new cliente;
                 $cliente->setNome($_POST['nome']);
                 $cliente->setLogin($_POST['email']);
                 $cliente->setStatus(1);
-                $cliente->setIdFacebook($idFacebook);
+                $cliente->setIdFacebook($_POST['id']);
                 $result = $control->insertFacebook($cliente);
                 if ($result > 0){
-                    echo "sucesso";
+                    $result=$control->validaRedeSocial($_POST['email'],$_POST['id'], 0);
+                    if ($result == 2){
+                        echo "sucesso";
+                    }else{
+                        alertJSVoltarPagina("Erro!","Erro, não foi possível logar.", 2);
+                    }
                 }else{
-                    echo "erro";
+                    alertJSVoltarPagina("Erro!","Erro, não foi possível cadastrar.", 2);
                 }
             }
         }else{
