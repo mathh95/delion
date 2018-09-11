@@ -115,9 +115,15 @@ body{
                 }
                 
             }
-            > .botao_google{
-                    @include make-lg-column(12); 
-                    margin-top: 15px;
+            > .tipos_login{
+                @include make-lg-column(12); 
+                margin-top: 15px;
+                > .login_google{
+                    float: left;
+                }
+                > .login_facebook{
+                    float: right;
+                }
             }
         }
         > .imagem {
