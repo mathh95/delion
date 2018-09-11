@@ -4,7 +4,7 @@
     include_once "controlCliente.php";
     include_once CONTROLLERPATH."/seguranca.php";
     include_once "../lib/alert.php";
-
+    if (isset($_POST) and !empty($_POST)){
         if(isset($_POST['idGoogle']) && !empty($_POST['idGoogle'])){
 
             $nome= addslashes(htmlspecialchars($_POST['nomeCliente']));
@@ -107,5 +107,7 @@
                 echo "erro";
             }
         }
-        
+    }else{
+        header("Location:../");
+    }   
 ?>
