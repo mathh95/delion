@@ -233,14 +233,14 @@ session_start();
 					
 					<p>Nome:</p>
 
-        			<input name="nome" type="text" required placeholder="Nome">
+        			<input class="form-control" name="nome" type="text" required placeholder="Nome">
 
     			</div>
     			<div>
 
 					<p>Login:</p>
 
-        			<input name="login" type="text" required placeholder="Login">
+        			<input class="form-control" name="login" type="email" required placeholder="example@example.com">
 
     			</div>
 
@@ -248,7 +248,7 @@ session_start();
 
 					<p>Senha:</p>
 
-					<input name="senha" type="password" required placeholder="Senha">
+					<input class="form-control" name="senha" type="password" required placeholder="Senha">
 
 				</div>
 
@@ -256,7 +256,7 @@ session_start();
 
 					<p>Telefone:</p>
 
-					<input name="telefone" type="number" required placeholder="Telefone">
+					<input class="form-control" name="telefone" type="number" required placeholder="Telefone">
 
 				</div>
 				

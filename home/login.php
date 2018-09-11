@@ -2,7 +2,7 @@
 session_start();
 
 	if(isset($_SESSION['cod_cliente'])){
-		header("Location: /home")
+		header("Location: /home"); exit;
 	}
 
 	include_once "../admin/controler/conexao.php";
@@ -241,7 +241,7 @@ session_start();
 
 					<p>Login</p>
 
-        			<input name="login" type="text" required placeholder="Login">
+        			<input class="form-control" name="login" type="email" required placeholder="example@example.com">
 
     			</div>
 
@@ -249,7 +249,7 @@ session_start();
 
 					<p>Senha</p>
 
-        			<input name="senha" type="password" required placeholder="Senha">
+        			<input class="form-control" name="senha" type="password" required placeholder="Senha">
 
     			</div>
 
