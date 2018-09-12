@@ -113,4 +113,17 @@ body {
             }
         }
     }
+    > .whatsapp{
+        position: fixed;
+        right: 15px;
+        bottom: 20px;
+        height: 40px;
+        width: 40px;
+        z-index: 9999;
+        > a{
+            > img{
+                @include img-responsive;
+            }
+        }
+    }
 }

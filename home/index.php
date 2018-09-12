@@ -46,18 +46,16 @@
 
 <head>
 
-	<script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
-            
 	<!-- <style>
 	.swal-overlay {
 		background-color: black;
 		}
 	</style> -->
-
-	<meta charset="UTF-8">
-
+	
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
+	
+	<meta charset="UTF-8">
+	
 	<title>Delion Café - Cafeteria - Foz do Iguaçu</title>
 
 	<link rel="shortcut icon" href="img/favicon.png">
@@ -69,6 +67,12 @@
 	<link rel="stylesheet" type="text/css" href="css/vendors/slick.css"/>
 
 	<link rel="stylesheet" type="text/css" href="css/vendors/slick-theme.css"/>
+
+	<link rel="stylesheet" type="text/css" href="css/vendors/fontawesome.min.css" />
+
+	<link rel="stylesheet" type="text/css" href="css/vendors/jssocials.css" />
+
+	<link rel="stylesheet" type="text/css" href="css/vendors/jssocials-theme-minima.css" />
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/index/xs/style-xs.css"/>
 
@@ -86,6 +90,9 @@
 
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<meta name = "google-signin-client_id" content="1044402294470-aoav6sv71tfvv9kemu3qfvt1u5mhenol.apps.googleusercontent.com">
+
+	<script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
+            
 </head>
 
 <body>
@@ -509,6 +516,10 @@
 	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 
 	<script type="text/javascript" src="js/slick.min.js"></script>
+
+	<script type="text/javascript" src="js/jssocials.js"></script>
+
+	<script type="text/javascript" src="js/jssocials.shares.js"></script>
 
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 

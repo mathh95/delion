@@ -6,6 +6,8 @@ session_start();
 
 	include_once "controler/controlCategoria.php";
 
+	include_once "controler/controlImagem.php";
+
 	$controleEmpresa=new controlerEmpresa(conecta());
 
 	$controleCategoria=new controlerCategoria(conecta());
@@ -37,8 +39,6 @@ session_start();
 <html lang="pt-br">
 
 <head>
-
-	<script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
 
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
