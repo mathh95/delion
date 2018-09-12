@@ -15,22 +15,26 @@ body{
         > .menu-lateral {
             @include make-xs-column(12);
             background-color: #BE392A;
-            width: 165px !important;
-            margin-left: 15px;
-            padding-left: 13px;
+            // width: 165px !important;
+            // margin-left: 15px;
+            // padding-left: 13px;
             padding-top: 5px;
             padding-bottom: 5px;
             > a {
-                width: 100%;
-                display: block;
+                @include make-xs-column(12);
+                // display: block;
                 padding-bottom: 5px;
                 padding-top: 5px;
                 > img {
-                    // width: 27px;
+                    @include make-xs-column(3);
+                    @include img-responsive;
+                    height: 30px;
                     padding-left: 0px;
-                    display: inline;
+                    // display: inline;
                 }
                 > div {
+                    @include make-xs-column(9);
+                    text-align: center;
                     display: inline;
                     color: #ffffff;
                     padding-left: 20px;
@@ -70,24 +74,26 @@ body{
     }
     > .produtos {
         > .categoria {
+            @include make-xs-column(12);
             font-family: $font_main_bold;
             font-size: 14px;
             color: #FFFFFF;
-            width: 317px;
+            // width: 317px;
             background-color: #000000;
             border: 5px solid #BE392A;
             border-top: 0px;
             border-left: 0px;
             border-right: 0px;
-            margin-left: 15px;
-            padding-left: 15px;
+            // margin-left: 15px;
+            // padding-left: 15px;
         }
         > .produto {
+            @include make-xs-column(12);
             display: inline-block;
             padding-top: 7px;
-            margin-left: 15px;
+            // margin-left: 15px;
             padding-right: 15px;
-            width: 317px;
+            // width: 317px;
             padding-bottom: 10px;
             margin-bottom: 10px;
             padding-right: 0px;
@@ -124,8 +130,12 @@ body{
                     text-align: center;
                     padding-bottom: 8px;
                 }
-                // > .texto {
-                // }
+                > .texto {
+                    text-align: center;
+                }
+                > button{
+                    margin-left: 25%;
+                }
                 > .compartilhar {
                     float: right;
                     background: none;
@@ -135,6 +145,10 @@ body{
                         width: 20px;
                         height: 20px;
                     }
+                }
+                > button:hover{
+                    background-color: #000;
+                    color: white;
                 }
             }   
         }
