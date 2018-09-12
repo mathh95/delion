@@ -235,39 +235,18 @@ session_start();
 
 	<div class="container cliente">
 
-		<div class="solicitacao">
+		<div class="area">
 
-			
-			<form action="alterarCliente.php">
 			<p>Área do cliente</p>	
-				<div>
-
-					<button class="botao-esquerda" type="submit">ALTERAR DADOS</button>
-									
-				</div>
-
-			</form>
-
-			<form action="alterarSenha.php">
-
-				<div>
-
-					<button class="botao-esquerda" type="submit">ALTERAR SENHA</button>
-
-				</div>
-
-			</form>
-
-			<form action="listarPedidos.php">
-
-				<div>
-
-					<button class="botao-esquerda" type="submit">LISTAR PEDIDOS</button>
-
-				</div>
-
-			</form>
-
+			<div>
+				<a href="alterarCliente.php"><button class="botao-esquerda">ALTERAR DADOS</button></a>
+			</div>
+			<div>
+				<a href="alterarSenha.php"><button class="botao-esquerda" type="submit">ALTERAR SENHA</button></a>
+			</div>
+			<div>
+				<a href="listarPedidos.php"><button class="botao-esquerda" type="submit">LISTAR PEDIDOS</button></a>
+			</div>
 
 		</div>
 

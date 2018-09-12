@@ -234,6 +234,35 @@ body {
         font-size: 15px;
         text-align: center;
         float: left; }
+    body > .cliente > .area {
+      position: relative;
+      min-height: 1px;
+      padding-left: 15px;
+      padding-right: 15px;
+      height: 280px; }
+      @media (min-width: 768px) {
+        body > .cliente > .area {
+          float: left;
+          width: 50%; } }
+      body > .cliente > .area > div {
+        padding-left: 0px;
+        padding-right: 0px;
+        height: 60px;
+        margin-top: 15px;
+        margin-bottom: 15px; }
+        body > .cliente > .area > div > a > button {
+          width: 100%;
+          height: 34px;
+          border: none;
+          background-color: #be392a;
+          color: #FFFFFF;
+          font-family: "Century Gothic Bold";
+          font-size: 15px;
+          text-align: center; }
+      body > .cliente > .area > p {
+        text-align: center;
+        font-family: "Century Gothic Bold";
+        font-size: 24px; }
     body > .cliente > .imagem {
       position: relative;
       min-height: 1px;
