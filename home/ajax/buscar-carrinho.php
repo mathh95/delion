@@ -63,10 +63,11 @@ if(count($itens) > 0){
                         <td class="text-uppercase nomeProdutoTabela"><strong><?=$item['nome']?></strong></td>
                         <td class="precoProdutoTabela" id="preco<?=$i?>" data-preco="<?=$item['preco']?>"><strong>R$ <?=number_format($item['preco'], 2);?></strong></td>
                         <td class="subtotalProdutoTabela" id="subtotal<?=$i?>"><strong>R$ <?=number_format($item['preco'], 2);?></strong></td>
-                        <td>
-                            <input class="quantidadeItemTabela" id="qtdUnidade<?=$i?>" name="quantidade" type="number" value=1 readonly="true">
+                        <td class="quantidadeProdutoTabela">
+                            <input class="quantidadeItemTabela" id="qtdUnidade<?=$i?>" name="quantidade" type="text" value=1 readonly="true">
                             <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?=$i?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
-                            <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?=$i?>" class="fas fa-cart-arrow-down fa-lg btn iconeExcluirProdutoTabela"></i></td>
+                            <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?=$i?>" class="fas fa-cart-arrow-down fa-lg btn iconeExcluirProdutoTabela"></i>
+                        </td>
                     </tr>
             <?php $i++; $total += $item['preco']; endforeach;
             $_SESSION['totalCarrinho'] = $total;
@@ -75,9 +76,11 @@ if(count($itens) > 0){
         </table>
         </div>
         <div class='rodapeCarrinho row'>
-            <strong><p class='text-right' id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCarrinho'], 2)."</p></strong>
-            <a href='../home/ajax/enviarEmailPedido.php'><button id='finalizar' class='btn btn-default botaoCarrinhoEnviar'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
-            <a onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger botaoCarrinhoEsvaziar'>Esvaziar carrinho <i class='fas fa-trash-alt'></i></button></a>
+            <strong><p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCarrinho'], 2)."</p></strong>
+            <div class='row linhaBotao'>
+                <a class='botaoCarrinhoEnviar' href='../home/ajax/enviarEmailPedido.php'><button id='finalizar' class='btn'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
+                <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho <i class='fas fa-trash-alt'></i></button></a>
+            </div>
         </div>";
     
         

@@ -117,16 +117,22 @@ body{
                 font-size: 20px;
                 font-family: "Century Gothic Bold";
             }
-            .botaoCarrinhoEnviar{
-                float:right;
-                margin:10px;
-                background-color: #000;
-                border-color:#000;
-                color: #ffffff;
-            }
-            .botaoCarrinhoEsvaziar{
-                float:right;
-                margin:10px;
+            > .linhaBotao{
+                > .botaoCarrinhoEnviar{
+                    button{
+                        float:right;
+                        margin:10px;
+                        background-color: #000;
+                        border-color:#000;
+                        color: #ffffff;
+                    }  
+                }
+                > .botaoCarrinhoEsvaziar{
+                    button{
+                        float:right;
+                        margin:10px;
+                    }
+                }
             }
         } 
     }

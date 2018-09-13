@@ -349,7 +349,7 @@ session_start();
 			</div>
 
 		</div>
-		<?php var_dump($_SESSION['carrinho']); ?>
+		
 	</div>
 
 	<div class="whatsapp">
