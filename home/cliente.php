@@ -101,7 +101,7 @@ session_start();
 
 			<div class="logo">
 
-				<img src="img/Logo_Branca.png">
+				<img src="<?= "../admin/".$empresa->getFoto(); ?>">
 
 				<div>Toda hora é hora de um bom café!</div>
 
