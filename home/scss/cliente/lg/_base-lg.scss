@@ -48,14 +48,13 @@ body{
       color: #000000;
     }
     > .cliente {
-        max-height: 300px;
         padding-top: 20px;
         > .solicitacao {
             @include make-lg-column(6);
             height: 280px;
             > form {
                 > p{
-                    margin-top: 80px;
+                    margin-top: 0px;
                     font-family: $font_main_bold;
                     font-size: 24px;
                 }
@@ -114,10 +113,10 @@ body{
                         float: right;
                     }
                 }
-                
             }
             > .tipos_login{
-                @include make-lg-column(12); 
+                //@include make-lg-column(12); 
+                width:105%;
                 margin-top: 15px;
                 > .login_google{
                     float: left;
@@ -156,6 +155,18 @@ body{
             }
         }
         > .imagem {
+            @include make-lg-column(6);
+            > div {
+                > img {
+                    @include img-responsive();
+                }
+            }
+            > div:nth-child(1) {
+                display:none;
+                padding-bottom: 37px;
+            }
+        }
+        > .imagem-login {
             @include make-lg-column(6);
             > div {
                 > img {
