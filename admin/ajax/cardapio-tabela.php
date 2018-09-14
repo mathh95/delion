@@ -15,7 +15,8 @@ $cardapios = $controle->selectAll();
 			<h1 class=\"page-header\">Lista de cardapio</h1>
 			<tr>
 	    		<th width='14%' style='text-align: center;'>Item</th>
-	    		<th width='14%' style='text-align: center;'>Nome</th>
+				<th width='14%' style='text-align: center;'>Nome</th>
+				<th width='14%' style='text-align: center;'>Preço</th>
 	    		<th width='14%' style='text-align: center;'>Descrição</th>
 	    		<th width='14%' style='text-align: center;'>Categoria</th>
 	    		<th width='14%' style='text-align: center;'>Situação</th>
@@ -29,7 +30,8 @@ $cardapios = $controle->selectAll();
 			$titulo='Excluir';
 			echo "<tr name='resutaldo' id='status".$cardapio->getCod_cardapio()."'>
 			 	<td style='text-align: center;' name='cardapio'><img src='../../".$cardapio->getFoto()."' style='max-height: 100px' alt='' class='img-thumbnail'/></td>
-			 	<td style='text-align: center;' name='nome'>".$cardapio->getNome()."</td>
+				<td style='text-align: center;' name='nome'>".$cardapio->getNome()."</td>
+				<td style='text-align: center;' name='preco'>".$cardapio->getPreco()."</td>
 			 	<td style='text-align: center;' name='descricao'>".substr(html_entity_decode($cardapio->getDescricao()), 0, 200). "</td>
 			 	<td style='text-align: center;' name='categoria'>".$cardapio->getCategoria()."</td>
 			 	<td style='text-align: center;' name='flag_ativo'>".$cardapio->getDsAtivo()."</td>
@@ -54,7 +56,8 @@ $cardapios = $controle->selectAll();
 		foreach ($cardapios as &$cardapio) {
 			echo "<tr name='resutaldo' id='status".$cardapio->getCod_cardapio()."'>
 			 	<td style='text-align: center;' name='cardapio'><img src='../../".$cardapio->getFoto()."' style='max-height: 100px' alt='' class='img-thumbnail'/></td>
-			 	<td style='text-align: center;' name='nome'>".$cardapio->getNome()."</td>
+				<td style='text-align: center;' name='nome'>".$cardapio->getNome()."</td>
+				<td style='text-align: center;' name='preco'>".$cardapio->getPreco()."</td>
 			 	<td style='text-align: center;' name='descricao'>".$cardapio->getDescricao()."</td>
 			 	<td style='text-align: center;' name='categoria'>".$cardapio->getCategoria()."</td>
 			 	<td style='text-align: center;' name='flag_ativo'>".$cardapio->getDsAtivo()."</td>

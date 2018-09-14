@@ -13,12 +13,19 @@
 		if (!isset($_POST)||empty($_POST)){
 			echo 'Nada foi postado.';
 		}
+
 		$cod_cardapio= addslashes(htmlspecialchars($_POST['cod']));
 		$nome= addslashes(htmlspecialchars($_POST['nome']));
+		$preco = addslashes(htmlspecialchars($_POST['preco']));
 		$descricao= addslashes(htmlspecialchars($_POST['descricao']));
+
 		if (!empty($_FILES['arquivo']['name'])) {
-	   		$anexo = addslashes(htmlspecialchars($_POST['imagem']));
-	   		unlink($anexo);
+			   $anexo = addslashes(htmlspecialchars($_POST['imagem']));
+			   echo '<pre>';
+			   print_r($anexo);
+			   echo '</pre>';
+			   //exit;
+	   		unlink("C:/xampp5/htdocs/delion/admin/".$anexo);
 	   		$foto = upload("arquivo");
 		}else{
 			$foto = addslashes(htmlspecialchars($_POST['imagem']));
@@ -27,7 +34,7 @@
 		$flag_ativo = (isset($_POST['flag_ativo'])||!empty($_POST['flag_ativo'])) && $_POST['flag_ativo'] == 1 ? 1 : 0 ;
 
 		$cardapio= new cardapio();
-		$cardapio->construct($nome, $descricao, $foto, $categoria, $flag_ativo);
+		$cardapio->construct($nome, $preco, $descricao, $foto, $categoria, $flag_ativo);
 
 		$cardapio->setCod_cardapio($cod_cardapio);
 		$controle=new controlerCardapio($_SG['link']);

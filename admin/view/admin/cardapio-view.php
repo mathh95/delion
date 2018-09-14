@@ -222,7 +222,7 @@
 
                                         </ul>
 
-                                    </li>
+                                    </li>     </li>
 
                                     <li class="dropdown">
     
@@ -292,6 +292,16 @@
                                 <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $cardapio->getCod_cardapio();?>">
 
                                 <input class="form-control" name="imagem" id ="imagem" type="hidden" value="<?= $cardapio->getFoto();?>">
+
+                            </div>
+
+                            <br>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+
+                                <input class="form-control" placeholder="Preço" name="preco" required autofocus id="preco" type="number" min="1" max="99" value="<?=$cardapio->getPreco(); ?>">
 
                             </div>
 
