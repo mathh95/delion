@@ -102,9 +102,11 @@ session_start();
 
                     <div class='descricao'>
 
-                        <div class='titulo'>DESCRIÇÃO</div>
+                        <div class='titulo'>DESCRIÇÃO".print_r($item->getPreco())."</div>
 
                         <div class='texto'>".html_entity_decode($item->getDescricao())."</div>
+
+                        <div>".$item->getPreco()."</div>
                         
                         <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button>
 

@@ -18,6 +18,7 @@
 			echo 'Nada foi postado.';
 		}
 		$nome= addslashes(htmlspecialchars($_POST['nome']));
+		$preco = addslashes(htmlspecialchars($_POST['preco']));
 		$descricao= addslashes(htmlspecialchars($_POST['descricao']));
 		if (!empty($_FILES['arquivo']['name'])) {
 	   		$foto = upload("arquivo");
@@ -29,7 +30,7 @@
 		$flag_ativo = (isset($_POST['flag_ativo'])||!empty($_POST['flag_ativo'])) && $_POST['flag_ativo'] == 1 ? 1 : 0 ;
 
 		$cardapio= new cardapio();
-		$cardapio->construct($nome, $descricao, $foto, $categoria, $flag_ativo);
+		$cardapio->construct($nome, $preco, $descricao, $foto, $categoria, $flag_ativo);
 		/*echo "<pre>";
 		var_dump($cardapio);
 		echo "</pre>";

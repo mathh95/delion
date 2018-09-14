@@ -12,7 +12,7 @@
                 $stmte =$this->pdo->prepare("INSERT INTO cardapio(nome, preco, descricao, foto, categoria, flag_ativo)
                 VALUES (:nome, :preco, :descricao, :foto, :categoria, :flag_ativo)");
                 $stmte->bindParam("nome", $cardapio->getNome(), PDO::PARAM_STR);
-                $stmte->binfParam("preco", $cardapio->getPreco());
+                $stmte->bindParam("preco", $cardapio->getPreco());
                 $stmte->bindParam("descricao", $cardapio->getDescricao(), PDO::PARAM_STR);
                 $stmte->bindParam("foto", $cardapio->getFoto(), PDO::PARAM_STR);
                 $stmte->bindParam("categoria", $cardapio->getCategoria(), PDO::PARAM_INT);
@@ -95,7 +95,7 @@
             $stmte;
             try{
                 if($modo==1){
-                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo == 1");
+                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo == 1");
                     $stmte->bindParam(":parametro", $parametro . "%" , PDO::PARAM_STR);
                     $cardapios = array();
                     if($stmte->execute()){
@@ -104,6 +104,7 @@
                                 $cardapio= new cardapio();
                                 $cardapio->setCod_cardapio($result->cod_cardapio);
                                 $cardapio->setNome($result->nome);
+                                $cardapio->setPreco($result->preco);
                                 $cardapio->setDescricao($result->descricao);
                                 $cardapio->setFoto($result->foto);
                                 $cardapio->setCategoria($result->categoria);
@@ -114,7 +115,7 @@
                     }
                     return $cardapios;
                 }elseif ($modo==2) {
-                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.cod_cardapio = :parametro");
+                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.cod_cardapio = :parametro");
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                     $cardapio= new cardapio();
                     if($stmte->execute()){
@@ -122,6 +123,7 @@
                             while($result = $stmte->fetch(PDO::FETCH_OBJ)){
                                 $cardapio->setCod_cardapio($result->cod_cardapio);
                                 $cardapio->setNome($result->nome);
+                                $cardapio->setPreco($result->preco);
                                 $cardapio->setDescricao($result->descricao);
                                 $cardapio->setFoto($result->foto);
                                 $cardapio->setCategoria($result->categoria);
@@ -151,6 +153,7 @@
                             $cardapio= new cardapio();
                             $cardapio->setCod_cardapio($result->cod_cardapio);
                             $cardapio->setNome($result->nome);
+                            $cardapio->setPreco($result->preco);
                             $cardapio->setDescricao($result->descricao);
                             $cardapio->setFoto($result->foto);
                             $cardapio->setCategoria($result->categoria);
@@ -180,6 +183,7 @@
                             $cardapio= new cardapio();
                             $cardapio->setCod_cardapio($result->cod_cardapio);
                             $cardapio->setNome($result->nome);
+                            $cardapio->stPreco($result->preco);
                             $cardapio->setDescricao($result->descricao);
                             $cardapio->setFoto($result->foto);
                             $cardapio->setCategoria($result->categoria);
@@ -221,6 +225,7 @@
                             $cardapio= new cardapio();
                             $cardapio->setCod_cardapio($result->cod_cardapio);
                             $cardapio->setNome($result->nome);
+                            $cardapio->setPreco($result->preco);
                             $cardapio->setDescricao($result->descricao);
                             $cardapio->setFoto($result->foto);
                             $cardapio->setCategoria($result->categoria);

@@ -44,16 +44,16 @@ if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
             $mail->CharSet = 'UTF-8';
             $mail->SMTPDebug = 0;
             $mail->isSMTP();
-            $mail->Host = '192.168.1.20';
+            $mail->Host = '163.172.75.117';
             $mail->SMTPAuth = false;
-            $mail->Username = 'vitor';
-            $mail->Password = 'vitor';
+            $mail->Username = 'sitefacil@compubras.com.br';
+            $mail->Password = 'http#2017';
             // $mail->SMTPSecure = 'tls';
-            $mail->Port = 1025;
+            $mail->Port = 587;
     
             //Recipients
-            $mail->setFrom('vitormatheussb@gmail.com', 'Vitor');
-            $mail->addAddress('vitormatheussb@gmail.com', 'Vitor');
+            $mail->setFrom('delio_cafe@kionux.com.br', 'Vitor');
+            $mail->addAddress('sitefacil@compubras.com.br', 'Vitor');
             $mail->addReplyTo('vitormatheussb@gmail.com');
     
             //Content

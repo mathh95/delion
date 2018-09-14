@@ -289,6 +289,16 @@
 
                             <br>
 
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+
+                                <input class="form-control" placeholder="Preço" name="preco" required autofocus id="preco" type="number" step="0.01" min="1" max="99">
+
+                            </div>
+
+                            <br>
+
                             <select class="form-control" name="categoria" id="categoria" >
 
                                 <option value="0">Não informado</option>
@@ -305,7 +315,7 @@
 
                             </select>
 
-                            </br>
+                            <!-- </br> -->
 
                             <small>Informar se o item está ativo:</small>
 

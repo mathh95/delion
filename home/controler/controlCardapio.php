@@ -70,6 +70,8 @@ include_once MODELPATH."/cardapio.php";
 
                             $cardapio->setNome($result->nome);
 
+                            $ccardapio->setPreco($result->preco);
+
                             $cardapio->setDescricao($result->descricao);
 
                             $cardapio->setFoto($result->foto);

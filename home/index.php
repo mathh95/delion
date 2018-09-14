@@ -102,6 +102,7 @@
 		<div class="container">
 
 			<div class="logo">
+			
 
 				<img src="<?= "../admin/".$empresa->getFoto(); ?>">
 
@@ -111,11 +112,12 @@
 
 			<div class="infos">
 
-				<div>Horário de Atendimento</div>
+				<div><p>De Segunda a Sexta das 10:00 hs as 21:00 hs<br><br>
+					 Aos Sábados da 08:30 hs  as 19:00 hs</p></div>
 
-				<div>Segunda a Sábado</div>
+				<!-- <div>Segunda a Sábado</div>
 
-				<div>Das 07:00 Hs as 20:00 Hs</div>
+				<div>Das 07:00 Hs as 20:00 Hs</div> -->
 
 				<div class="rede-social">
 
