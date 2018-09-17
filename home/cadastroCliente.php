@@ -263,7 +263,7 @@ session_start();
 
 		</div>
 
-		<div class="imagem">
+		<div class="imagem-login">
 
 			<?php
 
