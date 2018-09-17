@@ -70,7 +70,7 @@ include_once MODELPATH."/cardapio.php";
 
                             $cardapio->setNome($result->nome);
 
-                            $ccardapio->setPreco($result->preco);
+                            $cardapio->setPreco($result->preco);
 
                             $cardapio->setDescricao($result->descricao);
 
@@ -112,7 +112,7 @@ include_once MODELPATH."/cardapio.php";
 
                 if($modo==1){
 
-                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo = 1 ORDER BY nome ASC");
+                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo = 1 ORDER BY nome ASC");
 
                     $stmte->bindValue(":parametro", $parametro . "%" , PDO::PARAM_STR);
 
@@ -129,6 +129,8 @@ include_once MODELPATH."/cardapio.php";
                                 $cardapio->setCod_cardapio($result->cod_cardapio);
 
                                 $cardapio->setNome($result->nome);
+
+                                $cardapio->setPreco($result->preco);
 
                                 $cardapio->setDescricao($result->descricao);
 
@@ -150,7 +152,7 @@ include_once MODELPATH."/cardapio.php";
 
                 }elseif ($modo==2) {
 
-                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE B.cod_categoria = :parametro AND A.flag_ativo = 1 ORDER BY nome ASC");
+                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco,  A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE B.cod_categoria = :parametro AND A.flag_ativo = 1 ORDER BY nome ASC");
 
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
 
@@ -167,6 +169,8 @@ include_once MODELPATH."/cardapio.php";
                                 $cardapio->setCod_cardapio($result->cod_cardapio);
 
                                 $cardapio->setNome($result->nome);
+
+                                $cardapio->setPreco($result->preco);
 
                                 $cardapio->setDescricao($result->descricao);
 
@@ -208,7 +212,7 @@ include_once MODELPATH."/cardapio.php";
 
             try{
 
-                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.categoria AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo = 1 ORDER BY B.nome ASC LIMIT :offset, :por_pagina");
+                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.categoria AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo = 1 ORDER BY B.nome ASC LIMIT :offset, :por_pagina");
 
                 $stmte->bindValue(":parametro","%". $parametro . "%" , PDO::PARAM_STR);
 
@@ -227,6 +231,8 @@ include_once MODELPATH."/cardapio.php";
                             $cardapio->setCod_cardapio($result->cod_cardapio);
 
                             $cardapio->setNome($result->nome);
+
+                            $cardapio->setPreco($result->preco);
 
                             $cardapio->setDescricao($result->descricao);
 
@@ -286,6 +292,8 @@ include_once MODELPATH."/cardapio.php";
 
                             $cardapio->setNome($result->nome);
 
+                            $cardapio->setPreco($result->preco);
+
                             $cardapio->setDescricao($result->descricao);
 
                             $cardapio->setFoto($result->foto);
@@ -338,6 +346,8 @@ include_once MODELPATH."/cardapio.php";
 
                             $cardapio->setNome($result->nome);
 
+                            $cardapio->setPreco($result->preco);
+
                             $cardapio->setDescricao($result->descricao);
 
                             $cardapio->setFoto($result->foto);
@@ -376,7 +386,7 @@ include_once MODELPATH."/cardapio.php";
 
             try{
 
-                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria ORDER BY nome ASC");
+                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria ORDER BY nome ASC");
 
                 if($stmte->execute()){
 
@@ -389,6 +399,8 @@ include_once MODELPATH."/cardapio.php";
                             $cardapio->setCod_cardapio($result->cod_cardapio);
 
                             $cardapio->setNome($result->nome);
+
+                            $cardapio->setPreco($result->preco);
 
                             $cardapio->setDescricao($result->descricao);
 

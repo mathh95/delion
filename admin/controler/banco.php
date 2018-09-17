@@ -6,47 +6,47 @@
 
  */
 
-    class banco {
+    // class banco {
 
-        private $host='localhost';
+    //     private $host='localhost';
 
-        private $dbname='delioncafe';
+    //     private $dbname='delioncafe';
 
-        private $user='root';
+    //     private $user='root';
 
-        private $password='';
+    //     private $password='';
 
 
 
-        function getHost(){
+    //     function getHost(){
 
-            return $this->host;
+    //         return $this->host;
 
-        }
+    //     }
 
-        function getDBname(){
+    //     function getDBname(){
 
-            return $this->dbname;
+    //         return $this->dbname;
 
-        }
+    //     }
 
-        function getUser(){
+    //     function getUser(){
 
-            return $this->user;
+    //         return $this->user;
 
-        }
+    //     }
 
-        function getPassword(){
+    //     function getPassword(){
 
-            return $this->password;
+    //         return $this->password;
 
-        }
+    //     }
 
-        function __construct(){ }
+    //     function __construct(){ }
 
-    }
+    // }
 
-     /*class banco {
+     class banco {
 
         private $host='localhost';
 
@@ -84,7 +84,7 @@
 
         function __construct(){ }
 
-    }*/
+    }
 
 ?>
 

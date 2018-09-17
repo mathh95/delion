@@ -111,11 +111,8 @@ session_start();
 
 			<div class="infos">
 
-				<div>Horário de Atendimento</div>
-
-				<div>Segunda a Sábado</div>
-
-				<div>Das 07:00 Hs as 20:00 Hs</div>
+				<div><p>De Segunda a Sexta das 10:00 hs as 21:00 hs<br><br>
+					 Aos Sábados da 08:30 hs  as 19:00 hs</p></div>
 
 				<div class="rede-social">
 
@@ -300,7 +297,7 @@ session_start();
 
 			<div class="logo">
 
-				<img src="img/Logo_Branca.png">
+				<img src="<?= "../admin/".$empresa->getFoto(); ?>">
 
 				<div>Toda hora é hora de um bom café!</div>
 

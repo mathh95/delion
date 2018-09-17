@@ -25,7 +25,7 @@
 			   print_r($anexo);
 			   echo '</pre>';
 			   //exit;
-	   		unlink("C:/xampp5/htdocs/delion/admin/".$anexo);
+	   		unlink($anexo);
 	   		$foto = upload("arquivo");
 		}else{
 			$foto = addslashes(htmlspecialchars($_POST['imagem']));
