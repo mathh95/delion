@@ -32,9 +32,9 @@
 		}
 		$categoria= addslashes(htmlspecialchars($_POST['categoria']));
 		$flag_ativo = (isset($_POST['flag_ativo'])||!empty($_POST['flag_ativo'])) && $_POST['flag_ativo'] == 1 ? 1 : 0 ;
-
+		$prioridade = (isset($_POST['prioridade'])||!empty($_POST['prioridade'])) && $_POST['prioridade'] == 1 ? 1 : 0  ;
 		$cardapio= new cardapio();
-		$cardapio->construct($nome, $preco, $descricao, $foto, $categoria, $flag_ativo);
+		$cardapio->construct($nome, $preco, $descricao, $foto, $categoria, $flag_ativo, $prioridade);
 
 		$cardapio->setCod_cardapio($cod_cardapio);
 		$controle=new controlerCardapio($_SG['link']);

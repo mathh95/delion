@@ -323,20 +323,31 @@
 
                             </select>
 
-                            </br>
+                            <br>
 
                             <small>Informar se o item está ativo:</small>
+                                <div class="checkbox">
 
-                            <div class="checkbox">
+                                    <label>
 
-                                <label>
+                                        <input type="checkbox" id="ativo" name="flag_ativo" value="1">Ativo
 
-                                    <input type="checkbox" id="ativo" name="flag_ativo" value="1">Ativo
+                                    </label>
 
-                                </label>
+                                </div>
+                            <small>Informar se o item está marcado como prioridade:</small>
 
-                            </div>
+                                <div class="checkbox">
 
+                                    <label>
+                                        <?php if ($cardapio->getPrioridade()==1){?>
+                                            <input type="checkbox" id="prioridade" name="prioridade" value="1" checked>Prioridade
+                                            <?php }else{ ?>
+                                            <input type="checkbox" id="prioridade" name="prioridade" value="1">Prioridade
+                                          <?php }?>                                    
+                                    </label>
+
+                                </div>
                             <br>
 
                             <small>Foto:</small>
@@ -448,7 +459,7 @@
                 }
 
             })
-
+            
         </script>
 
     </body>
