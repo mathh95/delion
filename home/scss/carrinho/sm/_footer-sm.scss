@@ -19,11 +19,12 @@ body {
                 padding-right: 0px;
                 padding-left: 0px;
                 padding-bottom: 15px;
-                > img {
-                    @include img-responsive();
-                    @include center-block();
-                    max-width: 80%;
-                }
+                > a{
+					> img {
+						@include img-responsive();
+						@include center-block();
+					}
+				}
                 > div {
                     font-size: 10.99px;
                     text-align: center;
@@ -108,6 +109,19 @@ body {
                         max-width: 5%;
                     }
                 }
+            }
+        }
+    }
+    > .whatsapp{
+        position: fixed;
+        right: 15px;
+        bottom: 20px;
+        height: 40px;
+        width: 40px;
+        z-index: 9999;
+        > a{
+            > img{
+                @include img-responsive;
             }
         }
     }

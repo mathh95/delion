@@ -106,7 +106,7 @@ session_start();
 
                         <div class='texto'>".html_entity_decode($item->getDescricao())."</div>
 
-                        <strong><div style='margin-bottom:10px'>R$ ".$item->getPreco()."</div></strong>
+                        <div class='preco'><strong>R$ ".$item->getPreco()."</strong></div>
                         
                         <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button>
 
@@ -332,13 +332,11 @@ session_start();
 
                     <div class='titulo'>DESCRIÇÃO</div>
 
-                    <div class='texto'>".html_entity_decode($item->getDescricao())."
+                    <div class='texto'>".html_entity_decode($item->getDescricao())."</div>
                     
-                    <strong><div style='margin-bottom:10px'>R$ ".$item->getPreco()."</div></strong>
+                    <div class='preco'><strong>R$ ".$item->getPreco()."</strong></div>
                     
                     <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button>
-
-                    </div>
 
                 </div>
 

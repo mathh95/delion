@@ -104,7 +104,7 @@
 			<div class="logo">
 			
 
-				<img src="<?= "../admin/".$empresa->getFoto(); ?>">
+				<a href="/"><img src="<?= "../admin/".$empresa->getFoto(); ?>"></a>
 
 				<div>Toda hora é hora de um bom café!</div>
 
@@ -417,7 +417,7 @@
 
 			<div class="logo">
 
-				<img src="img/Logo_Branca.png">
+				<a href="/"><img src="<?= "../admin/".$empresa->getFoto(); ?>"></a>
 
 				<div>Toda hora é hora de um bom café!</div>
 

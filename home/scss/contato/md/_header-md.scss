@@ -17,10 +17,11 @@ body{
                 @include make-md-column(4);
                 padding-top: 15px;
                 padding-right: 0px;
-                > img {
-                    @include img-responsive();
-                    @include center-block();
-                    max-width: 87%;
+                > a{
+                    > img {
+                        @include img-responsive();
+                        @include center-block();
+                    }
                 }
                 > div {
                     font-size: 14px;

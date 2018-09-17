@@ -133,6 +133,11 @@ body{
                 > .texto {
                     text-align: center;
                 }
+                > .preco{
+                    // @include make-xs-column(12);
+                    text-align: center !important;
+                    margin-bottom:10px;
+                }
                 > button{
                     margin-left: 25%;
                 }

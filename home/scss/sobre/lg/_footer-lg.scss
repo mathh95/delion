@@ -19,10 +19,12 @@ body {
                 padding-top: 15px;
                 padding-right: 0px;
 				padding-left: 0px;
-                > img {
-                    @include img-responsive();
-                    @include center-block();
-                }
+                > a{
+					> img {
+						@include img-responsive();
+						@include center-block();
+					}
+				}
                 > div {
                     font-size: 10.99px;
                     text-align: center;

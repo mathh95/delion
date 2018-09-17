@@ -85,7 +85,7 @@ session_start();
 
 			<div class="logo">
 
-				<img src="<?= "../admin/".$empresa->getFoto(); ?>">
+				<a href="/"><img src="<?= "../admin/".$empresa->getFoto(); ?>"></a>
 
 				<div>Toda hora é hora de um bom café!</div>
 
@@ -316,7 +316,7 @@ session_start();
 
 			<div class="logo">
 
-				<img src="<?= "../admin/".$empresa->getFoto(); ?>">
+				<a href="/"><img src="<?= "../admin/".$empresa->getFoto(); ?>"></a>
 
 				<div>Toda hora é hora de um bom café!</div>
 

@@ -38,6 +38,8 @@ session_start();
 
 <head>
 
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
 	<script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
 
 	<meta charset="UTF-8">
@@ -86,8 +88,7 @@ session_start();
 
 			<div class="logo">
 
-				<img src="<?= "../admin/".$empresa->getFoto(); ?>">
-
+				<a href="/"><img src="<?= "../admin/".$empresa->getFoto(); ?>"></a>
 				<div>Toda hora é hora de um bom café!</div>
 
 			</div>
@@ -263,7 +264,7 @@ session_start();
 
 			<div class="logo">
 
-				<img src="<?= "../admin/".$empresa->getFoto(); ?>">
+				<a href="/"><img src="<?= "../admin/".$empresa->getFoto(); ?>"></a>
 
 				<div>Toda hora é hora de um bom café!</div>
 

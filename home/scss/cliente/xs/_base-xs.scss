@@ -54,7 +54,7 @@ body{
             @include make-sm-column(12);
             padding-right: 0px;
             padding-left: 0px;
-            height: 392px;
+            height: 330px;
             > form {
                 > p{
                     font-family: $font_main_bold;
@@ -117,9 +117,22 @@ body{
                     }
                 }
             } 
+            > .tipos_login{
+                // width: 100%;
+                align-items: center;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                > .login_google{
+                    margin: 10px;
+                }
+                > .login_facebook{
+                  margin: 10px;
+                    
+                }
+            }
         }
         > .area{
-            @include make-sm-column(12);
+            @include make-xs-column(12);
             height: 280px;
             > div{
                 padding-left: 0px;
