@@ -60,7 +60,15 @@ body{
             padding: 0px; 
             > #navegacao__content{
                 @include make-xs-column(12);
-                padding: 0px; 
+                padding: 0px;
+                p{
+                    font-family: $font_main;
+                    float:left; 
+                    font-size:30px; 
+                    margin-left:40%; 
+                    margin-top:10px; 
+                    color:black;
+                }
                 .navbar{
                     border-radius: 0;
                     border: none;

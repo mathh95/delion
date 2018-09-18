@@ -2,17 +2,20 @@
     font-family: "Century Gothic Regular";
     src: url("../../fonts/gothic.ttf");
 }
+
 @font-face {
     font-family: "Century Gothic Bold";
     src: url("../../fonts/gothicb.ttf");
 }
 
-body{
+body {
     font-family: $font_main;
-    > .menu {
+
+    >.menu {
         padding-bottom: 15px;
         padding-top: 15px;
-        > .menu-lateral {
+
+        >.menu-lateral {
             @include make-lg-column(3);
             background-color: #BE392A;
             width: 270px !important;
@@ -20,22 +23,26 @@ body{
             padding-left: 20px;
             padding-top: 15px;
             padding-bottom: 15px;
-            > a {
+
+            >a {
                 width: 100%;
                 display: block;
                 padding-bottom: 10px;
                 padding-top: 10px;
-                > img {
+
+                >img {
                     // width: 27px;
                     padding-left: 0px;
                     display: inline;
                 }
-                > div {
+
+                >div {
                     display: inline;
                     color: #ffffff;
                     padding-left: 20px;
                 }
             }
+
             /* > a:nth-child(2) {
                 > img {
                     width: 17px;
@@ -46,24 +53,29 @@ body{
                     padding-left: 25px;
                 }
             } */
-            > a:hover{
+            >a:hover {
                 text-decoration: none;
-                > div {
+
+                >div {
                     font-family: $font_main_bold;
                     color: #000;
                 }
             }
-            > a:focus{
+
+            >a:focus {
                 text-decoration: none;
-                > div {
+
+                >div {
                     color: #000;
                     font-family: $font_main_bold;
                 }
             }
         }
-        > .imagem {
+
+        >.imagem {
             @include make-lg-column(9);
-            > img {
+
+            >img {
                 @include img-responsive();
             }
         }
@@ -73,50 +85,60 @@ body{
             > .imagemCarrinhoVazio{
                 @include make-lg-column(4);
             }
-            .textoCarrinhoVazio{
+
+            .textoCarrinhoVazio {
                 @include make-lg-column(8);
                 margin-top: 20px;
-                > .tituloCarrinhoVazio{
+
+                >.tituloCarrinhoVazio {
                     font-family: $font_main_bold;
                     color: #BE392A;
                 }
-                > p{
+
+                >p {
                     font-family: $font_main_bold;
                 }
             }
         }
-        > h1{
+
+        >h1 {
             font-family: "Century Gothic Bold";
         }
-        > .carrinho {
-            > .tabela_itens{
+
+        >.carrinho {
+            >.tabela_itens {
                 @include make-lg-column(12);
-                #cabecalhoTabela{
-                    color:white;
-                    background-color:black; 
-                    border-style:solid; 
-                    border-bottom-width:5px;
-                    border-top-width:0;
-                    border-left-width:0;
-                    border-right-width:0;
+
+                #cabecalhoTabela {
+                    color: white;
+                    background-color: black;
+                    border-style: solid;
+                    border-bottom-width: 5px;
+                    border-top-width: 0;
+                    border-left-width: 0;
+                    border-right-width: 0;
                     border-bottom-color: rgb(190, 57, 42);
                     font-family: "Century Gothic Bold";
                     font-size: 14px;
                 }
-                .quantidadeItemTabela{
-                    border:none;
-                    background-color:transparent;
-                    width:30px;
+
+                .quantidadeItemTabela {
+                    border: none;
+                    background-color: transparent;
+                    width: 30px;
                 }
             }
         }
-        > .rodapeCarrinho{
+
+        >.rodapeCarrinho {
             @include make-lg-column-offset(8);
             @include make-lg-column(4);
-            p{
+
+            p {
                 font-size: 20px;
                 font-family: "Century Gothic Bold";
             }
+
             > .linhaBotao{
                 > .botaoCarrinhoEnviar{
                     button{
@@ -136,15 +158,17 @@ body{
             }
         } 
     }
-    > .whatsapp {
+
+    >.whatsapp {
         position: fixed;
         right: 36px;
         bottom: 80px;
         height: 42px;
         width: 42px;
         z-index: 9999;
-        > a {
-            > img {
+
+        >a {
+            >img {
                 width: 50px;
             }
         }

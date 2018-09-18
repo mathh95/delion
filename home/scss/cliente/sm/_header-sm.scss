@@ -58,7 +58,10 @@ body{
             padding: 0px; 
             > #navegacao__content{
                 @include make-sm-column(12);
-                padding: 0px; 
+                padding: 0px;
+                p{
+                    display: none;
+                } 
                 .navbar{
                     border-radius: 0;
                     border: none;

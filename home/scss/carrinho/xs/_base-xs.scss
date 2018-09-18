@@ -71,7 +71,7 @@ body{
     > .itens {
         >.carrinhoVazio{
             > .imagemCarrinhoVazio{
-                text-align: center;
+                // text-align: center;
                 // @include make-xs-column(4);
             }
             .textoCarrinhoVazio{
@@ -170,7 +170,7 @@ body{
                     }
                 }
                 > .botaoCarrinhoEsvaziar{
-                    margin-right: 10px;
+                    // margin-right: 10px;
                     button{
                         @include make-xs-column(5);
                         margin-left: 10px;
