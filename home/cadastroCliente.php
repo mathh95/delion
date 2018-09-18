@@ -91,7 +91,7 @@ session_start();
 
 			<div class="logo">
 
-				<img src="<?= "../admin/".$empresa->getFoto(); ?>">
+				<a href="/"><img src="<?= "../admin/".$empresa->getFoto(); ?>"></a>
 
 				<div>Toda hora é hora de um bom café!</div>
 
@@ -181,6 +181,8 @@ session_start();
 					        	<li><a href="contato.php">Contato</a></li>
 
 								<li><a href="localizacao.php">Localização</a></li>
+
+								<li><a href="login.php">Login</a></li>
 
 								<?php if(isset($_SESSION['cod_cliente']) && !isset($_SESSION['telefone'])){
 									echo "<li><a href='#' onclick='signOut()'>Logout</a></li>";
