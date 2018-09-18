@@ -80,7 +80,7 @@ session_start();
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
-	<meta name = "google-signin-client_id" content="1044402294470-aoav6sv71tfvv9kemu3qfvt1u5mhenol.apps.googleusercontent.com">
+	<meta name = "google-signin-client_id" content="1044402294470-h7gko3p3obgouo9kmtemsekno8n08deu.apps.googleusercontent.com">
 </head>
 
 <body>
