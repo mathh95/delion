@@ -36,7 +36,7 @@ session_start();
 
         // Monta outra consulta MySQL para a busca
 
-        $por_pagina = 6;
+        $por_pagina = 10;
 
         if (isset($_GET['page']) && !empty($_GET['page'])) {
 
@@ -47,7 +47,6 @@ session_start();
             $pagina = 1;
 
         }
-
         // if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
         //     $quantidadeCarrinho = count($_SESSION['carrinho']);
         // }else{
@@ -63,31 +62,32 @@ session_start();
         $itens = $controleCardapio->selectPaginadoNome($busca,$offset,$por_pagina);
 
         $paginas = (($total % $por_pagina) > 0) ? (int)($total / $por_pagina) + 1 : ($total / $por_pagina);
-
+        
         $i= 0;
 
         $categoria = "";
 
         if (!empty($itens) && count($itens) > 0) {
 
+            echo "<div class='categoria'>
+                 " . " Cardápio geral ". "
+            </div>";
             foreach ($itens as $item) {
 
                 $i++;
 
-                if ($categoria != $item->getCategoria()) {
+/*                  if ($categoria != $item->getCategoria()) {
 
                     $categoria = $item->getCategoria();
 
                     $nomeCategoria = $controleCategoria->select($categoria, 2);
 
                     echo "<div class='categoria'>
-
-                        ".strtoupper($nomeCategoria->getNome())."
-
+                    ".strtoupper($nomeCategoria->getNome())."
                     </div>";
+                }  */
 
-                }
-
+                
                 echo
 
                 "<div class='produto'>
@@ -272,7 +272,7 @@ session_start();
 
         // Monta outra consulta MySQL para a busca
 
-        $por_pagina = 6;
+        $por_pagina = 10;
 
         if (isset($_GET['page']) && !empty($_GET['page'])) {
 

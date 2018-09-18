@@ -212,7 +212,7 @@ include_once MODELPATH."/cardapio.php";
 
             try{
 
-                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.categoria AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo = 1 ORDER BY B.nome ASC LIMIT :offset, :por_pagina");
+                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.categoria AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo = 1 ORDER BY prioridade DESC, nome ASC LIMIT :offset, :por_pagina");
 
                 $stmte->bindValue(":parametro","%". $parametro . "%" , PDO::PARAM_STR);
 
@@ -272,7 +272,7 @@ include_once MODELPATH."/cardapio.php";
 
             try{
 
-                $stmte = $this->pdo->prepare("SELECT * FROM cardapio WHERE categoria = :parametro AND flag_ativo = 1 ORDER BY nome ASC LIMIT :offset, :por_pagina");
+                $stmte = $this->pdo->prepare("SELECT * FROM cardapio WHERE categoria = :parametro AND flag_ativo = 1 ORDER BY prioridade DESC, nome ASC LIMIT :offset, :por_pagina");
 
                 $stmte->bindValue(":parametro", $parametro , PDO::PARAM_INT);
 
