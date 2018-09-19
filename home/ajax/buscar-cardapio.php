@@ -94,7 +94,7 @@ session_start();
 
                     <div class='imagem'>
 
-                        <div class='titulo'>".strtoupper($item->getNome())."</div>
+                        <div class='titulo'>".$item->getNome()."</div>
 
                         <img src='../admin/".$item->getFoto()."'>
 
@@ -322,7 +322,7 @@ session_start();
 
                 <div class='imagem'>
 
-                    <div class='titulo'>".strtoupper($item->getNome())."</div>
+                    <div class='titulo'>".$item->getNome()."</div>
 
                     <img src='../admin/".$item->getFoto()."'>
 
