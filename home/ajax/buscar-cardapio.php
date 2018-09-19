@@ -108,7 +108,7 @@ session_start();
 
                         <div class='preco'><strong>R$ ".$item->getPreco()."</strong></div>
                         
-                        <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button>
+                        <button id='addCarrinho' data-qtd='".count($_SESSION['carrinho'])."' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button>
 
                     </div>
 
@@ -336,7 +336,7 @@ session_start();
                     
                     <div class='preco'><strong>R$ ".$item->getPreco()."</strong></div>
                     
-                    <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button>
+                    <button id='addCarrinho' data-qtd='".count($_SESSION['carrinho'])."' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button>
 
                 </div>
 

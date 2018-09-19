@@ -468,6 +468,8 @@ session_start();
 		
 		$(document).on("click", "#addCarrinho", function(){
 			var url = $(this).data('url');
+			var qtd = $('#spanCarrinho').text();
+			// alert(qtd);
 			var id = $(this).data('cod');
 			// var quantidade = $("#spanCarrinho").data('quantidade');
 						
@@ -483,7 +485,12 @@ session_start();
 
 				success:function(res){
 					$("#spanCarrinho").html(res);
-					$("body,html").animate({scrollTop: 0 }, 800);
+					if(qtd == res){
+						swal('Este item já está no seu carrinho!', 'Para alterar a quantidade, vá ao seu carrinho.', 'warning');
+					}else{
+					// $("body,html").animate({scrollTop: 0 }, 800);
+					swal("Produto Adicionado ao carrinho!!", "Você pode consultar o carrinho para modificar a quantidade.", "success");
+					}
 				}, 
 				error: function(erro){
 					console.log(erro);
