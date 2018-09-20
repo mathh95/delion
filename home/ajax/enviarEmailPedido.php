@@ -42,19 +42,26 @@ if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
         try{
             //Server Settings
             $mail->CharSet = 'UTF-8';
-            $mail->SMTPDebug = 0;
             $mail->isSMTP();
-            $mail->Host = '163.172.75.117';
-            $mail->SMTPAuth = false;
+            $mail->SMTPDebug = 0;
+            $mail->Host = 'smtp.compubras.com.br';
+            $mail->SMTPSecure = 'tls';
+            $mail ->SMTPAuth  =  true; 
             $mail->Username = 'sitefacil@compubras.com.br';
             $mail->Password = 'http#2017';
-            // $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
+
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+                )
+            );
     
             //Recipients
-            $mail->setFrom('delio_cafe@kionux.com.br', 'Vitor');
-            $mail->addAddress('sitefacil@compubras.com.br', 'Vitor');
-            $mail->addReplyTo('vitormatheussb@gmail.com');
+            $mail->setFrom('teste@gmail.com', $_SESSION['nome']);
+            $mail->addAddress('delion_cafe@kionux.com.br', 'Delion Café');
     
             //Content
             $mail->isHTML(true);
@@ -90,6 +97,11 @@ if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
                            <p>Valor total do pedido: ".number_format($_SESSION['totalCarrinho'], 2)."</p>";
             $mail->AltBody = 'Nem sei oque é isso kkkkkk';
     
+//             echo '<pre>';
+// var_dump($mail);
+// echo '</pre>';
+// exit;
+// die();
             $mail->send();
         }catch(Exception $e){
             echo $mail->ErrorInfo;
