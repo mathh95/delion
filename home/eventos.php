@@ -114,12 +114,6 @@ session_start();
 
 					</a>
 
-					<a href="<?= !empty($empresa->getPinterest()) ? "https://".$empresa->getPinterest() : "https://www.pinterest.com" ?>">
-
-						<img src="img/pinterest.png">
-
-					</a>
-
 				</div>
 
 			</div>
@@ -427,12 +421,6 @@ session_start();
 						<a href="<?= !empty($empresa->getInstagram()) ? "https://".$empresa->getInstagram() : "https://www.instagram.com" ?>">
 
 							<img src="img/insta.png">
-
-						</a>
-
-						<a href="<?= !empty($empresa->getPinterest()) ? "https://".$empresa->getPinterest() : "https://www.pinterest.com" ?>">
-
-							<img src="img/pinterest.png">
 
 						</a>
 

@@ -133,12 +133,6 @@
 
 					</a>
 
-					<a href="<?= !empty($empresa->getPinterest()) ? "https://".$empresa->getPinterest() : "https://www.pinterest.com" ?>">
-
-						<img src="img/pinterest.png">
-
-					</a>
-
 				</div>
 
 			</div>
@@ -473,12 +467,6 @@
 
 						</a>
 
-						<a href="<?= !empty($empresa->getPinterest()) ? "https://".$empresa->getPinterest() : "https://www.pinterest.com" ?>">
-
-							<img src="img/pinterest.png">
-
-						</a>
-
 					</div>
 
 				</div>
@@ -530,6 +518,12 @@
 	<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
 	<script>
+
+		$(".navbar-toggle li a").click(function() {
+			if ( !$(this).parent().hasClass('dropdown') ) {
+				$(".navbar-collapse").collapse('hide');
+			}
+		});
 
 		function onLoad() {
 		gapi.load('auth2', function() {
