@@ -63,6 +63,19 @@ body{
         }
         > .imagem {
             @include make-lg-column(9);
+            >.slick-prev{
+                z-index: 10;
+                margin-left: 10px;
+            }
+            >.slick-next {
+                margin-right: 10px;
+            }
+            >a {
+                > img {
+                    @include img-responsive();
+                    @include center-block();
+                }
+            }
             > img {
                 @include img-responsive();
             }

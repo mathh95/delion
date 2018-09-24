@@ -328,8 +328,8 @@
 
 					if (in_array('inicialEvento', $pagina)) {
 
-						echo "<a  href='eventos.php' ><img src='../admin/".$imagem->getFoto()."'></a>";
-
+						echo "<a href='eventos.php'><img src='../admin/".$imagem->getFoto()."'></a>";
+						 
 					}
 
 				}

@@ -393,6 +393,16 @@
 
                                     </li>
 
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="cardapio" name="8pagina" value="cardapio">Página do cardápio
+
+                                        </label>    
+
+                                    </li>
+
                                 </ul>
 
                             </div>

@@ -6,6 +6,8 @@ session_start();
 
 	include_once "controler/controlCategoria.php";
 
+	include_once "controler/controlImagem.php";
+
 	$controleEmpresa=new controlerEmpresa(conecta());
 
 	$controleCategoria=new controlerCategoria(conecta());
@@ -13,6 +15,10 @@ session_start();
 	$empresa = $controleEmpresa->select(1,2);
 
 	$categorias = $controleCategoria->selectAll();
+
+	$controleImagem=new controlerImagem(conecta());
+
+	$imagens = $controleImagem->selectAll();
 
 
 
@@ -268,9 +274,23 @@ session_start();
 
 		</div>
 
-		<div class="imagem">
+		<div class="imagem img">
 
-			<img src="img/banner-cardapio.png" alt="">
+			<?php 
+
+				foreach ($imagens as $imagem) {
+
+					$pagina = json_decode($imagem->getPagina());
+
+					if (in_array('cardapio', $pagina)) {
+
+						echo "<a  href='cardapio.php' ><img src='../admin/".$imagem->getFoto()."'></a>";
+
+					}
+
+				}
+
+			?>
 
 		</div>
 
@@ -441,19 +461,19 @@ session_start();
 
     	$(document).ready(function(){
 
-      		$('.imagem-cardapio-evento').slick({
+			$('.imagem').slick({
 
-        		slidesToShow: 1,
+			slidesToShow: 1,
 
-				slidesToScroll: 1,
+			slidesToScroll: 1,
 
-				prevArrow:"<img class='a-left control-c prev slick-prev' src='img/seta-esquerda.png'>",
+			prevArrow:"<img class='a-left control-c prev slick-prev' src='img/seta-esquerda.png'>",
 
-      			nextArrow:"<img class='a-right control-c next slick-next' src='img/seta-direita.png'>"
+				nextArrow:"<img class='a-right control-c next slick-next' src='img/seta-direita.png'>"
 
-      		});
+			});
 
-    	});
+		});
 
     	$(document).ready(function(){
 
