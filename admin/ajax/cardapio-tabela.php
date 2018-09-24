@@ -21,6 +21,7 @@ $cardapios = $controle->selectAll();
 	    		<th width='8%' style='text-align: center;'>Categoria</th>
 				<th width='8%' style='text-align: center;'>Situação</th>
 				<th width='8%' style='text-align: center;'>Prioridade</th>
+				<th width='8%' style='text-align:center;'>Delivery</th>
 	            <th width='14%' style='text-align: center;'>Editar</th>
 	            <th width='14%' style='text-align: center;'>Apagar</th>
 	        </tr>
@@ -35,8 +36,9 @@ $cardapios = $controle->selectAll();
 				<td style='text-align: center;' name='preco'>".$cardapio->getPreco()."</td>
 			 	<td style='text-align: center;' name='descricao'>".substr(html_entity_decode($cardapio->getDescricao()), 0, 200). "</td>
 			 	<td style='text-align: center;' name='categoria'>".$cardapio->getCategoria()."</td>
-				 <td style='text-align: center;' name='flag_ativo'>".$cardapio->getDsAtivo()."</td>
-				 <td style='text-align: center;' name='flag_ativo'>".$cardapio->getDsPrioridade()."</td>
+				<td style='text-align: center;' name='flag_ativo'>".$cardapio->getDsAtivo()."</td>
+				<td style='text-align: center;' name='prioridade'>".$cardapio->getDsPrioridade()."</td>
+				<td style='text-align: center;' name='delivery'>".$cardapio->getDsDelivery()."</td>
 			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cardapio-view.php?cod=".$cardapio->getCod_cardapio()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
 			 	<td style='text-align: center;' name='status'  ><button type='button' onclick=\"removeCardapio(".$cardapio->getCod_cardapio().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
 			</tr>";
@@ -53,6 +55,7 @@ $cardapios = $controle->selectAll();
 	    		<th width='12%' style='text-align: center;'>Categoria</th>
 				<th width='12%' style='text-align: center;'>Situação</th>
 				<th width='12%' style='text-align: center;'>Prioridade</th>
+				<th width='12%' style='text-align: center;'>Delivery</th>
 	        </tr>
 		<tbody>";
 	
@@ -63,8 +66,9 @@ $cardapios = $controle->selectAll();
 				<td style='text-align: center;' name='preco'>".$cardapio->getPreco()."</td>
 			 	<td style='text-align: center;' name='descricao'>".substr(html_entity_decode($cardapio->getDescricao()), 0, 200)."</td>
 			 	<td style='text-align: center;' name='categoria'>".$cardapio->getCategoria()."</td>
-				 <td style='text-align: center;' name='flag_ativo'>".$cardapio->getDsAtivo()."</td>
-				 <td style='text-align: center;' name='flag_ativo'>".$cardapio->getDsPrioridade()."</td>
+				<td style='text-align: center;' name='flag_ativo'>".$cardapio->getDsAtivo()."</td>
+				<td style='text-align: center;' name='prioridade'>".$cardapio->getDsPrioridade()."</td>
+				<td style='text-align: center;' name='delivery'>".$cardapio->getDsDelivery()."</td>
 			</tr>";
 		}
 	}

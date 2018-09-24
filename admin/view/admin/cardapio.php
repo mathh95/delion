@@ -341,6 +341,18 @@
 
                             </div>
 
+                            <small>Informar se o item está disponível para delivery:</small>
+
+                            <div class="checkbox">
+
+                                <label>
+
+                                        <input type="checkbox" id="delivery" name="delivery" value="1">Delivery                               
+                                
+                                </label>
+
+                            </div>
+                            
                             <br>
 
                             <small>Foto: <span style="color:red">(Utilizar uma imagem no tamanho 525[largura] x 320[altura]. Formato (.png) ou (.jpg).)</span></small>

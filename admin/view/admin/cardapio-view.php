@@ -348,7 +348,21 @@
                                     </label>
 
                                 </div>
+                            <small>Informar se o item está disponível para delivery:</small>
+
+                                <div class="checkbox">
+
+                                    <label>
+                                        <?php if ($cardapio->getDelivery()==1){?>
+                                            <input type="checkbox" id="delivery" name="delivery" value="1" checked>Delivery
+                                            <?php }else{ ?>
+                                            <input type="checkbox" id="delivery" name="delivery" value="1">Delivery
+                                        <?php }?>                                    
+                                    </label>
+
+                                </div>
                             <br>
+
 
                             <small>Foto:</small>
 

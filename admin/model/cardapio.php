@@ -12,6 +12,7 @@
         private $categoria;
         private $flag_ativo;
         private $prioridade;
+        private $delivery;
 
 
         function getCod_cardapio(){
@@ -42,6 +43,9 @@
         function getPrioridade(){
             return $this->prioridade;
         }
+        function getDelivery(){
+            return $this->delivery;
+        }
 
         function setCod_cardapio($cod_cardapio){
             $this->cod_cardapio=$cod_cardapio;
@@ -67,6 +71,9 @@
         function setPrioridade($prioridade){
             $this->prioridade=$prioridade;
         }
+        function setDelivery($delivery){
+            $this->delivery=$delivery;
+        }
 
         function getDsAtivo(){
             $ativo = ($this->flag_ativo == 1) ? "Ativo" : "Não ativo" ;
@@ -77,9 +84,14 @@
             $prioridade = ($this->prioridade == 1)? "Prioritário" : "Não Prioritário";
             return $prioridade;
         }
+
+        function getDsDelivery(){
+            $delivery = ($this->delivery == 1)? "Disponível" : "Não disponível";
+            return $delivery;
+        }
         function __construct(){
         }
-        function construct($nome,$preco,$descricao,$foto,$categoria,$flag_ativo,$prioridade){
+        function construct($nome,$preco,$descricao,$foto,$categoria,$flag_ativo,$prioridade,$delivery){
             $this->nome=$nome;
             $this->preco = $preco;
             $this->descricao=$descricao;
@@ -87,6 +99,7 @@
             $this->categoria=$categoria;
             $this->flag_ativo=$flag_ativo;
             $this->prioridade=$prioridade;
+            $this->delivery=$delivery;
         }
         function show(){
             echo "Código do cardapio:".$this->cod_cardapio."<br>";

@@ -29,8 +29,9 @@
 
 		$flag_ativo = (isset($_POST['flag_ativo'])||!empty($_POST['flag_ativo'])) && $_POST['flag_ativo'] == 1 ? 1 : 0 ;
 		$prioridade = (isset($_POST['prioridade'])||!empty($_POST['prioridade'])) && $_POST['prioridade'] == 1 ? 1 : 0 ;
+		$delivery = (isset($_POST['delivery'])||!empty($_POST['delivery'])) && $_POST['delivery'] == 1 ? 1 : 0 ;
 		$cardapio= new cardapio();
-		$cardapio->construct($nome, $preco, $descricao, $foto, $categoria, $flag_ativo, $prioridade);
+		$cardapio->construct($nome, $preco, $descricao, $foto, $categoria, $flag_ativo, $prioridade,$delivery);
 		/*echo "<pre>";
 		var_dump($cardapio);
 		echo "</pre>";
