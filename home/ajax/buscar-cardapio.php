@@ -96,7 +96,7 @@ session_start();
 
                         <div class='titulo'>".$item->getNome()."</div>
 
-                        <img src='../admin/".$item->getFoto()."'>
+                        <img title='".$item->getNome()."' alt='".$item->getNome()."' src='../admin/".$item->getFoto()."'>
 
                     </div>
 
@@ -324,7 +324,7 @@ session_start();
 
                     <div class='titulo'>".$item->getNome()."</div>
 
-                    <img src='../admin/".$item->getFoto()."'>
+                    <img alt='testeeeeeee' src='../admin/".$item->getFoto()."'>
 
                 </div>
 
