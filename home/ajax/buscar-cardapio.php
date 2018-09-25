@@ -353,6 +353,10 @@ session_start();
 
         $categoria = "";
 
+        if ($total < 1){
+            echo "<div>Nenhum produto encontrado!</div><br/>";
+        }
+
         foreach ($itens as $item) {
 
             $j++;
