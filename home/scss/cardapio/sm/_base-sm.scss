@@ -12,18 +12,21 @@ body{
     > .menu {
         padding-bottom: 15px;
         padding-top: 15px;
+        height: 500px;
         > .menu-lateral {
             @include make-sm-column(3);
             background-color: #BE392A;
-            width: 165px !important;
-            margin-left: 15px;
+            width: 180px !important;
+            margin-left: 10px;
+            margin-right: 10px;
             padding-left: 13px;
             padding-top: 5px;
-            > a {
+            a {
                 width: 100%;
                 display: block;
-                padding-bottom: 5px;
-                padding-bottom: 5px;
+                height: 56px;
+                padding-bottom: 10px;
+                padding-top: 10px;
                 > img {
                     width: 27px;
                     padding-left: 0px;
@@ -61,7 +64,22 @@ body{
             }
         }
         > .imagem {
-            @include make-sm-column(9);
+            // @include make-sm-column(8);
+            @include make-sm-column-offset(3);
+            width: 73%;
+            >.slick-prev{
+                z-index: 10;
+                margin-left: 25px;
+            }
+            >.slick-next {
+                margin-right: 10px;
+            }
+            >a {
+                > img {
+                    @include img-responsive();
+                    @include center-block();
+                }
+            }
             > img {
                 @include img-responsive();
             }

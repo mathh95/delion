@@ -20,9 +20,10 @@ body{
             padding-left: 20px;
             padding-top: 5px;
             padding-bottom: 5px;
-            > a {
+            a {
                 width: 100%;
                 display: block;
+                height: 55px;
                 padding-bottom: 10px;
                 padding-top: 10px;
                 > img {
@@ -34,16 +35,6 @@ body{
                     display: inline;
                     color: #ffffff;
                     padding-left: 20px;
-                }
-            }
-            > a:nth-child(1) {
-                > img {
-                    width: 17px;
-                    padding-left: 0px;
-                    margin-left: 5px;
-                }
-                > div {
-                    padding-left: 25px;
                 }
             }
             > a:hover{
@@ -63,6 +54,19 @@ body{
         }
         > .imagem {
             @include make-md-column(9);
+            >.slick-prev{
+                z-index: 10;
+                margin-left: 20px;
+            }
+            >.slick-next {
+                margin-right: 20px;
+            }
+            >a {
+                > img {
+                    @include img-responsive();
+                    @include center-block();
+                }
+            }
             > img {
                 @include img-responsive();
             }
