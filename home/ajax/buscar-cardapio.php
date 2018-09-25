@@ -47,31 +47,62 @@ session_start();
             $pagina = 1;
 
         }
-        // if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
-        //     $quantidadeCarrinho = count($_SESSION['carrinho']);
-        // }else{
-        //     $quantidadeCarrinho = 0;
-        // }
 
-        $quantidade = $controleCardapio->select($busca,1);
+        if (isset($_GET['delivery']) && !empty($_GET['delivery'])) {
+    
+            $delivery = $_GET['delivery'];
+    
+        } else {
+    
+            $delivery = false;
+    
+        }
+
+        if ($delivery == true ){
+
+            $quantidade = $controleCardapio->selectDelivery($busca,1);
+
+        }else{
+
+            $quantidade = $controleCardapio->select($busca,1);
+
+        }
 
         $total = count($quantidade);
 
         $offset = ($pagina - 1) * $por_pagina;
-        
-        $itens = $controleCardapio->selectPaginadoNome($busca,$offset,$por_pagina);
+
+
+        $itens = $controleCardapio->selectPaginadoNome($busca,$offset,$por_pagina, $delivery);
 
         $paginas = (($total % $por_pagina) > 0) ? (int)($total / $por_pagina) + 1 : ($total / $por_pagina);
         
         $i= 0;
 
         $categoria = "";
-
         if (!empty($itens) && count($itens) > 0) {
+            if ($delivery==true){
+                echo "<div class='categoria'>
+                     " . " Cardápio geral ". "
+                     <div class=\"pull-right\">
+                     Delivery<input style=\"margin-left:10px;\" type=\"checkbox\" id=\"delivery\" name=\"delivery\" onchange=\"delivery(this,"."'". $busca ."'".", ". $pagina.")\" value=\"1\" checked>
+                     </div>
+                </div>
+                <script type=\"text/javascript\" src=\"js/buscar-delivery.js\">
+                </script>
+                ";
+            }else{
+                echo "<div class='categoria'>
+                " . " Cardápio geral ". "
+                <div class=\"pull-right\">
+                Delivery<input style=\"margin-left:10px;\" type=\"checkbox\" id=\"delivery\" name=\"delivery\" onchange=\"delivery(this,"."'". $busca ."'".", ". $pagina.")\" value=\"1\">
+                </div>
+                </div>
+                <script type=\"text/javascript\" src=\"js/buscar-delivery.js\">
+                </script>
+                ";
+            }
 
-            echo "<div class='categoria'>
-                 " . " Cardápio geral ". "
-            </div>";
             foreach ($itens as $item) {
 
                 $i++;
@@ -106,6 +137,8 @@ session_start();
 
                         <div class='texto'>".html_entity_decode($item->getDescricao())."</div>
 
+                        <div class='texto'>". $item->getDsDelivery()." para delivery</div>
+                      
                         <div class='preco'><strong>R$ ".$item->getPreco()."</strong></div>
                         
                         <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button>
@@ -284,13 +317,31 @@ session_start();
 
         }
 
-        $quantidade = $controleCardapio->select($busca,2);
+        if (isset($_GET['delivery']) && !empty($_GET['delivery'])) {
+    
+            $delivery = $_GET['delivery'];
+    
+        } else {
+    
+            $delivery = false;
+    
+        }
+        
+        if ($delivery == true ){
+
+            $quantidade = $controleCardapio->selectDelivery($busca,2);
+
+        }else{
+
+            $quantidade = $controleCardapio->select($busca,2);
+
+        }
 
         $total = count($quantidade);
 
         $offset = ($pagina - 1) * $por_pagina;
 
-        $itens = $controleCardapio->selectPaginadoCategoria($busca,$offset,$por_pagina);
+        $itens = $controleCardapio->selectPaginadoCategoria($busca,$offset,$por_pagina, $delivery);
 
         $paginas = (($total % $por_pagina) > 0) ? (int)($total / $por_pagina) + 1 : ($total / $por_pagina);
 
@@ -312,7 +363,23 @@ session_start();
 
                 $nomeCategoria = $controleCategoria->select($categoria, 2);
 
-                echo "<div class='categoria'>".strtoupper($nomeCategoria->getNome())."</div>";
+                if ($delivery==true){
+                    echo "<div class='categoria'>".strtoupper($nomeCategoria->getNome())."
+                        <div class=\"pull-right\">
+                        Delivery<input style=\"margin-left:10px;\" type=\"checkbox\" id=\"delivery\" name=\"delivery\" onchange=\"deliveryCategoria(this,"."'". $busca ."'".", ". $pagina.")\" value=\"1\" checked>
+                        </div>
+                    </div>
+                    <script type=\"text/javascript\" src=\"js/buscar-delivery.js\">
+                    </script>";
+                }else{
+                    echo "<div class='categoria'>".strtoupper($nomeCategoria->getNome())."
+                        <div class=\"pull-right\">
+                        Delivery<input style=\"margin-left:10px;\" type=\"checkbox\" id=\"delivery\" name=\"delivery\" onchange=\"deliveryCategoria(this,"."'". $busca ."'".", ". $pagina.")\" value=\"1\">
+                        </div>
+                    </div>
+                    <script type=\"text/javascript\" src=\"js/buscar-delivery.js\">
+                    </script>";
+                }
 
             }
 
@@ -333,6 +400,8 @@ session_start();
                     <div class='titulo'>DESCRIÇÃO</div>
 
                     <div class='texto'>".html_entity_decode($item->getDescricao())."</div>
+
+                    <div class='texto'>". $item->getDsDelivery()." para delivery</div>
                     
                     <div class='preco'><strong>R$ ".$item->getPreco()."</strong></div>
                     
