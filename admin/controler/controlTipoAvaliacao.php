@@ -28,6 +28,26 @@
             }
         }
 
+        function update($tipoAvaliacao){
+            try{
+                $stmte = $this->pdo->prepare("UPDATE tipo_avaliacao SET nome = :nome, flag_ativo = :flag_ativo WHERE cod_tipo_avaliacao = :cod_tipo_avaliacao");
+                $stmte->bindValue(":nome", $tipoAvaliacao->getNome());
+                $stmte->bindValue(":flag_ativo", $tipoAvaliacao->getFlag_ativo());
+                $stmte->bindValue(":cod_tipo_avaliacao", $tipoAvaliacao->getCod_tipo_avaliacao());
+
+                $executa = $stmte->execute();
+                if($executa){
+                    return 1;
+                }else{
+                    return -1;
+                }
+
+            }catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
         function select(){
             $tipos = array();
             try{
