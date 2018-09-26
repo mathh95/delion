@@ -20,7 +20,7 @@
 
     $controle=new controlerTipoAvaliacao($_SG['link']);
 
-    $tipo = $controle->selectSemCategoria($_GET['cod'], 2)
+    $tipo = $controle->selectSemCategoria($_GET['cod'], 2);
 
 ?>
 
@@ -299,18 +299,36 @@
 
                         <br>
 
-                        <small>Informar se o item está ativo:</small>
+                        <?php 
+                            if($tipo->getFlag_ativo() == 1){ ?>
+
+                            <small>Informar se o item está ativo:</small>
                         
-                        <div class="checkbox">
+                            <div class="checkbox">
 
-                            <label>
+                                <label>
 
-                                <input type="checkbox" id="ativo" name="flag_ativo" value="<?=(($tipo->getFlag_ativo() == 1) ? "1" : "0")?>">Ativo
+                                    <input type="checkbox" id="ativo" name="flag_ativo" value="<?=(($tipo->getFlag_ativo() == 1) ? "1" : "0")?>" checked>Ativo
 
-                            </label>
+                                </label>
 
-                        </div>
+                            </div>
 
+                        <?php }else{?>
+
+                            <small>Informar se o item está ativo:</small>
+                        
+                            <div class="checkbox">
+
+                                <label>
+
+                                    <input type="checkbox" id="ativo" name="flag_ativo" value="<?=(($tipo->getFlag_ativo() == 1) ? "1" : "0")?>">Ativo
+
+                                </label>
+
+                            </div>
+                        <?php } ?>
+                        
                     </div>
 
                 </div>

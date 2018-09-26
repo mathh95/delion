@@ -136,9 +136,13 @@ body{
                     text-align: center;
                     padding-bottom: 8px;
                 }
+                #addCarrinho{
+                    background-color: #BE392A;
+                    border: 1px solid #000;
+                    color:#fff;
+                }
                 #addCarrinho:hover {
-                    background-color: #000;
-                    color: #FFFFFF;
+                    color: #000;
                 }
                 > .compartilhar {
                     float: right;
