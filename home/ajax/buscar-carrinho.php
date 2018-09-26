@@ -51,6 +51,7 @@ if(count($itens) > 0){
                         <th>Preço Unitário</th>
                         <th>Subtotal</th>
                         <th>Quantidade</th>
+                        <th>Delivery</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,6 +69,11 @@ if(count($itens) > 0){
                             <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?=$i?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
                             <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?=$i?>" class="fas fa-cart-arrow-down fa-lg btn iconeExcluirProdutoTabela"></i>
                         </td>
+                        <td class="nomeProdutoTabela"><strong><?php if($item['delivery'] == 1){
+                            echo "Disponível";
+                            }else{
+                            echo "Não disponível";
+                            }    ?></strong> </td>
                     </tr>
             <?php $i++; $total += $item['preco']; endforeach;
             $_SESSION['totalCarrinho'] = $total;
