@@ -44,7 +44,7 @@
                         </div>
                         <div id="navbar" class="collapse navbar-collapse pull-left">
                             <ul class="nav navbar-nav">
-                                <li class="dropdown active ">
+                                <li class="dropdown active">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuários <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="usuario.php">Cadastro</a></li>
@@ -64,6 +64,19 @@
                                         <li><a href="bannerLista.php">Listar</a></li>
                                     </ul>
                                 </li>
+                                <li class="dropdown">
+
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Avaliacao <span class="caret"></span></a>
+
+                                        <ul class="dropdown-menu">
+
+                                            <li><a href="tipoAvaliacao.php">Cadastro</a></li>
+
+                                            <li><a href="tipoAvaliacaoLista.php">Listar</a></li>
+
+                                        </ul>
+
+                                    </li>
                                 <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Imagens <span class="caret"></span></a>
                                     <ul class="dropdown-menu">

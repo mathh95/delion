@@ -18,7 +18,7 @@
 		$cod_usuario = addslashes(htmlspecialchars($_POST['cod']));
 		$cod_perfil= addslashes(htmlspecialchars($_POST['perfil']));
 		$permissao = array();
-		for ($i=1; $i <= 9; $i++) { 
+		for ($i=1; $i <= 10; $i++) { 
 			if (!empty($_POST[$i."permissao"])) {
 				array_push($permissao, addslashes(htmlspecialchars($_POST[$i."permissao"])));
 			}

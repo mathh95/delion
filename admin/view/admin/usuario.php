@@ -140,6 +140,19 @@
 
                                     <li class="dropdown">
 
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Avaliacao <span class="caret"></span></a>
+
+                                        <ul class="dropdown-menu">
+
+                                            <li><a href="tipoAvaliacao.php">Cadastro</a></li>
+
+                                            <li><a href="tipoAvaliacaoLista.php">Listar</a></li>
+                                        </ul>
+
+                                    </li>
+
+                                    <li class="dropdown">
+
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Imagens <span class="caret"></span></a>
 
                                         <ul class="dropdown-menu">
@@ -429,6 +442,16 @@
                                         <label>
 
                                             <input type="checkbox" id="pedido" name="9permissao" value="pedido">Pedido
+
+                                        </label>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="avaliacao" name="10permissao" value="avaliacao">Avaliação
 
                                         </label>
 
