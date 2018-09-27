@@ -27,17 +27,19 @@ $tipos = $control->selectAtivo();
 
     <?php foreach($tipos as $tipo):?>
 
-    <input type="range" id="nota" name="nota" value="0" max="5"><br>
-    <input type="number" id="res" value="0"><br>
+    <label><?=$tipo->getNome()?>:</label><br>
+    <input class="ran" data-id="<?=$tipo->getCod_tipo_avaliacao()?>" type="range" id="nota<?=$tipo->getCod_tipo_avaliacao()?>" name="nota" value="0" max="5"><br>
+    <input type="number" id="res<?=$tipo->getCod_tipo_avaliacao()?>" value="0"><br>
 
     <?php endforeach; ?>
     
 </body>
 
 <script>
-    $("#nota").on("input", function(){
-        var nota = $("#nota").val();
-        $("#res").val(nota);
+    $(".ran").on("input", function(){
+        var id = $(this).data("id");
+        var nota = $(this).val();
+        $("#res"+id).val(nota);
     });
 </script>
 </html>
