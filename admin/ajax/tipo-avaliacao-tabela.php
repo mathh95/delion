@@ -26,12 +26,12 @@ if(in_array('avaliacao', $permissao)){
     foreach($tipos as &$tipo){
         $mensagem = "Tipo de avaliação excluído com sucesso!";
         $titulo = "Excluir";
-        echo "<tr name='resutaldo' id='status'>
+        echo "<tr name='resutaldo' id='status".$tipo->getCod_tipo_avaliacao()."'>
                 <td style='text-align: center;' name='id'>".$tipo->getCod_tipo_avaliacao()."</td>
                 <td style='text-align: center;' name='nome'>".$tipo->getNome()."</td>
                 <td style='text-align: center;' name='ativo'>".(($tipo->getFlag_ativo() == 1) ? "sim" : "nao")."</td>
                 <td style='text-align: center;' name='editar'><a href='tipoAvaliacao-view.php?cod=".$tipo->getCod_tipo_avaliacao()."' style='font-size: 20px;' href='#'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
-                <td style='text-align: center;' name='status'  ><button type='button' onclick='' class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
+                <td style='text-align: center;' name='status'  ><button type='button' onclick='removeTipoAvaliacao(".$tipo->getCod_tipo_avaliacao().")' class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
                 </tr>";
     }
 

@@ -48,6 +48,23 @@
             }
         }
 
+        function delete($parametro){
+            try{
+                $stmt = $this->pdo->prepare("DELETE FROM tipo_avaliacao WHERE cod_tipo_avaliacao = :parametro");
+                $stmt->bindValue(":parametro", $parametro , PDO::PARAM_INT);
+                if($stmt->execute()){
+                    return 1;
+                }else{
+                    return -1;
+                }
+                
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
         function select(){
             $tipos = array();
             try{

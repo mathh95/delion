@@ -4,7 +4,7 @@
     include_once MODELPATH."/usuario.php";
     include_once CONTROLLERPATH."/seguranca.php";
     include_once CONTROLLERPATH."/controlTipoAvaliacao.php";
-    include_once MODELPATH."/cardapio.php";
+    include_once MODELPATH."/tipo_avaliacao.php";
     $_SESSION['permissaoPagina']=0;
     protegePagina();
     $controleUsuario = new controlerUsuario($_SG['link']);
@@ -145,22 +145,23 @@
     <?php include VIEWPATH."/rodape.html" ?>
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
-        // function removeCardapio(cardapio,foto){
-        //     msgConfirmacao('Confirmação','Deseja Realmente remover o item cardápio?',
-        //         function(linha){
-        //             var url ='../../ajax/excluir-cardapio.php?cardapio='+cardapio+'&foto='+foto;
-        //             $.get(url, function(dataReturn) {
-        //                 if (dataReturn > 0) {
-        //                     msgGenerico("Excluir!","Item do cardápio excluido com sucesso!",1,function(){});
-        //                     $("#status"+cardapio).remove();
-        //                 }else{
-        //                     msgGenerico("Erro!","Não foi possível excluir a cardapio!",2,function(){});
-        //                 }
-        //             });  
-        //         },
-        //         function(){}
-        //     );
-        // }
+       function removeTipoAvaliacao(cod){
+            msgConfirmacao('Confirmação','Deseja Realmente remover o tipo avaliação ?',
+                function(linha){
+                    alert(cod);
+                    var url ="../../ajax/excluir-tipo-avaliacao.php?cod="+cod;
+                    $.get(url, function(dataReturn) {
+                        if (dataReturn > 0) {
+                            msgGenerico("Excluir!","Tipo avaliação excluido com sucesso!",1,function(){});
+                            $("#status"+cod).remove();
+                        }else{
+                            msgGenerico("Erro!","Não foi possível excluir o tipo avaliação!",2,function(){});
+                        }
+                    });  
+                },
+                function(){}
+            );
+        }
     </script>
 </body>
 </html>
