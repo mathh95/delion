@@ -112,4 +112,26 @@ function delivery(ativo, busca, pagina) {
     }
   }
 
+  function tipoPedido(resultado){
+    var check = resultado;
+    $.ajax({
+            
+        type:'GET',
+        
+        url: 'ajax/buscar-carrinho.php',
+        
+        data: {delivery : resultado}
+        ,
+        success:function(resultado){
+            $('.itens').html(resultado);
+            
+            if(check > 0){
+                $("#delivery").button('toggle');
+            }else{
+                $("#balcao").button('toggle');
+            }
+        }
+
+    });
+  }
 

@@ -110,31 +110,46 @@ body{
                 }
             }
         }
-        > .rodapeCarrinho{
-            @include make-md-column-offset(4);
-            @include make-md-column(8);
-            p{
-                font-size: 25px;
-                font-family: "Century Gothic Bold";
-            }
-            > .linhaBotao{
-                > .botaoCarrinhoEnviar{
-                    button{
-                        float:right;
-                        margin:10px;
-                        background-color: #000;
-                        border-color:#000;
-                        color: #ffffff;
-                    }  
+
+        >.rodapeCarrinho {
+            >.ladoEsquerdo{
+                @include make-md-column(5);
+                float:left !important;
+                p {
+                    font-size: 20px;
+                    font-family: "Century Gothic Bold";
                 }
-                > .botaoCarrinhoEsvaziar{
-                    button{
-                        float:right;
-                        margin:10px;
+                >.btn-group{
+                    margin-top:10px;
+                }
+            }
+            >.ladoDireito{
+                float:right !important;
+                @include make-md-column(5);
+                p {
+                    font-size: 20px;
+                    font-family: "Century Gothic Bold";
+                }
+    
+                > .linhaBotao{
+                    > .botaoCarrinhoEnviar{
+                        button{
+                            float:right;
+                            margin:10px;
+                            background-color: #000;
+                            border-color:#000;
+                            color: #ffffff;
+                        }  
+                    }
+                    > .botaoCarrinhoEsvaziar{
+                        button{
+                            float:right;
+                            margin:10px;
+                        }
                     }
                 }
             }
-        } 
+        }  
     }
     > .whatsapp {
         position: fixed;

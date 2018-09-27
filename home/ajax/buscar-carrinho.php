@@ -19,8 +19,11 @@ include_once "../lib/alert.php";
 $itens = array();
 $cardapio = new controlerCardapio(conecta());
 // $pedido = new enviarEmailPedido;
-
-
+if(isset($_GET['delivery']) && !empty($_GET['delivery'])){
+    $_SESSION['delivery']=$_GET['delivery'];
+}else{
+    $_SESSION['delivery']=-1;
+}
 
 
 if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
@@ -37,7 +40,7 @@ if(count($itens) > 0){
     
     $itens = $cardapio->buscarVariosId($itens);
 ?>
-
+        <script type="text/javascript" src="js/buscar-delivery.js"></script>
         <script type="text/javascript" src="js/buscar-carrinho.js"></script>
         <h1 class="text-center">Pedido</h1>
         <?php //print_r($_SESSION['qtd']); ?>
@@ -58,6 +61,7 @@ if(count($itens) > 0){
         
                 <?php $total = 0; 
                 $i = 0;
+                $pedidoBalcao=0;
                 foreach($itens as $item): ?>
                     <tr id="idLinha<?=$i?>" data-id="<?=$item['cod_cardapio']?>">
                         <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?=$i?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
@@ -73,19 +77,35 @@ if(count($itens) > 0){
                             echo "Disponível";
                             }else{
                             echo "Não disponível";
+                            $pedidoBalcao=$pedidoBalcao + 1;
                             }    ?></strong> </td>
                     </tr>
             <?php $i++; $total += $item['preco']; endforeach;
             $_SESSION['totalCarrinho'] = $total;
-    
+            $_SESSION['pedidoBalcao']=$pedidoBalcao;   
     echo "</tbody>
         </table>
         </div>
         <div class='rodapeCarrinho row'>
-            <strong><p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCarrinho'], 2)."</p></strong>
-            <div class='row linhaBotao'>
-                <a class='botaoCarrinhoEnviar' href='../home/ajax/enviarEmailPedido.php'><button id='finalizar' class='btn'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
-                <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho <i class='fas fa-trash-alt'></i></button></a>
+            <div class='ladoEsquerdo'>                    
+                <strong><p>Escolha como vai receber o pedido: </p>
+                </strong>
+                <div class='btn-group btn-group-toggle' data-toggle='buttons'>
+                    <label class='btn btn-primary' id='delivery' onclick='tipoPedido(1)'>
+                        <input type='radio' name='delivery'  autocomplete='off'> Delivery
+                    </label>
+                    <label class='btn btn-primary'  id='balcao' onclick='tipoPedido(-1)'>
+                        <input type='radio' name='balcao' autocomplete='off'> Balcão
+                    </label>
+                </div>
+            </div>
+            <div class='ladoDireito row'>
+                <strong><p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCarrinho'], 2)." 
+                </p></strong>
+                <div class='row linhaBotao'>
+                        <a class='botaoCarrinhoEnviar' href='../home/ajax/enviarEmailPedido.php'><button id='finalizar' class='btn'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
+                        <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho <i class='fas fa-trash-alt'></i></button></a>
+                </div>
             </div>
         </div>";
     
