@@ -34,13 +34,13 @@ $tipos = $control->selectAtivo();
     <?php foreach($tipos as $tipo):?>
 
     <label><?=$tipo->getNome()?>:</label><br>
-    <input class="ran" data-id="<?=$tipo->getCod_tipo_avaliacao()?>" type="range" id="nota<?=$tipo->getCod_tipo_avaliacao()?>" name="nota" value="0" max="5"><br>
-    <i id="star1<?=$tipo->getCod_tipo_avaliacao()?>" class="far fa-star"></i>
+    <input class="ran" data-id="<?=$tipo->getCod_tipo_avaliacao()?>" type="range" id="nota<?=$tipo->getCod_tipo_avaliacao()?>" name="nota" value="0" max="5" min="1"><br>
+    <i id="star1<?=$tipo->getCod_tipo_avaliacao()?>" class="fas fa-star ativo"></i>
     <i id="star2<?=$tipo->getCod_tipo_avaliacao()?>" class="far fa-star"></i>
     <i id="star3<?=$tipo->getCod_tipo_avaliacao()?>" class="far fa-star"></i>
     <i id="star4<?=$tipo->getCod_tipo_avaliacao()?>" class="far fa-star"></i>
     <i id="star5<?=$tipo->getCod_tipo_avaliacao()?>" class="far fa-star"></i><br>
-    <input type="number" id="res<?=$tipo->getCod_tipo_avaliacao()?>" value="0"><br>
+    <input type="number" id="res<?=$tipo->getCod_tipo_avaliacao()?>" value="1"><br>
 
     <?php endforeach; ?>
     
@@ -50,14 +50,20 @@ $tipos = $control->selectAtivo();
     $(".ran").on("input", function(){
         var id = $(this).data("id");
         var nota = $(this).val();
+        var max = 5;
+        var min = 0;
         $("#res"+id).val(nota);
         if($("#star"+nota+id).hasClass("ativo")){
-
-            $("#star"+nota+id).removeClass("fas fa-star ativo");
-            $("#star"+nota+id).addClass("far fa-star");
-
+            while(max > nota){
+                $("#star"+max+id).removeClass("fas fa-star ativo");
+                $("#star"+max+id).addClass("far fa-star");
+                max--;
+            }
         }else{
-            $("#star"+nota+id).addClass("fas fa-star ativo");
+            while(min <= nota){
+                $("#star"+min+id).addClass("fas fa-star ativo");
+                min++;
+            }
         }
     });
 </script>
