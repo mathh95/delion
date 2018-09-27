@@ -18,12 +18,17 @@ if (in_array('avaliacao', json_decode($_SESSION['permissao']))) {
 
     $id= addslashes(htmlspecialchars($_POST['cod']));
     $nome= addslashes(htmlspecialchars($_POST['nome']));
-    $flag = (isset($_POST['flag_ativo'])||!empty($_POST['flag_ativo'])) && $_POST['flag_ativo'] == 1 ? 1 : 0 ;
+    $flag = isset($_POST['flag_ativo']) ? 1 : 0;
     
     $tipo= new tipoAvaliacao();
     $tipo->setCod_tipo_avaliacao($id);
     $tipo->setNome($nome);
     $tipo->setFlag_ativo($flag);
+   
+    // echo '<pre>';
+    // print_r($tipo);
+    // echo '</pre>';
+    // exit;
     
     $controle=new controlerTipoAvaliacao($_SG['link']);
 
