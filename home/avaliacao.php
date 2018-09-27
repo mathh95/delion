@@ -1,3 +1,17 @@
+<?php
+
+include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
+include_once "../admin/controler/conexao.php";
+include_once "../admin/controler/controlTipoAvaliacao.php";
+include_once "../admin/model/tipo_avaliacao.php";
+
+$tipos = new tipoAvaliacao();
+$control = new controlerTipoAvaliacao(conecta());
+
+$tipos = $control->selectAtivo();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +25,12 @@
 
     <h3>Por favor, gostaríamos da sua avaliação sobre os seguintes tópicos:</h3>
 
-    <input type="range" id="nota" name="nota" value="50"><br>
-    <input type="number" id="res" value="0">
+    <?php foreach($tipos as $tipo):?>
+
+    <input type="range" id="nota" name="nota" value="0" max="5"><br>
+    <input type="number" id="res" value="0"><br>
+
+    <?php endforeach; ?>
     
 </body>
 

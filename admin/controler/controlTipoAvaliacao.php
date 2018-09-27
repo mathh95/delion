@@ -65,6 +65,27 @@
             }
         }
 
+        function selectAtivo(){
+            $tipos = array();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM tipo_avaliacao WHERE flag_ativo = 1");
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                            $tipoAvaliacao = new tipoAvaliacao();
+                            $tipoAvaliacao->setCod_tipo_avaliacao($result->cod_tipo_avaliacao); 
+                            $tipoAvaliacao->setNome($result->nome);  
+                            $tipoAvaliacao->setFlag_ativo($result->flag_ativo); 
+                            array_push($tipos, $tipoAvaliacao);  
+                        }
+                    }
+                }
+                return $tipos;
+            }catch(PODException $e){
+                echo $e->getMessage();
+            }
+        }
+
         function select(){
             $tipos = array();
             try{
