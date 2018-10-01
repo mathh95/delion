@@ -18,6 +18,8 @@
 
             private $cliente;
 
+            private $flag_cliente;
+
             function getCodEndereco(){
                 return $this->cod_endereco;
             }
@@ -44,6 +46,10 @@
 
             function getCliente(){
                 return $this->cliente;
+            }
+
+            function getFlagCliente(){
+                return $this->flag_cliente;
             }
 
             function setCodEndereco($cod_endereco){
@@ -74,6 +80,10 @@
                 $this->cliente = $cliente;
             }
             
+            function setFlagCliente($flag_cliente){
+                $this->flag_cliente=$flag_cliente;
+            }
+
             function __construct(){
 
             }

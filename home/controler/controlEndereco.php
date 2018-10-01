@@ -7,8 +7,8 @@
 
         function insert($endereco){
             try{
-                $stmt=$this->pdo->prepare("INSERT INTO endereco(rua, numero, cep, complemento, bairro, cliente)
-                VALUES (:rua, :numero, :cep, :complemento, :bairro, :cliente) ");
+                $stmt=$this->pdo->prepare("INSERT INTO endereco(rua, numero, cep, complemento, bairro, cliente, flag_cliente)
+                VALUES (:rua, :numero, :cep, :complemento, :bairro, :cliente, 1) ");
                 $stmt->bindParam(":rua", $endereco->getRua(), PDO::PARAM_STR);
                 $stmt->bindParam(":numero",$endereco->getNumero(), PDO::PARAM_INT);
                 $stmt->bindParam(":cep", $endereco->getCep(), PDO::PARAM_STR);
@@ -52,6 +52,58 @@
 
                 echo $e->getMessage();
 
+            }
+        }
+
+        function deleteCliente($cod_endereco){
+            try{
+                $stmt=$this->pdo->prepare("UPDATE endereco SET flag_cliente=0 WHERE cod_endereco=:cod_endereco");
+                $stmt->bindParam(":cod_endereco", $cod_endereco, PDO::PARAM_INT);
+                $executa=$stmt->execute();
+                if ($executa) {
+                    return 1;
+                }else {
+                    return -1;
+                }
+            }catch(PDOException $e){
+
+                echo $e->getMessage();
+
+            }    
+        }
+
+        function selectAll(){
+            try{
+                $enderecos = array();
+                $stmt=$this->pdo->prepare("SELECT * FROM endereco");
+                $executa= $stmt->execute();
+                if ($executa){
+                    if ($stmt->rowCount() > 0 ){
+                        while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                            $endereco = new endereco();
+                            $endereco->setCodEndereco($result->cod_endereco);
+                            $endereco->setRua($result->rua);
+                            $endereco->setNumero($result->numero);
+                            $endereco->setCep($result->cep);
+                            $endereco->setComplemento($result->complemento);
+                            $endereco->setBairro($result->bairro);
+                            $endereco->setCliente($result->cliente);
+                            $endereco->setFlagCliente($result->flag_cliente);
+                            array_push($enderecos,$endereco);
+                        }
+                    }else{
+                        echo "Sem resultados";
+                        return -1;
+                    }
+                    return $enderecos;
+                }else{
+                    return -1;
+                }
+
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
             }
         }
 
