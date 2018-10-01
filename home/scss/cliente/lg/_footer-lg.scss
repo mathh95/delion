@@ -10,7 +10,7 @@
 body {
 	> footer {
 		font-family: $font_main;
-		background-color: #000000;
+		background-color: #C57686;
 		padding-bottom: 15px;
 		> .container {
 			> .logo {
@@ -77,7 +77,8 @@ body {
 	                        @include make-lg-column(4);
 	                        padding: 0px;
 	                        padding-top: 15px;
-	                        padding-right: 5px;
+							padding-right: 5px;
+							margin-left: 18px;
 	                        > img {
 	                            @include img-responsive();
 	                        }
@@ -89,7 +90,7 @@ body {
 	}
 	> .rodape {
 		height: 35px;
-		background-color: #BE392A;
+		background-color: #D7CEC7;
 		padding-top: 0px;
 		> div {
 			padding-top: 7px;
@@ -102,7 +103,8 @@ body {
 	            text-align: right;
 	            > div {
 	                > img {
-	                    @include img-responsive();
+						@include img-responsive();
+						margin-left: 50px !important;
 	                    vertical-align: text-top;
 	                    display: inline;
 	                    max-width: 4%;

@@ -144,19 +144,15 @@
 
 				<div>Das 07:00 Hs as 20:00 Hs</div> -->
 
-				<div class="rede-social">
+				<div class="delivery">
 
-					<a href="<?= !empty($empresa->getFacebook()) ? "https://".$empresa->getFacebook() : "https://www.facebook.com" ?>">
+					<div class="container row">
 
-						<img src="img/face.png">
+						<img src="img/moto.png">
 
-					</a>
+						<button>PEDIR</button>
 
-					<a href="<?= !empty($empresa->getInstagram()) ? "https://".$empresa->getInstagram() : "https://www.instagram.com" ?>">
-
-						<img src="img/insta.png">
-
-					</a>
+					</div>
 
 				</div>
 

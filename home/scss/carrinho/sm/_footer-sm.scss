@@ -10,7 +10,7 @@
 body {
     > footer {
         font-family: $font_main;
-        background-color: #000000;
+        background-color: #C57686;
         > .container {
             > .logo {
                 @include make-sm-column(4);
@@ -78,6 +78,7 @@ body {
                             padding: 0px;
                             padding-top: 15px;
                             padding-right: 5px;
+                            margin-left: 18px;
                             > img {
                                 @include img-responsive();
                             }
@@ -89,7 +90,7 @@ body {
     }
     > .rodape {
         height: 35px;
-        background-color: #BE392A;
+        background-color: #D7CEC7;
         padding-top: 0px;
         > div {
             font-size: 13px;
