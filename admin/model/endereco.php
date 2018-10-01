@@ -4,20 +4,6 @@
      */
         class endereco{
 
-            #cod_endereço int 
-            
-            #rua var char 255
-
-            #numero int
-
-            #cep varchar 9
-
-            #complemento varchar 255
-
-            #bairro varchar 255
-
-            #cliente int
-
             private $cod_endereco;
 
             private $rua;
@@ -92,8 +78,7 @@
 
             }
 
-            function construct($cod_endereco,$rua,$numero,$cep,$complemento,$bairro,$cliente){
-                $this->cod_endereco=$cod_endereco;
+            function construct($rua,$numero,$cep,$complemento,$bairro,$cliente){
                 $this->rua = $rua;
                 $this->numero = $numero;
                 $this->cep = $cep;
@@ -108,8 +93,8 @@
                 echo "Numero: ".$this->numero."<br>";
                 echo "Cep: ".$this->cep."<br>";
                 echo "Complemento: ".$this->complemento."<br>";
-                echo "Bairro: ".this->bairro."<br>";
-                echo "Cliente: ".this->cliente."<br>";
+                echo "Bairro: ".$this->bairro."<br>";
+                echo "Cliente: ".$this->cliente."<br>";
             }
         }
 ?>
