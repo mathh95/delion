@@ -106,6 +106,88 @@
                 return -1;
             }
         }
+        //modo 1= endereços ativos
+        //modo 2= endereços inativos
+        function selectByCliente($cliente, $modo){
+            try{
+                $enderecos = array();
+                if ($modo==1) {
+                    $stmt=$this->pdo->prepare("SELECT * FROM endereco WHERE cliente=:cliente AND flag_cliente=1");
+                }elseif ($modo==2) {
+                    $stmt=$this->pdo->prepare("SELECT * FROM endereco WHERE cliente=:cliente AND flag_cliente=0");
+                }
+                $stmt->bindParam(":cliente", $cliente, PDO::PARAM_INT);
+                $executa= $stmt->execute();
+                if ($executa){
+                    if ($stmt->rowCount() > 0 ){
+                        while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                            $endereco = new endereco();
+                            $endereco->setCodEndereco($result->cod_endereco);
+                            $endereco->setRua($result->rua);
+                            $endereco->setNumero($result->numero);
+                            $endereco->setCep($result->cep);
+                            $endereco->setComplemento($result->complemento);
+                            $endereco->setBairro($result->bairro);
+                            $endereco->setCliente($result->cliente);
+                            $endereco->setFlagCliente($result->flag_cliente);
+                            array_push($enderecos,$endereco);
+                        }
+                    }else{
+                        echo "Sem resultados";
+                        return -1;
+                    }
+                    return $enderecos;
+                }else{
+                    return -1;
+                }
+
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
+        #modo 1=codigo do endereço
+        #modo 2=codigo do pedido
+        function select($parametro,$modo){
+            try{
+                $enderecos = array();
+                if ($modo == 1) {
+                    $stmt=$this->pdo->prepare("SELECT * FROM endereco WHERE cod_endereco=:parametro");
+                }elseif ($modo == 2) {
+                    $stmt=$this->pdo->prepare("SELECT * FROM pedido WHERE cod_endereco=:parametro");
+                }
+                $executa= $stmt->execute();
+                if ($executa){
+                    if ($stmt->rowCount() > 0 ){
+                        while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                            $endereco = new endereco();
+                            $endereco->setCodEndereco($result->cod_endereco);
+                            $endereco->setRua($result->rua);
+                            $endereco->setNumero($result->numero);
+                            $endereco->setCep($result->cep);
+                            $endereco->setComplemento($result->complemento);
+                            $endereco->setBairro($result->bairro);
+                            $endereco->setCliente($result->cliente);
+                            $endereco->setFlagCliente($result->flag_cliente);
+                            array_push($enderecos,$endereco);
+                        }
+                    }else{
+                        echo "Sem resultados";
+                        return -1;
+                    }
+                    return $enderecos;
+                }else{
+                    return -1;
+                }
+
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
 
         function __construct($pdo){
             $this->pdo=$pdo;
