@@ -304,9 +304,9 @@
 
 			</div>
 
-			<a href='cardapio.php'><div class="texto">
+			<a href='cardapio.php'><div style="background-color: #C57686;" class="texto">
 
-				<img src="img/copo.png" class="icone"> CONHEÇA O NOSSO CARDÁPIO
+				<img src="img/cup.png" class="icone"> CONHEÇA O NOSSO CARDÁPIO
 
 			</div></a>
 
@@ -334,9 +334,9 @@
 
 			</div>
 
-			<a href='eventos.php'><div class="texto">
+			<a href='eventos.php'><div style="background-color: #C57686 !important;" class="texto">
 
-				<img src="img/Evento1.png" class="icone"> EVENTOS
+				<img src="img/icone-evento.png" class="icone"> EVENTOS
 
 			</div></a>
 
@@ -368,9 +368,9 @@
 
 			</div>
 
-			<a><div class="texto">
+			<a><div style="background-color: #C57686 !important;" class="texto">
 
-				<img src="img/Cake.png" class="icone"> FAÇA SEU PEDIDO
+				<img src="img/icone-bolo.png" class="icone"> FAÇA SEU PEDIDO
 
 			</div></a>
 
@@ -398,9 +398,9 @@
 
 			</div>
 
-			<a><div class="texto">
+			<a><div style="background-color: #C57686 !important;" class="texto">
 
-				<img src="img/bolinho.png" class="icone"> PEÇA O SEU CARTÃO FIDELIDADE
+				<img src="img/icone-cartao.png" class="icone"> PEÇA O SEU CARTÃO FIDELIDADE
 
 			</div></a>
 
