@@ -127,8 +127,10 @@ function delivery(ativo, busca, pagina) {
             
             if(check > 0){
                 $("#delivery").button('toggle');
+                $("#delivery").addClass("ativo");
             }else{
                 $("#balcao").button('toggle');
+                $("#delivery").addClass("ativo");
             }
         }
 
