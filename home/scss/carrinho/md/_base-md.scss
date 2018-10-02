@@ -14,7 +14,7 @@ body{
         padding-top: 15px;
         > .menu-lateral {
             @include make-md-column(3);
-            background-color: #BE392A;
+            background-color: #C57686;
             width: 270px !important;
             margin-left: 15px;
             padding-left: 20px;
@@ -93,13 +93,13 @@ body{
                 @include make-md-column(12);
                 #cabecalhoTabela{
                     color:white;
-                    background-color:black; 
+                    background-color:#C57686; 
                     border-style:solid; 
                     border-bottom-width:5px;
                     border-top-width:0;
                     border-left-width:0;
                     border-right-width:0;
-                    border-bottom-color: rgb(190, 57, 42);
+                    border-bottom-color: #91414F;
                     font-family: "Century Gothic Bold";
                     font-size: 14px;
                 }
@@ -121,6 +121,13 @@ body{
                 }
                 >.btn-group{
                     margin-top:10px;
+                    > label{
+                        background-color: #c57682;
+                        border-color: #91414F;
+                        > input{
+                            background-color: #91414F;
+                        }
+                    }
                 }
             }
             >.ladoDireito{
@@ -136,13 +143,15 @@ body{
                         button{
                             float:right;
                             margin:10px;
-                            background-color: #000;
-                            border-color:#000;
+                            background-color: #C57686;
+                            border-color:#91414F;
                             color: #ffffff;
                         }  
                     }
                     > .botaoCarrinhoEsvaziar{
                         button{
+                            background-color: #C57686;
+                            border-color:#91414F;
                             float:right;
                             margin:10px;
                         }

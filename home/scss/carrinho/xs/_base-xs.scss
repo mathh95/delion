@@ -14,7 +14,7 @@ body{
         padding-top: 15px;
         > .menu-lateral {
             @include make-xs-column(3);
-            background-color: #BE392A;
+            background-color: #C57686;
             width: 270px !important;
             margin-left: 15px;
             padding-left: 20px;
@@ -100,13 +100,13 @@ body{
                 @include make-xs-column(12);
                 #cabecalhoTabela{
                     color:white;
-                    background-color:black; 
+                    background-color:#C57686; 
                     border-style:solid; 
                     border-bottom-width:5px;
                     border-top-width:0;
                     border-left-width:0;
                     border-right-width:0;
-                    border-bottom-color: rgb(190, 57, 42);
+                    border-bottom-color: #91414F;
                     font-family: "Century Gothic Bold";
                     font-size: 12px;
                 }
@@ -160,6 +160,11 @@ body{
                 }
                 label{
                     width:120px;
+                    background-color: #c57682;
+                    border-color: #91414F;
+                    > input{
+                        background-color: #91414F;
+                    }
                 }
             }
             >.ladoDireito{
@@ -174,8 +179,8 @@ body{
                         //margin-left: 10px;
                         button{
                             @include make-xs-column(5);
-                            background-color: #000 !important;
-                            border-color:#000 !important;
+                            background-color: #C57686 !important;
+                            border-color:#91414F !important;
                             color: #ffffff;
                             margin-left: 40px;
                             margin-bottom: 10px;
@@ -184,6 +189,8 @@ body{
                     > .botaoCarrinhoEsvaziar{
                         button{
                             @include make-xs-column(5);
+                            background-color: #C57686 !important;
+                            border-color:#91414F !important;
                             margin-left: 10px;
                             margin-bottom: 10px;
                         }
