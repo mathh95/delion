@@ -14,7 +14,7 @@ body{
         padding-top: 15px;
         > .menu-lateral {
             @include make-xs-column(12);
-            background-color: #BE392A;
+            background-color: #C57686;
             // width: 165px !important;
             // margin-left: 15px;
             // padding-left: 13px;
@@ -53,14 +53,14 @@ body{
             > a:hover{
                 text-decoration: none;
                 > div {
-                    color: #000;
+                    color: #91414F;
                     font-family: $font_main_bold;
                 }
             }
             > a:focus{
                 text-decoration: none;
                 > div {
-                    color: #000;
+                    color: #91414F;
                     font-family: $font_main_bold;
                 }
             }
@@ -92,8 +92,8 @@ body{
             font-size: 14px;
             color: #FFFFFF;
             // width: 317px;
-            background-color: #000000;
-            border: 5px solid #BE392A;
+            background-color: #91414F;
+            border: 5px solid #C57686;
             border-top: 0px;
             border-left: 0px;
             border-right: 0px;
@@ -110,7 +110,7 @@ body{
             padding-bottom: 10px;
             margin-bottom: 10px;
             padding-right: 0px;
-            border: 1px solid #000;
+            border: 1px solid #91414F;
             border-left: 0px;
             border-right: 0px;
             border-top: 0px;
@@ -126,7 +126,7 @@ body{
                 }
                 > img {
                     @include img-responsive();
-                    border: 1px solid #000000;
+                    border: 1px solid #91414F;
                     border-top: 0px;
                     border-left: 0px;
                     border-bottom: 0px;
@@ -145,6 +145,14 @@ body{
                 }
                 > .texto {
                     text-align: center;
+                }
+                #addCarrinho{
+                    background-color: #C57686;
+                    border: 1px solid #91414F;
+                    color:#fff;
+                }
+                #addCarrinho:hover {
+                    color: #91414F;
                 }
                 > .preco{
                     // @include make-xs-column(12);
@@ -165,7 +173,7 @@ body{
                     }
                 }
                 > button:hover{
-                    background-color: #000;
+                    background-color: #C57686;
                     color: white;
                 }
             }   
@@ -217,8 +225,8 @@ body{
                     > li.active {
 
                         > a {
-                            background-color: #BE392A;
-                            border-color:  #BE392A;
+                            background-color: #91414F;
+                            border-color:  #91414F;
                             width: 20px;
                             padding-left: 5px;
                         }
