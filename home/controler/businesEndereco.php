@@ -6,14 +6,15 @@
     include_once "../lib/alert.php";
     $control= new controlEndereco($_SG['link']);
     $endereco= new endereco();
-    $rua="asdasd";
+    $rua="zzzzzz";
     $numero="123";
     $cep="85851-030";
-    $complemento="sdfsd";
+    $complemento="zzzzzzz";
     $bairro="tijuca";
     $cliente=5;
     $endereco->construct($rua,$numero,$cep,$complemento,$bairro,$cliente);
-    $result=$control->insert($endereco);
+    $endereco->setCodEndereco(1);
+    $result=$control->deleteCliente(1);
     echo $result;
 /*     if (isset($_POST) and !empty($_POST)){
 

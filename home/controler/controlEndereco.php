@@ -133,7 +133,6 @@
                             array_push($enderecos,$endereco);
                         }
                     }else{
-                        echo "Sem resultados";
                         return -1;
                     }
                     return $enderecos;
@@ -174,7 +173,6 @@
                             array_push($enderecos,$endereco);
                         }
                     }else{
-                        echo "Sem resultados";
                         return -1;
                     }
                     return $enderecos;

@@ -1,0 +1,129 @@
+@font-face {
+    font-family: "Century Gothic Regular";
+    src: url("../../fonts/gothic.ttf");
+}
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../../fonts/gothicb.ttf");
+}
+
+body {
+    > footer {
+        font-family: $font_main;
+        background-color: #C57686;
+        > .container {
+            > .logo {
+                @include make-sm-column(4);
+                @include make-sm-column-offset(4);
+                padding-top: 15px;
+                padding-right: 0px;
+                padding-left: 0px;
+                padding-bottom: 15px;
+                > a{
+					> img {
+						@include img-responsive();
+						@include center-block();
+					}
+				}
+                > div {
+                    font-size: 10.99px;
+                    text-align: center;
+                    color: #FFFFFF;
+                    padding: 0px;
+                }
+            }
+            > .infos {
+                @include make-sm-column(12);
+                padding: 0px;
+                > .links {
+                    @include make-sm-column(1);
+                    > div {
+                        padding: 8px 0px;
+                        > a {
+                            color: #FFFFFF;
+                            font-size: 13px;
+                            font-weight: bold;
+                        }
+                    }
+                }
+                > .dados {
+                    @include make-sm-column(4);
+                    @include make-sm-column-offset(3);
+                    text-align: center;
+                    padding-right: 0px;
+                    padding-left: 0px;
+                    padding-top: 10px;
+                    > div {
+                        font-size: 13px;
+                        font-weight: bold;
+                        padding: 3px 0px;
+                        color: #FFFFFF;
+                    }
+                }
+                > .redes {
+                    @include make-sm-column(3);
+                    @include make-sm-column-offset(1);
+                    padding-left: 35px;
+                    padding-top: 40px;
+                    color: #FFFFFF;
+                    font-size: 13px;
+                    text-align: center;
+                    > div:nth-child(1) {
+                        font-family: $font_main_bold;
+                        font-size: 13px;
+                    }
+                    > .rede-social {
+                        > a {
+                            @include make-sm-column(4);
+                            padding: 0px;
+                            padding-top: 15px;
+                            padding-right: 5px;
+                            margin-left: 18px;
+                            > img {
+                                @include img-responsive();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    > .rodape {
+        height: 35px;
+        background-color: #D7CEC7;
+        padding-top: 0px;
+        > div {
+            font-size: 13px;
+            padding-top: 7px;
+            color: #000000;
+            > div:nth-child(1){
+                @include make-sm-column(5);
+            }
+            > div:nth-child(2){
+                @include make-sm-column(7);
+                text-align: right;
+                > div {
+                    > img {
+                        @include img-responsive();
+                        vertical-align: text-top;
+                        display: inline;
+                        max-width: 5%;
+                    }
+                }
+            }
+        }
+    }
+    > .whatsapp{
+        position: fixed;
+        right: 15px;
+        bottom: 20px;
+        height: 40px;
+        width: 40px;
+        z-index: 9999;
+        > a{
+            > img{
+                @include img-responsive;
+            }
+        }
+    }
+}
