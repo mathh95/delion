@@ -46,45 +46,45 @@
 
     }
 
-    //  class banco {
+//      class banco {
 
-    //     private $host='localhost';
+//         private $host='localhost';
 
-    //     private $dbname='c39delioncafe';
+//         private $dbname='c39delioncafe';
 
-    //     private $user='c39delioncafe';
+//         private $user='c39delioncafe';
 
-    //     private $password='D3l1onC4f3!';
+//         private $password='D3l1onC4f3!';
 
 
 
-    //     function getHost(){
+//         function getHost(){
 
-    //         return $this->host;
+//             return $this->host;
 
-    //     }
+//         }
 
-    //     function getDBname(){
+//         function getDBname(){
 
-    //         return $this->dbname;
+//             return $this->dbname;
 
-    //     }
+//         }
 
-    //     function getUser(){
+//         function getUser(){
 
-    //         return $this->user;
+//             return $this->user;
 
-    //     }
+//         }
 
-    //     function getPassword(){
+//         function getPassword(){
 
-    //         return $this->password;
+//             return $this->password;
 
-    //     }
+//         }
 
-    //     function __construct(){ }
+//         function __construct(){ }
 
-    // }
+//     }
 
-?>
+// ?>
 

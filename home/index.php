@@ -146,11 +146,11 @@
 
 				<div class="delivery">
 
-					<div class="container row">
+					<div>
 
 						<img src="img/moto.png">
 
-						<button>PEDIR</button>
+						<a href="cardapio.php"><button>PEDIR</button></a>
 
 					</div>
 
