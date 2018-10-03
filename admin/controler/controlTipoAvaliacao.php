@@ -105,8 +105,23 @@
             }catch(PDOException $e){
                 echo $e->getMessage();
             }
-            
+        }
 
+        function mediaPorId($id){
+            $media = 0;
+            try{
+                $stmte = $this->pdo->prepare("SELECT SUM(nota) / COUNT(tipo_avaliacao) AS media FROM avaliacao WHERE tipo_avaliacao = :id");
+                $stmte->bindValue(":id", $id);
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        $media = $stmte->fetch();
+                    }
+                }
+                return $media;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+                return 0;
+            }
         }
 
         function selectSemCategoria($parametro,$modo){

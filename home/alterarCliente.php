@@ -142,13 +142,13 @@ session_start();
 
 				<div class="delivery">
 
-				<div class="container row">
+					<div>
 
-					<img src="img/moto.png">
+						<img src="img/moto.png">
 
-					<button>PEDIR</button>
+						<a href="cardapio.php"><button>PEDIR</button></a>
 
-				</div>
+					</div>
 
 				</div>
 
