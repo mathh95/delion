@@ -30,7 +30,7 @@ if(in_array('avaliacao', $permissao)){
                 <td style='text-align: center;' name='id'>".$tipo->getCod_tipo_avaliacao()."</td>
                 <td style='text-align: center;' name='nome'>".$tipo->getNome()."</td>
                 <td style='text-align: center;' name='ativo'>".(($tipo->getFlag_ativo() == 1) ? "sim" : "nao")."</td>
-                <td style='text-align: center;' name='media'>".$media['media']."</td>
+                <td style='text-align: center;' name='media'>".sprintf("%2.2f", $media['media'])."</td>
                 </tr>";
     }
 
