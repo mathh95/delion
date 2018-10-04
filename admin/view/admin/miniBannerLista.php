@@ -50,7 +50,7 @@
 
                     <div class="pull-right">
 
-                        <h3>
+                        <h3> 
 
                         <img src="../../img/person.png" alt="" />
 
@@ -143,6 +143,8 @@
                                         <li><a href="tipoAvaliacao.php">Cadastro</a></li>
 
                                         <li><a href="tipoAvaliacaoLista.php">Listar</a></li>
+
+                                        <li><a href="mediaAvaliacao.php">Médias</a></li>
 
                                     </ul>
 

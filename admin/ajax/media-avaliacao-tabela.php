@@ -38,7 +38,9 @@ if(in_array('avaliacao', $permissao)){
 echo "</tbody></table>
     <label>Escolha uma data para saber as médias dela:</label><br>
     <input id='data' type='date'>
-    <button id='buscaMediaData'>Buscar</button>
+    <button id='buscaMediaData'>Buscar</button><br>
+    <input id='mes' type='number' min='1' max='12'>
+    <button id='buscaMediaMes'>Buscar</button>
     <div id='mediaData' class='container'></div>";
 
 ?>

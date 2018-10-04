@@ -13,14 +13,20 @@ $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 $tipos = $controle->select();
-$data = $_POST['data'];
+if((isset($_POST['acao']) && !empty($_POST['acao'])) && $_POST['acao'] == 1){
+    $acao = $_POST['acao'];
+    $data = $_POST['data'];
+}elseif((isset($_POST['acao']) && !empty($_POST['acao'])) && $_POST['acao'] == 2){
+    $acao = $_POST['acao'];
+    $data = $_POST['mes'];
+}
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());
 if(in_array('avaliacao', $permissao)){
 
     echo "<table class='table table-responsive' id='tbCardapio' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Lista de tipos de avaliações:</h1>
+			<h1 class=\"page-header\">Lista de tipos de avaliações filtrados pela data:</h1>
             <tr>
                 <th width='20%' style='text-align: center;'>Id</th>
 	    		<th width='20%' style='text-align: center;'>Nome</th>
@@ -30,7 +36,11 @@ if(in_array('avaliacao', $permissao)){
         <tbody>";
     
     foreach($tipos as &$tipo){
-        $media = $controle->mediaPorData($data, ($tipo->getCod_tipo_avaliacao()));
+        if($acao == 1){
+            $media = $controle->mediaPorData($data, ($tipo->getCod_tipo_avaliacao()));
+        }elseif($acao == 2){
+            $media = $controle->mediaPorMes($data, ($tipo->getCod_tipo_avaliacao()));
+        }
         $mensagem = "Tipo de avaliação excluído com sucesso!";
         $titulo = "Excluir";
         echo "<tr name='resutaldo' id='status".$tipo->getCod_tipo_avaliacao()."'>

@@ -147,6 +147,9 @@
                                             <li><a href="tipoAvaliacao.php">Cadastro</a></li>
 
                                             <li><a href="tipoAvaliacaoLista.php">Listar</a></li>
+
+                                            <li><a href="mediaAvaliacao.php">Médias</a></li>
+
                                         </ul>
 
                                     </li>
