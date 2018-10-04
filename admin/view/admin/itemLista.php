@@ -124,6 +124,9 @@
                                 <li class="dropdown active ">
                                     <a href="pedidoLista.php">Pedido</a>
                                 </li>
+                                <li class="dropdown">
+                                    <a href="/home/avaliacao.php">Avaliar</a>
+                                </li>
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">

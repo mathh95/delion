@@ -235,7 +235,11 @@
                                     </li>
                                     <li class="dropdown">
                                         <a href="pedidoLista.php">Pedido</a>
-                                    </li>                                         
+                                    </li> 
+                                    
+                                    <li class="dropdown">
+                                        <a href="/home/avaliacao.php">Avaliar</a>
+                                    </li>
 
                                 </ul>
 

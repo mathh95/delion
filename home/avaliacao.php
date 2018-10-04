@@ -45,12 +45,12 @@ $tipos = $control->selectAtivo();
     <?php $linha = 1; foreach($tipos as $tipo):?>
 
     <label id="tipo<?=$linha?>" data-id="<?=$tipo->getCod_tipo_avaliacao()?>"><?=$tipo->getNome()?>:</label><br>
-    <i data-linha="<?=$linha?>" data-nota="1" id="star1<?=$tipo->getCod_tipo_avaliacao()?>" class="rating fas fa-5x fa-star ativo"></i>
+    <i data-linha="<?=$linha?>" data-nota="1" id="star1<?=$tipo->getCod_tipo_avaliacao()?>" class="rating far fa-5x fa-star"></i>
     <i data-linha="<?=$linha?>" data-nota="2" id="star2<?=$tipo->getCod_tipo_avaliacao()?>" class="rating far fa-5x fa-star"></i>
     <i data-linha="<?=$linha?>" data-nota="3" id="star3<?=$tipo->getCod_tipo_avaliacao()?>" class="rating far fa-5x fa-star"></i>
     <i data-linha="<?=$linha?>" data-nota="4" id="star4<?=$tipo->getCod_tipo_avaliacao()?>" class="rating far fa-5x fa-star"></i>
     <i data-linha="<?=$linha?>" data-nota="5" id="star5<?=$tipo->getCod_tipo_avaliacao()?>" class="rating far fa-5x fa-star"></i><br>
-    <input class="nota<?=$linha?>" type="number" name="nota" hidden id="res<?=$tipo->getCod_tipo_avaliacao()?>" value="1"><br>
+    <input class="nota<?=$linha?>" type="number" name="nota" hidden id="res<?=$tipo->getCod_tipo_avaliacao()?>" value="0"><br>
 
     <?php $linha++; endforeach; ?>
 
@@ -67,7 +67,7 @@ $tipos = $control->selectAtivo();
         var id = $("#tipo"+linha).data("id");
         // alert("nota: "+nota+"id: "+id);
         var max = 5;
-        var min = 1;
+        var min = 0;
         $("#res"+id).val(nota);
         if($("#star"+nota+id).hasClass("ativo")){
             while(max > nota){
