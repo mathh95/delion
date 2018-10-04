@@ -39,6 +39,7 @@ echo "</tbody></table>
     <label>Escolha uma data para saber as médias dela:</label><br>
     <input id='data' type='date'>
     <button id='buscaMediaData'>Buscar</button><br>
+    <label>Insira o mês(formato numérico) para ver as médias das avaliações daquele período:</label><br>
     <input id='mes' type='number' min='1' max='12'>
     <button id='buscaMediaMes'>Buscar</button>
     <div id='mediaData' class='container'></div>";
