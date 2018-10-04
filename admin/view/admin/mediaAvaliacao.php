@@ -149,8 +149,25 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
     </div>
     <?php include VIEWPATH."/rodape.html" ?>
     <script src="../../js/alert.js"></script>
-    
+
     <script type="text/javascript">
+
+        $("#buscaMediaData").on("click", function(){
+            var data = $("#data").val();
+            alert(data);
+            $.ajax({
+                type: 'POST',
+
+                url: '../../ajax/buscaMediaData.php',
+
+                data: {data: data},
+
+                success:function(res){
+                    $("#mediaData").html(res);
+                }
+            })
+        })
+
     </script>
     
 </body>
