@@ -62,12 +62,15 @@ if(count($itens) > 0){
                 <?php $total = 0; 
                 $i = 0;
                 $pedidoBalcao=0;
-                foreach($itens as $item): ?>
+                foreach($itens as $item): 
+                    $perc = $item['desconto'] / 100;
+                    $perc = $item['preco'] * $perc;
+                    $total += $item['preco'] - $perc;?>
                     <tr id="idLinha<?=$i?>" data-id="<?=$item['cod_cardapio']?>">
                         <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?=$i?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
                         <td class="text-uppercase nomeProdutoTabela"><strong><?=$item['nome']?></strong></td>
-                        <td class="precoProdutoTabela" id="preco<?=$i?>" data-preco="<?=$item['preco']?>"><strong>R$ <?=number_format($item['preco'], 2);?></strong></td>
-                        <td class="subtotalProdutoTabela" id="subtotal<?=$i?>"><strong>R$ <?=number_format($item['preco'], 2);?></strong></td>
+                        <td class="precoProdutoTabela" id="preco<?=$i?>" data-desconto="<?=$item['desconto']?>" data-preco="<?=$item['preco']?>"><strong>R$ <?=number_format($item['preco'], 2);?></strong></td>
+                        <td class="subtotalProdutoTabela" id="subtotal<?=$i?>"><strong>R$ <?=number_format($item['preco'] - $perc, 2);?></strong></td>
                         <td class="quantidadeProdutoTabela">
                             <input class="quantidadeItemTabela" id="qtdUnidade<?=$i?>" name="quantidade" type="text" value=1 readonly="true">
                             <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?=$i?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
@@ -80,7 +83,8 @@ if(count($itens) > 0){
                             $pedidoBalcao=$pedidoBalcao + 1;
                             }    ?></strong> </td>
                     </tr>
-            <?php $i++; $total += $item['preco']; endforeach;
+            <?php $i++;
+            endforeach;
             $_SESSION['totalCombo'] = $total;
             $_SESSION['pedidoBalcaoCombo']=$pedidoBalcao;   
     echo "</tbody>

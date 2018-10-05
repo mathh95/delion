@@ -32,13 +32,14 @@ $(document).on("click", "#removeItem", function(){
     var id = $("#idLinha"+linha).data('id');
     var qtdAtual = $("#qtdUnidade"+linha).val();
     var preco = $("#preco"+linha).data('preco');
+    var desconto = $("#preco"+linha).data('desconto');
 
     $.ajax({
         type: 'GET',
 
         url: 'ajax/quantidade-combo.php',
 
-        data: {acao: acao, preco: preco, qtdAtual: qtdAtual, id: id},
+        data: {acao: acao, preco: preco, qtdAtual: qtdAtual, id: id, desconto:desconto},
 
         success:function(resultado){
             $("#total").html(resultado);
@@ -56,8 +57,13 @@ $(document).on("click", "#adicionarUnidade", function(){
     var linha = $(this).data('linha');
     var qtdAtual = $("#qtdUnidade"+linha).val();
     var preco = $("#preco"+linha).data('preco');
+    var desconto = $("#preco"+linha).data('desconto');
     var qtdInt = parseInt(qtdAtual);
     var subtotal = preco * (qtdInt+1);
+    var descontoGeral = desconto * (qtdInt+1);
+    descontoGeral = descontoGeral / 100;
+    descontoGeral = subtotal * descontoGeral;
+    subtotal = subtotal - descontoGeral;
    
     $.ajax({
         //falta pensar em uma forma de mandar o preço pra outra página...
@@ -65,7 +71,7 @@ $(document).on("click", "#adicionarUnidade", function(){
 
         url: 'ajax/quantidade-combo.php',
 
-        data: {acao: acao, preco: preco, qtdAtual: qtdAtual, linha: linha},
+        data: {acao: acao, preco: preco, qtdAtual: qtdAtual, linha: linha, desconto:desconto},
 
         success:function(resultado){
             $("#total").html(resultado);
@@ -82,6 +88,7 @@ $(document).on("click", "#removerUnidade", function(){
     var id = $("#idLinha"+linha).data('id');
     var qtdAtual = $("#qtdUnidade"+linha).val();
     var preco = $("#preco"+linha).data('preco');
+    var desconto = $("#preco"+linha).data('desconto');
     var qtdTotal = parseInt(qtdAtual); 
     qtdTotal-= 1;
     var subtotal = preco * qtdTotal;
@@ -93,7 +100,7 @@ $(document).on("click", "#removerUnidade", function(){
 
         url: 'ajax/quantidade-combo.php',
 
-        data: {acao: acao, preco: preco, qtdAtual: qtdAtual, linha: linha},
+        data: {acao: acao, preco: preco, qtdAtual: qtdAtual, linha: linha, desconto:desconto},
 
         success:function(resultado){
             $("#total").html(resultado);

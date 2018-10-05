@@ -23,6 +23,10 @@ if($acao == "+"){
     $qtdAtual = $_GET['qtdAtual'];
     $linha = $_GET['linha'];
     $_SESSION['qtdCombo'][$linha] = $qtdAtual+1;
+    $desconto = $_GET['desconto'];
+    $desconto = $desconto / 100;
+    $desconto = $preco * $desconto;
+    $preco -= $desconto;
     $_SESSION['totalCombo'] += $preco;
     echo "<p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)."</p>";
 //função para diminuir uma quantidade de um item no carrinho
