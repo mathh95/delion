@@ -72,6 +72,23 @@
             }    
         }
 
+        function ativarCliente($cod_endereco){
+            try{
+                $stmt=$this->pdo->prepare("UPDATE endereco SET flag_cliente=1 WHERE cod_endereco=:cod_endereco");
+                $stmt->bindParam(":cod_endereco", $cod_endereco, PDO::PARAM_INT);
+                $executa=$stmt->execute();
+                if ($executa) {
+                    return 1;
+                }else {
+                    return -1;
+                }
+            }catch(PDOException $e){
+
+                echo $e->getMessage();
+
+            }    
+        }
+
         function selectAll(){
             try{
                 $enderecos = array();

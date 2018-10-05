@@ -10,6 +10,7 @@ include_once "../../admin/controler/conexao.php";
 include_once "../controler/controlEndereco.php";
 $controleEndereco=new controlEndereco(conecta());
 $_SESSION['tipoEndereco']=$_GET['tipo'];
+//get cod cliente
 $tipo = $_GET['tipo'];
 if ($tipo == 'ativo'){
     $enderecos= $controleEndereco->selectByCliente(5,1);
@@ -41,7 +42,7 @@ if ($tipo == 'ativo'){
             foreach ($enderecos as $endereco) {
                 echo "<div class='item'>
                         <label> Rua: <strong>" . $endereco->getRua()."</strong></label>
-                        <button class='btn pull-right' onclick='excluirEndereco(".$endereco->getCodEndereco().")' > Restaurar </button>
+                        <button class='btn pull-right' onclick='ativarEndereco(".$endereco->getCodEndereco().")' > Restaurar </button>
                         <div>
                         <label> Número: " . $endereco->getNumero()."</label>
                         <label> Cep: " . $endereco->getCep()."</label>

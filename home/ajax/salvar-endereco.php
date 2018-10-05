@@ -40,7 +40,7 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
             </div>
             <div>
                 <label>Complemento:</label>
-                <input name='complemento' type='text' required placeholder='complemento' value='".$endereco->getComplemento()."'>
+                <input name='complemento' type='text' placeholder='complemento' value='".$endereco->getComplemento()."'>
 
             </div>
 
@@ -71,7 +71,7 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
     }else{
         $bairro='';
     }
-    echo " <form action='/home/controler/alterarEndereco.php' method='POST'>
+    echo " <form action='/home/controler/businesEndereco.php' method='POST'>
 
     <p>Alterar dados do endereço</p>
                     
@@ -97,7 +97,7 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
     </div>
     <div>
         <label>Complemento:</label>
-        <input name='complemento' type='text' required placeholder='Complemento' value=''>
+        <input name='complemento' type='text' placeholder='Complemento' value=''>
 
     </div>
 

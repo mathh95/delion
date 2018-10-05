@@ -98,6 +98,28 @@ function excluirEndereco(endereco){
     });
   }
 
+  function ativarEndereco(endereco){
+    $.ajax({
+            
+        type:'GET',
+        
+        url: 'ajax/restaurar-endereco.php',
+        
+        data: {endereco : endereco}
+        ,
+        success:function(resultado){
+            if (resultado < 0){
+                swal("Não foi possível ativar endereço", "erro!", "error");
+                reloadEnderecosAtivos();
+            }else{
+                swal("Endereço ativado com sucesso!", "Excluido!", "success");
+                reloadEnderecosAtivos();
+            }
+        }
+
+    });
+  }
+
   function reloadEnderecosAtivos(){
     $.ajax({
         type:'GET',

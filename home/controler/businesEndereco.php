@@ -6,19 +6,18 @@
     include_once "../lib/alert.php";
     $control= new controlEndereco($_SG['link']);
     $endereco= new endereco();
-    $rua="zzzzzz";
-    $numero="123";
-    $cep="85851-030";
-    $complemento="zzzzzzz";
-    $bairro="tijuca";
+    $rua=$_POST['rua'];
+    $numero=$_POST['numero'];
+    $cep=$_POST['cep'];
+    $complemento=$_POST['complemento'];
+    $bairro=$_POST['bairro'];
+    //pegar cliente da sessao
     $cliente=5;
     $endereco->construct($rua,$numero,$cep,$complemento,$bairro,$cliente);
-    $endereco->setCodEndereco(1);
-    $result=$control->deleteCliente(1);
-    echo $result;
-/*     if (isset($_POST) and !empty($_POST)){
-
+    $result=$control->insert($endereco);
+    if ($result > 0){
+        alertJSVoltarPagina("Sucesso!","O endereço foi cadastrado com sucesso!",1);
     }else{
-        echo -1;
-    }    */
+        alertJSVoltarPagina("Erro!","Não foi cadastrar o endereço.",1);
+    }
 ?>
