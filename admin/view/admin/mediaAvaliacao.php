@@ -83,7 +83,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
                                         </ul>
 
-                                    </li>
+                                </li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Imagens <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
@@ -128,7 +128,10 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                                 </li>
                                 <li class="dropdown">
                                     <a href="pedidoLista.php">Pedido</a>
-                                </li>           
+                                </li>
+                                <li class="dropdown">
+                                    <a href="/home/avaliacao.php">Avaliar</a>
+                                </li>          
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">
@@ -149,8 +152,43 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
     </div>
     <?php include VIEWPATH."/rodape.html" ?>
     <script src="../../js/alert.js"></script>
-    
+
     <script type="text/javascript">
+
+        $("#buscaMediaData").on("click", function(){
+            var data = $("#data").val();
+            var acao = 1;
+            // alert(data);
+            $.ajax({
+                type: 'POST',
+
+                url: '../../ajax/buscaMediaData.php',
+
+                data: {data:data, acao:acao},
+
+                success:function(res){
+                    $("#mediaData").html(res);
+                }
+            })
+        });
+
+        $("#buscaMediaMes").on("click", function(){
+            var mes = $("#mes").val();
+            var acao = 2;
+            // alert(mes);
+            $.ajax({
+                type: 'POST',
+
+                url: '../../ajax/buscaMediaData.php',
+
+                data: {mes:mes, acao:acao},
+
+                success:function(res){
+                    $("#mediaData").html(res);
+                }
+            })
+        });
+
     </script>
     
 </body>

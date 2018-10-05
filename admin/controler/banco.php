@@ -46,7 +46,7 @@
 
     }
 
-//      class banco {
+//     class banco {
 
 //         private $host='localhost';
 
@@ -86,5 +86,5 @@
 
 //     }
 
-// ?>
+?>
 

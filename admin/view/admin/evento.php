@@ -138,7 +138,9 @@
 
                                             <li><a href="tipoAvaliacao.php">Cadastro</a></li>
 
-                                            <li><a href="tipoAvaliacaoLista.php">Listar</a></li>    
+                                            <li><a href="tipoAvaliacaoLista.php">Listar</a></li>
+
+                                            <li><a href="mediaAvaliacao.php">Médias</a></li>
 
                                         </ul>
 
@@ -227,9 +229,14 @@
                                         </ul>
 
                                     </li>
+
                                     <li class="dropdown">
                                         <a href="pedidoLista.php">Pedido</a>
-                                    </li>           
+                                    </li>
+                                    
+                                    <li class="dropdown">
+                                        <a href="/home/avaliacao.php">Avaliar</a>
+                                    </li>
 
                                 </ul>
 

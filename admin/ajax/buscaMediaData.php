@@ -1,19 +1,32 @@
 <?php
 
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
+include_once CONTROLLERPATH."/controlUsuario.php";
+include_once MODELPATH."/usuario.php";
 include_once CONTROLLERPATH."/seguranca.php";
 include_once CONTROLLERPATH."/controlTipoAvaliacao.php";
 include_once MODELPATH."/tipo_avaliacao.php";
+$_SESSION['permissaoPagina']=0;
 protegePagina();
 $controle = new controlerTipoAvaliacao($_SG['link']);
+$controleUsuario = new controlerUsuario($_SG['link']);
+$usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
+
 $tipos = $controle->select();
+if((isset($_POST['acao']) && !empty($_POST['acao'])) && $_POST['acao'] == 1){
+    $acao = $_POST['acao'];
+    $data = $_POST['data'];
+}elseif((isset($_POST['acao']) && !empty($_POST['acao'])) && $_POST['acao'] == 2){
+    $acao = $_POST['acao'];
+    $data = $_POST['mes'];
+}
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());
 if(in_array('avaliacao', $permissao)){
 
     echo "<table class='table table-responsive' id='tbCardapio' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Lista de tipos de avaliações:</h1>
+			<h1 class=\"page-header\">Lista de tipos de avaliações filtrados pela data:</h1>
             <tr>
                 <th width='20%' style='text-align: center;'>Id</th>
 	    		<th width='20%' style='text-align: center;'>Nome</th>
@@ -23,7 +36,11 @@ if(in_array('avaliacao', $permissao)){
         <tbody>";
     
     foreach($tipos as &$tipo){
-        $media = $controle->mediaPorId($tipo->getCod_tipo_avaliacao());
+        if($acao == 1){
+            $media = $controle->mediaPorData($data, ($tipo->getCod_tipo_avaliacao()));
+        }elseif($acao == 2){
+            $media = $controle->mediaPorMes($data, ($tipo->getCod_tipo_avaliacao()));
+        }
         $mensagem = "Tipo de avaliação excluído com sucesso!";
         $titulo = "Excluir";
         echo "<tr name='resutaldo' id='status".$tipo->getCod_tipo_avaliacao()."'>
@@ -35,13 +52,6 @@ if(in_array('avaliacao', $permissao)){
     }
 
 }
-echo "</tbody></table>
-    <label>Escolha uma data para saber as médias dela:</label><br>
-    <input id='data' type='date'>
-    <button id='buscaMediaData'>Buscar</button><br>
-    <label>Insira o mês(formato numérico) para ver as médias das avaliações daquele período:</label><br>
-    <input id='mes' type='number' min='1' max='12'>
-    <button id='buscaMediaMes'>Buscar</button>
-    <div id='mediaData' class='container'></div>";
+echo "</tbody></table>";
 
 ?>

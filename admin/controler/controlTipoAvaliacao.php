@@ -124,6 +124,42 @@
             }
         }
 
+        function mediaPorData($data, $id){
+            $media = 0;
+            try{
+                $stmte = $this->pdo->prepare("SELECT SUM(nota) / COUNT(tipo_avaliacao) AS media FROM avaliacao WHERE data = :data AND tipo_avaliacao = :id");
+                $stmte->bindValue(":data", $data);
+                $stmte->bindValue(":id", $id);
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        $media = $stmte->fetch();
+                    }
+                }
+                return $media;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+                return 0;
+            }
+        }
+
+        function mediaPorMes($mes, $id){
+            $media = 0;
+            try{
+                $stmte = $this->pdo->prepare("SELECT SUM(nota) / COUNT(tipo_avaliacao) AS media FROM avaliacao WHERE data LIKE :mes AND tipo_avaliacao = :id");
+                $stmte->bindValue(":mes","%-".$mes."-%");
+                $stmte->bindValue(":id", $id);
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        $media = $stmte->fetch();
+                    }
+                }
+                return $media;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+                return 0;
+            }
+        }
+
         function selectSemCategoria($parametro,$modo){
             $stmte;
             $tipo= new tipoAvaliacao();

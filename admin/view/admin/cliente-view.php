@@ -157,9 +157,12 @@
                                             <li><a href="tipoAvaliacao.php">Cadastro</a></li>
 
                                             <li><a href="tipoAvaliacaoLista.php">Listar</a></li>
+
+                                            <li><a href="mediaAvaliacao.php">Médias</a></li>
+
                                         </ul>
 
-                                    </li>
+                                </li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Imagens <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
@@ -202,9 +205,14 @@
                                         <li><a href="clienteLista.php">Listar</a></li>
                                     </ul>
                                 </li>
+
                                 <li class="dropdown">
                                     <a href="pedidoLista.php">Pedido</a>
-                                </li>    
+                                </li>  
+                                
+                                <li class="dropdown">
+                                    <a href="/home/avaliacao.php">Avaliar</a>
+                                </li>
                             </ul>
                         </div>
 
