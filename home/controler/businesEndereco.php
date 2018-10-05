@@ -6,12 +6,12 @@
     include_once "../lib/alert.php";
     $control= new controlEndereco($_SG['link']);
     $endereco= new endereco();
-    $rua=$_POST['rua'];
-    $numero=$_POST['numero'];
-    $cep=$_POST['cep'];
-    $complemento=$_POST['complemento'];
-    $bairro=$_POST['bairro'];
-    $cliente= $_POST['cod_cliente'];
+    $rua=addslashes(htmlspecialchars($_POST['rua']));
+    $cep=addslashes(htmlspecialchars($_POST['cep']));
+    $numero=addslashes(htmlspecialchars($_POST['numero']));
+    $bairro=addslashes(htmlspecialchars($_POST['bairro']));
+    $complemento=addslashes(htmlspecialchars($_POST['complemento']));
+    $cliente= addslashes(htmlspecialchars($_POST['cod_cliente']));
     $endereco->construct($rua,$numero,$cep,$complemento,$bairro,$cliente);
     $result=$control->insert($endereco);
     if ($result > 0){
