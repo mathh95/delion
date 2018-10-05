@@ -218,6 +218,8 @@ session_start();
 								
 								<li class="active"><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> <span style="background-color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 
+								<li><a href="combo.php">Combo <span style="background-color:black;" class="badge" id="spanCombo"><?php echo (isset($_SESSION['combo']))?count($_SESSION['combo']):'0';?></span></a></li>
+
 					   		</ul>
 
 					   		<form method="GET" action="cardapio.php" class="navbar-form navbar-right hidden-xs visible-sm-* visible-md-* visible-lg-* visible-xl-*">

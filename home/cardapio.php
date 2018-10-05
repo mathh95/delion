@@ -211,6 +211,8 @@ session_start();
 								} ?>
 
 								<li class="active"><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> <span style="background-color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
+
+								<li><a href="combo.php">Combo <span style="background-color:black;" class="badge" id="spanCombo"><?php echo (isset($_SESSION['combo']))?count($_SESSION['combo']):'0';?></span></a></li>
 								
 								<?php if(isset($_SESSION['cod_cliente']) && !isset($_SESSION['telefone'])){
 									echo "<li><a href='#' onclick='signOut()'>Logout</a></li>";
@@ -524,6 +526,38 @@ session_start();
 					}else{
 					// $("body,html").animate({scrollTop: 0 }, 800);
 					swal("Produto Adicionado ao carrinho!!", "Você pode consultar o carrinho para modificar a quantidade.", "success");
+					}
+				}, 
+				error: function(erro){
+					console.log(erro);
+				}
+			});
+		});
+
+		$(document).on("click", "#addCombo", function(){
+			var url = $(this).data('url');
+			var qtd = $('#spanCombo').text();
+			// alert(qtd);
+			var id = $(this).data('cod');
+			// var quantidade = $("#spanCarrinho").data('quantidade');
+						
+			// console.log(quantidade+1);
+
+			$.ajax({
+				
+				type: 'GET',
+
+				url: 'ajax/add-combo.php',
+
+				data: {id: id},
+
+				success:function(res){
+					$("#spanCombo").html(res);
+					if(qtd == res){
+						swal('Este item já está no seu combo!', 'Para alterar a quantidade, vá ao seu combo.', 'warning');
+					}else{
+					// $("body,html").animate({scrollTop: 0 }, 800);
+						swal("Produto Adicionado ao combo!!", "Você pode consultar o seu combo para modificar a quantidade.", "success");
 					}
 				}, 
 				error: function(erro){

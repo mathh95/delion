@@ -4,17 +4,19 @@ session_start();
 
 	include_once "controler/controlEmpresa.php";
 
-	include_once "controler/controlCarrinho.php";
-	
-	include_once "controler/segurancaCliente.php";
+	include_once "controler/controlCategoria.php";
 
-	protegeCliente();
+	include_once "controler/controlImagem.php";
 
-    $controleCarrinho=new controlerCarrinho(conecta());
+	$controleEmpresa=new controlerEmpresa(conecta());
 
-    $controleEmpresa=new controlerEmpresa(conecta());
+	$controleCategoria=new controlerCategoria(conecta());
 
 	$empresa = $controleEmpresa->select(1,2);
+
+	$categorias = $controleCategoria->selectAll();
+
+
 
 	$iphone = strpos($_SERVER['HTTP_USER_AGENT'],"iPhone");
 
@@ -70,8 +72,6 @@ session_start();
 	</noscript>
 	<!-- End Facebook Pixel Code -->
 
-	<script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
-
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
 	<title>Delion Café - Cafeteria - Foz do Iguaçu</title>
@@ -92,13 +92,13 @@ session_start();
 
 	<link rel="stylesheet" type="text/css" href="css/vendors/jssocials-theme-minima.css" />
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/pedido/xs/style-xs.css" />
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/carrinho/xs/style-xs.css" />
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/pedido/sm/style-sm.css" />
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/carrinho/sm/style-sm.css" />
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/pedido/md/style-md.css" />
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/carrinho/md/style-md.css" />
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/pedido/lg/style-lg.css" />
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/carrinho/lg/style-lg.css" />
 
 	<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -106,10 +106,17 @@ session_start();
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
 	    crossorigin="anonymous">
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<meta name = "google-signin-client_id" content="1044402294470-h7gko3p3obgouo9kmtemsekno8n08deu.apps.googleusercontent.com">
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<style>
+		.swal-overlay {
+            background-color: black;
+        }
+	</style>
 </head>
 
 <body>
@@ -250,32 +257,15 @@ session_start();
 
 	</div>
 
-			<!--TABELA DE ITENS DO PEDIDO -->
+
 	<div class="container itens">
-        <table class="tabela_itens table table-hover table-responsive table-condensed">
-            <thead>
-                <h1 class="text-center">Lista de Itens</h1>
-                <tr id="cabecalhoTabela">
-                    <th width='33%' style='text-align: center;'>Produto</th>
-                    <th width='33%' style='text-align: center;'>Quantidade</th>
-					<th width='33%' style='text-align: center;'>Valor</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    $itens=$controleCarrinho->selectItens($_GET['cod']);
-                    foreach ($itens as &$item) { 
-                            echo "<tr name='resultado' id='status".$item->getCod_item()."'>
-                                <td style='text-align: center;' name='produto'>".$item->getProduto()."</td>
-								<td style='text-align: center;' name='quantidade'>".$item->getQuantidade()."</td>
-                                <td style='text-align: center;' name='valor'>$item->preco</td>
-                            </tr>";  
-                    }                  
-                ?>
-            </tbody>
-        </table>
+
+
+
+
+
 	</div>
-			<!-- FIM DA TABELA -->
+
 	<footer class="container-fluid">
 
 		<div class="container">
@@ -400,23 +390,23 @@ session_start();
 
 	<script>
 
-	function onLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
+		function onLoad() {
+			gapi.load('auth2', function() {
+				gapi.auth2.init();
+			});
 		}
 
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function () {
+		function signOut() {
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function () {
+				swal("Deslogado!", "Obrigado pela visita!!", "error").then((value) => {window.location="/home/logout.php"});
+			});
+		}
+
+
+		function deslogar(){
 			swal("Deslogado!", "Obrigado pela visita!!", "error").then((value) => {window.location="/home/logout.php"});
-		});
-	}
-
-
-	function deslogar(){
-		swal("Deslogado!", "Obrigado pela visita!!", "error").then((value) => {window.location="/home/logout.php"});
-	}
+		}
 
 		$(document).ready(function () {
 
@@ -441,6 +431,111 @@ session_start();
 			});
 
 		});
+
+		$(document).ready(function () {
+
+			$('.imagem-cardapio-evento').slick({
+
+				slidesToShow: 1,
+
+				slidesToScroll: 1,
+
+				prevArrow: "<img class='a-left control-c prev slick-prev' src='img/seta-esquerda.png'>",
+
+				nextArrow: "<img class='a-right control-c next slick-next' src='img/seta-direita.png'>"
+
+			});
+
+		});
+
+		$(document).ready(function () {
+
+			<?php 
+
+    		$search = (isset($_GET['search'])) ? $_GET['search'] : NULL ;
+
+    		$page = (isset($_GET['page'])) ? $_GET['page'] : 1 ;
+
+    		?>
+
+			$.ajax({
+
+				type: 'GET',
+
+				url: 'ajax/buscar-cardapio.php',
+
+				data: {
+					page: "<?= $page ?>",
+					search: "<?= $search ?>",
+					tipo: 'busca'
+				},
+
+				success: function (resultado) {
+
+					$('.produtos').html(resultado);
+
+				}
+
+			});
+
+		});
+
+		// function buscar (pagina, busca, tipo){
+
+		// 	$.ajax({
+
+		// 		type:'GET',
+
+		// 		url: 'ajax/buscar-cardapio.php',
+
+		// 		data: {page: pagina , search: busca, tipo: tipo },
+
+		// 		success:function(resultado){
+
+		// 			$('.produtos').html(resultado);
+
+		// 		}
+
+		// 	});
+
+		// }
+
+		$(document).ready(function () {
+
+			$.ajax({
+				type: 'GET',
+
+				url: 'ajax/buscar-combo.php',
+
+				success: function (resultado) {
+					$(".itens").html(resultado);
+				}
+			});
+		});
+
+		/*for (var i = 1; i <= 5; i++) {
+
+			
+
+	       	$("#share"+i).jsSocials({
+
+	           showCount: false,
+
+	           showLabel: true,
+
+	           shares: [
+
+	               {share: "facebook", label: "Facebook", logo: "fa fa-facebook-official"},
+
+	               {share: "twitter", label: "Twitter", logo: "fa fa-twitter-square"},
+
+	               {share: "pinterest", label: "Pin this", logo: "fa fa-pinterest" }
+
+	               ]
+
+	       });
+
+		}*/
 
 		$("#social-buttons1").jsSocials({
 
