@@ -10,8 +10,7 @@
     $numero=$_POST['numero'];
     $bairro=$_POST['bairro'];
     $complemento=$_POST['complemento'];
-    //pegar da sessão
-    $cliente= 5;
+    $cliente= $_POST['cod_cliente'];
     $endereco= new endereco();
     $endereco->setCodEndereco($cod_endereco);
     $endereco->construct($rua,$numero,$cep,$complemento,$bairro,$cliente);

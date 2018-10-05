@@ -6,7 +6,7 @@ date_default_timezone_set('America/Sao_Paulo');
 
 include_once "../../admin/controler/conexao.php";
 include_once "../controler/controlEndereco.php";
-
+$cod_cliente=$_SESSION['cod_cliente'];
 if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
     $controleEndereco=new controlEndereco(conecta());
     $cod_endereco=$_GET['endereco'];
@@ -16,8 +16,8 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
      */
     echo " <form action='/home/controler/alterarEndereco.php' method='POST'>
 
-            <p>Alterar dados do endereço</p>
-                            
+            <p>Alterar dados do endereço</p>    
+                <input name='cod_cliente' type='hidden' value='".$cod_cliente."'>           
                 <input name='cod_endereco' type='hidden' value='".$endereco->getCodEndereco()."'>
             <div>
                 <label>Rua:</label>
@@ -74,7 +74,7 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
     echo " <form action='/home/controler/businesEndereco.php' method='POST'>
 
     <p>Alterar dados do endereço</p>
-                    
+    <input name='cod_cliente' type='hidden' value='".$cod_cliente."'>                
     <div>
         <div class='cadastro-form'>
         <label>Cep:</label>

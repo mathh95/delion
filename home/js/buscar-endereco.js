@@ -54,7 +54,7 @@ function cadastrarEndereco(){
         url: 'ajax/salvar-endereco.php',
         success: function (resultado) {
             $(".opcoes").html(resultado);
-            html = "<button onclick='listarAtivos()'>LISTAR ENDEREÇOS ATIVOS</button>"
+            html = "<button onclick='listarInativos()'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
             $('.listar').html(html);
         }
     });
@@ -70,7 +70,7 @@ function alterarEndereco(endereco){
 
         success: function (resultado) {
             $(".opcoes").html(resultado);
-            html = "<button onclick='listarAtivos()'>LISTAR ENDEREÇOS ATIVOS</button>"
+            html = "<button onclick='listarInativos()'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
             $('.listar').html(html);
         }
     });
@@ -127,7 +127,7 @@ function excluirEndereco(endereco){
         data:{tipo:'ativo'},
         success:function(resultado){
             $('.lista').html(resultado);
-            html = "<a href='#' onclick='listarInativos()'><button>LISTAR ENDEREÇOS EXCLUIDOS</button></a>"
+            html = "<button onclick='listarInativos()'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
             $('.listar').html(html);
         }
     });
@@ -140,7 +140,7 @@ function excluirEndereco(endereco){
         data:{tipo:'inativo'},
         success:function(resultado){
             $('.lista').html(resultado);
-            html = "<a href='#' onclick='listarAtivos()'><button>LISTAR ENDEREÇOS ATIVOS</button></a>"
+            html = "<button onclick='listarAtivos()'>LISTAR ENDEREÇOS ATIVOS</button>"
             $('.listar').html(html);
         }
     });
@@ -153,7 +153,7 @@ function excluirEndereco(endereco){
         data:{rua:rua, bairro:bairro, cep:cep},
         success:function(resultado){
             $('.opcoes').html(resultado);
-            html = "<a href='#' onclick='listarAtivos()'><button>LISTAR ENDEREÇOS ATIVOS</button></a>"
+            html = "<button onclick='listarAtivos()'>LISTAR ENDEREÇOS ATIVOS</button>"
             $('.listar').html(html);
         }
     });

@@ -11,8 +11,7 @@
     $cep=$_POST['cep'];
     $complemento=$_POST['complemento'];
     $bairro=$_POST['bairro'];
-    //pegar cliente da sessao
-    $cliente=5;
+    $cliente= $_POST['cod_cliente'];
     $endereco->construct($rua,$numero,$cep,$complemento,$bairro,$cliente);
     $result=$control->insert($endereco);
     if ($result > 0){

@@ -10,10 +10,10 @@ include_once "../../admin/controler/conexao.php";
 include_once "../controler/controlEndereco.php";
 $controleEndereco=new controlEndereco(conecta());
 $_SESSION['tipoEndereco']=$_GET['tipo'];
-//get cod cliente
+$cod_cliente=$_SESSION['cod_cliente'];
 $tipo = $_GET['tipo'];
 if ($tipo == 'ativo'){
-    $enderecos= $controleEndereco->selectByCliente(5,1);
+    $enderecos= $controleEndereco->selectByCliente($cod_cliente,1);
     if ($enderecos < 1){
         echo "<p> Não existem endereços registrados</p>";
     }else{ 
@@ -34,7 +34,7 @@ if ($tipo == 'ativo'){
             }
     }
 }else{
-    $enderecos= $controleEndereco->selectByCliente(5,2);
+    $enderecos= $controleEndereco->selectByCliente($cod_cliente,2);
     if ($enderecos < 1){
         echo "<p> Não existem endereços excluidos</p>";
     }else{ 
