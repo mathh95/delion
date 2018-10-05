@@ -157,6 +157,7 @@
                 }elseif ($modo == 2) {
                     $stmt=$this->pdo->prepare("SELECT * FROM pedido WHERE cod_endereco=:parametro");
                 }
+                $stmt->bindParam(":parametro", $parametro, PDO::PARAM_INT);
                 $executa= $stmt->execute();
                 if ($executa){
                     if ($stmt->rowCount() > 0 ){

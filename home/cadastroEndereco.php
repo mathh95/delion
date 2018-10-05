@@ -103,7 +103,7 @@
 	<meta name = "google-signin-client_id" content="1044402294470-h7gko3p3obgouo9kmtemsekno8n08deu.apps.googleusercontent.com">
 
     <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
-	<script type="text/javascript" src="js/buscar-endereco.js"></script>
+    <script type="text/javascript" src="js/buscar-delivery.js"></script>
             
 </head>
 
@@ -253,15 +253,13 @@
             
         <div class="opcoes">
 
-            <div>
-                <p>Opções do endereço:</p>
-            </div>	
-            <div>
-                <button onclick="cadastrarEndereco()">CADASTRAR NOVO ENDEREÇO</button>
-            </div> 
+			<label>Cep:</label>					
+            <input name="cep" type="text"  required placeholder="Nome" id="cep" value="">
+
+
 	
             <div class="listar">
-			
+
             </div>
 
         </div>
@@ -378,8 +376,6 @@
 
 	<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
-	<script 
-
 	<script>
 
 		$(".navbar-toggle li a").click(function() {
@@ -405,6 +401,77 @@
 		function deslogar(){
 			swal("Deslogado!", "Obrigado pela visita!!", "error").then((value) => {window.location="/home/logout.php"});
 		}
+		
+		$(document).ready(function () {
+
+			$.ajax({
+				type: 'GET',
+
+				url: 'ajax/buscar-endereco.php',
+
+				data: {tipo : 'ativo'},
+
+				success: function (resultado) {
+					$(".lista").html(resultado);
+					html = "<a href='#' onclick='listarInativos()'><button>LISTAR ENDEREÇOS EXCLUIDOS</button></a>"
+            		$('.listar').html(html);
+				}
+			});
+		});
+
+		function listarAtivos(){
+			$.ajax({
+				type: 'GET',
+
+				url: 'ajax/buscar-endereco.php',
+
+				data: {tipo : 'ativo'},
+
+				success: function (resultado) {
+					$(".lista").html(resultado);
+					html = "<a href='#' onclick='listarInativos()'><button>LISTAR ENDEREÇOS EXCLUIDOS</button></a>"
+            		$('.listar').html(html);
+				}
+			});
+		}
+
+		function listarInativos(){
+			$.ajax({
+				type: 'GET',
+
+				url: 'ajax/buscar-endereco.php',
+
+				data: {tipo : 'inativo'},
+
+				success: function (resultado) {
+					$(".lista").html(resultado);
+					html = "<a href='#' onclick='listarAtivos()'><button>LISTAR ENDEREÇOS ATIVOS</button></a>"
+            		$('.listar').html(html);
+				}
+			});
+		}
+
+		$("#cep").on("change paste keyup", function() {
+		var cep = $(this).val();
+		var cep = cep.replace(/\D/g, '');
+		if (cep.length >= 8){
+			console.log(cep);
+			var validacep = /^[0-9]{8}$/;
+			console.log(cep);
+			if (validacep.test(cep)){
+				var url ='https://viacep.com.br/ws/'+ cep + '/json/';
+				console.log(url);
+				$.getJSON(url, function(data) {
+					if (data.erro){
+						alert('cep invalido');
+					}
+					console.log(data.logradouro, data.bairro);
+				});
+			}else{
+				console.log('cep invalido');
+			}
+		}
+		});
 
 		$(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();   

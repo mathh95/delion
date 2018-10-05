@@ -20,10 +20,11 @@ if ($tipo == 'ativo'){
             foreach ($enderecos as $endereco) {
                 echo "<div class='item'>
                         <label> Rua: <strong>" . $endereco->getRua()."</strong></label>
-                        <button class='btn btn-danger pull-right' onclick='excluirEndereco(".$endereco->getCodEndereco().")' > x </button>
+                        <button class='btn btn-danger pull-right' onclick='excluirEndereco(".$endereco->getCodEndereco().")' > X </button>
+                        <button class='btn btn-warning pull-right' onclick='alterarEndereco(".$endereco->getCodEndereco().")' > ALTERAR </button>
                         <div>
-                        <label> Número: " . $endereco->getNumero()."</label>
                         <label> Cep: " . $endereco->getCep()."</label>
+                        <label> Número: " . $endereco->getNumero()."</label>
                         <label> Bairro: " . $endereco->getBairro()."</label>
                         </div>
                         <label> Complemento: " . $endereco->getComplemento()."</label>
