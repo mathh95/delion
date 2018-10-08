@@ -59,11 +59,11 @@ $(document).on("click", "#adicionarUnidade", function(){
     var preco = $("#preco"+linha).data('preco');
     var desconto = $("#preco"+linha).data('desconto');
     var qtdInt = parseInt(qtdAtual);
-    var subtotal = preco * (qtdInt+1);
-    var descontoGeral = desconto * (qtdInt+1);
-    descontoGeral = descontoGeral / 100;
-    descontoGeral = subtotal * descontoGeral;
-    subtotal = subtotal - descontoGeral;
+    var subtotal = preco * (qtdInt + 1);
+    var descontoG = desconto / 100;
+    descontoG = subtotal * descontoG;
+    subtotal -= descontoG;
+
    
     $.ajax({
        
@@ -86,18 +86,15 @@ $(document).on("click", "#removerUnidade", function(){
     var acao = "-";
     var linha = $(this).data('linha');
     var id = $("#idLinha"+linha).data('id');
-    var qtdAtual = $("#qtdUnidade"+linha).val();
+    var qtdAtual = $("#qtdUnidade"+linha).val() - 1;
     var preco = $("#preco"+linha).data('preco');
     var desconto = $("#preco"+linha).data('desconto');
-    var qtdTotal = parseInt(qtdAtual); 
-    qtdTotal-= 1;
-    var subtotal = preco * (qtdTotal-1);
-    var descontoGeral = desconto * (qtdTotal-1);
-    descontoGeral = descontoGeral / 100;
-    descontoGeral = subtotal * descontoGeral;
-    subtotal = subtotal - descontoGeral;
+    var subtotal = preco * qtdAtual;
+    var descontoG = desconto / 100;
+    descontoG = subtotal * descontoG;
+    subtotal -= descontoG;
 
-    if(qtdTotal > 0){
+    if(qtdAtual > 0){
         $.ajax({
         
         type: 'GET',
@@ -108,18 +105,18 @@ $(document).on("click", "#removerUnidade", function(){
 
         success:function(resultado){
             $("#total").html(resultado);
-            $("#qtdUnidade"+linha).val(qtdTotal);
+            $("#qtdUnidade"+linha).val(qtdAtual);
             $("#subtotal"+linha).html("<strong>R$ "+subtotal.toFixed(2)+"</strong>");
         }
     });
-    }else if(qtdTotal <= 0){
+    }else if(qtdAtual <= 0){
         $.ajax({
         
         type: 'GET',
 
         url: 'ajax/quantidade-combo.php',
 
-        data: {acao: acao, preco: preco, id: id},
+        data: {acao: acao, preco: preco, id: id, desconto:desconto},
 
         success:function(resultado){
             $("#total").html(resultado);

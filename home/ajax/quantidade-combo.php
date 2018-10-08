@@ -26,7 +26,7 @@ if($acao == "+"){
     $desconto = $_GET['desconto'];
     $desconto = $desconto / 100;
     $desconto = $preco * $desconto;
-    $preco -= $desconto;
+    $preco = $preco - $desconto;
     $_SESSION['totalCombo'] += $preco;
     echo "<p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)."</p>";
 //função para diminuir uma quantidade de um item no carrinho
@@ -45,6 +45,10 @@ if($acao == "+"){
                 }
             }
         }
+        $desconto = $_GET['desconto'];
+        $desconto = $desconto / 100;
+        $desconto = $preco * $desconto;
+        $preco = $preco - $desconto;
         $_SESSION['totalCombo'] -= $preco;
         echo "<p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)."</p>";
     }else{
@@ -56,7 +60,6 @@ if($acao == "+"){
         $preco -= $desconto;
         $_SESSION['totalCombo'] -= $preco;
         $_SESSION['qtdCombo'][$linha] = $qtdAtual-1;
-        $_SESSION['totalCombo'] -= $preco;
         echo "<p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)."</p>";
     }
 //função para remover todas as unidades de um item do carrinho
@@ -76,8 +79,12 @@ if($acao == "+"){
                 }
             }
         }
-        $aux = $qtd * $preco;
-        $_SESSION['totalCombo']-= $aux;
+        $desconto = $_GET['desconto'];
+        $desconto = $desconto / 100;
+        $sub = $qtd * $preco;
+        $desconto = $desconto * $sub;
+        $sub -= $desconto;
+        $_SESSION['totalCombo']-= $sub;
         echo "<p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)."</p>";
     }
 }
