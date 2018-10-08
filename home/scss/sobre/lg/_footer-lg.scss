@@ -102,13 +102,14 @@ body {
 	            @include make-lg-column(6);
 	            text-align: right;
 	            > div {
-	                > img {
-						@include img-responsive();
-						margin-left: 50px !important;
-	                    vertical-align: text-top;
-	                    display: inline;
-	                    max-width: 4%;
-	                }
+	                > a{
+						> img {
+							@include img-responsive();
+							vertical-align: text-top;
+							display: inline;
+							max-width: 4%;
+						}
+					}
 	            }
 			}
         }

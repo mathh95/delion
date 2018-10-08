@@ -125,7 +125,7 @@
 			<div class="infos">
 
 				<div><p>De Segunda a Sexta das 10:00 hs as 21:00 hs<br><br>
-					 Aos Sábados da 08:30 hs  as 19:00 hs</p></div>
+					 Aos Sábados das<br> 08:30 hs  as 19:00 hs</p></div>
 
 				<!-- <div>Segunda a Sábado</div>
 
@@ -348,7 +348,7 @@
 
 			<div>
 
-				<div>Desenvolvido por Kionux Soluções em Internet <img src="img/kionuxsite.png" alt=""></div>
+				<div>Desenvolvido por Kionux Soluções em Internet <a href="http://www.kionux.com.br"><img src="img/kionuxsite.png" alt=""></a></div>
 
 			</div>
 

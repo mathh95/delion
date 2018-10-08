@@ -66,7 +66,7 @@ $(document).on("click", "#adicionarUnidade", function(){
     subtotal = subtotal - descontoGeral;
    
     $.ajax({
-        //falta pensar em uma forma de mandar o preço pra outra página...
+       
         type: 'GET',
 
         url: 'ajax/quantidade-combo.php',
@@ -91,7 +91,11 @@ $(document).on("click", "#removerUnidade", function(){
     var desconto = $("#preco"+linha).data('desconto');
     var qtdTotal = parseInt(qtdAtual); 
     qtdTotal-= 1;
-    var subtotal = preco * qtdTotal;
+    var subtotal = preco * (qtdTotal-1);
+    var descontoGeral = desconto * (qtdTotal-1);
+    descontoGeral = descontoGeral / 100;
+    descontoGeral = subtotal * descontoGeral;
+    subtotal = subtotal - descontoGeral;
 
     if(qtdTotal > 0){
         $.ajax({

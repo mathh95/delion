@@ -105,12 +105,14 @@ body {
                 text-align: center;
                 padding: 0px;
                 > div {
-                    > img{
-                        @include img-responsive();
-                        vertical-align: baseline;
-                        display: inline;
-                        max-width: 5%;
-                    }
+                    > a{
+						> img {
+							@include img-responsive();
+							vertical-align: text-top;
+							display: inline;
+							max-width: 4%;
+						}
+					}
                 }
             }
         }

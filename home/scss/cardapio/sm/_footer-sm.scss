@@ -103,12 +103,14 @@ body {
                 @include make-sm-column(7);
                 text-align: right;
                 > div {
-                    > img {
-                        @include img-responsive();
-                        vertical-align: text-top;
-                        display: inline;
-                        max-width: 5%;
-                    }
+                    > a{
+						> img {
+							@include img-responsive();
+							vertical-align: text-top;
+							display: inline;
+							max-width: 4%;
+						}
+					}
                 }
             }
         }
