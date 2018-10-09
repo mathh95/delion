@@ -91,10 +91,10 @@ if(count($itens) > 0){
                 <strong><p>Escolha como vai receber o pedido: </p>
                 </strong>
                 <div class='btn-group btn-group-toggle' data-toggle='buttons'>
-                    <label class='btn btn-primary' id='delivery' onclick='tipoPedido(1)'>
+                    <label class='btn btn-danger' id='delivery' onclick='tipoPedido(1)'>
                         <input type='radio' name='delivery'  autocomplete='off'> Delivery
                     </label>
-                    <label class='btn btn-primary'  id='balcao' onclick='tipoPedido(-1)'>
+                    <label class='btn btn-danger active'  id='balcao' onclick='tipoPedido(-1)'>
                         <input type='radio' name='balcao' autocomplete='off'> Balcão
                     </label>
                 </div>

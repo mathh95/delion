@@ -119,11 +119,23 @@ body{
                     font-size: 20px;
                     font-family: "Century Gothic Bold";
                 }
-                >.btn-group{
+                >.btn-group-toggle{
                     margin-top:10px;
+                    > .btn{
+                        background-color: #c57682;
+                        border-color: #91414F;
+                        
+                        > input{
+                            background-color: #91414F;
+                        }
+                    }
+                    > .btn:active,.btn:hover, .active{
+                        background-color: #91414F;
+                    }
                     > label{
                         background-color: #c57682;
                         border-color: #91414F;
+                        
                         > input{
                             background-color: #91414F;
                         }

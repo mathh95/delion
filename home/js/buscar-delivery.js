@@ -126,11 +126,11 @@ function delivery(ativo, busca, pagina) {
             $('.itens').html(resultado);
             
             if(check > 0){
-                $("#delivery").button('toggle');
-                $("#delivery").addClass("ativo");
+                $("#delivery").addClass('active');
+                $("#balcao").removeClass('active');
             }else{
-                $("#balcao").button('toggle');
-                $("#delivery").addClass("ativo");
+                $("#balcao").addClass('active');
+                $("#delivery").removeClass('active');
             }
         }
 
