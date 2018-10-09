@@ -1,12 +1,23 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
+include_once CONTROLLERPATH."/controlUsuario.php";
+include_once MODELPATH."/usuario.php";
 include_once CONTROLLERPATH."/seguranca.php";
 include_once CONTROLLERPATH."/controlCardapio.php";
 include_once MODELPATH."/cardapio.php";
+
+$_SESSION['permissaoPagina']=0;
 protegePagina();
+$controleUsuario = new controlerUsuario($_SG['link']);
+$usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 $controle=new controlerCardapio($_SG['link']);
-$cardapios = $controle->selectAll();
+if(isset($_POST['nome']) && !empty($_POST['nome'])){
+	$nome = $_POST['nome'];
+	$cardapios = $controle->select($nome,1);
+}else{
+	$cardapios = $controle->selectAll();
+}
 	$permissao =  json_decode($usuarioPermissao->getPermissao());
 	if(in_array('cardapio', $permissao)){ 
 	

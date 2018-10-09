@@ -14,6 +14,7 @@
 <html lang="pt-br">
 <head>
     <?php include VIEWPATH."/cabecalho.html" ?>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body>
     <header>
@@ -68,17 +69,17 @@
                                 </li>
                                 <li class="dropdown">
 
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Avaliacao <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Avaliacao <span class="caret"></span></a>
 
-                                        <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu">
 
-                                            <li><a href="tipoAvaliacao.php">Cadastro</a></li>
+                                        <li><a href="tipoAvaliacao.php">Cadastro</a></li>
 
-                                            <li><a href="tipoAvaliacaoLista.php">Listar</a></li>
+                                        <li><a href="tipoAvaliacaoLista.php">Listar</a></li>
 
-                                            <li><a href="mediaAvaliacao.php">Médias</a></li>
+                                        <li><a href="mediaAvaliacao.php">Médias</a></li>
 
-                                        </ul>
+                                    </ul>
 
                                 </li>
                                 <li class="dropdown">
@@ -141,8 +142,13 @@
         </div>
     </header>
     <div class="container-fluid">
+    <label>Filtro por nome: </label>
+    <div>
+        <input id="pesquisa" type="text" required placeholder="Nome para pesquisa">
+        <button id="search" class='btn btn-kionux'><i class="fas fa-search"></i> Buscar</button>
+    </div>
         <div class="row">
-            <div class="col-lg-12">
+            <div id="tabela-cardapio" class="col-lg-12">
                 <?php include "../../ajax/cardapio-tabela.php";?>
             </div>
         </div>
@@ -166,6 +172,22 @@
                 function(){}
             );
         }
+
+        $("#search").on("click", function(){
+            var nome = $("#pesquisa").val();
+            var url = '../../ajax/cardapio-tabela.php';
+            $.ajax({
+                type: 'POST',
+
+                url: url,
+
+                data: {nome:nome},
+
+                success:function(res){
+                    $("#tabela-cardapio").html(res);
+                }
+            });
+        });
     </script>
 </body>
 </html>

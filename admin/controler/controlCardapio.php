@@ -103,8 +103,8 @@
             $stmte;
             try{
                 if($modo==1){
-                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo == 1");
-                    $stmte->bindParam(":parametro", $parametro . "%" , PDO::PARAM_STR);
+                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo = 1");
+                    $stmte->bindValue(":parametro","%".$parametro."%");
                     $cardapios = array();
                     if($stmte->execute()){
                         if($stmte->rowCount() > 0){
@@ -113,6 +113,7 @@
                                 $cardapio->setCod_cardapio($result->cod_cardapio);
                                 $cardapio->setNome($result->nome);
                                 $cardapio->setPreco($result->preco);
+                                $cardapio->setDesconto($result->desconto);
                                 $cardapio->setDescricao($result->descricao);
                                 $cardapio->setFoto($result->foto);
                                 $cardapio->setCategoria($result->categoria);
