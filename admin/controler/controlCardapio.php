@@ -35,10 +35,11 @@
 
         function update($cardapio){
             try{
-                $stmte =$this->pdo->prepare("UPDATE cardapio SET nome=:nome, preco=:preco, descricao=:descricao, foto=:foto, categoria=:categoria, flag_ativo=:flag_ativo, prioridade=:prioridade, delivery=:delivery WHERE cod_cardapio=:cod_cardapio");
+                $stmte =$this->pdo->prepare("UPDATE cardapio SET nome=:nome, preco=:preco, desconto = :desconto, descricao=:descricao, foto=:foto, categoria=:categoria, flag_ativo=:flag_ativo, prioridade=:prioridade, delivery=:delivery WHERE cod_cardapio=:cod_cardapio");
                 $stmte->bindParam(":cod_cardapio", $cardapio->getCod_cardapio() , PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $cardapio->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $cardapio->getPreco());
+                $stmte->bindParam(":desconto", $cardapio->getDesconto());
                 $stmte->bindParam(":descricao", $cardapio->getDescricao(), PDO::PARAM_STR);
                 $stmte->bindParam("foto", $cardapio->getFoto(), PDO::PARAM_STR);
                 $stmte->bindParam("categoria", $cardapio->getCategoria(), PDO::PARAM_INT);
@@ -82,6 +83,7 @@
                             $cardapio->setCod_cardapio($result->cod_cardapio);
                             $cardapio->setNome($result->nome);
                             $cardapio->setPreco($result->preco);
+                            $cardapio->setDesconto($result->desconto);
                             $cardapio->setDescricao($result->descricao);
                             $cardapio->setFoto($result->foto);
                             $cardapio->setCategoria($result->categoria);
@@ -252,7 +254,7 @@
             $stmte;
             $cardapios = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.prioridade AS prioridade, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria");
+                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.prioridade AS prioridade, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
@@ -260,6 +262,7 @@
                             $cardapio->setCod_cardapio($result->cod_cardapio);
                             $cardapio->setNome($result->nome);
                             $cardapio->setPreco($result->preco);
+                            $cardapio->setDesconto($result->desconto);
                             $cardapio->setDescricao($result->descricao);
                             $cardapio->setFoto($result->foto);
                             $cardapio->setCategoria($result->categoria);

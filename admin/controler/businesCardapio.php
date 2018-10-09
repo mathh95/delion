@@ -19,6 +19,7 @@
 		}
 		$nome= addslashes(htmlspecialchars($_POST['nome']));
 		$preco = addslashes(htmlspecialchars($_POST['preco']));
+		$desconto = addslashes(htmlspecialchars($_POST['desconto']));
 		$descricao= addslashes(htmlspecialchars($_POST['descricao']));
 		if (!empty($_FILES['arquivo']['name'])) {
 	   		$foto = upload("arquivo");
@@ -31,7 +32,7 @@
 		$prioridade = (isset($_POST['prioridade'])||!empty($_POST['prioridade'])) && $_POST['prioridade'] == 1 ? 1 : 0 ;
 		$delivery = (isset($_POST['delivery'])||!empty($_POST['delivery'])) && $_POST['delivery'] == 1 ? 1 : 0 ;
 		$cardapio= new cardapio();
-		$cardapio->construct($nome, $preco, $descricao, $foto, $categoria, $flag_ativo, $prioridade,$delivery);
+		$cardapio->construct($nome, $preco, $desconto, $descricao, $foto, $categoria, $flag_ativo, $prioridade,$delivery);
 		/*echo "<pre>";
 		var_dump($cardapio);
 		echo "</pre>";

@@ -7,6 +7,7 @@
         private $cod_cardapio;
         private $nome;
         private $preco;
+        private $desconto;
         private $descricao;
         private $foto;
         private $categoria;
@@ -23,6 +24,9 @@
         }
         function getPreco(){
             return $this->preco;
+        }
+        function getDesconto(){
+            return $this->desconto;
         }
         function getDescricao(){
             return $this->descricao;
@@ -55,6 +59,9 @@
         }
         function setPreco($preco){
             $this->preco = $preco;
+        }
+        function setDesconto($desconto){
+            $this->desconto = $desconto;
         }
         function setDescricao($descricao){
             $this->descricao=$descricao;
@@ -91,9 +98,10 @@
         }
         function __construct(){
         }
-        function construct($nome,$preco,$descricao,$foto,$categoria,$flag_ativo,$prioridade,$delivery){
+        function construct($nome,$preco,$desconto,$descricao,$foto,$categoria,$flag_ativo,$prioridade,$delivery){
             $this->nome=$nome;
             $this->preco = $preco;
+            $this->desconto = $desconto;
             $this->descricao=$descricao;
             $this->foto=$foto;
             $this->categoria=$categoria;

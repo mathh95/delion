@@ -318,6 +318,8 @@
 
                             <br>
 
+                            <small>Preço: </small>
+
                             <div class="input-group">
 
                                 <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
@@ -327,6 +329,20 @@
                             </div>
 
                             <br>
+
+                            <small>Desconto em (%): </small>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+
+                                <input class="form-control" placeholder="Desconto" name="desconto" required autofocus id="desconto" type="number" step="0.01" min="1" max="99" value="<?=$cardapio->getDesconto(); ?>">
+
+                            </div>
+
+                            <br>
+
+                            <small>Categoria</small>
 
                             <select class="form-control" name="categoria" id="categoria" >
 
