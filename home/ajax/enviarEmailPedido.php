@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 include_once "../../admin/controler/conexao.php";
 
 require_once "../controler/controlCarrinho.php";
@@ -104,7 +104,7 @@ $mail->send();
     echo $mail->ErrorInfo;
 }
                 
-$pedido->setPedido($endereco);
+$pedido->setPedido(null);
                 
 $html.= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home'});</script></body>";
 echo $html;
