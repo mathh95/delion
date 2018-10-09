@@ -17,13 +17,17 @@ class controlerCarrinho{
 
     function index(){}
 
-    public function setPedido(){
+    public function setPedido($endereco){
 
         $idCliente = $_SESSION['cod_cliente'];
         $valor = $_SESSION['totalCarrinho'];
         $status = 1;
-
-        $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, status = :status");
+        if ($endereco == null){
+            $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, status = :status");
+        }else{
+            $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, status = :status, endereco = :endereco");
+            $sql->bindValue(":endereco", $endereco);
+        }
 
         $sql->bindValue(":idCliente", $idCliente);
         // $sql->bindValue(":data", $data);

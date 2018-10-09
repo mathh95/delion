@@ -158,3 +158,19 @@ function excluirEndereco(endereco){
         }
     });
   }
+
+  function selecionarEndereco(endereco){
+    $.ajax({
+            
+        type:'GET',
+        
+        url: 'ajax/enviarEmailPedido.php',
+        
+        data: {endereco : endereco},
+        
+        success:function(resultado){
+            swal("Pedido realizado com sucesso!", "Concluido!", "success").then((value) => {window.location='/home'});
+        } 
+
+    });
+ }

@@ -9,7 +9,11 @@
         $result=$control->validaCliente($login, $senha);
         if ($result == 2 ){
             if (isset($_SESSION['carrinho']) and !empty($_SESSION['carrinho'])){
-                header("Location:../carrinho.php");   
+                if (isset($_SESSION['delivery']) and $_SESSION['delivery'] > 0){
+                    header("Location:../endereco.php"); 
+                }else{
+                    header("Location:../carrinho.php"); 
+                }
             }else{
                 header("Location: ../");
             }

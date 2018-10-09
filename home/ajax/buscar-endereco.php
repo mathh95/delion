@@ -17,7 +17,23 @@ if ($tipo == 'ativo'){
     if ($enderecos < 1){
         echo "<p> Não existem endereços registrados</p>";
     }else{ 
-        echo "<p> Lista de endereços cadastrados: </p>";
+        if (isset($_SESSION['delivery']) and $_SESSION['delivery'] > 0){
+            echo "<p> Lista de endereços cadastrados: </p>";
+                foreach ($enderecos as $endereco) {
+                    echo "<div class='item'>
+                            <label> Rua: <strong>" . $endereco->getRua()."</strong></label>
+                            <button class='btn btn-success pull-right' onclick='selecionarEndereco(".$endereco->getCodEndereco().")' > SELECIONAR </button>
+                            <div>
+                            <label> Cep: " . $endereco->getCep()."</label>
+                            <label> Número: " . $endereco->getNumero()."</label>
+                            <label> Bairro: " . $endereco->getBairro()."</label>
+                            </div>
+                            <label> Complemento: " . $endereco->getComplemento()."</label>
+                        </div>
+                    ";
+                }
+        }else{
+            echo "<p> Lista de endereços cadastrados: </p>";
             foreach ($enderecos as $endereco) {
                 echo "<div class='item'>
                         <label> Rua: <strong>" . $endereco->getRua()."</strong></label>
@@ -32,6 +48,7 @@ if ($tipo == 'ativo'){
                     </div>
                 ";
             }
+        }
     }
 }else{
     $enderecos= $controleEndereco->selectByCliente($cod_cliente,2);
