@@ -19,7 +19,7 @@
 		$cod_perfil= addslashes(htmlspecialchars($_POST['perfil']));
 		// $status= addslashes(htmlspecialchars($_POST['flag_bloqueado']));
 		$permissao = array();
-		for ($i=1; $i <= 10; $i++) { 
+		for ($i=1; $i <= 11; $i++) { 
 			if (!empty($_POST[$i."permissao"])) {
 				array_push($permissao, addslashes(htmlspecialchars($_POST[$i."permissao"])));
 			}

@@ -114,7 +114,7 @@
                                         <li><a href="miniBannerLista.php">Listar</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown active ">
+                                <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="cliente.php">Cadastro</a></li>
@@ -124,12 +124,12 @@
                                 <li class="dropdown">
                                     <a href="pedidoLista.php">Pedido</a>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdown active">
                                     <a href="comboLista.php">Combo</a>
-                                </li> 
+                                </li>
                                 <li class="dropdown">
                                     <a href="/home/avaliacao.php">Avaliar</a>
-                                </li>   
+                                </li>
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">
@@ -144,23 +144,22 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <?php include "../../ajax/cliente-tabela.php"; ?>
+                <?php include "../../ajax/combo-tabela.php"; ?>
             </div>
         </div>
     </div>
     <?php include VIEWPATH."/rodape.html" ?>
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
-        function removeCliente(cliente){
-            msgConfirmacao('Confirmação','Deseja Realmente remover o cliente?',
+        function alterarStatus(pedido,status){
+            msgConfirmacao('Confirmação','Deseja Realmente alterar o status do pedido?',
                 function(linha){
-                    var url ='../../ajax/excluir-cliente.php?cliente='+cliente;
+                    var url ='../../ajax/alterar-pedido.php?pedido='+pedido+'&status='+status;
                     $.get(url, function(dataReturn) {
                         if (dataReturn > 0) {
-                            msgGenerico("Excluir!","Cliente excluído com sucesso!",1,function(){});
-                            $("#status"+cliente).remove();
+                            msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php" );
                         }else{
-                            msgGenerico("Erro!","Não foi possível excluir o cliente!",2,function(){});
+                            msgGenerico("Erro!","Não foi possível alterar o status do pedido!",2,function(){});
                         }
                     });  
                 },

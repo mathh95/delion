@@ -100,28 +100,27 @@ class controlerCombo{
         }        
     }
 
-    function selectAllPedido(){
-        $pedidos=array();
-        $stmt=$this->pdo->prepare("SELECT pedido.cod_pedido, pedido.data, pedido.valor, pedido.status, cliente.nome, cliente.telefone FROM pedido INNER JOIN cliente ON pedido.cliente = cliente.cod_cliente");
+    function selectAllCombo(){
+        $combos=array();
+        $stmt=$this->pdo->prepare("SELECT combo.cod_combo, combo.data, combo.valor, cliente.nome, cliente.telefone FROM combo INNER JOIN cliente ON combo.cliente = cliente.cod_cliente");
         $executa=$stmt->execute();
         if ($executa) {
             if ($stmt->rowCount() > 0) {
                 while ($result=$stmt->fetch(PDO::FETCH_OBJ)) {
-                    $pedido = new pedido();
-                    $pedido->setCod_pedido($result->cod_pedido);
-                    $pedido->setData(new DateTime($result->data));
-                    $pedido->setValor($result->valor);
-                    $pedido->setStatus($result->status);
-                    $pedido->setCliente($result->nome);
-                    $pedido->telefone=($result->telefone);
-                    array_push($pedidos,$pedido);
+                    $combo = new combo();
+                    $combo->setCod_combo($result->cod_combo);
+                    $combo->setData(new DateTime($result->data));
+                    $combo->setValor($result->valor);
+                    $combo->setCliente($result->nome);
+                    $combo->telefone=($result->telefone);
+                    array_push($combos,$combo);
                 }
             }else{
                 echo "Sem resultados";
                 return -1;
 
             }
-            return $pedidos;
+            return $combos;
         }else{
             return -1;
         }

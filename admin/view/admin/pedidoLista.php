@@ -125,6 +125,9 @@
                                     <a href="pedidoLista.php">Pedido</a>
                                 </li>
                                 <li class="dropdown">
+                                    <a href="comboLista.php">Combo</a>
+                                </li>
+                                <li class="dropdown">
                                     <a href="/home/avaliacao.php">Avaliar</a>
                                 </li>
                             </ul>
@@ -138,31 +141,31 @@
             </div>
         </div>
     </header>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <?php include "../../ajax/pedido-tabela.php"; ?>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <?php include "../../ajax/pedido-tabela.php"; ?>
+                </div>
             </div>
         </div>
-    </div>
-    <?php include VIEWPATH."/rodape.html" ?>
-    <script src="../../js/alert.js"></script>
-    <script type="text/javascript">
-        function alterarStatus(pedido,status){
-            msgConfirmacao('Confirmação','Deseja Realmente alterar o status do pedido?',
-                function(linha){
-                    var url ='../../ajax/alterar-pedido.php?pedido='+pedido+'&status='+status;
-                    $.get(url, function(dataReturn) {
-                        if (dataReturn > 0) {
-                            msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php" );
-                        }else{
-                            msgGenerico("Erro!","Não foi possível alterar o status do pedido!",2,function(){});
-                        }
-                    });  
-                },
-                function(){}
-            );
-        }
-    </script>
-</body>
-</html>
+        <?php include VIEWPATH."/rodape.html" ?>
+        <script src="../../js/alert.js"></script>
+        <script type="text/javascript">
+            function alterarStatus(pedido,status){
+                msgConfirmacao('Confirmação','Deseja Realmente alterar o status do pedido?',
+                    function(linha){
+                        var url ='../../ajax/alterar-pedido.php?pedido='+pedido+'&status='+status;
+                        $.get(url, function(dataReturn) {
+                            if (dataReturn > 0) {
+                                msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php" );
+                            }else{
+                                msgGenerico("Erro!","Não foi possível alterar o status do pedido!",2,function(){});
+                            }
+                        });  
+                    },
+                    function(){}
+                );
+            }
+        </script>
+    </body>
+    </html>

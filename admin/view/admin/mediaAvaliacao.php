@@ -130,6 +130,9 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                                     <a href="pedidoLista.php">Pedido</a>
                                 </li>
                                 <li class="dropdown">
+                                    <a href="comboLista.php">Combo</a>
+                                </li>
+                                <li class="dropdown">
                                     <a href="/home/avaliacao.php">Avaliar</a>
                                 </li>          
                             </ul>

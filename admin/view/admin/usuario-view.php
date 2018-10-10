@@ -269,6 +269,10 @@
 
                                     <li class="dropdown">
                                         <a href="pedidoLista.php">Pedido</a>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="comboLista.php">Combo</a>
                                     </li> 
                                     
                                     <li class="dropdown">
@@ -498,6 +502,16 @@
                                         <label>
 
                                             <input type="checkbox" id="avaliacao" name="10permissao" value="avaliacao">Avaliação
+
+                                        </label>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="combo" name="11permissao" value="combo">Combo
 
                                         </label>
 
