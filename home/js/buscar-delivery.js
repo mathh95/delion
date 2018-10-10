@@ -48,7 +48,7 @@ function delivery(ativo, busca, pagina) {
 
             success:function(resultado){
 
-                $( "#delivery" ).prop( "checked", true );
+                $( "#delivery").prop( "checked", true );
                 
                 $('.produtos').html(resultado);
             }

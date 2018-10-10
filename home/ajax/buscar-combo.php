@@ -81,7 +81,7 @@ if(count($itens) > 0){
                             }else{
                             echo "Não disponível";
                             $pedidoBalcao=$pedidoBalcao + 1;
-                            }    ?></strong> </td>
+                            }?></strong> </td>
                     </tr>
             <?php $i++;
             endforeach;
