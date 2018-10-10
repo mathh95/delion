@@ -74,17 +74,17 @@ class controlerCombo{
         }
     }
 
-    function selectItens($cod_pedido){
-        $parametro = $cod_pedido;
+    function selectItens($cod_combo){
+        $parametro = $cod_combo;
         $itens=array();
-        $stmt=$this->pdo->prepare("SELECT item_pedido.cod_item_pedido, item_pedido.quantidade, cardapio.nome, cardapio.preco FROM item_pedido INNER JOIN cardapio ON item_pedido.cod_produto=cardapio.cod_cardapio WHERE item_pedido.cod_pedido=:parametro");
+        $stmt=$this->pdo->prepare("SELECT item_combo.cod_item_combo, item_combo.quantidade, cardapio.nome, cardapio.preco FROM item_combo INNER JOIN cardapio ON item_combo.cod_produto=cardapio.cod_cardapio WHERE item_combo.cod_combo=:parametro");
         $stmt->bindParam(":parametro", $parametro, PDO::PARAM_INT);
         $executa=$stmt->execute();
         if ($executa) {
             if ($stmt->rowCount() > 0 ){
                 while($result=$stmt->fetch(PDO::FETCH_OBJ)){
-                    $item = new item();
-                    $item->setCod_item($result->cod_item_pedido);
+                    $item = new itemCombo();
+                    $item->setCod_item_combo($result->cod_item_combo);
                     $item->setProduto($result->nome);
                     $item->setQuantidade($result->quantidade);
                     $item->preco=$result->preco;

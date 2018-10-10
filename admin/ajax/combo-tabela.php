@@ -29,7 +29,7 @@ if(in_array('combo', $permissao)){
 			 	<td style='text-align: center;' name='cliente'>".$combo->getCliente()."</td>
 				<td style='text-align: center;' name='telefone'>".$combo->telefone."</td>
 				<td style='text-align: center;' name='valor'>".$combo->getValor()."</td>
-				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='itemLista.php?cod=".$combo->getCod_combo()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Itens</button></a></td>
+				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='itemListaCombo.php?cod=".$combo->getCod_combo()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Itens</button></a></td>
 			</tr>";
 	}
 } else{

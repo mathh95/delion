@@ -15,10 +15,10 @@
             private $quantidade;
             
             function getCod_item_combo(){
-                return $this->getCod_item_combo;
+                return $this->cod_item_combo;
             }
 
-            function getCod_produto(){
+            function getProduto(){
                 return $this->cod_produto;
             }
 
@@ -34,7 +34,7 @@
                 $this->cod_item_combo=$cod_item_combo;
             }
 
-            function setProduto($cod_combo){
+            function setProduto($cod_produto){
                 $this->cod_produto=$cod_produto;
             }
 
