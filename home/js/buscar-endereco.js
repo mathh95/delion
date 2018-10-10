@@ -160,6 +160,7 @@ function excluirEndereco(endereco){
   }
 
   function selecionarEndereco(endereco){
+      console.log(endereco);
     $.ajax({
             
         type:'GET',
@@ -169,7 +170,7 @@ function excluirEndereco(endereco){
         data: {endereco : endereco},
         
         success:function(resultado){
-            swal("Pedido realizado com sucesso!", "Concluido!", "success").then((value) => {window.location='/home'});
+            swal("Pedido realizado com sucesso!", "Concluido, estaremos enviando seu pedido!", "success").then((value) => {window.location='/home'});
         } 
 
     });

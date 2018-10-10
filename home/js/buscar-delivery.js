@@ -111,28 +111,23 @@ function delivery(ativo, busca, pagina) {
         });
     }
   }
-
-  function tipoPedido(resultado){
-    var check = resultado;
-    $.ajax({
-            
-        type:'GET',
-        
-        url: 'ajax/buscar-carrinho.php',
-        
-        data: {delivery : resultado}
-        ,
-        success:function(resultado){
-            $('.itens').html(resultado);
-            
-            if(check > 0){
-                $("#delivery").addClass('active');
-                $("#balcao").removeClass('active');
-            }else{
-                $("#balcao").addClass('active');
-                $("#delivery").removeClass('active');
-            }
+  
+  function tipoPedido(check){
+        if(check > 0){
+            $("#delivery").addClass('active');
+            $("#balcao").removeClass('active');
+        }else{
+            $("#balcao").addClass('active');
+            $("#delivery").removeClass('active');
         }
 
-    });
-  }
+        $.ajax({
+            
+            type:'GET',
+            
+            url: 'ajax/quantidade-carrinho.php',
+            
+            data: {delivery : check}
+    
+        });
+    }
