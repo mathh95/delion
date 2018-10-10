@@ -18,12 +18,8 @@ include_once "../lib/alert.php";
 
 $itens = array();
 $cardapio = new controlerCardapio(conecta());
-// $pedido = new enviarEmailPedido;
-if(isset($_GET['delivery']) && !empty($_GET['delivery'])){
-    $_SESSION['delivery']=$_GET['delivery'];
-}else{
-    $_SESSION['delivery']=-1;
-}
+$_SESSION['delivery']=-1;
+
 
 
 if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){

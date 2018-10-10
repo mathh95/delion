@@ -27,12 +27,11 @@ if($itens > 0){
 }
 
 if (isset($_GET['endereco']) and !empty($_GET['endereco'])){
-    $endereco = $_GET['endereco'];
+    $cod_endereco = $_GET['endereco'];
 }else{
-    $endereço = null;
+    $cod_endereco = null;
 }
-
-if ($endereço == null){
+if ($cod_endereco == null){
     $html = "<head>
             <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
              <style>
@@ -111,7 +110,6 @@ echo $html;
 
 }else{
     $controlEndereco=new controlEndereco(conecta());
-    $cod_endereco=$endereco;
     $endereco=$controlEndereco->select($cod_endereco,1)[0];
     try{
         //Server Settings
