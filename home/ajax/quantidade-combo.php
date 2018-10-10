@@ -17,6 +17,10 @@ session_start();
 $preco = $_GET['preco'];
 $acao = $_GET['acao'];
 
+if (isset($_GET['delivery']) && !empty($_GET['delivery'])){
+    $_SESSION['delivery'] = $_GET['delivery'];
+}
+
 
 //função pra aumentar a quantidade de um item no carrinho
 if($acao == "+"){

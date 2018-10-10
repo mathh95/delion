@@ -107,7 +107,7 @@ if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
                     echo $html;
                 }
             }else{
-                $html.= "<script>swal('Não foi possível realizar o pedido!!', 'Esse pedido contem itens que não podem ser entregues, retire-os do combo ou marque o pedido para retirar no balcão!', 'error').then((value) => {window.location='/home/carrinho.php'});</script></body>";
+                $html.= "<script>swal('Não foi possível realizar o pedido!!', 'Esse pedido contem itens que não podem ser entregues, retire-os do combo ou marque o pedido para retirar no balcão!', 'error').then((value) => {window.location='/home/combo.php'});</script></body>";
                 echo $html;
             }
         }else{

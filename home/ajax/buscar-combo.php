@@ -40,7 +40,7 @@ if(count($itens) > 0){
     
     $itens = $cardapio->buscarVariosId($itens);
 ?>
-        <script type="text/javascript" src="js/buscar-delivery.js"></script>
+        <script type="text/javascript" src="js/buscar-delivery-combo.js"></script>
         <script type="text/javascript" src="js/buscar-combo.js"></script>
         <h1 class="text-center">Pedido</h1>
         <?php //print_r($_SESSION['qtd']); ?>
