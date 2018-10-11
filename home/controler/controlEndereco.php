@@ -89,10 +89,17 @@
             }    
         }
 
-        function selectAll(){
+        function selectAll($parametro){
             try{
+                $parametro = "%" . $parametro . "%";
                 $enderecos = array();
-                $stmt=$this->pdo->prepare("SELECT * FROM endereco");
+                $stmt=$this->pdo->prepare("SELECT endereco.cod_endereco, endereco.rua, endereco.numero, endereco.cep, endereco.complemento, endereco.bairro, endereco.flag_cliente, cliente.cod_cliente, cliente.nome FROM endereco INNER JOIN cliente ON endereco.cliente = cliente.cod_cliente WHERE cliente.nome like :nome OR endereco.rua LIKE :rua OR endereco.numero LIKE :numero OR endereco.bairro LIKE :bairro OR endereco.cep LIKE :cep OR endereco.complemento LIKE :complemento");
+                $stmt->bindValue(":nome", $parametro);
+                $stmt->bindValue(":rua", $parametro);
+                $stmt->bindValue(":cep", $parametro);
+                $stmt->bindValue(":numero", $parametro);
+                $stmt->bindValue(":complemento", $parametro);
+                $stmt->bindValue(":bairro", $parametro);
                 $executa= $stmt->execute();
                 if ($executa){
                     if ($stmt->rowCount() > 0 ){
@@ -104,12 +111,12 @@
                             $endereco->setCep($result->cep);
                             $endereco->setComplemento($result->complemento);
                             $endereco->setBairro($result->bairro);
-                            $endereco->setCliente($result->cliente);
+                            $endereco->setCliente($result->cod_cliente);
+                            $endereco->clienteNome=$result->nome;
                             $endereco->setFlagCliente($result->flag_cliente);
                             array_push($enderecos,$endereco);
                         }
                     }else{
-                        echo "Sem resultados";
                         return -1;
                     }
                     return $enderecos;

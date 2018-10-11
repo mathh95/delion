@@ -121,18 +121,18 @@
                                         <li><a href="clienteLista.php">Listar</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown active ">
+                                <li class="dropdown">
                                     <a href="pedidoLista.php">Pedido</a>
                                 </li>
                                 <li class="dropdown">
                                     <a href="comboLista.php">Combo</a>
-                                </li>
+                                </li> 
                                 <li class="dropdown">
                                     <a href="/home/avaliacao.php">Avaliar</a>
-                                </li>
-                                <li class="dropdown">
+                                </li> 
+                                <li class="dropdown active">
                                     <a href="enderecoLista.php">Endereços</a>
-                                </li>  
+                                </li>   
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">
@@ -145,12 +145,36 @@
         </div>
     </header>
     <div class="container-fluid">
+        <div class="searchbar">
+                <div class="medium-divs"> 
+                    <label>Pesquise por qualquer campo: </label>
+                    <input id="parametro" class="form-control" type="text" required placeholder="Digite aqui para pesquisar em qualquer campo">
+                </div>
+        </div>
         <div class="row">
-            <div class="col-lg-12">
-                <?php include "../../ajax/item-tabela.php"; ?>
+            <div class="col-lg-12" id="tabela-endereco">
+                <?php include "../../ajax/endereco-tabela.php"; ?>
             </div>
         </div>
     </div>
     <?php include VIEWPATH."/rodape.html" ?>
+    <script src="../../js/alert.js"></script>
+    <script type="text/javascript">
+        $('#parametro').on('change paste keyup', function(){
+            var parametro = $("#parametro").val();
+            var url = '../../ajax/endereco-tabela.php';
+            $.ajax({
+                type: 'POST',
+
+                url: url,
+
+                data: {parametro:parametro},
+
+                success:function(res){
+                    $("#tabela-endereco").html(res);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -88,6 +88,10 @@
 
             }
 
+            function getDsFlagCliente(){
+                return $this->flag_cliente==0? 'Inativo': 'Ativo';
+            }
+            
             function construct($rua,$numero,$cep,$complemento,$bairro,$cliente){
                 $this->rua = $rua;
                 $this->numero = $numero;
