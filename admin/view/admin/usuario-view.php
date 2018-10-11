@@ -517,6 +517,16 @@
 
                                     </li>
 
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="adicional" name="12permissao" value="adicional">Adicional
+
+                                        </label>
+
+                                    </li>
+
 
                                 </ul>
 

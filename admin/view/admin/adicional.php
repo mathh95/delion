@@ -8,6 +8,10 @@
 
     include_once CONTROLLERPATH."/seguranca.php";
 
+    include_once CONTROLLERPATH."/controlAdicional.php";
+
+    include_once MODELPATH."/adicional.php";
+
     $_SESSION['permissaoPagina']=0;
 
     protegePagina();
@@ -98,7 +102,7 @@
 
                                 <ul class="nav navbar-nav">
 
-                                    <li class="dropdown active">
+                                    <li class="dropdown">
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuários <span class="caret"></span></a>
 
@@ -196,7 +200,7 @@
 
                                     </li>
 
-                                    <li class="dropdown">
+                                    <li class="dropdown active">
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cardápio <span class="caret"></span></a>
 
@@ -212,6 +216,20 @@
 
                                     <li class="dropdown">
 
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicional <span class="caret"></span></a>
+
+                                        <ul class="dropdown-menu">
+
+                                            <li><a href="adicional.php">Cadastro</a></li>
+
+                                            <li><a href="adicionalLista.php">Listar</a></li>
+                                            
+                                        </ul>
+
+                                    </li>   
+
+                                    <li class="dropdown">
+
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mini banner <span class="caret"></span></a>
 
                                         <ul class="dropdown-menu">
@@ -223,36 +241,40 @@
                                         </ul>
 
                                     </li>
-
-                                <li class="dropdown">
-
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
                                     
-                                    <ul class="dropdown-menu">
+                                    <li class="dropdown">
+    
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
                                         
-                                        <li><a href="cliente.php">Cadastro</a></li>
-                                        
-                                        <li><a href="clienteLista.php">Listar</a></li>
+                                        <ul class="dropdown-menu">
+                                            
+                                            <li><a href="cliente.php">Cadastro</a></li>
+                                                
+                                            <li><a href="clienteLista.php">Listar</a></li>
+                                            
+                                        </ul>
+
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="pedidoLista.php">Pedido</a>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="comboLista.php">Combo</a>
+                                    </li> 
                                     
-                                    </ul>
-                                
-                                </li>
-
-                                <li class="dropdown">
-                                    <a href="pedidoLista.php">Pedido</a>
-                                </li>
-
-                                <li class="dropdown">
-                                    <a href="comboLista.php">Combo</a>
-                                </li>
-                                
-                                <li class="dropdown">
-                                    <a href="/home/avaliacao.php">Avaliar</a>
-                                </li>   
+                                    <li class="dropdown">
+                                        <a href="/home/avaliacao.php">Avaliar</a>
+                                    </li>
 
                                 </ul>
 
                             </div><!--/.nav-collapse -->
+
+                            <div>
+
+                            </div>
 
                             <div class="pull-right">
 
@@ -274,7 +296,7 @@
 
         <div class="container-fluid">
 
-            <form class="form-horizontal" id="form-cadastro-usuario" method="post" action="../../controler/businesUsuario.php">
+            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/businesAdicional.php">
 
                 <div class="col-md-12">
 
@@ -282,214 +304,41 @@
 
                         <div class="col-md-5">
 
-                            <h3>Dados Pessoais</h3>
-
-                            <small>Nome:</small>
+                            <h3>Dados do item do Adicional</h3>
 
                             <br>
 
+                            <small>Nome: </small>
+
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-                                <input class="form-control" placeholder="Nome" name="nome" value="" required autofocus type="text">
+                                <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text">
+
+                            </div>
+
+                            <br>
+                            
+                            <small>Preço: </small>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+
+                                <input class="form-control" placeholder="Preço" name="preco" required autofocus id="preco" type="number" step="0.01">
 
                             </div>
 
                             <br>
 
-                            <small>Login:</small>
-
-                            <br>
+                             <small>Desconto: </small>
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-                                <input class="form-control" placeholder="Usuário" name="login" value="" required  type="text">
-
-                            </div>
-
-                            <br>
-
-                            <small>Senha:</small>
-
-                            <br>
-
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-
-                                <input class="form-control" placeholder="Senha" name="senha" value="" required  type="password">
-
-                            </div>
-
-                            <br>
-
-                            <small>E-mail:</small>
-
-                            <br>
-
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-
-                                <input class="form-control" placeholder="E-mail" name="email" value="" type="email">
-
-                            </div>
-
-                            <br>
-
-                            <small>Perfil:</small>
-
-                            <br>
-
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
-
-                                <select class="form-control" name="perfil" required>
-
-                                    <option value='0'>Administrador</option>
-
-                                </select>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-1"></div>
-
-                        <div class="col-md-5">
-
-                            <h3>Permissões</h3>
-
-                            <div class="checkbox">
-
-                                <ul>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="Usuários" name="1permissao" value="usuario">Usuários
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="empresa" name="2permissao" value="empresa">Empresa
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="banners" name="3permissao" value="banner">Banners
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="imagem" name="4permissao" value="imagem">Imagens
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="evento" name="5permissao" value="evento">Evento
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="categoria" name="6permissao" value="categoria">Categoria
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="cardapio" name="7permissao" value="cardapio">Cardápio
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="cliente" name="8permissao" value="cliente">Cliente
-
-                                        </label>
-
-                                    </li>
-
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="pedido" name="9permissao" value="pedido">Pedido
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="avaliacao" name="10permissao" value="avaliacao">Avaliação
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="combo" name="11permissao" value="combo">Combo
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="adicional" name="12permissao" value="adicional">Adicional
-
-                                        </label>
-
-                                    </li>
-
-                                </ul>
+                                <input class="form-control" placeholder="Desconto" name="desconto" required autofocus id="desconto" type="number" step="0.01" min="1" max="99">
 
                             </div>
 
@@ -501,29 +350,25 @@
 
                 </div>
 
-                <div class="col-md-12">
+                <div class="col-md-5">
 
-                    <div class="col-md-5" style="padding-left: 0px;">
+                    <div class="pull-left">
 
-                        <div class="pull-left">
+                    <?php
 
-                        <?php
+                    $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                        $permissao =  json_decode($usuarioPermissao->getPermissao());
+                    if (in_array('adicional', $permissao)){ ?>
 
-                        if (in_array('usuario', $permissao)){ ?>
+                        <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Salvar</button>
 
-                            <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Salvar</button>
+                    <?php } ?>
 
-                        <?php } ?>
+                    </div>
 
-                        </div>
+                    <div class="pull-right">
 
-                        <div class="pull-right">
-
-                            <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
-
-                        </div>
+                    <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
 
                     </div>
 
@@ -549,29 +394,25 @@
 
         <?php include VIEWPATH."/rodape.html" ?>
 
+        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
         <script>
 
-            function confereSenha() {
+            tinymce.init({selector: 'textarea', plugins: [
 
-            //if(validar($("#senha1").val())){
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
 
-                if($("#senha1").val().length>5){
+                'searchreplace wordcount visualblocks visualchars code fullscreen',
 
-                    $("#alteraSenha").submit();
+                'insertdatetime media nonbreaking save table contextmenu directionality',
 
-                }else{
+                'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc help'
 
-                    alertComum('Erro!','Senhas devem conter no mínimo 6 caracteres!',2);
+                ],
 
-                }
+                toolbar1: 'undo redo | insert | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link |  forecolor backcolor '
 
-            //}else{
-
-            //    alertComum('Erro!','Senhas devem conter apenas letras e números!',2);
-
-            //}
-
-            }
+            });
 
         </script>
 
