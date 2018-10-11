@@ -131,7 +131,10 @@
                                 </li>
                                 <li class="dropdown">
                                     <a href="/home/avaliacao.php">Avaliar</a>
-                                </li>          
+                                </li>
+                                <li class="dropdown">
+                                    <a href="enderecoLista.php">Endereços</a>
+                                </li>            
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">
