@@ -118,6 +118,8 @@
                                 $cardapio->setFoto($result->foto);
                                 $cardapio->setCategoria($result->categoria);
                                 $cardapio->setFlag_ativo($result->flag_ativo);
+                                $cardapio->setPrioridade($result->prioridade);
+                                $cardapio->setDelivery($result->delivery);
                                 array_push($cardapios, $cardapio);
                             }
                         }
@@ -135,13 +137,49 @@
                                 $cardapio->setPreco($result->preco);
                                 $cardapio->setDescricao($result->descricao);
                                 $cardapio->setFoto($result->foto);
-                                $cardapio->setCategoria($result->categoria);
                                 $cardapio->setFlag_ativo($result->flag_ativo);
+                                $cardapio->setPrioridade($result->prioridade);
+                                $cardapio->setDelivery($result->delivery);
                             }
                         }
                     }
                     return $cardapio;
                 }
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+        function filter($parametro, $flag_ativo, $delivery, $prioridade){
+            $stmte;
+            try{
+                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.prioridade AS prioridade, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo LIKE :flag_ativo AND A.delivery LIKE :delivery AND A.prioridade LIKE :prioridade");
+                $stmte->bindValue(":parametro","%".$parametro."%");
+                $stmte->bindValue(":flag_ativo","%" .$flag_ativo);
+                $stmte->bindValue(":delivery","%".$delivery);
+                $stmte->bindValue(":prioridade","%".$prioridade);
+                $cardapios = array();
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                            $cardapio= new cardapio();
+                            $cardapio->setCod_cardapio($result->cod_cardapio);
+                            $cardapio->setNome($result->nome);
+                            $cardapio->setPreco($result->preco);
+                            $cardapio->setDesconto($result->desconto);
+                            $cardapio->setDescricao($result->descricao);
+                            $cardapio->setFoto($result->foto);
+                            $cardapio->setCategoria($result->categoria);
+                            $cardapio->setFlag_ativo($result->flag_ativo);
+                            $cardapio->setPrioridade($result->prioridade);
+                            $cardapio->setDelivery($result->delivery);
+                            array_push($cardapios, $cardapio);
+                        }
+                    }
+                }
+                return $cardapios;
+                
             }
             catch(PDOException $e){
                 echo $e->getMessage();

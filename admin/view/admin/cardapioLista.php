@@ -145,16 +145,41 @@
         </div>
     </header>
     <div class="container-fluid">
-    <label>Filtro por nome: </label>
-    <div>
-        <input id="pesquisa" type="text" required placeholder="Nome para pesquisa">
-        <button id="search" class='btn btn-kionux'><i class="fas fa-search"></i> Buscar</button>
-    </div>
-        <div class="row">
-            <div id="tabela-cardapio" class="col-lg-12">
-                <?php include "../../ajax/cardapio-tabela.php";?>
+        <div class="searchbar">
+            <div class="mini-divs"> 
+                <label>Filtro por nome: </label>
+                <input id="pesquisa" class="form-control" type="text" required placeholder="Nome para pesquisa">
+            </div>
+            <div class="mini-divs"> 
+                <label> Situação </label>
+                <select class="form-control" id="flag">
+                    <option value=''>TODOS</option>
+                    <option value='0'>INATIVO</option>
+                    <option value='1'>ATIVO</option>
+                </select>
+            </div>
+            <div class="mini-divs"> 
+                <label> Delivery </label>
+                <select class="form-control" id="delivery">
+                    <option value=''>TODOS</option>
+                    <option value='0'>INDISPONÍVEL</option>
+                    <option value='1'>DISPONÍVEL</option>
+                </select>
+            </div>
+            <div class="mini-divs"> 
+                <label> Prioridade </label>
+                <select class="form-control" id="prioridade">
+                    <option value=''>TODOS</option>
+                    <option value='0'>NÃO PRIORITÁRIO</option>
+                    <option value='1'>PRIORITÁRIO</option>
+                </select>
             </div>
         </div>
+            <div class="row">
+                <div id="tabela-cardapio" class="col-lg-12">
+                    <?php include "../../ajax/cardapio-tabela.php";?>
+                </div>
+            </div>
     </div>
     <?php include VIEWPATH."/rodape.html" ?>
     <script src="../../js/alert.js"></script>
@@ -175,16 +200,19 @@
                 function(){}
             );
         }
-
-        $("#search").on("click", function(){
+        
+            $('#pesquisa,#flag,#delivery,#prioridade').on('change paste keyup', function(){
             var nome = $("#pesquisa").val();
+            var flag = $("#flag").val();
+            var delivery = $("#delivery").val();
+            var prioridade = $("#prioridade").val();
             var url = '../../ajax/cardapio-tabela.php';
             $.ajax({
                 type: 'POST',
 
                 url: url,
 
-                data: {nome:nome},
+                data: {nome:nome, flag:flag, delivery:delivery, prioridade:prioridade},
 
                 success:function(res){
                     $("#tabela-cardapio").html(res);

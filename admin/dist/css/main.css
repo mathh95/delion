@@ -181,6 +181,17 @@ a:hover {
     text-decoration: none;
 }
 
+/**
+  Barra de pesquisa
+*/
+.searchbar{
+
+}
+.mini-divs{
+  width:200px;
+  float:left;
+  margin:10px;
+}
 
 /*
   Footer

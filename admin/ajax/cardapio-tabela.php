@@ -12,9 +12,17 @@ $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 $controle=new controlerCardapio($_SG['link']);
-if(isset($_POST['nome']) && !empty($_POST['nome'])){
+if((isset($_POST['nome']) && 
+!empty($_POST['nome'])) || 
+isset($_POST['flag']) || 
+isset($_POST['delivery']) || 
+isset($_POST['prioridade'])){
+
 	$nome = $_POST['nome'];
-	$cardapios = $controle->select($nome,1);
+	$flag_ativo= $_POST['flag'];
+	$delivery=$_POST['delivery'];
+	$prioridade=$_POST['prioridade'];
+	$cardapios = $controle->filter($nome, $flag_ativo, $delivery, $prioridade);
 }else{
 	$cardapios = $controle->selectAll();
 }
