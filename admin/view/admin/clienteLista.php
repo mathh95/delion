@@ -142,8 +142,14 @@
         </div>
     </header>
     <div class="container-fluid">
+        <div class="searchbar">
+                <div class="medium-divs"> 
+                    <label>Filtro por nome, email ou telefone do cliente: </label>
+                    <input id="pesquisa" class="form-control" type="text" required placeholder="Nome, email ou telefone para pesquisa">
+                </div>
+        </div>
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12" id="tabela-cliente">
                 <?php include "../../ajax/cliente-tabela.php"; ?>
             </div>
         </div>
@@ -167,6 +173,22 @@
                 function(){}
             );
         }
+
+        $('#pesquisa').on('change paste keyup', function(){
+            var nome = $("#pesquisa").val();
+            var url = '../../ajax/cliente-tabela.php';
+            $.ajax({
+                type: 'POST',
+
+                url: url,
+
+                data: {nome:nome},
+
+                success:function(res){
+                    $("#tabela-cliente").html(res);
+                }
+            });
+        });
     </script>
 </body>
 </html>

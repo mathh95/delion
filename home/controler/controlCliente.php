@@ -167,7 +167,7 @@
                 $cliente= new cliente;
                 try{
                     if($modo==1){
-                        $nome=$parametro . "%";
+                        $nome= "%" . $parametro;
                         $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE nome LIKE :parametro");
                         $stmt->bindParam(":parametro", $nome, PDO::PARAM_STR);
                     }elseif($modo==2){
@@ -196,6 +196,40 @@
                             }
                         }
                         return $cliente;
+                    }else{
+                        return -1;
+                    }
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function filter($parametro){
+                $stmt;
+                $clientes= array();
+                try{
+                    $parametro= "%" . $parametro . "%";
+                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE nome LIKE :parametro OR login LIKE :login OR telefone LIKE :telefone");
+                    $stmt->bindParam(":parametro", $parametro, PDO::PARAM_STR);
+                    $stmt->bindParam(":login", $parametro, PDO::PARAM_STR);
+                    $stmt->bindValue(":telefone", $parametro);    
+                    $executa=$stmt->execute();
+                    if ($executa){
+                        if($stmt->rowCount() > 0){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                                $cliente= new cliente;
+                                $cliente->setCod_cliente($result->cod_cliente);
+                                $cliente->setLogin($result->login);
+                                $cliente->setNome($result->nome);
+                                $cliente->setTelefone($result->telefone);
+                                $cliente->setStatus($result->status);
+                                $cliente->setIdFacebook($result->id_facebook);
+                                array_push($clientes, $cliente);
+                            }
+                        }
+                        return $clientes;
                     }else{
                         return -1;
                     }

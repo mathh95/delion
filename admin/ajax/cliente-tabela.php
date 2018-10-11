@@ -1,13 +1,21 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 include_once CONTROLLERPATH."/seguranca.php";
+include_once CONTROLLERPATH."/controlUsuario.php";
 include_once HOMEPATH."home/controler/controlCliente.php";
 include_once MODELPATH."/usuario.php";
 protegePagina();
 
 $controle=new controlCliente($_SG['link']);
+$controleUsuario = new controlerUsuario($_SG['link']);
+$usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-$clientes = $controle->selectAll();
+if(isset($_POST['nome'])){ 
+	$nome = $_POST['nome'];
+	$clientes = $controle->filter($nome);
+}else{
+	$clientes = $controle->selectAll();
+}
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
 if(in_array('cliente', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
