@@ -200,7 +200,7 @@
 
                                     </li>
 
-                                    <li class="dropdown active">
+                                    <li class="dropdown">
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cardápio <span class="caret"></span></a>
 
@@ -214,7 +214,7 @@
 
                                     </li>
 
-                                    <li class="dropdown">
+                                    <li class="dropdown active">
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicional <span class="caret"></span></a>
 
@@ -332,13 +332,27 @@
 
                             <br>
 
-                             <small>Desconto: </small>
+                            <small>Desconto: </small>
 
                             <div class="input-group">
 
                                 <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
                                 <input class="form-control" placeholder="Desconto" name="desconto" required autofocus id="desconto" type="number" step="0.01" min="1" max="99">
+
+                            </div>
+
+                            <br>
+
+                            <small>Informar se o item está ativo:</small>
+
+                            <div class="checkbox">
+
+                                <label>
+
+                                    <input type="checkbox" id="ativo" name="flag_ativo" value="1">Ativo
+
+                                </label>
 
                             </div>
 

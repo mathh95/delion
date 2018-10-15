@@ -107,6 +107,19 @@
                                         <li><a href="cardapioLista.php">Listar</a></li>
                                     </ul>
                                 </li>
+                                <li class="dropdown active">
+
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicional <span class="caret"></span></a>
+
+                                        <ul class="dropdown-menu">
+
+                                            <li><a href="adicional.php">Cadastro</a></li>
+
+                                            <li><a href="adicionalLista.php">Listar</a></li>
+                                            
+                                        </ul>
+
+                                </li>   
                                 <li class="dropdown ">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mini banner <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
@@ -114,7 +127,7 @@
                                         <li><a href="miniBannerLista.php">Listar</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown active ">
+                                <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="cliente.php">Cadastro</a></li>
@@ -150,23 +163,5 @@
     </div>
     <?php include VIEWPATH."/rodape.html" ?>
     <script src="../../js/alert.js"></script>
-    <script type="text/javascript">
-        function removeCliente(cliente){
-            msgConfirmacao('Confirmação','Deseja Realmente remover o cliente?',
-                function(linha){
-                    var url ='../../ajax/excluir-cliente.php?cliente='+cliente;
-                    $.get(url, function(dataReturn) {
-                        if (dataReturn > 0) {
-                            msgGenerico("Excluir!","Cliente excluído com sucesso!",1,function(){});
-                            $("#status"+cliente).remove();
-                        }else{
-                            msgGenerico("Erro!","Não foi possível excluir o cliente!",2,function(){});
-                        }
-                    });  
-                },
-                function(){}
-            );
-        }
-    </script>
 </body>
 </html>

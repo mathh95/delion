@@ -113,6 +113,19 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                                     </ul>
                                 </li>
                                 <li class="dropdown">
+
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicional <span class="caret"></span></a>
+
+                                        <ul class="dropdown-menu">
+
+                                            <li><a href="adicional.php">Cadastro</a></li>
+
+                                            <li><a href="adicionalLista.php">Listar</a></li>
+                                            
+                                        </ul>
+
+                                </li>   
+                                <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mini banner <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="miniBanner.php">Cadastro</a></li>

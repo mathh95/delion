@@ -20,18 +20,25 @@ if(in_array('adicional', $permissao)){
 		<tr>
     		<th width='20%' style='text-align: center;'>Nome</th>
     		<th width='15%' style='text-align: center;'>Preço</th>
-    		<th width='15%' style='text-align: center;'>Desconto</th>
+		    <th width='15%' style='text-align: center;'>Desconto</th>
+		    <th width='15%' style='text-align: center;'>Ativo</th>
         </tr>
 	<tbody>";
 	foreach ($adicionais as &$adicional) {
         $mensagem='Adicional excluído com sucesso!';
-        $titulo='Excluir';
+	$titulo='Excluir';
+	if($adicional->getFlag_ativo() == 1){
+		$flag = "Ativo";
+	}else{
+		$flag = "Inativo";
+	}
         echo "<tr name='resultado' id='status".$adicional->getCod_adicional()."'>
             <td style='text-align: center;' name='nome'>".$adicional->getNome()."</td>
             <td style='text-align: center;' name='preco'>".$adicional->getPreco()."</td>
-            <td style='text-align: center;' name='desconto'>".$adicional->getDesconto()."</td>
-            <td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='#'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
-            <td style='text-align: center;' name='status' ><button type='button' class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
+	    <td style='text-align: center;' name='desconto'>".$adicional->getDesconto()."</td>
+	    <td style='text-align: center;' name='flag_ativo'>".$flag."</td>
+            <td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='adicional-view.php?cod=".$adicional->getCod_adicional()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+            <td style='text-align: center;' name='status'><a href='../../ajax/excluir-adicional.php?cod=".$adicional->getCod_adicional()."'><button type='button' class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></a></td>
         </tr>";
 	}
 }else{
@@ -41,7 +48,8 @@ if(in_array('adicional', $permissao)){
 		<tr>
     		<th width='33%' style='text-align: center;'>Nome</th>
     		<th width='33%' style='text-align: center;'>Preço</th>
-    		<th width='33%' style='text-align: center;'>Desconto</th>
+		<th width='33%' style='text-align: center;'>Desconto</th>
+		<th width='15%' style='text-align: center;'>Ativo</th>
         </tr>
 	<tbody>";
 	foreach ($adicionais as &$adicional) {
@@ -50,7 +58,8 @@ if(in_array('adicional', $permissao)){
         echo "<tr name='resultado' id='status".$adicional->getCod_adicional()."'>
             <td style='text-align: center;' name='nome'>".$adicional->getNome()."</td>
             <td style='text-align: center;' name='preco'>".$adicional->getPreco()."</td>
-            <td style='text-align: center;' name='desconto'>".$adicional->getDesconto()."</td> 	
+	    <td style='text-align: center;' name='desconto'>".$adicional->getDesconto()."</td>
+	    <td style='text-align: center;' name='flag_ativo'>".($adicional->getFlag_ativo() == 1)?"Ativo":"Inativo"."</td> 	
         </tr>";
 }
 echo "</tbody></table>";
