@@ -204,7 +204,7 @@
 
                                     </li>
 
-                                    <li class="dropdown active">
+                                    <li class="dropdown">
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cardápio <span class="caret"></span></a>
 
@@ -217,6 +217,20 @@
                                         </ul>
 
                                     </li>
+
+                                    <li class="dropdown active">
+
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicional <span class="caret"></span></a>
+
+                                        <ul class="dropdown-menu">
+
+                                            <li><a href="adicional.php">Cadastro</a></li>
+
+                                            <li><a href="adicionalLista.php">Listar</a></li>
+                                            
+                                        </ul>
+
+                                    </li>   
 
                                     <li class="dropdown">
 
@@ -339,6 +353,19 @@
 
                             <br>
 
+                            <small>Informar se o item está ativo:</small>
+                                <div class="checkbox">
+
+                                    <label>
+
+                                        <input type="checkbox" id="ativo" name="flag_ativo" value="1">Ativo
+
+                                    </label>
+
+                                </div>
+
+                            <br>
+
                         </div>
 
                     </div>
@@ -390,6 +417,20 @@
         <?php include VIEWPATH."/rodape.html" ?>
 
         <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
+        <script>
+            var ativo =   <?=$adicional->getFlag_ativo()?>;
+
+            $( document ).ready(function() {
+
+                if (ativo == 1) {
+
+                    $('#ativo').attr('checked', true);
+
+                }
+
+            })
+        </script>
 
     </body>
 

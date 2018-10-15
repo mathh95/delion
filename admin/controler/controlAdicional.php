@@ -9,11 +9,12 @@
         private $pdo;
         function insert($adicional){
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO adicional(nome, preco, desconto)
-                VALUES (:nome, :preco, :desconto)");
+                $stmte =$this->pdo->prepare("INSERT INTO adicional(nome, preco, desconto, flag_ativo)
+                VALUES (:nome, :preco, :desconto, :flag_ativo)");
                 $stmte->bindParam(":nome", $adicional->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $adicional->getPreco());
                 $stmte->bindParam(":desconto", $adicional->getDesconto());
+                $stmte->bindParam(":flag_ativo", $adicional->getFlag_ativo());
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;
@@ -30,11 +31,12 @@
 
         function update($adicional){
             try{
-                $stmte =$this->pdo->prepare("UPDATE adicional SET nome=:nome, preco=:preco, desconto = :desconto WHERE cod_adicional=:cod_adicional");
+                $stmte =$this->pdo->prepare("UPDATE adicional SET nome=:nome, preco=:preco, desconto = :desconto, flag_ativo = :flag_ativo WHERE cod_adicional=:cod_adicional");
                 $stmte->bindParam(":cod_adicional", $adicional->getCod_adicional() , PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $adicional->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $adicional->getPreco());
                 $stmte->bindParam(":desconto", $adicional->getDesconto());
+                $stmte->bindParam(":flag_ativo", $adicional->getFlag_ativo());
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;
@@ -68,7 +70,8 @@
                             $adicional->setCod_adicional($result->cod_adicional);
                             $adicional->setNome($result->nome);
                             $adicional->setPreco($result->preco);
-                            $adicional->setDesconto($result->desconto);   
+                            $adicional->setDesconto($result->desconto);  
+                            $adicional->setFlag_ativo($result->flag_ativo); 
                         }
                     }
                 }
@@ -166,69 +169,9 @@
             }
         }
 
-        function selectPaginadoNome($parametro,$offset, $por_pagina){
-            $stmte;
-            $cardapios = array();
-            try{
-                $stmte = $this->pdo->prepare("SELECT * FROM cardapio WHERE nome LIKE :parametro AND flag_ativo = 1 ORDER BY categoria DESC LIMIT :offset, :por_pagina");
-                $stmte->bindValue(":parametro","%". $parametro . "%" , PDO::PARAM_STR);
-                $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
-                $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
-                if($stmte->execute()){
-                    if($stmte->rowCount() > 0){
-                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $cardapio= new cardapio();
-                            $cardapio->setCod_cardapio($result->cod_cardapio);
-                            $cardapio->setNome($result->nome);
-                            $cardapio->setPreco($result->preco);
-                            $cardapio->setDescricao($result->descricao);
-                            $cardapio->setFoto($result->foto);
-                            $cardapio->setCategoria($result->categoria);
-                            $cardapio->setFlag_ativo($result->flag_ativo);
-                            array_push($cardapios, $cardapio);
-                        }
-                    }
-                }
-                return $cardapios;
-            }
-            catch(PDOException $e){
-                echo $e->getMessage();
-            }
-        }
-
-        function selectPaginadoCategoria($parametro,$offset, $por_pagina){
-            $stmte;
-            $cardapios = array();
-            try{
-                $stmte = $this->pdo->prepare("SELECT * FROM cardapio WHERE nome LIKE :parametro AND flag_ativo = 1 ORDER BY categoria DESC LIMIT :offset, :por_pagina");
-                $stmte->bindValue(":parametro","%". $parametro . "%" , PDO::PARAM_STR);
-                $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
-                $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
-                if($stmte->execute()){
-                    if($stmte->rowCount() > 0){
-                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $cardapio= new cardapio();
-                            $cardapio->setCod_cardapio($result->cod_cardapio);
-                            $cardapio->setNome($result->nome);
-                            $cardapio->stPreco($result->preco);
-                            $cardapio->setDescricao($result->descricao);
-                            $cardapio->setFoto($result->foto);
-                            $cardapio->setCategoria($result->categoria);
-                            $cardapio->setFlag_ativo($result->flag_ativo);
-                            array_push($cardapios, $cardapio);
-                        }
-                    }
-                }
-                return $cardapios;
-            }
-            catch(PDOException $e){
-                echo $e->getMessage();
-            }
-        }
-
         function delete($parametro){
             try{
-                $stmt = $this->pdo->prepare("DELETE FROM cardapio WHERE cod_cardapio = :parametro");
+                $stmt = $this->pdo->prepare("UPDATE adicional SET flag_ativo = 0 WHERE cod_adicional = :parametro");
                 $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;
@@ -236,36 +179,6 @@
             catch(PDOException $e){
                 echo $e->getMessage();
                 return -1;
-            }
-        }
-
-
-
-        function selectAllSemCategoria(){
-            $stmte;
-            $cardapios = array();
-            try{
-                $stmte = $this->pdo->prepare("SELECT * FROM cardapio");
-                if($stmte->execute()){
-                    if($stmte->rowCount() > 0){
-                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $cardapio= new cardapio();
-                            $cardapio->setCod_cardapio($result->cod_cardapio);
-                            $cardapio->setNome($result->nome);
-                            $cardapio->setPreco($result->preco);
-                            $cardapio->setDescricao($result->descricao);
-                            $cardapio->setFoto($result->foto);
-                            $cardapio->setCategoria($result->categoria);
-                            $cardapio->setFlag_ativo($result->flag_ativo);
-                            $cardapio->setPrioridade($result->prioridade);
-                            array_push($cardapios, $cardapio);
-                        }
-                    }
-                }
-                return $cardapios;
-            }
-            catch(PDOException $e){
-                echo $e->getMessage();
             }
         }
 
@@ -282,6 +195,7 @@
                             $adicional->setNome($result->nome);
                             $adicional->setPreco($result->preco);
                             $adicional->setDesconto($result->desconto);
+                            $adicional->setFlag_ativo($result->flag_ativo);
                             array_push($adicionais, $adicional);
                         }
                     }
