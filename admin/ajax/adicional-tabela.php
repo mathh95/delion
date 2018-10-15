@@ -30,7 +30,7 @@ if(in_array('adicional', $permissao)){
             <td style='text-align: center;' name='nome'>".$adicional->getNome()."</td>
             <td style='text-align: center;' name='preco'>".$adicional->getPreco()."</td>
             <td style='text-align: center;' name='desconto'>".$adicional->getDesconto()."</td>
-            <td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='#'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+            <td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='adicional-view.php?cod=".$adicional->getCod_adicional()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
             <td style='text-align: center;' name='status' ><button type='button' class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
         </tr>";
 	}

@@ -28,19 +28,13 @@
            }
         }
 
-        function update($cardapio){
+        function update($adicional){
             try{
-                $stmte =$this->pdo->prepare("UPDATE cardapio SET nome=:nome, preco=:preco, desconto = :desconto, descricao=:descricao, foto=:foto, categoria=:categoria, flag_ativo=:flag_ativo, prioridade=:prioridade, delivery=:delivery WHERE cod_cardapio=:cod_cardapio");
-                $stmte->bindParam(":cod_cardapio", $cardapio->getCod_cardapio() , PDO::PARAM_INT);
-                $stmte->bindParam(":nome", $cardapio->getNome(), PDO::PARAM_STR);
-                $stmte->bindParam(":preco", $cardapio->getPreco());
-                $stmte->bindParam(":desconto", $cardapio->getDesconto());
-                $stmte->bindParam(":descricao", $cardapio->getDescricao(), PDO::PARAM_STR);
-                $stmte->bindParam("foto", $cardapio->getFoto(), PDO::PARAM_STR);
-                $stmte->bindParam("categoria", $cardapio->getCategoria(), PDO::PARAM_INT);
-                $stmte->bindParam("flag_ativo", $cardapio->getFlag_ativo(), PDO::PARAM_INT);
-                $stmte->bindParam("prioridade", $cardapio->getPrioridade(),PDO::PARAM_INT);
-                $stmte->bindParam("delivery", $cardapio->getDelivery(),PDO::PARAM_INT);
+                $stmte =$this->pdo->prepare("UPDATE adicional SET nome=:nome, preco=:preco, desconto = :desconto WHERE cod_adicional=:cod_adicional");
+                $stmte->bindParam(":cod_adicional", $adicional->getCod_adicional() , PDO::PARAM_INT);
+                $stmte->bindParam(":nome", $adicional->getNome(), PDO::PARAM_STR);
+                $stmte->bindParam(":preco", $adicional->getPreco());
+                $stmte->bindParam(":desconto", $adicional->getDesconto());
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;
@@ -61,39 +55,30 @@
 
         */
 
-        function selectSemCategoria($parametro,$modo){
+        function selectId($cod){
             $stmte;
-            $cardapio= new cardapio();
+            $adicional = new adicional();
+
             try{
-                if($modo==1){
-                    $stmte = $this->pdo->prepare("SELECT * FROM cardapio WHERE nome LIKE :parametro");
-                    $stmte->bindParam(":parametro", $parametro . "%" , PDO::PARAM_STR);
-                }elseif ($modo==2) {
-                    $stmte = $this->pdo->prepare("SELECT * FROM cardapio WHERE cod_cardapio = :parametro");
-                    $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
-                }
+                $stmte = $this->pdo->prepare("SELECT * FROM adicional WHERE cod_adicional = :cod");
+                $stmte->bindParam(":cod", $cod , PDO::PARAM_INT);
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $cardapio->setCod_cardapio($result->cod_cardapio);
-                            $cardapio->setNome($result->nome);
-                            $cardapio->setPreco($result->preco);
-                            $cardapio->setDesconto($result->desconto);
-                            $cardapio->setDescricao($result->descricao);
-                            $cardapio->setFoto($result->foto);
-                            $cardapio->setCategoria($result->categoria);
-                            $cardapio->setFlag_ativo($result->flag_ativo);
-                            $cardapio->setPrioridade($result->prioridade);
-                            $cardapio->setDelivery($result->delivery);
+                            $adicional->setCod_adicional($result->cod_adicional);
+                            $adicional->setNome($result->nome);
+                            $adicional->setPreco($result->preco);
+                            $adicional->setDesconto($result->desconto);   
                         }
                     }
                 }
-                return $cardapio;
+                return $adicional;
             }
             catch(PDOException $e){
                 echo $e->getMessage();
             }
         }
+
         function select($parametro,$modo){
             $stmte;
             try{
