@@ -16,13 +16,15 @@ if((isset($_POST['nome']) &&
 !empty($_POST['nome'])) || 
 isset($_POST['flag']) || 
 isset($_POST['delivery']) || 
-isset($_POST['prioridade'])){
+isset($_POST['prioridade']) || 
+isset($_POST['categoria'])){
 
 	$nome = $_POST['nome'];
 	$flag_ativo= $_POST['flag'];
 	$delivery=$_POST['delivery'];
 	$prioridade=$_POST['prioridade'];
-	$cardapios = $controle->filter($nome, $flag_ativo, $delivery, $prioridade);
+	$categoria=$_POST['categoria'];
+	$cardapios = $controle->filter($nome, $flag_ativo, $delivery, $prioridade, $categoria);
 }else{
 	$cardapios = $controle->selectAll();
 }

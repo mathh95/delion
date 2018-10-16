@@ -151,14 +151,15 @@
             }
         }
 
-        function filter($parametro, $flag_ativo, $delivery, $prioridade){
+        function filter($parametro, $flag_ativo, $delivery, $prioridade, $categoria){
             $stmte;
             try{
-                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.prioridade AS prioridade, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo LIKE :flag_ativo AND A.delivery LIKE :delivery AND A.prioridade LIKE :prioridade");
+                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.prioridade AS prioridade, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo LIKE :flag_ativo AND A.delivery LIKE :delivery AND A.prioridade LIKE :prioridade AND B.nome LIKE :categoria");
                 $stmte->bindValue(":parametro","%".$parametro."%");
                 $stmte->bindValue(":flag_ativo","%" .$flag_ativo);
                 $stmte->bindValue(":delivery","%".$delivery);
                 $stmte->bindValue(":prioridade","%".$prioridade);
+                $stmte->bindValue(":categoria","%".$categoria."%");
                 $cardapios = array();
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){

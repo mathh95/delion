@@ -4,11 +4,14 @@
     include_once MODELPATH."/usuario.php";
     include_once CONTROLLERPATH."/seguranca.php";
     include_once CONTROLLERPATH."/controlCardapio.php";
+    include_once CONTROLLERPATH."/controlCategoria.php";
     include_once MODELPATH."/cardapio.php";
     $_SESSION['permissaoPagina']=0;
     protegePagina();
     $controleUsuario = new controlerUsuario($_SG['link']);
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
+    $controleCategoria = new controlerCategoria($_SG['link']);
+    $categorias = $controleCategoria->selectAll();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -190,6 +193,18 @@
                     <option value='1'>PRIORITÁRIO</option>
                 </select>
             </div>
+            <div class="mini-divs"> 
+                <label> Categoria </label>
+                <select class="form-control" id="categoria">
+                    <option value=''>TODOS</option>
+                    <?php
+                    foreach ($categorias as $categoria) {
+                        $nome = $categoria->getNome();
+                        echo "<option value=".$nome.">".$nome."</option>";
+                    }
+                    ?>
+                </select>
+            </div>
         </div>
             <div class="row">
                 <div id="tabela-cardapio" class="col-lg-12">
@@ -217,18 +232,19 @@
             );
         }
         
-            $('#pesquisa,#flag,#delivery,#prioridade').on('change paste keyup', function(){
+            $('#pesquisa,#flag,#delivery,#prioridade,#categoria').on('change paste keyup', function(){
             var nome = $("#pesquisa").val();
             var flag = $("#flag").val();
             var delivery = $("#delivery").val();
             var prioridade = $("#prioridade").val();
+            var categoria = $("#categoria").val();
             var url = '../../ajax/cardapio-tabela.php';
             $.ajax({
                 type: 'POST',
 
                 url: url,
 
-                data: {nome:nome, flag:flag, delivery:delivery, prioridade:prioridade},
+                data: {nome:nome, flag:flag, delivery:delivery, prioridade:prioridade, categoria:categoria},
 
                 success:function(res){
                     $("#tabela-cardapio").html(res);
