@@ -9,8 +9,8 @@
         private $pdo;
         function insert($cardapio){
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO cardapio(nome, preco, descricao, foto, categoria, flag_ativo, prioridade, delivery)
-                VALUES (:nome, :preco, :descricao, :foto, :categoria, :flag_ativo, :prioridade, :delivery)");
+                $stmte =$this->pdo->prepare("INSERT INTO cardapio(nome, preco, descricao, foto, categoria, flag_ativo, prioridade, delivery, desconto, adicional)
+                VALUES (:nome, :preco, :descricao, :foto, :categoria, :flag_ativo, :prioridade, :delivery, :desconto, :adicional)");
                 $stmte->bindParam("nome", $cardapio->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam("preco", $cardapio->getPreco());
                 $stmte->bindParam("descricao", $cardapio->getDescricao(), PDO::PARAM_STR);
@@ -19,6 +19,8 @@
                 $stmte->bindParam("flag_ativo", $cardapio->getFlag_ativo(), PDO::PARAM_INT);
                 $stmte->bindParam("prioridade", $cardapio->getPrioridade(),PDO::PARAM_INT);
                 $stmte->bindParam("delivery", $cardapio->getDelivery(),PDO::PARAM_INT);
+                $stmte->bindParam("desconto", $cardapio->getDesconto());
+                $stmte->bindParam("adicional", $cardapio->getAdicional(), PDO::PARAM_STR);
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;

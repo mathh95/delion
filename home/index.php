@@ -162,6 +162,14 @@
 
 	</header>
 
+	<div id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		<div style="margin-top:110px; margin-left:250px;" class="modal-dialog modal-lg">
+			<div style="width:800px;" class="modal-content">
+				<img src="img/teste.jpg">
+			</div>
+		</div>
+	</div>
+
 	<div id="navegacao">
 
 		<div class="container">
@@ -541,6 +549,13 @@
 	<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
 	<script>
+
+		$(document).ready(function() {
+			var largura = $(window).width();
+			if(largura >= 1200){
+				$('#myModal').modal('show');
+			}
+		});
 
 		$(".navbar-toggle li a").click(function() {
 			if ( !$(this).parent().hasClass('dropdown') ) {

@@ -109,15 +109,15 @@
                                 </li>
                                 <li class="dropdown active">
 
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicional <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicional <span class="caret"></span></a>
 
-                                        <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu">
 
-                                            <li><a href="adicional.php">Cadastro</a></li>
+                                        <li><a href="adicional.php">Cadastro</a></li>
 
-                                            <li><a href="adicionalLista.php">Listar</a></li>
-                                            
-                                        </ul>
+                                        <li><a href="adicionalLista.php">Listar</a></li>
+                                        
+                                    </ul>
 
                                 </li>   
                                 <li class="dropdown ">

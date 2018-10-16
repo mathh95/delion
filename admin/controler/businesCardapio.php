@@ -28,11 +28,20 @@
 		}
 		$categoria= addslashes(htmlspecialchars($_POST['categoria']));
 
+		$adicional = array();
+		for ($i=1; $i <= $_POST['quantidadeAdicionais']; $i++){
+			if(isset($_POST[$i."adicional"]) && !empty($_POST[$i."adicional"])){
+				array_push($adicional, addslashes(htmlspecialchars($_POST[$i."adicional"])));
+			}
+		}
+
+		$adicional = json_encode($adicional);
+
 		$flag_ativo = (isset($_POST['flag_ativo'])||!empty($_POST['flag_ativo'])) && $_POST['flag_ativo'] == 1 ? 1 : 0 ;
 		$prioridade = (isset($_POST['prioridade'])||!empty($_POST['prioridade'])) && $_POST['prioridade'] == 1 ? 1 : 0 ;
 		$delivery = (isset($_POST['delivery'])||!empty($_POST['delivery'])) && $_POST['delivery'] == 1 ? 1 : 0 ;
 		$cardapio= new cardapio();
-		$cardapio->construct($nome, $preco, $desconto, $descricao, $foto, $categoria, $flag_ativo, $prioridade,$delivery);
+		$cardapio->construct($nome, $preco, $desconto, $descricao, $foto, $categoria, $flag_ativo, $prioridade,$delivery, $adicional);
 		/*echo "<pre>";
 		var_dump($cardapio);
 		echo "</pre>";

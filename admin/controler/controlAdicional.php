@@ -82,58 +82,6 @@
             }
         }
 
-        function select($parametro,$modo){
-            $stmte;
-            try{
-                if($modo==1){
-                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo = 1");
-                    $stmte->bindValue(":parametro","%".$parametro."%");
-                    $cardapios = array();
-                    if($stmte->execute()){
-                        if($stmte->rowCount() > 0){
-                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                                $cardapio= new cardapio();
-                                $cardapio->setCod_cardapio($result->cod_cardapio);
-                                $cardapio->setNome($result->nome);
-                                $cardapio->setPreco($result->preco);
-                                $cardapio->setDesconto($result->desconto);
-                                $cardapio->setDescricao($result->descricao);
-                                $cardapio->setFoto($result->foto);
-                                $cardapio->setCategoria($result->categoria);
-                                $cardapio->setFlag_ativo($result->flag_ativo);
-                                $cardapio->setPrioridade($result->prioridade);
-                                $cardapio->setDelivery($result->delivery);
-                                array_push($cardapios, $cardapio);
-                            }
-                        }
-                    }
-                    return $cardapios;
-                }elseif ($modo==2) {
-                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.cod_cardapio = :parametro");
-                    $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
-                    $cardapio= new cardapio();
-                    if($stmte->execute()){
-                        if($stmte->rowCount() > 0){
-                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                                $cardapio->setCod_cardapio($result->cod_cardapio);
-                                $cardapio->setNome($result->nome);
-                                $cardapio->setPreco($result->preco);
-                                $cardapio->setDescricao($result->descricao);
-                                $cardapio->setFoto($result->foto);
-                                $cardapio->setFlag_ativo($result->flag_ativo);
-                                $cardapio->setPrioridade($result->prioridade);
-                                $cardapio->setDelivery($result->delivery);
-                            }
-                        }
-                    }
-                    return $cardapio;
-                }
-            }
-            catch(PDOException $e){
-                echo $e->getMessage();
-            }
-        }
-
         function filter($parametro, $flag_ativo, $delivery, $prioridade){
             $stmte;
             try{

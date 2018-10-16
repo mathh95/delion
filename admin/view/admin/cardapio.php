@@ -14,7 +14,11 @@
 
     include_once CONTROLLERPATH."/controlCategoria.php";
 
+    include_once CONTROLLERPATH."/controlAdicional.php";
+
     include_once MODELPATH."/categoria.php";
+
+    include_once MODELPATH."/adicional.php";
 
     $_SESSION['permissaoPagina']=0;
 
@@ -23,6 +27,10 @@
     $controleUsuario = new controlerUsuario($_SG['link']);
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
+
+    $controleAdicional = new controlerAdicional($_SG['link']);
+
+    $adicionais = $controleAdicional->selectAll();
 
     $controleCategoria = new controlerCategoria($_SG['link']);
 
@@ -411,6 +419,21 @@
 
                             </div>
                             
+                            <br>
+
+                            <small>Quais adicionais estarão disponiveis para esse produto:</small>
+
+                            <input type="hidden" value="<?=count($adicionais)?>" name="quantidadeAdicionais">
+
+                            <br>
+
+                            <?php $i = 1; foreach($adicionais as $adicional): ?>
+
+                                <input type="checkbox" name="<?=$i?>adicional" value="<?=$adicional->getCod_adicional()?>"><?=$adicional->getNome()?>
+                                <br>
+
+                            <?php $i++; endforeach; ?>
+
                             <br>
 
                             <small>Foto: <span style="color:red">(Utilizar uma imagem no tamanho 525[largura] x 320[altura]. Formato (.png) ou (.jpg).)</span></small>
