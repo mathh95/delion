@@ -8,6 +8,10 @@ session_start();
 
 	include_once "controler/controlImagem.php";
 
+	include_once "controler/controlAdicional.php";
+
+	include_once MODELPATH."/adicional.php";
+
 	$controleEmpresa=new controlerEmpresa(conecta());
 
 	$controleCategoria=new controlerCategoria(conecta());
@@ -414,6 +418,14 @@ session_start();
 
 	<script>
 
+		$(document).on("click", "#addCombo", function() {
+			var largura = $(window).width();
+			var cod = $(this).data('cod');
+			if(largura >= 1200){
+				$('#myModal'+cod).modal('show');
+			}
+		});
+
 		function onLoad() {
 			gapi.load('auth2', function() {
 				gapi.auth2.init();
@@ -534,37 +546,37 @@ session_start();
 			});
 		});
 
-		$(document).on("click", "#addCombo", function(){
-			var url = $(this).data('url');
-			var qtd = $('#spanCombo').text();
-			// alert(qtd);
-			var id = $(this).data('cod');
-			// var quantidade = $("#spanCarrinho").data('quantidade');
+		// $(document).on("click", "#addCombo", function(){
+		// 	var url = $(this).data('url');
+		// 	var qtd = $('#spanCombo').text();
+		// 	// alert(qtd);
+		// 	var id = $(this).data('cod');
+		// 	// var quantidade = $("#spanCarrinho").data('quantidade');
 						
-			// console.log(quantidade+1);
+		// 	// console.log(quantidade+1);
 
-			$.ajax({
+		// 	$.ajax({
 				
-				type: 'GET',
+		// 		type: 'GET',
 
-				url: 'ajax/add-combo.php',
+		// 		url: 'ajax/add-combo.php',
 
-				data: {id: id},
+		// 		data: {id: id},
 
-				success:function(res){
-					$("#spanCombo").html(res);
-					if(qtd == res){
-						swal('Este item já está no seu combo!', 'Para alterar a quantidade, vá ao seu combo.', 'warning');
-					}else{
-					// $("body,html").animate({scrollTop: 0 }, 800);
-						swal("Produto Adicionado ao combo!!", "Você pode consultar o seu combo para modificar a quantidade.", "success");
-					}
-				}, 
-				error: function(erro){
-					console.log(erro);
-				}
-			});
-		});
+		// 		success:function(res){
+		// 			$("#spanCombo").html(res);
+		// 			if(qtd == res){
+		// 				swal('Este item já está no seu combo!', 'Para alterar a quantidade, vá ao seu combo.', 'warning');
+		// 			}else{
+		// 			// $("body,html").animate({scrollTop: 0 }, 800);
+		// 				swal("Produto Adicionado ao combo!!", "Você pode consultar o seu combo para modificar a quantidade.", "success");
+		// 			}
+		// 		}, 
+		// 		error: function(erro){
+		// 			console.log(erro);
+		// 		}
+		// 	});
+		// });
 
 		// $(document).on("click", "addCarrinho", function(event) {
 		// 	event.preventDefault();

@@ -436,6 +436,8 @@
 
                             <small>Quais são os adicionais disponiveis para este produto:</small>
 
+                            <input type="hidden" value="<?=count($adicionais)?>" name="quantidadeAdicionais">
+
                             <br>
                             
                             <div>
@@ -445,8 +447,18 @@
                                     <?php $i = 1; foreach($adicionais as $adicional):?>
 
                                         <li>
-
-                                            <input type="checkbox" name="<?=$i?>adicional" value="<?=$adicional->getCod_adicional()?>"><?=$adicional->getNome()?>
+                                            
+                                            <?php 
+                                                if(!empty($adicionalObj)){
+                                                    if(in_array($adicional->getCod_adicional(), $adicionalObj)){
+                                                        echo "<input checked type='checkbox' name='".$i."adicional' value='".$adicional->getCod_adicional()."'>".$adicional->getNome();
+                                                    }else{
+                                                        echo "<input type='checkbox' name='".$i."adicional' value='".$adicional->getCod_adicional()."'>".$adicional->getNome();
+                                                    }
+                                                }else{
+                                                    echo "<input type='checkbox' name='".$i."adicional' value='".$adicional->getCod_adicional()."'>".$adicional->getNome();
+                                                }
+                                            ?>
 
                                         </li>
 

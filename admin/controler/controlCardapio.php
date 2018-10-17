@@ -37,7 +37,7 @@
 
         function update($cardapio){
             try{
-                $stmte =$this->pdo->prepare("UPDATE cardapio SET nome=:nome, preco=:preco, desconto = :desconto, descricao=:descricao, foto=:foto, categoria=:categoria, flag_ativo=:flag_ativo, prioridade=:prioridade, delivery=:delivery WHERE cod_cardapio=:cod_cardapio");
+                $stmte =$this->pdo->prepare("UPDATE cardapio SET nome=:nome, preco=:preco, desconto = :desconto, descricao=:descricao, foto=:foto, categoria=:categoria, flag_ativo=:flag_ativo, prioridade=:prioridade, delivery=:delivery, adicional=:adicional WHERE cod_cardapio=:cod_cardapio");
                 $stmte->bindParam(":cod_cardapio", $cardapio->getCod_cardapio() , PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $cardapio->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $cardapio->getPreco());
@@ -48,6 +48,7 @@
                 $stmte->bindParam("flag_ativo", $cardapio->getFlag_ativo(), PDO::PARAM_INT);
                 $stmte->bindParam("prioridade", $cardapio->getPrioridade(),PDO::PARAM_INT);
                 $stmte->bindParam("delivery", $cardapio->getDelivery(),PDO::PARAM_INT);
+                $stmte->bindParam("adicional", $cardapio->getAdicional());
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;

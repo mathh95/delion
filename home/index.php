@@ -181,7 +181,6 @@
 				}
 
 				?>
-				<!-- <img src="img/teste.jpg"> -->
 			</div>
 		</div>
 	</div>
