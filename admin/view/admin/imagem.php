@@ -398,6 +398,16 @@
 
                                     </li>
 
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="popUp" name="8pagina" value="popUp">Pop Up inicial
+
+                                        </label>
+
+                                    </li>
+
                                 </ul>
 
                             </div>

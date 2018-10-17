@@ -14,6 +14,8 @@
 
     include_once CONTROLLERPATH."/controlCategoria.php";
 
+    include_once CONTROLLERPATH."/controlAdicional.php";
+
     include_once MODELPATH."/categoria.php";
 
     $_SESSION['permissaoPagina']=0;
@@ -28,10 +30,21 @@
 
     $categorias = $controleCategoria->selectAll();
 
-    $controle=new controlerCardapio($_SG['link']);
+    $controle = new controlerCardapio($_SG['link']);
 
-    $cardapio = $controle->selectSemCategoria($_GET['cod'], 2)
+    $cardapio = $controle->selectSemCategoria($_GET['cod'], 2);
 
+    $adicionalObj = json_decode($cardapio->getAdicional());
+
+    $controleAdicional = new controlerAdicional($_SG['link']);
+
+    $adicionais = $controleAdicional->selectAll();
+
+    // echo '<pre>';
+    // print_r($adicionais);
+    // echo '</pre>';
+    // exit;
+    
 ?>
 
 <!DOCTYPE html>
@@ -421,6 +434,27 @@
                                 </div>
                             <br>
 
+                            <small>Quais são os adicionais disponiveis para este produto:</small>
+
+                            <br>
+                            
+                            <div>
+                            
+                                <ul>
+
+                                    <?php $i = 1; foreach($adicionais as $adicional):?>
+
+                                        <li>
+
+                                            <input type="checkbox" name="<?=$i?>adicional" value="<?=$adicional->getCod_adicional()?>"><?=$adicional->getNome()?>
+
+                                        </li>
+
+                                    <?php $i++; endforeach;?>
+
+                                </ul>
+                            
+                            </div>
 
                             <small>Foto:</small>
 

@@ -14,7 +14,7 @@
 		}
 		$nome= addslashes(htmlspecialchars($_POST['nome']));
 		$pagina = array();
-		for ($i=1; $i <= 7; $i++) { 
+		for ($i=1; $i <= 8; $i++) { 
 			if (!empty($_POST[$i."pagina"])) {
 				array_push($pagina, addslashes(htmlspecialchars($_POST[$i."pagina"])));
 			}

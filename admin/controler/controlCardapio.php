@@ -68,6 +68,21 @@
 
         */
 
+        function buscarVariosId($itens){
+            $array = array();
+
+            $sql = "SELECT * FROM cardapio WHERE cod_cardapio IN (".implode(',', $itens).")";
+            // print_r($sql);
+            // exit;
+            $sql = $this->pdo->query($sql);
+
+            if($sql -> rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+
+            return $array;
+        }
+
         function selectSemCategoria($parametro,$modo){
             $stmte;
             $cardapio= new cardapio();
@@ -92,6 +107,7 @@
                             $cardapio->setFlag_ativo($result->flag_ativo);
                             $cardapio->setPrioridade($result->prioridade);
                             $cardapio->setDelivery($result->delivery);
+                            $cardapio->setAdicional($result->adicional);
                         }
                     }
                 }

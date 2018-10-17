@@ -165,7 +165,23 @@
 	<div id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div style="margin-top:110px; margin-left:250px;" class="modal-dialog modal-lg">
 			<div style="width:800px;" class="modal-content">
-				<img src="img/teste.jpg">
+				
+				<?php 
+
+				foreach ($imagens as $imagem) {
+
+					$pagina = json_decode($imagem->getPagina());
+
+					if (in_array('popUp', $pagina)) {
+
+						echo "<img src='../admin/".$imagem->getFoto()."'>";
+
+					}
+
+				}
+
+				?>
+				<!-- <img src="img/teste.jpg"> -->
 			</div>
 		</div>
 	</div>

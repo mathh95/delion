@@ -21,23 +21,6 @@ include_once MODELPATH."/cardapio.php";
 
         */
 
-        function buscarVariosId($itens){
-            $array = array();
-
-            $sql = "SELECT * FROM cardapio WHERE cod_cardapio IN (".implode(',', $itens).")";
-            // print_r($sql);
-            // exit;
-            $sql = $this->pdo->query($sql);
-
-            if($sql -> rowCount() > 0){
-                $array = $sql->fetchAll();
-            }
-
-            return $array;
-        }
-
-
-
         function selectSemCategoria($parametro,$modo){
 
             $stmte;
@@ -79,6 +62,10 @@ include_once MODELPATH."/cardapio.php";
                             $cardapio->setCategoria($result->categoria);
 
                             $cardapio->setFlag_ativo($result->flag_ativo);
+
+                            $cardapio->setDesconto($result->desconto);
+
+                            $cardapio->setAdicional($result->adicional);
 
                         }
 

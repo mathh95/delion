@@ -155,6 +155,21 @@
             }
         }
 
+        function buscarVariosId($itens){
+            $array = array();
+
+            $sql = "SELECT * FROM adicional WHERE cod_adicional IN (".implode(',', $itens).")";
+            // print_r($sql);
+            // exit;
+            $sql = $this->pdo->query($sql);
+
+            if($sql -> rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+
+            return $array;
+        }
+
         function countCardapio(){
             $stmte;
             try{
