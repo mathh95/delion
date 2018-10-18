@@ -58,8 +58,8 @@ if(count($itensSessao) > 0){
                     <tr id="cabecalhoTabela" >
                         <th>Foto</th>
                         <th>Produto</th>
-                        <th>Adicionais</th>
                         <th>Preço Unitário</th>
+                        <th>Adicionais</th>
                         <th>Delivery</th>
                     </tr>
                 </thead>
@@ -78,21 +78,29 @@ if(count($itensSessao) > 0){
                         <td><img style="width:200px; height:100px;" src="../admin/<?=$item->getFoto()?>"></td>
                         <td class="text-uppercase nomeProdutoTabela"><strong><?=$item->getNome()?></strong></td>
                         <td class="precoProdutoTabela" id="preco<?=$i?>" data-desconto="<?=$item->getDesconto()?>" data-preco="<?=$item->getPreco()?>"><strong>R$ <?=number_format($item->getPreco(), 2);?></strong></td>
-                        <td>
-                            <?php
-                                foreach($adicionais as $adicional){
-                                    if(in_array($adicional['cod_adicional'], $adicionaisSessao[$i])){
-                                        echo "<input checked type='checkbox' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
-                                        echo "<br>";
-                                        echo "<p>R$: ".$adicional['preco']."</p>";
-                                    }else{
-                                        echo "<input type='checkbox' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
-                                        echo "<br>";
-                                        echo "<p>R$: ".$adicional['preco']."</p>";
+                        <td style="font-size:10px;">
+                            <table>
+                                <?php
+                                    $j = 0;
+                                    echo "<tr>";
+                                    foreach($adicionais as $adicional){
+                                        if(in_array($adicional['cod_adicional'], $adicionaisSessao[$i])){
+                                            echo "<td><input checked type='checkbox' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
+                                            echo "(R$: ".$adicional['preco'].") </td>";
+                                        }else{
+                                            echo "<td><input type='checkbox' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
+                                            echo "(R$: ".$adicional['preco'].") </td>";
+                                        }
+                                        $j++;
+                                        if($j == 2){
+                                            echo "</tr>";
+                                            $j = 0;
+                                        }
                                     }
-                                }
-                            ?>
-                        </td>
+                                    echo "</tr>";
+                                ?>
+                            </table>
+                        </tr>
                         <!-- <td class="subtotalProdutoTabela" id="subtotal<?php//echo $i?>"><strong>R$ <?php //echo number_format($item['preco'] - $perc, 2);?></strong></td> -->
                         <td class="nomeProdutoTabela"><strong><?php if($item->getDelivery() == 1){
                             echo "Disponível";
