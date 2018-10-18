@@ -140,7 +140,7 @@ session_start();
                                             echo "<br>";
                                             echo "<p>R$: ".$adicional->preco."</p>";
                                         }
-                                        echo "<button style='margin:5px;' class='btn btn-success'>Adicionar ao Combo</button>";
+                                        echo "<button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success'>Adicionar ao Combo</button>";
                                         echo "<button style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                     }else{
                                         echo "<p>Este produto não tem adicionaisdisponiveis!</p>";
@@ -435,7 +435,7 @@ session_start();
                                             echo "<br>";
                                             echo "<p>R$: ".$adicional->preco."</p>";
                                         }
-                                        echo "<button style='margin:5px;' class='btn btn-success'>Adicionar ao Combo</button>";
+                                        echo "<button id='add' style='margin:5px;' class='btn btn-success'>Adicionar ao Combo</button>";
                                         echo "<button style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                     }else{
                                         echo "<p>Este produto não tem adicionaisdisponiveis!</p>";

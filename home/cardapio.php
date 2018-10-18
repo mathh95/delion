@@ -418,8 +418,6 @@ session_start();
 
 	<script>
 
-		$(document)on("click", "")
-
 		$(document).on("click", "#addCombo", function() {
 			var largura = $(window).width();
 			var cod = $(this).data('cod');
@@ -603,6 +601,27 @@ session_start();
 
 			});
 
+		}
+
+		function adicionaCombo(item){
+
+			adicionais = new Array();
+			$("input[type=checkbox][name='adicional']:checked").each(function(){
+    			adicionais.push($(this).val());
+			});
+
+			$.ajax({
+				type:'POST',
+
+				url:'ajax/add-combo.php',
+
+				data:{item:item, adicionais:adicionais},
+
+				success:function(res){
+					$("#spanCombo").html(res);
+					$("#myModal"+item).modal('hide');
+				}
+			});
 		}
 
 		/*for (var i = 1; i <= 5; i++) {

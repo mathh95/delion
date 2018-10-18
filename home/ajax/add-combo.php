@@ -16,27 +16,22 @@ session_start();
 // include_once "../lib/alert.php";
  $id = 0;
 
-if(isset($_GET['id']) && !empty($_GET['id'])){
-    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+if(isset($_POST['item']) && !empty($_POST['item'])){
+    $id = filter_input(INPUT_POST, 'item', FILTER_SANITIZE_NUMBER_INT);
+    $adicional = $_POST['adicionais'];
     if(!isset($_SESSION['combo'])){
         $_SESSION['combo'] = array();
-        $_SESSION['qtdCombo'] = array();
-        // print_r($_SESSION['carrinho']);
-        // exit;
+        $_SESSION['adicionalCombo'] = array();
     }
-
-    // $_SESSION['carrinho'][] = $id;
-
-    if(!in_array($id, $_SESSION['combo'], true)){
         
-        array_push($_SESSION['combo'], $id);
-        array_push($_SESSION['qtdCombo'], 1);
-        //essa sessão está sendo startada na index do projeto
+    array_push($_SESSION['combo'], $id);
+    array_push($_SESSION['adicionalCombo'], $adicional);
 
-        echo count($_SESSION['combo']);
-    }else{
-        echo count($_SESSION['combo']);
-    }
+    echo count($_SESSION['combo']);
+    // print_r($_SESSION['combo']);
+    // print_r($_SESSION['adicionalCombo']);
+
+    // session_destroy();
 }
 
 

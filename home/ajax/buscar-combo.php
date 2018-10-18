@@ -12,12 +12,15 @@ require_once "../controler/controlCombo.php";
 
 require_once "../controler/controlCardapio.php";
 
+require_once "../controler/controlAdicional.php";
+
 include_once "../lib/alert.php";
 
 // require_once '../ajax/enviarEmailPedido.php';
 
 $itens = array();
 $cardapio = new controlerCardapio(conecta());
+$controleAdicional = new controlerAdicional(conecta());
 // $pedido = new enviarEmailPedido;
 if(isset($_GET['delivery']) && !empty($_GET['delivery'])){
     $_SESSION['delivery']=$_GET['delivery'];
@@ -27,33 +30,36 @@ if(isset($_GET['delivery']) && !empty($_GET['delivery'])){
 
 
 if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
-    $itens = $_SESSION['combo'];
-    foreach ($_SESSION['qtdCombo'] as $key => $value) {
-        $_SESSION['qtdCombo'][$key] = 1;
-    }
+    $itensSessao = $_SESSION['combo'];
+    $adicionaisSessao = $_SESSION['adicionalCombo'];
+
+    // print_r($itens);
+    // print_r($adicionais);
+    // exit;
 }else{
     $_SESSION['combo'] = array();
-    $_SESSION['qtdCombo'] = array();
-    $itens = $_SESSION['combo'];
+    $_SESSION['adicionalCombo'] = array();
 }
-if(count($itens) > 0){
-    
-    $itens = $cardapio->buscarVariosId($itens);
+if(count($itensSessao) > 0){
+    $itens = array();
+    foreach($itensSessao as $itemSessao){
+        array_push($itens, $cardapio->selectsemCategoria($itemSessao, 2)); 
+    }
+
+    // print_r($itens);
+    // exit;
 ?>
-        <script type="text/javascript" src="js/buscar-delivery-combo.js"></script>
-        <script type="text/javascript" src="js/buscar-combo.js"></script>
-        <h1 class="text-center">Pedido</h1>
-        <?php //print_r($_SESSION['qtd']); ?>
-        <?php //print_r($_SESSION['carrinho']); ?>
-        <div class="carrinho row">
+        <!-- <script type="text/javascript" src="js/buscar-delivery-combo.js"></script>
+        <script type="text/javascript" src="js/buscar-combo.js"></script> -->
+        <h1 class="text-center">Combo</h1>
+        <div class="combo row">
             <table class="tabela_itens table table-hover table-responsive table-condensed">
                 <thead>
                     <tr id="cabecalhoTabela" >
-                        <th>Excluir</th>
+                        <th>Foto</th>
                         <th>Produto</th>
+                        <th>Adicionais</th>
                         <th>Preço Unitário</th>
-                        <th>Subtotal</th>
-                        <th>Quantidade</th>
                         <th>Delivery</th>
                     </tr>
                 </thead>
@@ -63,20 +69,32 @@ if(count($itens) > 0){
                 $i = 0;
                 $pedidoBalcao=0;
                 foreach($itens as $item): 
-                    $perc = $item['desconto'] / 100;
-                    $perc = $item['preco'] * $perc;
-                    $total += $item['preco'] - $perc;?>
-                    <tr id="idLinha<?=$i?>" data-id="<?=$item['cod_cardapio']?>">
-                        <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?=$i?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
-                        <td class="text-uppercase nomeProdutoTabela"><strong><?=$item['nome']?></strong></td>
-                        <td class="precoProdutoTabela" id="preco<?=$i?>" data-desconto="<?=$item['desconto']?>" data-preco="<?=$item['preco']?>"><strong>R$ <?=number_format($item['preco'], 2);?></strong></td>
-                        <td class="subtotalProdutoTabela" id="subtotal<?=$i?>"><strong>R$ <?=number_format($item['preco'] - $perc, 2);?></strong></td>
-                        <td class="quantidadeProdutoTabela">
-                            <input class="quantidadeItemTabela" id="qtdUnidade<?=$i?>" name="quantidade" type="text" value=1 readonly="true">
-                            <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?=$i?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
-                            <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?=$i?>" class="fas fa-cart-arrow-down fa-lg btn iconeExcluirProdutoTabela"></i>
+                    $adicionais = $controleAdicional->buscarVariosId(json_decode($item->getAdicional()));
+                    // print_r($adicionais);exit;
+                    $perc = $item->getDesconto() / 100;
+                    $perc = $item->getPreco() * $perc;
+                    $total += $item->getPreco() - $perc;?>
+                    <tr id="idLinha<?=$i?>" data-id="<?=$item->getCod_cardapio()?>">
+                        <td><img style="width:200px; height:100px;" src="../admin/<?=$item->getFoto()?>"></td>
+                        <td class="text-uppercase nomeProdutoTabela"><strong><?=$item->getNome()?></strong></td>
+                        <td class="precoProdutoTabela" id="preco<?=$i?>" data-desconto="<?=$item->getDesconto()?>" data-preco="<?=$item->getPreco()?>"><strong>R$ <?=number_format($item->getPreco(), 2);?></strong></td>
+                        <td>
+                            <?php
+                                foreach($adicionais as $adicional){
+                                    if(in_array($adicional['cod_adicional'], $adicionaisSessao[$i])){
+                                        echo "<input checked type='checkbox' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
+                                        echo "<br>";
+                                        echo "<p>R$: ".$adicional['preco']."</p>";
+                                    }else{
+                                        echo "<input type='checkbox' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
+                                        echo "<br>";
+                                        echo "<p>R$: ".$adicional['preco']."</p>";
+                                    }
+                                }
+                            ?>
                         </td>
-                        <td class="nomeProdutoTabela"><strong><?php if($item['delivery'] == 1){
+                        <!-- <td class="subtotalProdutoTabela" id="subtotal<?php//echo $i?>"><strong>R$ <?php //echo number_format($item['preco'] - $perc, 2);?></strong></td> -->
+                        <td class="nomeProdutoTabela"><strong><?php if($item->getDelivery() == 1){
                             echo "Disponível";
                             }else{
                             echo "Não disponível";
