@@ -418,6 +418,8 @@ session_start();
 
 	<script>
 
+		$(document)on("click", "")
+
 		$(document).on("click", "#addCombo", function() {
 			var largura = $(window).width();
 			var cod = $(this).data('cod');

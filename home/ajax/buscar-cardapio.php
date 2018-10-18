@@ -131,21 +131,21 @@ session_start();
                             <h3 style="margin-left:10px;">Adicionais disponiveis para esse produto:</h3>
                             <div style="margin-left:10px;">
                                 <?php 
-                                    $adicionais = json_decode($item->getAdicional()); 
-                                    $adicionais = $controleAdicional->buscarVariosId($adicionais);
-                                
-                                    foreach($adicionais as $adicional){
-                                        $adicional = (object)$adicional;
-                                        echo "<input type='checkbox' name='adicional' value='".$adicional->cod_adicional."'> <strong>".$adicional->nome."</strong>";
-                                        echo "<br>";
-                                        echo "<p>R$: ".$adicional->preco."</p>";
-                                    } 
-                                ?>
+                                    if(!empty($item->getAdicional())){
+                                        $adicionais = json_decode($item->getAdicional()); 
+                                        $adicionais = $controleAdicional->buscarVariosId($adicionais);
+                                        foreach($adicionais as $adicional){
+                                            $adicional = (object)$adicional;
+                                            echo "<input type='checkbox' name='adicional' value='".$adicional->cod_adicional."'> <strong>".$adicional->nome."</strong>";
+                                            echo "<br>";
+                                            echo "<p>R$: ".$adicional->preco."</p>";
+                                        }
+                                        echo "<button style='margin:5px;' class='btn btn-success'>Adicionar ao Combo</button>";
+                                        echo "<button style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
+                                    }else{
+                                        echo "<p>Este produto não tem adicionaisdisponiveis!</p>";
+                                    }?>
                             </div>
-
-                            <button style="margin:5px;" class="btn btn-success">Adicionar ao Combo</button>
-                            <button style="margin:5px;" class="btn btn-danger">Cancelar</button>
-
                         </div>
                     </div>
                 </div>
@@ -418,8 +418,34 @@ session_start();
                     <script type=\"text/javascript\" src=\"js/buscar-delivery.js\">
                     </script>";
                 }
+            }?>
 
-            }
+                <div id="myModal<?=$item->getCod_cardapio()?>" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div style="margin-top:180px; margin-left:450px;" class="modal-dialog modal-xs">
+                        <div style="width:500px;" class="modal-content">
+                            <h3 style="margin-left:10px;">Adicionais disponiveis para esse produto:</h3>
+                            <div style="margin-left:10px;">
+                                <?php 
+                                    if(!empty($item->getAdicional())){
+                                        $adicionais = json_decode($item->getAdicional()); 
+                                        $adicionais = $controleAdicional->buscarVariosId($adicionais);
+                                        foreach($adicionais as $adicional){
+                                            $adicional = (object)$adicional;
+                                            echo "<input type='checkbox' name='adicional' value='".$adicional->cod_adicional."'> <strong>".$adicional->nome."</strong>";
+                                            echo "<br>";
+                                            echo "<p>R$: ".$adicional->preco."</p>";
+                                        }
+                                        echo "<button style='margin:5px;' class='btn btn-success'>Adicionar ao Combo</button>";
+                                        echo "<button style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
+                                    }else{
+                                        echo "<p>Este produto não tem adicionaisdisponiveis!</p>";
+                                    }?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <?php
 
             echo
 
@@ -572,4 +598,3 @@ session_start();
         }
 
     }
-
