@@ -34,6 +34,7 @@ if(isset($_GET['delivery']) && !empty($_GET['delivery'])){
 if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
     $itensSessao = $_SESSION['combo'];
     $adicionaisSessao = $_SESSION['adicionalCombo'];
+    $_SESSION['totalCombo'] = 0;
 
     // echo '<pre>';
     // print_r($adicionaisSessao);
@@ -68,10 +69,11 @@ if(count($itensSessao) > 0){
                 </thead>
                 <tbody>
         
-                <?php $total = 0; 
+                <?php 
                 $i = 0;
                 $pedidoBalcao=0;
                 foreach($itens as $item): 
+                    $total = 0;
                     if(!empty($item->getAdicional())){
                         $adicionais = $controleAdicional->buscarVariosId(json_decode($item->getAdicional()));
                     }else{
@@ -93,6 +95,10 @@ if(count($itensSessao) > 0){
                                     foreach($adicionais as $adicional){
                                         if(!empty($adicionaisSessao[$i])){
                                             if(in_array($adicional['cod_adicional'], $adicionaisSessao[$i])){
+                                                $total += $adicional['preco'];
+                                                $percAdicional = $adicional['desconto'] / 100;
+                                                $percAdicional = $total * $percAdicional;
+                                                $total = $total - $percAdicional;
                                                 echo "<td><input checked type='checkbox' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
                                                 echo "(R$: ".$adicional['preco'].") </td>";
                                             }else{
@@ -122,8 +128,8 @@ if(count($itensSessao) > 0){
                             }?></strong> </td>
                     </tr>
             <?php $i++;
+            $_SESSION['totalCombo']+= $total;
             endforeach;
-            $_SESSION['totalCombo'] = $total;
             $_SESSION['pedidoBalcaoCombo']=$pedidoBalcao;   
     echo "</tbody>
         </table>
