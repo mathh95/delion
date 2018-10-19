@@ -164,8 +164,10 @@
 
 	<div id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div style="margin-top:110px; margin-left:250px;" class="modal-dialog modal-lg">
-			<div style="width:800px;" class="modal-content">
-				
+			<div style="width:800px; position: relative;" class="modal-content">
+				<div style="position:absolute; top:0; right:0;">
+				<button onclick="fechar()" class="btn btn-danger">X</button>
+				</div>
 				<?php 
 
 				foreach ($imagens as $imagem) {
@@ -174,7 +176,8 @@
 
 					if (in_array('popUp', $pagina)) {
 
-						echo "<img src='../admin/".$imagem->getFoto()."'>";
+						echo "
+						<img src='../admin/".$imagem->getFoto()."'>";
 
 					}
 
@@ -571,6 +574,10 @@
 				$('#myModal').modal('show');
 			}
 		});
+
+		function fechar(){
+			$('#myModal').modal('hide');
+		}
 
 		$(".navbar-toggle li a").click(function() {
 			if ( !$(this).parent().hasClass('dropdown') ) {
