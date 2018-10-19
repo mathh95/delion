@@ -143,7 +143,9 @@ session_start();
                                         echo "<button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success'>Adicionar ao Combo</button>";
                                         echo "<button style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                     }else{
-                                        echo "<p>Este produto não tem adicionaisdisponiveis!</p>";
+                                        echo "<p>Este produto não tem adicionais disponiveis!</p>
+                                            <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success'>Adicionar ao combo</button>
+                                            <button style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                     }?>
                             </div>
                         </div>
