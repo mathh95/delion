@@ -23,6 +23,10 @@ function esvaziar(){
         url: 'ajax/quantidade-carrinho.php',
 
         data: {acao: acao},
+        
+        success:function(resultado){
+            window.location='/home/cardapio.php';
+        }
     });
 }
 
