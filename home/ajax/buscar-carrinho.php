@@ -96,7 +96,7 @@ if(count($itens) > 0){
                 </div>
             </div>
             <div class='ladoDireito row'>
-                <strong><p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCarrinho'], 2)." 
+                <strong><p id='total'>Valor total do pedido: R$ ".number_format($_SESSION['totalCarrinho'], 2)." 
                 </p></strong>
                 <div class='row linhaBotao'>
                         <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>

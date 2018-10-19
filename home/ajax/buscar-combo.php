@@ -53,8 +53,8 @@ if(count($itensSessao) > 0){
     // print_r($itens);
     // exit;
 ?>
-        <!-- <script type="text/javascript" src="js/buscar-delivery-combo.js"></script>
-        <script type="text/javascript" src="js/buscar-combo.js"></script> -->
+        <!-- <script type="text/javascript" src="js/buscar-delivery-combo.js"></script> -->
+        <script type="text/javascript" src="js/buscar-combo.js"></script>
         <h1 class="text-center">Combo</h1>
         <div class="combo row">
             <table class="tabela_itens table table-hover table-responsive table-condensed">
@@ -73,16 +73,16 @@ if(count($itensSessao) > 0){
                 $i = 0;
                 $pedidoBalcao=0;
                 foreach($itens as $item): 
-                    $total = 0;
+                    $desconto = 0;
                     if(!empty($item->getAdicional())){
                         $adicionais = $controleAdicional->buscarVariosId(json_decode($item->getAdicional()));
                     }else{
                         $adicionais = array();
                     }
                     // print_r($adicionais);exit;
-                    $perc = $item->getDesconto() / 100;
-                    $perc = $item->getPreco() * $perc;
-                    $total += $item->getPreco() - $perc;?>
+                    $desconto = $item->getDesconto();
+                    $subtotal = $item->getPreco();
+                    ?>
                     <tr id="idLinha<?=$i?>" data-id="<?=$item->getCod_cardapio()?>">
                         <td><img style="width:200px; height:100px;" src="../admin/<?=$item->getFoto()?>"></td>
                         <td class="nomeProdutoTabela"><strong><?=$item->getNome()?></strong></td>
@@ -95,18 +95,17 @@ if(count($itensSessao) > 0){
                                     foreach($adicionais as $adicional){
                                         if(!empty($adicionaisSessao[$i])){
                                             if(in_array($adicional['cod_adicional'], $adicionaisSessao[$i])){
-                                                $total += $adicional['preco'];
-                                                $percAdicional = $adicional['desconto'] / 100;
-                                                $percAdicional = $total * $percAdicional;
-                                                $total = $total - $percAdicional;
-                                                echo "<td><input checked type='checkbox' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
+                                                $subtotal += $adicional['preco'];
+                                                $desconto += $adicional['desconto'];
+                                                // echo $subtotal."<br>";
+                                                echo "<td><input checked data-linha='".$i."' data-subtotal='".$subtotal."' data-preco='".$adicional['preco']."' data-desconto='".$adicional['desconto']."' type='checkbox' id='adicional' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
                                                 echo "(R$: ".$adicional['preco'].") </td>";
                                             }else{
-                                                echo "<td><input type='checkbox' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
+                                                echo "<td><input data-linha='".$i."' data-subtotal='".$subtotal."' data-preco='".$adicional['preco']."' data-desconto='".$adicional['desconto']."' type='checkbox' id='adicional' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
                                                 echo "(R$: ".$adicional['preco'].") </td>";
                                             }
                                         }else{
-                                            echo "<td><input type='checkbox' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
+                                            echo "<td><input data-linha='".$i."' data-subtotal='".$subtotal."' data-preco='".$adicional['preco']."' data-desconto='".$adicional['desconto']."' type='checkbox' id='adicional' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
                                             echo "(R$: ".$adicional['preco'].") </td>";
                                         }
                                         $j++;
@@ -116,6 +115,11 @@ if(count($itensSessao) > 0){
                                         }
                                     }
                                     echo "</tr>";
+                                    echo "<input type='hidden' id='sub".$i."' value='".$subtotal."'>";
+                                    echo "<input type='hidden' id='desc".$i."' value='".$desconto."'>";
+                                    $descontoFinal = $desconto / 100;
+                                    $descontoFinal = $descontoFinal * $subtotal;
+                                    $subtotalFinal = $subtotal - $descontoFinal;
                                 ?>
                             </table>
                         
@@ -128,7 +132,7 @@ if(count($itensSessao) > 0){
                             }?></strong> </td>
                     </tr>
             <?php $i++;
-            $_SESSION['totalCombo']+= $total;
+            $_SESSION['totalCombo']+= $subtotalFinal;
             endforeach;
             $_SESSION['pedidoBalcaoCombo']=$pedidoBalcao;   
     echo "</tbody>
@@ -148,7 +152,7 @@ if(count($itensSessao) > 0){
                 </div>
             </div>
             <div class='ladoDireito row'>
-                <strong><p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)." 
+                <strong><p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 4)." 
                 </p></strong>
                 <div class='row linhaBotao'>
                         <a class='botaoCarrinhoEnviar' href='../home/ajax/enviarEmailCombo.php'><button id='finalizar' class='btn'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
@@ -156,6 +160,8 @@ if(count($itensSessao) > 0){
                 </div>
             </div>
         </div>";
+
+        // print_r($_SESSION['totalCombo']);
     
         
 

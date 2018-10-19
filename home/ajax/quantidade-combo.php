@@ -14,87 +14,46 @@ session_start();
 
 // include_once "../lib/alert.php";
 
-$preco = $_GET['preco'];
-$acao = $_GET['acao'];
+$subtotal = $_POST['subtotal'];
+$precoAdicional = $_POST['precoAdicional'];
+$desconto = $_POST['desconto'];
+$descontoBruto = $_POST['descontoBruto'];
+$acao = $_POST['acao'];
 
 if (isset($_GET['delivery']) && !empty($_GET['delivery'])){
     $_SESSION['delivery'] = $_GET['delivery'];
 }
 
+if($acao == "addAdicional"){
+    
+    $descontoBrutoFinal = $descontoBruto / 100;
+    $descontoBrutoFinal = $descontoBrutoFinal * $subtotal;
+    $total = $subtotal - $descontoBrutoFinal;
+    $_SESSION['totalCombo'] -= $total;
 
-//função pra aumentar a quantidade de um item no carrinho
-if($acao == "+"){
-    $qtdAtual = $_GET['qtdAtual'];
-    $linha = $_GET['linha'];
-    $_SESSION['qtdCombo'][$linha] = $qtdAtual+1;
-    $desconto = $_GET['desconto'];
-    $desconto = $desconto / 100;
-    $desconto = $preco * $desconto;
-    $preco = $preco - $desconto;
-    $_SESSION['totalCombo'] += $preco;
-    echo "<p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)."</p>";
-//função para diminuir uma quantidade de um item no carrinho
-}elseif($acao == "-"){
-    if(isset($_GET['id']) && !empty($_GET['id'])){
-        $id = $_GET['id'];
-        foreach($_SESSION['combo'] as $key => $value){
-            if($id == $value){
-                unset($_SESSION['combo'][$key]);
-                unset($_SESSION['qtdCombo'][$key]);
-                sort($_SESSION['combo']);
-                sort($_SESSION['qtdCombo']);
+    $subtotal = $subtotal + $precoAdicional;
+    $descontoBruto = $descontoBruto + $desconto;
+    $descontoBruto = $descontoBruto / 100;
+    $descontoBruto = $descontoBruto * $subtotal;
+    $total2 = $subtotal - $descontoBruto;
+    $_SESSION['totalCombo'] += $total2; 
 
-                if(count($_SESSION['combo']) < 1){
-                    echo "<script>swal('Combo vazio!!').then((value) => {window.location='/home/cardapio.php'});</script>";
-                }
-            }
-        }
-        $desconto = $_GET['desconto'];
-        $desconto = $desconto / 100;
-        $desconto = $preco * $desconto;
-        $preco = $preco - $desconto;
-        $_SESSION['totalCombo'] -= $preco;
-        echo "<p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)."</p>";
-    }else{
-        $qtdAtual = $_GET['qtdAtual'];
-        $linha = $_GET['linha'];
-        $desconto = $_GET['desconto'];
-        $desconto = $desconto / 100;
-        $desconto = $preco * $desconto;
-        $preco -= $desconto;
-        $_SESSION['totalCombo'] -= $preco;
-        $_SESSION['qtdCombo'][$linha] = $qtdAtual-1;
-        echo "<p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)."</p>";
-    }
-//função para remover todas as unidades de um item do carrinho
-}elseif($acao == "rem"){
-    if(isset($_GET['id']) && !empty($_GET['id'])){
-        $id = $_GET['id'];
-        $qtd = $_GET['qtdAtual'];
-        foreach($_SESSION['combo'] as $key => $value){
-            if($id == $value){
-                unset($_SESSION['combo'][$key]);
-                unset($_SESSION['qtdCombo'][$key]);
-                sort($_SESSION['combo']);
-                sort($_SESSION['qtdCombo']);
+    
+    echo "<strong><p id='total'>Valor total do pedido: R$ ".number_format($_SESSION['totalCombo'], 4);
+}elseif($acao == "removeAdicional"){
+    
+    $descontoBrutoFinal = $descontoBruto / 100;
+    $descontoBrutoFinal = $descontoBrutoFinal * $subtotal;
+    $total = $subtotal - $descontoBrutoFinal;
+    $_SESSION['totalCombo'] -= $total;
 
-                if(count($_SESSION['combo']) < 1){
-                    echo "<script>swal('Combo vazio!!').then((value) => {window.location='/home/cardapio.php'});</script>";
-                }
-            }
-        }
-        $desconto = $_GET['desconto'];
-        $desconto = $desconto / 100;
-        $sub = $qtd * $preco;
-        $desconto = $desconto * $sub;
-        $sub -= $desconto;
-        $_SESSION['totalCombo']-= $sub;
-        echo "<p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)."</p>";
-    }
-}
-// função para esvaziar o carrinho
-elseif($acao == "esv"){
-    $_SESSION['totalCombo'] = 0;
-    $_SESSION['combo'] = array();
+    $subtotal = $subtotal - $precoAdicional;
+    $descontoBruto = $descontoBruto - $desconto;
+    $descontoBruto = $descontoBruto / 100;
+    $descontoBruto = $descontoBruto * $subtotal;
+    $total2 = $subtotal - $descontoBruto;
+    $_SESSION['totalCombo'] += $total2; 
+    
+    echo "<strong><p id='total'>Valor total do pedido: R$ ".number_format($_SESSION['totalCombo'], 4);
 }
 ?>

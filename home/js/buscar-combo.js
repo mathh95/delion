@@ -14,6 +14,32 @@
 //     }); 
 // });
 
+$("input:checkbox").on("click", function(){
+    var linha = $(this).data('linha');
+    var subtotal = $("#sub"+linha).val();
+    var descontoBruto = $("#desc"+linha).val();
+    var precoAdicional = $(this).data('preco');
+    var desconto = $(this).data('desconto');
+    if($(this).is(':checked')){
+        var acao = "addAdicional";
+    }else{
+        var acao = "removeAdicional";
+    }
+    alert(precoAdicional+" = "+desconto+" = "+subtotal+" = "+descontoBruto);
+
+    $.ajax({
+        type:'POST',
+
+        url:'ajax/quantidade-combo.php',
+
+        data:{subtotal:subtotal, precoAdicional:precoAdicional, desconto:desconto, descontoBruto:descontoBruto, acao:acao},
+
+        success:function(res){
+            $("#total").html(res);
+        }
+    });
+});
+
 function esvaziar(){
     var acao = "esv";
 
