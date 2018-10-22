@@ -624,6 +624,10 @@ session_start();
 			});
 		}
 
+		function fecharModal(idCardapio){
+			$("#myModal"+idCardapio).modal('hide');
+		}
+
 		/*for (var i = 1; i <= 5; i++) {
 
 			

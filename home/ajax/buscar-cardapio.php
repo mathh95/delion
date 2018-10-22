@@ -141,11 +141,11 @@ session_start();
                                             echo "<p>R$: ".$adicional->preco."</p>";
                                         }
                                         echo "<button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success'>Adicionar ao Combo</button>";
-                                        echo "<button style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
+                                        echo "<button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                     }else{
                                         echo "<p>Este produto não tem adicionais disponiveis!</p>
                                             <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success'>Adicionar ao combo</button>
-                                            <button style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
+                                            <button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                     }?>
                             </div>
                         </div>
@@ -422,7 +422,7 @@ session_start();
                 }
             }?>
 
-                <div id="myModal<?=$item->getCod_cardapio()?>" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+               <div id="myModal<?=$item->getCod_cardapio()?>" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                     <div style="margin-top:180px; margin-left:450px;" class="modal-dialog modal-xs">
                         <div style="width:500px;" class="modal-content">
                             <h3 style="margin-left:10px;">Adicionais disponiveis para esse produto:</h3>
@@ -437,10 +437,12 @@ session_start();
                                             echo "<br>";
                                             echo "<p>R$: ".$adicional->preco."</p>";
                                         }
-                                        echo "<button id='add' style='margin:5px;' class='btn btn-success'>Adicionar ao Combo</button>";
-                                        echo "<button style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
+                                        echo "<button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success'>Adicionar ao Combo</button>";
+                                        echo "<button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                     }else{
-                                        echo "<p>Este produto não tem adicionaisdisponiveis!</p>";
+                                        echo "<p>Este produto não tem adicionais disponiveis!</p>
+                                            <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success'>Adicionar ao combo</button>
+                                            <button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                     }?>
                             </div>
                         </div>

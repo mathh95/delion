@@ -39,7 +39,7 @@ if($acao == "addAdicional"){
     $_SESSION['totalCombo'] += $total2; 
 
     
-    echo "<strong><p id='total'>Valor total do pedido: R$ ".number_format($_SESSION['totalCombo'], 4);
+    echo "<strong><p id='total'>Valor total do pedido: R$ ".number_format($_SESSION['totalCombo'], 2);
 }elseif($acao == "removeAdicional"){
     
     $descontoBrutoFinal = $descontoBruto / 100;
@@ -54,6 +54,6 @@ if($acao == "addAdicional"){
     $total2 = $subtotal - $descontoBruto;
     $_SESSION['totalCombo'] += $total2; 
     
-    echo "<strong><p id='total'>Valor total do pedido: R$ ".number_format($_SESSION['totalCombo'], 4);
+    echo "<strong><p id='total'>Valor total do pedido: R$ ".number_format($_SESSION['totalCombo'], 2);
 }
 ?>

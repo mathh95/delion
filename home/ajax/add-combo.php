@@ -14,11 +14,14 @@ session_start();
 // require_once "../controler/controlCardapio.php";
 
 // include_once "../lib/alert.php";
- $id = 0;
+$id = 0;
+$adicional = array();
 
 if(isset($_POST['item']) && !empty($_POST['item'])){
     $id = filter_input(INPUT_POST, 'item', FILTER_SANITIZE_NUMBER_INT);
-    $adicional = $_POST['adicionais'];
+    if(isset($_POST['adicionais']) && !empty($_POST['adicionais'])){
+        $adicional = $_POST['adicionais'];
+    }
     if(!isset($_SESSION['combo'])){
         $_SESSION['combo'] = array();
         $_SESSION['adicionalCombo'] = array();

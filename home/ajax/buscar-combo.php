@@ -107,6 +107,7 @@ if(count($itensSessao) > 0){
                                         }else{
                                             echo "<td><input data-linha='".$i."' data-subtotal='".$subtotal."' data-preco='".$adicional['preco']."' data-desconto='".$adicional['desconto']."' type='checkbox' id='adicional' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
                                             echo "(R$: ".$adicional['preco'].") </td>";
+                                            // echo "<p>Esse produto não possui adicionais!!</p>";
                                         }
                                         $j++;
                                         if($j == 2){
@@ -152,7 +153,7 @@ if(count($itensSessao) > 0){
                 </div>
             </div>
             <div class='ladoDireito row'>
-                <strong><p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 4)." 
+                <strong><p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)." 
                 </p></strong>
                 <div class='row linhaBotao'>
                         <a class='botaoCarrinhoEnviar' href='../home/ajax/enviarEmailCombo.php'><button id='finalizar' class='btn'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
