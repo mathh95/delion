@@ -53,7 +53,7 @@ if(count($itensSessao) > 0){
     // print_r($itens);
     // exit;
 ?>
-        <!-- <script type="text/javascript" src="js/buscar-delivery-combo.js"></script> -->
+        <script type="text/javascript" src="js/buscar-delivery-combo.js"></script>
         <script type="text/javascript" src="js/buscar-combo.js"></script>
         <h1 class="text-center">Combo</h1>
         <div class="combo row">
@@ -83,7 +83,7 @@ if(count($itensSessao) > 0){
                     $desconto = $item->getDesconto();
                     $subtotal = $item->getPreco();
                     ?>
-                    <tr id="idLinha<?=$i?>" data-id="<?=$item->getCod_cardapio()?>">
+                    <tr id="idLinha<?=$i?>" class="produto" data-id="<?=$item->getCod_cardapio()?>">
                         <td><img style="width:200px; height:100px;" src="../admin/<?=$item->getFoto()?>"></td>
                         <td class="nomeProdutoTabela"><strong><?=$item->getNome()?></strong></td>
                         <td class="precoProdutoTabela" id="preco<?=$i?>" data-desconto="<?=$item->getDesconto()?>" data-preco="<?=$item->getPreco()?>"><strong>R$ <?=number_format($item->getPreco(), 2);?></strong></td>
@@ -98,14 +98,14 @@ if(count($itensSessao) > 0){
                                                 $subtotal += $adicional['preco'];
                                                 $desconto += $adicional['desconto'];
                                                 // echo $subtotal."<br>";
-                                                echo "<td><input checked data-linha='".$i."' data-subtotal='".$subtotal."' data-preco='".$adicional['preco']."' data-desconto='".$adicional['desconto']."' type='checkbox' id='adicional' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
+                                                echo "<td><input checked data-linha='".$i."' data-subtotal='".$subtotal."' data-preco='".$adicional['preco']."' data-desconto='".$adicional['desconto']."' type='checkbox' id='adicional' name='adicional".$i."' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
                                                 echo "(R$: ".$adicional['preco'].") </td>";
                                             }else{
-                                                echo "<td><input data-linha='".$i."' data-subtotal='".$subtotal."' data-preco='".$adicional['preco']."' data-desconto='".$adicional['desconto']."' type='checkbox' id='adicional' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
+                                                echo "<td><input data-linha='".$i."' data-subtotal='".$subtotal."' data-preco='".$adicional['preco']."' data-desconto='".$adicional['desconto']."' type='checkbox' id='adicional' name='adicional".$i."' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
                                                 echo "(R$: ".$adicional['preco'].") </td>";
                                             }
                                         }else{
-                                            echo "<td><input data-linha='".$i."' data-subtotal='".$subtotal."' data-preco='".$adicional['preco']."' data-desconto='".$adicional['desconto']."' type='checkbox' id='adicional' name='adicional' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
+                                            echo "<td><input data-linha='".$i."' data-subtotal='".$subtotal."' data-preco='".$adicional['preco']."' data-desconto='".$adicional['desconto']."' type='checkbox' id='adicional' name='adicional".$i."' value='".$adicional['cod_adicional']."'> <strong>".$adicional['nome']."</strong>";
                                             echo "(R$: ".$adicional['preco'].") </td>";
                                             // echo "<p>Esse produto não possui adicionais!!</p>";
                                         }
@@ -156,7 +156,7 @@ if(count($itensSessao) > 0){
                 <strong><p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)." 
                 </p></strong>
                 <div class='row linhaBotao'>
-                        <a class='botaoCarrinhoEnviar' href='../home/ajax/enviarEmailCombo.php'><button id='finalizar' class='btn'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
+                        <a class='botaoCarrinhoEnviar' href='#'><button id='finalizar' class='btn'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
                         <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho <i class='fas fa-trash-alt'></i></button></a>
                 </div>
             </div>

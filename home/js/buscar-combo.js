@@ -44,13 +44,38 @@ function esvaziar(){
     var acao = "esv";
 
     $.ajax({
-        type: 'GET',
+        type: 'POST',
 
         url: 'ajax/quantidade-combo.php',
 
         data: {acao: acao},
     });
 }
+
+$(document).on("click", "#finalizar", function(){
+    adicionais = new Array();
+    var i = 0;
+    $(".produto").each(function(){
+        adicional = new Array();
+        $("input[type=checkbox][name='adicional"+i+"']:checked").each(function(){
+            adicional.push($(this).val());
+        });
+        i++;
+        adicionais.push(adicional);
+    });
+
+    $.ajax({
+        type: 'POST',
+
+        url: 'ajax/enviarEmailCombo.php',
+
+        data: {adicionais:adicionais},
+
+        success:function(res){
+            alert(res);
+        }
+    });
+});
 
 $(document).on("click", "#removeItem", function(){
     var acao = "rem";

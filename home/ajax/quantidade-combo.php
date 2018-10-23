@@ -13,11 +13,6 @@ session_start();
 // require_once "../controler/controlCardapio.php";
 
 // include_once "../lib/alert.php";
-
-$subtotal = $_POST['subtotal'];
-$precoAdicional = $_POST['precoAdicional'];
-$desconto = $_POST['desconto'];
-$descontoBruto = $_POST['descontoBruto'];
 $acao = $_POST['acao'];
 
 if (isset($_GET['delivery']) && !empty($_GET['delivery'])){
@@ -25,6 +20,11 @@ if (isset($_GET['delivery']) && !empty($_GET['delivery'])){
 }
 
 if($acao == "addAdicional"){
+
+    $subtotal = $_POST['subtotal'];
+    $precoAdicional = $_POST['precoAdicional'];
+    $desconto = $_POST['desconto'];
+    $descontoBruto = $_POST['descontoBruto'];
     
     $descontoBrutoFinal = $descontoBruto / 100;
     $descontoBrutoFinal = $descontoBrutoFinal * $subtotal;
@@ -41,6 +41,11 @@ if($acao == "addAdicional"){
     
     echo "<strong><p id='total'>Valor total do pedido: R$ ".number_format($_SESSION['totalCombo'], 2);
 }elseif($acao == "removeAdicional"){
+
+    $subtotal = $_POST['subtotal'];
+    $precoAdicional = $_POST['precoAdicional'];
+    $desconto = $_POST['desconto'];
+    $descontoBruto = $_POST['descontoBruto'];
     
     $descontoBrutoFinal = $descontoBruto / 100;
     $descontoBrutoFinal = $descontoBrutoFinal * $subtotal;
@@ -55,5 +60,9 @@ if($acao == "addAdicional"){
     $_SESSION['totalCombo'] += $total2; 
     
     echo "<strong><p id='total'>Valor total do pedido: R$ ".number_format($_SESSION['totalCombo'], 2);
+}elseif($acao == "esv"){
+    $_SESSION['combo'] = array();
+    $_SESSION['totalCombo'] = array();
+    $_SESSION['adicionalCombo'] = array();
 }
 ?>

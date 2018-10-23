@@ -29,6 +29,10 @@ $mail = new PHPMailer();
 if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
     $itens = $_SESSION['combo'];
 
+    if(isset($_POST['adicionais']) && !empty($_POST['adicionais'])){
+        $adicionais = $_POST['adicionais'];
+    }
+
     if($itens > 0){
         $itens = $cardapio->buscarVariosId($itens);
     }
@@ -71,22 +75,17 @@ if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
                                                         <th width='15%'>Data</th>
                                                         <th width='15%'>Cliente</th>
                                                         <th width='15%'>Produto</th>
-                                                        <th width='15%'>Quantidade</th>
                                                         <th width='15%'>Unidade</th>
-                                                        <th width='15%'>Subtotal</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>";
-                        foreach($_SESSION['carrinho'] as $key => $value){
-                            $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['preco'];
+                        foreach($_SESSION['combo'] as $key => $value){
                             $mail->Body.= "<tr>
                                                 <td height='15%'>".$_SESSION['combo'][$key]."</td>
                                                 <td height='15%'>".date("r")."</td>
                                                 <td height='15%'>".$_SESSION['nome']."</td>
                                                 <td height='15%'>".$itens[$key]['nome']."</td>
-                                                <td height='15%'>".$_SESSION['qtdCombo'][$key]."</td> 
                                                 <td height='15%'>R$ ".number_format($itens[$key]['preco'], 2)."</td>
-                                                <td height='15%'>R$ ".number_format($subtotal, 2)."</td>
                                         </tr>";
                         }
                         $mail->Body.="</tbody>
@@ -98,7 +97,7 @@ if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
                         echo $mail->ErrorInfo;
                     }
                 
-                    $pedido->setPedido();
+                    $pedido->setCombo($adicionais);
                 
                     $html.= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home'});</script></body>";
                     echo $html;

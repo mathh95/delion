@@ -5,6 +5,8 @@ include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 include_once MODELPATH."/cardapio.php";
 include_once MODELPATH."/combo.php";
 include_once MODELPATH."/item-combo.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/home/controler/controlAdicional.php";
+include_once "../../admin/controler/conexao.php";
 
 class controlerCombo{
 
@@ -17,7 +19,9 @@ class controlerCombo{
 
     function index(){}
 
-    public function setPedido(){
+    public function setCombo($adicionais){
+
+        $controleAdicional = new controlerAdicional(conecta());
 
         $idCliente = $_SESSION['cod_cliente'];
         $valor = $_SESSION['totalCombo'];
@@ -35,18 +39,31 @@ class controlerCombo{
         $idCombo = $this->pdo->lastInsertId();
 
         foreach($_SESSION['combo'] as $key => $value){
-            $sql = $this->pdo->prepare("INSERT INTO item_combo SET cod_produto = :cod_produto, cod_combo = :cod_combo, quantidade = :quantidade");
+
+            $sql = $this->pdo->prepare("INSERT INTO item_combo SET cod_produto = :cod_produto, cod_combo = :cod_combo");
 
             $sql->bindValue(":cod_produto", $_SESSION['combo'][$key]);
             $sql->bindValue(":cod_combo", $idCombo);
-            $sql->bindValue(":quantidade", $_SESSION['qtdCombo'][$key]);
 
             $sql->execute();
+
+            if(isset($adicionais[$key]) && !empty($adicionais[$key])){
+                $idItemCombo = $this->pdo->lastInsertId();
+                $adicionaisProduto = $adicionais[$key];
+                $adicionaisProduto = $controleAdicional->buscarVariosId($adicionaisProduto);
+                foreach($adicionaisProduto as $ad){
+                    $sql = $this->pdo->prepare("INSERT INTO item_adicional SET cod_item_combo = :cod_item_combo, cod_adicional = :cod_adicional");
+                    $sql->bindValue(":cod_item_combo", $idItemCombo);
+                    $sql->bindValue(":cod_adicional", $ad['cod_adicional']);
+
+                    $sql->execute();
+                }
+            }
         }
 
         $_SESSION['combo'] = array();
-        $_SESSION['qtdCombo'] = array();
         $_SESSION['totalCombo'] = array();
+        $_SESSION['adicionalCombo'] = array();
     }
 
     function selectPedido($cod_cliente){
