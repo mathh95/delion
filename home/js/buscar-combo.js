@@ -72,7 +72,7 @@ $(document).on("click", "#finalizar", function(){
         data: {adicionais:adicionais},
 
         success:function(res){
-            alert(res);
+            $(".itens").html(res);
         }
     });
 });

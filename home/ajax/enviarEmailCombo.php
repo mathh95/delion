@@ -37,7 +37,7 @@ if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
         $itens = $cardapio->buscarVariosId($itens);
     }
     if(isset($_SESSION['delivery']) && !empty($_SESSION['delivery'])){
-        if (isset($_SESSION['pedidoBalcao'])) {
+        if (isset($_SESSION['pedidoBalcaoCombo'])) {
             if (($_SESSION['delivery'] > 0) && ($_SESSION['pedidoBalcao'] == 0) || ($_SESSION['delivery'] < 0)){  
                 if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
                     try{
