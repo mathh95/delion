@@ -22,12 +22,12 @@ $("input:checkbox").on("click", function(){
     var desconto = $(this).data('desconto');
     if($(this).is(':checked')){
         var acao = "addAdicional";
-        var novoDesconto = parseInt(desconto) + parseInt(descontoBruto);
-        var novoSubtotal = parseInt(subtotal) + parseInt(precoAdicional);
+        var novoDesconto = parseFloat(desconto) + parseFloat(descontoBruto);
+        var novoSubtotal = parseFloat(subtotal) + parseFloat(precoAdicional);
     }else{
         var acao = "removeAdicional";
-        var novoDesconto = parseInt(descontoBruto) - parseInt(desconto);
-        var novoSubtotal = parseInt(subtotal) - parseInt(precoAdicional);
+        var novoDesconto = parseFloat(descontoBruto) - parseFloat(desconto);
+        var novoSubtotal = parseFloat(subtotal) - parseFloat(precoAdicional);
     }
 
     $.ajax({
