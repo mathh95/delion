@@ -22,10 +22,13 @@ $("input:checkbox").on("click", function(){
     var desconto = $(this).data('desconto');
     if($(this).is(':checked')){
         var acao = "addAdicional";
+        var novoDesconto = parseInt(desconto) + parseInt(descontoBruto);
+        var novoSubtotal = parseInt(subtotal) + parseInt(precoAdicional);
     }else{
         var acao = "removeAdicional";
+        var novoDesconto = parseInt(descontoBruto) - parseInt(desconto);
+        var novoSubtotal = parseInt(subtotal) - parseInt(precoAdicional);
     }
-    alert(precoAdicional+" = "+desconto+" = "+subtotal+" = "+descontoBruto);
 
     $.ajax({
         type:'POST',
@@ -36,6 +39,8 @@ $("input:checkbox").on("click", function(){
 
         success:function(res){
             $("#total").html(res);
+            $("#desc"+linha).val(novoDesconto);
+            $("#sub"+linha).val(novoSubtotal);
         }
     });
 });
