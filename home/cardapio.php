@@ -419,11 +419,14 @@ session_start();
 	<script>
 
 		$(document).on("click", "#addCombo", function() {
-			var largura = $(window).width();
 			var cod = $(this).data('cod');
-			if(largura >= 1200){
+			var largura = $(window).width();
+			if(largura <= 767){
+				$('#myModalC'+cod).modal('show');
+			}else{
 				$('#myModal'+cod).modal('show');
 			}
+			
 		});
 
 		function onLoad() {
@@ -606,6 +609,7 @@ session_start();
 		function adicionaCombo(item){
 
 			adicionais = new Array();
+			var largura = $(window).width();
 			$("input[type=checkbox][name='adicional']:checked").each(function(){
     			adicionais.push($(this).val());
 			});
@@ -619,13 +623,23 @@ session_start();
 
 				success:function(res){
 					$("#spanCombo").html(res);
-					$("#myModal"+item).modal('hide');
+					if(largura <= 767){
+						$("#myModalC"+item).modal('hide');
+					}else{
+						$("#myModal"+item).modal('hide');
+					}
+					
 				}
 			});
 		}
 
 		function fecharModal(idCardapio){
-			$("#myModal"+idCardapio).modal('hide');
+			var largura = $(window).width();
+			if(largura <= 767){
+				$("#myModalC"+idCardapio).modal('hide');
+			}else{
+				$("#myModal"+idCardapio).modal('hide');
+			}
 		}
 
 		/*for (var i = 1; i <= 5; i++) {

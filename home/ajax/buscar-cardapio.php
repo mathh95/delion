@@ -125,12 +125,12 @@ session_start();
                 }  */
             ?>
 
-                <div id="myModal<?=$item->getCod_cardapio()?>" class="modal fade bs-example-modal-xs" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                    <div style="margin-top:180px; margin-left:450px;" class="modal-dialog modal-xs">
+                <div id="myModal<?=$item->getCod_cardapio()?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
                         <div style="width:500px;" class="modal-content">
                             <h3 style="margin-left:10px;">Adicionais disponiveis para esse produto:</h3>
                             <div style="margin-left:10px;">
-                                <table>
+                                <table class='table table-condensed'>
                                 <tr>
                                     <?php
                                         $j = 0;
@@ -139,25 +139,66 @@ session_start();
                                             $adicionais = $controleAdicional->buscarVariosId($adicionais);
                                             foreach($adicionais as $adicional){
                                                 $adicional = (object)$adicional;
-                                                echo "<td><input type='checkbox' name='adicional' value='".$adicional->cod_adicional."'> <strong>".$adicional->nome."</strong>";
+                                                echo "<td class='ad'><input type='checkbox' name='adicional' value='".$adicional->cod_adicional."'> <strong>".$adicional->nome."</strong>";
                                                 echo "<br>";
                                                 echo "<p>R$: ".$adicional->preco."</p></td>";
 
                                                 $j++;
-                                                    if($j == 4){
-                                                echo "</tr>";
-                                        }
+                                                if($j == 4){
+                                                    echo "</tr>";
+                                                }
                                             }
-                                            echo "<button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success'>Adicionar ao Combo</button>";
+                                            echo "</tr>
+                                            </table><button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-default addCombo'>Adicionar ao Combo</button>";
                                             echo "<button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
+    
                                         }else{
-                                            echo "<p>Este produto não tem adicionais disponiveis!</p>
-                                                <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success'>Adicionar ao combo</button>
+                                            echo "</tr>
+                                                </table><p>Este produto não tem adicionais disponiveis!</p>
+                                                <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success addCombo'>Adicionar ao combo</button>
                                                 <button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                         }
                                         ?>
-                                    </tr>
-                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="myModalC<?=$item->getCod_cardapio()?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <h3>Adicionais disponiveis para esse produto:</h3>
+                            <div>
+                                <table class='table table-condensed'>
+                                <tr>
+                                    <?php
+                                        $j = 0;
+                                        if(!empty($item->getAdicional())){
+                                            $adicionais = json_decode($item->getAdicional()); 
+                                            $adicionais = $controleAdicional->buscarVariosId($adicionais);
+                                            foreach($adicionais as $adicional){
+                                                $adicional = (object)$adicional;
+                                                echo "<td class='ad'><input type='checkbox' name='adicional' value='".$adicional->cod_adicional."'> <strong>".$adicional->nome."</strong>";
+                                                echo "<br>";
+                                                echo "R$: ".$adicional->preco."</td>";
+
+                                                $j++;
+                                                if($j == 2){
+                                                    $j = 0;
+                                                    echo "</tr>";
+                                                }
+                                            }
+                                            echo "</tr>
+                                            </table><button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-default addCombo'>Adicionar ao Combo</button>";
+                                            echo "<button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
+    
+                                        }else{
+                                            echo "</tr>
+                                                </table><p>Este produto não tem adicionais disponiveis!</p>
+                                                <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success addCombo'>Adicionar ao combo</button>
+                                                <button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
+                                        }
+                                        ?>
                             </div>
                         </div>
                     </div>
@@ -433,28 +474,79 @@ session_start();
                 }
             }?>
 
-               <div id="myModal<?=$item->getCod_cardapio()?>" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                    <div style="margin-top:180px; margin-left:450px;" class="modal-dialog modal-xs">
-                        <div style="width:500px;" class="modal-content">
-                            <h3 style="margin-left:10px;">Adicionais disponiveis para esse produto:</h3>
-                            <div style="margin-left:10px;">
-                                <?php 
-                                    if(!empty($item->getAdicional())){
-                                        $adicionais = json_decode($item->getAdicional()); 
-                                        $adicionais = $controleAdicional->buscarVariosId($adicionais);
-                                        foreach($adicionais as $adicional){
-                                            $adicional = (object)$adicional;
-                                            echo "<input type='checkbox' name='adicional' value='".$adicional->cod_adicional."'> <strong>".$adicional->nome."</strong>";
-                                            echo "<br>";
-                                            echo "<p>R$: ".$adicional->preco."</p>";
+                <div id="myModal<?=$item->getCod_cardapio()?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <h1>Adicionais disponiveis para esse produto:</h1>
+                            <div>
+                                <table class='table table-condensed'>
+                                <tr>
+                                    <?php
+                                        $j = 0;
+                                        if(!empty($item->getAdicional())){
+                                            $adicionais = json_decode($item->getAdicional()); 
+                                            $adicionais = $controleAdicional->buscarVariosId($adicionais);
+                                            foreach($adicionais as $adicional){
+                                                $adicional = (object)$adicional;
+                                                echo "<td class='ad'><input type='checkbox' name='adicional' value='".$adicional->cod_adicional."'> <strong>".$adicional->nome."</strong>";
+                                                echo "<br>";
+                                                echo "R$: ".$adicional->preco."</td>";
+
+                                                $j++;
+                                                if($j == 4){
+                                                    echo "</tr>";
+                                                }
+                                            }
+                                            echo "</tr>
+                                            </table><button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-default addCombo'>Adicionar ao Combo</button>";
+                                            echo "<button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
+    
+                                        }else{
+                                            echo "</tr>
+                                                </table><p>Este produto não tem adicionais disponiveis!</p>
+                                                <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success addCombo'>Adicionar ao combo</button>
+                                                <button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                         }
-                                        echo "<button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success'>Adicionar ao Combo</button>";
-                                        echo "<button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
-                                    }else{
-                                        echo "<p>Este produto não tem adicionais disponiveis!</p>
-                                            <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success'>Adicionar ao combo</button>
-                                            <button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
-                                    }?>
+                                        ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="myModalC<?=$item->getCod_cardapio()?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <h1>Adicionais disponiveis para esse produto:</h1>
+                            <div>
+                                <table class='table table-condensed'>
+                                <tr>
+                                    <?php
+                                        $j = 0;
+                                        if(!empty($item->getAdicional())){
+                                            $adicionais = json_decode($item->getAdicional()); 
+                                            $adicionais = $controleAdicional->buscarVariosId($adicionais);
+                                            foreach($adicionais as $adicional){
+                                                $adicional = (object)$adicional;
+                                                echo "<td class='ad'><input type='checkbox' name='adicional' value='".$adicional->cod_adicional."'> <strong>".$adicional->nome."</strong>";
+                                                echo "<br>";
+                                                echo "R$: ".$adicional->preco."</td>";
+
+                                                $j++;
+                                                if($j == 2){
+                                                    echo "</tr>";
+                                                }
+                                            }
+                                            echo "</tr>
+                                            </table><button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-default addCombo'>Adicionar ao Combo</button>";
+                                            echo "<button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
+    
+                                        }else{
+                                            echo "</tr>
+                                                </table><p>Este produto não tem adicionais disponiveis!</p>
+                                                <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success addCombo'>Adicionar ao combo</button>
+                                                <button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
+                                        }
+                                        ?>
                             </div>
                         </div>
                     </div>

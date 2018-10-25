@@ -97,6 +97,35 @@ body{
             margin-left: 15px;
             padding-left: 15px;
         }
+        > .modal{
+            > .modal-dialog{
+                margin-top: 10%;
+                @include make-lg-column-offset(4);
+                @include make-lg-column(5);
+                > .modal-content{
+                    border-color: #91414F;
+                    background-color: #D7CEC7;
+                    color: black;
+
+                    .ad{
+                        border: none;
+                        text-align: left;
+                        margin-right: 10px;
+                    }
+
+                    .addCombo{
+                        border-color: #91414F;
+                        background-color: #C57686;
+                        color: white;
+                    }
+                    .addCombo:hover{
+                        border-color: #91414F;
+                        background-color: #C57686;
+                        color: #91414F;
+                    }
+                }
+            }
+        }
         > .produto {
             display: flex;
             padding-top: 7px;

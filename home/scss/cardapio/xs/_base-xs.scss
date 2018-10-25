@@ -100,6 +100,38 @@ body{
             // margin-left: 15px;
             // padding-left: 15px;
         }
+        > .modal{
+            @include make-xs-column(12);
+            > .modal-dialog{
+                margin-top: 15%;
+                > .modal-content{
+                    font-size: 15px;
+                    text-align: center;
+                    border-color: #91414F;
+                    background-color: #D7CEC7;
+                    color: black;
+                    >h3{
+                        text-align: center;
+                    }
+                    .ad{
+                        border: none;
+                        text-align: left;
+                        margin-right: 10px;
+                    }
+
+                    .addCombo{
+                        border-color: #91414F;
+                        background-color: #C57686;
+                        color: white;
+                    }
+                    .addCombo:hover{
+                        border-color: #91414F;
+                        background-color: #C57686;
+                        color: #91414F;
+                    }
+                }
+            }
+        }
         > .produto {
             @include make-xs-column(12);
             display: inline-block;
