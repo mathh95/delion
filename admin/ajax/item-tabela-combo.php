@@ -15,6 +15,7 @@ if(in_array('combo', $permissao)){
 		<tr>
     		<th width='33%' style='text-align: center;'>Produto</th>
 			<th width='33%' style='text-align: center;'>Valor</th>
+			<th width='33%' style='text-align: center;'>Adicionais</th>
         </tr>
 	<tbody>";
 	foreach ($itens as &$item) {
@@ -22,6 +23,7 @@ if(in_array('combo', $permissao)){
 			<tr name='resultado' id='status".$item->getCod_item_combo()."'>
 			 	<td style='text-align: center;' name='produto'>".$item->getProduto()."</td>
 				<td style='text-align: center;' name='valor'>".$item->preco."</td>
+				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='itemListaAdicionais.php?cod=".$item->getCod_item_combo()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Adicionais</button></a></td>
 			</tr>";
 	}
 	echo "</tbody></table>";

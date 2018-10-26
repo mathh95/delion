@@ -155,5 +155,29 @@ class controlerCombo{
             return -1;
         }
     }
+
+    function selectAdicionais($cod_item_combo){
+        $adicionais= array();
+        $stmt=$this->pdo->prepare("SELECT a.cod_adicional, b.nome, b.preco, b.desconto FROM item_adicional AS A INNER JOIN adicional AS B ON A.cod_adicional = B.cod_adicional WHERE cod_item_combo = :parametro");
+        $stmt->bindParam(":parametro", $cod_item_combo, PDO::PARAM_INT);
+        $executa=$stmt->execute();
+        if ($executa) {
+            if ($stmt->rowCount() > 0 ){
+                while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                    $adicional = new adicional();
+                    $adicional->setCod_adicional($result->cod_adicional);
+                    $adicional->setNome($result->nome);
+                    $adicional->setPreco($result->preco);
+                    $adicional->setDesconto($result->desconto);
+                    array_push($adicionais,$adicional);  
+                }
+            }else{
+                return -1;
+            }
+            return $adicionais;
+        }else {
+            return -1;
+        }
+    }
 }
 ?>
