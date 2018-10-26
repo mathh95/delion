@@ -227,7 +227,7 @@ session_start();
                       
                         <div class='preco'><strong>R$ ".$item->getPreco()."</strong></div>
                         
-                        <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button><br>
+                        <button  id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button><br><br>
 
                         <button id='addCombo' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao combo</button>
 
