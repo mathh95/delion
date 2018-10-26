@@ -45,6 +45,7 @@ body{
                         > img{
                             @include img-responsive;
                             float: left;
+                            margin-left: 42px;
                         }
                         > a{
                             > button{

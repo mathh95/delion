@@ -110,6 +110,31 @@ body{
                 }
             }
         }
+
+        >.combo {
+            >.tabela_itens {
+                @include make-lg-column(12);
+
+                #cabecalhoTabela {
+                    color: white;
+                    background-color: #C57686;
+                    border-style: solid;
+                    border-bottom-width: 5px;
+                    border-top-width: 0;
+                    border-left-width: 0;
+                    border-right-width: 0;
+                    border-bottom-color: #91414F;
+                    font-family: "Century Gothic Bold";
+                    font-size: 14px;
+                }
+
+                .quantidadeItemTabela {
+                    border: none;
+                    background-color: transparent;
+                    width: 30px;
+                }
+            }
+        }
         >.rodapeCarrinho {
             >.ladoEsquerdo{
                 @include make-sm-column(6);

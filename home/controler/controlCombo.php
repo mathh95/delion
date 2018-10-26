@@ -6,7 +6,7 @@ include_once MODELPATH."/cardapio.php";
 include_once MODELPATH."/combo.php";
 include_once MODELPATH."/item-combo.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/home/controler/controlAdicional.php";
-include_once "../../../admin/controler/conexao.php";
+include_once ADMINPATH."/controler/conexao.php";
 
 class controlerCombo{
 
