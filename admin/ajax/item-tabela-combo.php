@@ -14,7 +14,6 @@ if(in_array('combo', $permissao)){
 		<h1 class=\"page-header\">Lista de Itens</h1>
 		<tr>
     		<th width='33%' style='text-align: center;'>Produto</th>
-			<th width='33%' style='text-align: center;'>Quantidade</th>
 			<th width='33%' style='text-align: center;'>Valor</th>
         </tr>
 	<tbody>";
@@ -22,7 +21,6 @@ if(in_array('combo', $permissao)){
 			echo "
 			<tr name='resultado' id='status".$item->getCod_item_combo()."'>
 			 	<td style='text-align: center;' name='produto'>".$item->getProduto()."</td>
-			 	<td style='text-align: center;' name='cliente'>".$item->getQuantidade()."</td>
 				<td style='text-align: center;' name='valor'>".$item->preco."</td>
 			</tr>";
 	}

@@ -6,7 +6,7 @@ include_once MODELPATH."/cardapio.php";
 include_once MODELPATH."/combo.php";
 include_once MODELPATH."/item-combo.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/home/controler/controlAdicional.php";
-include_once "../../admin/controler/conexao.php";
+include_once "../../../admin/controler/conexao.php";
 
 class controlerCombo{
 
@@ -94,7 +94,7 @@ class controlerCombo{
     function selectItens($cod_combo){
         $parametro = $cod_combo;
         $itens=array();
-        $stmt=$this->pdo->prepare("SELECT item_combo.cod_item_combo, item_combo.quantidade, cardapio.nome, cardapio.preco FROM item_combo INNER JOIN cardapio ON item_combo.cod_produto=cardapio.cod_cardapio WHERE item_combo.cod_combo=:parametro");
+        $stmt=$this->pdo->prepare("SELECT item_combo.cod_item_combo, cardapio.nome, cardapio.preco FROM item_combo INNER JOIN cardapio ON item_combo.cod_produto=cardapio.cod_cardapio WHERE item_combo.cod_combo=:parametro");
         $stmt->bindParam(":parametro", $parametro, PDO::PARAM_INT);
         $executa=$stmt->execute();
         if ($executa) {
@@ -103,7 +103,6 @@ class controlerCombo{
                     $item = new itemCombo();
                     $item->setCod_item_combo($result->cod_item_combo);
                     $item->setProduto($result->nome);
-                    $item->setQuantidade($result->quantidade);
                     $item->preco=$result->preco;
                     array_push($itens,$item);  
                 }
