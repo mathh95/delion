@@ -120,9 +120,11 @@ if(count($itensSessao) > 0){
                         
                         <!-- <td class="subtotalProdutoTabela" id="subtotal<?php//echo $i?>"><strong>R$ <?php //echo number_format($item['preco'] - $perc, 2);?></strong></td> -->
                         <td><strong><?php if($item->getDelivery() == 1){
-                            echo "Disponível";
+                            echo "Disponível
+                            <button id='removeCombo' data-linha='".$i."' data-cod='".$item->getCod_cardapio()."' class='btn btn-danger'>Retirar do combo</button>";
                             }else{
-                            echo "Não disponível";
+                            echo "Não disponível<br>
+                            <button id='removeCombo' data-linha='".$i."' data-cod='".$item->getCod_cardapio()."' class='btn btn-danger'>Retirar do combo</button>";
                             $pedidoBalcao=$pedidoBalcao + 1;
                             }?></strong> </td>
                     </tr>

@@ -54,6 +54,10 @@ function esvaziar(){
         url: 'ajax/quantidade-combo.php',
 
         data: {acao: acao},
+
+        success:function(resultado){
+            window.location='/home/cardapio.php';
+        }
     });
 }
 
@@ -82,29 +86,34 @@ $(document).on("click", "#finalizar", function(){
     });
 });
 
-$(document).on("click", "#removeItem", function(){
+$(document).on("click", "#removeCombo", function(){
     var acao = "rem";
-    var linha = $(this).data('linha');
-    var id = $("#idLinha"+linha).data('id');
-    var qtdAtual = $("#qtdUnidade"+linha).val();
-    var preco = $("#preco"+linha).data('preco');
-    var desconto = $("#preco"+linha).data('desconto');
+    var linha = $(this).data("linha");
+    var subtotal = $("#sub"+linha).val();
+    var desconto = $("#desc"+linha).val();
 
     $.ajax({
-        type: 'GET',
+        type:'POST',
 
         url: 'ajax/quantidade-combo.php',
 
-        data: {acao: acao, preco: preco, qtdAtual: qtdAtual, id: id, desconto:desconto},
+        data: {linha:linha, subtotal:subtotal, desconto:desconto, acao:acao},
 
-        success:function(resultado){
-            $("#total").html(resultado);
-            var tr = $("#idLinha"+linha).fadeOut(100, function(){
-                tr.remove();
-            });
+        success:function(res){
+
+            $("#total").html(res);
             $("#spanCombo").html(parseInt($("#spanCombo").text()) - 1);
+            if($("#spanCombo").text() <= 0){
+                swal('Combo vazio!!').then((value) => {window.location='/home/cardapio.php'});
+            }else{
+                var tr = $("#idLinha"+linha).fadeOut(100, function(){
+                    tr.remove();
+                });
+            }
         }
     });
+    
+    
 });
 
 $(document).on("click", "#adicionarUnidade", function(){
