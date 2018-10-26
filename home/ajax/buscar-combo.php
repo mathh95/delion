@@ -60,7 +60,7 @@ if(count($itensSessao) > 0){
             <table class="tabela_itens table table-hover table-responsive table-condensed">
                 <thead>
                     <tr id="cabecalhoTabela" >
-                        <th>Foto</th>
+                        <th class="hidden-xs">Foto</th>
                         <th>Produto</th>
                         <th>Preço Unitário</th>
                         <th>Adicionais</th>
@@ -84,14 +84,14 @@ if(count($itensSessao) > 0){
                     $subtotal = $item->getPreco();
                     ?>
                     <tr id="idLinha<?=$i?>" class="produto" data-id="<?=$item->getCod_cardapio()?>">
-                        <td><img style="width:200px; height:100px;" src="../admin/<?=$item->getFoto()?>"></td>
+                        <td class="hidden-xs"><img style="width:200px; height:100px;" src="../admin/<?=$item->getFoto()?>"></td>
                         <td class="nomeProdutoTabela"><strong><?=$item->getNome()?></strong></td>
                         <td class="precoProdutoTabela" id="preco<?=$i?>" data-desconto="<?=$item->getDesconto()?>" data-preco="<?=$item->getPreco()?>"><strong>R$ <?=number_format($item->getPreco(), 2);?></strong></td>
                         <td style="font-size:10px;">
                             <table>
+                                <tr>
                                 <?php
                                     $j = 0;
-                                    echo "<tr>";
                                     foreach($adicionais as $adicional){
                                         if(!empty($adicionaisSessao[$i])){
                                             if(in_array($adicional['cod_adicional'], $adicionaisSessao[$i])){
@@ -110,17 +110,11 @@ if(count($itensSessao) > 0){
                                             // echo "<p>Esse produto não possui adicionais!!</p>";
                                         }
                                         $j++;
-                                        if($j == 2){
+                                        if($j == 1){
                                             echo "</tr>";
                                             $j = 0;
                                         }
                                     }
-                                    echo "</tr>";
-                                    echo "<input type='hidden' id='sub".$i."' value='".$subtotal."'>";
-                                    echo "<input type='hidden' id='desc".$i."' value='".$desconto."'>";
-                                    $descontoFinal = $desconto / 100;
-                                    $descontoFinal = $descontoFinal * $subtotal;
-                                    $subtotalFinal = $subtotal - $descontoFinal;
                                 ?>
                             </table>
                         
@@ -132,7 +126,14 @@ if(count($itensSessao) > 0){
                             $pedidoBalcao=$pedidoBalcao + 1;
                             }?></strong> </td>
                     </tr>
-            <?php $i++;
+            <?php
+            echo "</tr>";
+            echo "<input type='hidden' id='sub".$i."' value='".$subtotal."'>";
+            echo "<input type='hidden' id='desc".$i."' value='".$desconto."'>";
+            $descontoFinal = $desconto / 100;
+            $descontoFinal = $descontoFinal * $subtotal;
+            $subtotalFinal = $subtotal - $descontoFinal; 
+            $i++;
             $_SESSION['totalCombo']+= $subtotalFinal;
             endforeach;
             $_SESSION['pedidoBalcaoCombo']=$pedidoBalcao;   
