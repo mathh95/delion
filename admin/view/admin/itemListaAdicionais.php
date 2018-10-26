@@ -134,7 +134,7 @@
                                         <li><a href="clienteLista.php">Listar</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdown ">
                                     <a href="pedidoLista.php">Pedido</a>
                                 </li>
                                 <li class="dropdown active">
@@ -160,7 +160,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <?php include "../../ajax/item-tabela-combo.php"; ?>
+                <?php include "../../ajax/item-tabela-adicionais.php"; ?>
             </div>
         </div>
     </div>
