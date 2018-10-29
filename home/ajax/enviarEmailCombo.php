@@ -21,6 +21,7 @@ $html = "<head>
          <body>";
 $pedido = new controlerCombo(conecta());
 $cardapio = new controlerCardapio(conecta());
+$minimo = $pedido->selectMinCombo();
 $mail = new PHPMailer();
 if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
     $itens = $_SESSION['combo'];
@@ -32,7 +33,7 @@ if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
     if($itens > 0){
         $itens = $cardapio->buscarVariosId($itens);
     }
-    if(count($_SESSION['combo']) > 2){
+    if(count($_SESSION['combo']) > $minimo){
         if(isset($_SESSION['delivery']) && !empty($_SESSION['delivery'])){
             if (isset($_SESSION['pedidoBalcaoCombo'])) {
                 if (($_SESSION['delivery'] > 0) && ($_SESSION['pedidoBalcao'] == 0) || ($_SESSION['delivery'] < 0)){  
@@ -115,7 +116,7 @@ if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
         echo $html;
         }
     }else{
-        $html.= "<script>swal('Acesso negado!!', 'É preciso ter mais de 3 itens no combo!', 'error').then((value) => {window.location='/home/cardapio.php'});</script></body>";
+        $html.= "<script>swal('Acesso negado!!', 'É preciso ter mais de ". $minimo." itens no combo!', 'error').then((value) => {window.location='/home/cardapio.php'});</script></body>";
         echo $html;
     }
 }else {
