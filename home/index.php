@@ -162,7 +162,7 @@
 
 	</header>
 
-	<div id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<!-- <div id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		<div style="margin-top:110px; margin-left:250px;" class="modal-dialog modal-lg">
 			<div style="width:800px; position: relative;" class="modal-content">
 				<div style="position:absolute; top:0; right:0;">
@@ -186,7 +186,7 @@
 				?>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div id="navegacao">
 
