@@ -1,5 +1,5 @@
 <?php
-    include_once ROOTPATH."/config.php";
+    include_once "../../config.php";
     include_once MODELPATH."/adicional.php";
 
     class controlerAdicional {

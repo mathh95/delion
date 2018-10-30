@@ -30,6 +30,8 @@ if(isset($_GET['delivery']) && !empty($_GET['delivery'])){
     $_SESSION['delivery']=-1;
 }
 
+// session_destroy();
+
 
 if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
     $itensSessao = $_SESSION['combo'];
@@ -120,10 +122,10 @@ if(count($itensSessao) > 0){
                         
                         <!-- <td class="subtotalProdutoTabela" id="subtotal<?php//echo $i?>"><strong>R$ <?php //echo number_format($item['preco'] - $perc, 2);?></strong></td> -->
                         <td><strong><?php if($item->getDelivery() == 1){
-                            echo "Disponível
+                            echo "Disponível<br><br>
                             <button id='removeCombo' data-linha='".$i."' data-cod='".$item->getCod_cardapio()."' class='btn btn-danger'>Retirar do combo</button>";
                             }else{
-                            echo "Não disponível<br>
+                            echo "Não disponível<br><br>
                             <button id='removeCombo' data-linha='".$i."' data-cod='".$item->getCod_cardapio()."' class='btn btn-danger'>Retirar do combo</button>";
                             $pedidoBalcao=$pedidoBalcao + 1;
                             }?></strong> </td>

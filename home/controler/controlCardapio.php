@@ -82,6 +82,8 @@ include_once MODELPATH."/cardapio.php";
 
                             $cardapio->setAdicional($result->adicional);
 
+                            $cardapio->setDelivery($result->delivery);
+
                         }
 
                     }

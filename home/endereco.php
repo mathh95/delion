@@ -380,8 +380,6 @@
 
 	<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
-	<script 
-
 	<script>
 
 		$(".navbar-toggle li a").click(function() {
@@ -412,7 +410,7 @@
         $('[data-toggle="tooltip"]').tooltip();   
     });
 
-	</script>
+	</>
 
 </body>
 

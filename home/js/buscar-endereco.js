@@ -159,19 +159,39 @@ function excluirEndereco(endereco){
     });
   }
 
-  function selecionarEndereco(endereco){
+  function selecionarEndereco(endereco, flag){
       console.log(endereco);
-    $.ajax({
-            
-        type:'GET',
-        
-        url: 'ajax/enviarEmailPedido.php',
-        
-        data: {endereco : endereco},
-        
-        success:function(resultado){
-            swal("Pedido realizado com sucesso!", "Concluido, estaremos enviando seu pedido!", "success").then((value) => {window.location='/home'});
-        } 
+      console.log(flag);
 
-    });
+      if(flag == 1){
+        var url = "ajax/validaEnd.php";
+        $.ajax({
+            
+            type:'GET',
+            
+            url: url,
+            
+            data: {endereco : endereco},
+            
+            success:function(resultado){
+                swal("Endereço selecionado!", "Por favor, confirme seu pedido novamente!", "success").then((value) => {window.location='/home/combo.php'});
+            } 
+    
+        });
+      }else{
+        var url = "ajax/enviarEmailPedido.php";
+        $.ajax({
+            
+            type:'GET',
+            
+            url: url,
+            
+            data: {endereco : endereco},
+            
+            success:function(resultado){
+                swal("Pedido realizado com sucesso!", "Concluido, estaremos enviando seu pedido!", "success").then((value) => {window.location='/home'});
+            } 
+    
+        });
+      }
  }

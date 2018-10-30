@@ -26,13 +26,15 @@ class controlerCombo{
         $idCliente = $_SESSION['cod_cliente'];
         $valor = $_SESSION['totalCombo'];
         $status = 1;
+        $endereco = $_SESSION['cod_endereco'];
 
-        $sql = $this->pdo->prepare("INSERT INTO combo SET cliente = :idCliente, data = NOW(), valor = :valor, status = :status");
+        $sql = $this->pdo->prepare("INSERT INTO combo SET cliente = :idCliente, data = NOW(), valor = :valor, status = :status, endereco = :endereco");
 
         $sql->bindValue(":idCliente", $idCliente);
         // $sql->bindValue(":data", $data);
         $sql->bindValue(":valor", $valor);
         $sql->bindValue(":status", $status);
+        $sql->bindValue(":endereco", $endereco);
 
         $sql->execute();
 
