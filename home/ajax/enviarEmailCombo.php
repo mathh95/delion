@@ -249,15 +249,9 @@ if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
         }
 
     }else{
-<<<<<<< HEAD
         $html.= "<script>swal('Acesso negado!!', 'É preciso ter no minimo 3 itens no combo!', 'error').then((value) => {window.location='/home/combo.php'});</script></body>";
         echo $html;  
-=======
-        $html.= "<script>swal('Acesso negado!!', 'É preciso ter mais de ". $minimo." itens no combo!', 'error').then((value) => {window.location='/home/cardapio.php'});</script></body>";
-        echo $html;
->>>>>>> e1735bfffc8e7996e9a2936420c38038b25554e4
     }
-
 
 }else {
     $html.= "<script>swal('Acesso negado!!', 'É preciso ter itens no combo!', 'error').then((value) => {window.location='/home/cardapio.php'});</script></body>";
