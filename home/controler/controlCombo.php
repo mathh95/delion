@@ -181,5 +181,26 @@ class controlerCombo{
             return -1;
         }
     }
+    
+    function selectMinCombo(){
+        $stmt=$this->pdo->prepare("SELECT * FROM minimo_combo");
+        $executa=$stmt->execute();
+        if ($executa) {
+            return $minimo =$stmt->fetch(PDO::FETCH_OBJ)->minimo;
+        }else {
+            return -1;
+        }
+    }
+
+    function updateMinCombo($parametro){
+        $stmt=$this->pdo->prepare("UPDATE minimo_combo SET minimo = :parametro");
+        $stmt->bindValue(":parametro", $parametro);
+        $executa=$stmt->execute();
+        if ($executa) {
+            return 1;
+        }else {
+            return -1;
+        }
+    }
 }
 ?>
