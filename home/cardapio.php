@@ -1,5 +1,8 @@
 <?php 
 session_start();
+
+	include_once "../config.php";
+
 	include_once "../admin/controler/conexao.php";
 
 	include_once "controler/controlEmpresa.php";
