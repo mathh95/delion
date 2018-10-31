@@ -161,18 +161,18 @@ if(count($itensSessao) > 0){
         </div>";
 
     if($codEnd != null){
-        echo "<div class='endereco row'>
+        echo "<div style='margin-left:10px;' class='endereco row'>
             <h3 id='tituloEndereco'>Endereço selecionado:</h3><br>
             <strong><p id='endereco'>Rua: ".$codEnd[0]->getRua()." Nº ".$codEnd[0]->getNumero()."</p></strong>
         </div><hr>";
     }
-
-    echo "<div class='rodapeCarrinho row'>
+    if($codEnd != null){
+        echo "<div class='rodapeCarrinho row'>
             <div class='ladoEsquerdo'>                    
                 <strong><p>Escolha como vai receber o pedido: </p>
                 </strong>
                 <div class='btn-group btn-group-toggle' data-toggle='buttons'>
-                    <label class='btn btn-primary' id='delivery' onclick='tipoPedido(1)'>
+                    <label class='btn btn-primary active' id='delivery' onclick='tipoPedido(1)'>
                         <input type='radio' name='delivery'  autocomplete='off'> Delivery
                     </label>
                     <label class='btn btn-primary'  id='balcao' onclick='tipoPedido(-1)'>
@@ -189,6 +189,31 @@ if(count($itensSessao) > 0){
                 </div>
             </div>
         </div>";
+    }else{
+        echo "<div class='rodapeCarrinho row'>
+            <div class='ladoEsquerdo'>                    
+                <strong><p>Escolha como vai receber o pedido: </p>
+                </strong>
+                <div class='btn-group btn-group-toggle' data-toggle='buttons'>
+                    <label class='btn btn-primary' id='delivery' onclick='tipoPedido(1)'>
+                        <input type='radio' name='delivery'  autocomplete='off'> Delivery
+                    </label>
+                    <label class='btn btn-primary active'  id='balcao' onclick='tipoPedido(-1)'>
+                        <input type='radio' name='balcao' autocomplete='off'> Balcão
+                    </label>
+                </div>
+            </div>
+            <div class='ladoDireito row'>
+                <strong><p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)." 
+                </p></strong>
+                <div class='row linhaBotao'>
+                        <a class='botaoCarrinhoEnviar' href='#'><button id='finalizar' class='btn'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
+                        <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho <i class='fas fa-trash-alt'></i></button></a>
+                </div>
+            </div>
+        </div>";
+    }
+    
 
         // print_r($_SESSION['totalCombo']);
     

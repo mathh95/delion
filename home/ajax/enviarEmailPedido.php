@@ -99,6 +99,11 @@ $mail->Body.="</tbody>
             <p>Valor total do pedido: ".number_format($_SESSION['totalCarrinho'], 2)."</p>";
 $mail->AltBody = 'Nem sei oque é isso kkkkkk';
 $mail->send();
+
+$_SESSION['flag_combo'] = "";
+$_SESSION['cod_endereco'] = "";
+$_SESSION['delivery'] = "";
+
 }catch(Exception $e){
     echo $mail->ErrorInfo;
 }
@@ -171,6 +176,11 @@ echo $html;
                 <p>Valor total do pedido: ".number_format($_SESSION['totalCarrinho'], 2)."</p>";
     $mail->AltBody = 'Nem sei oque é isso kkkkkk';
     $mail->send();
+
+    $_SESSION['flag_combo'] = "";
+    $_SESSION['cod_endereco'] = "";
+    $_SESSION['delivery'] = "";
+
     }catch(Exception $e){
         echo $mail->ErrorInfo;
     }
