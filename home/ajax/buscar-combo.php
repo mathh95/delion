@@ -1,10 +1,13 @@
 <?php
-session_start();
+// session_start();
 
 ini_set('display_errors', true);
 
 date_default_timezone_set('America/Sao_Paulo');
 
+include_once "../../admin/model/endereco.php";
+
+include_once "../controler/controlEndereco.php";
 
 include_once "../../admin/controler/conexao.php";
 
@@ -23,11 +26,23 @@ $adicionaisSessao = array();
 $itensSessao = array();
 $cardapio = new controlerCardapio(conecta());
 $controleAdicional = new controlerAdicional(conecta());
+$controlEndereco = new controlEndereco(conecta());
 // $pedido = new enviarEmailPedido;
 if(isset($_GET['delivery']) && !empty($_GET['delivery'])){
     $_SESSION['delivery']=$_GET['delivery'];
 }else{
     $_SESSION['delivery']=-1;
+}
+
+if(isset($_SESSION['cod_endereco']) && !empty($_SESSION['cod_endereco'])){
+    $codEnd = $_SESSION['cod_endereco'];
+    $codEnd = $controlEndereco->select($codEnd, 1);
+    // echo '<pre>';
+    // print_r($codEnd);
+    // echo '</pre>';
+    // exit;
+}else{
+    $codEnd = null;
 }
 
 // session_destroy();
@@ -143,8 +158,16 @@ if(count($itensSessao) > 0){
             $_SESSION['pedidoBalcaoCombo']=$pedidoBalcao;   
     echo "</tbody>
         </table>
-        </div>
-        <div class='rodapeCarrinho row'>
+        </div>";
+
+    if($codEnd != null){
+        echo "<div class='endereco row'>
+            <h1>Endereço selecionado:</h1><br>
+            <strong><p>Rua: ".$codEnd[0]->getRua()." Nº ".$codEnd[0]->getNumero()."</p></strong>
+        </div><hr>";
+    }
+
+    echo "<div class='rodapeCarrinho row'>
             <div class='ladoEsquerdo'>                    
                 <strong><p>Escolha como vai receber o pedido: </p>
                 </strong>
