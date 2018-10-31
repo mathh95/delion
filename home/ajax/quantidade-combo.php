@@ -17,6 +17,9 @@ $acao = $_POST['acao'];
 
 if (isset($_GET['delivery']) && !empty($_GET['delivery'])){
     $_SESSION['delivery'] = $_GET['delivery'];
+    if($_GET['delivery'] == -1){
+        $_SESSION['cod_endereco'] = "";
+    }
 }
 
 if($acao == "addAdicional"){
