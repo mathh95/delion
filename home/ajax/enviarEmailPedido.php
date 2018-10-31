@@ -164,7 +164,7 @@ echo $html;
                             <td height='10%'>".$_SESSION['carrinho'][$key]."</td>
                             <td height='10%'>".date("r")."</td>
                             <td height='10%'>".$_SESSION['nome']."</td>
-                            <td height='10%'>".$endereco->getRua()."</td>
+                            <td height='10%'>".$endereco->getRua()."<br>".$endereco->getNumero()."</td>
                             <td height='10%'>".$itens[$key]['nome']."</td>
                             <td height='10%'>".$_SESSION['qtd'][$key]."</td> 
                             <td height='10%'>R$ ".number_format($itens[$key]['preco'], 2)."</td>

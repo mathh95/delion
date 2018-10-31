@@ -189,7 +189,7 @@ if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
                                                             <th width='15%' height='20%'>Item</th>
                                                             <th width='15%'>Data</th>
                                                             <th width='15%'>Cliente</th>
-                                                            <th width='15%'>Rua</th>
+                                                            <th width='15%'>Endereço</th>
                                                             <th width='15%'>Produto</th>
                                                             <th width='15%'>Adicionais</th>
                                                         </tr>
@@ -205,7 +205,7 @@ if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
                                                     <td height='15%'>".$_SESSION['combo'][$key]."</td>
                                                     <td height='15%'>".date("r")."</td>
                                                     <td height='15%'>".$_SESSION['nome']."</td>
-                                                    <td heght='15%'>".$endereco->getRua()."</td>
+                                                    <td heght='15%'>".$endereco->getRua()."<br>".$endereco->getNumero()."</td>
                                                     <td height='15%'>".$itensCombo[$key]->getNome()."</td>
                                                     <td height='15%'>";
                                                     foreach($adicionaisItem as $ad){

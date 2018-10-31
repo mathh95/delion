@@ -28,8 +28,8 @@ $cardapio = new controlerCardapio(conecta());
 $controleAdicional = new controlerAdicional(conecta());
 $controlEndereco = new controlEndereco(conecta());
 // $pedido = new enviarEmailPedido;
-if(isset($_GET['delivery']) && !empty($_GET['delivery'])){
-    $_SESSION['delivery']=$_GET['delivery'];
+if(isset($_SESSION['cod_endereco']) && !empty($_SESSION['cod_endereco'])){
+    $_SESSION['delivery']=1;
 }else{
     $_SESSION['delivery']=-1;
 }
