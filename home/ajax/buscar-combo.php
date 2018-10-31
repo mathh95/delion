@@ -162,8 +162,8 @@ if(count($itensSessao) > 0){
 
     if($codEnd != null){
         echo "<div class='endereco row'>
-            <h1>Endereço selecionado:</h1><br>
-            <strong><p>Rua: ".$codEnd[0]->getRua()." Nº ".$codEnd[0]->getNumero()."</p></strong>
+            <h3 id='tituloEndereco'>Endereço selecionado:</h3><br>
+            <strong><p id='endereco'>Rua: ".$codEnd[0]->getRua()." Nº ".$codEnd[0]->getNumero()."</p></strong>
         </div><hr>";
     }
 
