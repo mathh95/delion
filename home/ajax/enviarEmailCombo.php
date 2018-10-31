@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 
 include_once "../../config.php";
 
@@ -27,6 +27,9 @@ $html = "<head>
          </head>
          <body>";
 $pedido = new controlerCombo(conecta());
+
+$minCombo = $pedido->selectMinCombo();
+
 $cardapio = new controlerCardapio(conecta());
 $controleAdicional = new controlerAdicional(conecta());
 $mail = new PHPMailer();
@@ -50,7 +53,7 @@ if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
         $cod_endereco = null;
     }
 
-    if(count($itensCombo) >= 3){
+    if(count($itensCombo) >= $minCombo){    
         
         if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
             
@@ -252,7 +255,7 @@ if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
         }
 
     }else{
-        $html.= "<script>swal('Acesso negado!!', 'É preciso ter no minimo 3 itens no combo!', 'error').then((value) => {window.location='/home/combo.php'});</script></body>";
+        $html.= "<script>swal('Acesso negado!!', 'É preciso ter no minimo ".$minCombo." itens no combo!', 'error').then((value) => {window.location='/home/combo.php'});</script></body>";
         echo $html;  
     }
 
