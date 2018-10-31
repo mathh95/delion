@@ -93,6 +93,39 @@ class controlerCombo{
         }
     }
 
+    function selectCombo($cod_cliente){
+        $parametro = $cod_cliente;
+        $combos= array();
+        $stmt=$this->pdo->prepare("SELECT A.cod_combo, A.data, A.valor, B.rua, B.numero, B.cep FROM combo AS A LEFT JOIN endereco AS B ON endereco=B.cod_endereco WHERE A.cliente=:parametro ORDER BY data DESC, cod_combo DESC");
+        $stmt->bindParam(":parametro", $parametro, PDO::PARAM_INT);
+        $executa=$stmt->execute();
+        if ($executa) {
+            if ($stmt->rowCount() > 0 ){
+                while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                    $combo = new combo();
+                    $combo->setCod_combo($result->cod_combo);
+                    $combo->setData(new DateTime($result->data));
+                    $combo->setValor($result->valor);
+                    if ($result->rua == null){
+                        $combo->rua = 'retirado no balcão';
+                        $combo->numero = 'retirado no balcão';
+                        $combo->cep = 'retirado no balcão'; 
+                    }else{
+                        $combo->rua = $result->rua;
+                        $combo->numero = $result->numero;
+                        $combo->cep = $result->cep;
+                    }
+                    array_push($combos,$combo);  
+                }
+            }else{
+                return -1;
+            }
+            return $combos;
+        }else {
+            return -1;
+        }
+    }
+
     function selectItens($cod_combo){
         $parametro = $cod_combo;
         $itens=array();
@@ -106,6 +139,20 @@ class controlerCombo{
                     $item->setCod_item_combo($result->cod_item_combo);
                     $item->setProduto($result->nome);
                     $item->preco=$result->preco;
+                        $stmnt=$this->pdo->prepare("SELECT A.cod_adicional, B.nome FROM item_adicional as A INNER JOIN adicional as B ON A.cod_adicional = B.cod_adicional WHERE cod_item_combo = :parametro");
+                        $stmnt->bindParam(":parametro", $result->cod_item_combo, PDO::PARAM_INT);
+                        $execute=$stmnt->execute();
+                        $adicionais = array();
+                        if ($execute){
+                            if ($stmnt->rowcount()>0){
+                                while($resultado=$stmnt->fetch(PDO::FETCH_OBJ)){
+                                    $adicional = new Adicional();
+                                    $adicional->setNome($resultado->nome);
+                                    array_push($adicionais,$adicional);
+                                }
+                            }
+                        }
+                    $item->adicionais=$adicionais;
                     array_push($itens,$item);  
                 }
             }else{
