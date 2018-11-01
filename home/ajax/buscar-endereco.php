@@ -12,6 +12,8 @@ $controleEndereco=new controlEndereco(conecta());
 
 if(isset($_SESSION['flag_combo']) && !empty($_SESSION['flag_combo'])){
     $flag = $_SESSION['flag_combo'];
+}else{
+    $flag = 0;
 }
 
 $_SESSION['tipoEndereco']=$_GET['tipo'];
