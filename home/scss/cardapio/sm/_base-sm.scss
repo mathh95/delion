@@ -162,17 +162,23 @@ body{
                 @include make-sm-column(8);
                 padding-left: 0px;
                 padding-right: 0px;
+                font-size: 10px;
                 > .titulo {
                     font-size: 14px;
                     text-align: center;
                     padding-bottom: 8px;
-                }
+                } 
                 #addCarrinho{
+                    font-size: 10px;
                     background-color: #C57686;
                     border: 1px solid #91414F;
                     color:#fff;
+                    margin-top: 2%;
+                    margin-bottom: 10px;
                 }
                 #addCombo{
+                    width: 117px;
+                    font-size: 10px;
                     background-color: #C57686;
                     border: 1px solid #91414F;
                     color:#fff;

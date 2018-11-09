@@ -279,7 +279,7 @@ session_start();
 
 		</div>
 
-		<div class="imagem img">
+		<div class="imagem img hidden-xs">
 
 			<?php 
 
