@@ -164,6 +164,7 @@ if(count($itensSessao) > 0){
         echo "<div style='margin-left:10px;' class='endereco row'>
             <h3 id='tituloEndereco'>Endereço selecionado:</h3><br>
             <strong><p id='endereco'>Rua: ".$codEnd[0]->getRua()." Nº ".$codEnd[0]->getNumero()."</p></strong>
+            <a href='/home/endereco.php'><button class='btn btn-info'>Alterar Endereço</button></a>
         </div><hr>";
     }
     if($codEnd != null){

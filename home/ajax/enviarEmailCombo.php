@@ -257,7 +257,7 @@ if(isset($_SESSION['combo']) && !empty($_SESSION['combo'])){
                 }
 
             }else{
-                $html.= "<script>swal('Acesso negado!!', 'É preciso selecionar alguma forma de receimento!', 'info').then((value) => {window.location='/home/combo.php'});</script></body>";
+                $html.= "<script>swal('Acesso negado!!', 'É preciso selecionar alguma forma de recebimento!', 'info').then((value) => {window.location='/home/combo.php'});</script></body>";
                     echo $html;
             }
               
