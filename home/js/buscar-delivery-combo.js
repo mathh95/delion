@@ -119,6 +119,7 @@ function delivery(ativo, busca, pagina) {
         }else{
             $("#balcao").addClass('active');
             $("#delivery").removeClass('active');
+            $("#end").hide();
         }
 
         $.ajax({
