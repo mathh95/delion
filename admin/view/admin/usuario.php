@@ -265,7 +265,10 @@
                                 </li>
                                 <li class="dropdown">
                                     <a href="enderecoLista.php">Endereços</a>
-                                </li>     
+                                </li>
+                                <li class="dropdown"> <!--/.Mudar aqui -->
+                                    <a href="pedidoWpp.php">Pedidos Whatsapp</a>     
+                                </li>      
 
                                 </ul>
 
@@ -504,6 +507,14 @@
 
                                         </label>
 
+                                    </li>
+
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="pedidoWpp" name="13permissao" value="pedidoWpp">Pedido Whatsapp
+
+                                        </label>
                                     </li>
 
                                 </ul>

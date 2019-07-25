@@ -2,19 +2,19 @@
 
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 
+    include_once CONTROLLERPATH."/seguranca.php";
+
     include_once CONTROLLERPATH."/controlUsuario.php";
+
+    include_once HOMEPATH."home/controler/controlCliente.php";
 
     include_once MODELPATH."/usuario.php";
 
-    include_once CONTROLLERPATH."/seguranca.php";
+    include_once MODELPATH."/cliente.php";
 
     $_SESSION['permissaoPagina']=0;
 
     protegePagina();
-
-    $controleUsuario = new controlerUsuario($_SG['link']);
-
-    $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 ?>
 
@@ -24,7 +24,39 @@
 
     <head>
 
-        <?php include VIEWPATH."/cabecalho.html" ?>
+        <meta charset="utf-8">
+
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <meta name="description" content="">
+
+        <meta name="author" content="">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Área Administrativa</title>
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link href="../../vendor/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="../../vendor/bootstrap3/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="../../dist/css/normalize.css">
+
+        <link rel="stylesheet" href="../../dist/css/main.css">
+
+        <script src="../../dist/js/vendor/modernizr-2.8.3.min.js"></script>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+
+        <!--[if lt IE 9]>
+
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+        <![endif]-->
 
     </head>
 
@@ -186,12 +218,15 @@
                                         <li><a href="clienteLista.php">Listar</a></li>
                                     </ul>
                                 </li>
+
                                 <li class="dropdown">
                                     <a href="pedidoLista.php">Pedido</a>
                                 </li>
+
                                 <li class="dropdown">
                                     <a href="comboLista.php">Combo</a>
-                                </li> 
+                                </li>  
+                                
                                 <li class="dropdown">
                                     <a href="/home/avaliacao.php">Avaliar</a>
                                 </li>
@@ -200,7 +235,7 @@
                                 </li>
                                 <li class="dropdown"> <!--/.Mudar aqui -->
                                     <a href="pedidoWpp.php">Pedidos Whatsapp</a>     
-                                </li>      
+                                </li>   
                             </ul>
                         </div>
 
@@ -222,33 +257,43 @@
 
         </header>
 
+        <?php
+
+            $controle = new controlCliente($_SG['link']);
+
+            $cliente = $controle->select($_GET['cod'], 2);
+
+            $controleUsuario= new controlerUsuario($_SG['link']);
+
+            $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
+
+            $permissaos=json_decode($usuarioPermissao->getPermissao());
+
+            $p="[";
+
+            foreach ($permissaos as $permissao) {
+
+                $p.='"'.$permissao.'",';
+
+            }
+
+            $p.="]";
+
+        ?>
+
         <div class="container-fluid">
 
-            <form class="form-horizontal" id="form-cadastro-cliente" method="post" action="../../controler/businesCliente.php">
+            <form class="form-horizontal" id="form-cadastro-cliente" method="post" action="../../controler/alterarCliente.php">
 
                 <div class="col-md-12">
 
+                    <h3>Dados do Pedido</h3>    <!-- Alterar os get nesse ponto -->
+
                     <div class="row">
 
-                        <div class="col-md-5">
+                        <div class="col-md-6">
 
-                            <h3>Dados Pessoais</h3>
-
-                            <small>Nome:</small>
-
-                            <br>
-
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-
-                                <input class="form-control" placeholder="Nome" name="nome" value="" required autofocus type="text">
-
-                            </div>
-
-                            <br>
-
-                            <small>Login:</small>
+                            <small>Nome do Cliente:</small>
 
                             <br>
 
@@ -256,41 +301,99 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 
-                                <input class="form-control" placeholder="Login" name="login" value="" required  type="text">
+                                <input class="form-control" placeholder="Nome do Cliente" name="nome" value="<?=$cliente->getNome(); ?>" required autofocus type="text">
+
+                                <input type="text" class="form-control"  style="display:none" id="cod" name="cod_cliente" maxlength="50" value="<?=  $cliente->getCod_cliente(); ?>" >
 
                             </div>
-
-                            <br>
-
-                            <small>Senha:</small>
-
-                            <br>
-
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-
-                                <input class="form-control" placeholder="Senha" name="senha" value="" required  type="password">
-
-                            </div>
-
-                            <br>
-
-                            <small>Telefone:</small>
-
-                            <br>
-
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-
-                                <input class="form-control" placeholder="Telefone" name="telefone" value="" type="number">
-
-                            </div>     
-
-                            <br>
 
                         </div>
+
+                            <br>
+
+                            <div class="col-md-6">
+
+                                <small>Telefone do Cliente:</small>
+
+                                <br>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+
+                                    <input class="form-control" placeholder="Telefone" name="telefone" value="<?=$cliente->getTelefone(); ?>" type="number">
+
+                                </div>
+
+                            </div>
+
+                            <br>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <small>Endereço Cliente:</small>
+
+                                    <br>
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
+
+                                        <input class="form-control" placeholder="Rua" name="rua" value="<?=$empresa->getEndereco(); ?>" type="text">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <br>
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
+
+                                        <input class="form-control" placeholder="Número" name="numero" value="<?=$empresa->getEndereco(); ?>" type="number">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <br>
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
+
+                                        <input class="form-control" placeholder="Bairro" name="bairro" value="<?=$empresa->getEndereco(); ?>" type="text">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <br>
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
+
+                                        <input class="form-control" placeholder="Complemento" name="complemento" value="<?=$empresa->getEndereco(); ?>" type="text">
+
+                                    </div>
+
+                                </div>
+
+                                
+
+                        <div class="col-md-1"></div>
 
                     </div>
 
@@ -308,7 +411,7 @@
 
                         if (in_array('cliente', $permissao)){ ?>
 
-                            <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Salvar</button>
+                            <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o""></i> Alterar</button>
 
                         <?php } ?>
 
@@ -316,7 +419,7 @@
 
                         <div class="pull-right">
 
-                            <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
+                            <a href="clienteLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Voltar</a>
 
                         </div>
 
@@ -342,25 +445,19 @@
 
         </footer>
 
-        <?php include VIEWPATH."/rodape.html" ?>
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 
-        <script>
+        <script>window.jQuery || document.write('<script src="../../dist/js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
 
-            function confereSenha() {
+        <script src="../../vendor/bootstrap3/js/bootstrap.min.js"></script>
 
-                if($("#senha1").val().length>5){
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 
-                    $("#alteraSenha").submit();
+        <script src="../../vendor/bootstrap3/js/ie10-viewport-bug-workaround.js"></script>
 
-                }else{
+        <script src="../../dist/js/plugins.js"></script>
 
-                    alertComum('Erro!','Senhas devem conter no mínimo 6 caracteres!',2);
-
-                }
-
-            }
-
-        </script>
+        <script src="../../dist/js/main.js"></script>
 
     </body>
 

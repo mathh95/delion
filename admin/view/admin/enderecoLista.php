@@ -145,7 +145,10 @@
                                 </li> 
                                 <li class="dropdown active">
                                     <a href="enderecoLista.php">Endereços</a>
-                                </li>   
+                                </li>
+                                <li class="dropdown"> <!--/.Mudar aqui -->
+                                    <a href="pedidoWpp.php">Pedidos Whatsapp</a>     
+                                </li>    
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">

@@ -15,6 +15,7 @@
     $controleUsuario = new controlerUsuario($_SG['link']);
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
+    
 
 ?>
 
@@ -179,7 +180,7 @@
                                         <li><a href="miniBannerLista.php">Listar</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown active ">
+                                <li class="dropdown ">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="cliente.php">Cadastro</a></li>
@@ -198,7 +199,7 @@
                                 <li class="dropdown">
                                     <a href="enderecoLista.php">Endereços</a>
                                 </li>
-                                <li class="dropdown"> <!--/.Mudar aqui -->
+                                <li class="dropdown active "> <!--/.Mudar aqui -->
                                     <a href="pedidoWpp.php">Pedidos Whatsapp</a>     
                                 </li>      
                             </ul>
@@ -228,27 +229,13 @@
 
                 <div class="col-md-12">
 
+                    <h3>Dados do Pedido</h3>
+
                     <div class="row">
 
-                        <div class="col-md-5">
+                        <div class="col-md-6">
 
-                            <h3>Dados Pessoais</h3>
-
-                            <small>Nome:</small>
-
-                            <br>
-
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-
-                                <input class="form-control" placeholder="Nome" name="nome" value="" required autofocus type="text">
-
-                            </div>
-
-                            <br>
-
-                            <small>Login:</small>
+                            <small>Nome do Cliente:</small>
 
                             <br>
 
@@ -256,27 +243,17 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 
-                                <input class="form-control" placeholder="Login" name="login" value="" required  type="text">
+                                <input class="form-control" placeholder="Nome do Cliente" name="nome" value="" required autofocus type="text">
 
                             </div>
 
                             <br>
 
-                            <small>Senha:</small>
+                        </div>
 
-                            <br>
+                        <div class="col-md-6">
 
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-
-                                <input class="form-control" placeholder="Senha" name="senha" value="" required  type="password">
-
-                            </div>
-
-                            <br>
-
-                            <small>Telefone:</small>
+                            <small>Telefone do Cliente:</small>
 
                             <br>
 
@@ -286,25 +263,156 @@
 
                                 <input class="form-control" placeholder="Telefone" name="telefone" value="" type="number">
 
-                            </div>     
-
-                            <br>
+                            </div> 
 
                         </div>
 
                     </div>
 
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <small>Endereço Cliente:</small>
+
+                            <br>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
+
+                                <input class="form-control" placeholder="Rua" name="rua" value="" required autofocus type="text">
+
+                            </div>
+
+                            <br>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <br>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
+
+                                <input class="form-control" placeholder="Número" name="numero" value="" type="number">
+
+                            </div> 
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <br>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
+
+                                <input class="form-control" placeholder="Bairro" name="bairro" value="" required autofocus type="text">
+
+                            </div>
+
+                            <br>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <br>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
+
+                                <input class="form-control" placeholder="Complemento" name="complemento" value="" type="text">
+
+                            </div> 
+
+                        </div>
+
+                    </div>
+                    
+                    <div class="row">
+                    
+                    <div class="col-md-6">
+
+                            <h3>Pedido:</h3>
+                    
+                    </div>
+
+                    </div>
+
+
+                    <div class="row">
+
+                    <div class="container-fluid">
+                    <div class="searchbar">
+                        <div class="mini-divs"> 
+                            <label>Filtro por nome: </label>
+                            <input id="pesquisa" class="form-control" type="text" required placeholder="Nome para pesquisa">
+                        </div>
+                        <div class="mini-divs"> 
+                            <label> Situação </label>
+                            <select class="form-control" id="flag">
+                                <option value=''>TODOS</option>
+                                <option value='0'>INATIVO</option>
+                                <option value='1'>ATIVO</option>
+                            </select>
+                        </div>
+                        <div class="mini-divs"> 
+                            <label> Delivery </label>
+                            <select class="form-control" id="delivery">
+                                <option value=''>TODOS</option>
+                                <option value='0'>INDISPONÍVEL</option>
+                                <option value='1'>DISPONÍVEL</option>
+                            </select>
+                        </div>
+                        <div class="mini-divs"> 
+                            <label> Prioridade </label>
+                            <select class="form-control" id="prioridade">
+                                <option value=''>TODOS</option>
+                                <option value='0'>NÃO PRIORITÁRIO</option>
+                                <option value='1'>PRIORITÁRIO</option>
+                            </select>
+                        </div>
+                        <div class="mini-divs"> 
+                            <label> Categoria </label>
+                            <select class="form-control" id="categoria">
+                                <option value=''>TODOS</option>
+                                <?php
+                                foreach ($categorias as $categoria) {
+                                    $nome = $categoria->getNome();
+                                    echo "<option value=".$nome.">".$nome."</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div id="tabela-cardapio" class="col-lg-12">
+                                <?php include "../../ajax/cardapioWpp-tabela.php";?>
+                            </div>
+                        </div>
                 </div>
 
+                    </div>
+                    
                 <div class="col-md-12">
 
-                    <div class="col-md-5" style="padding-left: 0px;">
+                    <div class="col-md-5" style="padding-left: 0px;"> <!-- Alterar a função onClick -->
 
                         <div class="pull-left">
 
                         <?php
 
-                        $permissao =  json_decode($usuarioPermissao->getPermissao());
+                        $permissao =  json_decode($usuarioPermissao->getPermissao()); 
 
                         if (in_array('cliente', $permissao)){ ?>
 
@@ -361,6 +469,32 @@
             }
 
         </script>
+
+<script type="text/javascript">
+        
+            $('#pesquisa,#flag,#delivery,#prioridade,#categoria').on('change paste keyup', function(){
+            var nome = $("#pesquisa").val();
+            var flag = $("#flag").val();
+            var delivery = $("#delivery").val();
+            var prioridade = $("#prioridade").val();
+            var categoria = $("#categoria").val();
+            var url = '../../ajax/cardapioWpp-tabela.php';
+            $.ajax({
+                type: 'POST',
+
+                url: url,
+
+                data: {nome:nome, flag:flag, delivery:delivery, prioridade:prioridade, categoria:categoria},
+
+                success:function(res){
+                    $("#tabela-cardapio").html(res);
+                }
+            });
+        });
+    </script>
+
+
+
 
     </body>
 

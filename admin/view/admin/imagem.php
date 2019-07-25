@@ -255,8 +255,11 @@
                                         <a href="/home/avaliacao.php">Avaliar</a>
                                     </li>
                                     <li class="dropdown">
-                                    <a href="enderecoLista.php">Endereços</a>
-                                </li>  
+                                        <a href="enderecoLista.php">Endereços</a>
+                                    </li>
+                                    <li class="dropdown"> <!--/.Mudar aqui -->
+                                        <a href="pedidoWpp.php">Pedidos Whatsapp</a>     
+                                    </li>   
 
                                 </ul>
 

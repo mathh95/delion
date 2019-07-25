@@ -268,6 +268,10 @@
                                         <a href="/home/avaliacao.php">Avaliar</a>
                                     </li>
 
+                                    <li class="dropdown"> <!--/.Mudar aqui -->
+                                        <a href="pedidoWpp.php">Pedidos Whatsapp</a>     
+                                    </li> 
+
                                 </ul>
 
                             </div><!--/.nav-collapse -->
