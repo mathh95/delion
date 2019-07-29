@@ -40,12 +40,12 @@
                 array_push($keys_array, key($array));
                 next($array);
             }
-            $batata = [];
+            $itens = [];
             if(!empty($keys_array))
-                $batata = $controller->buscarVariosId($keys_array);
+                $itens = $controller->buscarVariosId($keys_array);
             
             $return_array = [];
-            foreach($batata as $item){
+            foreach($itens as $item){
                 $return_array[$item['cod_cardapio']] = [];
                 $return_array[$item['cod_cardapio']]['nome'] = $item['nome'];
                 $return_array[$item['cod_cardapio']]['valor'] = $item['preco'];
