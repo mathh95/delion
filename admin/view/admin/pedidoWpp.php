@@ -383,7 +383,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                                 <?php } ?>
                             </div>
                             <div class="pull-right">
-                                <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
+                                <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser btn iconeRemProduto"></i> Limpar Formulário</button>
                             </div>
                         </div>
                     </div>
@@ -565,6 +565,21 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                 }
             });
         })
+        
+        $(document).on('click', '.iconeRem', function() {
+            var url = '../../ajax/atualiza-CarrinhoWpp.php';
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                data: {
+                    cod_produto: $(this).parent().parent().data("id"),
+                },
+                success: function(res) {
+                    updatePedidoTable();
+                }
+            });
+        })
+        
 
         $(document).on('click', '.iconeDecProduto', function() {
             var url = '../../ajax/atualiza-CarrinhoWpp.php';
