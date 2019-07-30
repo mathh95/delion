@@ -233,7 +233,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
     <div class="container-fluid">
 
-        <form class="form-horizontal" id="form-cadastro-cliente" method="post" action="../../controler/businesCliente.php">
+        <form class="form-horizontal" id="form-cadastro-cliente" method="post" action="../../controler/businesClienteWpp.php">
 
             <div class="col-md-12">
 
@@ -269,7 +269,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
                             <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
 
-                            <input class="form-control" placeholder="Telefone" name="telefone" value="" type="number">
+                            <input class="form-control" placeholder="Telefone" name="telefone" value="" type="number" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
 
                         </div>
 
@@ -405,7 +405,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                 <div class="searchbar">
                     <div class="mini-divs">
                         <label>Filtro por nome: </label>
-                        <input id="pesquisa" class="form-control" type="text" required placeholder="Nome para pesquisa">
+                        <input id="pesquisa" class="form-control" type="text" placeholder="Nome para pesquisa">
                     </div>
                     <div class="mini-divs">
                         <label> Situação </label>

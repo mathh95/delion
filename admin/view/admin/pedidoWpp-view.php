@@ -264,9 +264,9 @@
 
         <?php
 
-            $controle = new controlCliente($_SG['link']);
+            $controle = new controlClienteWpp($_SG['link']);
 
-            $cliente = $controle->select($_GET['cod'], 2);
+            $cliente = $controle->select($_GET['cod']);
 
             $controleUsuario= new controlerUsuario($_SG['link']);
 
@@ -346,7 +346,7 @@
 
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
 
-                                        <input class="form-control" placeholder="Rua" name="rua" value="<?=$empresa->getEndereco(); ?>" type="text">
+                                        <input class="form-control" placeholder="Rua" name="rua" value="<?=$cliente->getRua(); ?>" type="text">
 
                                     </div>
 
@@ -360,7 +360,7 @@
 
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
 
-                                        <input class="form-control" placeholder="Número" name="numero" value="<?=$empresa->getEndereco(); ?>" type="number">
+                                        <input class="form-control" placeholder="Número" name="numero" value="<?=$cliente->getNumero(); ?>" type="number">
 
                                     </div>
 
@@ -376,7 +376,7 @@
 
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
 
-                                        <input class="form-control" placeholder="Bairro" name="bairro" value="<?=$empresa->getEndereco(); ?>" type="text">
+                                        <input class="form-control" placeholder="Bairro" name="bairro" value="<?=$cliente->getBairro(); ?>" type="text">
 
                                     </div>
 
@@ -390,7 +390,7 @@
 
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
 
-                                        <input class="form-control" placeholder="Complemento" name="complemento" value="<?=$empresa->getEndereco(); ?>" type="text">
+                                        <input class="form-control" placeholder="Complemento" name="complemento" value="<?=$cliente->getComplemento(); ?>" type="text">
 
                                     </div>
 
