@@ -2,7 +2,7 @@
     /* session_start(); */
     include_once "seguranca.php";
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
-    include_once MODELPATH."/cliente-wpp.php";
+    include_once "../model/cliente-wpp.php";
     include_once CONTROLLERPATH."/controlClienteWpp.php";
     include_once "../lib/alert.php";
     protegePagina();	
