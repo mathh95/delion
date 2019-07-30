@@ -30,10 +30,9 @@ class PedidoWpp {
         
     }
 
-    function construct($cod_pedido_wpp, $cliente_wpp, $data, $valor, $status){
-        $this->cod_pedido_wpp = $cod_pedido_wpp;
+    function construct($cliente_wpp, $valor, $status){
+
         $this->cliente_wpp = $cliente_wpp;
-        $this->data = $data;
         $this->valor = $valor;
         $this->status = $status;
     }

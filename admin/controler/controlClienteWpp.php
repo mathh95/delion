@@ -22,12 +22,7 @@
                     $stmt->bindParam(":bairro", $bairro, PDO::PARAM_STR);
                     $stmt->bindParam(":complemento", $complemento, PDO::PARAM_STR);
                     $executa=$stmt->execute();
-
-                    if ($executa){
-                        return 1;
-                    }else{
-                        return -1;
-                    }
+                    return $this->pdo->lastInsertId();
 
                 }
                 catch(PDOException $e){
