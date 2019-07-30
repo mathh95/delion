@@ -240,7 +240,7 @@
             );
         }
         
-            $('#pesquisa,#flag,#delivery,#prioridade,#categoria').on('change paste keyup', function(){
+        $('#pesquisa,#flag,#delivery,#prioridade,#categoria').on('change paste keyup', function(){
             var nome = $("#pesquisa").val();
             var flag = $("#flag").val();
             var delivery = $("#delivery").val();

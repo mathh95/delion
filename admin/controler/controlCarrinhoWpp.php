@@ -17,37 +17,42 @@ class controlerCarrinhoWpp{
 
     function index(){}
 
-    public function setPedidoWpp($pedidowpp){
+    function calcTotal($pedidowpp){
+        $valor_total = 0;
 
-        // $idCliente = $_SESSION['cod_cliente_wpp'];
-        // $valor = $_SESSION['totalCarrinho'];
-        $status = 1;
+        foreach($pedidowpp->carrinho as $item){
+            $valor_total += $item['qtd'] * $item['valor'];
+        }
+
+        return $valor_total;
+    }
+
+    function insereItensCarrinhoWpp($cod_pedido, $pedidowpp){
+        foreach($pedidowpp->carrinho as $item){
+            $sql = $this->pdo->prepare("INSERT INTO item_pedido_wpp SET cod_produto = :cod_produto, cod_pedido_wpp = :cod_pedido_wpp, quantidade = :quantidade");
+    
+            $sql->bindValue(":cod_produto", $item['prod_id']);
+            $sql->bindValue(":cod_pedido_wpp", $cod_pedido);
+            $sql->bindValue(":quantidade", $item['qtd']);
+    
+            $sql->execute();
+        }
+    }
+
+    public function setPedidoWpp($pedidowpp){
         $sql = $this->pdo->prepare("INSERT INTO pedido_wpp SET cod_cliente_wpp = :idClienteWpp, data = NOW(), valor = :valor, status = :status");
 
         $sql->bindValue(":idClienteWpp", $pedidowpp->getCliente_wpp());
-        // $sql->bindValue(":data", $data);
-        $sql->bindValue(":valor", $pedidowpp->getValor());
         $sql->bindValue(":status", $pedidowpp->getStatus());
+        $sql->bindValue(":valor", $this->calcTotal($pedidowpp));
 
         $sql->execute();
 
         $idPedido = $this->pdo->lastInsertId();
 
-        ///Ajustar o foreach!
-        //todo
-        foreach($_SESSION['carrinhoWpp'] as $key => $value){
-            $sql = $this->pdo->prepare("INSERT INTO item_pedido_wpp SET cod_produto = :cod_produto, cod_pedido_wpp = :cod_pedido_wpp, quantidade = :quantidade");
+        $this->insereItensCarrinhoWpp($idPedido, $pedidowpp);
 
-            $sql->bindValue(":cod_produto", $_SESSION['carrinho'][$key]);
-            $sql->bindValue(":cod_pedido_wpp", $idPedido);
-            $sql->bindValue(":quantidade", $_SESSION['qtd'][$key]);
-
-            $sql->execute();
-        }
-
-        $_SESSION['carrinho'] = array();
-        $_SESSION['qtd'] = array();
-        $_SESSION['totalCarrinho'] = array();
+        $_SESSION['carrinhoWpp'] = Null;
     }
 
     function selectPedido($cod_clienteWpp){
@@ -106,12 +111,11 @@ class controlerCarrinhoWpp{
     function selectAllPedido($parametro, $valormenor, $valormaior){
         $pedidos=array();
         $parametro = "%".$parametro."%";
-        $stmt=$this->pdo->prepare("SELECT pw.cod_pedido_wpp, pw.cliente, pw.data, pw.valor, pw.status, cw.nome, cw.telefone, cw.rua, cw.numero, cw.bairro, cw.complemento
+        $stmt=$this->pdo->prepare("SELECT pw.cod_pedido_wpp, pw.cod_cliente_wpp, pw.data, pw.valor, pw.status, cw.nome, cw.telefone, cw.rua, cw.numero, cw.bairro, cw.complemento
         FROM pedido_wpp as pw
         INNER JOIN
         cliente_wpp AS cw ON
-        pw.cliente = cw.cod_cliente_wpp
-        WHERE cw.nome like :nome AND p.valor > :menor AND p.valor < :maior");
+        pw.cod_cliente_wpp = cw.cod_cliente_wpp");
         $stmt->bindValue(":nome", $parametro);
         $stmt->bindParam(":menor", $valormenor, PDO::PARAM_INT);
         $stmt->bindParam(":maior", $valormaior, PDO::PARAM_INT);
@@ -119,8 +123,12 @@ class controlerCarrinhoWpp{
         if ($executa) {
             if ($stmt->rowCount() > 0) {
                 while ($result=$stmt->fetch(PDO::FETCH_OBJ)) {
+
+                    // TODO ARRUMA ESSA PORRA
+                    // PEDIDO SEM OS SETTER'S
+
                     $pedido = new PedidoWpp();
-                    $pedido->setCod_pedido($result->cod_pedido);
+                    $pedido->setCod_pedido($result->cod_pedido_wpp);
                     $pedido->setData(new DateTime($result->data));
                     $pedido->setValor($result->valor);
                     $pedido->setStatus($result->status);

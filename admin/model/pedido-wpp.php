@@ -30,18 +30,16 @@ class PedidoWpp {
         
     }
 
-    function construct($cliente_wpp, $valor, $status){
+    function construct($cliente_wpp, $carrinho, $status){
 
         $this->cliente_wpp = $cliente_wpp;
-        $this->valor = $valor;
         $this->status = $status;
+        $this->carrinho = $carrinho;
     }
 
     function show(){
         echo "Codigo Pedido Whatsapp: ".$this->cod_pedido_wpp."<br>";
         echo "Cliente Whatsapp: ".$this->cliente_wpp."<br>";
-        echo "Data: ".$this->data."<br>";
-        echo "Valor: ".$this->valor."<br>";
         echo "Status: ".$this->status."<br>";
     }
 

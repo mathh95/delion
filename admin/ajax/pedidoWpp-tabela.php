@@ -1,7 +1,7 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 include_once CONTROLLERPATH."/seguranca.php";
-include_once HOMEPATH."home/controler/controlCarrinho.php";
+include_once HOMEPATH."admin/controler/controlCarrinhoWpp.php";
 include_once MODELPATH."/usuario.php";
 include_once CONTROLLERPATH."/controlUsuario.php";
 protegePagina();
@@ -9,7 +9,7 @@ protegePagina();
 $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-$controle=new controlerCarrinho($_SG['link']);
+$controle=new controlerCarrinhoWpp($_SG['link']);
 
 if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || isset($_POST['endereco'])){ 
 	$nome = $_POST['nome'];
