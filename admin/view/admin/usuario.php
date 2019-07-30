@@ -539,6 +539,9 @@
                         <?php
 
                         $permissao =  json_decode($usuarioPermissao->getPermissao());
+                        echo ("<pre>");
+                        print_r($permissao);
+                        echo("</pre>");
 
                         if (in_array('usuario', $permissao)){ ?>
 

@@ -1,12 +1,14 @@
 <?php 
-    /* session_start(); */
     include_once "seguranca.php";
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
-    include_once "../model/cliente-wpp.php";
+    include_once MODELPATH. "/cliente-wpp.php";
     include_once CONTROLLERPATH."/controlClienteWpp.php";
     include_once "../lib/alert.php";
-    protegePagina();	
-	if (in_array('clienteWpp', json_decode($_SESSION['permissao']))) {
+    protegePagina();
+    // echo ("<pre>");
+    // print_r($_SESSION['permissao']);
+    // echo("</pre>");
+	if (in_array('pedidoWpp', json_decode($_SESSION['permissao']))) {
 		if (!isset($_POST)||empty($_POST)){
 			echo 'Nada foi postado.';
         }
@@ -17,8 +19,13 @@
         $bairro=addslashes(htmlspecialchars($_POST['bairro']));
         $complemento=addslashes(htmlspecialchars($_POST['complemento']));
         $status=1;
-        $clienteWpp = new clienteWpp;
+        $clienteWpp = new ClienteWpp;
         $clienteWpp->construct($nome, $telefone, $rua, $numero, $bairro, $complemento);
+
+        
+        // echo ("<pre>");
+        // print_r($clienteWpp);
+        // echo("</pre>");
         $control = new controlClienteWpp($_SG['link']);
         $result=$control->insert($clienteWpp);
 		
@@ -29,5 +36,5 @@
 		}
 	}else{
 		expulsaVisitante();
-	}
+    }
 ?>

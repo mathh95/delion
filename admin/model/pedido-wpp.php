@@ -1,4 +1,4 @@
-<?
+<?php
 class PedidoWpp {
     private $cod_pedido_wpp;
     private $cliente_wpp;

@@ -1,4 +1,4 @@
-<?
+<?php
 
 /* Classe de definicao do Cliente via Whatsapp. */
 class ClienteWpp {
@@ -71,25 +71,23 @@ class ClienteWpp {
         $this->complemento = $complemento;
     }
 
-    function construct($nome, $telefone_cliente, $rua, $numero, $bairro, $complemento){
+    function construct($nome, $telefone, $rua, $numero, $bairro, $complemento){
         $this->nome = $nome;
-        $this->telefone_cliente = $telefone_cliente;
+        $this->telefone = $telefone;
         $this->rua = $rua;
         $this->numero = $numero;
         $this->bairro = $bairro;
         $this->complemento = $complemento;
     }
-    function __construct(){
-        
-    }
-    function show(){
-        echo "Código do Cliente do Whatsapp: ".$this->cod_cliente_wpp."<br>";
-        echo "Nome: ".$this->nome."<br>";
-        echo "Telefone: ".$this->telefone_cliente."<br>";
-        echo "Rua: ".$this->rua."<br>";
-        echo "Numero: ".$this->numero."<br>";
-        echo "Bairro: ".$this->bairro."<br>";
-        echo "Complemento: ".$this->complemento."<br>";
+    
+    // function show(){
+    //     echo "Código do Cliente do Whatsapp: ".$this->cod_cliente_wpp."<br>";
+    //     echo "Nome: ".$this->nome."<br>";
+    //     echo "Telefone: ".$this->telefone_cliente."<br>";
+    //     echo "Rua: ".$this->rua."<br>";
+    //     echo "Numero: ".$this->numero."<br>";
+    //     echo "Bairro: ".$this->bairro."<br>";
+    //     echo "Complemento: ".$this->complemento."<br>";
 
-    }
+    // }
 }

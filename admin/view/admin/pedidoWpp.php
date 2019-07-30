@@ -269,7 +269,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
                             <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
 
-                            <input class="form-control" placeholder="Telefone" name="telefone" value="" type="number" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                            <input class="form-control" placeholder="Telefone" name="telefone" value="" type="text">
 
                         </div>
 
