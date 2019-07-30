@@ -44,6 +44,9 @@ if(in_array('pedidoWpp', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
 		<h1 class=\"page-header\">Lista de Pedidos</h1>
+		<div class=\"pull-right\">
+			<a href=\"pedidoWpp.php\" class=\"btn btn-kionux\"><i class=\"fa fa-arrow-left\"></i> Voltar</a>
+		</div class=\"pull-right\">
 		<tr>
     		<th width='8%' style='text-align: center;'>Data</th>
 			<th width='10%' style='text-align: center;'>Nome do cliente</th>
