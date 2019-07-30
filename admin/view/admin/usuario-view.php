@@ -294,7 +294,16 @@
                                     </li>
                                     <li class="dropdown">
                                     <a href="enderecoLista.php">Endereços</a>
-                                </li>  
+                                    </li> 
+                                    <li class="dropdown">
+                                    <!--/.Mudar aqui -->
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos Whatsapp <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="pedidoWpp.php">Novo Pedido</a></li>
+                                        <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
+                                    </ul>
+                                </li>
+
 
                                 </ul>
 
