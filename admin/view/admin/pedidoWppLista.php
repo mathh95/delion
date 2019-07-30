@@ -134,7 +134,7 @@
                                         <li><a href="clienteLista.php">Listar</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown active ">
+                                <li class="dropdown">
                                     <a href="pedidoLista.php">Pedido</a>
                                 </li>
                                 <li class="dropdown">
@@ -146,7 +146,7 @@
                                 <li class="dropdown">
                                     <a href="enderecoLista.php">Endereços</a>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdown  active ">
                                     <!--/.Mudar aqui -->
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos Whatsapp <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
