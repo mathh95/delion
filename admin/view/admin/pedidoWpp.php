@@ -378,7 +378,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                             <div class="pull-left">
                                 <?php
                                 $permissao =  json_decode($usuarioPermissao->getPermissao());
-                                if (in_array('clienteWpp', $permissao)) { ?>
+                                if (in_array('pedidoWpp', $permissao)) { ?>
                                     <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Salvar</button>
                                 <?php } ?>
                             </div>

@@ -40,7 +40,7 @@ if ($pedidos == -1){
 }else{
 
 
-if(in_array('pedido', $permissao)){
+if(in_array('pedidoWpp', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
 		<h1 class=\"page-header\">Lista de Pedidos</h1>
