@@ -195,15 +195,14 @@
         <script src="../../js/alert.js"></script>
         <script type="text/javascript">
             function alterarStatus(pedido,status){
-                alert('k');
                 msgConfirmacao('Confirmação','Deseja Realmente alterar o status do pedido?',
                     function(linha){
                         var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
                         $.get(url, function(dataReturn) {
-                            if (dataReturn > 0) {
+                            if (dataReturn == 1) {
                                 msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
                             }else{
-                                msgGenerico("Erro!","Não foi possível alterar o status do pedido!",2,function(){});
+                                msgGenerico("Erro!",dataReturn,2,function(){});
                             }
                         });  
                     },
@@ -211,27 +210,32 @@
                 );
             }
 
+            // $(".delivery").on("click", function(){
+            //     var id = $(this).data("id");
+            //     alert(id);
+            // })
+
             $('#pesquisa, #menor, #maior, #endereco').on('change paste keyup', function(){
-            var nome = $("#pesquisa").val();
-            var menor = $("#menor").val();
-            var maior = $("#maior").val();
-            var endereco = $("#endereco").val();
-            if (menor == ''){
-                menor = 0;
-            }
-            if ( maior == ''){
-                maior = 999999;
-            }
-            var url = '../../ajax/pedidoWpp-tabela.php';
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: {nome:nome, menor:menor, maior:maior, endereco:endereco},
-                success:function(res){
-                    $("#tabela-pedido").html(res);
+                var nome = $("#pesquisa").val();
+                var menor = $("#menor").val();
+                var maior = $("#maior").val();
+                var endereco = $("#endereco").val();
+                if (menor == ''){
+                    menor = 0;
                 }
+                if ( maior == ''){
+                    maior = 999999;
+                }
+                var url = '../../ajax/pedidoWpp-tabela.php';
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {nome:nome, menor:menor, maior:maior, endereco:endereco},
+                    success:function(res){
+                        $("#tabela-pedido").html(res);
+                    }
+                });
             });
-        });
         </script>
     </body>
     </html>
