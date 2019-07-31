@@ -195,9 +195,10 @@
         <script src="../../js/alert.js"></script>
         <script type="text/javascript">
             function alterarStatus(pedido,status){
+                alert('k');
                 msgConfirmacao('Confirmação','Deseja Realmente alterar o status do pedido?',
                     function(linha){
-                        var url ='../../ajax/alterar-pedido.php?pedido='+pedido+'&status='+status;
+                        var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
                         $.get(url, function(dataReturn) {
                             if (dataReturn > 0) {
                                 msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
@@ -224,11 +225,8 @@
             var url = '../../ajax/pedidoWpp-tabela.php';
             $.ajax({
                 type: 'POST',
-
                 url: url,
-
                 data: {nome:nome, menor:menor, maior:maior, endereco:endereco},
-
                 success:function(res){
                     $("#tabela-pedido").html(res);
                 }

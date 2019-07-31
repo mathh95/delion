@@ -55,24 +55,22 @@ if(in_array('pedidoWpp', $permissao)){
 			<th width='5%' style='text-align: center;'>Status</th>
 			<th width='15%' style='text-align: center;'>Rua</th>
 			<th width='8%' style='text-align: center;'>Número</th>
-            <th width='8%' style='text-align: center;'>CEP</th>
         </tr>
 	<tbody>";
 	foreach ($pedidos as &$pedido) {
 			$mensagem='Cliente excluído com sucesso!';
 			$titulo='Excluir';
-			echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
+			echo "<tr name='resultado' id='status".$pedido->getCod_pedido_wpp()."'>
 			 	<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
-			 	<td style='text-align: center;' name='cliente'>".$pedido->getCliente()."</td>
+			 	<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
 				<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
 				<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
-				<td style='text-align: center;' name='cep'>".$pedido->cep."</td>
-				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='itemLista.php?cod=".$pedido->getCod_pedido()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Itens</button></a></td>
-                <td style='text-align: center;' name='imprime'><a style='font-size: 20px;' onclick=\"alterarStatus(".$pedido->getCod_pedido().",2)\"><button class='btn btn-kionux'><i class='fa fa-print'></i>Imprimir</button></a></td>
-                <td style='text-align: center;' name='delivery'><a style='font-size: 20px;' onclick=\"alterarStatus(".$pedido->getCod_pedido().",3)\"><button class='btn btn-kionux'><i class='fa fa-truck'></i>Delivery</button></a></td>
+				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='itemLista.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Itens</button></a></td>
+                <td style='text-align: center;' name='imprime'><a style='font-size: 20px;' onclick=\"alterarStatus(".$pedido->getCod_pedido_wpp().",2)\"><button class='btn btn-kionux'><i class='fa fa-print'></i>Imprimir</button></a></td>
+                <td style='text-align: center;' name='delivery'><a style='font-size: 20px;' onclick=\"alterarStatus(".$pedido->getCod_pedido_wpp().",3)\"><button class='btn btn-kionux'><i class='fa fa-truck'></i>Delivery</button></a></td>
             </tr>";
 	}
 } else{

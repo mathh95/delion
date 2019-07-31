@@ -124,8 +124,6 @@ class controlerCarrinhoWpp{
             if ($stmt->rowCount() > 0) {
                 while ($result=$stmt->fetch(PDO::FETCH_OBJ)) {
 
-                    // TODO ARRUMA ESSA PORRA
-                    // PEDIDO SEM OS SETTER'S
 
                     $pedido = new PedidoWpp();
                     $pedido->setCod_pedido($result->cod_pedido_wpp);

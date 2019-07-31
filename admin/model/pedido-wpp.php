@@ -26,6 +26,26 @@ class PedidoWpp {
         return $this->status;
     }
 
+    function setCod_pedido($cod_pedido){
+        $this->cod_pedido=$cod_pedido;
+    }
+
+    function setCliente($cliente){
+        $this->cliente=$cliente;
+    }
+
+    function setData($data){
+        $this->data=$data;
+    }
+    
+    function setValor($valor){
+        $this->valor=$valor;
+    }
+
+    function setStatus($status){
+        $this->status=$status;
+    }
+
     function __construct(){
         
     }
