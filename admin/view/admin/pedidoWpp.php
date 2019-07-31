@@ -416,14 +416,6 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                         </select>
                     </div>
                     <div class="mini-divs">
-                        <label> Delivery </label>
-                        <select class="form-control" id="delivery">
-                            <option value=''>TODOS</option>
-                            <option value='0'>INDISPONÍVEL</option>
-                            <option value='1'>DISPONÍVEL</option>
-                        </select>
-                    </div>
-                    <div class="mini-divs">
                         <label> Prioridade </label>
                         <select class="form-control" id="prioridade">
                             <option value=''>TODOS</option>
@@ -465,10 +457,9 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
     <?php include VIEWPATH . "/rodape.html" ?>
     <script type="text/javascript">
-        $('#pesquisa,#flag,#delivery,#prioridade,#categoria').on('change paste keyup', function() {
+        $('#pesquisa,#flag,#prioridade,#categoria').on('change paste keyup', function() {
             var nome = $("#pesquisa").val();
             var flag = $("#flag").val();
-            var delivery = $("#delivery").val();
             var prioridade = $("#prioridade").val();
             var categoria = $("#categoria").val();
             var url = '../../ajax/cardapioWpp-tabela.php';
@@ -480,7 +471,6 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                 data: {
                     nome: nome,
                     flag: flag,
-                    delivery: delivery,
                     prioridade: prioridade,
                     categoria: categoria
                 },

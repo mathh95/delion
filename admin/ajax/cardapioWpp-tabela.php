@@ -21,17 +21,16 @@ isset($_POST['categoria'])){
 
 	$nome = $_POST['nome'];
 	$flag_ativo= $_POST['flag'];
-	$delivery=$_POST['delivery'];
 	$prioridade=$_POST['prioridade'];
 	$categoria=$_POST['categoria'];
-	$cardapios = $controle->filter($nome, $flag_ativo, $delivery, $prioridade, $categoria);
+	$cardapios = $controle->filterDelivery($nome, $flag_ativo, $prioridade, $categoria);
 }
 else{
-	$cardapios = $controle->selectAll();
+	$cardapios = $controle->selectAllDelivery();
 }
 
 $permissao = json_decode($usuarioPermissao->getPermissao());
-if(in_array('cardapio', $permissao)){ 
+if(in_array('pedidoWpp', $permissao)){ 
     echo "
     <h1 class=\"page-header\">Lista de cardapio</h1>
     <table class='table table-responsive' id='tbCardapio' style='text-align = center;'>

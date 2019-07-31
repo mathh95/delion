@@ -134,7 +134,7 @@
                                         <li><a href="clienteLista.php">Listar</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdown active ">
                                     <a href="pedidoLista.php">Pedido</a>
                                 </li>
                                 <li class="dropdown">
@@ -146,14 +146,14 @@
                                 <li class="dropdown">
                                     <a href="enderecoLista.php">Endereços</a>
                                 </li>
-                                <li class="dropdown  active ">
-                                    <!--/.Mudar aqui -->
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos Whatsapp <span class="caret"></span></a>
+                                <!--/.Mudar aqui -->
+                                <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos Whatsapp <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="pedidoWpp.php">Novo Pedido</a></li>
                                         <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
                                     </ul>
-  
+                                </li>
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">
@@ -165,73 +165,13 @@
             </div>
         </div>
     </header>
-        <!-- <div class="container-fluid">
-            <div class="searchbar">
-                    <div class="medium-divs"> 
-                        <label>Filtro por nome do cliente: </label>
-                        <input id="pesquisa" class="form-control" type="text" placeholder="Nome para pesquisa">
-                    </div>
-                    <div class="mini-divs"> 
-                        <label>Menor valor do pedido: </label>
-                        <input id="menor" class="form-control" type="number" placeholder="">
-                    </div>
-                        
-                    <div class="mini-divs"> 
-                        <label>Maior valor do pedido: </label>
-                        <input id="maior" class="form-control" type="number" placeholder="">
-                    </div>
-                    <div class="medium-divs"> 
-                        <label>Filtro por rua, CEP ou número do endereço: </label>
-                        <input id="endereco" class="form-control" type="text" placeholder="Rua, CEP ou número para pesquisa">
-                    </div>
-            </div> -->
-            <div class="row">
-                <div class="col-lg-12" id="tabela-pedido">
-                    <?php include "../../ajax/pedidoWpp-tabela.php"; ?>
-                </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <?php include "../../ajax/item-tabela-wpp.php"; ?>
             </div>
         </div>
-        <?php include VIEWPATH."/rodape.html" ?>
-        <script src="../../js/alert.js"></script>
-        <script type="text/javascript">
-            function alterarStatus(pedido,status){
-                alert('k');
-                msgConfirmacao('Confirmação','Deseja Realmente alterar o status do pedido?',
-                    function(linha){
-                        var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
-                        $.get(url, function(dataReturn) {
-                            if (dataReturn > 0) {
-                                msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
-                            }else{
-                                msgGenerico("Erro!","Não foi possível alterar o status do pedido!",2,function(){});
-                            }
-                        });  
-                    },
-                    function(){}
-                );
-            }
-
-            $('#pesquisa, #menor, #maior, #endereco').on('change paste keyup', function(){
-            var nome = $("#pesquisa").val();
-            var menor = $("#menor").val();
-            var maior = $("#maior").val();
-            var endereco = $("#endereco").val();
-            if (menor == ''){
-                menor = 0;
-            }
-            if ( maior == ''){
-                maior = 999999;
-            }
-            var url = '../../ajax/pedidoWpp-tabela.php';
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: {nome:nome, menor:menor, maior:maior, endereco:endereco},
-                success:function(res){
-                    $("#tabela-pedido").html(res);
-                }
-            });
-        });
-        </script>
-    </body>
-    </html>
+    </div>
+    <?php include VIEWPATH."/rodape.html" ?>
+</body>
+</html>

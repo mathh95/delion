@@ -4,7 +4,7 @@ ini_set("allow_url_include", true);
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php";    
 include_once MODELPATH."/cardapio.php";
 include_once MODELPATH."/pedido-wpp.php";
-include_once MODELPATH."/item.php";
+include_once MODELPATH."/itemWpp.php";
 
 class controlerCarrinhoWpp{
 
@@ -83,16 +83,16 @@ class controlerCarrinhoWpp{
     function selectItens($cod_pedido){
         $parametro = $cod_pedido;
         $itens=array();
-        $stmt=$this->pdo->prepare("SELECT itw.cod_item_pedido_wpp, itw.quantidade, cardapio.nome, cardapio.preco 
-        FROM item_pedido_wpp AS itw INNER JOIN cardapio ON itw.cod_produto=cardapio.cod_cardapio 
-        WHERE itw.cod_pedido_wpp=:parametro");
+        $stmt=$this->pdo->prepare("SELECT itpw.cod_item_pedido_wpp, itpw.quantidade, cardapio.nome, cardapio.preco 
+        FROM item_pedido_wpp AS itpw INNER JOIN cardapio ON itpw.cod_produto=cardapio.cod_cardapio 
+        WHERE itpw.cod_pedido_wpp=:parametro");
         $stmt->bindParam(":parametro", $parametro, PDO::PARAM_INT);
         $executa=$stmt->execute();
         if ($executa) {
             if ($stmt->rowCount() > 0 ){
                 while($result=$stmt->fetch(PDO::FETCH_OBJ)){
                     $item = new item();
-                    $item->setCod_item($result->cod_item);
+                    $item->setCod_item($result->cod_item_pedido_wpp);
                     $item->setProduto($result->nome);
                     $item->setQuantidade($result->quantidade);
                     $item->preco=$result->preco;
@@ -126,11 +126,11 @@ class controlerCarrinhoWpp{
 
 
                     $pedido = new PedidoWpp();
-                    $pedido->setCod_pedido($result->cod_pedido_wpp);
+                    $pedido->setCod_pedido_wpp($result->cod_pedido_wpp);
                     $pedido->setData(new DateTime($result->data));
                     $pedido->setValor($result->valor);
                     $pedido->setStatus($result->status);
-                    $pedido->setCliente($result->nome);
+                    $pedido->setCliente_wpp($result->nome);
                     $pedido->telefone=($result->telefone);
                     $pedido->rua=($result->rua);
                     $pedido->numero=($result->numero);
@@ -197,7 +197,7 @@ class controlerCarrinhoWpp{
 
     function alterarStatusPedido($cod_pedido,$status){
         $parametro=$cod_pedido;
-        $stmt=$this->pdo->prepare("UPDATE pedido_wpp SET status=:status WHERE cod_pedido=:parametro");
+        $stmt=$this->pdo->prepare("UPDATE pedido_wpp SET status=:status WHERE cod_pedido_wpp=:parametro");
         $stmt->bindParam(":status",$status,PDO::PARAM_INT);
         $stmt->bindParam(":parametro",$parametro,PDO::PARAM_INT);
         $executa=$stmt->execute();
