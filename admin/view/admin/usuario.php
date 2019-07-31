@@ -509,14 +509,13 @@
 
                                     </li>
 
-                                    <li class="dropdown">
-                                    <!--/.Mudar aqui -->
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos Whatsapp <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="pedidoWpp.php">Novo Pedido</a></li>
-                                        <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
-                                    </ul>
+                                    <li>
+                                        <label>
 
+                                            <input type="checkbox" id="permissaoWpp" name="13permissao" value="pedidoWpp">Permissão Whatsapp
+
+                                        </label>
+                                    </li>
 
                                 </ul>
 
