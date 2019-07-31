@@ -41,6 +41,12 @@ if ($pedidos == -1){
 
 
 if(in_array('pedidoWpp', $permissao)){
+
+	// echo "<pre>";
+	// print_r($pedidos);
+	// echo "</pre>";
+	// exit;
+
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
 		<h1 class=\"page-header\">Lista de Pedidos</h1>
@@ -70,7 +76,7 @@ if(in_array('pedidoWpp', $permissao)){
 				<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
 				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='itemLista.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Itens</button></a></td>
                 <td style='text-align: center;' name='imprime'><a style='font-size: 20px;' onclick=\"alterarStatus(".$pedido->getCod_pedido_wpp().",2)\"><button class='btn btn-kionux'><i class='fa fa-print'></i>Imprimir</button></a></td>
-                <td style='text-align: center;' name='delivery'><a style='font-size: 20px;' onclick=\"alterarStatus(".$pedido->getCod_pedido_wpp().",3)\"><button class='btn btn-kionux'><i class='fa fa-truck'></i>Delivery</button></a></td>
+                <td style='text-align: center;' name='delivery'><a style='font-size: 20px;'><button onclick=\"alterarStatus(".$pedido->getCod_pedido_wpp().",3)\" class='btn btn-kionux delivery'><i class='fa fa-truck'></i>Delivery</button></a></td>
             </tr>";
 	}
 } else{

@@ -26,8 +26,8 @@ class PedidoWpp {
         return $this->status;
     }
 
-    function setCod_pedido($cod_pedido){
-        $this->cod_pedido=$cod_pedido;
+    function setCod_pedido_wpp($cod_pedido_wpp){
+        $this->cod_pedido_wpp=$cod_pedido_wpp;
     }
 
     function setCliente($cliente){
