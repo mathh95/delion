@@ -115,7 +115,8 @@ class controlerCarrinhoWpp{
         FROM pedido_wpp as pw
         INNER JOIN
         cliente_wpp AS cw ON
-        pw.cod_cliente_wpp = cw.cod_cliente_wpp");
+        pw.cod_cliente_wpp = cw.cod_cliente_wpp
+        ORDER BY pw.data DESC");
         $stmt->bindValue(":nome", $parametro);
         $stmt->bindParam(":menor", $valormenor, PDO::PARAM_INT);
         $stmt->bindParam(":maior", $valormaior, PDO::PARAM_INT);
@@ -123,7 +124,6 @@ class controlerCarrinhoWpp{
         if ($executa) {
             if ($stmt->rowCount() > 0) {
                 while ($result=$stmt->fetch(PDO::FETCH_OBJ)) {
-
 
                     $pedido = new PedidoWpp();
                     $pedido->setCod_pedido_wpp($result->cod_pedido_wpp);
@@ -147,53 +147,6 @@ class controlerCarrinhoWpp{
         }
 
     }
-
-    // function filterEndereco($parametro, $valormenor, $valormaior, $endereco){
-    //     $pedidos=array();
-    //     $parametro = "%".$parametro."%";
-    //     $endereco = "%" . $endereco . "%";
-    //     $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor, p.status, p.endereco, p.cliente, c.nome, c.telefone, e.rua, e.numero, e.cep
-    //     FROM pedido as p
-    //     INNER JOIN
-    //     cliente AS c ON
-    //     p.cliente = c.cod_cliente
-    //     INNER JOIN
-    //     endereco AS e ON
-    //     p.endereco = e.cod_endereco
-    //     WHERE c.nome like :nome AND p.valor > :menor AND p.valor < :maior
-    //     AND e.rua LIKE :rua OR e.numero LIKE :numero OR e.cep LIKE :cep");
-    //     $stmt->bindValue(":nome", $parametro);
-    //     $stmt->bindValue(":rua", $endereco);
-    //     $stmt->bindValue(":numero", $endereco);
-    //     $stmt->bindValue(":cep", $endereco);
-    //     $stmt->bindParam(":menor", $valormenor, PDO::PARAM_INT);
-    //     $stmt->bindParam(":maior", $valormaior, PDO::PARAM_INT);
-    //     $executa=$stmt->execute();
-    //     if ($executa) {
-    //         if ($stmt->rowCount() > 0) {
-    //             while ($result=$stmt->fetch(PDO::FETCH_OBJ)) {
-    //                 $pedido = new pedido();
-    //                 $pedido->setCod_pedido($result->cod_pedido);
-    //                 $pedido->setData(new DateTime($result->data));
-    //                 $pedido->setValor($result->valor);
-    //                 $pedido->setStatus($result->status);
-    //                 $pedido->setCliente($result->nome);
-    //                 $pedido->telefone=($result->telefone);
-    //                 $pedido->rua=($result->rua);
-    //                 $pedido->numero=($result->numero);
-    //                 $pedido->cep=($result->cep);
-    //                 array_push($pedidos,$pedido);
-    //             }
-    //         }else{
-    //             return -1;
-
-    //         }
-    //         return $pedidos;
-    //     }else{
-    //         return -1;
-    //     }
-
-    // }
 
     function alterarStatusPedido($cod_pedido,$status){
         try{

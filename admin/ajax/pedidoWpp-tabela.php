@@ -41,12 +41,6 @@ if ($pedidos == -1){
 
 
 if(in_array('pedidoWpp', $permissao)){
-
-	// echo "<pre>";
-	// print_r($pedidos);
-	// echo "</pre>";
-	// exit;
-
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
 		<h1 class=\"page-header\">Lista de Pedidos</h1>
@@ -63,22 +57,68 @@ if(in_array('pedidoWpp', $permissao)){
 			<th width='8%' style='text-align: center;'>Número</th>
         </tr>
 	<tbody>";
-	foreach ($pedidos as &$pedido) {
+		foreach ($pedidos as &$pedido) {	//Status = 1, então só as opções Itens/Impressão/Detalhes estão disponiveis
+				if($pedido->getStatus()==1){
+				$mensagem='Cliente excluído com sucesso!';
+				$titulo='Excluir';
+				echo "<tr name='resultado' id='status".$pedido->getCod_pedido_wpp()."'>
+					<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
+					<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
+					<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
+					<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+					<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
+					<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
+					<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
+					<td style='text-align: center;' name='editar'><a style='font-size: 10px;' href='itemListaWpp.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Itens</button></a></td>
+					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;' onclick=\"alterarStatusPrint(".$pedido->getCod_pedido_wpp().",2)\"><button class='btn btn-kionux btn-print'><i class='fa fa-print'></i>Imprimir</button></a></td>
+					<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(".$pedido->getStatus().")\" class='btn btn-kionux delivery'><i class='fa fa-truck'></i>Delivery</button></a></td>
+					<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-truck'></i>Detalhes</button></a></td>
+					</tr>";
+		}
+	}	//Mudar o botao delivery e limitar as opções
+
+			foreach ($pedidos as &$pedido) {
+				if($pedido->getStatus()==2){	//Status = 2, então só as opções Itens/Delivery/Detalhes estão disponiveis
+				$mensagem='Cliente excluído com sucesso!';
+				$titulo='Excluir';
+				echo "<tr name='resultado' id='status".$pedido->getCod_pedido_wpp()."'>
+					<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
+					<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
+					<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
+					<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+					<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
+					<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
+					<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
+					<td style='text-align: center;' name='editar'><a style='font-size: 10px;' href='itemListaWpp.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Itens</button></a></td>
+					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;' ><button onclick=\"erroPrint(".$pedido->getStatus().")\" class='btn btn-kionux'><i class='fa fa-print'></i>Imprimir</button></a></td>
+					<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"alterarStatusDelivery(".$pedido->getCod_pedido_wpp().",3)\" class='btn btn-kionux delivery'><i class='fa fa-truck'></i>Delivery</button></a></td>
+					<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-truck'></i>Detalhes</button></a></td>
+					</tr>";
+		}
+	}	//Mudar o botao delivery e limitar as opções
+
+		foreach ($pedidos as &$pedido) {
+			if($pedido->getStatus()==3){	//Status = 3, então só as opções Itens/Detalhes estão disponiveis
 			$mensagem='Cliente excluído com sucesso!';
 			$titulo='Excluir';
 			echo "<tr name='resultado' id='status".$pedido->getCod_pedido_wpp()."'>
-			 	<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
-			 	<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
+				<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
+				<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
 				<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
 				<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
-				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='itemListaWpp.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Itens</button></a></td>
-                <td style='text-align: center;' name='imprime'><a style='font-size: 20px;' onclick=\"alterarStatus(".$pedido->getCod_pedido_wpp().",2)\"><button class='btn btn-kionux'><i class='fa fa-print'></i>Imprimir</button></a></td>
-                <td style='text-align: center;' name='delivery'><a style='font-size: 20px;'><button onclick=\"alterarStatus(".$pedido->getCod_pedido_wpp().",3)\" class='btn btn-kionux delivery'><i class='fa fa-truck'></i>Delivery</button></a></td>
-            </tr>";
-	}
+				<td style='text-align: center;' name='editar'><a style='font-size: 10px;' href='itemListaWpp.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Itens</button></a></td>
+				<td style='text-align: center;' name='imprime'><a style='font-size: 10px;' ><button onclick=\"erroDelivery(".$pedido->getStatus().")\" class='btn btn-kionux'><i class='fa fa-print'></i>Imprimir</button></a></td>
+				<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(".$pedido->getStatus().")\" class='btn btn-kionux delivery'><i class='fa fa-truck'></i>Delivery</button></a></td>
+				<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-truck'></i>Detalhes</button></a></td>
+				</tr>";
+		}
+	}	//Mudar o botao delivery e limitar as opções
+
+
+
 } else{
 		echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>

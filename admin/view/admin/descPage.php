@@ -134,7 +134,7 @@
                                         <li><a href="clienteLista.php">Listar</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdown active ">
                                     <a href="pedidoLista.php">Pedido</a>
                                 </li>
                                 <li class="dropdown">
@@ -146,14 +146,14 @@
                                 <li class="dropdown">
                                     <a href="enderecoLista.php">Endereços</a>
                                 </li>
-                                <li class="dropdown  active ">
-                                    <!--/.Mudar aqui -->
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos Whatsapp <span class="caret"></span></a>
+                                <!--/.Mudar aqui -->
+                                <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos Whatsapp <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="pedidoWpp.php">Novo Pedido</a></li>
                                         <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
                                     </ul>
-  
+                                </li>
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">
@@ -165,125 +165,13 @@
             </div>
         </div>
     </header>
-        <!-- <div class="container-fluid">
-            <div class="searchbar">
-                    <div class="medium-divs"> 
-                        <label>Filtro por nome do cliente: </label>
-                        <input id="pesquisa" class="form-control" type="text" placeholder="Nome para pesquisa">
-                    </div>
-                    <div class="mini-divs"> 
-                        <label>Menor valor do pedido: </label>
-                        <input id="menor" class="form-control" type="number" placeholder="">
-                    </div>
-                        
-                    <div class="mini-divs"> 
-                        <label>Maior valor do pedido: </label>
-                        <input id="maior" class="form-control" type="number" placeholder="">
-                    </div>
-                    <div class="medium-divs"> 
-                        <label>Filtro por rua, CEP ou número do endereço: </label>
-                        <input id="endereco" class="form-control" type="text" placeholder="Rua, CEP ou número para pesquisa">
-                    </div>
-            </div> -->
-            <div class="row">
-                <div class="col-lg-12" id="tabela-pedido">
-                    <?php include "../../ajax/pedidoWpp-tabela.php"; ?>
-                </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <?php include "../../ajax/desc-pagewpp.php"; ?>
             </div>
         </div>
-        <?php include VIEWPATH."/rodape.html" ?>
-        <script src="../../js/alert.js"></script>
-        <script type="text/javascript">
-                //Primeiro caso: Se o status do pedido for igual a 1
-                //Vai alterar ele apenas para IMPRESSO
-                function alterarStatusPrint(pedido,status){
-                    if(status-1 == 1){
-                    msgConfirmacao('Confirmação','Deseja Realmente imprimir o comprovante de venda?',
-                        function(linha){
-                            console.log("Antes do get",status);
-                            var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
-                            $.get(url, function(dataReturn) {
-                                if (dataReturn == 1) {
-                                    //colocar a ação de imprimir aqui
-                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
-                                }else{
-                                    msgGenerico("Erro!",dataReturn,2,function(){});
-                                }
-                            });  
-                        },
-                        function(){}
-                    );
-                }
-            }
-
-            function alterarStatusDelivery(pedido,status){
-                    //Segundo caso: Se o status do pedido for igual a 2
-                    //Vai alterar ele apenas para ENTREGA
-                    if(status-1 == 2){
-                    msgConfirmacao('Confirmação','Deseja Realmente enviar o pedido para a entrega?',
-                        function(linha){
-                            var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
-                            $.get(url, function(dataReturn) {
-                                if (dataReturn == 1) {
-                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
-                                }else{
-                                    msgGenerico("Erro!",dataReturn,2,function(){});
-                                }
-                            });  
-                        },
-                        function(){}
-                    );
-                }
-            } 
-
-            //Função ativada quando a ação não é permitida
-            function erroDelivery(status){
-                console.log(status);
-                if(status == 3) {
-                    msgRedireciona("Erro!","Esse pedido já saiu para a entrega!",1,"../../view/admin/pedidoWppLista.php" );
-                }else{
-                    msgGenerico("Erro!","O pedido não foi impresso",2,function(){});
-                }
-            }
-            
-            function erroPrint(status){
-                console.log(status);
-                if(status == 2) {
-                    msgRedireciona("Erro!","A nota fiscal desse pedido já foi impressa!",1,"../../view/admin/pedidoWppLista.php" );
-                }else{
-                    msgGenerico("Erro!","O pedido não foi impresso",2,function(){});
-                }
-            }
-
-            // $(document).on('click', '.btn-print', function() {
-            //     this.disable = true;
-            // }
-            // $(".delivery").on("click", function(){
-            //     var id = $(this).data("id");
-            //     alert(id);
-            // })
-
-            $('#pesquisa, #menor, #maior, #endereco').on('change paste keyup', function(){
-                var nome = $("#pesquisa").val();
-                var menor = $("#menor").val();
-                var maior = $("#maior").val();
-                var endereco = $("#endereco").val();
-                if (menor == ''){
-                    menor = 0;
-                }
-                if ( maior == ''){
-                    maior = 999999;
-                }
-                var url = '../../ajax/pedidoWpp-tabela.php';
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: {nome:nome, menor:menor, maior:maior, endereco:endereco},
-                    success:function(res){
-                        $("#tabela-pedido").html(res);
-                    }
-                });
-            });
-        </script>
-    </body>
-    </html>
+    </div>
+    <?php include VIEWPATH."/rodape.html" ?>
+</body>
+</html>

@@ -6,7 +6,7 @@
 	protegePagina();
 	if (in_array('pedidoWpp', json_decode($_SESSION['permissao']))) {
         $cod_pedido = $_GET['pedido'];
-        $status= $_GET['status'];
+		$status= $_GET['status'];
 		$controle=new controlerCarrinhoWpp($_SG['link']);
 		$result=$controle->alterarStatusPedido($cod_pedido,$status);
 		echo "$result";
