@@ -145,6 +145,14 @@
                                 </li>
                                 <li class="dropdown">
                                     <a href="enderecoLista.php">Endereços</a>
+                                </li>
+                                <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos Whatsapp <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="pedidoWpp.php">Novo Pedido</a></li>
+                                        <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
+                                        <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li>
+                                    </ul>
                                 </li>  
                             </ul>
                         </div><!--/.nav-collapse -->

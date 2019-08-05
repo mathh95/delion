@@ -115,7 +115,8 @@
                     if ($executa){
                         if($stmt->rowCount() > 0){
                             while($result=$stmt->fetch(PDO::FETCH_OBJ)){
-                                $clientewpp->setCod_cliente($result->cod_cliente_wpp);
+                                $clientewpp = new ClienteWpp();
+                                $clientewpp->setCod_cliente_wpp($result->cod_cliente_wpp);
                                 $clientewpp->setNome($result->nome);
                                 $clientewpp->setTelefone($result->telefone);
                                 $clientewpp->setRua($result->rua);
@@ -140,22 +141,22 @@
                 $clientes= array();
                 try{
                     $parametro= "%" . $parametro . "%";
-                    $stmt=$this->pdo->prepare("SELECT * FROM cliente_wpp WHERE nome LIKE :parametro OR login LIKE :login OR telefone LIKE :telefone");
+                    $stmt=$this->pdo->prepare("SELECT * FROM cliente_wpp WHERE nome LIKE :parametro OR telefone LIKE :telefone");
                     $stmt->bindParam(":parametro", $parametro, PDO::PARAM_STR);
-                    $stmt->bindParam(":login", $parametro, PDO::PARAM_STR);
                     $stmt->bindValue(":telefone", $parametro);    
                     $executa=$stmt->execute();
                     if ($executa){
                         if($stmt->rowCount() > 0){
                             while($result=$stmt->fetch(PDO::FETCH_OBJ)){
-                                $cliente= new cliente;
-                                $cliente->setCod_cliente($result->cod_cliente);
-                                $cliente->setLogin($result->login);
-                                $cliente->setNome($result->nome);
-                                $cliente->setTelefone($result->telefone);
-                                $cliente->setStatus($result->status);
-                                $cliente->setIdFacebook($result->id_facebook);
-                                array_push($clientes, $cliente);
+                                $clientewpp = new clienteWpp;
+                                $clientewpp->setCod_cliente_wpp($result->cod_cliente_wpp);
+                                $clientewpp->setNome($result->nome);
+                                $clientewpp->setTelefone($result->telefone);
+                                $clientewpp->setRua($result->rua);
+                                $clientewpp->setNumero($result->numero);
+                                $clientewpp->setBairro($result->bairro);
+                                $clientewpp->setComplemento($result->complemento);
+                                array_push($clientes, $clientewpp);
                             }
                         }
                         return $clientes;

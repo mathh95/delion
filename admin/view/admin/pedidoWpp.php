@@ -208,6 +208,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                                     <ul class="dropdown-menu">
                                         <li><a href="pedidoWpp.php">Novo Pedido</a></li>
                                         <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
+                                        <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -599,6 +600,27 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                     updatePedidoTable();
                 }
             });
+        })
+
+        $(document).on('click','.btn-print', function() { //class='btn btn-kionux btn-add'
+            dt = new Date();
+
+            console.log(dt.getTime());
+            $.ajax({
+                url: '../../ajax/pedidoWpp-tabela.php',
+                type: 'POST',
+                data: {
+                    cod_produto: $(this).parent().parent().data("id"),
+                    ts: dt.getTime()
+                },
+            })
+            .done(function() {
+                console.log("success");
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            
         })
         
         updatePedidoTable()

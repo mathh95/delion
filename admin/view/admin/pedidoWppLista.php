@@ -152,6 +152,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="pedidoWpp.php">Novo Pedido</a></li>
                                         <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
+                                        <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li>
                                     </ul>
   
                             </ul>
@@ -254,7 +255,6 @@
 
             //Função ativada quando a ação não é permitida
             function erroDelivery(status){
-                console.log(status);
                 if(status == 3) {
                     msgRedireciona("Erro!","Esse pedido já saiu para a entrega!",1,"../../view/admin/pedidoWppLista.php" );
                 }else{
@@ -263,7 +263,6 @@
             }
             
             function erroPrint(status){
-                console.log(status);
                 if(status == 2) {
                     msgRedireciona("Erro!","A nota fiscal desse pedido já foi impressa!",1,"../../view/admin/pedidoWppLista.php" );
                 }else{
