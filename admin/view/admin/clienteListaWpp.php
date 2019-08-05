@@ -1,10 +1,8 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
+    include_once CONTROLLERPATH."/seguranca.php";
     include_once CONTROLLERPATH."/controlUsuario.php";
     include_once MODELPATH."/usuario.php";
-    include_once CONTROLLERPATH."/seguranca.php";
-    include_once CONTROLLERPATH."/controlCategoria.php";
-    include_once MODELPATH."/categoria.php";
     $_SESSION['permissaoPagina']=0;
     protegePagina();
     $controleUsuario = new controlerUsuario($_SG['link']);
@@ -46,7 +44,7 @@
                         </div>
                         <div id="navbar" class="collapse navbar-collapse pull-left">
                             <ul class="nav navbar-nav">
-                                <li class="dropdown">
+                                <li class="dropdown ">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuários <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="usuario.php">Cadastro</a></li>
@@ -95,7 +93,7 @@
                                         <li><a href="eventoLista.php">Listar</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown active">
+                                <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categoria <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="categoria.php">Cadastro</a></li>
@@ -122,18 +120,18 @@
                                         </ul>
 
                                 </li>   
-                                <li class="dropdown">
+                                <li class="dropdown ">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mini banner <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="miniBanner.php">Cadastro</a></li>
                                         <li><a href="miniBannerLista.php">Listar</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdown active ">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">                                        
-                                        <li><a href="cliente.php">Cadastro</a></li>                                            
-                                        <li><a href="clienteLista.php">Listar</a></li>                                        
+                                    <ul class="dropdown-menu">
+                                        <li><a href="cliente.php">Cadastro</a></li>
+                                        <li><a href="clienteLista.php">Listar</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
@@ -143,7 +141,7 @@
                                     <a href="comboLista.php">Combo</a>
                                 </li> 
                                 <li class="dropdown">
-                                        <a href="/home/avaliacao.php">Avaliar</a>
+                                    <a href="/home/avaliacao.php">Avaliar</a>
                                 </li>
                                 <li class="dropdown">
                                     <a href="enderecoLista.php">Endereços</a>
@@ -156,7 +154,7 @@
                                         <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
                                         <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li>
                                     </ul>
-             
+     
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">
@@ -169,31 +167,53 @@
         </div>
     </header>
     <div class="container-fluid">
+        <div class="searchbar">
+                <div class="medium-divs"> 
+                    <label>Filtro por nome ou telefone do cliente: </label>
+                    <input id="pesquisa" class="form-control" type="text" required placeholder="Nome ou telefone para pesquisa">
+                </div>
+        </div>
         <div class="row">
-            <div class="col-lg-12">
-                <?php include "../../ajax/categoria-tabela.php";?>
+            <div class="col-lg-12" id="tabela-cliente">
+                <?php include "../../ajax/clienteWpp-tabela.php"; ?>
             </div>
         </div>
     </div>
     <?php include VIEWPATH."/rodape.html" ?>
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
-        function removeCategoria(categoria,icone){
-            msgConfirmacao('Confirmação','Deseja Realmente remover o categoria?',
+        function removeCliente(cliente){
+            msgConfirmacao('Confirmação','Deseja Realmente remover o cliente?',
                 function(linha){
-                    var url ='../../ajax/excluir-categoria.php?categoria='+categoria+'&icone='+icone;
+                    var url ='../../ajax/excluir-cliente.php?cliente='+cliente;
                     $.get(url, function(dataReturn) {
                         if (dataReturn > 0) {
-                            msgGenerico("Excluir!","Categoria excluído com sucesso!",1,function(){});
-                            $("#status"+categoria).remove();
+                            msgGenerico("Excluir!","Cliente excluído com sucesso!",1,function(){});
+                            $("#status"+cliente).remove();
                         }else{
-                            msgGenerico("Erro!","Não foi possível excluir a categoria!",2,function(){});
+                            msgGenerico("Erro!","Não foi possível excluir o cliente!",2,function(){});
                         }
                     });  
                 },
                 function(){}
             );
         }
+
+        $('#pesquisa').on('change paste keyup', function(){
+            var nome = $("#pesquisa").val();
+            var url = '../../ajax/clienteWpp-tabela.php';
+            $.ajax({
+                type: 'POST',
+
+                url: url,
+
+                data: {nome:nome},
+
+                success:function(res){
+                    $("#tabela-cliente").html(res);
+                }
+            });
+        });
     </script>
 </body>
 </html>
