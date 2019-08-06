@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
     include_once CONTROLLERPATH."/seguranca.php";
     include_once CONTROLLERPATH."/controlUsuario.php";
@@ -196,19 +199,22 @@
                     <div class="modal-body">
                         <form>
                         <?php 
+                        include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
+                        include_once CONTROLLERPATH."/seguranca.php";
                         include_once HOMEPATH."admin/controler/controlCarrinhoWpp.php";
                         include_once MODELPATH."/usuario.php";
-                        include_once CONTROLLERPATH."/controlUsuario.php";
-                        
-                        $controleUsuario = new controlerUsuario($_SG['link']);
-                        $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);?>
+                        protegePagina();
+                        $controle=new controlerCarrinhoWpp($_SG['link']);
+                        $cod_pedido=$_GET['cod'];
+                        $itens = $controle->selectItens($cod_pedido);
+                        $pedido = $controle->selectAllPedido($nome, $menor, $maior);
+                        $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                        <?php 
+                    
                             if(in_array('pedidoWpp', $permissao)){
-                                    foreach ($pedidos as &$pedido) {	//Status = 1, então só as opções Itens/Impressão/Detalhes estão disponiveis
+                                    foreach ($itens as &$item) {	//Status = 1, então só as opções Itens/Impressão/Detalhes estão disponiveis
                                             if($pedido->getStatus()==1){
-                                            $mensagem='Cliente excluído com sucesso!';
-                                            $titulo='Excluir';
+                                            
                                             echo "<div class='form-group'>
                                                     <label for='recipient-name' class='control-label'>Nome:</label>
                                                     <i>".$pedido->getCliente_wpp()."</i>
@@ -225,9 +231,6 @@
                                 }
                             }
                         ?>
-                        
-                        
-                        
                         </form>
                     </div>
                     <div class="modal-footer">
