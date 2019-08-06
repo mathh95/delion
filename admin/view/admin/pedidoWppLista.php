@@ -166,26 +166,6 @@
             </div>
         </div>
     </header>
-        <!-- <div class="container-fluid">
-            <div class="searchbar">
-                    <div class="medium-divs"> 
-                        <label>Filtro por nome do cliente: </label>
-                        <input id="pesquisa" class="form-control" type="text" placeholder="Nome para pesquisa">
-                    </div>
-                    <div class="mini-divs"> 
-                        <label>Menor valor do pedido: </label>
-                        <input id="menor" class="form-control" type="number" placeholder="">
-                    </div>
-                        
-                    <div class="mini-divs"> 
-                        <label>Maior valor do pedido: </label>
-                        <input id="maior" class="form-control" type="number" placeholder="">
-                    </div>
-                    <div class="medium-divs"> 
-                        <label>Filtro por rua, CEP ou número do endereço: </label>
-                        <input id="endereco" class="form-control" type="text" placeholder="Rua, CEP ou número para pesquisa">
-                    </div>
-            </div> -->
             <div class="row">
                 <div class="col-lg-12" id="tabela-pedido">
                     <?php include "../../ajax/pedidoWpp-tabela.php"; ?>
@@ -206,12 +186,7 @@
                             $.get(url, function(dataReturn) {
                                 if (dataReturn == 1) {
                                     //colocar a ação de imprimir aqui
-<<<<<<< HEAD
                                     msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../../impressao/example/interface/windows-usb.php" );
-=======
-                                    // gerarPrint(status);
-                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
->>>>>>> f7892af9cc95bd7df6957f7ccd39bdeb15ee10ce
                                 }else{
                                     msgGenerico("Erro!",dataReturn,2,function(){});
                                 }
@@ -221,22 +196,7 @@
                     );
                 }
             }
-
-            // function gerarPrint(status){
-            //     if(status == 1){
-            //         var url = '/gerarNotaUsb.php?status='+status;
-            //         $.get(url, function(dataReturn){
-            //             if(dataReturn == 1){
-            //                 msgRedireciona("Sucesso!","Impressao feita com sucesso","../../view/admin/pedidoWppLista.php" );
-
-            //             }else {
-            //                 msgGenerico("Erro!",dataReturn,2,function(){});
-
-            //             }
-            //         });
-            //     }
-            // }
-
+            
             function alterarStatusDelivery(pedido,status){
                     //Segundo caso: Se o status do pedido for igual a 2
                     //Vai alterar ele apenas para ENTREGA

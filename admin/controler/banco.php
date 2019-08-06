@@ -10,7 +10,7 @@
 
         private $host='localhost';
 
-        private $dbname='c39delioncafe';
+        private $dbname='delioncafe';
 
         private $user='root';
 
