@@ -282,7 +282,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
                     <div class="col-md-6">
 
-                        <small>Endereço Cliente:</small>
+                        <small>Rua</small>
 
                         <br>
 
@@ -299,6 +299,8 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                     </div>
 
                     <div class="col-md-6">
+
+                        <small>Número</small>
 
                         <br>
 
@@ -317,6 +319,8 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                 <div class="row">
 
                     <div class="col-md-6">
+                        
+                        <small>Bairro</small>
 
                         <br>
 
@@ -334,6 +338,8 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
                     <div class="col-md-6">
 
+                        <small>Complemento</small>
+
                         <br>
 
                         <div class="input-group">
@@ -348,7 +354,11 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
                 </div>
 
-                <div class="row">
+<!--                 <div class="row">
+
+                    <h3>Formas de Pagamento</h3>
+
+                <div class="row" -->
 
                     <div class="col-md-12">
 
@@ -516,14 +526,15 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                         let table_row = buildPedidoTableRow(item);
                         table_row.find('.nome').text(res[item].nome);
                         table_row.find('.valor').text( "R$ " + (res[item].valor));
-                        table_row.find('.sub-total').text( "R$ " + (res[item].valor * res[item].qtd));
+                        table_row.find('.sub-total').text( "R$ " + ((res[item].valor * res[item].qtd).toFixed(2))); //Arredondamento
                         table_row.find('.qtd span').text(res[item].qtd);
                         $("#table-pedido tbody").append(table_row);
                         
                         total += res[item].valor * res[item].qtd;
                     }
-                    
-                    $('#valor-total span').text(total);
+                    totalCorreto=(total.toFixed(2));
+
+                    $('#valor-total span').text(totalCorreto); //Mudar aqui o arredondamento
                 }
             });
         }
