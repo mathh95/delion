@@ -1,5 +1,14 @@
 <?php
 /* Change to the correct path if you copy this example! */
+include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
+include_once CONTROLLERPATH."/seguranca.php";
+include_once HOMEPATH."admin/controler/controlCarrinhoWpp.php";
+include_once MODELPATH."/usuario.php";
+protegePagina();
+$controle=new controlerCarrinhoWpp($_SG['link']);
+$cod_pedido=$_GET['cod'];
+$itens = $controle->selectItens($cod_pedido);
+$permissao =  json_decode($usuarioPermissao->getPermissao());
 require __DIR__ . '/../../autoload.php';
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
@@ -20,11 +29,20 @@ use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 try {
     // Enter the share name for your USB printer here
     //$connector = null;
+    
     $connector = new WindowsPrintConnector("MyPrinterIS-php");
 
     /* Print a "Hello world" receipt" */
     $printer = new Printer($connector);
     $printer -> text("Hello World!\n");
+    if(in_array('pedidoWpp', $permissao)){
+        foreach ($itens as &$item) {
+                echo "<pre>";
+                print_r($itens."\n");
+                echo "</pre>";
+                
+        }
+    }
     $printer -> cut();
     
     /* Close printer */

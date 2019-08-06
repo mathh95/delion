@@ -186,13 +186,73 @@
                         <input id="endereco" class="form-control" type="text" placeholder="Rua, CEP ou número para pesquisa">
                     </div>
             </div> -->
+            <div class="modal fade" id="modalPedido" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Pedido para impressao</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                        <?php 
+                        include_once HOMEPATH."admin/controler/controlCarrinhoWpp.php";
+                        include_once MODELPATH."/usuario.php";
+                        include_once CONTROLLERPATH."/controlUsuario.php";
+                        
+                        $controleUsuario = new controlerUsuario($_SG['link']);
+                        $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);?>
+
+                        <?php 
+                            if(in_array('pedidoWpp', $permissao)){
+                                    foreach ($pedidos as &$pedido) {	//Status = 1, então só as opções Itens/Impressão/Detalhes estão disponiveis
+                                            if($pedido->getStatus()==1){
+                                            $mensagem='Cliente excluído com sucesso!';
+                                            $titulo='Excluir';
+                                            echo "<div class='form-group'>
+                                                    <label for='recipient-name' class='control-label'>Nome:</label>
+                                                    <i>".$pedido->getCliente_wpp()."</i>
+                                                </div>
+                                                <div class='form-group'>
+                                                    <label for='message-text' class='control-label'>Data:</label>
+                                                    <i>".$pedido->getData()->format('d/m/Y')."</i>
+                                                </div>
+                                                <div class='form-group'>
+                                                    <label for='message-text' class='control-label'>Valor:</label>
+                                                    <i>".$pedido->getValor()."</i>
+                                                </div>";
+                                    }
+                                }
+                            }
+                        ?>
+                        
+                        
+                        
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Imprimir</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        
+                    </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-lg-12" id="tabela-pedido">
                     <?php include "../../ajax/pedidoWpp-tabela.php"; ?>
                 </div>
             </div>
         </div>
+        
+
+
+
         <?php include VIEWPATH."/rodape.html" ?>
+
+        
+
         <script src="../../js/alert.js"></script>
         <script type="text/javascript">
                 //Primeiro caso: Se o status do pedido for igual a 1
@@ -284,6 +344,14 @@
                         $("#tabela-pedido").html(res);
                     }
                 });
+            });
+
+            $('#modalPedido').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) 
+                var recipient = button.data('whatever')
+                var modal = $(this)
+                modal.find('.modal-title').text('Dados do pedido')
+                modal.find('.modal-body input').val(recipient)
             });
         </script>
     </body>
