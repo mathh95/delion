@@ -206,7 +206,6 @@
                             $.get(url, function(dataReturn) {
                                 if (dataReturn == 1) {
                                     //colocar a ação de imprimir aqui
-                                    // gerarPrint(status);
                                     msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
                                 }else{
                                     msgGenerico("Erro!",dataReturn,2,function(){});
@@ -218,20 +217,6 @@
                 }
             }
 
-            // function gerarPrint(status){
-            //     if(status == 1){
-            //         var url = '/gerarNotaUsb.php?status='+status;
-            //         $.get(url, function(dataReturn){
-            //             if(dataReturn == 1){
-            //                 msgRedireciona("Sucesso!","Impressao feita com sucesso","../../view/admin/pedidoWppLista.php" );
-
-            //             }else {
-            //                 msgGenerico("Erro!",dataReturn,2,function(){});
-
-            //             }
-            //         });
-            //     }
-            // }
 
             function alterarStatusDelivery(pedido,status){
                     //Segundo caso: Se o status do pedido for igual a 2
