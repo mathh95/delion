@@ -270,7 +270,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
                             <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
 
-                            <input class="form-control" placeholder="Telefone" name="telefone" value="" type="number" onkeydown="return event.keyCode !== 69">
+                            <input class="form-control" placeholder="Telefone" name="telefone" value="" type="number" size="11" onkeydown="return event.keyCode !== 69">
 
                         </div>
 
@@ -308,7 +308,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
                             <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
 
-                            <input class="form-control" placeholder="Número" name="numero" value="" type="number">
+                            <input class="form-control" placeholder="Número" name="numero" value="" size="4" type="number" onkeydown="return event.keyCode !== 69">
 
                         </div>
 
