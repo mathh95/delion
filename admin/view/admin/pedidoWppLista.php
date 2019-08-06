@@ -169,93 +169,14 @@ error_reporting(E_ALL);
             </div>
         </div>
     </header>
-        <!-- <div class="container-fluid">
-            <div class="searchbar">
-                    <div class="medium-divs"> 
-                        <label>Filtro por nome do cliente: </label>
-                        <input id="pesquisa" class="form-control" type="text" placeholder="Nome para pesquisa">
-                    </div>
-                    <div class="mini-divs"> 
-                        <label>Menor valor do pedido: </label>
-                        <input id="menor" class="form-control" type="number" placeholder="">
-                    </div>
-                        
-                    <div class="mini-divs"> 
-                        <label>Maior valor do pedido: </label>
-                        <input id="maior" class="form-control" type="number" placeholder="">
-                    </div>
-                    <div class="medium-divs"> 
-                        <label>Filtro por rua, CEP ou número do endereço: </label>
-                        <input id="endereco" class="form-control" type="text" placeholder="Rua, CEP ou número para pesquisa">
-                    </div>
-            </div> -->
-            <div class="modal fade" id="modalPedido" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Pedido para impressao</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                        <?php 
-                        include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
-                        include_once CONTROLLERPATH."/seguranca.php";
-                        include_once HOMEPATH."admin/controler/controlCarrinhoWpp.php";
-                        include_once MODELPATH."/usuario.php";
-                        protegePagina();
-                        $controle=new controlerCarrinhoWpp($_SG['link']);
-                        $cod_pedido=$_GET['cod'];
-                        $itens = $controle->selectItens($cod_pedido);
-                        $pedido = $controle->selectAllPedido($nome, $menor, $maior);
-                        $permissao =  json_decode($usuarioPermissao->getPermissao());
-
-                    
-                            if(in_array('pedidoWpp', $permissao)){
-                                    foreach ($itens as &$item) {	//Status = 1, então só as opções Itens/Impressão/Detalhes estão disponiveis
-                                            if($pedido->getStatus()==1){
-                                            
-                                            echo "<div class='form-group'>
-                                                    <label for='recipient-name' class='control-label'>Nome:</label>
-                                                    <i>".$pedido->getCliente_wpp()."</i>
-                                                </div>
-                                                <div class='form-group'>
-                                                    <label for='message-text' class='control-label'>Data:</label>
-                                                    <i>".$pedido->getData()->format('d/m/Y')."</i>
-                                                </div>
-                                                <div class='form-group'>
-                                                    <label for='message-text' class='control-label'>Valor:</label>
-                                                    <i>".$pedido->getValor()."</i>
-                                                </div>";
-                                    }
-                                }
-                            }
-                        ?>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Imprimir</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        
-                    </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="row">
                 <div class="col-lg-12" id="tabela-pedido">
                     <?php include "../../ajax/pedidoWpp-tabela.php"; ?>
                 </div>
             </div>
         </div>
-        
-
-
 
         <?php include VIEWPATH."/rodape.html" ?>
-
-        
-
         <script src="../../js/alert.js"></script>
         <script type="text/javascript">
                 //Primeiro caso: Se o status do pedido for igual a 1
@@ -269,8 +190,8 @@ error_reporting(E_ALL);
                             $.get(url, function(dataReturn) {
                                 if (dataReturn == 1) {
                                     //colocar a ação de imprimir aqui
-                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../../impressao/example/interface/windows-usb.php" );
-                                    
+                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
+                                    // gerarPrint(status);
                                 }else{
                                     msgGenerico("Erro!",dataReturn,2,function(){});
                                 }
@@ -281,6 +202,18 @@ error_reporting(E_ALL);
                 }
             }
 
+            // Função que mostra a tela de impressão
+            function myFunction() {
+                window.print();
+            }
+            // Função que imprime uma div separadamente
+            function cont(){
+                var conteudo = document.getElementById('modalPedido').innerHTML;
+                tela_impressao = window.open('about:blank');
+                tela_impressao.document.write(conteudo);
+                tela_impressao.window.print();
+                tela_impressao.window.close();
+            }
 
             function alterarStatusDelivery(pedido,status){
                     //Segundo caso: Se o status do pedido for igual a 2
@@ -319,14 +252,6 @@ error_reporting(E_ALL);
                 }
             }
 
-            // $(document).on('click', '.btn-print', function() {
-            //     this.disable = true;
-            // }
-            // $(".delivery").on("click", function(){
-            //     var id = $(this).data("id");
-            //     alert(id);
-            // })
-
             $('#pesquisa, #menor, #maior, #endereco').on('change paste keyup', function(){
                 var nome = $("#pesquisa").val();
                 var menor = $("#menor").val();
@@ -347,14 +272,6 @@ error_reporting(E_ALL);
                         $("#tabela-pedido").html(res);
                     }
                 });
-            });
-
-            $('#modalPedido').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget) 
-                var recipient = button.data('whatever')
-                var modal = $(this)
-                modal.find('.modal-title').text('Dados do pedido')
-                modal.find('.modal-body input').val(recipient)
             });
         </script>
     </body>
