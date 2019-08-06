@@ -206,7 +206,8 @@
                             $.get(url, function(dataReturn) {
                                 if (dataReturn == 1) {
                                     //colocar a ação de imprimir aqui
-                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
+                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../../impressao/example/interface/windows-usb.php" );
+                                    
                                 }else{
                                     msgGenerico("Erro!",dataReturn,2,function(){});
                                 }
