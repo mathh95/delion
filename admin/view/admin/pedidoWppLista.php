@@ -2,7 +2,7 @@
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
     include_once CONTROLLERPATH."/seguranca.php";
     include_once CONTROLLERPATH."/controlUsuario.php";
-    include_once MODELPATH."/usuario.php";
+    include_once MODELPATH."/usuario.php";    
     $_SESSION['permissaoPagina']=0;
     protegePagina();
     $controleUsuario = new controlerUsuario($_SG['link']);
@@ -201,12 +201,17 @@
                     if(status-1 == 1){
                     msgConfirmacao('Confirmação','Deseja Realmente imprimir o comprovante de venda?',
                         function(linha){
-                            console.log("Antes do get",status);
+                            // console.log("Antes do get",status);
                             var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
                             $.get(url, function(dataReturn) {
                                 if (dataReturn == 1) {
                                     //colocar a ação de imprimir aqui
+<<<<<<< HEAD
                                     msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../../impressao/example/interface/windows-usb.php" );
+=======
+                                    // gerarPrint(status);
+                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
+>>>>>>> f7892af9cc95bd7df6957f7ccd39bdeb15ee10ce
                                 }else{
                                     msgGenerico("Erro!",dataReturn,2,function(){});
                                 }
@@ -216,6 +221,21 @@
                     );
                 }
             }
+
+            // function gerarPrint(status){
+            //     if(status == 1){
+            //         var url = '/gerarNotaUsb.php?status='+status;
+            //         $.get(url, function(dataReturn){
+            //             if(dataReturn == 1){
+            //                 msgRedireciona("Sucesso!","Impressao feita com sucesso","../../view/admin/pedidoWppLista.php" );
+
+            //             }else {
+            //                 msgGenerico("Erro!",dataReturn,2,function(){});
+
+            //             }
+            //         });
+            //     }
+            // }
 
             function alterarStatusDelivery(pedido,status){
                     //Segundo caso: Se o status do pedido for igual a 2
