@@ -144,9 +144,9 @@ if(in_array('pedidoWpp', $permissao)){
 	}
 }
 
-			foreach ($pedidos as &$pedido) {
-				if($pedido->getStatus()==1){
-				echo "<div class=\"modal fade\" id=\"modalPedido\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
+			foreach ($pedidos as $pedido) {
+				if($pedido->getStatus()){
+				echo " <div class=\"modal fade\" id=\"modalPedido\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
 						<div class=\"modal-dialog\" role=\"document\">
 						<div class=\"modal-content\">
 						<div class\"modal-header\">
@@ -154,23 +154,20 @@ if(in_array('pedidoWpp', $permissao)){
 							<h4 class=\"modal-title\" id=\"exampleModalLabel\">Dados para Impressão</h4>
 						</div>
 						<div class=\"modal-body\">
-						<form>
-								<div class=\"form-group\" hidden>
-									<label for=\"recipient-name\" style=\"display:none\" class=\"control-label\">".$pedido->getCod_pedido_wpp()."</label>
-								</div>
-								<div class=\"form-group\">
-									<label for=\"recipient-name\" class=\"control-label\">".$pedido->getCliente_wpp()."</label>
-								</div>
-								<div class=\"form-group\">
-									<label for=\"message-text\" class=\"control-label\">".$pedido->getData()->format('d/m/Y')."</label>
-								</div>
-								<div class=\"form-group\">
-									<label for=\"recipient-name\" class=\"control-label\">Produtos:</label>
-								</div>
-								<div class=\"form-group\">
-									<label for=\"recipient-name\" class=\"control-label\">".$pedido->getValor()."</label>
-								</div>
-						</form>
+							<form>
+									<div class=\"form-group\">
+										<label for=\"recipient-name\" class=\"control-label\">".$pedido->getCliente_wpp()."</label>
+									</div>
+									<div class=\"form-group\">
+										<label for=\"message-text\" class=\"control-label\">".$pedido->getData()->format('d/m/Y')."</label>
+									</div>
+									<div class=\"form-group\">
+										<label for=\"recipient-name\" class=\"control-label\">Produtos:</label>
+									</div>
+									<div class=\"form-group\">
+										<label for=\"recipient-name\" class=\"control-label\">".$pedido->getValor()."</label>
+									</div>
+								</form>
 					</div>
 								<div class=\"modal-footer\">
                 					<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Fechar</button>
@@ -179,13 +176,6 @@ if(in_array('pedidoWpp', $permissao)){
             			</div>
 					</div>
 					</div>";
-				// echo "<div name='resultado' id='status".$pedido->getCod_pedido()."'>
-				// 	 <td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
-				// 	 <td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
-				// 	<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
-				// 	<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
-				// 	<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
-				// </tr>";
 				}
 			}
 
