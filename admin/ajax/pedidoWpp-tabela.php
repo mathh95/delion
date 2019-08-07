@@ -151,38 +151,45 @@ if(in_array('pedidoWpp', $permissao)){
 				
 				if($pedido->getStatus()){
 
-				// 	echo "<pre>";
-				// print_r($pedido->getCliente_wpp());
-				// echo "</pre>";
 				echo " <div class=\"modal fade\" id='modalPedido".$pedido->getCod_pedido_wpp()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
 						<div class=\"modal-dialog\" role=\"document\">
 						<div class=\"modal-content\">
 						<div class\"modal-header\">
 							<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>
-							<br><h4 class=\"modal-title\" id=\"exampleModalLabel\" style=\"margin-left:3%\">Dados para Impressão</h4>
+							<br><h4 class=\"modal-title\" id=\"exampleModalLabel\" style=\"text-align:center\">Dados para Impressão</h4>
 						</div>
-						<div class=\"modal-body\">
+						<div class=\"modal-body\" style=\"text-align:center\">
 							<form>
 									<div class=\"form-group\">
-										<label for=\"recipient-name\" class=\"control-label\">"." Cliente: ".$pedido->getCliente_wpp()."</label>
+									<label for=\"recipient-name\" class=\"control-label\">----------------------------------------------------------</label>
+									<br><label for=\"recipient-name\" class=\"control-label\">Restaurante: DELION.O </label>
+										<br><label for=\"message-text\" class=\"control-label\">"."Data: ".$pedido->getData()->format('d/m/Y')." ".$pedido->getData()->format('H:i:s')."</label>
+										<br><label for=\"recipient-name\" class=\"control-label\">"." Cliente: ".$pedido->getCliente_wpp()."</label>
+										<br><label for=\"recipient-name\" class=\"control-label\">"." Telefone: ".$pedido->telefone."</label>
+										<br><label for=\"recipient-name\" class=\"control-label\">"." Endereço: ".$pedido->rua.", ".$pedido->numero."</label>
+										<br><label for=\"recipient-name\" class=\"control-label\">"." Bairro: ".$pedido->bairro."</label>
 									</div>
 									<div class=\"form-group\">
-										<label for=\"message-text\" class=\"control-label\">"."Data: ".$pedido->getData()->format('d/m/Y')."</label>
+										
 									</div>
 									<div class=\"form-group\">
-										<label for=\"recipient-name\" class=\"control-label\">Produtos:</label><br>";
+										<label for=\"recipient-name\" class=\"control-label\">Produtos do pedido:</label><br>
+										<label for=\"recipient-name\" class=\"control-label\">Qtd - Item       -   Preço</label><br>";
+
 									foreach($itens as &$item){
 										echo "
 											<label for=\"recipient-name\" class=\"control-label\">"." ".$item->getQuantidade()."</label>
 											<label for=\"recipient-name\" class=\"control-label\">"." - ".$item->getProduto()."</label>
-											<label for=\"recipient-name\" class=\"control-label\">"." - R$".$item->preco."</label>
+											<label for=\"recipient-name\" class=\"control-label\">"." -         R$".$item->preco."</label>
 											<br>";
 										}
 									
 								echo "</div>
 								
 									<div class=\"form-group\">
-										<label for=\"recipient-name\" class=\"control-label\">"." Valor Total: R$ ".$pedido->getValor()."</label>
+										<label for=\"recipient-name\" class=\"control-label\">----------------------------------------------------------</label>
+										<br><label for=\"recipient-name\" class=\"control-label\">"."|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspValor Total: R$ ".$pedido->getValor()."&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|</label>
+										<br><label for=\"recipient-name\" class=\"control-label\">----------------------------------------------------------</label>
 									</div>
 								</form>
 					</div>
