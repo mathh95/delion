@@ -67,14 +67,8 @@ if(in_array('pedidoWpp', $permissao)){
 					<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 					<td style='text-align: center;' name='dataPedido'>".$pedido->getData()->format('d/m/Y')."</td>
 					<td style='text-align: center;' name='horaPedido'>".$pedido->getData()->format('H:i:s')."</td>
-<<<<<<< HEAD
-					<td style='text-align: center;' name='horaImpressão'>".$pedido->getData()->format('H:i:s')."</td>
-					<td style='text-align: center;' name='previsaoEntrega'>".$pedido->getData()->format('H:i:s')."</td>
-					<td style='text-align: center;' name='horaDelivey'>".$pedido->getData()->format('H:i:s')."</td>
-=======
 					<td style='text-align: center;' name='horaImpressão'>".$pedido->getData()->format('d/m/Y')."</td>
 					<td style='text-align: center;' name='horaDelivey'>".$pedido->getData()->format('d/m/Y')."</td>
->>>>>>> e3f4ccc1279823222b4ce4685d33299e5aa4039d
 					</tr>";
 				}
 			}		

@@ -154,7 +154,6 @@ if(in_array('pedidoWpp', $permissao)){
 				// 	echo "<pre>";
 				// print_r($pedido->getCliente_wpp());
 				// echo "</pre>";
-				echo " 	<div class=\"modal fade\" id='modalPedido".$pedido->getCod_pedido_wpp()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
 				echo " <div class=\"modal fade\" id='modalPedido".$pedido->getCod_pedido_wpp()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
 
 						<div class=\"modal-dialog\" role=\"document\">
