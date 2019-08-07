@@ -10,6 +10,7 @@ $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 $controle=new controlerCarrinhoWpp($_SG['link']);
+$controle1 = new controlerCarrinhoWpp($_SG['link']);
 
 if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || isset($_POST['endereco'])){ 
 	$nome = $_POST['nome'];
@@ -70,7 +71,7 @@ if(in_array('pedidoWpp', $permissao)){
 					<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
 					<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
 					<td style='text-align: center;' name='editar'><a style='font-size: 10px;' href='itemListaWpp.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Itens</button></a></td>
-					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-kionux btn-print' data-toggle='modal' data-target='#modalPedido' data-id='".$pedido->getCod_pedido_wpp()."'><i class='fa fa-print'></i>Imprimir</button></a></td>
+					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-kionux btn-print' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido_wpp()."' data-id='".$pedido->getCod_pedido_wpp()."'><i class='fa fa-print'></i>Imprimir</button></a></td>
 					<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(".$pedido->getStatus().")\" class='btn btn-kionux delivery'><i class='fa fa-truck'></i>Delivery</button></a></td>
 					<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-info'></i>Detalhes</button></a></td>
 					</tr>";
@@ -144,28 +145,44 @@ if(in_array('pedidoWpp', $permissao)){
 	}
 }
 
-			foreach ($pedidos as $pedido) {
+			foreach ($pedidos as &$pedido) {
+				$itens = $controle1->selectItens($pedido->getCod_pedido_wpp());
+
+				
 				if($pedido->getStatus()){
-				echo " <div class=\"modal fade\" id=\"modalPedido\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
+
+				// 	echo "<pre>";
+				// print_r($pedido->getCliente_wpp());
+				// echo "</pre>";
+				echo " <div class=\"modal fade\" id='modalPedido".$pedido->getCod_pedido_wpp()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
 						<div class=\"modal-dialog\" role=\"document\">
 						<div class=\"modal-content\">
 						<div class\"modal-header\">
 							<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>
-							<h4 class=\"modal-title\" id=\"exampleModalLabel\">Dados para Impressão</h4>
+							<br><h4 class=\"modal-title\" id=\"exampleModalLabel\" style=\"margin-left:3%\">Dados para Impressão</h4>
 						</div>
 						<div class=\"modal-body\">
 							<form>
 									<div class=\"form-group\">
-										<label for=\"recipient-name\" class=\"control-label\">".$pedido->getCliente_wpp()."</label>
+										<label for=\"recipient-name\" class=\"control-label\">"." Cliente: ".$pedido->getCliente_wpp()."</label>
 									</div>
 									<div class=\"form-group\">
-										<label for=\"message-text\" class=\"control-label\">".$pedido->getData()->format('d/m/Y')."</label>
+										<label for=\"message-text\" class=\"control-label\">"."Data: ".$pedido->getData()->format('d/m/Y')."</label>
 									</div>
 									<div class=\"form-group\">
-										<label for=\"recipient-name\" class=\"control-label\">Produtos:</label>
-									</div>
+										<label for=\"recipient-name\" class=\"control-label\">Produtos:</label><br>";
+									foreach($itens as &$item){
+										echo "
+											<label for=\"recipient-name\" class=\"control-label\">"." ".$item->getQuantidade()."</label>
+											<label for=\"recipient-name\" class=\"control-label\">"." - ".$item->getProduto()."</label>
+											<label for=\"recipient-name\" class=\"control-label\">"." - R$".$item->preco."</label>
+											<br>";
+										}
+									
+								echo "</div>
+								
 									<div class=\"form-group\">
-										<label for=\"recipient-name\" class=\"control-label\">".$pedido->getValor()."</label>
+										<label for=\"recipient-name\" class=\"control-label\">"." Valor Total: R$ ".$pedido->getValor()."</label>
 									</div>
 								</form>
 					</div>
@@ -177,8 +194,8 @@ if(in_array('pedidoWpp', $permissao)){
 					</div>
 					</div>";
 				}
+				}
 			}
 
 	echo "</tbody></table>";
-	}
 ?>
