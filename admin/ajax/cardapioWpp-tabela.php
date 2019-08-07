@@ -29,6 +29,7 @@ else{
 	$cardapios = $controle->selectAllDelivery();
 }
 
+
 $permissao = json_decode($usuarioPermissao->getPermissao());
 if(in_array('pedidoWpp', $permissao)){ 
     echo "

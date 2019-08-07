@@ -202,18 +202,31 @@ error_reporting(E_ALL);
                 }
             }
 
-            // Função que mostra a tela de impressão
-            function myFunction() {
+            // Função que imprime uma div
+            function printDiv(divID){
+                var restorepage = document.body.innerHTML;
+                var printcontent = document.getElementById(divID).innerHTML;
+                document.body.innerHTML = printcontent;
                 window.print();
+                document.body.innerHTML = restorepage;
             }
-            // Função que imprime uma div separadamente
-            function cont(){
-                var conteudo = document.getElementById('modalPedido').innerHTML;
-                tela_impressao = window.open('about:blank');
-                tela_impressao.document.write(conteudo);
-                tela_impressao.window.print();
-                tela_impressao.window.close();
+
+            function printElem() {
+                var content = document.getElementById('modalPedido').innerHTML;
+                var mywindow = window.open('', 'Print', 'height=600,width=800');
+
+                mywindow.document.write('<html><head><title>Print</title>');
+                mywindow.document.write('</head><body >');
+                mywindow.document.write(content);
+                mywindow.document.write('</body></html>');
+
+                mywindow.document.close();
+                mywindow.focus()
+                mywindow.print();
+                mywindow.close();
+                return true;
             }
+
 
             function alterarStatusDelivery(pedido,status){
                     //Segundo caso: Se o status do pedido for igual a 2
