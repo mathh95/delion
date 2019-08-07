@@ -18,6 +18,10 @@ class PedidoWpp {
         return $this->data;
     }
 
+    function getHora_print(){
+        return $this->hora_print;
+    }
+
     function getValor(){
         return $this->valor;
     }
@@ -38,6 +42,10 @@ class PedidoWpp {
         $this->data=$data;
     }
     
+    function setHora_print($hora_print){
+        $this->hora_print=$hora_print;
+    }
+
     function setValor($valor){
         $this->valor=$valor;
     }

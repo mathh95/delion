@@ -71,7 +71,7 @@ if(in_array('pedidoWpp', $permissao)){
 					<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
 					<td style='text-align: center;' name='editar'><a style='font-size: 10px;' href='itemListaWpp.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Itens</button></a></td>
 					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-kionux btn-print' data-toggle='modal' data-target='#modalPedido' data-id='".$pedido->getCod_pedido_wpp()."'><i class='fa fa-print'></i>Imprimir</button></a></td>
-					<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(".$pedido->getStatus().")\" class='btn btn-kionux delivery'><i class='fa fa-truck'></i>Delivery</button></a></td>
+					<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(".$pedido->getStatus().")\"  class='btn btn-kionux delivery'><i class='fa fa-truck'></i>Delivery</button></a></td>
 					<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-info'></i>Detalhes</button></a></td>
 					</tr>";
 		}

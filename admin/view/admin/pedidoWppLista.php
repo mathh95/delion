@@ -224,6 +224,7 @@ error_reporting(E_ALL);
                             var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
                             $.get(url, function(dataReturn) {
                                 if (dataReturn == 1) {
+                                    
                                     msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
                                 }else{
                                     msgGenerico("Erro!",dataReturn,2,function(){});

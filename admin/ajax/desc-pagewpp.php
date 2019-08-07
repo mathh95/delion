@@ -54,6 +54,7 @@ if(in_array('pedidoWpp', $permissao)){
 			<th width='10%' style='text-align: center;'>Data Pedido</th>
 			<th width='10%' style='text-align: center;'>Hora Pedido</th>
 			<th width='10%' style='text-align: center;'>Hora Impressão</th>
+			<th width='10%' style='text-align: center;'>Previsão Entrega</th>
 			<th width='10%' style='text-align: center;'>Hora Delivery</th>
         </tr>
 	<tbody>";
@@ -61,12 +62,14 @@ if(in_array('pedidoWpp', $permissao)){
 				if($pedido->getCod_pedido_wpp() == $cod){
 				$mensagem='Cliente excluído com sucesso!';
 				$titulo='Excluir';
+				
 				echo "<tr name='resultado' id='status".$pedido->getCod_pedido_wpp()."'>
 					<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 					<td style='text-align: center;' name='dataPedido'>".$pedido->getData()->format('d/m/Y')."</td>
-					<td style='text-align: center;' name='horaPedido'>".$pedido->getData()->format('d/m/Y')."</td>
-					<td style='text-align: center;' name='horaImpressão'>".$pedido->getData()->format('d/m/Y')."</td>
-					<td style='text-align: center;' name='horaDelivey'>".$pedido->getData()->format('d/m/Y')."</td>
+					<td style='text-align: center;' name='horaPedido'>".$pedido->getData()->format('H:i:s')."</td>
+					<td style='text-align: center;' name='horaImpressão'>".$pedido->getData()->format('H:i:s')."</td>
+					<td style='text-align: center;' name='previsaoEntrega'>".$pedido->getData()->format('H:i:s')."</td>
+					<td style='text-align: center;' name='horaDelivey'>".$pedido->getData()->format('H:i:s')."</td>
 					</tr>";
 				}
 			}		
