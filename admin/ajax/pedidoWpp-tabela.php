@@ -134,7 +134,7 @@ if(in_array('pedidoWpp', $permissao)){
 	foreach ($pedidos as &$pedido) {
 			$mensagem='Cliente excluído com sucesso!';
 			$titulo='Excluir';
-			echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
+			echo "<tr name='resultado' id='status".$pedido->getCod_pedido_wpp()."'>
 			 	<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
@@ -155,6 +155,9 @@ if(in_array('pedidoWpp', $permissao)){
 						</div>
 						<div class=\"modal-body\">
 						<form>
+								<div class=\"form-group\" hidden>
+									<label for=\"recipient-name\" style=\"display:none\" class=\"control-label\">".$pedido->getCod_pedido_wpp()."</label>
+								</div>
 								<div class=\"form-group\">
 									<label for=\"recipient-name\" class=\"control-label\">".$pedido->getCliente_wpp()."</label>
 								</div>
