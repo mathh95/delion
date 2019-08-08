@@ -305,7 +305,7 @@ error_reporting(E_ALL);
                 }
             }
 
-            function teste(pedido,status){
+            function alteraStatusPrintModel(pedido,status){
                 var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
                             $.get(url, function(dataReturn) {
                                 if (dataReturn == 1) {

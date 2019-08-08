@@ -199,7 +199,7 @@ if(in_array('pedidoWpp', $permissao)){
 					</div>
 								<div class=\"modal-footer\">
                 					<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Fechar</button>
-                					<button type=\"button\" class=\"btn btn-default\" onclick=\"printDiv('#divPrin'); teste(".$pedido->getCod_pedido_wpp().",2);\">Impressão</button>
+                					<button type=\"button\" class=\"btn btn-default\" onclick=\"printDiv('#divPrin'); alteraStatusPrintModel(".$pedido->getCod_pedido_wpp().",2);\">Impressão</button>
             					</div>
             			</div>
 					</div>
