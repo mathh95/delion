@@ -173,10 +173,12 @@ if(in_array('pedidoWpp', $permissao)){
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Endereço: ".$pedido->rua.", ".$pedido->numero."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Bairro: ".$pedido->bairro."</label>
 									</div>
+									<br><br><br>
 									<div class=\"form-group\">
 										
 									</div>
 									<div class=\"form-group\">
+									<label for=\"recipient-name\" class=\"control-label\">----------------------------------------------------------</label><br>
 										<label for=\"recipient-name\" class=\"control-label\">Produtos do pedido:</label><br>
 										<label for=\"recipient-name\" class=\"control-label\">Qtd - Item       -   Preço</label><br>";
 
