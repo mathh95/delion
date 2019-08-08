@@ -147,13 +147,15 @@ if(in_array('pedidoWpp', $permissao)){
 }
 
 			foreach ($pedidos as &$pedido) {
-				$itens = $controle1->selectItens($pedido->getCod_pedido_wpp());
-				
-				if($pedido->getStatus()){
 
+				$entrega = date('H:i:s', strtotime($pedido->getData()->format('H:i:s')." +30 minutes"));
+				$itens = $controle1->selectItens($pedido->getCod_pedido_wpp());
+
+				if($pedido->getStatus()){
 				// 	echo "<pre>";
 				// print_r($pedido->getCliente_wpp());
 				// echo "</pre>";
+				
 				echo " <div class=\"modal fade\" id='modalPedido".$pedido->getCod_pedido_wpp()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
 
 						<div class=\"modal-dialog\" role=\"document\">
@@ -163,22 +165,25 @@ if(in_array('pedidoWpp', $permissao)){
 							<br><h4 class=\"modal-title\" id=\"exampleModalLabel\" style=\"text-align:center\">Dados para Impressão</h4>
 						</div>
 						<div class=\"modal-body\" style=\"text-align:center\" id=\"divPrin\">
-							<form>
-									<div class=\"form-group\">
+							<form>";
+
+							
+							echo "<div class=\"form-group\">
 									<label for=\"recipient-name\" class=\"control-label\">----------------------------------------------------------</label>
 									<br><label for=\"recipient-name\" class=\"control-label\">Restaurante: DELION.O </label>
 										<br><label for=\"message-text\" class=\"control-label\">"."Data: ".$pedido->getData()->format('d/m/Y')." ".$pedido->getData()->format('H:i:s')."</label>
+										<br><label for=\"message-text\" class=\"control-label\">"."Previsao de Entrega: ".$entrega."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Cliente: ".$pedido->getCliente_wpp()."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Telefone: ".$pedido->telefone."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Endereço: ".$pedido->rua.", ".$pedido->numero."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Bairro: ".$pedido->bairro."</label>
 									</div>
 									<div class=\"form-group\">
-										
+										<br><br>
 									</div>
 									<div class=\"form-group\">
-										<label for=\"recipient-name\" class=\"control-label\">Produtos do pedido:</label><br>
-										<label for=\"recipient-name\" class=\"control-label\">Qtd - Item       -   Preço</label><br>";
+										<label for=\"recipient-name\" class=\"control-label\">Itens do pedido:</label><br>
+										<label for=\"recipient-name\" class=\"control-label\">Qtd - Item       -   Preço</label><br><br>";
 
 									foreach($itens as &$item){
 										echo "
@@ -199,7 +204,7 @@ if(in_array('pedidoWpp', $permissao)){
 					</div>
 								<div class=\"modal-footer\">
                 					<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Fechar</button>
-                					<button type=\"button\" class=\"btn btn-default\" onclick=\"printDiv('#divPrin'); alteraStatusPrintModel(".$pedido->getCod_pedido_wpp().",2);\">Impressão</button>
+                					<button type=\"button\" class=\"btn btn-default\" onclick=\"printDiv('#divPrin'); teste(".$pedido->getCod_pedido_wpp().",2);\">Impressão</button>
             					</div>
             			</div>
 					</div>
