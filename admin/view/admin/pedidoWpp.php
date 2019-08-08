@@ -513,7 +513,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
         }
 
         function updatePedidoTable() {
-            let url = '../../ajax/atualiza-CarrinhoWpp.php';
+            let url = '../../ajax/atualiza-carrinhoWpp.php';
             let total = 0;
             $.ajax({
                 type: 'GET',
@@ -540,7 +540,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
         }
 
         $(document).on('click', '.btn-add', function() {
-            var url = '../../ajax/atualiza-CarrinhoWpp.php';
+            var url = '../../ajax/atualiza-carrinhoWpp.php';
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -555,7 +555,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
         })
 
         $(document).on('click', '.iconeRemProduto', function() {
-            var url = '../../ajax/atualiza-CarrinhoWpp.php';
+            var url = '../../ajax/atualiza-carrinhoWpp.php';
             $.ajax({
                 type: 'DELETE',
                 url: url,
@@ -569,7 +569,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
         })
         
         $(document).on('click', '.iconeRem', function() {
-            var url = '../../ajax/atualiza-CarrinhoWpp.php';
+            var url = '../../ajax/atualiza-carrinhoWpp.php';
             $.ajax({
                 type: 'DELETE',
                 url: url,
@@ -584,7 +584,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
         
 
         $(document).on('click', '.iconeDecProduto', function() {
-            var url = '../../ajax/atualiza-CarrinhoWpp.php';
+            var url = '../../ajax/atualiza-carrinhoWpp.php';
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -599,7 +599,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
         })
 
         $(document).on('click', '.iconeIncProduto', function() {
-            var url = '../../ajax/atualiza-CarrinhoWpp.php';
+            var url = '../../ajax/atualiza-carrinhoWpp.php';
             $.ajax({
                 type: 'POST',
                 url: url,

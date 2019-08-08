@@ -67,7 +67,7 @@ if(in_array('pedidoWpp', $permissao)){
 					<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
 					<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 					<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
-					<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+					<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
 					<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
 					<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
 					<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
@@ -87,7 +87,7 @@ if(in_array('pedidoWpp', $permissao)){
 					<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
 					<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 					<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
-					<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+					<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
 					<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
 					<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
 					<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
@@ -107,7 +107,7 @@ if(in_array('pedidoWpp', $permissao)){
 				<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
-				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+				<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
 				<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
 				<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
@@ -140,7 +140,7 @@ if(in_array('pedidoWpp', $permissao)){
 			 	<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
-				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+				<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
 			</tr>";
 	}
@@ -204,7 +204,7 @@ if(in_array('pedidoWpp', $permissao)){
 					</div>
 								<div class=\"modal-footer\">
                 					<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Fechar</button>
-                					<button type=\"button\" class=\"btn btn-default\" onclick=\"printDiv('#divPrin'); teste(".$pedido->getCod_pedido_wpp().",2);\">Impressão</button>
+                					<button type=\"button\" class=\"btn btn-default\" onclick=\"printDiv('#divPrin'); alteraStatusPrintModel(".$pedido->getCod_pedido_wpp().",2);\">Impressão</button>
             					</div>
             			</div>
 					</div>
