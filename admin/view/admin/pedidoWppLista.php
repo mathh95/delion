@@ -189,7 +189,6 @@ error_reporting(E_ALL);
                             var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
                             $.get(url, function(dataReturn) {
                                 if (dataReturn == 1) {
-                                    //colocar a ação de imprimir aqui
                                     msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
                                     // gerarPrint(status);
                                 }else{
@@ -201,6 +200,27 @@ error_reporting(E_ALL);
                     );
                 }
             }
+
+            function alterarStatusPrint(pedido,status){
+                    if(status-1 == 1){
+                    msgConfirmacao('Confirmação','Deseja Realmente imprimir o comprovante de venda?',
+                        function(linha){
+                            // console.log("Antes do get",status);
+                            var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
+                            $.get(url, function(dataReturn) {
+                                if (dataReturn == 1) {
+                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
+                                    // gerarPrint(status);
+                                }else{
+                                    msgGenerico("Erro!",dataReturn,2,function(){});
+                                }
+                            });  
+                        },
+                        function(){}
+                    );
+                }
+            }
+
 
             // Função que imprime uma div
             function printDiv(divID){
@@ -283,6 +303,18 @@ error_reporting(E_ALL);
                 }else{
                     msgGenerico("Erro!","O pedido não foi impresso",2,function(){});
                 }
+            }
+
+            function teste(pedido,status){
+                var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
+                            $.get(url, function(dataReturn) {
+                                if (dataReturn == 1) {
+                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
+                                }else{
+                                    msgGenerico("Erro!",dataReturn,2,function(){});
+                                }
+                            });
+                console.log("Botao clicado");
             }
 
             $('#pesquisa, #menor, #maior, #endereco').on('change paste keyup', function(){

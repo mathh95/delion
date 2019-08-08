@@ -173,12 +173,9 @@ if(in_array('pedidoWpp', $permissao)){
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Endereço: ".$pedido->rua.", ".$pedido->numero."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Bairro: ".$pedido->bairro."</label>
 									</div>
-									<br>
 									<div class=\"form-group\">
 										
 									</div>
-									<label for=\"recipient-name\" class=\"control-label\">----------------------------------------------------------</label><br>
-
 									<div class=\"form-group\">
 										<label for=\"recipient-name\" class=\"control-label\">Produtos do pedido:</label><br>
 										<label for=\"recipient-name\" class=\"control-label\">Qtd - Item       -   Preço</label><br>";
@@ -202,7 +199,7 @@ if(in_array('pedidoWpp', $permissao)){
 					</div>
 								<div class=\"modal-footer\">
                 					<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Fechar</button>
-                					<button type=\"button\" class=\"btn btn-default\" onclick=\"printDiv('#divPrin')\" >Impressão</button>
+                					<button type=\"button\" class=\"btn btn-default\" onclick=\"printDiv('#divPrin'); teste(".$pedido->getCod_pedido_wpp().",2);\">Impressão</button>
             					</div>
             			</div>
 					</div>
