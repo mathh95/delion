@@ -162,7 +162,7 @@ if(in_array('pedidoWpp', $permissao)){
 							<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>
 							<br><h4 class=\"modal-title\" id=\"exampleModalLabel\" style=\"text-align:center\">Dados para Impressão</h4>
 						</div>
-						<div class=\"modal-body\" style=\"text-align:center\">
+						<div class=\"modal-body\" style=\"text-align:center\" id=\"divPrin\">
 							<form>
 									<div class=\"form-group\">
 									<label for=\"recipient-name\" class=\"control-label\">----------------------------------------------------------</label>
@@ -199,7 +199,7 @@ if(in_array('pedidoWpp', $permissao)){
 					</div>
 								<div class=\"modal-footer\">
                 					<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Fechar</button>
-                					<button type=\"button\" class=\"btn btn-default\" onclick=\"printElem()\">Impressão</button>
+                					<button type=\"button\" class=\"btn btn-default\" onclick=\"printDiv('#divPrin')\" >Impressão</button>
             					</div>
             			</div>
 					</div>
@@ -210,14 +210,3 @@ if(in_array('pedidoWpp', $permissao)){
 
 	echo "</tbody></table>";
 ?>
-
-
-<script type="text/javascript">
-                window.onload =  function printDiv(divName){
-                var printContents = document.getElementById(divName).innerHTML;
-                var originalContents = document.body.innerHTML;
-                document.body.innerHTML = printContents;
-                window.print();
-                document.body.innerHTML = originalContents;
-		    }
-</script>

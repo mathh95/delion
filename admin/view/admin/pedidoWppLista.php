@@ -227,6 +227,25 @@ error_reporting(E_ALL);
                 return true;
             }
 
+            function printDiv(elem){
+                renderMe($('<div/>').append($(elem).clone()).html());
+            }
+
+            function renderMe(data) {
+                var mywindow = window.open('', 'invoice-box', 'height=750,width=750');
+                mywindow.document.write('<html><head><title>Impressão Fiscal</title>');
+                mywindow.document.write('<link rel="stylesheet" href="printstyle.css" type="text/css" />');
+                mywindow.document.write('</head><body >');
+                mywindow.document.write(data);
+                mywindow.document.write('</body></html>');
+
+
+                setTimeout(function () {
+                mywindow.print();
+                mywindow.close();
+                }, 1000)
+                return true;
+            }
 
             function alterarStatusDelivery(pedido,status){
                     //Segundo caso: Se o status do pedido for igual a 2
