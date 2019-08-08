@@ -148,7 +148,7 @@ if(in_array('pedidoWpp', $permissao)){
 
 			foreach ($pedidos as &$pedido) {
 
-				$entrega = date('H:i:s', strtotime($pedido->getData()->format('H:i:s')." +30 minutes"));
+				$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
 				$itens = $controle1->selectItens($pedido->getCod_pedido_wpp());
 
 				if($pedido->getStatus()){
@@ -171,7 +171,7 @@ if(in_array('pedidoWpp', $permissao)){
 							echo "<div class=\"form-group\">
 									<label for=\"recipient-name\" class=\"control-label\">----------------------------------------------------------</label>
 									<br><label for=\"recipient-name\" class=\"control-label\">Restaurante: DELION.O </label>
-										<br><label for=\"message-text\" class=\"control-label\">"."Data: ".$pedido->getData()->format('d/m/Y')." ".$pedido->getData()->format('H:i:s')."</label>
+										<br><label for=\"message-text\" class=\"control-label\">"."Data: ".$pedido->getData()->format('d/m/Y')." ".$pedido->getData()->format('H:i')."</label>
 										<br><label for=\"message-text\" class=\"control-label\">"."Previsao de Entrega: ".$entrega."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Cliente: ".$pedido->getCliente_wpp()."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Telefone: ".$pedido->telefone."</label>
