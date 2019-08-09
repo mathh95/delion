@@ -386,15 +386,19 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                     <div class="col-md-12">
                         <div class="col-md-5" style="padding-left: 0px;">
                             <!-- Alterar a função onClick -->
-                            <div class="pull-left">
+                            <div class="col-xs-4 col-md-2 col-md-push-10">
                                 <?php
                                 $permissao =  json_decode($usuarioPermissao->getPermissao());
                                 if (in_array('pedidoWpp', $permissao)) { ?>
-                                    <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Salvar</button>
+                                <div class="row">
+                                    <div class="col-xs-4 col-md-2 col-md-push-8">
+                                        <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Salvar</button>
+                                    </div>
+                                </div>
                                 <?php } ?>
                             </div>
-                            <div class="pull-right">
-                                <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser btn iconeRemProduto"></i> Limpar Formulário</button>
+                            <div class="col-xs-4 col-md-2 col-md-push-12">
+                                <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser btn iconeRemProduto" onclick="verificaPedido();"></i> Limpar Formulário</button>
                             </div>
                         </div>
                     </div>
@@ -491,7 +495,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                 }
             });
         });
-        
+
         function buildPedidoTableRow(id){
             return $(' \
             <tr data-id='+id+'> \
@@ -535,6 +539,38 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                     totalCorreto=(total.toFixed(2));
 
                     $('#valor-total span').text(totalCorreto); //Mudar aqui o arredondamento
+
+                    
+                }
+            });
+        }
+
+        function verificaPedido() {
+            let url = '../../ajax/atualiza-carrinhoWpp.php';
+            let total = 0;
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function(res) {
+                    $("#table-pedido tbody")[0].innerHTML = ""
+                    res = JSON.parse(res);
+                    
+                    for(let item in res){
+                        let table_row = buildPedidoTableRow(item);
+                        table_row.find('.nome').text(res[item].nome);
+                        table_row.find('.valor').text( "R$ " + (res[item].valor));
+                        table_row.find('.sub-total').text( "R$ " + ((res[item].valor * res[item].qtd).toFixed(2))); //Arredondamento
+                        table_row.find('.qtd span').text(res[item].qtd);
+                        $("#table-pedido tbody").append(table_row);
+                        
+                        total += res[item].valor * res[item].qtd;
+                    }
+                    totalCorreto=(total.toFixed(2));
+
+                    $('#valor-total span').text(totalCorreto); //Mudar aqui o arredondamento
+
+                    console.log(totalCorreto);
+                    
                 }
             });
         }

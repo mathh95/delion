@@ -39,29 +39,36 @@
             $itens = [];
             if(!empty($keys_array))
                 $itens = $controller->buscarVariosId($keys_array);
-            
+        
             $return_array = [];
             $valor = 0;
+
             foreach($itens as $item){
                 $valor += $item['preco'] * $array[$item['cod_cardapio']];
                 $return_array[$item['cod_cardapio']] = [];
                 $return_array[$item['cod_cardapio']]['prod_id'] = $item['cod_cardapio'];
                 $return_array[$item['cod_cardapio']]['valor'] = $item['preco'];
                 $return_array[$item['cod_cardapio']]['qtd'] = $array[$item['cod_cardapio']];
-            }
             
             $pedido = new PedidoWpp;
             $pedido->construct($result, $return_array, $status);
     
             $control = new controlerCarrinhoWpp($_SG['link']);
             $control->setPedidoWpp($pedido);
+            
 
             msgRedireciona('Pedido realizado!','Pedido cadastrado com sucesso!', 1,'../view/admin/pedidoWppLista.php');
+            
+            }
         }
+
         catch (Exception $e){
             alertJSVoltarPagina('Erro!','Erro ao cadastrar pedido!',2);
         }
 
+        if ($valor == 0){
+            alertJSVoltarPagina('Erro!','Erro ao cadastrar pedido!',2);
+        }
 		
 	}else{
 		expulsaVisitante();
