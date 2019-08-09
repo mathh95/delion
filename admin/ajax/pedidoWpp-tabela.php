@@ -162,7 +162,7 @@ if(in_array('pedidoWpp', $permissao)){
 							<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>
 							<br><h4 class=\"modal-title\" id=\"exampleModalLabel\" style=\"text-align:center\">Dados para Impressão</h4>
 						</div>
-						<div class=\"modal-body\" style=\"text-align:center\" id=\"divPrin\">
+						<div class=\"modal-body\" style=\"text-align:center\" id=\"divPrin\" >
 							<form>
 									<div class=\"form-group\">
 									<label for=\"recipient-name\" class=\"control-label\">----------------------------------------------------------</label>

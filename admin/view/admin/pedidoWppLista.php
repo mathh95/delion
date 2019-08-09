@@ -254,7 +254,7 @@ error_reporting(E_ALL);
             function renderMe(data) {
                 var mywindow = window.open('', 'invoice-box', 'height=750,width=750');
                 mywindow.document.write('<html><head><title>Impressão Fiscal</title>');
-                mywindow.document.write('<link rel="stylesheet" href="printstyle.css" type="text/css" />');
+                mywindow.document.write('<link rel="stylesheet" href="printstyle.css" type="text/css" style="height=750,width=750"/>');
                 mywindow.document.write('</head><body >');
                 mywindow.document.write(data);
                 mywindow.document.write('</body></html>');
