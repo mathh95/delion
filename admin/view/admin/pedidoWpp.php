@@ -545,36 +545,6 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
             });
         }
 
-        function verificaPedido() {
-            let url = '../../ajax/atualiza-carrinhoWpp.php';
-            let total = 0;
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function(res) {
-                    $("#table-pedido tbody")[0].innerHTML = ""
-                    res = JSON.parse(res);
-                    
-                    for(let item in res){
-                        let table_row = buildPedidoTableRow(item);
-                        table_row.find('.nome').text(res[item].nome);
-                        table_row.find('.valor').text( "R$ " + (res[item].valor));
-                        table_row.find('.sub-total').text( "R$ " + ((res[item].valor * res[item].qtd).toFixed(2))); //Arredondamento
-                        table_row.find('.qtd span').text(res[item].qtd);
-                        $("#table-pedido tbody").append(table_row);
-                        
-                        total += res[item].valor * res[item].qtd;
-                    }
-                    totalCorreto=(total.toFixed(2));
-
-                    $('#valor-total span').text(totalCorreto); //Mudar aqui o arredondamento
-
-                    console.log(totalCorreto);
-                    
-                }
-            });
-        }
-
         $(document).on('click', '.btn-add', function() {
             var url = '../../ajax/atualiza-carrinhoWpp.php';
             $.ajax({
