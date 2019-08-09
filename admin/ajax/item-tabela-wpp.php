@@ -27,7 +27,7 @@ if(in_array('pedidoWpp', $permissao)){
 			<tr name='resultado' id='status".$item->getCod_item()."'>
 			 	<td style='text-align: center;' name='data'>".$item->getProduto()."</td>
 			 	<td style='text-align: center;' name='cliente'>".$item->getQuantidade()."</td>
-				<td style='text-align: center;' name='valor'>".$item->preco."</td>
+				<td style='text-align: center;' name='valor'>"." R$ ".$item->preco."</td>
 			</tr>";
 	}
 	echo "</tbody></table>";
@@ -49,7 +49,7 @@ if(in_array('pedidoWpp', $permissao)){
 			<tr name='resultado' id='status".$item->getCod_item()."'>
 			 	<td style='text-align: center;' name='data'>".$item->getProduto()."</td>
 			 	<td style='text-align: center;' name='cliente'>".$item->getQuantidade()."</td>
-				<td style='text-align: center;' name='valor'>".$item->preco."</td>
+				<td style='text-align: center;' name='valor'>"." R$ ".$item->preco."</td>
 			</tr>";
 	}
 	echo "</tbody></table>";

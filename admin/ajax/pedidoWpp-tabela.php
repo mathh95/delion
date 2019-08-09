@@ -67,7 +67,7 @@ if(in_array('pedidoWpp', $permissao)){
 					<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
 					<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 					<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
-					<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+					<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
 					<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
 					<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
 					<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
@@ -87,7 +87,7 @@ if(in_array('pedidoWpp', $permissao)){
 					<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
 					<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 					<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
-					<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+					<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
 					<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
 					<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
 					<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
@@ -107,7 +107,7 @@ if(in_array('pedidoWpp', $permissao)){
 				<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
-				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+				<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
 				<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
 				<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
@@ -140,20 +140,22 @@ if(in_array('pedidoWpp', $permissao)){
 			 	<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
-				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+				<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
 			</tr>";
 	}
 }
 
 			foreach ($pedidos as &$pedido) {
-				$itens = $controle1->selectItens($pedido->getCod_pedido_wpp());
-				
-				if($pedido->getStatus()){
 
+				$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
+				$itens = $controle1->selectItens($pedido->getCod_pedido_wpp());
+
+				if($pedido->getStatus()){
 				// 	echo "<pre>";
 				// print_r($pedido->getCliente_wpp());
 				// echo "</pre>";
+				
 				echo " <div class=\"modal fade\" id='modalPedido".$pedido->getCod_pedido_wpp()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
 
 						<div class=\"modal-dialog\" role=\"document\">
@@ -162,23 +164,32 @@ if(in_array('pedidoWpp', $permissao)){
 							<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>
 							<br><h4 class=\"modal-title\" id=\"exampleModalLabel\" style=\"text-align:center\">Dados para Impressão</h4>
 						</div>
+<<<<<<< HEAD
 						<div class=\"modal-body\" style=\"text-align:center\" id=\"divPrin\" >
 							<form>
 									<div class=\"form-group\">
+=======
+						<div class=\"modal-body\" style=\"text-align:center\" id=\"divPrin\">
+							<form>";
+
+							
+							echo "<div class=\"form-group\">
+>>>>>>> a4dafa48604b8b10a32ceb2776d84d8f76224d97
 									<label for=\"recipient-name\" class=\"control-label\">----------------------------------------------------------</label>
 									<br><label for=\"recipient-name\" class=\"control-label\">Restaurante: DELION.O </label>
-										<br><label for=\"message-text\" class=\"control-label\">"."Data: ".$pedido->getData()->format('d/m/Y')." ".$pedido->getData()->format('H:i:s')."</label>
+										<br><label for=\"message-text\" class=\"control-label\">"."Data: ".$pedido->getData()->format('d/m/Y')." ".$pedido->getData()->format('H:i')."</label>
+										<br><label for=\"message-text\" class=\"control-label\">"."Previsao de Entrega: ".$entrega."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Cliente: ".$pedido->getCliente_wpp()."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Telefone: ".$pedido->telefone."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Endereço: ".$pedido->rua.", ".$pedido->numero."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Bairro: ".$pedido->bairro."</label>
 									</div>
 									<div class=\"form-group\">
-										
+										<br><br>
 									</div>
 									<div class=\"form-group\">
-										<label for=\"recipient-name\" class=\"control-label\">Produtos do pedido:</label><br>
-										<label for=\"recipient-name\" class=\"control-label\">Qtd - Item       -   Preço</label><br>";
+										<label for=\"recipient-name\" class=\"control-label\">Itens do pedido:</label><br>
+										<label for=\"recipient-name\" class=\"control-label\">Qtd - Item       -   Preço</label><br><br>";
 
 									foreach($itens as &$item){
 										echo "
