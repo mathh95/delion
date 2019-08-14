@@ -55,7 +55,7 @@ if(in_array('pedidoWpp', $permissao)){
         <tr name='resutaldo' id='status".$cardapio->getCod_cardapio()."'>
             <td style='text-align: center;' name='cardapio'><img src='../../".$cardapio->getFoto()."' style='max-height: 100px' alt='' class='img-thumbnail'/></td>
             <td style='text-align: center;' name='nome'>".$cardapio->getNome()."</td>
-            <td style='text-align: center;' name='preco'>".$cardapio->getPreco()."</td>
+            <td style='text-align: center;' name='preco'>"."R$ ".$cardapio->getPreco()."</td>
             <td style='text-align: center;' name='desconto'>".$cardapio->getDesconto()."%</td>
             <td style='text-align: center;' name='descricao'>".substr(html_entity_decode($cardapio->getDescricao()), 0, 200). "</td>
             <td style='text-align: center;' name='categoria'>".$cardapio->getCategoria()."</td>

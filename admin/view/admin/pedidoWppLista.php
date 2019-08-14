@@ -13,6 +13,59 @@ error_reporting(E_ALL);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+    <style>
+        .popup{
+				position: relative;
+				display: inline-block;
+				cursor: pointer;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+
+			/* The actual popup */
+			.popup .popuptext {
+				visibility: hidden;
+				width: auto;
+				min-width: 100px;
+				background-color: #555;
+				color: #fff;
+				text-align: center;
+				border-radius: 6px;
+				padding: 8px 0;
+				position: absolute;
+				z-index: 1;
+				right: 120%;
+				top: -45px;
+				margin-left: -80px;
+			}
+
+			
+			tr td {
+				padding: 8px;
+			}
+
+			
+
+			/* Toggle this class - hide and show the popup */
+			.popup .show {
+				visibility: visible;
+				/* -webkit-animation: fadeIn 1s;*/
+				/*animation: fadeIn 1s; */
+			}
+
+			/* Add animation (fade in the popup) */
+			@-webkit-keyframes fadeIn {
+				/*from {opacity: 0; }*/
+				/*to {opacity: 1; }*/
+			}
+
+			@keyframes fadeIn {
+				/*from {opacity: 0; }*/
+				/*to {opacity: 1; }*/
+			}
+    </style>
 <head>
     <?php include VIEWPATH."/cabecalho.html" ?>
 </head>
@@ -220,6 +273,11 @@ error_reporting(E_ALL);
                     );
                 }
             }
+            
+            function myFunction(int) {
+                var popup = document.getElementById('myPopup'+int);
+                popup.classList.toggle('show');
+            }
 
 
             // Função que imprime uma div
@@ -287,7 +345,8 @@ error_reporting(E_ALL);
                     );
                 }
             } 
-
+          
+			
             //Função ativada quando a ação não é permitida
             function erroDelivery(status){
                 if(status == 3) {
