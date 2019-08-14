@@ -3,6 +3,9 @@ class PedidoWpp {
     private $cod_pedido_wpp;
     private $cliente_wpp;
     private $data;
+    //
+    private $hora_print;
+    //
     private $valor;
     private $status;
 

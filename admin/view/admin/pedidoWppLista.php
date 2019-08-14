@@ -289,14 +289,35 @@ error_reporting(E_ALL);
             } 
 
             //Função ativada quando a ação não é permitida
-            function erroDelivery(status){
+            function erroDelivery(pedido,status){
                 if(status == 3) {
+                    //hora Impressão
+                    // var today = new Date();
+                    // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                    // console.log(time);
+                    horaImpressão(pedido);
+
                     msgRedireciona("Erro!","Esse pedido já saiu para a entrega!",1,"../../view/admin/pedidoWppLista.php" );
                 }else{
+                    //hora Impressão
+                    // var today = new Date();
+                    // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                    // console.log(time);
+                    
                     msgGenerico("Erro!","O pedido não foi impresso",2,function(){});
                 }
             }
             
+            function horaImpressão(pedido){
+                var today = new Date();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                console.log(time);
+
+                insereHoraPedido(time);
+
+            }
+
+
             function erroPrint(status){
                 if(status == 2) {
                     msgRedireciona("Erro!","A nota fiscal desse pedido já foi impressa!",1,"../../view/admin/pedidoWppLista.php" );

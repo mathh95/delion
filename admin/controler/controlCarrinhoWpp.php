@@ -39,6 +39,16 @@ class controlerCarrinhoWpp{
         }
     }
 
+    public function insereHoraPedido($pedidowpp){
+        $sql = $this->pdo->prepare("INSERT INTO pedido_wpp SET cod_cliente_wpp = :idClienteWpp, hora_print = :hora_print");
+
+        $sql->bindValue(":hora_print",$pedidowpp->getHora_print());
+        $sql->execute();
+
+
+        $_SESSION['carrinhoWpp'] = Null;
+    }
+
     public function setPedidoWpp($pedidowpp){
         $sql = $this->pdo->prepare("INSERT INTO pedido_wpp SET cod_cliente_wpp = :idClienteWpp, data = NOW(), valor = :valor, status = :status");
 
