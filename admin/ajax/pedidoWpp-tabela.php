@@ -11,6 +11,10 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 $controle=new controlerCarrinhoWpp($_SG['link']);
 $controle1 = new controlerCarrinhoWpp($_SG['link']);
+$controle2 = new controlerCarrinhoWpp($_SG['link']);
+$controle3 = new controlerCarrinhoWpp($_SG['link']);
+$controle4 = new controlerCarrinhoWpp($_SG['link']);
+
 
 if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || isset($_POST['endereco'])){ 
 	$nome = $_POST['nome'];
@@ -61,9 +65,12 @@ if(in_array('pedidoWpp', $permissao)){
         </tr>
 	<tbody>";
 		foreach ($pedidos as &$pedido) {	//Status = 1, então só as opções Itens/Impressão/Detalhes estão disponiveis
+			
 				if($pedido->getStatus()==1){
-				$mensagem='Cliente excluído com sucesso!';
-				$titulo='Excluir';
+					// echo "<pre>";
+					// print_r($pedido->getCod_pedido_wpp());
+					// echo "</pre>";
+					$array = ($pedido->getCod_pedido_wpp());
 				echo "<tr name='resultado' id='status".$pedido->getCod_pedido_wpp()."'>
 					<td style='text-align: center;' name='cliente'>".$pedido->getCod_pedido_wpp()."</td>
 					<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
@@ -73,7 +80,29 @@ if(in_array('pedidoWpp', $permissao)){
 					<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
 					<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
 					<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
-					<td style='text-align: center;' name='editar'><a style='font-size: 10px;' href='itemListaWpp.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-primary'><i class='fa fa-edit'></i>Itens</button></a></td>
+						<td style='text-align: center;' name='editar'>
+							<a style='font-size: 10px;'>
+							
+								<div type='button' class='popup btn btn-primary' onmouseover='myFunction(".$array.")' onmouseout='myFunction(".$array.")'>
+								<i class='fa fa-edit'></i>Itens
+									<span class='popuptext' id='myPopup".$array."'>
+											<table class=''>
+												<tbody>";
+												$itens = $controle1->selectItens($pedido->getCod_pedido_wpp());
+												foreach($itens as $item){
+												echo " <tr name='resultado' id='status".$item->getCod_item()."'>	
+														<td id='detalhes'>".$item->getQuantidade()."x</td>
+														<td id='detalhes'> ".$item->getProduto()."</td>
+														<td id='detalhes'>"."R$ ".$item->preco."</td>
+													</tr>";
+												}
+											echo "
+											</tbody>
+										</table>
+									</span>
+								</div>
+							</a>
+						</td>
 					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-primary' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido_wpp()."' data-id='".$pedido->getCod_pedido_wpp()."'><i class='fa fa-print'></i>Imprimir</button></a></td>
 					<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(".$pedido->getStatus().")\" class='btn btn-danger' disable><i class='fa fa-truck'></i>Delivery</button></a></td>
 					<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-primary'><i class='fa fa-info'></i>Detalhes</button></a></td>
@@ -83,8 +112,8 @@ if(in_array('pedidoWpp', $permissao)){
 
 			foreach ($pedidos as &$pedido) {
 				if($pedido->getStatus()==2){	//Status = 2, então só as opções Itens/Delivery/Detalhes estão disponiveis
-				$mensagem='Cliente excluído com sucesso!';
-				$titulo='Excluir';
+				
+				$array = ($pedido->getCod_pedido_wpp());
 				echo "<tr name='resultado' id='status".$pedido->getCod_pedido_wpp()."'>
 					<td style='text-align: center;' name='cliente'>".$pedido->getCod_pedido_wpp()."</td>
 					<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
@@ -94,7 +123,29 @@ if(in_array('pedidoWpp', $permissao)){
 					<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
 					<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
 					<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
-					<td style='text-align: center;' name='editar'><a style='font-size: 10px;' href='itemListaWpp.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-primary'><i class='fa fa-edit'></i>Itens</button></a></td>
+					<td style='text-align: center;' name='editar'>
+						<a style='font-size: 10px;'>
+					
+						<div type='button' class='popup btn btn-primary' onmouseover='myFunction(".$array.")' onmouseout='myFunction(".$array.")'>
+						<i class='fa fa-edit'></i>Itens
+							<span class='popuptext' id='myPopup".$array."'>
+									<table class=''>
+										<tbody>";
+										$itens = $controle2->selectItens($pedido->getCod_pedido_wpp());
+										foreach($itens as $item){
+										echo " <tr name='resultado' id='status".$item->getCod_item()."'>	
+												<td id='detalhes'>".$item->getQuantidade()."x</td>
+												<td id='detalhes'> ".$item->getProduto()."</td>
+												<td id='detalhes'>"."R$ ".$item->preco."</td>
+											</tr>";
+										}
+									echo "
+									</tbody>
+								</table>
+							</span>
+						</div>
+						</a>
+					</td>
 					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;' ><button class='btn btn-danger'><i class='fa fa-print' disable></i>Imprimir</button></a></td>
 					<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"alterarStatusDelivery(".$pedido->getCod_pedido_wpp().",3)\" class='btn btn-primary'><i class='fa fa-truck'></i>Delivery</button></a></td>
 					<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-primary'><i class='fa fa-info'></i>Detalhes</button></a></td>
@@ -104,8 +155,7 @@ if(in_array('pedidoWpp', $permissao)){
 
 		foreach ($pedidos as &$pedido) {
 			if($pedido->getStatus()==3){	//Status = 3, então só as opções Itens/Detalhes estão disponiveis
-			$mensagem='Cliente excluído com sucesso!';
-			$titulo='Excluir';
+				$array = ($pedido->getCod_pedido_wpp());
 			echo "<tr name='resultado' id='status".$pedido->getCod_pedido_wpp()."'>
 				<td style='text-align: center;' name='cliente'>".$pedido->getCod_pedido_wpp()."</td>
 				<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
@@ -115,7 +165,29 @@ if(in_array('pedidoWpp', $permissao)){
 				<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
 				<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
-				<td style='text-align: center;' name='editar'><a style='font-size: 10px;' href='itemListaWpp.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-primary'><i class='fa fa-edit'></i>Itens</button></a></td>
+				<td style='text-align: center;' name='editar'>
+						<a style='font-size: 10px;'>
+					
+						<div type='button' class='popup btn btn-primary' onmouseover='myFunction(".$array.")' onmouseout='myFunction(".$array.")'>
+						<i class='fa fa-edit'></i>Itens
+							<span class='popuptext' id='myPopup".$array."'>
+									<table class=''>
+										<tbody>";
+										$itens = $controle3->selectItens($pedido->getCod_pedido_wpp());
+										foreach($itens as $item){
+										echo " <tr name='resultado' id='status".$item->getCod_item()."'>	
+												<td id='detalhes'>".$item->getQuantidade()."x</td>
+												<td id='detalhes'> ".$item->getProduto()."</td>
+												<td id='detalhes'>"."R$ ".$item->preco."</td>
+											</tr>";
+										}
+									echo "
+									</tbody>
+								</table>
+							</span>
+						</div>
+						</a>
+					</td>
 				<td style='text-align: center;' name='imprime'><a style='font-size: 10px;' ><button class='btn btn-danger'><i class='fa fa-print'></i>Imprimir</button></a></td>
 				<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(".$pedido->getStatus().")\" class='btn btn-danger'><i class='fa fa-truck'></i>Delivery</button></a></td>
 				<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-primary'><i class='fa fa-info'></i>Detalhes</button></a></td>
@@ -154,12 +226,9 @@ if(in_array('pedidoWpp', $permissao)){
 			foreach ($pedidos as &$pedido) {
 
 				$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
-				$itens = $controle1->selectItens($pedido->getCod_pedido_wpp());
+				$itens = $controle4->selectItens($pedido->getCod_pedido_wpp());
 
 				if($pedido->getStatus()){
-				// 	echo "<pre>";
-				// print_r($pedido->getCliente_wpp());
-				// echo "</pre>";
 				
 				echo " <div class=\"modal fade\" id='modalPedido".$pedido->getCod_pedido_wpp()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
 
@@ -174,7 +243,7 @@ if(in_array('pedidoWpp', $permissao)){
 
 							
 							echo "<div class=\"form-group\">
-									<label for=\"recipient-name\" class=\"control-label\">----------------------------------------------------------</label>
+									<label for=\"recipient-name\" class=\"control-label\">----------------------------------</label>
 									<br><label for=\"recipient-name\" class=\"control-label\">Restaurante: DELION.O </label>
 										<br><label for=\"message-text\" class=\"control-label\">"."Data: ".$pedido->getData()->format('d/m/Y')." ".$pedido->getData()->format('H:i')."</label>
 										<br><label for=\"message-text\" class=\"control-label\">"."Previsao de Entrega: ".$entrega."</label>
@@ -188,7 +257,7 @@ if(in_array('pedidoWpp', $permissao)){
 									</div>
 									<div class=\"form-group\">
 										<label for=\"recipient-name\" class=\"control-label\">Itens do pedido:</label><br>
-										<label for=\"recipient-name\" class=\"control-label\">Qtd - Item       -   Preço</label><br><br>";
+										<label for=\"recipient-name\" class=\"control-label\">Qtd &nbsp&nbsp  Item &nbsp&nbsp&nbsp&nbsp&nbsp  Preço</label><br><br>";
 
 									foreach($itens as &$item){
 										echo "
@@ -201,9 +270,9 @@ if(in_array('pedidoWpp', $permissao)){
 								echo "</div>
 								
 									<div class=\"form-group\">
-										<label for=\"recipient-name\" class=\"control-label\">----------------------------------------------------------</label>
-										<br><label for=\"recipient-name\" class=\"control-label\">"."|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspValor Total: R$ ".$pedido->getValor()."&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|</label>
-										<br><label for=\"recipient-name\" class=\"control-label\">----------------------------------------------------------</label>
+										<label for=\"recipient-name\" class=\"control-label\">----------------------------------</label>
+										<br><label for=\"recipient-name\" class=\"control-label\">"."|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspValor Total: R$ ".$pedido->getValor()."&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|</label>
+										<br><label for=\"recipient-name\" class=\"control-label\">----------------------------------</label>
 									</div>
 								</form>
 					</div>
@@ -219,4 +288,6 @@ if(in_array('pedidoWpp', $permissao)){
 			}
 
 	echo "</tbody></table>";
+	
+
 ?>
