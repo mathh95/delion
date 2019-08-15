@@ -281,41 +281,42 @@ error_reporting(E_ALL);
 
 
             // Função que imprime uma div
-            function printDiv(divID){
-                var restorepage = document.body.innerHTML;
-                var printcontent = document.getElementById(divID).innerHTML;
-                document.body.innerHTML = printcontent;
-                window.print();
-                document.body.innerHTML = restorepage;
-            }
+            // function printDiv2(divID){
+            //     var restorepage = document.body.innerHTML;
+            //     var printcontent = document.getElementById(divID).innerHTML;
+            //     document.body.innerHTML = printcontent;
+            //     window.print();
+            //     document.body.innerHTML = restorepage;
+            // }
 
-            function printElem() {
-                var content = document.getElementById('modalPedido').innerHTML;
-                var mywindow = window.open('', 'Print', 'height=600,width=800');
+            // function printElem() {
+            //     var content = document.getElementById('modalPedido').innerHTML;
+            //     var mywindow = window.open('', 'Print', 'height=600,width=800');
 
-                mywindow.document.write('<html><head><title>Print</title>');
-                mywindow.document.write('</head><body >');
-                mywindow.document.write(content);
-                mywindow.document.write('</body></html>');
+            //     mywindow.document.write('<html><head><title>Print</title>');
+            //     mywindow.document.write('</head><body >');
+            //     mywindow.document.write(content);
+            //     mywindow.document.write('</body></html>');
 
-                mywindow.document.close();
-                mywindow.focus()
-                mywindow.print();
-                mywindow.close();
-                return true;
-            }
+            //     mywindow.document.close();
+            //     mywindow.focus()
+            //     mywindow.print();
+            //     mywindow.close();
+            //     return true;
+            // }
 
             function printDiv(elem){
                 renderMe($('<div/>').append($(elem).clone()).html());
             }
 
             function renderMe(data) {
-                var mywindow = window.open('', 'invoice-box', 'height=750,width=750');
-                mywindow.document.write('<html><head><title>Impressão Fiscal</title>');
-                mywindow.document.write('<link rel="stylesheet" href="printstyle.css" type="text/css" style="height=750,width=750"/>');
-                mywindow.document.write('</head><body >');
-                mywindow.document.write(data);
-                mywindow.document.write('</body></html>');
+                console.log(data);
+                // var mywindow = window.open('', 'invoice-box', 'height=750,width=750');
+                // mywindow.document.write('<html><head><title>Impressão Fiscal</title>');
+                // mywindow.document.write('<link rel="stylesheet" href="printstyle.css" type="text/css" style="height=750,width=750"/>');
+                // mywindow.document.write('</head><body >');
+                // mywindow.document.write(data);
+                // mywindow.document.write('</body></html>');
 
 
                 setTimeout(function () {

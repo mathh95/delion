@@ -167,7 +167,6 @@ if(in_array('pedidoWpp', $permissao)){
 				<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
 				<td style='text-align: center;' name='editar'>
 						<a style='font-size: 10px;'>
-					
 						<div type='button' class='popup btn btn-primary' onmouseover='myFunction(".$array.")' onmouseout='myFunction(".$array.")'>
 						<i class='fa fa-edit'></i>Itens
 							<span class='popuptext' id='myPopup".$array."'>
@@ -226,7 +225,7 @@ if(in_array('pedidoWpp', $permissao)){
 			foreach ($pedidos as &$pedido) {
 
 				$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
-				$itens = $controle4->selectItens($pedido->getCod_pedido_wpp());
+				$itens = $controle->selectItens($pedido->getCod_pedido_wpp());
 
 				if($pedido->getStatus()){
 				
@@ -238,9 +237,8 @@ if(in_array('pedidoWpp', $permissao)){
 							<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>
 							<br><h4 class=\"modal-title\" id=\"exampleModalLabel\" style=\"text-align:center\">Dados para Impressão</h4>
 						</div>
-						<div class=\"modal-body\" style=\"text-align:center\" id=\"divPrin\">
+						<div class=\"modal-body\" style=\"text-align:center\" id='divPrint".$pedido->getCod_pedido_wpp()."'>
 							<form>";
-
 							
 							echo "<div class=\"form-group\">
 									<label for=\"recipient-name\" class=\"control-label\">----------------------------------</label>
@@ -278,7 +276,7 @@ if(in_array('pedidoWpp', $permissao)){
 					</div>
 								<div class=\"modal-footer\">
                 					<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Fechar</button>
-                					<button type=\"button\" class=\"btn btn-default\" onclick=\"printDiv('#divPrin'); alteraStatusPrintModel(".$pedido->getCod_pedido_wpp().",2);\">Impressão</button>
+                					<button type=\"button\" class=\"btn btn-default\" onclick=\"printDiv('#divPrint');\">Impressão</button>
             					</div>
             			</div>
 					</div>
