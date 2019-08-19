@@ -427,9 +427,62 @@
                                 </label>
 
                             </div>
-                            
-                            <br>
 
+                            <small>Dias em que o Item Estará Disponível:</small>
+
+                                <div class="checkbox">
+                                    <!-- Não abre no domingo, logo não precisa aparecer na lista -->
+
+                                    <!-- Segunda -->
+                                    <label>
+                                        <input type="checkbox" id="diaSeg" name="diaSeg" value="1"/>Seg
+                                    </label>
+                                    <!-- Terça -->
+                                    <label>
+                                        <input type="checkbox" id="diaTer" name="diaTer" value="2"/>Ter                               
+                                    </label>
+                                    <!-- Quarta -->
+                                    <label>
+                                        <input type="checkbox" id="diaQua" name="diaQua" value="3"/>Qua
+                                    </label>
+                                    <!-- Quinta -->
+                                    <label>
+                                        <input type="checkbox" id="diaQui" name="diaQui" value="4"/>Qui                               
+                                    </label>
+                                    <!-- Sexta -->
+                                    <label>
+                                        <input type="checkbox" id="diaSex" name="diaSex" value="5"/>Sex
+                                    </label>
+                                    <!-- Sábado -->
+                                    <label>
+                                        <input type="checkbox" id="diaSab" name="diaSab" value="6"/>Sáb                               
+                                    </label>
+                                    <!-- Domingo -->
+                                    <!-- <label>
+                                        <input type="checkbox" id="diaDom" name="diaDom" value="7"/>Dom                               
+                                    </label> -->
+
+                                </div>
+                            
+                                <small>Turno(s) que o item estará disponível:</small>
+                                
+                                <div class="checkbox">
+                                    <!-- Pedir pro Matheus colocar um hover sob as opções de horário -->
+                                        <!-- Primeiro Turno -->
+                                        <label>
+                                            <input type="checkbox" id="turnoUm" name="turnoUm" value="1"/>1° Turno
+                                        </label>
+                                        <!-- Segundo Turno -->
+                                        <label>
+                                            <input type="checkbox" id="turnoDois" name="turnoDois" value="2"/>2° Turno                              
+                                        </label>
+                                        <!-- Terceiro Turno -->
+                                        <label>
+                                            <input type="checkbox" id="turnoTres" name="turnoTres" value="3"/>3° Turno
+                                        </label>
+                                </div>
+                            <br>
+                            
                             <small>Quais adicionais estarão disponiveis para esse produto:</small>
 
                             <input type="hidden" value="<?=count($adicionais)?>" name="quantidadeAdicionais">

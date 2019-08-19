@@ -223,14 +223,10 @@ if(in_array('pedidoWpp', $permissao)){
 
 				$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
 				$itens = $controle->selectItens($pedido->getCod_pedido_wpp());
-<<<<<<< HEAD
 
-				if($pedido->getStatus()){
-				
-=======
 				if($pedido->getStatus()==1){
 				$array = ($pedido->getCod_pedido_wpp());
->>>>>>> b31df5cadb076ed3e947cae398bbe3152c28279a
+				
 				echo " <div class=\"modal fade\" id='modalPedido".$pedido->getCod_pedido_wpp()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
 
 						<div class=\"modal-dialog\" role=\"document\">
@@ -239,15 +235,9 @@ if(in_array('pedidoWpp', $permissao)){
 							<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>
 							<br><h4 class=\"modal-title\" id=\"exampleModalLabel\" style=\"text-align:center\">Dados para Impressão</h4>
 						</div>
-<<<<<<< HEAD
-						<div class=\"modal-body\" style=\"text-align:center\" id='divPrint".$pedido->getCod_pedido_wpp()."'>
-							<form>";
-							
-=======
 						<div class=\"modal-body\" style=\"text-align:center\" id='divPrin".$array."'>
 							<form>";
 
->>>>>>> b31df5cadb076ed3e947cae398bbe3152c28279a
 							echo "<div class=\"form-group\">
 									<label for=\"recipient-name\" class=\"control-label\">----------------------------------</label>
 									<br><label for=\"recipient-name\" class=\"control-label\">Restaurante: DELION.O </label>
@@ -285,11 +275,7 @@ if(in_array('pedidoWpp', $permissao)){
 							</div>
 								<div class=\"modal-footer\">
                 					<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Fechar</button>
-<<<<<<< HEAD
-                					<button type=\"button\" class=\"btn btn-default\" onclick=\"printDiv('#divPrint');\">Impressão</button>
-=======
                 					<button type=\"button\" class=\"btn btn-default\" onclick=\"printDiv('#divPrin".$array."'); alteraStatusPrintModel(".$array.",2);\">Impressão</button>
->>>>>>> b31df5cadb076ed3e947cae398bbe3152c28279a
             					</div>
             			</div>
 					</div>
