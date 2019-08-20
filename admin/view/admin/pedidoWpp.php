@@ -352,13 +352,22 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
                     </div>
 
+                    <div class="col-md-12">
+    
+                        <h3>Forma de Pagamento</h3>
+    
+                        <div class="input-group">
+                            <select id="formaPagamento" class="form-control">
+                                <option value="">Escolha a forma de Pagamento</option>
+                                <option value="1">Dinheiro</option>
+                                <option value="2">Cartão de Crédito</option>
+                                <option value="3">Cartão de Débito</option>
+                            </select>
+                        </div>
+
+                    </div>
+
                 </div>
-
-<!--                 <div class="row">
-
-                    <h3>Formas de Pagamento</h3>
-
-                <div class="row" -->
 
                     <div class="col-md-12">
 
