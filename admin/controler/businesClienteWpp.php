@@ -22,6 +22,7 @@
             $bairro=addslashes(htmlspecialchars($_POST['bairro']));
             $complemento=addslashes(htmlspecialchars($_POST['complemento']));
             $status=1;
+            $formaPgt=addslashes(htmlspecialchars($_POST['formaPagamento']));//Pegar a forma de pgt que vem da pagina PedidoWpp
             $clienteWpp = new ClienteWpp;
             $clienteWpp->construct($nome, $telefone, $rua, $numero, $bairro, $complemento);
             
@@ -49,12 +50,12 @@
                 $return_array[$item['cod_cardapio']]['qtd'] = $array[$item['cod_cardapio']];
             }
             
-            $control = new controlClienteWpp($_SG['link']);
-            if($valor != 0){
+            $control = new controlClienteWpp($_SG['link']);  
+            if($valor != 0 && !empty($formaPgt)){
                 $result=$control->insert($clienteWpp);
                 
                 $pedido = new PedidoWpp;
-                $pedido->construct($result, $return_array, $status);
+                $pedido->construct($result, $return_array, $status, $formaPgt);
 
                 $control = new controlerCarrinhoWpp($_SG['link']);
                 $control->setPedidoWpp($pedido);
@@ -65,7 +66,6 @@
                 alertJSVoltarPagina('Erro!','Erro ao cadastrar pedido!',2);
             }
             
-            // alertJSVoltarPagina('Erro01!','Erro01 ao cadastrar pedido!',2);
             
         }
         catch (Exception $e){

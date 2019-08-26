@@ -3,9 +3,8 @@ class PedidoWpp {
     private $cod_pedido_wpp;
     private $cliente_wpp;
     private $data;
-    //
+    private $formaPgt;
     private $hora_print;
-    //
     private $valor;
     private $status;
 
@@ -23,6 +22,10 @@ class PedidoWpp {
 
     function getHora_print(){
         return $this->hora_print;
+    }
+
+    function getFormaPgt(){
+        return $this->formaPgt;
     }
 
     function getValor(){
@@ -49,6 +52,10 @@ class PedidoWpp {
         $this->hora_print=$hora_print;
     }
 
+    function setFormaPgt($formaPgt){
+        $this->formaPgt=$formaPgt;
+    }
+
     function setValor($valor){
         $this->valor=$valor;
     }
@@ -61,11 +68,12 @@ class PedidoWpp {
         
     }
 
-    function construct($cliente_wpp, $carrinho, $status){
+    function construct($cliente_wpp, $carrinho, $status, $formaPgt){
 
         $this->cliente_wpp = $cliente_wpp;
         $this->status = $status;
         $this->carrinho = $carrinho;
+        $this->formaPgt = $formaPgt;
     }
 
     function show(){

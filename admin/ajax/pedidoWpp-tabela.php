@@ -185,7 +185,7 @@ if(in_array('pedidoWpp', $permissao)){
 						</a>
 					</td>
 				<td style='text-align: center;' name='imprime'><a style='font-size: 10px;' ><button class='btn btn-danger'><i class='fa fa-print'></i>Imprimir</button></a></td>
-				<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(".$pedido->getStatus().")\" class='btn btn-danger'><i class='fa fa-truck'></i>Delivery</button></a></td>
+				<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button class='btn btn-danger'><i class='fa fa-truck'></i>Delivery</button></a></td>
 				<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-primary'><i class='fa fa-info'></i>Detalhes</button></a></td>
 				</tr>";
 		}
@@ -247,6 +247,7 @@ if(in_array('pedidoWpp', $permissao)){
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Telefone: ".$pedido->telefone."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Endereço: ".$pedido->rua.", ".$pedido->numero."</label>
 										<br><label for=\"recipient-name\" class=\"control-label\">"." Bairro: ".$pedido->bairro."</label>
+										<br><label for=\"recipient-name\" class=\"control-label\">"." Forma Pagamento: ".$pedido->getFormaPgt()."</label>
 									</div>
 									<div class=\"form-group\">
 										<br><br>

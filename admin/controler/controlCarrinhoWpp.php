@@ -50,11 +50,12 @@ class controlerCarrinhoWpp{
     }
 
     public function setPedidoWpp($pedidowpp){
-        $sql = $this->pdo->prepare("INSERT INTO pedido_wpp SET cod_cliente_wpp = :idClienteWpp, data = NOW(), valor = :valor, status = :status");
+        $sql = $this->pdo->prepare("INSERT INTO pedido_wpp SET cod_cliente_wpp = :idClienteWpp, data = NOW(), formaPgt = :formaPgt, valor = :valor, status = :status");
 
         $sql->bindValue(":idClienteWpp", $pedidowpp->getCliente_wpp());
         $sql->bindValue(":status", $pedidowpp->getStatus());
         $sql->bindValue(":valor", $this->calcTotal($pedidowpp));
+        $sql->bindValue(":formaPgt", $pedidowpp->getFormaPgt());
 
         $sql->execute();
 
@@ -79,6 +80,7 @@ class controlerCarrinhoWpp{
                     $pedido->setData(new DateTime($result->data));
                     $pedido->setValor($result->valor);
                     $pedido->setStatus($result->status);
+                    $pedido->setFormaPgt($result->formaPgt);
                     array_push($pedidos,$pedido);  
                 }
             }else{
@@ -121,7 +123,7 @@ class controlerCarrinhoWpp{
     function selectAllPedido($parametro, $valormenor, $valormaior){
         $pedidos=array();
         $parametro = "%".$parametro."%";
-        $stmt=$this->pdo->prepare("SELECT pw.cod_pedido_wpp, pw.cod_cliente_wpp, pw.data, pw.valor, pw.status, cw.nome, cw.telefone, cw.rua, cw.numero, cw.bairro, cw.complemento
+        $stmt=$this->pdo->prepare("SELECT pw.cod_pedido_wpp, pw.cod_cliente_wpp, pw.data, pw.valor, pw.status, pw.formaPgt, cw.nome, cw.telefone, cw.rua, cw.numero, cw.bairro, cw.complemento
         FROM pedido_wpp as pw
         INNER JOIN
         cliente_wpp AS cw ON
@@ -141,6 +143,7 @@ class controlerCarrinhoWpp{
                     $pedido->setValor($result->valor);
                     $pedido->setStatus($result->status);
                     $pedido->setCliente_wpp($result->nome);
+                    $pedido->setFormaPgt($result->formaPgt);
                     $pedido->telefone=($result->telefone);
                     $pedido->rua=($result->rua);
                     $pedido->numero=($result->numero);
