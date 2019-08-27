@@ -9,8 +9,8 @@
         private $pdo;
         function insert($cardapio){
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO cardapio(nome, preco, descricao, foto, categoria, flag_ativo, prioridade, delivery, desconto, adicional)
-                VALUES (:nome, :preco, :descricao, :foto, :categoria, :flag_ativo, :prioridade, :delivery, :desconto, :adicional)");
+                $stmte =$this->pdo->prepare("INSERT INTO cardapio(nome, preco, descricao, foto, categoria, flag_ativo, prioridade, delivery, desconto, adicional, dias_semana, turnos_semana)
+                VALUES (:nome, :preco, :descricao, :foto, :categoria, :flag_ativo, :prioridade, :delivery, :desconto, :adicional, :dias_semana, :turnos_semana)");
                 $stmte->bindParam("nome", $cardapio->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam("preco", $cardapio->getPreco());
                 $stmte->bindParam("descricao", $cardapio->getDescricao(), PDO::PARAM_STR);
@@ -21,6 +21,8 @@
                 $stmte->bindParam("delivery", $cardapio->getDelivery(),PDO::PARAM_INT);
                 $stmte->bindParam("desconto", $cardapio->getDesconto());
                 $stmte->bindParam("adicional", $cardapio->getAdicional(), PDO::PARAM_STR);
+                $stmte->bindParam("dias_semana", $cardapio->getDias_semana(), PDO::PARAM_STR);
+                $stmte->bindParam("turnos_semana", $cardapio->getTurnos_semana(), PDO::PARAM_STR);
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;
@@ -37,7 +39,7 @@
 
         function update($cardapio){
             try{
-                $stmte =$this->pdo->prepare("UPDATE cardapio SET nome=:nome, preco=:preco, desconto = :desconto, descricao=:descricao, foto=:foto, categoria=:categoria, flag_ativo=:flag_ativo, prioridade=:prioridade, delivery=:delivery, adicional=:adicional WHERE cod_cardapio=:cod_cardapio");
+                $stmte =$this->pdo->prepare("UPDATE cardapio SET nome=:nome, preco=:preco, desconto = :desconto, descricao=:descricao, foto=:foto, categoria=:categoria, flag_ativo=:flag_ativo, prioridade=:prioridade, delivery=:delivery, adicional=:adicional, dias_semana=:dias_semana, turnos_semana=:turnos_semana WHERE cod_cardapio=:cod_cardapio");
                 $stmte->bindParam(":cod_cardapio", $cardapio->getCod_cardapio() , PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $cardapio->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $cardapio->getPreco());
@@ -49,6 +51,8 @@
                 $stmte->bindParam("prioridade", $cardapio->getPrioridade(),PDO::PARAM_INT);
                 $stmte->bindParam("delivery", $cardapio->getDelivery(),PDO::PARAM_INT);
                 $stmte->bindParam("adicional", $cardapio->getAdicional());
+                $stmte->bindParam(":dias_semana", $cardapio->getDias_semana(), PDO::PARAM_STR);
+                $stmte->bindParam(":turnos_semana", $cardapio->getTurnos_semana(), PDO::PARAM_STR);
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;
@@ -109,6 +113,8 @@
                             $cardapio->setPrioridade($result->prioridade);
                             $cardapio->setDelivery($result->delivery);
                             $cardapio->setAdicional($result->adicional);
+                            $cardapio->setDias_semana($result->dias_semana);
+                            $cardapio->setTurnos_semana($result->turnos_semana);
                         }
                     }
                 }
@@ -119,10 +125,15 @@
             }
         }
         function select($parametro,$modo){
+            
             $stmte;
             try{
                 if($modo==1){
-                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo = 1");
+                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria, A.dias_semana AS dias_semana
+                        FROM cardapio AS A 
+                        INNER JOIN categoria AS B ON A.categoria = B.cod_categoria 
+                        WHERE A.nome 
+                        LIKE :parametro AND A.flag_ativo = 1");
                     $stmte->bindValue(":parametro","%".$parametro."%");
                     $cardapios = array();
                     if($stmte->execute()){
@@ -139,13 +150,20 @@
                                 $cardapio->setFlag_ativo($result->flag_ativo);
                                 $cardapio->setPrioridade($result->prioridade);
                                 $cardapio->setDelivery($result->delivery);
+                                $cardapio->setDias_semana($result->dias_semana);
                                 array_push($cardapios, $cardapio);
+                                // echo "<pre>";
+                                // print_r($cardapios);
+                                // echo "</pre>";
                             }
                         }
                     }
                     return $cardapios;
                 }elseif ($modo==2) {
-                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.cod_cardapio = :parametro");
+                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria, A.dias_semana AS dias_semana 
+                    FROM cardapio AS A 
+                    INNER JOIN categoria AS B ON A.categoria = B.cod_categoria 
+                    WHERE A.cod_cardapio = :parametro");
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                     $cardapio= new cardapio();
                     if($stmte->execute()){
@@ -159,10 +177,14 @@
                                 $cardapio->setFlag_ativo($result->flag_ativo);
                                 $cardapio->setPrioridade($result->prioridade);
                                 $cardapio->setDelivery($result->delivery);
+                                $cardapio->setDias_semana($result->dias_semana);
                             }
                         }
                     }
                     return $cardapio;
+                                // echo "<pre>";
+                                // print_r($cardapio);
+                                // echo "</pre>";
                 }
             }
             catch(PDOException $e){

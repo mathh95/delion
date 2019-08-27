@@ -15,6 +15,8 @@
         private $prioridade;
         private $delivery;
         private $adicional;
+        private $dias_semana;
+        private $turnos_semana;
 
 
         function getCod_cardapio(){
@@ -54,6 +56,12 @@
         function getAdicional(){
             return $this->adicional;
         }
+        function getDias_semana(){
+            return $this->dias_semana;
+        }
+        function getTurnos_semana(){
+            return $this->turnos_semana;
+        }
 
         function setCod_cardapio($cod_cardapio){
             $this->cod_cardapio=$cod_cardapio;
@@ -89,6 +97,14 @@
             $this->adicional=$adicional;
         }
 
+        function setDias_semana($dias_semana){
+            $this->dias_semana=$dias_semana;
+        }
+
+        function setTurnos_semana($turnos_semana){
+            $this->turnos_semana=$turnos_semana;
+        }
+
         function getDsAtivo(){
             $ativo = ($this->flag_ativo == 1) ? "Ativo" : "Não ativo" ;
             return $ativo;
@@ -105,7 +121,7 @@
         }
         function __construct(){
         }
-        function construct($nome,$preco,$desconto,$descricao,$foto,$categoria,$flag_ativo,$prioridade,$delivery, $adicional){
+        function construct($nome,$preco,$desconto,$descricao,$foto,$categoria,$flag_ativo,$prioridade,$delivery, $adicional, $dias_semana, $turnos_semana){
             $this->nome=$nome;
             $this->preco = $preco;
             $this->desconto = $desconto;
@@ -116,6 +132,8 @@
             $this->prioridade=$prioridade;
             $this->delivery=$delivery;
             $this->adicional=$adicional;
+            $this->dias_semana=$dias_semana;
+            $this->turnos_semana=$turnos_semana;
         }
         function show(){
             echo "Código do cardapio:".$this->cod_cardapio."<br>";
@@ -125,6 +143,8 @@
             echo "Foto:".$this->foto."<br>";
             echo "Categoria:".$this->categoria."<br>";
             echo "Ativo:".$this->flag_ativo."<br>";
+            echo "Dias da semana: ".$this->dias_semana."<br>";
+            echo "Turnos da semana: ".$this->turnos_semana."<br>";
 
         }
     }

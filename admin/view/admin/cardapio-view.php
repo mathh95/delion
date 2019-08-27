@@ -40,6 +40,34 @@
 
     $adicionais = $controleAdicional->selectAll();
 
+
+
+           
+        $dias_semana = json_decode($cardapio->getDias_semana());
+        // echo '<pre>';
+        // print_r($dias_semana);
+        // echo '</pre>';
+            $d="[";
+
+        foreach ($dias_semana as $dias) {
+
+            $d.='"'.$dias.'",';
+
+        }
+
+        $d.="]";
+    
+        $turnos_semana = json_decode($cardapio->getTurnos_semana());
+
+        $t="[";
+
+        foreach ($turnos_semana as $turnos) {
+
+            $t.='"'.$turnos.'",';
+
+        }
+
+        $t.="]";
     // echo '<pre>';
     // print_r($adicionais);
     // echo '</pre>';
@@ -330,7 +358,7 @@
             </div>
 
         </header>
-
+        
         <div class="container-fluid">
 
             <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/alteraCardapio.php">
@@ -410,7 +438,7 @@
 
                                     <label>
 
-                                        <input type="checkbox" id="ativo" name="flag_ativo" value="1">Ativo
+                                        <input type="checkbox" id="ativo" <?=($cardapio->getFlag_ativo() == 1)?"checked":""?> name="flag_ativo" value="1">Ativo
 
                                     </label>
 
@@ -441,6 +469,195 @@
                                     </label>
 
                                 </div>
+                               
+
+                                <small>Dias em que o Item Estará Disponível:</small>
+
+                                <div class="checkbox">
+                                    <!-- Não abre no domingo, logo não precisa aparecer na lista -->
+
+                                    
+                                    <ul>
+
+                                        <li>
+
+                                            <label>
+
+                                            <input type="checkbox" id="segunda" name="1dia" value="segunda"/>Seg &nbsp;
+
+                                            </label>
+
+                                        </li>
+
+                                        <li>
+
+                                            <label>
+
+                                            <input type="checkbox" id="terca" name="2dia" value="terca"/>Ter &nbsp; 
+
+                                            </label>
+
+                                        </li>
+
+                                        <li>
+
+                                            <label>
+
+                                            <input type="checkbox" id="quarta" name="3dia" value="quarta"/>Qua &nbsp;
+
+                                            </label>
+
+                                        </li>
+
+                                        <li>
+
+                                            <label>
+
+                                            <input type="checkbox" id="quinta" name="4dia" value="quinta"/>Qui &nbsp;
+
+                                            </label>
+
+                                        </li>
+
+                                        <li>
+
+                                            <label>
+
+                                            <input type="checkbox" id="sexta"  name="5dia" value="sexta"/>Sex &nbsp;
+
+                                            </label>
+
+                                        </li>
+
+                                        <li>
+
+                                            <label>
+
+                                            <input type="checkbox" id="sabado" name="6dia" value="sabado"/>Sáb  &nbsp; 
+
+                                            </label>
+
+                                        </li>
+
+                                        
+                                       
+
+                                        </ul>
+                                    <!-- <label>
+                                        <input type="checkbox" id="segunda" name="dia1" value="segunda"/>Seg &nbsp;
+                                    </label>
+                                    
+                                    <label>
+                                        <input type="checkbox" id="terca" name="dia2" value="terca"/>Ter &nbsp;                             
+                                    </label>
+                                    
+                                    <label>
+                                        <input type="checkbox" id="quarta" name="dia3" value="quarta"/>Qua &nbsp;
+                                    </label>
+                                    
+                                    <label>
+                                        <input type="checkbox" id="quinta" name="dia4" value="quinta"/>Qui &nbsp;                              
+                                    </label>
+                                  
+                                    <label>
+                                        <input type="checkbox" id="sexta" name="dia5" value="sexta"/>Sex &nbsp;
+                                    </label>
+                                    
+                                    <label>
+                                        <input type="checkbox" id="sabado" name="dia6" value="sabado"/>Sáb  &nbsp;                             
+                                    </label> -->
+                                    <!-- Domingo -->
+                                    <!-- <label>
+                                        <input type="checkbox" id="diaDom" name="diaDom" value="7"/>Dom                               
+                                    </label> -->
+
+                                </div>
+                            
+                                <small>Turno(s) que o item estará disponível:</small>
+                                
+                                <div class="checkbox">
+                                        <!-- Primeiro Turno -->
+                                        <tbody>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <label>
+                                                        <input  type="checkbox" id="turno1" name="1turno" value="turno1"/>1° Turno &nbsp; 
+                                                        </label>
+                                                    </td>
+                                                    
+                                                    <!-- Segundo Turno -->
+                                                    <td>
+                                                        <label>
+                                                        <input type="checkbox" id="turno2" name="2turno" value="turno2"/> 2° Turno &nbsp;                              
+                                                        </label>
+                                                    </td>
+                                                    <!-- Terceiro Turno -->
+                                                    <td>
+                                                        <label>
+                                                        <input type="checkbox" id="turno3" name="3turno" value="turno3"/> 3° Turno &nbsp;
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <label for=""></label>
+                                                    </td>
+                                                </tr>
+                                            
+                                        
+                                </div>
+
+                                        <tr>
+                                            <td><br> 
+                                            <select name="" style="" id="select1">
+                                                        <option value="">08:00</option>
+                                                        <option value="">08:30</option>
+                                                        <option value="">09:00</option>
+                                                        <option value="">09:30</option>
+                                                        <option value="">10:00</option>
+                                                        <option value="">10:30</option>
+                                                        <option value="">11:00</option>
+                                                        <option value="">11:30</option>
+                                            </select><br><br>
+                                            <select name="" style="" id="select11">
+                                                        <option value="">08:00</option>
+                                                        <option value="">08:30</option>
+                                                        <option value="">09:00</option>
+                                                        <option value="">09:30</option>
+                                                        <option value="">10:00</option>
+                                                        <option value="">10:30</option>
+                                                        <option value="">11:00</option>
+                                                        <option value="">11:30</option>
+                                            </select></td>
+
+                                            <td><br>
+                                            <select name="" style="" id="select2">
+                                                        <option value="">12:00</option>
+                                                        <option value="">12:30</option>
+                                                        <option value="">13:00</option>
+                                            </select><br><br>
+                                            <select name="" style="" id="select22">
+                                                        <option value="">12:00</option>
+                                                        <option value="">12:30</option>
+                                                        <option value="">13:00</option>
+                                            </select>
+                                            </td>
+                                            
+                                            <td><br>
+                                            <select name="" style="" id="select3">
+                                                        <option value="">17:00</option>
+                                                        <option value="">17:30</option>
+                                                        <option value="">18:00</option>
+                                            </select><br><br>
+                                            <select name="" style="" id="select33">
+                                                        <option value="">17:00</option>
+                                                        <option value="">17:30</option>
+                                                        <option value="">18:00</option>
+                                            </select>
+                                            </td>
+                                        </tr>
+                                </table>
+                                </tbody>
+                                
                             <br>
 
                             <small>Quais são os adicionais disponiveis para este produto:</small>
@@ -575,17 +792,62 @@
 
             })
 
-            var ativo =   <?=$cardapio->getFlag_ativo()?>;
+            var dia =   <?=$d ?>;
 
             $( document ).ready(function() {
 
-                if (ativo == 1) {
+                for(let value of dia){
 
-                    $('#ativo').attr('checked', true);
+                    $('#' + value).attr('checked', true);
 
                 }
 
             })
+
+            var turno =   <?=$t ?>;
+
+            $( document ).ready(function() {
+
+                for(let value of turno){
+
+                    $('#' + value).attr('checked', true);
+
+                }
+
+            })
+
+            var ativo =   <?=$cardapio->getFlag_ativo()?>;
+
+            // $( document ).ready(function() {
+
+            //     if (ativo == 1) {
+
+            //         $('#ativo').attr('checked', true);
+
+            //     }
+
+            // })
+
+            $('[name="1turno"]').on('change', function() {
+                $('#select1').toggle(this.checked);
+                }).change();
+            $('[name="1turno"]').on('change', function() {
+                $('#select11').toggle(this.checked);
+                }).change();
+
+            $('[name="2turno"]').on('change', function() {
+                $('#select2').toggle(this.checked);
+                }).change();
+            $('[name="2turno"]').on('change', function() {
+                $('#select22').toggle(this.checked);
+                }).change();
+
+            $('[name="3turno"]').on('change', function() {
+                $('#select3').toggle(this.checked);
+                }).change();
+            $('[name="3turno"]').on('change', function() {
+                $('#select33').toggle(this.checked);
+                }).change();
             
         </script>
 

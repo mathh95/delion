@@ -435,27 +435,27 @@
 
                                     <!-- Segunda -->
                                     <label>
-                                        <input type="checkbox" id="diaSeg" name="diaSeg" value="1"/>Seg
+                                        <input type="checkbox" id="segunda" name="1dia" value="segunda"/>Seg &nbsp;
                                     </label>
                                     <!-- Terça -->
                                     <label>
-                                        <input type="checkbox" id="diaTer" name="diaTer" value="2"/>Ter                               
+                                        <input type="checkbox" id="terca" name="2dia" value="terca"/>Ter &nbsp;                             
                                     </label>
                                     <!-- Quarta -->
                                     <label>
-                                        <input type="checkbox" id="diaQua" name="diaQua" value="3"/>Qua
+                                        <input type="checkbox" id="quarta" name="3dia" value="quarta"/>Qua &nbsp;
                                     </label>
                                     <!-- Quinta -->
                                     <label>
-                                        <input type="checkbox" id="diaQui" name="diaQui" value="4"/>Qui                               
+                                        <input type="checkbox" id="quinta" name="4dia" value="quinta"/>Qui &nbsp;                              
                                     </label>
                                     <!-- Sexta -->
                                     <label>
-                                        <input type="checkbox" id="diaSex" name="diaSex" value="5"/>Sex
+                                        <input type="checkbox" id="sexta" name="5dia" value="sexta"/>Sex &nbsp;
                                     </label>
                                     <!-- Sábado -->
                                     <label>
-                                        <input type="checkbox" id="diaSab" name="diaSab" value="6"/>Sáb                               
+                                        <input type="checkbox" id="sabado" name="6dia" value="sabado"/>Sáb  &nbsp;                             
                                     </label>
                                     <!-- Domingo -->
                                     <!-- <label>
@@ -467,20 +467,87 @@
                                 <small>Turno(s) que o item estará disponível:</small>
                                 
                                 <div class="checkbox">
-                                    <!-- Pedir pro Matheus colocar um hover sob as opções de horário -->
                                         <!-- Primeiro Turno -->
-                                        <label>
-                                            <input type="checkbox" id="turnoUm" name="turnoUm" value="1"/>1° Turno
-                                        </label>
-                                        <!-- Segundo Turno -->
-                                        <label>
-                                            <input type="checkbox" id="turnoDois" name="turnoDois" value="2"/>2° Turno                              
-                                        </label>
-                                        <!-- Terceiro Turno -->
-                                        <label>
-                                            <input type="checkbox" id="turnoTres" name="turnoTres" value="3"/>3° Turno
-                                        </label>
+                                        <tbody>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <label>
+                                                        <input  type="checkbox" id="turno1" name="1turno" value="turno1"/>1° Turno &nbsp; 
+                                                        </label>
+                                                    </td>
+                                                    
+                                                    <!-- Segundo Turno -->
+                                                    <td>
+                                                        <label>
+                                                        <input type="checkbox" id="turno2" name="2turno" value="turno2"/> 2° Turno &nbsp;                              
+                                                        </label>
+                                                    </td>
+                                                    <!-- Terceiro Turno -->
+                                                    <td>
+                                                        <label>
+                                                        <input type="checkbox" id="turno3" name="3turno" value="turno3"/> 3° Turno &nbsp;
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <label for=""></label>
+                                                    </td>
+                                                </tr>
+                                            
+                                        
                                 </div>
+
+                                        <tr>
+                                            <td><br> 
+                                            <select name="" style="" id="select1">
+                                                        <option value="">08:00</option>
+                                                        <option value="">08:30</option>
+                                                        <option value="">09:00</option>
+                                                        <option value="">09:30</option>
+                                                        <option value="">10:00</option>
+                                                        <option value="">10:30</option>
+                                                        <option value="">11:00</option>
+                                                        <option value="">11:30</option>
+                                            </select><br><br>
+                                            <select name="" style="" id="select11">
+                                                        <option value="">08:00</option>
+                                                        <option value="">08:30</option>
+                                                        <option value="">09:00</option>
+                                                        <option value="">09:30</option>
+                                                        <option value="">10:00</option>
+                                                        <option value="">10:30</option>
+                                                        <option value="">11:00</option>
+                                                        <option value="">11:30</option>
+                                            </select></td>
+
+                                            <td><br>
+                                            <select name="" style="" id="select2">
+                                                        <option value="">12:00</option>
+                                                        <option value="">12:30</option>
+                                                        <option value="">13:00</option>
+                                            </select><br><br>
+                                            <select name="" style="" id="select22">
+                                                        <option value="">12:00</option>
+                                                        <option value="">12:30</option>
+                                                        <option value="">13:00</option>
+                                            </select>
+                                            </td>
+                                            
+                                            <td><br>
+                                            <select name="" style="" id="select3">
+                                                        <option value="">17:00</option>
+                                                        <option value="">17:30</option>
+                                                        <option value="">18:00</option>
+                                            </select><br><br>
+                                            <select name="" style="" id="select33">
+                                                        <option value="">17:00</option>
+                                                        <option value="">17:30</option>
+                                                        <option value="">18:00</option>
+                                            </select>
+                                            </td>
+                                        </tr>
+                                </table>
+                                </tbody>
                             <br>
                             
                             <small>Quais adicionais estarão disponiveis para esse produto:</small>
@@ -489,12 +556,12 @@
 
                             <br>
 
-                            <?php $i = 1; foreach($adicionais as $adicional): ?>
+                            <?php $i = 1; foreach($adicionais as $adicional){ ?>
 
                                 <input type="checkbox" name="<?=$i?>adicional" value="<?=$adicional->getCod_adicional()?>"><?=$adicional->getNome()?>
                                 <br>
 
-                            <?php $i++; endforeach; ?>
+                            <?php $i++; } ?>
 
                             <br>
 
@@ -563,7 +630,6 @@
         <?php include VIEWPATH."/rodape.html" ?>
 
         <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-
         <script>
 
             tinymce.init({selector: 'textarea', plugins: [
@@ -581,9 +647,30 @@
                 toolbar1: 'undo redo | insert | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link |  forecolor backcolor '
 
             });
+            $('[name="1turno"]').on('change', function() {
+                $('#select1').toggle(this.checked);
+                }).change();
+            $('[name="1turno"]').on('change', function() {
+                $('#select11').toggle(this.checked);
+                }).change();
+
+            $('[name="2turno"]').on('change', function() {
+                $('#select2').toggle(this.checked);
+                }).change();
+            $('[name="2turno"]').on('change', function() {
+                $('#select22').toggle(this.checked);
+                }).change();
+
+            $('[name="3turno"]').on('change', function() {
+                $('#select3').toggle(this.checked);
+                }).change();
+            $('[name="3turno"]').on('change', function() {
+                $('#select33').toggle(this.checked);
+                }).change();
 
         </script>
 
     </body>
 
 </html>
+
