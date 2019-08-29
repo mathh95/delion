@@ -16,7 +16,9 @@
         private $delivery;
         private $adicional;
         private $dias_semana;
-        private $turnos_semana;
+        private $cardapio_turno;
+        private $cardapio_horas_inicio;
+        private $cardapio_horas_final;
 
 
         function getCod_cardapio(){
@@ -59,8 +61,16 @@
         function getDias_semana(){
             return $this->dias_semana;
         }
-        function getTurnos_semana(){
-            return $this->turnos_semana;
+        function getCardapio_turno(){
+            return $this->cardapio_turno;
+        }
+
+        function getCardapio_horas_inicio(){
+            return $this->cardapio_horas_inicio;
+        }
+
+        function getCardapio_horas_final(){
+            return $this->cardapio_horas_final;
         }
 
         function setCod_cardapio($cod_cardapio){
@@ -101,8 +111,16 @@
             $this->dias_semana=$dias_semana;
         }
 
-        function setTurnos_semana($turnos_semana){
-            $this->turnos_semana=$turnos_semana;
+        function setCardapio_turno($cardapio_turno){
+            $this->cardapio_turno=$cardapio_turno;
+        }
+
+        function setCardapio_horas_inicio($cardapio_horas_inicio){
+            $this->cardapio_horas_inicio=$cardapio_horas_inicio;
+        }
+
+        function setCardapio_horas_final($cardapio_horas_final){
+            $this->cardapio_horas_final=$cardapio_horas_final;
         }
 
         function getDsAtivo(){
@@ -121,7 +139,7 @@
         }
         function __construct(){
         }
-        function construct($nome,$preco,$desconto,$descricao,$foto,$categoria,$flag_ativo,$prioridade,$delivery, $adicional, $dias_semana, $turnos_semana){
+        function construct($nome,$preco,$desconto,$descricao,$foto,$categoria,$flag_ativo,$prioridade,$delivery, $adicional, $dias_semana, $cardapio_turno, $cardapio_horas_inicio, $cardapio_horas_final){
             $this->nome=$nome;
             $this->preco = $preco;
             $this->desconto = $desconto;
@@ -133,7 +151,9 @@
             $this->delivery=$delivery;
             $this->adicional=$adicional;
             $this->dias_semana=$dias_semana;
-            $this->turnos_semana=$turnos_semana;
+            $this->cardapio_turno=$cardapio_turno;
+            $this->cardapio_horas_inicio=$cardapio_horas_inicio;
+            $this->cardapio_horas_final=$cardapio_horas_final;
         }
         function show(){
             echo "Código do cardapio:".$this->cod_cardapio."<br>";
@@ -144,7 +164,9 @@
             echo "Categoria:".$this->categoria."<br>";
             echo "Ativo:".$this->flag_ativo."<br>";
             echo "Dias da semana: ".$this->dias_semana."<br>";
-            echo "Turnos da semana: ".$this->turnos_semana."<br>";
+            echo "Turnos da semana: ".$this->cardapio_turno."<br>";
+            echo "Hora de Inicio do Turno: ".$this->cardapio_horas_inicio."<br>";
+            echo "Hora de Fim do Turno: ".$this->cardapio_horas_final."<br>";
 
         }
     }

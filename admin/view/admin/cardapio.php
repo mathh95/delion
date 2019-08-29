@@ -20,6 +20,16 @@
 
     include_once MODELPATH."/adicional.php";
 
+    include_once CONTROLLERPATH."/controlCardapioHoras.php";
+
+
+    include_once CONTROLLERPATH."/controlCardapioTurno.php";
+
+    include_once MODELPATH."/cardapio_horas.php";
+
+    include_once MODELPATH."/cardapio_turno.php";
+
+
     $_SESSION['permissaoPagina']=0;
 
     protegePagina();
@@ -35,6 +45,17 @@
     $controleCategoria = new controlerCategoria($_SG['link']);
 
     $categorias = $controleCategoria->selectAll();
+
+    $controleTurnos = new controlerCardapioTurno($_SG['link']);
+
+    $turnos = $controleTurnos->selectAll();
+
+    $controleHoras = new controlerCardapioHoras($_SG['link']);
+
+    $horas = $controleHoras->selectAll();
+
+
+
 
 ?>
 
@@ -468,86 +489,41 @@
                                 
                                 <div class="checkbox">
                                         <!-- Primeiro Turno -->
-                                        <tbody>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <label>
-                                                        <input  type="checkbox" id="turno1" name="1turno" value="turno1"/>1° Turno &nbsp; 
-                                                        </label>
-                                                    </td>
-                                                    
-                                                    <!-- Segundo Turno -->
-                                                    <td>
-                                                        <label>
-                                                        <input type="checkbox" id="turno2" name="2turno" value="turno2"/> 2° Turno &nbsp;                              
-                                                        </label>
-                                                    </td>
-                                                    <!-- Terceiro Turno -->
-                                                    <td>
-                                                        <label>
-                                                        <input type="checkbox" id="turno3" name="3turno" value="turno3"/> 3° Turno &nbsp;
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label for=""></label>
-                                                    </td>
-                                                </tr>
-                                            
-                                        
-                                </div>
+                                                <select name="turnos" id="turnos">
+                                                    <option value="0">Selecione o turno</option>
+                                                    <?php
+                                                        foreach ($turnos as $turno) {
+                                                            echo "<option value='".$turno->getCod_cardapio_turno()."'>".$turno->getNome()."</option>";
+                                                        }  
+                                                    ?>
+                                                </select>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <select name="horario1" id="horario1">
+                                                        <option value="0">Início</option>
 
-                                        <tr>
-                                            <td><br> 
-                                            <select name="" style="" id="select1">
-                                                        <option value="">08:00</option>
-                                                        <option value="">08:30</option>
-                                                        <option value="">09:00</option>
-                                                        <option value="">09:30</option>
-                                                        <option value="">10:00</option>
-                                                        <option value="">10:30</option>
-                                                        <option value="">11:00</option>
-                                                        <option value="">11:30</option>
-                                            </select><br><br>
-                                            <select name="" style="" id="select11">
-                                                        <option value="">08:00</option>
-                                                        <option value="">08:30</option>
-                                                        <option value="">09:00</option>
-                                                        <option value="">09:30</option>
-                                                        <option value="">10:00</option>
-                                                        <option value="">10:30</option>
-                                                        <option value="">11:00</option>
-                                                        <option value="">11:30</option>
-                                            </select></td>
+                                                        <?php
+                                                        foreach ($horas as $hora) {
+                                                            $horaform = date_create($hora->getHorario());
+                                                            $horaform1 = date_format($horaform, 'H:i');
+                                                            echo "<option value='".$hora->getCod_cardapio_horas()."'>".$horaform1."</option>";
+                                                        }  
+                                                    ?>
+                                            </select>&nbsp;
 
-                                            <td><br>
-                                            <select name="" style="" id="select2">
-                                                        <option value="">12:00</option>
-                                                        <option value="">12:30</option>
-                                                        <option value="">13:00</option>
-                                            </select><br><br>
-                                            <select name="" style="" id="select22">
-                                                        <option value="">12:00</option>
-                                                        <option value="">12:30</option>
-                                                        <option value="">13:00</option>
+
+                                            <select name="horario2" id="horario2">
+                                                        <option value="">Fim</option>
+
+                                                    <?php
+                                                        foreach ($horas as $hora) {
+                                                            $horaform = date_create($hora->getHorario());
+                                                            $horaform2 = date_format($horaform, 'H:i');
+                                                            echo "<option value='".$hora->getCod_cardapio_horas()."'>".$horaform2."</option>";
+                                                        }  
+                                                    ?>
                                             </select>
-                                            </td>
-                                            
-                                            <td><br>
-                                            <select name="" style="" id="select3">
-                                                        <option value="">17:00</option>
-                                                        <option value="">17:30</option>
-                                                        <option value="">18:00</option>
-                                            </select><br><br>
-                                            <select name="" style="" id="select33">
-                                                        <option value="">17:00</option>
-                                                        <option value="">17:30</option>
-                                                        <option value="">18:00</option>
-                                            </select>
-                                            </td>
-                                        </tr>
-                                </table>
-                                </tbody>
+                                            <br><br>
+                            </div>
                             <br>
                             
                             <small>Quais adicionais estarão disponiveis para esse produto:</small>

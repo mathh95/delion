@@ -9,20 +9,22 @@
         private $pdo;
         function insert($cardapio){
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO cardapio(nome, preco, descricao, foto, categoria, flag_ativo, prioridade, delivery, desconto, adicional, dias_semana, turnos_semana)
-                VALUES (:nome, :preco, :descricao, :foto, :categoria, :flag_ativo, :prioridade, :delivery, :desconto, :adicional, :dias_semana, :turnos_semana)");
-                $stmte->bindParam("nome", $cardapio->getNome(), PDO::PARAM_STR);
-                $stmte->bindParam("preco", $cardapio->getPreco());
-                $stmte->bindParam("descricao", $cardapio->getDescricao(), PDO::PARAM_STR);
-                $stmte->bindParam("foto", $cardapio->getFoto(), PDO::PARAM_STR);
-                $stmte->bindParam("categoria", $cardapio->getCategoria(), PDO::PARAM_INT);
-                $stmte->bindParam("flag_ativo", $cardapio->getFlag_ativo(), PDO::PARAM_INT);
-                $stmte->bindParam("prioridade", $cardapio->getPrioridade(),PDO::PARAM_INT);
-                $stmte->bindParam("delivery", $cardapio->getDelivery(),PDO::PARAM_INT);
-                $stmte->bindParam("desconto", $cardapio->getDesconto());
-                $stmte->bindParam("adicional", $cardapio->getAdicional(), PDO::PARAM_STR);
-                $stmte->bindParam("dias_semana", $cardapio->getDias_semana(), PDO::PARAM_STR);
-                $stmte->bindParam("turnos_semana", $cardapio->getTurnos_semana(), PDO::PARAM_STR);
+                $stmte =$this->pdo->prepare("INSERT INTO cardapio(nome, preco, descricao, foto, categoria, flag_ativo, prioridade, delivery, desconto, adicional, dias_semana, cardapio_turno, cardapio_horas_inicio, cardapio_horas_final)
+                VALUES (:nome, :preco, :descricao, :foto, :categoria, :flag_ativo, :prioridade, :delivery, :desconto, :adicional, :dias_semana, :cardapio_turno, :cardapio_horas_inicio, :cardapio_horas_final)");
+                $stmte->bindParam(":nome", $cardapio->getNome(), PDO::PARAM_STR);
+                $stmte->bindParam(":preco", $cardapio->getPreco());
+                $stmte->bindParam(":descricao", $cardapio->getDescricao(), PDO::PARAM_STR);
+                $stmte->bindParam(":foto", $cardapio->getFoto(), PDO::PARAM_STR);
+                $stmte->bindParam(":categoria", $cardapio->getCategoria(), PDO::PARAM_INT);
+                $stmte->bindParam(":flag_ativo", $cardapio->getFlag_ativo(), PDO::PARAM_INT);
+                $stmte->bindParam(":prioridade", $cardapio->getPrioridade(),PDO::PARAM_INT);
+                $stmte->bindParam(":delivery", $cardapio->getDelivery(),PDO::PARAM_INT);
+                $stmte->bindParam(":desconto", $cardapio->getDesconto());
+                $stmte->bindParam(":adicional", $cardapio->getAdicional(), PDO::PARAM_STR);
+                $stmte->bindParam(":dias_semana", $cardapio->getDias_semana(), PDO::PARAM_STR);
+                $stmte->bindParam(":cardapio_turno", $cardapio->getCardapio_turno(), PDO::PARAM_INT);
+                $stmte->bindParam(":cardapio_horas_inicio", $cardapio->getCardapio_horas_inicio(), PDO::PARAM_INT);
+                $stmte->bindParam(":cardapio_horas_final", $cardapio->getCardapio_horas_final(), PDO::PARAM_INT);
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;
@@ -32,14 +34,13 @@
                 }
             }
            catch(PDOException $e){
-                echo $e->getMessage();
-                return -1;
+                return  $e->getMessage();
            }
         }
 
         function update($cardapio){
             try{
-                $stmte =$this->pdo->prepare("UPDATE cardapio SET nome=:nome, preco=:preco, desconto = :desconto, descricao=:descricao, foto=:foto, categoria=:categoria, flag_ativo=:flag_ativo, prioridade=:prioridade, delivery=:delivery, adicional=:adicional, dias_semana=:dias_semana, turnos_semana=:turnos_semana WHERE cod_cardapio=:cod_cardapio");
+                $stmte =$this->pdo->prepare("UPDATE cardapio SET nome=:nome, preco=:preco, desconto = :desconto, descricao=:descricao, foto=:foto, categoria=:categoria, flag_ativo=:flag_ativo, prioridade=:prioridade, delivery=:delivery, adicional=:adicional, dias_semana=:dias_semana, cardapio_turno=:cardapio_turno, cardapio_horas_inicio=:cardapio_horas_inicio, cardapio_horas_final=:cardapio_horas_final WHERE cod_cardapio=:cod_cardapio");
                 $stmte->bindParam(":cod_cardapio", $cardapio->getCod_cardapio() , PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $cardapio->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $cardapio->getPreco());
@@ -52,7 +53,9 @@
                 $stmte->bindParam("delivery", $cardapio->getDelivery(),PDO::PARAM_INT);
                 $stmte->bindParam("adicional", $cardapio->getAdicional());
                 $stmte->bindParam(":dias_semana", $cardapio->getDias_semana(), PDO::PARAM_STR);
-                $stmte->bindParam(":turnos_semana", $cardapio->getTurnos_semana(), PDO::PARAM_STR);
+                $stmte->bindParam(":cardapio_turno", $cardapio->getCardapio_turno(), PDO::PARAM_INT);
+                $stmte->bindParam(":cardapio_horas_inicio", $cardapio->getCardapio_horas_inicio(), PDO::PARAM_INT);
+                $stmte->bindParam(":cardapio_horas_final", $cardapio->getCardapio_horas_final(), PDO::PARAM_INT);
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;
@@ -114,7 +117,9 @@
                             $cardapio->setDelivery($result->delivery);
                             $cardapio->setAdicional($result->adicional);
                             $cardapio->setDias_semana($result->dias_semana);
-                            $cardapio->setTurnos_semana($result->turnos_semana);
+                            $cardapio->setCardapio_turno($result->cardapio_turno);
+                            $cardapio->setCardapio_horas_inicio($result->cardapio_horas_inicio);
+                            $cardapio->setCardapio_horas_final($result->cardapio_horas_final);
                         }
                     }
                 }
@@ -129,9 +134,11 @@
             $stmte;
             try{
                 if($modo==1){
-                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria, A.dias_semana AS dias_semana
+                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria, A.dias_semana AS dias_semana, C.nome AS cardapio_turno, D.horario AS cardapio_horas_inicio, D.horario AS cardapio_horas_final
                         FROM cardapio AS A 
-                        INNER JOIN categoria AS B ON A.categoria = B.cod_categoria 
+                        INNER JOIN categoria AS B ON A.categoria = B.cod_categoria
+                        INNER JOIN cardapio_turno AS C ON A.cardapio_turno = C.cod_cardapio_turno
+                        INNER JOIN cardapio_horas AS D ON A.cardapio_horas_inicio AND A.cardapio_horas_final = D.cod_cardapio_horas 
                         WHERE A.nome 
                         LIKE :parametro AND A.flag_ativo = 1");
                     $stmte->bindValue(":parametro","%".$parametro."%");
@@ -151,18 +158,20 @@
                                 $cardapio->setPrioridade($result->prioridade);
                                 $cardapio->setDelivery($result->delivery);
                                 $cardapio->setDias_semana($result->dias_semana);
+                                $cardapio->setCardapio_turno($result->cardapio_turno);
+                                $cardapio->setCardapio_horas_inicio($result->cardapio_horas_inicio);
+                                $cardapio->setCardapio_horas_final($result->cardapio_horas_final);
                                 array_push($cardapios, $cardapio);
-                                // echo "<pre>";
-                                // print_r($cardapios);
-                                // echo "</pre>";
                             }
                         }
                     }
                     return $cardapios;
                 }elseif ($modo==2) {
-                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria, A.dias_semana AS dias_semana 
+                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria, A.dias_semana AS dias_semana, C.nome AS cardapio_turno, D.horario AS cardapio_horas_inicio, D.horario AS cardapio_horas_final 
                     FROM cardapio AS A 
-                    INNER JOIN categoria AS B ON A.categoria = B.cod_categoria 
+                    INNER JOIN categoria AS B ON A.categoria = B.cod_categoria
+                    INNER JOIN cardapio_turno AS C ON A.cardapio_turno = C.cod_cardapio_turno
+                    INNER JOIN cardapio_horas AS D ON A.cardapio_horas_inicio AND A.cardapio_horas_final = D.cod_cardapio_horas 
                     WHERE A.cod_cardapio = :parametro");
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                     $cardapio= new cardapio();
@@ -178,6 +187,9 @@
                                 $cardapio->setPrioridade($result->prioridade);
                                 $cardapio->setDelivery($result->delivery);
                                 $cardapio->setDias_semana($result->dias_semana);
+                                $cardapio->setCardapio_turno($result->cardapio_turno);
+                                $cardapio->setCardapio_horas_inicio($result->cardapio_horas_inicio);
+                                $cardapio->setCardapio_horas_final($result->cardapio_horas_final);
                             }
                         }
                     }
