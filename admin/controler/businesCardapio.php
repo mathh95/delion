@@ -43,17 +43,20 @@
 				array_push($dias_semana, addslashes(htmlspecialchars($_POST[$i."dia"])));
 			}
 		}
+		if(!empty($dias_semana)){
+			$dias_semana = json_encode($dias_semana);
+		}
+		else{
+			$dias_semana = NULL;
+		}
 		
-		$dias_semana = json_encode($dias_semana);
 		
 		$cardapio_turno = addslashes(htmlspecialchars($_POST['turnos']));
 		
 		$cardapio_horas_inicio = addslashes(htmlspecialchars($_POST['horario1']));
 
 		$cardapio_horas_final = addslashes(htmlspecialchars($_POST['horario2']));
-		echo "<pre>";
-		print_r($_POST);
-		echo "</pre>"; 
+		
 
 		$flag_ativo = (isset($_POST['flag_ativo'])||!empty($_POST['flag_ativo'])) && $_POST['flag_ativo'] == 1 ? 1 : 0 ;
 		$prioridade = (isset($_POST['prioridade'])||!empty($_POST['prioridade'])) && $_POST['prioridade'] == 1 ? 1 : 0 ;
@@ -65,11 +68,10 @@
 		echo "</pre>";
 		die();*/
 		$controle=new controlerCardapio($_SG['link']);
-		$r = $controle->insert($cardapio);
-		if($r > -1 && $cardapio_horas_inicio != $cardapio_horas_final){
+		if($controle->insert($cardapio) > -1 && $cardapio_horas_inicio != $cardapio_horas_final && $dias_semana != NULL && $cardapio_horas_inicio != 0 && $cardapio_horas_final != 0 ){
 			msgRedireciona('Cadastro Realizado!','Item do cardápio cadastrado com sucesso!',1,'../view/admin/cardapio.php');
 		}else{
-			alertJSVoltarPagina('Erro!',$r,2);
+			alertJSVoltarPagina('Erro!', 'Erro ao inserir item no cardapio',2);
 			$cardapio->show();
 		}
 	}else{

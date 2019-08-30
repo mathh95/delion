@@ -41,6 +41,7 @@
 		}
 
 		$adicional = json_encode($adicional);
+
 		$dias_semana = array();
 		for ($i=1; $i <= 6; $i++) { 
 			if (!empty($_POST[$i."dia"]) && isset($_POST[$i."dia"])) {
@@ -50,13 +51,6 @@
 		
 		$dias_semana = json_encode($dias_semana);
 
-
-		$turnos_semana = array();
-		for ($i=1; $i <= 3; $i++) { 
-			if (!empty($_POST[$i."turno"]) && isset($_POST[$i."turno"])) {
-				array_push($turnos_semana, addslashes(htmlspecialchars($_POST[$i."turno"])));
-			}
-		}
 		$cardapio_turno = addslashes(htmlspecialchars($_POST['turnos']));
 
 		$cardapio_horas_inicio = addslashes(htmlspecialchars($_POST['horario1']));
@@ -71,7 +65,7 @@
 
 		$cardapio->setCod_cardapio($cod_cardapio);
 		$controle=new controlerCardapio($_SG['link']);
-		if($controle->update($cardapio)> -1 && $cardapio_horas_inicio != $cardapio_horas_final){
+		if($controle->update($cardapio)> -1 && $cardapio_horas_inicio != $cardapio_horas_final && $cardapio_horas_inicio != 0 && $cardapio_horas_final != 0 ){
 			msgRedireciona('Alteração Realizada!','Item do cardápio alterado com sucesso!',1,'../view/admin/cardapioLista.php');
 		}else{
 			alertJSVoltarPagina('Erro!','Erro ao alterar item do cardápio!',2);
