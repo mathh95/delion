@@ -43,31 +43,35 @@
 				array_push($dias_semana, addslashes(htmlspecialchars($_POST[$i."dia"])));
 			}
 		}
-		
-		$dias_semana = json_encode($dias_semana);
-		
-		$turnos_semana = array();
-		for ($i=1; $i <= 3; $i++) { 
-			if (!empty($_POST[$i."turno"]) && isset($_POST[$i."turno"])) {
-				array_push($turnos_semana, addslashes(htmlspecialchars($_POST[$i."turno"])));
-			}
+		if(!empty($dias_semana)){
+			$dias_semana = json_encode($dias_semana);
 		}
-		$turnos_semana = json_encode($turnos_semana);
+		else{
+			$dias_semana = NULL;
+		}
+		
+		
+		$cardapio_turno = addslashes(htmlspecialchars($_POST['turnos']));
+		
+		$cardapio_horas_inicio = addslashes(htmlspecialchars($_POST['horario1']));
+
+		$cardapio_horas_final = addslashes(htmlspecialchars($_POST['horario2']));
+		
 
 		$flag_ativo = (isset($_POST['flag_ativo'])||!empty($_POST['flag_ativo'])) && $_POST['flag_ativo'] == 1 ? 1 : 0 ;
 		$prioridade = (isset($_POST['prioridade'])||!empty($_POST['prioridade'])) && $_POST['prioridade'] == 1 ? 1 : 0 ;
 		$delivery = (isset($_POST['delivery'])||!empty($_POST['delivery'])) && $_POST['delivery'] == 1 ? 1 : 0 ;
 		$cardapio= new cardapio();
-		$cardapio->construct($nome, $preco, $desconto, $descricao, $foto, $categoria, $flag_ativo, $prioridade,$delivery, $adicional, $dias_semana, $turnos_semana);
+		$cardapio->construct($nome, $preco, $desconto, $descricao, $foto, $categoria, $flag_ativo, $prioridade,$delivery, $adicional, $dias_semana, $cardapio_turno, $cardapio_horas_inicio, $cardapio_horas_final);
 		/*echo "<pre>";
 		var_dump($cardapio);
 		echo "</pre>";
 		die();*/
 		$controle=new controlerCardapio($_SG['link']);
-		if($controle->insert($cardapio)> -1){
+		if($controle->insert($cardapio) > -1 && $cardapio_horas_inicio != $cardapio_horas_final && $dias_semana != NULL && $cardapio_horas_inicio != 0 && $cardapio_horas_final != 0 ){
 			msgRedireciona('Cadastro Realizado!','Item do cardápio cadastrado com sucesso!',1,'../view/admin/cardapio.php');
 		}else{
-			alertJSVoltarPagina('Erro!','Erro ao cadastrar item do cardápio!',2);
+			alertJSVoltarPagina('Erro!', 'Erro ao inserir item no cardapio',2);
 			$cardapio->show();
 		}
 	}else{
