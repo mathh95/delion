@@ -294,6 +294,9 @@
                                         <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
                                         <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li>
                                     </ul>
+                                    <li class="dropdown">
+                                        <a href="cupom.php">Cupom</a>
+                                    </li>
    
 
                                 </ul>
@@ -647,26 +650,27 @@
                 toolbar1: 'undo redo | insert | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link |  forecolor backcolor '
 
             });
-            $('[name="1turno"]').on('change', function() {
-                $('#select1').toggle(this.checked);
-                }).change();
-            $('[name="1turno"]').on('change', function() {
-                $('#select11').toggle(this.checked);
-                }).change();
 
-            $('[name="2turno"]').on('change', function() {
-                $('#select2').toggle(this.checked);
-                }).change();
-            $('[name="2turno"]').on('change', function() {
-                $('#select22').toggle(this.checked);
-                }).change();
+                $('[name="1turno"]').on('change', function() {
+                    $('#select1').toggle(this.checked);
+                    }).change();
+                $('[name="1turno"]').on('change', function() {
+                    $('#select11').toggle(this.checked);
+                    }).change();
 
-            $('[name="3turno"]').on('change', function() {
-                $('#select3').toggle(this.checked);
-                }).change();
-            $('[name="3turno"]').on('change', function() {
-                $('#select33').toggle(this.checked);
-                }).change();
+                $('[name="2turno"]').on('change', function() {
+                    $('#select2').toggle(this.checked);
+                    }).change();
+                $('[name="2turno"]').on('change', function() {
+                    $('#select22').toggle(this.checked);
+                    }).change();
+
+                $('[name="3turno"]').on('change', function() {
+                    $('#select3').toggle(this.checked);
+                    }).change();
+                $('[name="3turno"]').on('change', function() {
+                    $('#select33').toggle(this.checked);
+                    }).change();
 
         </script>
 

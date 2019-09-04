@@ -211,6 +211,10 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                                         <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li>
                                     </ul>
                                 </li>
+                                <li class="dropdown">
+                                    <a href="cupom.php">Cupom</a>
+                                </li>
+
                             </ul>
                         </div>
 
@@ -351,8 +355,11 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                         </div>
 
                     </div>
+                </div>
 
-                            <div class="col-md-12">
+                    <div class="row">
+            
+                            <div class="col-md-6">
             
                                 <h3>Forma de Pagamento</h3>
             
@@ -365,6 +372,16 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="col-md-6">
+                                <div class="mini-divs">
+                                    <label><h3>Cupom</h3></label>
+                                    <input id="cupom" class="form-control" type="text" placeholder="Código do Cupom">
+                                    <button class="btn btn-kionux"><i onclick="confereSenha();"></i>Verificar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                     <div class="col-md-12">

@@ -173,5 +173,18 @@ class controlerCarrinhoWpp{
             return $e->getMessage();
         }
     }
+
+    function alteraHoraPrint($cod_pedido,$hora_print){
+        try{
+            $parametro=$cod_pedido;
+            $stmt=$this->pdo->prepare("UPDATE pedido_wpp SET hora_print=:hora_print WHERE cod_pedido_wpp=:parametro");
+            $stmt->bindParam(":hora_print",$hora_print,PDO::PARAM_INT);
+            $stmt->bindParam(":parametro",$parametro,PDO::PARAM_INT);
+            $stmt->execute();
+            return 1;
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
 }
 ?>

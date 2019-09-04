@@ -159,7 +159,9 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                                         <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
                                         <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li>
                                     </ul>
-             
+                                <li class="dropdown">
+                                    <a href="cupom.php">Cupom</a>
+                                </li>
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">
