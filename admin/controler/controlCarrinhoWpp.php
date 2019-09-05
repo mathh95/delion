@@ -6,6 +6,8 @@ include_once MODELPATH."/cardapio.php";
 include_once MODELPATH."/pedido-wpp.php";
 include_once MODELPATH."/itemWpp.php";
 
+
+
 class controlerCarrinhoWpp{
 
     private $pdo;
@@ -123,7 +125,7 @@ class controlerCarrinhoWpp{
     function selectAllPedido($parametro, $valormenor, $valormaior){
         $pedidos=array();
         $parametro = "%".$parametro."%";
-        $stmt=$this->pdo->prepare("SELECT pw.cod_pedido_wpp, pw.cod_cliente_wpp, pw.data, pw.valor, pw.status, pw.formaPgt, cw.nome, cw.telefone, cw.rua, cw.numero, cw.bairro, cw.complemento
+        $stmt=$this->pdo->prepare("SELECT pw.cod_pedido_wpp, pw.cod_cliente_wpp, pw.data, pw.valor, pw.status, pw.formaPgt, pw.hora_impressao, pw.hora_delivery, cw.nome, cw.telefone, cw.rua, cw.numero, cw.bairro, cw.complemento
         FROM pedido_wpp as pw
         INNER JOIN
         cliente_wpp AS cw ON
@@ -148,6 +150,8 @@ class controlerCarrinhoWpp{
                     $pedido->rua=($result->rua);
                     $pedido->numero=($result->numero);
                     $pedido->bairro=($result->bairro);
+                    $pedido->setHora_impressao($result->hora_impressao);
+                    $pedido->setHora_delivery($result->hora_delivery);
                     array_push($pedidos,$pedido);
                 }
             }else{
@@ -163,12 +167,29 @@ class controlerCarrinhoWpp{
 
     function alterarStatusPedido($cod_pedido,$status){
         try{
-            $parametro=$cod_pedido;
-            $stmt=$this->pdo->prepare("UPDATE pedido_wpp SET status=:status WHERE cod_pedido_wpp=:parametro");
-            $stmt->bindParam(":status",$status,PDO::PARAM_INT);
-            $stmt->bindParam(":parametro",$parametro,PDO::PARAM_INT);
-            $stmt->execute();
-            return 1;
+            if($status == "2"){
+                date_default_timezone_set('America/Sao_Paulo');
+                $hora_impressao = date('H:i:s');
+                $parametro=$cod_pedido;
+                $stmt=$this->pdo->prepare("UPDATE pedido_wpp SET status=:status, hora_impressao=:hora_impressao WHERE cod_pedido_wpp=:parametro");
+                $stmt->bindParam(":status",$status,PDO::PARAM_INT);
+                $stmt->bindParam(":hora_impressao", $hora_impressao, PDO::PARAM_STR);
+                $stmt->bindParam(":parametro",$parametro,PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }else if($status =="3"){
+                date_default_timezone_set('America/Sao_Paulo');
+                $hora_delivery = date('H:i:s');
+                $parametro=$cod_pedido;
+                $stmt=$this->pdo->prepare("UPDATE pedido_wpp SET status=:status, hora_delivery=:hora_delivery WHERE cod_pedido_wpp=:parametro");
+                $stmt->bindParam(":status",$status,PDO::PARAM_INT);
+                $stmt->bindParam(":hora_delivery", $hora_delivery, PDO::PARAM_STR);
+                $stmt->bindParam(":parametro",$parametro,PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }else {
+                return 0;
+            }
         }catch(PDOException $e){
             return $e->getMessage();
         }

@@ -4,9 +4,10 @@ class PedidoWpp {
     private $cliente_wpp;
     private $data;
     private $formaPgt;
-    private $hora_print;
     private $valor;
     private $status;
+    private $hora_impressao;
+    private $hora_delivery;
 
     function getCod_pedido_wpp(){
         return $this->cod_pedido_wpp;
@@ -20,9 +21,6 @@ class PedidoWpp {
         return $this->data;
     }
 
-    function getHora_print(){
-        return $this->hora_print;
-    }
 
     function getFormaPgt(){
         return $this->formaPgt;
@@ -34,6 +32,14 @@ class PedidoWpp {
 
     function getStatus(){
         return $this->status;
+    }
+
+    function getHora_impressao(){
+        return $this->hora_impressao;
+    }
+
+    function getHora_delivery(){
+        return $this->hora_delivery;
     }
 
     function setCod_pedido_wpp($cod_pedido_wpp){
@@ -48,9 +54,6 @@ class PedidoWpp {
         $this->data=$data;
     }
     
-    function setHora_print($hora_print){
-        $this->hora_print=$hora_print;
-    }
 
     function setFormaPgt($formaPgt){
         $this->formaPgt=$formaPgt;
@@ -62,6 +65,14 @@ class PedidoWpp {
 
     function setStatus($status){
         $this->status=$status;
+    }
+
+    function setHora_impressao($hora_impressao){
+        $this->hora_impressao = $hora_impressao;
+    }
+
+    function setHora_delivery($hora_delivery){
+        $this->hora_delivery = $hora_delivery;
     }
 
     function __construct(){

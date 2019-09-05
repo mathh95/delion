@@ -701,37 +701,11 @@
 
                 $('#ativo').attr('checked', true);
 
-<<<<<<< HEAD
             //         $('#ativo').attr('checked', true);
 
             //     }
 
             // })
-=======
-            }
-            })
-
-            $('[name="1turno"]').on('change', function() {
-                $('#select1').toggle(this.checked);
-                }).change();
-            $('[name="1turno"]').on('change', function() {
-                $('#select11').toggle(this.checked);
-                }).change();
-
-            $('[name="2turno"]').on('change', function() {
-                $('#select2').toggle(this.checked);
-                }).change();
-            $('[name="2turno"]').on('change', function() {
-                $('#select22').toggle(this.checked);
-                }).change();
-
-            $('[name="3turno"]').on('change', function() {
-                $('#select3').toggle(this.checked);
-                }).change();
-            $('[name="3turno"]').on('change', function() {
-                $('#select33').toggle(this.checked);
-                }).change();
->>>>>>> cda4b2bc9a72e4773a538cb32dca403cbbecfc66
             
             // $(document).ready(function() {
 
