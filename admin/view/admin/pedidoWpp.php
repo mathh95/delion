@@ -376,8 +376,8 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                             <div class="col-md-6">
                                 <div class="mini-divs">
                                     <label><h3>Cupom</h3></label>
-                                    <input id="cupom" class="form-control" type="text" placeholder="Código do Cupom">
-                                    <button class="btn btn-kionux"><i onclick="confereSenha();"></i>Verificar</button>
+                                    <input id="cupom" class="form-control" type="text" placeholder="Código do Cupom" value="">
+                                    <button type="button" class="btn btn-kionux" onclick="verificaCupom(cupom.value)"></i>Verificar</button>
                                 </div>
                             </div>
                         </div>
@@ -520,6 +520,18 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
             });
         });
 
+        //Mudar aqui pra verificar o cupom com oq estiver 
+        //salvo em tabela e alterar o valor total da compra
+        function verificaCupom(Cupom) {
+            if(Cupom == "teste"){
+                alert("O cupom " + Cupom + " é válido");
+            }
+            else{
+                alert("Cupom inválido");
+            }
+
+        }
+
         function buildPedidoTableRow(id){
             return $(' \
             <tr data-id='+id+'> \
@@ -568,7 +580,6 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                 }
             });
         }
-
 
         $(document).on('click', '.btn-add', function() {
             var url = '../../ajax/atualiza-carrinhoWpp.php';
