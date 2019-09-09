@@ -169,7 +169,7 @@ class controlerCarrinhoWpp{
         try{
             if($status == "2"){
                 date_default_timezone_set('America/Sao_Paulo');
-                $hora_impressao = date('H:i:s');
+                $hora_impressao = date('H:i');
                 $parametro=$cod_pedido;
                 $stmt=$this->pdo->prepare("UPDATE pedido_wpp SET status=:status, hora_impressao=:hora_impressao WHERE cod_pedido_wpp=:parametro");
                 $stmt->bindParam(":status",$status,PDO::PARAM_INT);
@@ -179,7 +179,7 @@ class controlerCarrinhoWpp{
                 return 1;
             }else if($status =="3"){
                 date_default_timezone_set('America/Sao_Paulo');
-                $hora_delivery = date('H:i:s');
+                $hora_delivery = date('H:i');
                 $parametro=$cod_pedido;
                 $stmt=$this->pdo->prepare("UPDATE pedido_wpp SET status=:status, hora_delivery=:hora_delivery WHERE cod_pedido_wpp=:parametro");
                 $stmt->bindParam(":status",$status,PDO::PARAM_INT);
