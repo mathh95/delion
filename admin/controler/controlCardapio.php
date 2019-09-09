@@ -51,7 +51,7 @@
                 $stmte->bindParam("flag_ativo", $cardapio->getFlag_ativo(), PDO::PARAM_INT);
                 $stmte->bindParam("prioridade", $cardapio->getPrioridade(),PDO::PARAM_INT);
                 $stmte->bindParam("delivery", $cardapio->getDelivery(),PDO::PARAM_INT);
-                $stmte->bindParam("adicional", $cardapio->getAdicional());
+                $stmte->bindParam("adicional", $cardapio->getAdicional(), PDO::PARAM_STR);
                 $stmte->bindParam(":dias_semana", $cardapio->getDias_semana(), PDO::PARAM_STR);
                 $stmte->bindParam(":cardapio_turno", $cardapio->getCardapio_turno(), PDO::PARAM_INT);
                 $stmte->bindParam(":cardapio_horas_inicio", $cardapio->getCardapio_horas_inicio(), PDO::PARAM_INT);

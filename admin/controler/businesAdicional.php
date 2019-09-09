@@ -2,7 +2,7 @@
 	include_once "seguranca.php";
 	protegePagina();
 
-	mysql_set_charset('utf8');
+	// mysql_set_charset('utf8');
 	date_default_timezone_set('America/Sao_Paulo');
 
 	include_once "controlAdicional.php";

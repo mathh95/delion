@@ -31,47 +31,40 @@
     protegePagina();
 
     $controleUsuario = new controlerUsuario($_SG['link']);
-
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
     $controleCategoria = new controlerCategoria($_SG['link']);
-
     $categorias = $controleCategoria->selectAll();
 
     $controle = new controlerCardapio($_SG['link']);
-
     $cardapio = $controle->selectSemCategoria($_GET['cod'], 2);
 
     $adicionalObj = json_decode($cardapio->getAdicional());
-
     $controleAdicional = new controlerAdicional($_SG['link']);
 
     $adicionais = $controleAdicional->selectAll();
 
     $controleTurnos = new controlerCardapioTurno($_SG['link']);
-
     $turnos = $controleTurnos->selectAll();
 
     $controleHoras = new controlerCardapioHoras($_SG['link']);
-
     $horasini = $controleHoras->selectAll();
 
     $controleHoras = new controlerCardapioHoras($_SG['link']);
-
     $horasfim = $controleHoras->selectAll();
 
 
 
         $dias_semana = json_decode($cardapio->getDias_semana());
-        // echo '<pre>';
-        // print_r($dias_semana);
-        // echo '</pre>';
+         echo '<pre>';
+        print_r($dias_semana);
+        echo '</pre>';
+
             $d="[";
 
-        foreach ($dias_semana as $dias) {
+        foreach($dias_semana as $dias) {
 
             $d.='"'.$dias.'",';
-
         }
 
         $d.="]";
@@ -676,62 +669,29 @@
                 toolbar1: 'undo redo | insert | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link |  forecolor backcolor '
 
             });
-
-            $( document ).ready(function() {
-             var categoria =   <?=$cardapio->getCategoria()?>;
-                $('#' + categoria).attr('selected', true);
-            var turno =   <?=$cardapio->getCardapio_turno()?>;
-                $('#' + turno).attr('selected', true);
-
-            var horario1 =  <?=$cardapio->getCardapio_horas_inicio()?>;
-                $('#horaini' + horario1).attr('selected', true);
-
-            var horario2 = <?=$cardapio->getCardapio_horas_final()?>;
-            console.log(horario2)
-                $('#horafim' + horario2).attr('selected', true);
-
-            var dia =   <?=$d ?>;
-            for(let value of dia){
-
-                $('#' + value).attr('checked', true);
-
-            }
-            var ativo =   <?=$cardapio->getFlag_ativo()?>;
-            if (ativo == 1) {
-
-                $('#ativo').attr('checked', true);
-
-            //         $('#ativo').attr('checked', true);
-
-            //     }
-
-            // })
             
-            // $(document).ready(function() {
+            $(document).ready(function() {
+            var categoria = <?= $cardapio->getCategoria()?>;
+            var turno = <?=$cardapio->getCardapio_turno()?>;
+            var horario1 =  <?= $cardapio->getCardapio_horas_inicio()?>;
+            var horario2 = <?= $cardapio->getCardapio_horas_final()?>;
+            var dia =   <?= $d ?>;
+            var ativo =   <?= $cardapio->getFlag_ativo()?>;
+                $('#' + categoria).attr('selected', true);
+                $('#' + turno).attr('selected', true);
+                $('#horaini' + horario1).attr('selected', true);
+                $('#horafim' + horario2).attr('selected', true);
+            for(let value of dia){
+                $('#' + value).attr('checked', true);
+            }
+            if (ativo == 1){
+                $('#ativo').attr('checked', true);
+            }
+        })
+        
+            
 
-                $('[name="1turno"]').on('change', function() {
-                    $('#select1').toggle(this.checked);
-                    }).change();
-                $('[name="1turno"]').on('change', function() {
-                    $('#select11').toggle(this.checked);
-                    }).change();
-
-                $('[name="2turno"]').on('change', function() {
-                    $('#select2').toggle(this.checked);
-                    }).change();
-                $('[name="2turno"]').on('change', function() {
-                    $('#select22').toggle(this.checked);
-                    }).change();
-
-                $('[name="3turno"]').on('change', function() {
-                    $('#select3').toggle(this.checked);
-                    }).change();
-                $('[name="3turno"]').on('change', function() {
-                    $('#select33').toggle(this.checked);
-                    }).change();
-            // }
-
-        </script>
+            </script>
 
     </body>
 
