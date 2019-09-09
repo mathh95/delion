@@ -62,14 +62,28 @@ if(in_array('pedidoWpp', $permissao)){
 				if($pedido->getCod_pedido_wpp() == $cod){
 				$mensagem='Cliente excluído com sucesso!';
 				$titulo='Excluir';
-				$entrega = date('H:i:s', strtotime($pedido->getData()->format('H:i:s')." +30 minutes"));
+				$impressao1 = strtotime($pedido->getHora_impressao());
+				if($pedido->getHora_impressao() == ""){
+					$impressao = null;
+				}
+				else {
+					$impressao = date('H:i', $impressao1);
+				}
+				$delivery1 = strtotime($pedido->getHora_delivery());
+				if($pedido->getHora_delivery() == ""){
+					$delivery = null;
+				}else{
+					$delivery = date('H:i', $delivery1);
+				}
+				
+				$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
 				echo "<tr name='resultado' id='status".$pedido->getCod_pedido_wpp()."'>
 					<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 					<td style='text-align: center;' name='dataPedido'>".$pedido->getData()->format('d/m/Y')."</td>
-					<td style='text-align: center;' name='horaPedido'>".$pedido->getData()->format('H:i:s')."</td>
-					<td style='text-align: center;' name='horaImpressão'>".$pedido->getHora_impressao()."</td>
+					<td style='text-align: center;' name='horaPedido'>".$pedido->getData()->format('H:i')."</td>
+					<td style='text-align: center;' name='horaImpressão'>".$impressao."</td>
 					<td style='text-align: center;' name='previsaoEntrega'>".$entrega."</td>
-					<td style='text-align: center;' name='horaDelivery'>".$pedido->getHora_delivery()."</td>
+					<td style='text-align: center;' name='horaDelivery'>".$delivery."</td>
 					</tr>";
 				}
 			}		
