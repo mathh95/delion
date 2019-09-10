@@ -50,9 +50,6 @@ if(in_array('pedidoWpp', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
 		<h1 class=\"page-header\">Lista de Pedidos</h1>
-		<div class=\"pull-right\">
-			<a href=\"pedidoWpp.php\" class=\"btn btn-primary\"><i class=\"fa fa-arrow-left\"></i> Voltar</a>
-		</div class=\"pull-right\">
 		<tr>
 			<th width='10%' style='text-align: center;'>Código Cupom</th>
 			<th width='8%' style='text-align: center;'>Código</th>
@@ -60,10 +57,12 @@ if(in_array('pedidoWpp', $permissao)){
 			<th width='10%' style='text-align: center;'>Quantidade Atual</th>
 			<th width='10%' style='text-align: center;'>Valor</th>
 			<th width='8%' style='text-align: center;'>Vencimento</th>
-			<th width='15%' style='text-align: center;'>Status</th>
+            <th width='15%' style='text-align: center;'>Status</th>
+            <th width='15%' style='text-align: center;'>Editar</th>
+            <th width='15%' style='text-align: center;'>Cancelar</th>
         </tr>
 	<tbody>";
-		foreach ($pedidos as &$pedido) {	//Status = 1, então só as opções Itens/Impressão/Detalhes estão disponiveis
+		foreach ($pedidos as &$pedido) {	//Alterar 
 			
 				if($pedido->getStatus()==1){
 					$array = ($pedido->getCod_pedido_wpp());
@@ -74,33 +73,9 @@ if(in_array('pedidoWpp', $permissao)){
 					<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 					<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
 					<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
-					<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
-						<td style='text-align: center;' name='editar'>
-							<a style='font-size: 10px;'>
-							
-								<div type='button' class='popup btn btn-primary' onmouseover='myFunction(".$array.")' onmouseout='myFunction(".$array.")'>
-								<i class='fa fa-edit'></i>Itens
-									<span class='popuptext' id='myPopup".$array."'>
-											<table class=''>
-												<tbody>";
-												$itens = $controle1->selectItens($pedido->getCod_pedido_wpp());
-												foreach($itens as $item){
-												echo " <tr name='resultado' id='status".$item->getCod_item()."'>	
-														<td id='detalhes'>".$item->getQuantidade()."x</td>
-														<td id='detalhes'> ".$item->getProduto()."</td>
-														<td id='detalhes'>"."R$ ".$item->preco."</td>
-													</tr>";
-												}
-											echo "
-											</tbody>
-										</table>
-									</span>
-								</div>
-							</a>
-						</td>
-					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-primary' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido_wpp()."' data-id='".$pedido->getCod_pedido_wpp()."'><i class='fa fa-print'></i>Imprimir</button></a></td>
-					<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(".$pedido->getStatus().")\" class='btn btn-danger' disable><i class='fa fa-truck'></i>Delivery</button></a></td>
-					<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-primary'><i class='fa fa-info'></i>Detalhes</button></a></td>
+                    <td style='text-align: center;' name='rua'>".$pedido->rua."</td>
+                    <td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='pedidoWpp-tabela.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+			 	    <td style='text-align: center;' name='status' ><button type='button' onclick=\"removeCliente(".$pedido->getCod_pedido_wpp().");\" class='btn btn-kionux'><i class='fa fa-remove'></i>Cancelar</button></td>
 					</tr>";
 		}
 	}	//Mudar o botao delivery e limitar as opções
@@ -116,33 +91,9 @@ if(in_array('pedidoWpp', $permissao)){
 					<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
 					<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
 					<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
-					<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
-					<td style='text-align: center;' name='editar'>
-						<a style='font-size: 10px;'>
-					
-						<div type='button' class='popup btn btn-primary' onmouseover='myFunction(".$array.")' onmouseout='myFunction(".$array.")'>
-						<i class='fa fa-edit'></i>Itens
-							<span class='popuptext' id='myPopup".$array."'>
-									<table class=''>
-										<tbody>";
-										$itens = $controle2->selectItens($pedido->getCod_pedido_wpp());
-										foreach($itens as $item){
-										echo " <tr name='resultado' id='status".$item->getCod_item()."'>	
-												<td id='detalhes'>".$item->getQuantidade()."x</td>
-												<td id='detalhes'> ".$item->getProduto()."</td>
-												<td id='detalhes'>"."R$ ".$item->preco."</td>
-											</tr>";
-										}
-									echo "
-									</tbody>
-								</table>
-							</span>
-						</div>
-						</a>
-					</td>
-					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;' ><button class='btn btn-danger'><i class='fa fa-print' disable></i>Imprimir</button></a></td>
-					<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"alterarStatusDelivery(".$pedido->getCod_pedido_wpp().",3)\" class='btn btn-primary'><i class='fa fa-truck'></i>Delivery</button></a></td>
-					<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-primary'><i class='fa fa-info'></i>Detalhes</button></a></td>
+                    <td style='text-align: center;' name='rua'>".$pedido->rua."</td>
+                    <td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='pedidoWpp-tabela.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+			 	    <td style='text-align: center;' name='status' ><button type='button' onclick=\"removeCliente(".$pedido->getCod_pedido_wpp().");\" class='btn btn-kionux'><i class='fa fa-remove'></i>Cancelar</button></td>
 					</tr>";
 		}
 	}	//Mudar o botao delivery e limitar as opções
@@ -158,31 +109,8 @@ if(in_array('pedidoWpp', $permissao)){
 				<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
 				<td style='text-align: center;' name='valor'>"." R$ ".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='rua'>".$pedido->rua."</td>
-				<td style='text-align: center;' name='editar'>
-						<a style='font-size: 10px;'>
-						<div type='button' class='popup btn btn-primary' onmouseover='myFunction(".$array.")' onmouseout='myFunction(".$array.")'>
-						<i class='fa fa-edit'></i>Itens
-							<span class='popuptext' id='myPopup".$array."'>
-									<table class=''>
-										<tbody>";
-										$itens = $controle3->selectItens($pedido->getCod_pedido_wpp());
-										foreach($itens as $item){
-										echo " <tr name='resultado' id='status".$item->getCod_item()."'>	
-												<td id='detalhes'>".$item->getQuantidade()."x</td>
-												<td id='detalhes'> ".$item->getProduto()."</td>
-												<td id='detalhes'>"."R$ ".$item->preco."</td>
-											</tr>";
-										}
-									echo "
-									</tbody>
-								</table>
-							</span>
-						</div>
-						</a>
-					</td>
-				<td style='text-align: center;' name='imprime'><a style='font-size: 10px;' ><button class='btn btn-danger'><i class='fa fa-print'></i>Imprimir</button></a></td>
-				<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button class='btn btn-danger'><i class='fa fa-truck'></i>Delivery</button></a></td>
-				<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-primary'><i class='fa fa-info'></i>Detalhes</button></a></td>
+				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='pedidoWpp-tabela.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+			 	    <td style='text-align: center;' name='status' ><button type='button' onclick=\"removeCliente(".$pedido->getCod_pedido_wpp().");\" class='btn btn-kionux'><i class='fa fa-remove'></i>Cancelar</button></td>
 				</tr>";
 		}
 	}	//Mudar o botao delivery e limitar as opções
@@ -194,12 +122,15 @@ if(in_array('pedidoWpp', $permissao)){
 	<thead>
 		<h1 class=\"page-header\">Lista de Pedidos</h1>
 		<tr>
-			<th width='10%' style='text-align: center;'>Código Pedido</th>
-			<th width='25%' style='text-align: center;'>Data</th>
-			<th width='8%' style='text-align: center;'>Hora Pedido</th>
-			<th width='15%' style='text-align: center;'>Nome do cliente</th>
-			<th width='30%' style='text-align: center;'>Telefone do cliente</th>
-			<th width='15%' style='text-align: center;'>Valor total</th>
+        <th width='10%' style='text-align: center;'>Código Cupom</th>
+        <th width='8%' style='text-align: center;'>Código</th>
+        <th width='8%' style='text-align: center;'>Quantidade Inicial</th>
+        <th width='10%' style='text-align: center;'>Quantidade Atual</th>
+        <th width='10%' style='text-align: center;'>Valor</th>
+        <th width='8%' style='text-align: center;'>Vencimento</th>
+        <th width='15%' style='text-align: center;'>Status</th>
+        <th width='15%' style='text-align: center;'>Editar</th>
+        <th width='15%' style='text-align: center;'>Cancelar</th>
         </tr>
 	<tbody>";
 	foreach ($pedidos as &$pedido) {
