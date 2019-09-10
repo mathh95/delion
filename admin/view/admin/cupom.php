@@ -236,8 +236,8 @@
 
         <div class="container-fluid">
             <!-- Alterar aqui, criar uma classe businesCupom -->
-            <!-- <form class="form-horizontal" id="form-cadastro-cliente" method="post" action="../../controler/businesCliente.php"> -->
-            <form class="form-horizontal">
+            <form class="form-horizontal" id="form-cadastro-cupom" method="POST" action="../../controler/businesCupom.php">
+            <!-- <form class="form-horizontal"> -->
                 <div class="col-md-12">
 
                     <div class="row">
@@ -249,7 +249,7 @@
                             <small>Código do Cupom:</small>
 
                             <div id="test">
-                                    <input id="text" class="form-control" type="text" placeholder="Código do Cupom" disabled/>
+                                    <input id="codigo" class="form-control" type="text" name="codigo" placeholder="Código do Cupom" readonly/>
                                     
                                     <br>
 
@@ -302,7 +302,7 @@
 
                         $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                        if (in_array('cliente', $permissao)){ ?>
+                        if (in_array('cupomWpp', $permissao)){ ?>
 
                             <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Salvar</button>
 
@@ -366,7 +366,7 @@
 
             $(function () {
                     $('#run').on('click', function () {
-                        var text = $('#text');
+                        var text = $('#codigo');
                         text.val(uniqid());    
                 });
             });
