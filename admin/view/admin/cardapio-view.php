@@ -56,9 +56,6 @@
 
 
         $dias_semana = json_decode($cardapio->getDias_semana());
-         echo '<pre>';
-        print_r($dias_semana);
-        echo '</pre>';
 
             $d="[";
 
