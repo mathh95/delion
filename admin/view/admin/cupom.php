@@ -316,7 +316,7 @@
 
                         $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                        if (in_array('cupomWpp', $permissao)){ ?>
+                        if (in_array('pedidoWpp', $permissao)){ ?>
 
                             <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Salvar</button>
 
