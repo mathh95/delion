@@ -154,9 +154,13 @@
                                         <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
                                         <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li>
                                     </ul>
-                                <li class="dropdown">
-                                    <a href="cupom.php">Cupom</a>
-                                </li>
+                                    <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cupom<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="cupom.php">Cadastro</a></li>
+                                        <li><a href="pedidoWppLista.php">Listar Cupons</a></li>
+                                    </ul>
+                                    </li>
 
                                 </li>
                             </ul>
