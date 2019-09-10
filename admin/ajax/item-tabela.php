@@ -13,7 +13,7 @@ if(in_array('pedido', $permissao)){
 	<thead>
 		<h1 class=\"page-header\">Lista de Itens</h1>
 		<div class=\"pull-right\">
-			<a href=\"pedidoWppLista.php\" class=\"btn btn-kionux\"><i class=\"fa fa-arrow-left\"></i> Voltar</a>
+			<a href=\"pedidoLista.php\" class=\"btn btn-kionux\"><i class=\"fa fa-arrow-left\"></i> Voltar</a>
 		</div class=\"pull-right\">
 		<tr>
     		<th width='33%' style='text-align: center;'>Produto</th>

@@ -232,7 +232,7 @@ error_reporting(E_ALL);
     </header>
             <div class="row">
                 <div class="col-lg-12" id="tabela-pedido">
-                    <?php include "../../ajax/pedidoWpp-tabela.php"; ?>
+                    <?php include "../../ajax/cupom-tabela.php"; ?>
                 </div>
             </div>
         </div>
