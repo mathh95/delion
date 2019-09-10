@@ -210,7 +210,7 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cupom<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="cupom.php">Cadastro</a></li>
-                                        <li><a href="pedidoWppLista.php">Listar Cupons</a></li>
+                                        <li><a href="cupomLista.php">Listar Cupons</a></li>
                                     </ul>
                                     </li>
                             </ul>
@@ -281,6 +281,20 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
 
                                 <input class="form-control" placeholder="Número de cupons" name="qtdcupom" value="" type="number">
+
+                            </div> 
+
+                            <br>
+
+                            <small>Vencimento do Cupom</small>
+
+                            <br>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
+
+                                <input class="form-control" placeholder="" name="vencimento" value="" type="date">
 
                             </div> 
 
