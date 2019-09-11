@@ -27,7 +27,7 @@ if ($cupons == -1){
 if(in_array('cupomWpp', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Pedidos</h1>
+		<h1 class=\"page-header\">Lista de Cupons</h1>
 		<tr>
 			<th width='10%' style='text-align: center;'>Código Cupom</th>
 			<th width='8%' style='text-align: center;'>Código</th>
