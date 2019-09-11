@@ -230,7 +230,7 @@ error_reporting(E_ALL);
             </div>
         </div>
     </header>
-            <div class="row">
+            <div class="">
                 <div class="col-lg-12" id="tabela-pedido">
                     <?php include "../../ajax/pedidoWpp-tabela.php"; ?>
                 </div>
