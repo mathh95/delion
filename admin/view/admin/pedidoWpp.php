@@ -533,7 +533,6 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
             else{
                 alert("Cupom inválido");
             }
-
         }
 
         function buildPedidoTableRow(id){
