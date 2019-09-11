@@ -11,13 +11,13 @@ if (in_array('pedidoWpp', json_decode($_SESSION['permissao']))) {
         echo 'Nada foi postado.';
     }
     $codigo= addslashes(htmlspecialchars($_POST['codigo']));
-    $qtde_inicial=addslashes(htmlspecialchars($_POST['qtdeIni']));
-    $qtde_atual=addslashes(htmlspecialchars($_POST['qtdeAtu']));
+    $qtde_inicial=addslashes(htmlspecialchars($_POST['qtdcupom']));
+    $qtde_atual = $qtde_inicial;
     $valor=addslashes(htmlspecialchars($_POST['valor']));
     $vencimento=addslashes(htmlspecialchars($_POST['vencimento']));
     $status=1;
     $cupom = new cupom;
-    $cupom->construct($cod_cupom,$codigo,$qtde_inicial, $qtde_atual, $valor, $vencimento, $status);
+    $cupom->construct($codigo,$qtde_inicial, $qtde_atual, $valor, $vencimento, $status);
     $control = new controlCupom($_SG['link']);
     $result=$control->insert($cupom);
     

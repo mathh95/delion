@@ -77,8 +77,7 @@
                 $this->status = $status;
             }
 
-            function construct($cod_cupom,$codigo,$qtde_inicial, $qtde_atual,$valor, $vencimento, $status){
-                $this->cod_cupom = $cod_cupom;
+            function construct($codigo,$qtde_inicial, $qtde_atual,$valor, $vencimento, $status){
                 $this->codigo = $codigo;
                 $this->qtde_inicial = $qtde_inicial;
                 $this->qtde_atual = $qtde_atual;

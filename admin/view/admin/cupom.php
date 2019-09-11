@@ -273,7 +273,7 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
 
-                                <input class="form-control" placeholder="Valor do desconto" name="desconto" value="" type="number">
+                                <input class="form-control" placeholder="Valor do desconto" id="valor" name="valor" value="" type="number" step="0.01" min="1" max="99">
 
                             </div>     
 
@@ -287,7 +287,7 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
 
-                                <input class="form-control" placeholder="Número de cupons" name="qtdcupom" value="" type="number">
+                                <input class="form-control" placeholder="Número de cupons" id="qtdcupom" name="qtdcupom" value="" type="number">
 
                             </div> 
 
