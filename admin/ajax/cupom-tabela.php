@@ -12,9 +12,6 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 $controle=new controlCupom($_SG['link']);
 
 $cupons = $controle->selectAll();
-echo "<pre>";
-print_r($cupons);
-echo "</pre>";
 
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
