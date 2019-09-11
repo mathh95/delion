@@ -77,6 +77,11 @@
                 $this->status = $status;
             }
 
+            function construct1($valor, $vencimento){
+                $this->valor = $valor;
+                $this->vencimento = $vencimento;
+            }
+
             function construct($codigo,$qtde_inicial, $qtde_atual,$valor, $vencimento, $status){
                 $this->codigo = $codigo;
                 $this->qtde_inicial = $qtde_inicial;

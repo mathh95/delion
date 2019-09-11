@@ -37,11 +37,10 @@
     }
     function update($cupom){
         try{
-            $stmt=$this->pdo->prepare("UPDATE cupom_wpp SET codigo=:codigo, quantidade=:quantidade, valor=:valor WHERE cod_cupom=:cod_cupom");
+            $stmt=$this->pdo->prepare("UPDATE cupom_wpp SET valor=:valor, vencimento=:vencimento WHERE cod_cupom=:cod_cupom");
             $stmt->bindParam(":cod_cupom",$cupom->getCod_cupom(), PDO::PARAM_INT);
-            $stmt->bindParam(":codigo",$cupom->getCodigo(), PDO::PARAM_STR);
-            $stmt->bindParam(":quantidade",$cupom->getQuantidade(), PDO::PARAM_INT);
-            $stmt->bindParam(":valor",$cupom->getValor(), PDO::PARAM_INT);
+            $stmt->bindParam(":valor",$cupom->getValor(), PDO::PARAM_STR);
+            $stmt->bindParam(":vencimento",$cupom->getVencimento(), PDO::PARAM_STR);
             $executa = $stmt->execute();
             if($executa){
                 return 1;
@@ -55,7 +54,39 @@
             return -1;
         }
     }
-    //
+    function select($parametro){
+        $stmt;
+        $cupom= new cupom;
+        try{
+            
+            $cod_cupom=$parametro;
+            $stmt=$this->pdo->prepare("SELECT * FROM cupom_wpp WHERE cod_cupom=:parametro");
+            $stmt->bindParam(":parametro", $cod_cupom, PDO::PARAM_INT);
+           
+            $executa=$stmt->execute();
+            if ($executa){
+                if($stmt->rowCount() > 0){
+                    while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                        $cupom = new cupom;
+                        $cupom->setCod_Cupom($result->cod_cupom);
+                        $cupom->setCodigo($result->codigo);
+                        $cupom->setQtde_inicial($result->qtde_inicial);
+                        $cupom->setQtde_atual($result->qtde_atual);
+                        $cupom->setValor($result->valor);
+                        $cupom->setVencimento($result->vencimento);
+                        $cupom->setStatus($result->status);
+                    }
+                }
+                return $cupom;
+            }else{
+                return -1;
+            }
+        }
+        catch(PDOException $e){
+            echo $e->getMessage();
+            return -1;
+        }
+    }
     function selectAll(){
         try{
             $cupons = array();
