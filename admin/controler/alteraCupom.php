@@ -11,7 +11,7 @@
 		}
         
 		$cod_cupom= addslashes(htmlspecialchars($_POST['cod']));
-        if(isset($_POST['valor']) && !empty($_POST['valor'] && $_POST['valor'] != '0.00')){
+        if(isset($_POST['valor']) && !empty($_POST['valor'] && $_POST['valor'] >= '0.00')){
             $valor = addslashes(htmlspecialchars($_POST['valor']));
         }
         $dv = explode("-", $_POST['vencimento']);
