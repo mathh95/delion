@@ -72,6 +72,7 @@
                         $cupom->setValor($result->valor);
                         $cupom->setVencimento($result->vencimento);
                         $cupom->setStatus($result->status);
+                        array_push($cupons, $cupom);
                     }
                 }else{
                     echo "Sem resultados";

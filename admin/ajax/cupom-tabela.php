@@ -98,12 +98,12 @@ if(in_array('cupomWpp', $permissao)){
 } else{
 		echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Pedidos</h1>
+		<h1 class=\"page-header\">Lista de Cupons</h1>
 		<tr>
-        <th width='10%' style='text-align: center;'>Código Cupom</th>
+        <th width='10%' style='text-align: center;'>#Cod_Cupom</th>
         <th width='8%' style='text-align: center;'>Código</th>
-        <th width='8%' style='text-align: center;'>Quantidade Inicial</th>
-        <th width='10%' style='text-align: center;'>Quantidade Atual</th>
+        <th width='8%' style='text-align: center;'>Qntd Inicial</th>
+        <th width='10%' style='text-align: center;'>Qntd Atual</th>
         <th width='10%' style='text-align: center;'>Valor</th>
         <th width='8%' style='text-align: center;'>Vencimento</th>
         <th width='15%' style='text-align: center;'>Status</th>
@@ -111,18 +111,19 @@ if(in_array('cupomWpp', $permissao)){
         <th width='15%' style='text-align: center;'>Cancelar</th>
         </tr>
 	<tbody>";
+
 	foreach ($cupons as &$cupom) {
-		
-			$mensagem='Cliente excluído com sucesso!';
-			$titulo='Excluir';
-			echo "<tr name='resultado' id='status".$cupom->getCod_cupom()."'>
+		$vencimento = date('d/m/Y', strtotime($cupom->getVencimento()));
+			echo "<tr name='resultado' id='status'>
 			 	<td style='text-align: center;' name='data'>".$cupom->getCod_cupom()."</td>
 			 	<td style='text-align: center;' name='cliente'>".$cupom->getCodigo()."</td>
-				<td style='text-align: center;' name='telefone'>".$cupom->getQtde_incial()."</td>
-				<td style='text-align: center;' name='telefone'>".$cupom->getQtde_anual()."</td>
+				<td style='text-align: center;' name='telefone'>".$cupom->getQtde_inicial()."</td>
+				<td style='text-align: center;' name='telefone'>".$cupom->getQtde_atual()."</td>
 				<td style='text-align: center;' name='valor'>"." R$ ".$cupom->getValor()."</td>
-				<td style='text-align: center;' name='valor'>".$cupom->getVencimento()."</td>
+				<td style='text-align: center;' name='valor'>".$vencimento."</td>
 				<td style='text-align: center;' name='status'>".$cupom->getStatus()."</td>
+				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href=''><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+				<td style='text-align: center;' name='status' ><button type='button' class='btn btn-kionux'><i class='fa fa-remove'></i>Cancelar</button></td>
 			</tr>";
 	}
 }
