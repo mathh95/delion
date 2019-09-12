@@ -21,11 +21,6 @@
                 $vencimento= addslashes(htmlspecialchars($_POST['vencimento']));
         }
 		
-
-		
-
-		
-	
 		$cupom= new cupom();
 		$cupom->construct1($valor, $vencimento);
 
@@ -35,7 +30,6 @@
 			msgRedireciona('Alteração Realizada!','Cupom alterado com sucesso!',1,'../view/admin/cupomLista.php');
 		}else{
 			alertJSVoltarPagina('Erro!','Erro ao alterar cupom!',2);
-			$cupom->show();
 		}
 	}else{
 		expulsaVisitante();
