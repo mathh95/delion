@@ -471,10 +471,10 @@ INSERT INTO `combo` (`cod_combo`, `cliente`, `data`, `valor`, `status`, `enderec
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `cupom_wpp`
+-- Estrutura da tabela `cupom`
 --
 
-CREATE TABLE `cupom_wpp` (
+CREATE TABLE `cupom` (
   `cod_cupom` int(11) NOT NULL,
   `codigo` varchar(255) COLLATE utf8_bin NOT NULL,
   `quantidade` int(11) NOT NULL,
@@ -1091,9 +1091,9 @@ ALTER TABLE `combo`
   ADD KEY `endereco` (`endereco`);
 
 --
--- Indexes for table `cupom_wpp`
+-- Indexes for table `cupom`
 --
-ALTER TABLE `cupom_wpp`
+ALTER TABLE `cupom`
   ADD PRIMARY KEY (`cod_cupom`);
 
 --
@@ -1242,9 +1242,9 @@ ALTER TABLE `combo`
   MODIFY `cod_combo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- AUTO_INCREMENT for table `cupom_wpp`
+-- AUTO_INCREMENT for table `cupom`
 --
-ALTER TABLE `cupom_wpp`
+ALTER TABLE `cupom`
   MODIFY `cod_cupom` int(11) NOT NULL AUTO_INCREMENT;
 
 --

@@ -15,7 +15,7 @@
                 $valor=$cupom->getValor();
                 $vencimento=$cupom->getVencimento();
                 $status = $cupom->getStatus();
-                $stmt=$this->pdo->prepare("INSERT INTO cupom_wpp(codigo, qtde_inicial, qtde_atual, valor, vencimento, status) VALUES (:codigo, :qtde_inicial, :qtde_atual, :valor, :vencimento, :status)");
+                $stmt=$this->pdo->prepare("INSERT INTO cupom_(codigo, qtde_inicial, qtde_atual, valor, vencimento, status) VALUES (:codigo, :qtde_inicial, :qtde_atual, :valor, :vencimento, :status)");
                 $stmt->bindParam(":codigo",$codigo, PDO::PARAM_STR);
                 $stmt->bindParam(":qtde_inicial",$qtde_inicial, PDO::PARAM_INT);
                 $stmt->bindParam(":qtde_atual",$qtde_atual, PDO::PARAM_INT);
@@ -37,7 +37,7 @@
     }
     function update($cupom){
         try{
-            $stmt=$this->pdo->prepare("UPDATE cupom_wpp SET valor=:valor, vencimento=:vencimento WHERE cod_cupom=:cod_cupom");
+            $stmt=$this->pdo->prepare("UPDATE cupom SET valor=:valor, vencimento=:vencimento WHERE cod_cupom=:cod_cupom");
             $stmt->bindParam(":cod_cupom",$cupom->getCod_cupom(), PDO::PARAM_INT);
             $stmt->bindParam(":valor",$cupom->getValor(), PDO::PARAM_STR);
             $stmt->bindParam(":vencimento",$cupom->getVencimento(), PDO::PARAM_STR);
@@ -60,7 +60,7 @@
         try{
             
             $cod_cupom=$parametro;
-            $stmt=$this->pdo->prepare("SELECT * FROM cupom_wpp WHERE cod_cupom=:parametro");
+            $stmt=$this->pdo->prepare("SELECT * FROM cupom WHERE cod_cupom=:parametro");
             $stmt->bindParam(":parametro", $cod_cupom, PDO::PARAM_INT);
            
             $executa=$stmt->execute();
@@ -90,7 +90,7 @@
     function selectAll(){
         try{
             $cupons = array();
-            $stmt=$this->pdo->prepare("SELECT * FROM cupom_wpp ORDER BY status ASC");
+            $stmt=$this->pdo->prepare("SELECT * FROM cupom ORDER BY status ASC");
             $executa = $stmt->execute();
             if($executa){
                 if($stmt->rowCount() > 0){
@@ -124,7 +124,7 @@
         try{
             if($status == 1){
                 $parametro=$cod_cupom;
-                $stmt=$this->pdo->prepare("UPDATE cupom_wpp SET status= 4 WHERE cod_cupom=:parametro");
+                $stmt=$this->pdo->prepare("UPDATE cupom SET status= 4 WHERE cod_cupom=:parametro");
                 $stmt->bindParam(":parametro",$parametro,PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;

@@ -472,10 +472,10 @@ INSERT INTO `combo` (`cod_combo`, `cliente`, `data`, `valor`, `status`, `enderec
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `cupom_wpp`
+-- Estrutura da tabela `cupom`
 --
 
-CREATE TABLE `cupom_wpp` (
+CREATE TABLE `cupom` (
   `cod_cupom` int(11) NOT NULL,
   `codigo` varchar(255) COLLATE utf8_bin NOT NULL,
   `qtde_inicial` int(11) NOT NULL,
@@ -486,10 +486,10 @@ CREATE TABLE `cupom_wpp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Extraindo dados da tabela `cupom_wpp`
+-- Extraindo dados da tabela `cupom`
 --
 
-INSERT INTO `cupom_wpp` (`cod_cupom`, `codigo`, `qtde_inicial`, `qtde_atual`, `valor`, `vencimento`, `status`) VALUES
+INSERT INTO `cupom` (`cod_cupom`, `codigo`, `qtde_inicial`, `qtde_atual`, `valor`, `vencimento`, `status`) VALUES
 (1, 'df1we1q23270', 8, 8, '20.00', '2019-09-27', 1),
 (2, 'df1we2i1j2g4', 20, 20, '5.50', '2019-02-25', 4),
 (3, 'df1wm2613k9', 10, 10, '9.50', '2018-02-22', 4),
@@ -1114,9 +1114,9 @@ ALTER TABLE `combo`
   ADD KEY `endereco` (`endereco`);
 
 --
--- Indexes for table `cupom_wpp`
+-- Indexes for table `cupom`
 --
-ALTER TABLE `cupom_wpp`
+ALTER TABLE `cupom`
   ADD PRIMARY KEY (`cod_cupom`);
 
 --
@@ -1265,9 +1265,9 @@ ALTER TABLE `combo`
   MODIFY `cod_combo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- AUTO_INCREMENT for table `cupom_wpp`
+-- AUTO_INCREMENT for table `cupom`
 --
-ALTER TABLE `cupom_wpp`
+ALTER TABLE `cupom`
   MODIFY `cod_cupom` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
