@@ -109,15 +109,15 @@
                                 </li>
                                 <li class="dropdown">
 
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicional <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicional <span class="caret"></span></a>
 
-                                        <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu">
 
-                                            <li><a href="adicional.php">Cadastro</a></li>
+                                        <li><a href="adicional.php">Cadastro</a></li>
 
-                                            <li><a href="adicionalLista.php">Listar</a></li>
-                                            
-                                        </ul>
+                                        <li><a href="adicionalLista.php">Listar</a></li>
+                                        
+                                    </ul>
 
                                 </li>   
                                 <li class="dropdown ">
@@ -127,7 +127,7 @@
                                         <li><a href="miniBannerLista.php">Listar</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown active ">
+                                <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="cliente.php">Cadastro</a></li>
@@ -161,14 +161,14 @@
                                         <li><a href="cupomLista.php">Listar Cupons</a></li>
                                     </ul>
                                     </li>
-                                    <li class="dropdown">
+                                    <li class="dropdown active">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Formas de Pagamento<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="formaPgt.php">Cadastro</a></li>
                                             <li><a href="formaPgtLista.php">Listar</a></li>
                                         </ul>
                                     </li> 
-     
+    
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="pull-right">
@@ -181,53 +181,31 @@
         </div>
     </header>
     <div class="container-fluid">
-        <div class="searchbar">
-                <div class="medium-divs"> 
-                    <label>Filtro por nome, email ou telefone do cliente: </label>
-                    <input id="pesquisa" class="form-control" type="text" required placeholder="Nome, email ou telefone para pesquisa">
-                </div>
-        </div>
         <div class="row">
             <div class="col-lg-12" id="tabela-cliente">
-                <?php include "../../ajax/cliente-tabela.php"; ?>
+                <?php include "../../ajax/formaPgt-tabela.php"; ?>
             </div>
         </div>
     </div>
     <?php include VIEWPATH."/rodape.html" ?>
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
-        function removeCliente(cliente){
-            msgConfirmacao('Confirmação','Deseja Realmente remover o cliente?',
+        function removeFormaPgt(formaPgt){
+            msgConfirmacao('Confirmação','Deseja Realmente remover a Forma de Pagamento?',
                 function(linha){
-                    var url ='../../ajax/excluir-cliente.php?cliente='+cliente;
+                    var url ='../../ajax/excluir-formaPgt.php?cod='+formaPgt;
                     $.get(url, function(dataReturn) {
                         if (dataReturn > 0) {
-                            msgGenerico("Excluir!","Cliente excluído com sucesso!",1,function(){});
-                            $("#status"+cliente).remove();
+                            msgGenerico("Excluir!","Forma de pagamento excluida com sucesso!",1,function(){});
+                            $("#status"+formaPgt).remove();
                         }else{
-                            msgGenerico("Erro!","Não foi possível excluir o cliente!",2,function(){});
+                            msgGenerico("Erro!","Não foi possível excluir a Forma de Pagamento!",2,function(){});
                         }
                     });  
                 },
                 function(){}
             );
         }
-
-        $('#pesquisa').on('change paste keyup', function(){
-            var nome = $("#pesquisa").val();
-            var url = '../../ajax/cliente-tabela.php';
-            $.ajax({
-                type: 'POST',
-
-                url: url,
-
-                data: {nome:nome},
-
-                success:function(res){
-                    $("#tabela-cliente").html(res);
-                }
-            });
-        });
     </script>
 </body>
 </html>

@@ -165,8 +165,8 @@
                                 <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Formas de Pagamento<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="adicional.php">Cadastro</a></li>
-                                            <li><a href="adicionalLista.php">Listar</a></li>
+                                            <li><a href="formaPgt.php">Cadastro</a></li>
+                                            <li><a href="formaPgtLista.php">Listar</a></li>
                                         </ul>
                                 </li> 
                             </ul>

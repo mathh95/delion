@@ -8,9 +8,9 @@
 
     include_once CONTROLLERPATH."/seguranca.php";
 
-    include_once CONTROLLERPATH."/controlBanner.php";
+    include_once CONTROLLERPATH."/controlFormaPgt.php";
 
-    include_once MODELPATH."/banner.php";
+    include_once MODELPATH."/formaPgt.php";
 
     $_SESSION['permissaoPagina']=0;
 
@@ -20,11 +20,15 @@
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
+    $controle=new controlerFormaPgt($_SG['link']);
+
+    $formaPgt = $controle->selectId($_GET['cod']);
+
 ?>
 
 <!DOCTYPE html>
 
-<html lang="pt-br">
+<html class="no-js" lang="pt-br">
 
     <head>
 
@@ -33,6 +37,14 @@
     </head>
 
     <body>
+
+        <!--[if lt IE 8]>
+
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
 
         <header>
 
@@ -134,7 +146,7 @@
 
                                     </li>
 
-                                    <li class="dropdown">
+                                   <li class="dropdown">
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Avaliacao <span class="caret"></span></a>
 
@@ -220,7 +232,7 @@
 
                                     </li>   
 
-                                    <li class="dropdown active">
+                                    <li class="dropdown">
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mini banner <span class="caret"></span></a>
 
@@ -232,8 +244,8 @@
 
                                         </ul>
 
-                                    </li>
-                                    
+                                    </li>     </li>
+
                                     <li class="dropdown">
     
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
@@ -254,12 +266,11 @@
 
                                     <li class="dropdown">
                                         <a href="comboLista.php">Combo</a>
-                                    </li>
+                                    </li>  
                                     
                                     <li class="dropdown">
                                         <a href="/home/avaliacao.php">Avaliar</a>
                                     </li>
-
                                     <li class="dropdown">
                                         <a href="enderecoLista.php">Endereços</a>
                                     </li>
@@ -278,16 +289,21 @@
                                         <li><a href="cupomLista.php">Listar Cupons</a></li>
                                     </ul>
                                     </li>
-                                    <li class="dropdown">
+                                    
+                                    <li class="dropdown active">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Formas de Pagamento<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="formaPgt.php">Cadastro</a></li>
                                             <li><a href="formaPgtLista.php">Listar</a></li>
                                         </ul>
-                                    </li> 
+                                    </li>   
                                 </ul>
 
                             </div><!--/.nav-collapse -->
+
+                            <div>
+
+                            </div>
 
                             <div class="pull-right">
 
@@ -307,29 +323,9 @@
 
         </header>
 
-        <?php
-
-            $controle=new controlerBanner($_SG['link']);
-
-            $banner = $controle->selectMini($_GET['cod'], 2);
-
-            $paginas=json_decode($banner->getPagina());
-
-            $p="[";
-
-            foreach ($paginas as $pagina) {
-
-                $p.='"'.$pagina.'",';
-
-            }
-
-            $p.="]";
-
-        ?>
-
         <div class="container-fluid">
 
-            <form class="form-horizontal" id="form-cadastro-usuario" method="POST" enctype="multipart/form-data" action="../../controler/alteraMiniBanner.php">
+            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/alteraFormaPgt.php">
 
                 <div class="col-md-12">
 
@@ -337,105 +333,28 @@
 
                         <div class="col-md-5">
 
-                            <h3>Dados do Banner</h3>
+                            <h3>Dados da Forma de Pagamento</h3>
 
                             <br>
 
-                            <small>Nome: (Apenas para referência.)</small>
-
+                            <small>Tipo de Forma de Pagamento: </small>
                             <div class="input-group">
-
                                 <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-
-                                <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text" value="<?=  $banner->getNome(); ?>"/>
-
-                                <input class="form-control" name="cod" style="display: none;" id ="cod" type="text" value="<?=  $banner->getCod_banner(); ?>"/>
-
-                                <input class="form-control" name="imagem" style="display: none;" id ="imagem" type="text" value="../<?=  $banner->getFotoAbsoluto(); ?>"/>
-
+                                <input class="form-control" placeholder="Tipo de forma de Pagamento" name="tipoFormaPgt" required autofocus id ="tipoForma" type="text" value="<?= $formaPgt->getTipoFormaPgt();?>">
+                                <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $formaPgt->getCod_formaPgt();?>">
                             </div>
 
                             <br>
 
-                            <small>Link: (endereço caso deseja que ao clicar no banner o usuário vá para uma página especifica.)</small>
-
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="fa fa-link"></i></span>
-
-                                <input class="form-control" placeholder="ex: http://www.minhapagina.com.br/produtos" name="link" id ="link" type="text" value="<?=  $banner->getLink(); ?>">
-
-                            </div>
-
+                            <small>Informar se o item está ativo:</small>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="ativo" name="flag_ativo" value="1">Ativo
+                                    </label>
+                                </div>
                             <br>
 
-                            <small>Foto:</small>
-
-                            <br>
-
-                            <img src="../../<?=  $banner->getFoto(); ?>"  alt='' class='img-thumbnail img-responsive'/>
-
-                            <br>
-
-                            <small><span style="color:red">(Utilizar uma imagem no formato (.png) ou (.jpg). Tamanho 544[largura] x 724[altura].)</span></small>
-
-                            <input type="file" name="arquivo" id ="arquivo">
-
-                            <br>
-
-                            <small>Página (Página onde o banner será utilizado)</small>
-
-                            <div class="checkbox">
-
-                                <ul>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="sobre" name="1pagina" value="sobre">Sobre
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="historia" name="2pagina" value="historia">História
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="contato" name="3pagina" value="contato">Contato
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="localizacao" name="4pagina" value="localizacao">Localização
-
-                                        </label>
-
-                                    </li>
-
-                                </ul>
-
-                            </div>
-
-                            <br>
-
-                        </div> 
+                        </div>
 
                     </div>
 
@@ -449,7 +368,7 @@
 
                     $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                    if (in_array('banner', $permissao)){ ?>
+                    if (in_array('pedidoWpp', $permissao)){ ?>
 
                         <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Alterar</button>
 
@@ -459,7 +378,7 @@
 
                     <div class="pull-right">
 
-                        <a href="bannerLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Voltar</a>
+                    <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
 
                     </div>
 
@@ -485,20 +404,20 @@
 
         <?php include VIEWPATH."/rodape.html" ?>
 
-        <script>
+        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 
-            var pagina =   <?=$p?>;
+        <script>
+            var ativo =   <?=$formaPgt->getFlag_ativo()?>;
 
             $( document ).ready(function() {
 
-                for(let value of pagina){
+                if (ativo == 1) {
 
-                    $('#' + value).attr('checked', true);
+                    $('#ativo').attr('checked', true);
 
                 }
 
             })
-
         </script>
 
     </body>

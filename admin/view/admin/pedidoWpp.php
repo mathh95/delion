@@ -218,6 +218,13 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
                                         <li><a href="cupomLista.php">Listar Cupons</a></li>
                                     </ul>
                                 </li>
+                                <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Formas de Pagamento<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="formaPgt.php">Cadastro</a></li>
+                                            <li><a href="formaPgtLista.php">Listar</a></li>
+                                        </ul>
+                                </li>
 
                             </ul>
                         </div>
