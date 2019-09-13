@@ -143,7 +143,7 @@ if(in_array('pedidoWpp', $permissao)){
 						</div>
 						</a>
 					</td>
-					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;' ><button class='btn btn-danger'><i class='fa fa-print' disable></i>Imprimir</button></a></td>
+					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-warning' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido_wpp()."' data-id='".$pedido->getCod_pedido_wpp()."'><i class='fa fa-print'></i>Imprimir</button></a></td>
 					<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"alterarStatusDelivery(".$pedido->getCod_pedido_wpp().",3)\" class='btn btn-primary'><i class='fa fa-truck'></i>Delivery</button></a></td>
 					<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-primary'><i class='fa fa-info'></i>Detalhes</button></a></td>
 					</tr>";
@@ -224,7 +224,7 @@ if(in_array('pedidoWpp', $permissao)){
 				$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
 				$itens = $controle->selectItens($pedido->getCod_pedido_wpp());
 
-				if($pedido->getStatus()==1){
+				if($pedido->getStatus()==1 || $pedido->getStatus()==2){
 				$array = ($pedido->getCod_pedido_wpp());
 				
 				echo " <div class=\"modal fade\" id='modalPedido".$pedido->getCod_pedido_wpp()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
