@@ -15,7 +15,7 @@
                 $valor=$cupom->getValor();
                 $vencimento=$cupom->getVencimento();
                 $status = $cupom->getStatus();
-                $stmt=$this->pdo->prepare("INSERT INTO cupom_(codigo, qtde_inicial, qtde_atual, valor, vencimento, status) VALUES (:codigo, :qtde_inicial, :qtde_atual, :valor, :vencimento, :status)");
+                $stmt=$this->pdo->prepare("INSERT INTO cupom(codigo, qtde_inicial, qtde_atual, valor, vencimento, status) VALUES (:codigo, :qtde_inicial, :qtde_atual, :valor, :vencimento, :status)");
                 $stmt->bindParam(":codigo",$codigo, PDO::PARAM_STR);
                 $stmt->bindParam(":qtde_inicial",$qtde_inicial, PDO::PARAM_INT);
                 $stmt->bindParam(":qtde_atual",$qtde_atual, PDO::PARAM_INT);

@@ -83,7 +83,10 @@ if(count($itens) > 0){
         </table>
         </div>
         <div class='rodapeCarrinho row'>
-            <div class='ladoEsquerdo'>                    
+            <div class='ladoEsquerdo'>
+                <strong><p>Insira um cupom:</p></strong> 
+                <input type='text' name='cupom'>
+                <a class='botaoAdicionarCupom' href='#'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>
                 <strong><p>Escolha como vai receber o pedido: </p>
                 </strong>
                 <div class='btn-group btn-group-toggle' data-toggle='buttons'>
