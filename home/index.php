@@ -249,14 +249,16 @@
 									echo "<li><a href=" . 'login.php' . ">Login </a></li>";
 								} ?>
 
-								<li class="active"><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> <span style="background-color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
+								<li class="active"><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> <span style="background-color:white; color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 
-								<li><a href="combo.php">Combo <span style="background-color:black;" class="badge" id="spanCombo"><?php echo (isset($_SESSION['combo']))?count($_SESSION['combo']):'0';?></span></a></li>
-								
+								<li><a href="combo.php">Combo <i style="color:white;" class="fas fa-plus fa-sm"></i> por <i style="color:white;" class="fas fa-minus fa-sm"></i> <span style="background-color:white; color:black;" class="badge" id="spanCombo"><?php echo (isset($_SESSION['combo']))?count($_SESSION['combo']):'0';?></span></a></li>
+
 								<?php if(isset($_SESSION['cod_cliente']) && !isset($_SESSION['telefone'])){
-									echo "<li><a href='#' onclick='signOut()'>Logout</a></li>";
+									echo "<li><a href='#'><i class='fas fa-user'></i> ".$_SESSION['nome']."</a></li>";
+									echo "<li><a href='#' onclick='signOut()'><i class='fas fa-sign-out-alt'></i> Logout</a></li>";
 								}else if(isset($_SESSION['cod_cliente'])){
-									echo "<li><a href='#' onclick='deslogar()'>Logout</a></li>";
+									echo "<li><a href='#'><i class='fas fa-user'></i> ".$_SESSION['nome']."</a></li>";
+									echo "<li><a href='#' onclick='deslogar()'><i class='fas fa-sign-out-alt'></i> Logout</a></li>";
 								}?>
 
 					   		</ul>

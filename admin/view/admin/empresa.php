@@ -312,9 +312,10 @@
 
                             <div class="pull-right">
 
-                                <h2><a href="alteraSenha.php"> ALTERAR SENHA |</a>
-
-                                <a href="../../controler/logout.php"> SAIR &nbsp;</a></h2>
+                                <h2>
+                                    <a href="alteraSenha.php"><i class="fa fa-cog"></i>ALTERAR SENHA&nbsp;|</a>
+                                    <a href="../../controler/logout.php"><i class="fa fa-sign-out"></i>SAIR&nbsp;</a>
+                                </h2>
 
                             </div>
 
