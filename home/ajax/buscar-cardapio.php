@@ -153,7 +153,7 @@ session_start();
                                         }else{
                                             echo "</tr>
                                                 </table><p>Este produto não tem adicionais disponiveis!</p>
-                                                <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success addCombo'>Adicionar ao combo</button>
+                                                <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success addCombo'>Adicionar ao Combo</button>
                                                 <button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                         }
                                         ?>
@@ -193,7 +193,7 @@ session_start();
                                         }else{
                                             echo "</tr>
                                                 </table><p>Este produto não tem adicionais disponiveis!</p>
-                                                <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success addCombo'>Adicionar ao combo</button>
+                                                <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success addCombo'>Adicionar ao Combo</button>
                                                 <button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                         }
                                         ?>
@@ -225,9 +225,9 @@ session_start();
                       
                         <div class='preco'><strong>R$ ".$item->getPreco()."</strong></div>
                         
-                        <button  id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button><br>
+                        <button  id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao Pedido</button><br>
 
-                        <button id='addCombo' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao combo</button>
+                        <button id='addCombo' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao Combo</button>
 
                     </div>
 
@@ -502,7 +502,7 @@ session_start();
                                         }else{
                                             echo "</tr>
                                                 </table><p>Este produto não tem adicionais disponiveis!</p>
-                                                <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success addCombo'>Adicionar ao combo</button>
+                                                <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success addCombo'>Adicionar ao Combo</button>
                                                 <button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                         }
                                         ?>
@@ -541,7 +541,7 @@ session_start();
                                         }else{
                                             echo "</tr>
                                                 </table><p>Este produto não tem adicionais disponiveis!</p>
-                                                <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success addCombo'>Adicionar ao combo</button>
+                                                <button onclick='adicionaCombo(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-success addCombo'>Adicionar ao Combo</button>
                                                 <button onclick='fecharModal(".$item->getCod_cardapio().")' style='margin:5px;' class='btn btn-danger'>Cancelar</button>";
                                         }
                                         ?>
@@ -574,9 +574,9 @@ session_start();
                     
                     <div class='preco'><strong>R$ ".$item->getPreco()."</strong></div>
                     
-                    <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao pedido.</button><br>
+                    <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao Pedido</button><br>
 
-                    <button id='addCombo' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao combo</button>
+                    <button id='addCombo' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao Combo</button>
 
                 </div>
 

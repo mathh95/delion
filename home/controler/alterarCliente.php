@@ -8,6 +8,7 @@
         $nome= addslashes(htmlspecialchars($_POST['nome']));
         $login=addslashes(htmlspecialchars($_POST['login']));
         $telefone=addslashes(htmlspecialchars($_POST['telefone']));
+        
         $cliente = new cliente;
         $cliente->setLogin($login);
         $cliente->setNome($nome);

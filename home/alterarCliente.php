@@ -263,21 +263,21 @@ session_start();
 
 					<p>Nome:</p>
 
-        			<input name="nome" type="text" required placeholder="Nome" value="<?php echo $_SESSION['nome'];?>">
+        			<input name="nome" type="text" minlength="4" maxlength="30" required placeholder="Nome" value="<?php echo $_SESSION['nome'];?>">
 
     			</div>
     			<div>
 
 					<p>Login:</p>
 
-        			<input name="login" type="text" required placeholder="Login" value="<?php echo $_SESSION['login'];?>">
+        			<input name="login" type="text" minlength="4" maxlength="40" required placeholder="Login" value="<?php echo $_SESSION['login'];?>">
 
     			</div>
 				<div>
 
 					<p>Telefone:</p>
 
-					<input name="telefone" type="number" required placeholder="Telefone" value="<?php echo $_SESSION['telefone'];?>">
+					<input name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999" value="<?php echo $_SESSION['telefone'];?>">
 
 				</div>
 

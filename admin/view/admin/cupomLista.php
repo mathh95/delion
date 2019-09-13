@@ -238,7 +238,7 @@ error_reporting(E_ALL);
         </div>
     </header>
             <div class="row">
-                <div class="col-lg-12" id="tabela-pedido">
+                <div class="col-lg-12" id="tabela-cupom">
                     <?php include "../../ajax/cupom-tabela.php"; ?>
                 </div>
             </div>
@@ -249,50 +249,50 @@ error_reporting(E_ALL);
         <script type="text/javascript">
                 //Primeiro caso: Se o status do pedido for igual a 1
                 //Vai alterar ele apenas para IMPRESSO
-                function alterarStatusPrint(pedido,status){
-                    if(status-1 == 1){
-                    msgConfirmacao('Confirmação','Deseja Realmente imprimir o comprovante de venda?',
-                        function(linha){
-                            // console.log("Antes do get",status);
-                            var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
-                            $.get(url, function(dataReturn) {
-                                if (dataReturn == 1) {
-                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
-                                    // gerarPrint(status);
-                                }else{
-                                    msgGenerico("Erro!",dataReturn,2,function(){});
-                                }
-                            });  
-                        },
-                        function(){}
-                    );
-                }
-            }
+            //     function alterarStatusPrint(pedido,status){
+            //         if(status-1 == 1){
+            //         msgConfirmacao('Confirmação','Deseja Realmente imprimir o comprovante de venda?',
+            //             function(linha){
+            //                 // console.log("Antes do get",status);
+            //                 var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
+            //                 $.get(url, function(dataReturn) {
+            //                     if (dataReturn == 1) {
+            //                         msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
+            //                         // gerarPrint(status);
+            //                     }else{
+            //                         msgGenerico("Erro!",dataReturn,2,function(){});
+            //                     }
+            //                 });  
+            //             },
+            //             function(){}
+            //         );
+            //     }
+            // }
 
-            function alterarStatusPrint(pedido,status){
-                    if(status-1 == 1){
-                    msgConfirmacao('Confirmação','Deseja Realmente imprimir o comprovante de venda?',
-                        function(linha){
-                            // console.log("Antes do get",status);
-                            var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
-                            $.get(url, function(dataReturn) {
-                                if (dataReturn == 1) {
-                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
-                                    // gerarPrint(status);
-                                }else{
-                                    msgGenerico("Erro!",dataReturn,2,function(){});
-                                }
-                            });  
-                        },
-                        function(){}
-                    );
-                }
-            }
+            // function alterarStatusPrint(pedido,status){
+            //         if(status-1 == 1){
+            //         msgConfirmacao('Confirmação','Deseja Realmente imprimir o comprovante de venda?',
+            //             function(linha){
+            //                 // console.log("Antes do get",status);
+            //                 var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
+            //                 $.get(url, function(dataReturn) {
+            //                     if (dataReturn == 1) {
+            //                         msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
+            //                         // gerarPrint(status);
+            //                     }else{
+            //                         msgGenerico("Erro!",dataReturn,2,function(){});
+            //                     }
+            //                 });  
+            //             },
+            //             function(){}
+            //         );
+            //     }
+            // }
             
-            function myFunction(int) {
-                var popup = document.getElementById('myPopup'+int);
-                popup.classList.toggle('show');
-            }
+            // function myFunction(int) {
+            //     var popup = document.getElementById('myPopup'+int);
+            //     popup.classList.toggle('show');
+            // }
 
 
             // Função que imprime uma div
@@ -320,38 +320,56 @@ error_reporting(E_ALL);
             //     return true;
             // }
 
-            function printDiv(elem){
-                renderMe($('<div/>').append($(elem).clone()).html());
-            }
+            // function printDiv(elem){
+            //     renderMe($('<div/>').append($(elem).clone()).html());
+            // }
 
-            function renderMe(data) {
-                // console.log(data);
-                var mywindow = window.open('', 'invoice-box', 'height=750,width=750');
-                mywindow.document.write('<html><head><title>Impressão Fiscal</title>');
-                mywindow.document.write('<link rel="stylesheet" href="printstyle.css" type="text/css" style="height=750,width=750"/>');
-                mywindow.document.write('</head><body >');
-                mywindow.document.write(data);
-                mywindow.document.write('</body></html>');
+            // function renderMe(data) {
+            //     // console.log(data);
+            //     var mywindow = window.open('', 'invoice-box', 'height=750,width=750');
+            //     mywindow.document.write('<html><head><title>Impressão Fiscal</title>');
+            //     mywindow.document.write('<link rel="stylesheet" href="printstyle.css" type="text/css" style="height=750,width=750"/>');
+            //     mywindow.document.write('</head><body >');
+            //     mywindow.document.write(data);
+            //     mywindow.document.write('</body></html>');
 
 
-                setTimeout(function () {
-                mywindow.print();
-                mywindow.close();
-                }, 1000)
-                return true;
-            }
+            //     setTimeout(function () {
+            //     mywindow.print();
+            //     mywindow.close();
+            //     }, 1000)
+            //     return true;
+            // }
 
-            function alterarStatusDelivery(pedido,status){
-                    //Segundo caso: Se o status do pedido for igual a 2
-                    //Vai alterar ele apenas para ENTREGA
-                    if(status-1 == 2){
-                    msgConfirmacao('Confirmação','Deseja Realmente enviar o pedido para a entrega?',
+            // function alterarStatusDelivery(pedido,status){
+            //         //Segundo caso: Se o status do pedido for igual a 2
+            //         //Vai alterar ele apenas para ENTREGA
+            //         if(status-1 == 2){
+            //         msgConfirmacao('Confirmação','Deseja Realmente enviar o pedido para a entrega?',
+            //             function(linha){
+            //                 var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
+            //                 $.get(url, function(dataReturn) {
+            //                     if (dataReturn == 1) {
+                                    
+            //                         msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
+            //                     }else{
+            //                         msgGenerico("Erro!",dataReturn,2,function(){});
+            //                     }
+            //                 });  
+            //             },
+            //             function(){}
+            //         );
+            //     }
+            // } 
+
+            function alterarStatusCupom(codigo,status){
+                    if(status == 1){
+                    msgConfirmacao('Confirmação','Deseja Realmente cancelar o cupom?',
                         function(linha){
-                            var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
+                            var url ='../../ajax/alterar-cupom.php?codigo='+codigo+'&status='+status;
                             $.get(url, function(dataReturn) {
                                 if (dataReturn == 1) {
-                                    
-                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
+                                    msgRedireciona("Sucesso!","Cupom cancelado com sucesso!",1,"../../view/admin/cupomLista.php" );
                                 }else{
                                     msgGenerico("Erro!",dataReturn,2,function(){});
                                 }
@@ -364,76 +382,76 @@ error_reporting(E_ALL);
           
 			
             //Função ativada quando a ação não é permitida
-            function erroDelivery(pedido,status){
-                if(status == 3) {
-                    //hora Impressão
-                    // var today = new Date();
-                    // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                    // console.log(time);
-                    horaImpressão(pedido);
+            // function erroDelivery(pedido,status){
+            //     if(status == 3) {
+            //         hora Impressão
+            //         var today = new Date();
+            //         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            //         console.log(time);
+            //         horaImpressão(pedido);
 
-                    msgRedireciona("Erro!","Esse pedido já saiu para a entrega!",1,"../../view/admin/pedidoWppLista.php" );
-                }else{
-                    //hora Impressão
-                    // var today = new Date();
-                    // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                    // console.log(time);
+            //         msgRedireciona("Erro!","Esse pedido já saiu para a entrega!",1,"../../view/admin/pedidoWppLista.php" );
+            //     }else{
+            //         hora Impressão
+            //         var today = new Date();
+            //         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            //         console.log(time);
                     
-                    msgGenerico("Erro!","O pedido não foi impresso",2,function(){});
-                }
-            }
+            //         msgGenerico("Erro!","O pedido não foi impresso",2,function(){});
+            //     }
+            // }
             
-            function horaImpressão(pedido){
-                var today = new Date();
-                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                console.log(time);
+            // function horaImpressão(pedido){
+            //     var today = new Date();
+            //     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            //     console.log(time);
 
-                insereHoraPedido(time);
+            //     insereHoraPedido(time);
 
-            }
+            // }
 
 
-            function erroPrint(status){
-                if(status == 2) {
-                    msgRedireciona("Erro!","A nota fiscal desse pedido já foi impressa!",1,"../../view/admin/pedidoWppLista.php" );
+            function erroCancel(status){
+                if(status == 4) {
+                    msgRedireciona("Erro!","O cupom já foi cancelado!",1,"../../view/admin/cupomLista.php" );
                 }else{
-                    msgGenerico("Erro!","O pedido não foi impresso",2,function(){});
+                    msgGenerico("Erro!","O cupom não foi cancelado!",2,function(){});
                 }
             }
 
-            function alteraStatusPrintModel(pedido,status){
-                var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
-                            $.get(url, function(dataReturn) {
-                                if (dataReturn == 1) {
-                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
-                                }else{
-                                    msgGenerico("Erro!",dataReturn,2,function(){});
-                                }
-                            });
-                console.log("Botao clicado");
-            }
+            // function alteraStatusPrintModel(pedido,status){
+            //     var url ='../../ajax/alterar-pedidoWpp.php?pedido='+pedido+'&status='+status;
+            //                 $.get(url, function(dataReturn) {
+            //                     if (dataReturn == 1) {
+            //                         msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoWppLista.php" );
+            //                     }else{
+            //                         msgGenerico("Erro!",dataReturn,2,function(){});
+            //                     }
+            //                 });
+            //     console.log("Botao clicado");
+            // }
 
-            $('#pesquisa, #menor, #maior, #endereco').on('change paste keyup', function(){
-                var nome = $("#pesquisa").val();
-                var menor = $("#menor").val();
-                var maior = $("#maior").val();
-                var endereco = $("#endereco").val();
-                if (menor == ''){
-                    menor = 0;
-                }
-                if ( maior == ''){
-                    maior = 999999;
-                }
-                var url = '../../ajax/pedidoWpp-tabela.php';
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: {nome:nome, menor:menor, maior:maior, endereco:endereco},
-                    success:function(res){
-                        $("#tabela-pedido").html(res);
-                    }
-                });
-            });
+            // $('#pesquisa, #menor, #maior, #endereco').on('change paste keyup', function(){
+            //     var nome = $("#pesquisa").val();
+            //     var menor = $("#menor").val();
+            //     var maior = $("#maior").val();
+            //     var endereco = $("#endereco").val();
+            //     if (menor == ''){
+            //         menor = 0;
+            //     }
+            //     if ( maior == ''){
+            //         maior = 999999;
+            //     }
+            //     var url = '../../ajax/pedidoWpp-tabela.php';
+            //     $.ajax({
+            //         type: 'POST',
+            //         url: url,
+            //         data: {nome:nome, menor:menor, maior:maior, endereco:endereco},
+            //         success:function(res){
+            //             $("#tabela-pedido").html(res);
+            //         }
+            //     });
+            // });
         </script>
     </body>
     </html>

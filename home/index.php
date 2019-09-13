@@ -576,6 +576,29 @@
 			if(largura >= 1200){
 				$('#myModal').modal('show');
 			}
+
+			//Bem vindo para novo cliente
+			var url_string = window.location.href;
+			var url = new URL(url_string);
+			var bem_vindo = url.searchParams.get("bem_vindo");
+
+			if(bem_vindo){
+				swal("Bem vindo!", "Hora de um bom café!?",
+				{
+					buttons: {
+						cardapio: "Ver o Cardapio"
+					},
+				}).then((value) => {
+					switch (value) {
+						case "cardapio":
+							window.location = "/home/cardapio.php";
+							break;
+						default:
+							return 0;
+					}
+				});
+			}
+
 		});
 
 		function fechar(){
