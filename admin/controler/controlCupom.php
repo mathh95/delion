@@ -90,7 +90,7 @@
     function selectAll(){
         try{
             $cupons = array();
-            $stmt=$this->pdo->prepare("SELECT * FROM cupom_wpp");
+            $stmt=$this->pdo->prepare("SELECT * FROM cupom_wpp ORDER BY status ASC");
             $executa = $stmt->execute();
             if($executa){
                 if($stmt->rowCount() > 0){
@@ -117,6 +117,22 @@
         catch(PDOException $e){
             echo $e->getMessage();
             return -1;
+        }
+    }
+
+    function updateStatusCancel($cod_cupom,$status){
+        try{
+            if($status == 1){
+                $parametro=$cod_cupom;
+                $stmt=$this->pdo->prepare("UPDATE cupom_wpp SET status= 4 WHERE cod_cupom=:parametro");
+                $stmt->bindParam(":parametro",$parametro,PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }else {
+                return 0;
+            }
+        }catch(PDOException $e){
+            return $e->getMessage();
         }
     }
     function __construct($pdo){
