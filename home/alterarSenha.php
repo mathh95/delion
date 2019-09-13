@@ -266,21 +266,21 @@ session_start();
 
 					<p>Senha antiga:</p>
 
-        			<input name="senha" type="text" required placeholder="Senha antiga">
+        			<input name="senha" type="password" minlength="4" maxlength="40" required placeholder="******">
 
     			</div>
                 <div>
 
 					<p>Nova senha:</p>
 
-                    <input name="novaSenha" type="password" required placeholder="Nova senha">
+                    <input name="novaSenha" type="password" required minlength="4" maxlength="40" placeholder="******">
 
                 </div>
     			<div>
 
 					<p>Confirmar nova senha:</p>
 
-        			<input name="confirma" type="password" required placeholder="Confirmar senha">
+        			<input name="confirma" type="password" required minlength="4" maxlength="40" placeholder="******">
 
     			</div>
 

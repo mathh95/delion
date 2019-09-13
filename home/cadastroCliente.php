@@ -248,7 +248,7 @@ session_start();
 
 		<div class="solicitacao">
 
-			<form action="controler/businesCliente.php" method="POST">
+			<form id="cadastro-form">
 				
 				<p>Cadastro de cliente</p>
 
@@ -256,14 +256,14 @@ session_start();
 					
 					<p>Nome:</p>
 
-        			<input class="form-control" name="nome" type="text" required placeholder="Nome">
+        			<input class="form-control" name="nome" type="text" minlength="4" maxlength="30" required placeholder="Delion de Oliveira">
 
     			</div>
     			<div>
 
 					<p>Login:</p>
 
-        			<input class="form-control" name="login" type="email" required placeholder="example@example.com">
+        			<input class="form-control" name="login" type="email" minlength="4" maxlength="40" required placeholder="delion@mail.com">
 
     			</div>
 
@@ -271,7 +271,15 @@ session_start();
 
 					<p>Senha:</p>
 
-					<input class="form-control" name="senha" type="password" required placeholder="Senha">
+					<input class="form-control" name="senha" type="password" minlength="4" maxlength="40" required placeholder="******">
+
+				</div>
+
+				<div>
+
+					<p>Confirmar Senha:</p>
+
+					<input class="form-control" name="senha2" type="password" minlength="4" maxlength="40" required placeholder="******">
 
 				</div>
 
@@ -279,12 +287,12 @@ session_start();
 
 					<p>Telefone:</p>
 
-					<input class="form-control" name="telefone" type="number" required placeholder="Telefone">
+					<input class="form-control" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999">
 
 				</div>
 				
-    			<button type="submit">CADASTRAR</button>
-
+    			<button type="submit" id="cadastrar">CADASTRAR</button>
+								
 			</form>
 
 		</div>
@@ -469,7 +477,7 @@ session_start();
 
 	</div>
 
-	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 
 	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 
@@ -502,6 +510,42 @@ session_start();
 		function deslogar(){
 			swal("Deslogado!", "Obrigado pela visita!!", "error").then((value) => {window.location="/home/logout.php"});
 		}
+
+		//Cadastro Cliente
+		$("#cadastrar").on("click", function(){
+
+			var data = $('#cadastro-form').serializeArray();
+			
+			//verifica se campos estão preenchidos
+			if(data[0].value == ""){
+				return;
+			}else if(data[1].value == ""){
+				return;
+			}else if(data[2].value == ""){
+				return;
+			}else if(data[3].value == ""){
+				return;
+			}else if(data[4].value == ""){
+				return;
+			}else{
+				$.post({
+					url: 'controler/businesCliente.php',
+					data: data,
+					success: function(resultado){
+						//console.log("#"+resultado+"#");
+						if(resultado.includes("inserido")){
+							//redireciona para boas vindas
+							window.location = "/home?bem_vindo=true";
+						}else{
+							swal("Erro :/", resultado , "error");
+						}
+					},
+					error: function(resultado){
+						swal("Erro :/", "Entre em contato com o suporte." , "error");
+					}
+				});
+			}
+		});
 
 		$(document).ready(function(){
 

@@ -90,21 +90,82 @@
                 }
             }
         }else{
-        
+
             $nome= addslashes(htmlspecialchars($_POST['nome']));
             $login=addslashes(htmlspecialchars($_POST['login']));
             $senha=addslashes(htmlspecialchars($_POST['senha']));
+            $senha2=addslashes(htmlspecialchars($_POST['senha2']));
             $telefone=addslashes(htmlspecialchars($_POST['telefone']));
-            $status=1;
-            $cliente = new cliente;
-            $cliente->construct($nome,$login,$senha,$telefone,$status);
-            $control = new controlCliente($_SG['link']);
-            $result=$control->insert($cliente);
-            if ($result > 0){
-                $control->validaCliente($cliente->getLogin(),$cliente->getSenha());
-                header("Location: ../");
+
+            $erros=0;
+
+            //valida nome
+            if(strlen($nome) == 0){
+                echo "O Campo Nome precisa ser preenchido.\n";                
+                $erros ++;
+            }else if(!ctype_alpha(str_replace(" ","",$nome))){
+                echo "O Campo Nome só aceita caracteres simples.\n";
+                $erros ++;
+            }else if(strlen($nome) < 4){
+                echo "O Nome precisa ter 4 letras ou mais.\n";
+                $erros ++;
+            }else if(strlen($nome) > 30){
+                echo "O Nome precisa ter menos que 30 letras.\n";
+                $erros ++;
+            }
+
+            //valida senha
+            if(strlen($senha) == 0){
+                echo "O Campo Senha precisa ser preenchido.\n";
+                $erros++;
+            }else if($senha != $senha2){
+                echo "Senhas diferentes.\n";
+                $erros ++;
+            }else if(strlen($senha) > 40){
+                echo "A Senha precisa ter menos que 40 digitos.\n";
+                $erros ++;
+            }else if(strlen($senha < 4)){
+                echo "A Senha precisa ter 4 ou mais caracteres.\n";
+                $erros++;
+            }
+        
+            //valida login
+            if((strlen($login) == 0)){
+                echo "O Campo Email precisa ser preenchido.\n";
+                $erros++;
+            }else if(strlen($login) > 40){
+                echo "O Email precisa ter menos que 40 digitos.\n";
+                $erros++;
+            }
+
+            //valida telefone
+            if(strlen($telefone) == 0){
+                echo "O Campo Telefone precisa ser preenchido.\n";                
+                $erros ++;
+            }else if(strlen($telefone) < 8){
+                echo "O Telefone precisa ter 8 números ou mais.\n";
+                $erros ++;
+            }else if(strlen($telefone) > 30){
+                echo "O Telefone precisa ter menos que 15 números.\n";
+                $erros ++;
+            }
+
+            if($erros == 0){
+
+                $status=1;
+                $cliente = new cliente;
+                $cliente->construct($nome,$login,$senha,$telefone,$status);
+                $control = new controlCliente($_SG['link']);
+                $result=$control->insert($cliente);
+                if ($result > 0){
+                    $control->validaCliente($cliente->getLogin(),$cliente->getSenha());
+                    
+                    echo "inserido";
+                }else{
+                    echo "Erro no cadastro :/...entre em contato com o suporte.";
+                }
             }else{
-                echo "erro";
+                echo "Campos inválidos!";
             }
         }
     }else{

@@ -6,6 +6,7 @@
         $senha = addslashes(htmlspecialchars($_POST['senha']));
         $confirma = addslashes(htmlspecialchars($_POST['confirma']));
         $novaSenha = addslashes(htmlspecialchars($_POST['novaSenha']));
+        
         if ( $confirma === $novaSenha ){
             $control = new controlCliente($_SG['link']);
             $result=$control->updateSenha($cod_cliente,$senha,$novaSenha);

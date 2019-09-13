@@ -262,7 +262,7 @@ session_start();
 
 					<p>Login</p>
 
-        			<input class="form-control" name="login" type="email" required placeholder="example@example.com">
+        			<input class="form-control" name="login" type="email" required placeholder="delion@mail.com">
 
     			</div>
 
@@ -270,7 +270,7 @@ session_start();
 
 					<p>Senha</p>
 
-        			<input class="form-control" name="senha" type="password" required placeholder="Senha">
+        			<input class="form-control" name="senha" type="password" required placeholder="******">
 
     			</div>
 

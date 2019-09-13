@@ -9,12 +9,20 @@
             try{
                 $stmt=$this->pdo->prepare("INSERT INTO endereco(rua, numero, cep, complemento, bairro, cliente, flag_cliente)
                 VALUES (:rua, :numero, :cep, :complemento, :bairro, :cliente, 1) ");
-                $stmt->bindParam(":rua", $endereco->getRua(), PDO::PARAM_STR);
-                $stmt->bindParam(":numero",$endereco->getNumero(), PDO::PARAM_INT);
-                $stmt->bindParam(":cep", $endereco->getCep(), PDO::PARAM_STR);
-                $stmt->bindParam(":complemento", $endereco->getComplemento(), PDO::PARAM_STR);
-                $stmt->bindParam(":bairro", $endereco->getBairro(), PDO::PARAM_STR);
-                $stmt->bindParam(":cliente", $endereco->getCliente(), PDO::PARAM_INT);
+                
+                $rua = $endereco->getRua();
+                $numero = $endereco->getNumero();
+                $cep = $endereco->getCep();
+                $complemento = $endereco->getComplemento();
+                $bairro = $endereco->getBairro();
+                $cliente = $endereco->getCliente();
+                
+                $stmt->bindParam(":rua", $rua, PDO::PARAM_STR);
+                $stmt->bindParam(":numero",$numero, PDO::PARAM_INT);
+                $stmt->bindParam(":cep", $cep, PDO::PARAM_STR);
+                $stmt->bindParam(":complemento", $complemento, PDO::PARAM_STR);
+                $stmt->bindParam(":bairro", $bairro, PDO::PARAM_STR);
+                $stmt->bindParam(":cliente", $cliente, PDO::PARAM_INT);
 
                 $executa=$stmt->execute();
                 if ($executa){
