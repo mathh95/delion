@@ -342,7 +342,7 @@ body>.cliente>.area {
     min-height: 1px;
     padding-left: 15px;
     padding-right: 15px;
-    height: 400px
+    height: 400px;
 }
 
 @media (min-width: 1200px) {
