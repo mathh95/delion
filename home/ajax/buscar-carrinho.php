@@ -14,12 +14,17 @@ require_once "../controler/controlCardapio.php";
 
 include_once "../lib/alert.php";
 
+include_once "../../admin/controler/controlFormaPgt.php";
+
+include_once "../../admin/model/formaPgt.php";
+
 // require_once '../ajax/enviarEmailPedido.php';
 
 $itens = array();
 $cardapio = new controlerCardapio(conecta());
 $_SESSION['delivery']=-1;
-
+$controlFormaPgt = new controlerFormaPgt($_SG['link']);
+$formasPgt = $controlFormaPgt->selectAll();
 
 
 if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
@@ -99,6 +104,18 @@ if(count($itens) > 0){
                 </div>
             </div>
             <div class='ladoDireito row'>
+            <div>
+                <strong><p id='formaPagamento'>Forma de Pagamento</p></strong>
+                            <div class='input-group'>
+                                <select name='formaPagamento' id='formaPagamento' class='form-control'>
+                                    <option value='' >Escolha a forma de Pagamento</option>
+                                    <option value='Dinheiro' >Dinheiro</option>
+                                    <option value='Cartão de Crédito' >Cartão de Crédito</option>
+                                    <option value='Cartão de Débito' >Cartão de Débito</option>
+                                </select>
+                            </div>
+                
+            </div>
                 <strong><p id='total'>Valor total do pedido: R$ ".number_format($_SESSION['totalCarrinho'], 2)." 
                 </p></strong>
                 <div class='row linhaBotao'>

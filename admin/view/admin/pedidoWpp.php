@@ -8,6 +8,10 @@ include_once MODELPATH . "/usuario.php";
 
 include_once CONTROLLERPATH . "/seguranca.php";
 
+include_once CONTROLLERPATH. "/controlFormaPgt.php";
+
+include_once MODELPATH. "/formaPgt.php";
+
 $_SESSION['permissaoPagina'] = 0;
 
 protegePagina();
@@ -16,6 +20,9 @@ $controleUsuario = new controlerUsuario($_SG['link']);
 
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
+$controlFormaPgt = new controlerFormaPgt($_SG['link']);
+
+$formasPgt = $controlFormaPgt->selectAll();
 
 ?>
 
@@ -376,10 +383,14 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
             
                                 <div class="input-group">
                                     <select name="formaPagamento" id="formaPagamento" class="form-control">
-                                        <option value="" >Escolha a forma de Pagamento</option>
-                                        <option value="Dinheiro" >Dinheiro</option>
-                                        <option value="Cartão de Crédito" >Cartão de Crédito</option>
-                                        <option value="Cartão de Débito" >Cartão de Débito</option>
+
+                                        <option value="0">Não informado</option>
+
+                                        <?php
+                                            foreach($formasPgt as $formaPgt) {
+                                                echo "<option value'".$formaPgt->getCod_formaPgt()."'>".$formaPgt->getTipoFormaPgt()."</option>";
+                                            }
+                                        ?>
                                     </select>
                                 </div>
                             </div>
