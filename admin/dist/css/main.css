@@ -161,7 +161,9 @@ header .navbar-default ul li {
 header .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
 	color: #ee6917 !important;
   font-weight: 700;
-	background-color: transparent;
+  background-color: transparent;
+  border-bottom: 4px solid #ee6917;
+  margin-bottom: -4px;
 }
 
 header .navbar-default h2 {

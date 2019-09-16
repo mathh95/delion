@@ -7,6 +7,9 @@
     protegePagina();
     $controleUsuario = new controlerUsuario($_SG['link']);
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
+
+    //usado para coloração customizada da página seleciona na navbar
+    $father_filename = basename(__FILE__, '.php');
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -14,172 +17,9 @@
     <?php include VIEWPATH."/cabecalho.html" ?>
 </head>
 <body>
-    <header>
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <h1>Área Administrativa <?= EMPRESA ?></h1>
-                </div>
-                <div class="col-md-2">
-                    <div class="pull-right">
-                        <h3>
-                        <img src="../../img/person.png" alt="" />
-                        <span>Bom dia <?php echo  $_SESSION['usuarioNome'] ?></span>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="row">
-                <nav class="navbar navbar-default">
-                    <div class="">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            </button>
-                        </div>
-                        <div id="navbar" class="collapse navbar-collapse pull-left">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown ">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuários <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="usuario.php">Cadastro</a></li>
-                                        <li><a href="usuariosLista.php">Listar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Empresa <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="empresa.php">Alterar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Banners <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="banner.php">Cadastro</a></li>
-                                        <li><a href="bannerLista.php">Listar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
+    
+    <?php include_once "./header.php" ?>
 
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Avaliacao <span class="caret"></span></a>
-
-                                        <ul class="dropdown-menu">
-
-                                            <li><a href="tipoAvaliacao.php">Cadastro</a></li>
-
-                                            <li><a href="tipoAvaliacaoLista.php">Listar</a></li>
-
-                                            <li><a href="mediaAvaliacao.php">Médias</a></li>
-
-                                        </ul>
-
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Imagens <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="imagem.php">Cadastro</a></li>
-                                        <li><a href="imagemLista.php">Listar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Evento <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="evento.php">Cadastro</a></li>
-                                        <li><a href="eventoLista.php">Listar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categoria <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="categoria.php">Cadastro</a></li>
-                                        <li><a href="categoriaLista.php">Listar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cardápio <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="cardapio.php">Cadastro</a></li>
-                                        <li><a href="cardapioLista.php">Listar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicional <span class="caret"></span></a>
-
-                                        <ul class="dropdown-menu">
-
-                                            <li><a href="adicional.php">Cadastro</a></li>
-
-                                            <li><a href="adicionalLista.php">Listar</a></li>
-                                            
-                                        </ul>
-
-                                </li>   
-                                <li class="dropdown ">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mini banner <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="miniBanner.php">Cadastro</a></li>
-                                        <li><a href="miniBannerLista.php">Listar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="cliente.php">Cadastro</a></li>
-                                        <li><a href="clienteLista.php">Listar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="pedidoLista.php">Pedido</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="comboLista.php">Combo</a>
-                                </li> 
-                                <li class="dropdown">
-                                    <a href="/home/avaliacao.php">Avaliar</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="enderecoLista.php">Endereços</a>
-                                </li>
-                                <li class="dropdown active ">
-                                    <!--/.Mudar aqui -->
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos Whatsapp <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="pedidoWpp.php">Novo Pedido</a></li>
-                                        <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
-                                        <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li>
-                                    </ul>
-                                    <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cupom<span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="cupom.php">Cadastro</a></li>
-                                        <li><a href="pedidoWppLista.php">Listar Cupons</a></li>
-                                    </ul>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Formas de Pagamento<span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="formaPgt.php">Cadastro</a></li>
-                                            <li><a href="formaPgtLista.php">Listar</a></li>
-                                        </ul>
-                                    </li> 
-     
-                            </ul>
-                        </div><!--/.nav-collapse -->
-                        <div class="pull-right">
-                            <h2><a href="alteraSenha.php"> ALTERAR SENHA |</a>
-                            <a href="../../controler/logout.php"> SAIR &nbsp;</a></h2>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </header>
     <div class="container-fluid">
         <div class="searchbar">
                 <div class="medium-divs"> 
