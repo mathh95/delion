@@ -1,0 +1,4 @@
+body>#navegacao>.container>#navegacao__content .navbar>.container-fluid>#bs-navbar-collapse-1>ul>li:hover {
+  border-bottom: 4px solid #C57686;
+  margin-bottom: -4px;
+}
