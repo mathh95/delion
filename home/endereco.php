@@ -114,7 +114,7 @@
 	?>
 
 	<?php
-		include_once "./navbar.php"
+		include_once "./navbar.php";
 	?>
 
     <div class="container endereco">

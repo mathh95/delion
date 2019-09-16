@@ -155,7 +155,7 @@
 	</div> -->
 
 	<?php
-		include_once "./navbar.php"
+		include_once "./navbar.php";
 	?>
 
 	<div class="container banner-superior hidden-xs visible-sm-* visible-md-* visible-lg-* visible-xl-*">

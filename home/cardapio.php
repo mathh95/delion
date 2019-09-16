@@ -130,7 +130,7 @@ session_start();
 	?>
 
 	<?php
-		include_once "./navbar.php"
+		include_once "./navbar.php";
 	?>
 
 	<div class="container menu">
