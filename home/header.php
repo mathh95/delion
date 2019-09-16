@@ -13,8 +13,8 @@
 
         <div class="infos">
 
-            <div><p>De Segunda a Sexta das 10:00h as 21:00h<br><br>
-                Aos Sábados das<br> 08:30h  as 19:00h</p></div>
+            <div><p>De Segunda a Sexta das 10:00h às 21:00h<br><br>
+                Aos Sábados das<br> 08:30h  às 19:00h</p></div>
 
             <!-- <div>Segunda a Sábado</div>
 

@@ -1,11 +1,11 @@
 <head>
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/header/xs/style-xs.css"/>
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/navbar/xs/style-xs.css"/>
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/header/sm/style-sm.css"/>
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/navbar/sm/style-sm.css"/>
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/header/md/style-md.css"/>
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/navbar/md/style-md.css"/>
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/header/lg/style-lg.css"/>
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/navbar/lg/style-lg.css"/>
 </head>
 
 <div id="navegacao">
@@ -70,16 +70,16 @@
 								
 								echo "<li><a href=" .'cliente.php'."><i class='fas fa-user-cog'></i> ".$_SESSION['nome']."</a></li>";
 
-								echo "<li><a href='#' onclick='signOut()'><i class='fas fa-sign-out-alt'></i>&nbspLogout</a></li>";
+								echo "<li><a href='#' onclick='signOut()'><i class='fas fa-sign-out-alt'></i>&nbsp;Logout</a></li>";
 
 							}else if(isset($_SESSION['cod_cliente'])){
 
 								echo "<li><a href=" .'cliente.php'."><i class='fas fa-user-cog'></i> ".$_SESSION['nome']."</a></li>";
 
-								echo "<li><a href='#' onclick='deslogar()'><i class='fas fa-sign-out-alt'></i>&nbspLogout</a></li>";
+								echo "<li><a href='#' onclick='deslogar()'><i class='fas fa-sign-out-alt'></i>&nbsp;Logout</a></li>";
 
 							}else{
-								echo "<li><a href=" . 'login.php' . "><i class='fas fa-user'></i>&nbspLogin</a></li>";
+								echo "<li><a href=" . 'login.php' . "><i class='fas fa-user'></i>&nbsp;Login</a></li>";
 							}
 
 							?>
