@@ -158,7 +158,7 @@ if(count($itensSessao) > 0){
             $_SESSION['pedidoBalcaoCombo']=$pedidoBalcao;   
     echo "</tbody>
         </table>
-        </div>";
+        </div> <hr>";
 
     if($codEnd != null){
         echo "<div id='end' style='margin-left:10px;' class='endereco row'>
