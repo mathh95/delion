@@ -20,16 +20,21 @@ if (in_array('pedidoWpp', json_decode($_SESSION['permissao']))) {
     if(isset($valor1) && !empty($valor1) && $valor1 >= '0.00'){
         $valor=addslashes(htmlspecialchars($valor1));
     }
-    $dv = explode("-", $_POST['vencimento']);
-    if(isset($_POST['vencimento']) && !empty($_POST['vencimento'] 
-    && preg_match("/^(19|20)\d\d[\-\/.](0[1-9]|1[012])[\-\/.](0[1-9]|[12][0-9]|3[01])$/", $_POST['vencimento'])
+    $dv = explode("-", $_POST['vencimento_data']);
+    if(isset($_POST['vencimento_data']) && !empty($_POST['vencimento_data'] 
+    && preg_match("/^(19|20)\d\d[\-\/.](0[1-9]|1[012])[\-\/.](0[1-9]|[12][0-9]|3[01])$/", $_POST['vencimento_data'])
     && checkdate($dv[1], $dv[2], $dv[0])==true)){
-        $vencimento= addslashes(htmlspecialchars($_POST['vencimento']));
+        $vencimento_data= addslashes(htmlspecialchars($_POST['vencimento_data']));
+    }
+
+    if(isset($_POST['vencimento_hora']) && !empty($_POST['vencimento_hora']) 
+    && preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $_POST['vencimento_hora'])){
+        $vencimento_hora= addslashes(htmlspecialchars($_POST['vencimento_hora']));
     }
 
     $status=1;
     $cupom = new cupom;
-    $cupom->construct($codigo,$qtde_inicial, $qtde_atual, $valor, $vencimento, $status);
+    $cupom->construct($codigo,$qtde_inicial, $qtde_atual, $valor, $vencimento_data, $vencimento_hora, $status);
     $control = new controlCupom($_SG['link']);
     $result=$control->insert($cupom);
     
