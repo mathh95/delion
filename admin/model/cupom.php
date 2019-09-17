@@ -14,7 +14,9 @@
 
             private $valor;
 
-            private $vencimento;
+            private $vencimento_data;
+
+            private $vencimento_hora;
 
             private $status;
             
@@ -42,8 +44,12 @@
                 return $this->valor;
             }
 
-            function getVencimento(){
-                return $this->vencimento;
+            function getVencimento_data(){
+                return $this->vencimento_data;
+            }
+
+            function getVencimento_hora(){
+                return $this->vencimento_hora;
             }
 
             function getStatus(){
@@ -69,25 +75,31 @@
             function setValor($valor){
                 $this->valor = $valor;
             }
-            function setVencimento($vencimento){
-                $this->vencimento=$vencimento;
+            function setVencimento_data($vencimento_data){
+                $this->vencimento_data=$vencimento_data;
+            }
+
+            function setVencimento_hora($vencimento_hora){
+                $this->vencimento_hora=$vencimento_hora;
             }
 
             function setStatus($status){
                 $this->status = $status;
             }
 
-            function construct1($valor, $vencimento){
+            function construct1($valor, $vencimento_data, $vencimento_hora){
                 $this->valor = $valor;
-                $this->vencimento = $vencimento;
+                $this->vencimento_data = $vencimento_data;
+                $this->vencimento_hora = $vencimento_hora;
             }
 
-            function construct($codigo,$qtde_inicial, $qtde_atual,$valor, $vencimento, $status){
+            function construct($codigo,$qtde_inicial, $qtde_atual,$valor, $vencimento_data, $vencimento_hora, $status){
                 $this->codigo = $codigo;
                 $this->qtde_inicial = $qtde_inicial;
                 $this->qtde_atual = $qtde_atual;
                 $this->valor = $valor;
-                $this->vencimento = $vencimento;
+                $this->vencimento_data = $vencimento_data;
+                $this->vencimento_hora = $vencimento_hora;
                 $this->status = $status;
             }
 
@@ -101,7 +113,8 @@
                 echo "Quantidade inicial: ".$this->qtde_inicial."<br>";
                 echo "Quantidade atual: ".$this->qtde_atual."<br>";
                 echo "Valor: ".$this->valor."<br>";
-                echo "Data de vencimento: ".$this->vencimento."<br>";
+                echo "Data de vencimento: ".$this->vencimento_data."<br>";
+                echo "Hora de vencimento: ".$this->vencimento_hora."<br>";
                 echo "Status: ".$this->status."<br>";
             }
         }

@@ -17,7 +17,7 @@
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
     //usado para coloração customizada da página seleciona na navbar
-    $father_filename = basename(__FILE__, '.php');
+    $arquivo_pai = basename(__FILE__, '.php');
 
 ?>
 
@@ -96,7 +96,7 @@
 
                             <br>
 
-                            <small>Vencimento do Cupom</small>
+                            <small>Data de Vencimento do Cupom</small>
 
                             <br>
 
@@ -104,7 +104,21 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
 
-                                <input class="form-control" placeholder="" name="vencimento" value="" type="date">
+                                <input class="form-control" placeholder="" name="vencimento_data" value="" type="date">
+
+                            </div> 
+
+                            <br>
+
+                            <small>Hora de Vencimento do Cupom</small>
+
+                            <br>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
+
+                                <input class="form-control" placeholder="" name="vencimento_hora" value="" type="time">
 
                             </div> 
 

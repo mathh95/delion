@@ -404,7 +404,7 @@ body>.itens>.rodapeCarrinho>.ladoEsquerdo {
     padding-bottom: 20px;
     float: left !important
 }
-body>.itens>.rodapeCarrinho>.ladoEsquerdo>.botaoAdicionarCupom button {
+body>.itens>.rodapeCarrinho>.ladoEsquerdo .botaoAdicionarCupom button {
 
     background-color: #C57686;
     border-color: #91414F;
@@ -424,7 +424,7 @@ body>.itens>.rodapeCarrinho>.ladoEsquerdo p {
 }
 
 body>.itens>.rodapeCarrinho>.ladoEsquerdo>.btn-group-toggle {
-    margin-top: 10px
+    margin-top: 0px;
 }
 
 body>.itens>.rodapeCarrinho>.ladoEsquerdo>.btn-group-toggle>.btn {
@@ -471,7 +471,7 @@ body>.itens>.rodapeCarrinho>.ladoDireito p {
 
 body>.itens>.rodapeCarrinho>.ladoDireito>.linhaBotao>.botaoCarrinhoEnviar button {
     float: right;
-    margin: 10px;
+    margin: 30px 0 10px 0;
     background-color: #C57686;
     border-color: #91414F;
     color: #ffffff
@@ -480,8 +480,8 @@ body>.itens>.rodapeCarrinho>.ladoDireito>.linhaBotao>.botaoCarrinhoEnviar button
 body>.itens>.rodapeCarrinho>.ladoDireito>.linhaBotao>.botaoCarrinhoEsvaziar button {
     background-color: #C57686;
     border-color: #91414F;
-    float: right;
-    margin: 10px
+    float: left;
+    margin: 30px 0 10px 10px;
 }
 
 body>.whatsapp {

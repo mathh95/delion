@@ -25,7 +25,7 @@
     $categoria = $controle->select($_GET['cod'], 2);
 
     //usado para coloração customizada da página seleciona na navbar
-    $father_filename = basename(__FILE__, '.php');
+    $arquivo_pai = basename(__FILE__, '.php');
 
 ?>
 

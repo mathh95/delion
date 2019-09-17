@@ -13,14 +13,16 @@
                 $qtde_inicial=$cupom->getQtde_inicial();
                 $qtde_atual=$cupom->getQtde_atual();
                 $valor=$cupom->getValor();
-                $vencimento=$cupom->getVencimento();
+                $vencimento_data=$cupom->getVencimento_data();
+                $vencimento_hora=$cupom->getVencimento_hora();
                 $status = $cupom->getStatus();
-                $stmt=$this->pdo->prepare("INSERT INTO cupom(codigo, qtde_inicial, qtde_atual, valor, vencimento, status) VALUES (:codigo, :qtde_inicial, :qtde_atual, :valor, :vencimento, :status)");
+                $stmt=$this->pdo->prepare("INSERT INTO cupom(codigo, qtde_inicial, qtde_atual, valor, vencimento_data, vencimento_hora, status) VALUES (:codigo, :qtde_inicial, :qtde_atual, :valor, :vencimento_data, :vencimento_hora, :status)");
                 $stmt->bindParam(":codigo",$codigo, PDO::PARAM_STR);
                 $stmt->bindParam(":qtde_inicial",$qtde_inicial, PDO::PARAM_INT);
                 $stmt->bindParam(":qtde_atual",$qtde_atual, PDO::PARAM_INT);
                 $stmt->bindParam(":valor",$valor, PDO::PARAM_STR);
-                $stmt->bindParam(":vencimento", $vencimento, PDO::PARAM_STR);
+                $stmt->bindParam(":vencimento_data", $vencimento_data, PDO::PARAM_STR);
+                $stmt->bindParam(":vencimento_hora", $vencimento_hora, PDO::PARAM_STR);
                 $stmt->bindParam(":status",$status, PDO::PARAM_INT);
                 $executa = $stmt->execute();
                 if($executa){
@@ -37,10 +39,11 @@
     }
     function update($cupom){
         try{
-            $stmt=$this->pdo->prepare("UPDATE cupom SET valor=:valor, vencimento=:vencimento WHERE cod_cupom=:cod_cupom");
+            $stmt=$this->pdo->prepare("UPDATE cupom SET valor=:valor, vencimento_data=:vencimento_data, vencimento_hora=:vencimento_hora WHERE cod_cupom=:cod_cupom");
             $stmt->bindParam(":cod_cupom",$cupom->getCod_cupom(), PDO::PARAM_INT);
             $stmt->bindParam(":valor",$cupom->getValor(), PDO::PARAM_STR);
-            $stmt->bindParam(":vencimento",$cupom->getVencimento(), PDO::PARAM_STR);
+            $stmt->bindParam(":vencimento_data",$cupom->getVencimento_data(), PDO::PARAM_STR);
+            $stmt->bindParam(":vencimento_hora", $cupom->getVencimento_hora(), PDO::PARAM_STR);
             $executa = $stmt->execute();
             if($executa){
                 return 1;
@@ -73,7 +76,8 @@
                         $cupom->setQtde_inicial($result->qtde_inicial);
                         $cupom->setQtde_atual($result->qtde_atual);
                         $cupom->setValor($result->valor);
-                        $cupom->setVencimento($result->vencimento);
+                        $cupom->setVencimento_data($result->vencimento_data);
+                        $cupom->setVencimento_hora($result->vencimento_hora);
                         $cupom->setStatus($result->status);
                     }
                 }
@@ -90,7 +94,7 @@
     function selectAll(){
         try{
             $cupons = array();
-            $stmt=$this->pdo->prepare("SELECT * FROM cupom ORDER BY status ASC");
+            $stmt=$this->pdo->prepare("SELECT * FROM cupom ORDER BY status ASC, cod_cupom ASC");
             $executa = $stmt->execute();
             if($executa){
                 if($stmt->rowCount() > 0){
@@ -101,7 +105,8 @@
                         $cupom->setQtde_inicial($result->qtde_inicial);
                         $cupom->setQtde_atual($result->qtde_atual);
                         $cupom->setValor($result->valor);
-                        $cupom->setVencimento($result->vencimento);
+                        $cupom->setVencimento_data($result->vencimento_data);
+                        $cupom->setVencimento_hora($result->vencimento_hora);
                         $cupom->setStatus($result->status);
                         array_push($cupons, $cupom);
                     }

@@ -86,41 +86,43 @@ if(count($itens) > 0){
             $_SESSION['pedidoBalcao']=$pedidoBalcao;   
     echo "</tbody>
         </table>
-        </div>
+        </div> <hr>
         <div class='rodapeCarrinho row'>
             <div class='ladoEsquerdo'>
-                <strong><p>Insira um cupom:</p></strong> 
-                <input type='text' name='cupom'>
-                <a class='botaoAdicionarCupom' href='#'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>
-                <strong><p>Escolha como vai receber o pedido: </p>
-                </strong>
-                <div class='btn-group btn-group-toggle' data-toggle='buttons'>
-                    <label class='btn btn-danger' id='delivery' onclick='tipoPedido(1)'>
-                        <input type='radio' name='delivery'  autocomplete='off'> Delivery
-                    </label>
-                    <label class='btn btn-danger active'  id='balcao' onclick='tipoPedido(-1)'>
-                        <input type='radio' name='balcao' autocomplete='off'> Balcão
-                    </label>
+                <div>    
+                    <div><strong><p id='formaPagamento'>Forma de Pagamento</p></strong></div>
+                    <div class='input-group'>
+                        <select name='formaPagamento' id='formaPagamento' class='form-control'>
+                            <option value='Dinheiro' selected>Dinheiro</option>
+                            <option value='Cartão de Crédito' >Cartão de Crédito</option>
+                            <option value='Cartão de Débito' >Cartão de Débito</option>
+                        </select>
+                    </div>
                 </div>
+                
+                <strong><p>Entrega</p></strong>
+                    <div class='btn-group btn-group-toggle' data-toggle='buttons'>
+                        <label class='btn btn-danger' id='delivery' onclick='tipoPedido(1)'>
+                            <input type='radio' name='delivery'  autocomplete='off'> Delivery&nbsp;<i class='fas fa-shipping-fast'></i></label>
+                        <label class='btn btn-danger active'  id='balcao' onclick='tipoPedido(-1)'>
+                            <input type='radio' name='balcao' autocomplete='off'> Balcão&nbsp;<i class='fas fa-store'></i>
+                        </label>
+                    </div>
+                    
+                <div>
+                    <strong><p>Adicionar Cupom</p></strong> 
+                    <input type='text' name='cupom'>
+                    <a class='botaoAdicionarCupom' href='#'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>
+                                    
+                </div>                
             </div>
             <div class='ladoDireito row'>
-            <div>
-                <strong><p id='formaPagamento'>Forma de Pagamento</p></strong>
-                            <div class='input-group'>
-                                <select name='formaPagamento' id='formaPagamento' class='form-control'>
-                                    <option value='' >Escolha a forma de Pagamento</option>
-                                    <option value='Dinheiro' >Dinheiro</option>
-                                    <option value='Cartão de Crédito' >Cartão de Crédito</option>
-                                    <option value='Cartão de Débito' >Cartão de Débito</option>
-                                </select>
-                            </div>
-                
-            </div>
-                <strong><p id='total'>Valor total do pedido: R$ ".number_format($_SESSION['totalCarrinho'], 2)." 
+                <strong><p id='total'>Valor Total: R$ ".number_format($_SESSION['totalCarrinho'], 2)." 
                 </p></strong>
-                <div class='row linhaBotao'>
-                        <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
-                        <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()'><button class='btn btn-danger'>Esvaziar carrinho <i class='fas fa-trash-alt'></i></button></a>
+
+                <div class='linhaBotao'>
+                    <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
+                    <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()'><button class='btn btn-danger'>Esvaziar Carrinho <i class='fas fa-trash-alt'></i></button></a>
                 </div>
             </div>
         </div>";

@@ -19,8 +19,11 @@
         $_SG['link'] = conecta();
     }
     // Verifica se precisa iniciar a sessão
-    if ($_SG['abreSessao'] == true)
-        session_start();
+    if ($_SG['abreSessao'] == true){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+    }
 
     // valida o usuário
     function validaUsuario($usuario, $senha) {

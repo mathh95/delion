@@ -62,7 +62,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'usuario') !== false){
+                                    if(strpos($arquivo_pai, 'usuario') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -84,7 +84,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'empresa') !== false){
+                                    if(strpos($arquivo_pai, 'empresa') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -104,7 +104,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'banner') !== false){
+                                    if(strpos($arquivo_pai, 'banner') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -126,7 +126,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'Avaliacao') !== false){
+                                    if(strpos($arquivo_pai, 'Avaliacao') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -150,7 +150,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'imagem') !== false){
+                                    if(strpos($arquivo_pai, 'imagem') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -172,7 +172,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'evento') !== false){
+                                    if(strpos($arquivo_pai, 'evento') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -194,7 +194,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'categoria') !== false){
+                                    if(strpos($arquivo_pai, 'categoria') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -216,7 +216,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'cardapio') !== false){
+                                    if(strpos($arquivo_pai, 'cardapio') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -238,7 +238,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'adicional') !== false){
+                                    if(strpos($arquivo_pai, 'adicional') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -260,7 +260,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'miniB') !== false){
+                                    if(strpos($arquivo_pai, 'miniB') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -282,7 +282,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'cliente') !== false){
+                                    if($arquivo_pai == "cliente" || $arquivo_pai == "clienteLista"){
                                         echo 'active';
                                     }
                                 ?>
@@ -304,7 +304,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'pedido') !== false){
+                                    if(strpos($arquivo_pai, 'pedidoL') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -316,7 +316,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'combo') !== false){
+                                    if(strpos($arquivo_pai, 'combo') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -328,7 +328,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'avaliacao') !== false){
+                                    if(strpos($arquivo_pai, 'avaliacao') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -339,7 +339,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'endereco') !== false){
+                                    if(strpos($arquivo_pai, 'endereco') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -350,7 +350,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'Wpp') !== false){
+                                    if(strpos($arquivo_pai, 'Wpp') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -366,7 +366,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'cupom') !== false){
+                                    if(strpos($arquivo_pai, 'cupom') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -381,7 +381,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($father_filename, 'formaPgt') !== false){
+                                    if(strpos($arquivo_pai, 'formaPgt') !== false){
                                         echo 'active';
                                     }
                                 ?>

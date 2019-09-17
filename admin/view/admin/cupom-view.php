@@ -15,7 +15,7 @@
     protegePagina();
 
     //usado para coloração customizada da página seleciona na navbar
-    $father_filename = basename(__FILE__, '.php');   
+    $arquivo_pai = basename(__FILE__, '.php');   
 
 ?>
 
@@ -51,7 +51,9 @@
 
         $cupom = $controle->select($_GET['cod_cupom']);
 
-        $vencimento = date('d/m/Y', strtotime($cupom->getVencimento()));
+        $vencimento_data = date('d/m/Y', strtotime($cupom->getVencimento_data()));
+
+        $vencimento_hora = date('H:i', strtotime($cupom->getVencimento_hora()));
 
         ?>
 
@@ -108,7 +110,7 @@
 
                             <br>
 
-                            <small>Vencimento do Cupom</small>
+                            <small>Data de Vencimento do Cupom</small>
 
                             <br>
 
@@ -116,11 +118,23 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
 
-                                <input class="form-control" placeholder="" id="vencimento" name="vencimento" value="<?=$cupom->getVencimento();?>" type="date">
+                                <input class="form-control" placeholder="" id="vencimento_data" name="vencimento_data" value="<?=$cupom->getVencimento_data();?>" type="date">
 
                             </div> 
 
                             <br>
+
+                            <small>Hora de Vencimento do Cupom</small>
+
+                            <br>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
+
+                                <input class="form-control" placeholder="" id="vencimento_hora" name="vencimento_hora" value="<?=$cupom->getVencimento_hora();?>" type="time">
+
+                            </div> 
 
                         </div>
 
