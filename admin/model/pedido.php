@@ -14,6 +14,8 @@
 
             private $status;
 
+            private $formaPgt;
+
             function getCod_pedido(){
                 return $this->cod_pedido;
             }
@@ -32,6 +34,10 @@
 
             function getStatus(){
                 return $this->status;
+            }
+
+            function getFormaPgt(){
+                return $this->formaPgt;
             }
 
             function setCod_pedido($cod_pedido){
@@ -54,16 +60,21 @@
                 $this->status=$status;
             }
 
+            function setFormaPgt($formaPgt){
+                $this->formaPgt=$formaPgt;
+            }
+
             function __construct(){
 
             }
 
-            function construct($cod_pedido,$cliente,$data,$valor,$status){
+            function construct($cod_pedido,$cliente,$data,$valor,$status,$formaPgt){
                 $this->cod_pedido=$cod_pedido;
                 $this->cliente=$cliente;
                 $this->data=$data;
                 $this->valor=$valor;
                 $this->status=$status;
+                $this->formaPgt=$formaPgt;
             }
 
             function show(){
@@ -72,6 +83,7 @@
                 echo "Data: ".$this->data."<br>";
                 echo "Valor: ".$this->valor."<br>";
                 echo "Status: ".$this->status."<br>";
+                echo "FormaPgt: ".$this->status."<br>";
             }
         }
 ?>

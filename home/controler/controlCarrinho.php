@@ -23,15 +23,16 @@ class controlerCarrinho{
         $valor = $_SESSION['totalCarrinho'];
         $status = 1;
         if ($endereco == null){
-            $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, status = :status");
+            $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status");
         }else{
-            $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, status = :status, endereco = :endereco");
+            $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status, endereco = :endereco");
             $sql->bindValue(":endereco", $endereco);
         }
 
         $sql->bindValue(":idCliente", $idCliente);
         // $sql->bindValue(":data", $data);
         $sql->bindValue(":valor", $valor);
+        $sql->bindValue(":formaPgt",$formaPgt);
         $sql->bindValue(":status", $status);
 
         $sql->execute();
