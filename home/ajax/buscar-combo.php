@@ -169,47 +169,83 @@ if(count($itensSessao) > 0){
     }
     if($codEnd != null){
         echo "<div class='rodapeCarrinho row'>
-            <div class='ladoEsquerdo'>                    
-                <strong><p>Escolha como vai receber o pedido: </p>
+            <div class='ladoEsquerdo'>
+                <div>    
+                    <div><strong><p id='formaPagamento'>Forma de Pagamento</p></strong></div>
+                    <div class='input-group'>
+                        <select name='formaPagamento' id='formaPagamento' class='form-control'>
+                            <option value='Dinheiro' selected>Dinheiro</option>
+                            <option value='Cartão de Crédito' >Cartão de Crédito</option>
+                            <option value='Cartão de Débito' >Cartão de Débito</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <strong><p>Entrega </p>
                 </strong>
                 <div class='btn-group btn-group-toggle' data-toggle='buttons'>
                     <label class='btn btn-primary active' id='delivery' onclick='tipoPedido(1)'>
-                        <input type='radio' name='delivery'  autocomplete='off'> Delivery
+                        <input type='radio' name='delivery'  autocomplete='off'> Delivery&nbsp;<i class='fas fa-shipping-fast'></i>
                     </label>
                     <label class='btn btn-primary'  id='balcao' onclick='tipoPedido(-1)'>
-                        <input type='radio' name='balcao' autocomplete='off'> Balcão
-                    </label>
+                        <input type='radio' name='balcao' autocomplete='off'> Balcão <i class='fas fa-store'></i></label>
                 </div>
+
+                <div>
+                    <strong><p>Adicionar Cupom</p></strong> 
+                    <input type='text' name='cupom'>
+                    <a class='botaoAdicionarCupom' href='#'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>
+                                    
+                </div> 
             </div>
             <div class='ladoDireito row'>
-                <strong><p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)." 
+                <strong><p id='total'>Valor Total: R$".number_format($_SESSION['totalCombo'], 2)." 
                 </p></strong>
                 <div class='row linhaBotao'>
-                        <a class='botaoCarrinhoEnviar' href='#'><button id='finalizar' class='btn'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
-                        <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho <i class='fas fa-trash-alt'></i></button></a>
+                        <a class='botaoCarrinhoEnviar' href='#'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
+                        <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar Carrinho <i class='fas fa-trash-alt'></i></button></a>
                 </div>
             </div>
         </div>";
     }else{
         echo "<div class='rodapeCarrinho row'>
             <div class='ladoEsquerdo'>                    
-                <strong><p>Escolha como vai receber o pedido: </p>
+                <div>    
+                    <div><strong><p id='formaPagamento'>Forma de Pagamento</p></strong></div>
+                    <div class='input-group'>
+                        <select name='formaPagamento' id='formaPagamento' class='form-control'>
+                            <option value='Dinheiro' selected>Dinheiro</option>
+                            <option value='Cartão de Crédito' >Cartão de Crédito</option>
+                            <option value='Cartão de Débito' >Cartão de Débito</option>
+                        </select>
+                    </div>
+                </div>
+            
+                <strong><p>Entrega </p>
                 </strong>
                 <div class='btn-group btn-group-toggle' data-toggle='buttons'>
                     <label class='btn btn-primary' id='delivery' onclick='tipoPedido(1)'>
-                        <input type='radio' name='delivery'  autocomplete='off'> Delivery
+                        <input type='radio' name='delivery'  autocomplete='off'> Delivery&nbsp;<i class='fas fa-shipping-fast'></i>
                     </label>
                     <label class='btn btn-primary active'  id='balcao' onclick='tipoPedido(-1)'>
-                        <input type='radio' name='balcao' autocomplete='off'> Balcão
+                        <input type='radio' name='balcao' autocomplete='off'> Balcão <i class='fas fa-store'></i>
                     </label>
+                </div>
+
+                <div>
+                    <strong><p>Adicionar Cupom</p></strong> 
+                    <input type='text' name='cupom'>
+                    <a class='botaoAdicionarCupom' href='#'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>
+                                    
                 </div>
             </div>
             <div class='ladoDireito row'>
-                <strong><p id='total'>Valor total do pedido: R$".number_format($_SESSION['totalCombo'], 2)." 
+                <strong><p id='total'>Valor Total: R$".number_format($_SESSION['totalCombo'], 2)." 
                 </p></strong>
                 <div class='row linhaBotao'>
-                        <a class='botaoCarrinhoEnviar' href='#'><button id='finalizar' class='btn'>Finalizar pedido <i class='far fa-envelope fa-adjust'></i></button></a>
-                        <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar carrinho <i class='fas fa-trash-alt'></i></button></a>
+                        <a class='botaoCarrinhoEnviar' href='#'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
+                        <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()' href='cardapio.php'><button class='btn btn-danger'>Esvaziar Carrinho <i class='fas fa-trash-alt'></i></button></a>
                 </div>
             </div>
         </div>";
