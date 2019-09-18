@@ -13,8 +13,12 @@
 
         <div class="infos">
 
-            <div><p>De Segunda a Sexta das 10:00h às 21:00h<br><br>
-                Aos Sábados das<br> 08:30h  às 19:00h</p></div>
+            <div>
+                <p><i class="far fa-calendar-alt"></i>&nbsp;Segunda a Sexta <br>
+                <i class="fas fa-clock"></i>&nbsp;10:00h às 21:00h</p>
+                <p><i class="far fa-calendar-alt"></i>&nbsp;Aos Sábados <br>
+                <i class="fas fa-clock"></i>&nbsp;08:30h  às 19:00h</p>
+            </div>
 
             <!-- <div>Segunda a Sábado</div>
 
@@ -26,7 +30,7 @@
 
                     <img src="img/moto.png">
 
-                    <a href="cardapio.php"><button>PEDIR</button></a>
+                    <a href="cardapio.php"><button id="btn-pedir">PEDIR</button></a>
 
                 </div>
 
