@@ -26,7 +26,7 @@
 
                     <img src="img/moto.png">
 
-                    <a href="cardapio.php"><button>PEDIR</button></a>
+                    <a href="cardapio.php"><button id="btn-pedir">PEDIR</button></a>
 
                 </div>
 
