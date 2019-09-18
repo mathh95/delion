@@ -30,6 +30,13 @@ function esvaziar(){
     });
 }
 
+function verificarCupom(){
+    $.ajax({
+        type: 'GET',
+        
+    })
+}
+
 $(document).on("click", "#removeItem", function(){
     var acao = "rem";
     var linha = $(this).data('linha');

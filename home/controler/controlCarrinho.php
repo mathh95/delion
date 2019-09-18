@@ -5,6 +5,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 include_once MODELPATH."/cardapio.php";
 include_once MODELPATH."/pedido.php";
 include_once MODELPATH."/item.php";
+include_once CONTROLLERPATH. "/controlCupom.php";
 
 class controlerCarrinho{
 
@@ -48,6 +49,8 @@ class controlerCarrinho{
             $sql->execute();
         }
 
+        
+
         $_SESSION['carrinho'] = array();
         $_SESSION['qtd'] = array();
         $_SESSION['totalCarrinho'] = array();
@@ -81,7 +84,9 @@ class controlerCarrinho{
     function selectItens($cod_pedido){
         $parametro = $cod_pedido;
         $itens=array();
-        $stmt=$this->pdo->prepare("SELECT item_pedido.cod_item_pedido, item_pedido.quantidade, cardapio.nome, cardapio.preco FROM item_pedido INNER JOIN cardapio ON item_pedido.cod_produto=cardapio.cod_cardapio WHERE item_pedido.cod_pedido=:parametro");
+        $stmt=$this->pdo->prepare("SELECT item_pedido.cod_item_pedido, item_pedido.quantidade, cardapio.nome, cardapio.preco 
+        FROM item_pedido 
+        INNER JOIN cardapio ON item_pedido.cod_produto=cardapio.cod_cardapio WHERE item_pedido.cod_pedido=:parametro");
         $stmt->bindParam(":parametro", $parametro, PDO::PARAM_INT);
         $executa=$stmt->execute();
         if ($executa) {

@@ -112,7 +112,7 @@ if(count($itens) > 0){
                 <div>
                     <strong><p>Adicionar Cupom</p></strong> 
                     <input type='text' name='cupom'>
-                    <a class='botaoAdicionarCupom' href='#'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>
+                    <a class='botaoAdicionarCupom' onclick='verificarCupom()'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>
                                     
                 </div>                
             </div>
