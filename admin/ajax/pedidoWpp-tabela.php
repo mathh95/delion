@@ -143,7 +143,7 @@ if(in_array('pedidoWpp', $permissao)){
 						</div>
 						</a>
 					</td>
-					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-warning' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido_wpp()."' data-id='".$pedido->getCod_pedido_wpp()."'><i class='fa fa-print'></i>Imprimir</button></a></td>
+					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button onclick=\"erroPrintModel(2,".$pedido->getCod_pedido_wpp().")\" class='btn btn-warning' data-toggle='modal' data-id='".$pedido->getCod_pedido_wpp()."'><i class='fa fa-print'></i>Imprimir</button></a></td>
 					<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"alterarStatusDelivery(".$pedido->getCod_pedido_wpp().",3)\" class='btn btn-primary'><i class='fa fa-truck'></i>Delivery</button></a></td>
 					<td style='text-align: center;' name='detalhes'><a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido_wpp()."'><button class='btn btn-primary'><i class='fa fa-info'></i>Detalhes</button></a></td>
 					</tr>";

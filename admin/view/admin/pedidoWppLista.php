@@ -71,6 +71,8 @@ error_reporting(E_ALL);
     </style>
 <head>
     <?php include VIEWPATH."/cabecalho.html" ?>
+
+    <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
 </head>
 <body>
     
@@ -133,6 +135,27 @@ error_reporting(E_ALL);
                 popup.classList.toggle('show');
             }
 
+            function erroPrintModel(status,pedido){
+                if(status == 2){
+                    swal("Pedido já impresso!!!", "Deseja imprimir o pedido novamente?",
+                    {
+                        buttons:{
+                            impressao: "Ver a impressão"
+                        },
+                    }).then((value) =>{
+                        switch(value) {
+                            case "impressao":
+                                //Mudar a model
+                                $('#modalPedido'+pedido).modal('show');
+                                break;
+                            default:
+                                return 0;
+                        }
+                    })
+                    // console.log("lala");
+                }
+
+            }
 
             // Função que imprime uma div
             // function printDiv2(divID){
