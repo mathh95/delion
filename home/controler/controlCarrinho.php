@@ -20,6 +20,13 @@ class controlerCarrinho{
 
         $idCliente = $_SESSION['cod_cliente'];
         $valor = $_SESSION['totalCarrinho'];
+        $formaPgt = $_SESSION['formaPagamento'];
+
+        // echo "<pre>";
+        // print_r($_SESSION);
+        // echo "</pre>";
+        // exit;
+
         $status = 1;
         if ($endereco == null){
             $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status");

@@ -388,6 +388,21 @@ session_start();
 			});
 		});
 
+		$(document).on("change", "#formaPagamento", function(){
+
+			var pag = $(this).val();
+
+			$.ajax({
+				type: 'POST',
+
+				url: 'ajax/pag-carrinho.php',
+
+				data: {pag:pag},
+
+				success: function (resultado) {}
+			});
+		});
+
 		/*for (var i = 1; i <= 5; i++) {
 
 			
