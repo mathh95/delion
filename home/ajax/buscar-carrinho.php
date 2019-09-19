@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 
 ini_set('display_errors', true);
 
@@ -8,11 +8,11 @@ date_default_timezone_set('America/Sao_Paulo');
 
 include_once "../../admin/controler/conexao.php";
 
-require_once "../controler/controlCarrinho.php";
-
 require_once "../controler/controlCardapio.php";
 
 include_once "../lib/alert.php";
+
+require_once "../controler/controlCarrinho.php";
 
 include_once "../../admin/controler/controlFormaPgt.php";
 

@@ -16,8 +16,6 @@ class controlerCarrinho{
         $this->pdo=$pdo;
     }
 
-    function index(){}
-
     public function setPedido($endereco){
 
         $idCliente = $_SESSION['cod_cliente'];

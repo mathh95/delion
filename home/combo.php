@@ -379,6 +379,9 @@ session_start();
 
 				success: function (resultado) {
 					$(".itens").html(resultado);
+				},
+				error: function(err){
+					console.log(err);
 				}
 			});
 		});

@@ -2,7 +2,8 @@
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
     include_once MODELPATH. "/cupom.php";
     include_once CONTROLLERPATH."/seguranca.php";
-    protegePagina();
+    
+    protegePagina("carrinho_call");//flag de exceção, permite acessar control sem login
 
     class controlCupom{
         private $pdo;
