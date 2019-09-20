@@ -1,14 +1,14 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
-include_once "../admin/controler/conexao.php";
-include_once "../admin/controler/controlTipoAvaliacao.php";
-include_once "../admin/model/tipo_avaliacao.php";
+    include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
+    include_once "../admin/controler/conexao.php";
+    include_once "../admin/controler/controlTipoAvaliacao.php";
+    include_once "../admin/model/tipo_avaliacao.php";
 
-$tipos = new tipoAvaliacao();
-$control = new controlerTipoAvaliacao(conecta());
+    $tipos = new tipoAvaliacao();
+    $control = new controlerTipoAvaliacao(conecta());
 
-$tipos = $control->selectAtivo();
+    $tipos = $control->selectAtivo();
 
 ?>
 
