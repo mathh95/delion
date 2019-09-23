@@ -111,10 +111,14 @@ if(count($itens) > 0){
                     
                 <div>
                     <strong><p>Adicionar Cupom</p></strong> 
-                    <input type='text' name='cupom'>
-                    <a class='botaoAdicionarCupom' onclick='verificarCupom()'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>
-                                    
-                </div>                
+                    <input type='text' name='codigocupom' id='codigocupom'>
+                    <a class='botaoVerificarCupom' onclick='verificarCupom()'><button id='verificarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>               
+                </div>
+                <div>
+                    <p id='cupomTexto'></p>
+                    <p id='valorCodigo'></p>
+                </div>
+
             </div>
             <div class='ladoDireito row'>
                 <strong><p id='total'>Valor Total: R$ ".number_format($_SESSION['totalCarrinho'], 2)." 

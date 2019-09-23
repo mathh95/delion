@@ -402,9 +402,9 @@ body>.itens>.rodapeCarrinho>.ladoEsquerdo {
     padding-left: 15px;
     padding-right: 15px;
     padding-bottom: 20px;
-    float: left !important
+    float: left !important;
 }
-body>.itens>.rodapeCarrinho>.ladoEsquerdo .botaoAdicionarCupom button {
+body>.itens>.rodapeCarrinho>.ladoEsquerdo .botaoVerificarCupom button {
 
     background-color: #C57686;
     border-color: #91414F;

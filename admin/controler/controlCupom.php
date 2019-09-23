@@ -111,7 +111,7 @@
                         array_push($cupons, $cupom);
                     }
                 }else{
-                    echo "Sem resultados";
+                    // echo "Sem resultados";
                     return -1;
                 }
                 return $cupons;
@@ -124,6 +124,7 @@
             return -1;
         }
     }
+    
 
     function updateStatusCancel($cod_cupom,$status){
         try{

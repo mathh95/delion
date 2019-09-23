@@ -29,13 +29,20 @@ function esvaziar(){
         }
     });
 }
-
+// Funcao de Verificar status do cupom e se tem disponibilidade ao clicar no botao.
 function verificarCupom(){
+    var codigocupom = $('#codigocupom').val();
     $.ajax({
         type: 'GET',
-        
+        url: 'ajax/checar-cupom.php',
+        data :{acao: "checar", codigocupom},
+        success:function(resultado){
+            // window.location='/home/carrinho.php';
+            $("#cupomTexto").html(resultado);
+        }
     })
 }
+
 
 $(document).on("click", "#removeItem", function(){
     var acao = "rem";
