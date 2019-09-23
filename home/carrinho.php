@@ -381,7 +381,25 @@ session_start();
 
 				success: function (resultado) {
 					$(".itens").html(resultado);
+				},
+				error: function(err){
+					console.log(err);
 				}
+			});
+		});
+
+		$(document).on("change", "#formaPagamento", function(){
+
+			var pag = $(this).val();
+
+			$.ajax({
+				type: 'POST',
+
+				url: 'ajax/pag-carrinho.php',
+
+				data: {pag:pag},
+
+				success: function (resultado) {}
 			});
 		});
 
