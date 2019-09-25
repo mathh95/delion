@@ -4,6 +4,7 @@ include_once CONTROLLERPATH."/seguranca.php";
 include_once HOMEPATH."admin/controler/controlCarrinhoWpp.php";
 include_once MODELPATH."/usuario.php";
 include_once CONTROLLERPATH."/controlUsuario.php";
+include_once CONTROLLERPATH."/controlFormaPgt.php";
 protegePagina();
 
 $controleUsuario = new controlerUsuario($_SG['link']);
@@ -14,6 +15,7 @@ $controle1 = new controlerCarrinhoWpp($_SG['link']);
 $controle2 = new controlerCarrinhoWpp($_SG['link']);
 $controle3 = new controlerCarrinhoWpp($_SG['link']);
 $controle4 = new controlerCarrinhoWpp($_SG['link']);
+$formaPgtControl = new controlerFormaPgt($_SG['link']);
 
 
 if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || isset($_POST['endereco'])){ 
@@ -79,7 +81,6 @@ if(in_array('pedidoWpp', $permissao)){
 					<td style='text-align: center;' name='numero'>".$pedido->numero."</td>
 						<td style='text-align: center;' name='editar'>
 							<a style='font-size: 10px;'>
-							
 								<div type='button' class='popup btn btn-primary' onmouseover='myFunction(".$array.")' onmouseout='myFunction(".$array.")'>
 								<i class='fa fa-edit'></i>Itens
 									<span class='popuptext' id='myPopup".$array."'>
@@ -226,6 +227,7 @@ if(in_array('pedidoWpp', $permissao)){
 
 				if($pedido->getStatus()==1 || $pedido->getStatus()==2){
 				$array = ($pedido->getCod_pedido_wpp());
+				$formaPagamento = $pedido->getFormaPgt();
 				
 				echo " <div class=\"modal fade\" id='modalPedido".$pedido->getCod_pedido_wpp()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
 

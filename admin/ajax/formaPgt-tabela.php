@@ -21,7 +21,7 @@ if(in_array('adicional', $permissao)){
     		<th width='20%' style='text-align: center;'>Tipo Forma de Pagamento</th>
 			<th width='15%' style='text-align: center;'>Status</th>
 			<th width='15%' style='text-align: center;'>Editar</th>
-            <th width='15%' style='text-align: center;'>Apagar</th>
+			<th width='15%' style='text-align: center;'>Ação</th>
         </tr>
 	<tbody>";
 	foreach ($formaPgts as &$formaPgt) {
@@ -35,9 +35,20 @@ if(in_array('adicional', $permissao)){
         echo "<tr name='resultado' id='status".$formaPgt->getCod_formaPgt()."'>
             <td style='text-align: center;' name='nome'>".$formaPgt->getTipoFormaPgt()."</td>
 	    <td style='text-align: center;' name='flag_ativo'>".$flag."</td>
-            <td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='formaPgt-view.php?cod=".$formaPgt->getCod_formaPgt()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
-            <td style='text-align: center;' name='status'><button type='button' onclick=\"removeFormaPgt(".$formaPgt->getCod_formaPgt().");\" class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></a></td>
-        </tr>";
+			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='formaPgt-view.php?cod=".$formaPgt->getCod_formaPgt()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
+			
+			if($formaPgt->getFlag_ativo() == 1){
+
+				echo "<td style='text-align: center;' name='status'><a href='../../ajax/excluir-formaPgt.php?cod=".$formaPgt->getCod_formaPgt()."'><button type='button' class='btn btn-kionux'><i class='fa fa-remove'></i> Desativar</button></a></td>";
+			
+			}else{
+			
+				echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-formaPgt.php?cod=".$formaPgt->getCod_formaPgt()."'><button type='button' class='btn btn-kionux' style='width: 107px'><i class='fa fa-check'></i> Ativar</button></a></td>";
+
+			}
+
+
+		echo "</tr>";
 	}
 }else{
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>

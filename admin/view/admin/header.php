@@ -360,6 +360,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="pedidoWpp.php">Novo Pedido</a></li>
                                 <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
+                                <li><a href="pedidoLista.php">Listar Pedidos Unificado</a></li>
                                 <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li>
                             </ul>
                        <li class="dropdown
