@@ -86,7 +86,8 @@ body {
           background: #D7CEC7;
           margin-bottom: 0px; }
           body > #navegacao > .container > #navegacao__content .navbar > .container-fluid > #bs-navbar-collapse-1 > ul {
-            font-weight: bold; }
+            font-weight: bold;
+            font-size: 110%; }
             body > #navegacao > .container > #navegacao__content .navbar > .container-fluid > #bs-navbar-collapse-1 > ul > li {
               height: 50px; }
               body > #navegacao > .container > #navegacao__content .navbar > .container-fluid > #bs-navbar-collapse-1 > ul > li > a {
@@ -97,6 +98,9 @@ body {
                   display: block;
                   margin-left: auto;
                   margin-right: auto; }
+            body > #navegacao > .container > #navegacao__content .navbar > .container-fluid > #bs-navbar-collapse-1 > ul li:hover {
+              border-bottom: 4px solid #C57686;
+              margin-bottom: -4px; }
             body > #navegacao > .container > #navegacao__content .navbar > .container-fluid > #bs-navbar-collapse-1 > ul > .active > a {
               color: #C57686;
               background-color: #D7CEC7;
@@ -373,5 +377,3 @@ body > .whatsapp {
     display: block;
     max-width: 100%;
     height: auto; }
-
-/*# sourceMappingURL=style-md.css.map */

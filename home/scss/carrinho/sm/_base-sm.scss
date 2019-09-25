@@ -138,10 +138,16 @@ body{
         >.rodapeCarrinho {
             >.ladoEsquerdo{
                 @include make-sm-column(6);
+                padding-bottom: 10px;
                 float:left !important;
                 p {
                     font-size: 15px;
                     font-family: "Century Gothic Bold";
+                }
+                .botaoAdicionarCupom button {
+                    background-color: #C57686;
+                    border-color: #91414F;
+                    color: #ffffff;
                 }
                 >.btn-group-toggle{
                     margin-top:10px;
@@ -173,12 +179,16 @@ body{
                     font-size: 15px;
                     font-family: "Century Gothic Bold";
                 }
-    
+                .botaoAdicionarCupom button {
+                    background-color: #C57686;
+                    border-color: #91414F;
+                    color: #ffffff;
+                }    
                 > .linhaBotao{
                     > .botaoCarrinhoEnviar{
                         button{
                             float:right;
-                            margin:10px;
+                            margin:30px 0 10px 0;
                             background-color: #C57686;
                             border-color:#91414F;
                             color: #ffffff;
@@ -188,8 +198,8 @@ body{
                         button{
                             background-color: #C57686;
                             border-color:#91414F;
-                            float:right;
-                            margin:10px;
+                            float:left;
+                            margin:30px 0 10px 10px;
                         }
                     }
                 }

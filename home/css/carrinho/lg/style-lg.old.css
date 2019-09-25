@@ -29,10 +29,10 @@ body>header>.container>.logo {
     padding-right: 0px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>header>.container>.logo {
         float: left;
-        width: 33.3333333333%
+        width: 25%
     }
 }
 
@@ -46,9 +46,10 @@ body>header>.container>.logo>a>img {
 }
 
 body>header>.container>.logo>div {
-    font-size: 13px;
+    font-size: 14px;
     text-align: right;
-    color: #FFFFFF
+    color: #FFFFFF;
+    padding-right: 15px
 }
 
 body>header>.container>.infos {
@@ -56,23 +57,23 @@ body>header>.container>.infos {
     min-height: 1px;
     padding-left: 15px;
     padding-right: 15px;
-    padding-left: 23px;
+    padding-left: 33px;
     padding-top: 20px;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>header>.container>.infos {
         float: left;
-        width: 25%
+        width: 16.6666666667%
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>header>.container>.infos {
-        margin-left: 41.6666666667%
+        margin-left: 58.3333333333%
     }
 }
 
@@ -109,7 +110,7 @@ body>#navegacao>.container>#navegacao__content {
     padding: 0px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>#navegacao>.container>#navegacao__content {
         float: left;
         width: 100%
@@ -137,7 +138,8 @@ body>#navegacao>.container>#navegacao__content .navbar>.container-fluid>#bs-navb
 }
 
 body>#navegacao>.container>#navegacao__content .navbar>.container-fluid>#bs-navbar-collapse-1>ul>li>a {
-    color: white
+    color: white;
+    padding-bottom: 10px
 }
 
 body>#navegacao>.container>#navegacao__content .navbar>.container-fluid>#bs-navbar-collapse-1>ul>li>a>img {
@@ -149,10 +151,9 @@ body>#navegacao>.container>#navegacao__content .navbar>.container-fluid>#bs-navb
 }
 
 body>#navegacao>.container>#navegacao__content .navbar>.container-fluid>#bs-navbar-collapse-1>ul>.active>a {
-    color: #C57686;
+    color: #91414F;
     background-color: #D7CEC7;
-    padding-bottom: 15px;
-    padding-top: 15px
+    padding-bottom: 10px
 }
 
 body>#navegacao>.container>#navegacao__content .navbar>.container-fluid>#bs-navbar-collapse-1>ul>.active>a>img {
@@ -171,7 +172,7 @@ body>#navegacao>.container>#navegacao__content .navbar>.container-fluid>#bs-navb
 body>#navegacao>.container>#navegacao__content .navbar>.container-fluid>#bs-navbar-collapse-1>form>div>input {
     border: none;
     border-radius: 0px;
-    width: 200px
+    width: 265px
 }
 
 body>#navegacao>.container>#navegacao__content .navbar>.container-fluid>#bs-navbar-collapse-1>form>div>span>button {
@@ -184,7 +185,8 @@ body>#navegacao>.container>#navegacao__content .navbar>.container-fluid>#bs-navb
     color: white;
     border-radius: 0px;
     padding-bottom: 7px;
-    padding-top: 6px
+    padding-top: 6px;
+    height: 34px
 }
 
 @font-face {
@@ -197,305 +199,302 @@ body>#navegacao>.container>#navegacao__content .navbar>.container-fluid>#bs-navb
     src: url("../../fonts/gothicb.ttf")
 }
 
-body>div.wickedpicker {
-    width: 130px;
-    height: 90px
-}
-
-body>div.wickedpicker>p {
-    display: none
-}
-
-.botao-esquerda {
-    width: 171px;
-    height: 34px;
-    border: none;
-    background-color: #C57686;
-    color: #FFFFFF;
-    font-family: "Century Gothic Bold";
-    font-size: 15px;
-    text-align: center;
-    float: left
-}
-
 body {
     font-family: "Century Gothic Regular"
 }
 
-body input::-webkit-input-placeholder, body textarea::-webkit-input-placeholder {
-    color: #000000
+body>.menu {
+    padding-bottom: 15px;
+    padding-top: 15px
 }
 
-body input:-moz-placeholder, body textarea:-moz-placeholder {
-    color: #000000
-}
-
-body input::-moz-placeholder, body textarea::-moz-placeholder {
-    color: #000000
-}
-
-body input:-ms-input-placeholder, body textarea:-ms-input-placeholder {
-    color: #000000
-}
-
-body>.cliente {
-    padding-top: 25px;
-    padding-bottom: 5px
-}
-
-body>.cliente>.solicitacao {
+body>.menu>.menu-lateral {
     position: relative;
     min-height: 1px;
     padding-left: 15px;
     padding-right: 15px;
-    height: 392px
-}
-
-@media (min-width: 768px) {
-    body>.cliente>.solicitacao {
-        float: left;
-        width: 50%
-    }
-}
-
-body>.cliente>.solicitacao>form>p {
-    font-family: "Century Gothic Bold";
-    font-size: 24px
-}
-
-body>.cliente>.solicitacao>form>div {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-left: 0px;
-    padding-right: 0px;
-    height: 60px;
-    margin-top: 9px;
-    margin-bottom: 9px
-}
-
-@media (min-width: 768px) {
-    body>.cliente>.solicitacao>form>div {
-        float: left;
-        width: 100%
-    }
-}
-
-body>.cliente>.solicitacao>form>div>p {
-    font-family: "Century Gothic Bold";
-    font-size: 14px
-}
-
-body>.cliente>.solicitacao>form>div>input {
-    height: 36px;
-    width: 100%;
-    border: 2px solid #91414F;
-    text-indent: 10px;
-    outline: none
-}
-
-body>.cliente>.solicitacao>form>div:nth-child(1) {
-    margin-top: 0px
-}
-
-body>.cliente>.solicitacao>form>textarea {
-    width: 100%;
-    height: 210px;
-    border: 2px solid #91414F;
-    text-indent: 10px;
-    outline: none;
-    margin-top: 10px;
-    margin-bottom: 9px;
-    resize: none
-}
-
-body>.cliente>.solicitacao>form>button {
-    width: 171px;
-    height: 34px;
-    border: none;
     background-color: #C57686;
-    color: #FFFFFF;
-    font-family: "Century Gothic Bold";
-    font-size: 15px;
-    text-align: center
+    width: 270px !important;
+    margin-left: 15px;
+    padding-left: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px
 }
 
-body>.cliente>.solicitacao>form>a>.botao-cadastro {
-    width: 171px;
-    height: 34px;
-    border: none;
-    background-color: #C57686;
-    color: #FFFFFF;
-    font-family: "Century Gothic Bold";
-    font-size: 15px;
-    text-align: center;
-    float: right
-}
-
-body>.cliente>.area {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-    height: 320px
-}
-
-@media (min-width: 768px) {
-    body>.cliente>.area {
+@media (min-width: 1200px) {
+    body>.menu>.menu-lateral {
         float: left;
-        width: 50%
+        width: 25%
     }
 }
 
-body>.cliente>.area>div {
-    padding-left: 0px;
-    padding-right: 0px;
-    height: 60px;
-    margin-top: 15px;
-    margin-bottom: 15px
-}
-
-body>.cliente>.area>div>a>button {
+body>.menu>.menu-lateral>a {
     width: 100%;
-    height: 34px;
-    border: none;
-    background-color: #C57686;
-    color: #FFFFFF;
-    font-family: "Century Gothic Bold";
-    font-size: 15px;
-    text-align: center
-}
-
-body>.cliente>.area>p {
-    text-align: center;
-    font-family: "Century Gothic Bold";
-    font-size: 24px
-}
-
-body>.cliente>.imagem {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px
-}
-
-@media (min-width: 768px) {
-    body>.cliente>.imagem {
-        float: left;
-        width: 50%
-    }
-}
-
-body>.cliente>.imagem>div>img {
     display: block;
-    max-width: 100%;
-    height: auto;
-    margin-left: auto
+    padding-bottom: 10px;
+    padding-top: 10px
 }
 
-body>.cliente>.imagem>div:nth-child(1) {
-    padding-bottom: 30px
+body>.menu>.menu-lateral>a>img {
+    padding-left: 0px;
+    display: inline
 }
 
-body>.cliente>.imagem-login {
+body>.menu>.menu-lateral>a>div {
+    display: inline;
+    color: #ffffff;
+    padding-left: 20px
+}
+
+body>.menu>.menu-lateral>a:hover {
+    text-decoration: none
+}
+
+body>.menu>.menu-lateral>a:hover>div {
+    font-family: "Century Gothic Bold";
+    color: #000
+}
+
+body>.menu>.menu-lateral>a:focus {
+    text-decoration: none
+}
+
+body>.menu>.menu-lateral>a:focus>div {
+    color: #000;
+    font-family: "Century Gothic Bold"
+}
+
+body>.menu>.imagem {
     position: relative;
     min-height: 1px;
     padding-left: 15px;
     padding-right: 15px
 }
 
-@media (min-width: 768px) {
-    body>.cliente>.imagem-login {
+@media (min-width: 1200px) {
+    body>.menu>.imagem {
         float: left;
-        width: 50%
+        width: 75%
     }
 }
 
-body>.cliente>.imagem-login>div>img {
+body>.menu>.imagem>img {
     display: block;
     max-width: 100%;
     height: auto
 }
 
-body>.cliente>.imagem-login>div:nth-child(1) {
-    padding-bottom: 37px
-}
-
-body>.imagens>div {
+body>.itens>.carrinhoVazio>.imagemCarrinhoVazio {
     position: relative;
     min-height: 1px;
     padding-left: 15px;
     padding-right: 15px
 }
 
-@media (min-width: 768px) {
-    body>.imagens>div {
+@media (min-width: 1200px) {
+    body>.itens>.carrinhoVazio>.imagemCarrinhoVazio {
         float: left;
         width: 33.3333333333%
     }
 }
 
-body>.imagens>div>.imagem {
+body>.itens>.carrinhoVazio .textoCarrinhoVazio {
     position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
     margin-top: 20px
 }
 
-body>.imagens>div>.imagem>img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto
+@media (min-width: 1200px) {
+    body>.itens>.carrinhoVazio .textoCarrinhoVazio {
+        float: left;
+        width: 66.6666666667%
+    }
 }
 
-body>.imagens>div>.info {
-    background-clip: padding-box;
-    background-color: #C57686;
-    height: 96px;
-    width: 100%;
+body>.itens>.carrinhoVazio .textoCarrinhoVazio>.tituloCarrinhoVazio {
+    font-family: "Century Gothic Bold";
+    color: #BE392A
+}
+
+body>.itens>.carrinhoVazio .textoCarrinhoVazio>p {
+    font-family: "Century Gothic Bold"
+}
+
+body>.itens>h1 {
+    font-family: "Century Gothic Bold"
+}
+
+body>.itens>.carrinho>.tabela_itens {
     position: relative;
-    bottom: 15px
-}
-
-body>.imagens>div>.info>.texto {
-    text-align: center;
-    font-size: 10px;
-    color: #FFFFFF;
-    padding-top: 45px;
-    padding-right: 10px;
-    padding-left: 10px
-}
-
-body>.imagens>div>img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    position: absolute;
-    bottom: 75px;
-    width: 65px;
-    left: 87.5px;
-    z-index: 25
-}
-
-body>.banner {
-    padding-top: 15px;
-    padding-bottom: 20px
-}
-
-body>.banner>img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    min-height: 1px;
     padding-left: 15px;
     padding-right: 15px
+}
+
+@media (min-width: 1200px) {
+    body>.itens>.carrinho>.tabela_itens {
+        float: left;
+        width: 100%
+    }
+}
+
+body>.itens>.carrinho>.tabela_itens #cabecalhoTabela {
+    color: white;
+    background-color: #C57686;
+    border-style: solid;
+    border-bottom-width: 5px;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom-color: #91414F;
+    font-family: "Century Gothic Bold";
+    font-size: 14px
+}
+
+body>.itens>.carrinho>.tabela_itens .quantidadeItemTabela {
+    border: none;
+    background-color: transparent;
+    width: 30px
+}
+
+body>.itens>.combo>.tabela_itens {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px
+}
+
+@media (min-width: 1200px) {
+    body>.itens>.combo>.tabela_itens {
+        float: left;
+        width: 100%
+    }
+}
+
+body>.itens>.combo>.tabela_itens #cabecalhoTabela {
+    color: white;
+    background-color: #C57686;
+    border-style: solid;
+    border-bottom-width: 5px;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom-color: #91414F;
+    font-family: "Century Gothic Bold";
+    font-size: 14px
+}
+
+body>.itens>.combo>.tabela_itens .quantidadeItemTabela {
+    border: none;
+    background-color: transparent;
+    width: 30px
+}
+
+body>.itens>.endereco p {
+    font-size: 30px
+}
+
+body>.itens>.rodapeCarrinho>.ladoEsquerdo {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 20px;
+    float: left !important
+}
+body>.itens>.rodapeCarrinho>.ladoEsquerdo .botaoAdicionarCupom button {
+
+    background-color: #C57686;
+    border-color: #91414F;
+    color: #ffffff
+}
+
+@media (min-width: 1200px) {
+    body>.itens>.rodapeCarrinho>.ladoEsquerdo {
+        float: left;
+        width: 33.3333333333%
+    }
+}
+
+body>.itens>.rodapeCarrinho>.ladoEsquerdo p {
+    font-size: 20px;
+    font-family: "Century Gothic Bold"
+}
+
+body>.itens>.rodapeCarrinho>.ladoEsquerdo>.btn-group-toggle {
+    margin-top: 0px;
+}
+
+body>.itens>.rodapeCarrinho>.ladoEsquerdo>.btn-group-toggle>.btn {
+    background-color: #c57682;
+    border-color: #91414F
+}
+
+body>.itens>.rodapeCarrinho>.ladoEsquerdo>.btn-group-toggle>.btn>input {
+    background-color: #91414F
+}
+
+body>.itens>.rodapeCarrinho>.ladoEsquerdo>.btn-group-toggle>.btn:active, body>.itens>.rodapeCarrinho>.ladoEsquerdo>.btn-group-toggle .btn:hover, body>.itens>.rodapeCarrinho>.ladoEsquerdo>.btn-group-toggle .active {
+    background-color: #91414F
+}
+
+body>.itens>.rodapeCarrinho>.ladoEsquerdo>.btn-group-toggle>label {
+    background-color: #c57682;
+    border-color: #91414F
+}
+
+body>.itens>.rodapeCarrinho>.ladoEsquerdo>.btn-group-toggle>label>input {
+    background-color: #91414F
+}
+
+body>.itens>.rodapeCarrinho>.ladoDireito {
+    float: right !important;
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px
+}
+
+@media (min-width: 1200px) {
+    body>.itens>.rodapeCarrinho>.ladoDireito {
+        float: left;
+        width: 33.3333333333%
+    }
+}
+
+body>.itens>.rodapeCarrinho>.ladoDireito p {
+    font-size: 20px;
+    font-family: "Century Gothic Bold"
+}
+
+body>.itens>.rodapeCarrinho>.ladoDireito>.linhaBotao>.botaoCarrinhoEnviar button {
+    float: right;
+    margin: 30px 0 10px 0;
+    background-color: #C57686;
+    border-color: #91414F;
+    color: #ffffff
+}
+
+body>.itens>.rodapeCarrinho>.ladoDireito>.linhaBotao>.botaoCarrinhoEsvaziar button {
+    background-color: #C57686;
+    border-color: #91414F;
+    float: left;
+    margin: 30px 0 10px 10px;
+}
+
+body>.whatsapp {
+    position: fixed;
+    right: 36px;
+    bottom: 80px;
+    height: 42px;
+    width: 42px;
+    z-index: 9999
+}
+
+body>.whatsapp>a>img {
+    width: 50px
 }
 
 @font-face {
@@ -510,7 +509,8 @@ body>.banner>img {
 
 body>footer {
     font-family: "Century Gothic Regular";
-    background-color: #C57686
+    background-color: #C57686;
+    padding-bottom: 15px
 }
 
 body>footer>.container>.logo {
@@ -520,20 +520,19 @@ body>footer>.container>.logo {
     padding-right: 15px;
     padding-top: 15px;
     padding-right: 0px;
-    padding-left: 0px;
-    padding-bottom: 15px
+    padding-left: 0px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>footer>.container>.logo {
         float: left;
-        width: 33.3333333333%
+        width: 16.6666666667%
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>footer>.container>.logo {
-        margin-left: 33.3333333333%
+        margin-left: 41.6666666667%
     }
 }
 
@@ -561,7 +560,7 @@ body>footer>.container>.infos {
     padding: 0px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>footer>.container>.infos {
         float: left;
         width: 100%
@@ -575,7 +574,7 @@ body>footer>.container>.infos>.links {
     padding-right: 15px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>footer>.container>.infos>.links {
         float: left;
         width: 8.3333333333%
@@ -583,12 +582,12 @@ body>footer>.container>.infos>.links {
 }
 
 body>footer>.container>.infos>.links>div {
-    padding: 8px 0px
+    padding: 10px 0px
 }
 
 body>footer>.container>.infos>.links>div>a {
     color: #FFFFFF;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: bold
 }
 
@@ -600,24 +599,24 @@ body>footer>.container>.infos>.dados {
     text-align: center;
     padding-right: 0px;
     padding-left: 0px;
-    padding-top: 10px
+    padding-top: 20px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>footer>.container>.infos>.dados {
         float: left;
-        width: 33.3333333333%
+        width: 16.6666666667%
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>footer>.container>.infos>.dados {
-        margin-left: 25%
+        margin-left: 33.3333333333%
     }
 }
 
 body>footer>.container>.infos>.dados>div {
-    font-size: 13px;
+    font-size: 14;
     font-weight: bold;
     padding: 3px 0px;
     color: #FFFFFF
@@ -628,29 +627,29 @@ body>footer>.container>.infos>.redes {
     min-height: 1px;
     padding-left: 15px;
     padding-right: 15px;
-    padding-left: 35px;
-    padding-top: 40px;
+    padding-left: 33px;
+    padding-top: 50px;
     color: #FFFFFF;
-    font-size: 13px;
+    font-size: 14px;
     text-align: center
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>footer>.container>.infos>.redes {
         float: left;
-        width: 25%
+        width: 16.6666666667%
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>footer>.container>.infos>.redes {
-        margin-left: 8.3333333333%
+        margin-left: 25%
     }
 }
 
 body>footer>.container>.infos>.redes>div:nth-child(1) {
     font-family: "Century Gothic Bold";
-    font-size: 13px
+    font-size: 14px
 }
 
 body>footer>.container>.infos>.redes>.rede-social>a {
@@ -664,7 +663,7 @@ body>footer>.container>.infos>.redes>.rede-social>a {
     margin-left: 18px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>footer>.container>.infos>.redes>.rede-social>a {
         float: left;
         width: 33.3333333333%
@@ -684,7 +683,6 @@ body>.rodape {
 }
 
 body>.rodape>div {
-    font-size: 13px;
     padding-top: 7px;
     color: #000000
 }
@@ -696,10 +694,10 @@ body>.rodape>div>div:nth-child(1) {
     padding-right: 15px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>.rodape>div>div:nth-child(1) {
         float: left;
-        width: 41.6666666667%
+        width: 50%
     }
 }
 
@@ -711,10 +709,10 @@ body>.rodape>div>div:nth-child(2) {
     text-align: right
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     body>.rodape>div>div:nth-child(2) {
         float: left;
-        width: 58.3333333333%
+        width: 50%
     }
 }
 
@@ -727,19 +725,4 @@ body>.rodape>div>div:nth-child(2)>div>a>img {
     max-width: 4%
 }
 
-body>.whatsapp {
-    position: fixed;
-    right: 15px;
-    bottom: 20px;
-    height: 40px;
-    width: 40px;
-    z-index: 9999
-}
-
-body>.whatsapp>a>img {
-    display: block;
-    max-width: 100%;
-    height: auto
-}
-
-/*# sourceMappingURL=style-sm.css.map */
+/*# sourceMappingURL=style-lg.css.map */

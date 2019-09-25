@@ -80,6 +80,7 @@ body{
                         > #bs-navbar-collapse-1 {
                             > ul {
                                 font-weight: bold;
+                                font-size: 110%;
                                 > li {
                                     height: 50px;
                                     > a {
@@ -90,6 +91,9 @@ body{
                                             @include center-block();
                                         }
                                     }
+                                } li:hover {
+                                    border-bottom: 4px solid #C57686;
+                                    margin-bottom: -4px;
                                 }
                                 > .active{
                                     > a {

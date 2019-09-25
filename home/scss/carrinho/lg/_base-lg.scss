@@ -164,10 +164,16 @@ body {
         >.rodapeCarrinho {
             >.ladoEsquerdo{
                 @include make-lg-column(4);
+                padding-bottom: 20px;
                 float:left !important;
                 p {
                     font-size: 20px;
                     font-family: "Century Gothic Bold";
+                }
+                .botaoAdicionarCupom button {
+                    background-color: #C57686;
+                    border-color: #91414F;
+                    color: #ffffff;
                 }
                 >.btn-group-toggle{
                     margin-top:10px;
@@ -204,7 +210,7 @@ body {
                     > .botaoCarrinhoEnviar{
                         button{
                             float:right;
-                            margin:10px;
+                            margin:30px 0 10px 0;
                             background-color: #C57686;
                             border-color:#91414F;
                             color: #ffffff;
@@ -214,8 +220,8 @@ body {
                         button{
                             background-color: #C57686;
                             border-color:#91414F;
-                            float:right;
-                            margin:10px;
+                            float:left;
+                            margin:30px 0 10px 10px;
                         }   
                     }
                 }
