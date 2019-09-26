@@ -32,15 +32,32 @@ function esvaziar(){
 // Funcao de Verificar status do cupom e se tem disponibilidade ao clicar no botao.
 function verificarCupom(){
     var codigocupom = $('#codigocupom').val();
+    if(codigocupom.length == ''){
+        swal('Atenção!' , 'Codigo vazio', 'warning');
+        return false;
+    }
     $.ajax({
         type: 'GET',
-        url: 'ajax/checar-cupom.php',
+        url: 'ajax/cupom.php',
         data :{acao: "checar", codigocupom},
         success:function(resultado){
-            // window.location='/home/carrinho.php';
-            $("#cupomTexto").html(resultado);
+
+            if(resultado.valido){
+                swal('Sucesso!', 'Aproveite o desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
+                .then(function(){
+                    window.location.reload();
+                });
+            }
+            else if(!resultado.valido){
+                swal('Atenção!' , resultado.mensagem, 'warning');
+            }
+        },
+        error:function(err){
+            alert(err);
         }
-    })
+        
+    });    
+    
 }
 
 
@@ -59,11 +76,16 @@ $(document).on("click", "#removeItem", function(){
         data: {acao: acao, preco: preco, qtdAtual: qtdAtual, id: id},
 
         success:function(resultado){
-            $("#total").html(resultado);
+            $("#total").html(resultado.totalCarrinho);
+            $("#subtotalDesc").html(resultado.totalComDesconto);
+            
             var tr = $("#idLinha"+linha).fadeOut(100, function(){
                 tr.remove();
+                window.location.reload();
+                
             });
             $("#spanCarrinho").html(parseInt($("#spanCarrinho").text()) - 1);
+            
         }
     });
 });
@@ -78,7 +100,6 @@ $(document).on("click", "#adicionarUnidade", function(){
     var subtotal = preco * (qtdInt+1);
    
     $.ajax({
-        //falta pensar em uma forma de mandar o preço pra outra página...
         type: 'GET',
 
         url: 'ajax/quantidade-carrinho.php',
@@ -86,9 +107,18 @@ $(document).on("click", "#adicionarUnidade", function(){
         data: {acao: acao, preco: preco, qtdAtual: qtdAtual, linha: linha},
 
         success:function(resultado){
-            $("#total").html(resultado);
+            var res = JSON.parse(resultado);
+            var totalCarr = res.totalCarrinho;
+            var valorCup = parseFloat(res.valorcupom);
+            var totalDesc = res.totalComDesconto;
+            
             $("#qtdUnidade"+linha).val(qtdInt+= 1);
+            $("#total").html("Subtotal: R$ "+totalCarr.toFixed(2));
+            $("#desconto").html("Desconto: R$ "+valorCup.toFixed(2));
+            $("#subtotalDesc").html("Total: R$ "+totalDesc.toFixed(2));
             $("#subtotal"+linha).html("<strong>R$ "+subtotal.toFixed(2)+"</strong>");
+            
+            
         }
     });
 });
@@ -114,7 +144,13 @@ $(document).on("click", "#removerUnidade", function(){
         data: {acao: acao, preco: preco, qtdAtual: qtdAtual, linha: linha},
 
         success:function(resultado){
-            $("#total").html(resultado);
+            var res = JSON.parse(resultado);
+            var totalCarr = res.totalCarrinho;
+            var valorCup = parseFloat(res.valorcupom);
+            var totalDesc = res.totalComDesconto;
+            $("#total").html("Subtotal: R$ "+totalCarr.toFixed(2));
+            $("#desconto").html("Desconto: R$ "+valorCup.toFixed(2));
+            $("#subtotalDesc").html("Total: R$ "+totalDesc.toFixed(2));
             $("#qtdUnidade"+linha).val(qtdTotal);
             $("#subtotal"+linha).html("<strong>R$ "+subtotal.toFixed(2)+"</strong>");
         }
@@ -129,9 +165,11 @@ $(document).on("click", "#removerUnidade", function(){
         data: {acao: acao, preco: preco, id: id},
 
         success:function(resultado){
-            $("#total").html(resultado);
+            $("#total").html(resultado.totalCarrinho);
+            $("#subtotalDesc").html(resultado.totalComDesconto);
             var tr = $("#idLinha"+linha).fadeOut(100, function(){
                 tr.remove();
+                window.location.reload();
             });
             $("#spanCarrinho").html(parseInt($("#spanCarrinho").text()) - 1);
         }

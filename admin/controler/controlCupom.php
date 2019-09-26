@@ -92,6 +92,41 @@
             return -1;
         }
     }
+
+    function selectPorCodigo($parametro){
+        $stmt;
+        $cupom= new cupom;
+        try{
+            
+            $codigo=$parametro;
+            $stmt=$this->pdo->prepare("SELECT * FROM cupom WHERE codigo=:parametro");
+            $stmt->bindParam(":parametro", $codigo, PDO::PARAM_INT);
+           
+            $executa=$stmt->execute();
+            if ($executa){
+                if($stmt->rowCount() > 0){
+                    while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                        $cupom = new cupom;
+                        $cupom->setCod_Cupom($result->cod_cupom);
+                        $cupom->setCodigo($result->codigo);
+                        $cupom->setQtde_inicial($result->qtde_inicial);
+                        $cupom->setQtde_atual($result->qtde_atual);
+                        $cupom->setValor($result->valor);
+                        $cupom->setVencimento_data($result->vencimento_data);
+                        $cupom->setVencimento_hora($result->vencimento_hora);
+                        $cupom->setStatus($result->status);
+                    }
+                }
+                return $cupom;
+            }else{
+                return -1;
+            }
+        }
+        catch(PDOException $e){
+            echo $e->getMessage();
+            return -1;
+        }
+    }
     function selectAll(){
         try{
             $cupons = array();
@@ -142,6 +177,19 @@
             return $e->getMessage();
         }
     }
+
+
+    // function updateQuantidade($codigo){
+    //     try{
+    //             $parametro=$codigo;
+    //             $stmt=$this->pdo->prepare("UPDATE cupom SET qtde_atual = qtde_atual - 1 WHERE codigo=':parametro'");
+    //             $stmt->bindParam(":parametro",$parametro,PDO::PARAM_INT);
+    //             $stmt->execute();
+            
+    //     }catch(PDOException $e){
+    //         return $e->getMessage();
+    //     }
+    // }
     function __construct($pdo){
         $this->pdo=$pdo;
     }
