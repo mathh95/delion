@@ -24,6 +24,8 @@ if(isset($_SESSION['cod_cliente'])){
 }
 
 
+
+
 // $valortotal = $total - $valor;
 // $valortotal = $_GET['valortotal'];
 
@@ -36,8 +38,18 @@ $cupom1 = $controlcupom1->selectPorCodigo($codigo);
 $controlcheck = new controlCupom_cliente($_SG['link']);
 $check = $controlcheck->select($cod_cliente, $codigo);
 
+$controlcheck2 = new controlCupom_cliente($_SG['link']);
+$check2 = $controlcheck2->selectDataUso($cod_cliente);
+
+
 $codcupom = $cupom1->getCod_cupom();
 $valorcupom = $cupom1->getValor();
+if($check2->getCod_cliente() == -1){
+    $cod_cliente_uso = 0;
+}else{
+    $cod_cliente_uso = $check2->getCod_cliente();
+}
+
 // echo "<pre>";
 // var_dump($valorcupom);
 // echo "</pre>";
@@ -47,10 +59,10 @@ $_SESSION['totalComDesconto'] = 0.00;
 $data = date('Y-m-d');
 if($acao == "checar"){
 
-    verificarCupom($cod_cliente, $cupom1, $codigo, $data, $check, $valorcupom, $codcupom);
+    verificarCupom($cod_cliente, $cupom1, $codigo, $data, $check, $cod_cliente_uso, $valorcupom, $codcupom);
 }
 //Funcao para fazer as verificacoes de uso e fluxo do cupom
-function verificarCupom($cod_cliente, $cupom1, $codigo, $data, $check, $valorcupom, $codcupom){
+function verificarCupom($cod_cliente, $cupom1, $codigo, $data, $check, $cod_cliente_uso, $valorcupom, $codcupom){
     if(!isset($cod_cliente)){
         echo json_encode(array("mensagem" => "Por favor faça o login!")); return;
     }else if(empty($codigo)){
@@ -69,10 +81,12 @@ function verificarCupom($cod_cliente, $cupom1, $codigo, $data, $check, $valorcup
         echo json_encode(array("mensagem" => "Infelizmente, o cupom foi cancelado!")); return;
     }else if($cupom1->getVencimento_data() < $data){
         echo json_encode(array("mensagem" => "A data máxima do cupom venceu!")); return;
-    }else if($data == $check->getUso()){
+    }else if($data == $check->getUltimo_uso()){
         echo json_encode(array("mensagem" => "Não é possivel usar o cupom mais de 1 vez por dia!")); return;
     }else if($cupom1->getQtde_atual() <= 0){
         echo json_encode(array("mensagem" => "Quantidade insuficiente ou cupons esgotados!")); return;
+    }else if($cod_cliente == $cod_cliente_uso){
+        echo json_encode(array("mensagem" => "Não é possivel usar mais de 1 cupom por dia !")); return;
     }else{ // caso passe pelas verificacoes, atribui os valores e retorna 
         $_SESSION['valorcupom'] = $valorcupom;
         $_SESSION['codigocupom'] = $codigo;

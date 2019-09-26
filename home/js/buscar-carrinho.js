@@ -42,6 +42,7 @@ function adicionarCupom(){
         data :{acao: "checar", codigocupom},
         success:function(resultado){
 
+
             if(resultado.valido){
                 swal('Sucesso!', 'Aproveite o desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
                 .then(function(){
@@ -55,6 +56,10 @@ function adicionarCupom(){
         },
         error:function(err){
             console.log(err);
+<<<<<<< HEAD
+=======
+            alert(err);
+>>>>>>> dev
         }
         
     });    

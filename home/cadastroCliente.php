@@ -222,7 +222,7 @@
 					url: 'controler/businesCliente.php',
 					data: data,
 					success: function(resultado){
-						//console.log("#"+resultado+"#");
+						console.log(resultado);
 						if(resultado.includes("inserido")){
 							//redireciona para boas vindas
 							window.location = "/home?bem_vindo=true";
@@ -231,6 +231,7 @@
 						}
 					},
 					error: function(resultado){
+						console.log(resultado);
 						swal("Erro :/", "Entre em contato com o suporte." , "error");
 					}
 				});

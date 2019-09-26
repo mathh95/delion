@@ -7,7 +7,7 @@ class cupom_cliente{
     private $nome;
     private $cod_cupom;
     private $codigo;
-    private $uso;
+    private $ultimo_uso;
 
     /* Getters */
 
@@ -31,8 +31,8 @@ class cupom_cliente{
         return $this->codigo;
     }
 
-    function getUso(){
-        return $this->uso;
+    function getUltimo_uso(){
+        return $this->ultimo_uso;
     }
 
     /* Setters */
@@ -57,32 +57,32 @@ class cupom_cliente{
         $this->codigo = $codigo;
     }
 
-    function setUso($uso){
-        $this->uso = $uso;
+    function setUltimo_uso($ultimo_uso){
+        $this->ultimo_uso = $ultimo_uso;
     }
 
     function __construct(){
                 
     }
 
-    function construct($cod_cupom, $cod_cliente, $uso){
+    function construct($cod_cupom, $cod_cliente, $ultimo_uso){
         $this->cod_cupom = $cod_cupom;
         $this->cod_cliente = $cod_cliente;
-        $this->uso = $uso;
+        $this->ultimo_uso = $ultimo_uso;
     }
 
-    function construct1($cod_cupom, $codigo, $cod_cliente, $nome, $uso){
+    function construct1($cod_cupom, $codigo, $cod_cliente, $nome, $ultimo_uso){
         $this->cod_cliente = $cod_cliente;
         $this->nome = $nome;
         $this->cod_cupom = $cod_cupom;
         $this->codigo = $codigo;
-        $this->uso = $uso;
+        $this->ultimo_uso = $ultimo_uso;
     }
 
     function show(){
         echo "Código Cupom_cliente: ".$this->cod_cupom_cliente."<br>";
         echo "Código Cupom: ".$this->cod_cupom."<br>";
         echo "Código Cliente: ".$this->cod_cliente."<br>";
-        echo "Dia e Hora de uso: ".$this->uso."<br>";
+        echo "Dia e Hora de uso: ".$this->ultimo_uso."<br>";
     }
 }
