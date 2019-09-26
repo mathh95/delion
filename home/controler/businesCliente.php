@@ -124,7 +124,7 @@
             }else if(strlen($senha) > 40){
                 echo "A Senha precisa ter menos que 40 digitos.\n";
                 $erros ++;
-            }else if(strlen($senha < 4)){
+            }else if(strlen($senha) < 4){
                 echo "A Senha precisa ter 4 ou mais caracteres.\n";
                 $erros++;
             }
