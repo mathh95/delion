@@ -1,5 +1,8 @@
 <?php
 // session_start();
+if (!isset($_SESSION)){
+    session_start();
+  }
 
 ini_set('display_errors', true);
 
@@ -107,6 +110,11 @@ if(count($itens) > 0){
                 </div>
 
                 <?php
+                if(!isset($_SESSION['valorcupom'])){
+                    $_SESSION['valorcupom'] = 0.00;
+                    $_SESSION['totalComDesconto'] = 0.00;
+                }
+        
         echo "<strong><p>Entrega</p></strong>
         <div class='btn-group btn-group-toggle' data-toggle='buttons'>
         <label class='btn btn-danger' id='delivery' onclick='tipoPedido(1)'>
@@ -117,15 +125,16 @@ if(count($itens) > 0){
         </div>
         
         <div>
-        <strong><p>Adicionar Cupom</p></strong> 
-                    <input type='text' name='cupom'>
-                    <a class='botaoAdicionarCupom' onclick='verificarCupom()'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>
-                    
-                    </div>                
-                    </div>
+            <strong><p>Adicionar Cupom</p></strong> 
+            <input type='text' name='codigocupom' id='codigocupom'>
+            <a class='botaoVerificarCupom' onclick='verificarCupom()'><button id='verificarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>    
+        </div>
+        </div>                    
                     <div class='ladoDireito row'>
-                    <strong><p id='total'>Valor Total: R$ ".number_format($_SESSION['totalCarrinho'], 2)." 
-                    </p></strong>
+                    <p id='total'>Subtotal: R$ ".number_format($_SESSION['totalCarrinho'], 2)."</p>
+                    <p id='entrega'>Taxa de Entrega: R$ 0.00</p>
+                    <p id='desconto'>Desconto: R$ ".number_format($_SESSION['valorcupom'],2)."</p> 
+                    <strong><p id='subtotalDesc'> Total: R$ ".number_format($_SESSION['totalComDesconto'],2)."</p></strong>
                     
                     <div class='linhaBotao'>
                     <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>

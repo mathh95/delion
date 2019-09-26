@@ -6,6 +6,8 @@ include_once MODELPATH."/cardapio.php";
 include_once MODELPATH."/pedido.php";
 include_once MODELPATH."/item.php";
 include_once CONTROLLERPATH. "/controlCupom.php";
+include_once CONTROLLERPATH. "/controlCupom_cliente.php";
+
 
 class controlerCarrinho{
 
@@ -21,12 +23,30 @@ class controlerCarrinho{
         $idCliente = $_SESSION['cod_cliente'];
         $valor = $_SESSION['totalCarrinho'];
         $formaPgt = $_SESSION['formaPagamento'];
+        $codigocupom = $_SESSION['codigocupom'];
+        $codcupom = $_SESSION['codcupom'];
         $origem = "Site";
 
         // echo "<pre>";
         // print_r($_SESSION);
         // echo "</pre>";
         // exit;
+    
+            $cod_cliente=$idCliente;
+            $cod_cupom=$codcupom;
+            $sql=$this->pdo->prepare("INSERT INTO cupom_cliente SET cod_cliente = :cod_cliente, cod_cupom = :cod_cupom, uso = NOW()");
+            $sql->bindValue(":cod_cliente",$cod_cliente);
+            $sql->bindValue(":cod_cupom",$cod_cupom);
+            $sql->execute();
+
+
+            
+            $parametro = $codigocupom;
+            $sql=$this->pdo->prepare("UPDATE cupom SET qtde_atual = qtde_atual - 1 WHERE codigo=:parametro");
+            $sql->bindValue(":parametro",$parametro);
+            $sql->execute();
+            
+    
 
         $status = 1;
         if ($endereco == null){

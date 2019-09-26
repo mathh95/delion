@@ -473,7 +473,7 @@ body>.itens>.rodapeCarrinho>.ladoDireito>.linhaBotao>.botaoCarrinhoEsvaziar butt
     margin: 10px
 }
 
-body>.itens>.rodapeCarrinho>.ladoEsquerdo .botaoAdicionarCupom button {
+body>.itens>.rodapeCarrinho>.ladoEsquerdo .botaoVerificarCupom button {
 
     background-color: #C57686;
     border-color: #91414F;
