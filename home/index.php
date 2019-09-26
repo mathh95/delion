@@ -50,38 +50,37 @@
 					<h4 style="text-align:center;" class="modal-title" id="myModalLabel">Falta pouco para você ter em sua casa nossas delícias!<br>Complete seu cadastro para ter acesso ao nosso site.</h4>
 				</div>
 				<div class="modal-body">
-				<form>
-					<div id="address">
+					<form id="address">
 						<div class="row">
 							<div class="col-sm-3">
 								<label>UF</label>
-								<input type="text" class="form-control" id="administrative_area_level_1" />
+								<input type="text" class="form-control" id="administrative_area_level_1" required/>
 							</div>
 							<div class="col-sm-9">
 								<label>Cidade</label>
-								<input type="text" class="form-control" id="administrative_area_level_2" />
+								<input type="text" class="form-control" id="administrative_area_level_2" required/>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-4">
 								<label>CEP</label>
-								<input type="text" class="form-control" id="postal_code" />
+								<input type="text" class="form-control" id="postal_code" required/>
 							</div>
 							<div class="col-sm-8">
 								<label>Bairro</label>
-								<input type="text" class="form-control" id="sublocality_level_1" />
+								<input type="text" class="form-control" id="sublocality_level_1" required/>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12">
 								<label>Endereço</label>
-								<input type="text" class="form-control" id="route" />
+								<input type="text" class="form-control" id="route" required/>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-4">
 								<label>Número</label>
-								<input type="text" class="form-control" id="street_number" />
+								<input type="text" class="form-control" id="street_number" required/>
 							</div>
 							<div class="col-sm-8">
 								<label>Complemento</label>
@@ -94,11 +93,14 @@
 								<input type="text" class="form-control" id="complemento" />
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Voltar</button>
-					<button type="button" class="btn btn-primary" id="entrar">Entrar no site</button>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Voltar</button>
+							
+							<button type="submit" class="btn btn-primary" id="entrar">Entrar no site</button>
+						</div>
+
+					</form>
 				</div>
 			</div>
 		</div>
