@@ -110,7 +110,11 @@ if(count($itens) > 0){
                 </div>
 
                 <?php
-
+                if(!isset($_SESSION['valorcupom'])){
+                    $_SESSION['valorcupom'] = 0.00;
+                    $_SESSION['totalComDesconto'] = 0.00;
+                }
+        
         echo "<strong><p>Entrega</p></strong>
         <div class='btn-group btn-group-toggle' data-toggle='buttons'>
         <label class='btn btn-danger' id='delivery' onclick='tipoPedido(1)'>
