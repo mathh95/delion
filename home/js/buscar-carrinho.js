@@ -56,10 +56,6 @@ function adicionarCupom(){
         },
         error:function(err){
             console.log(err);
-<<<<<<< HEAD
-=======
-            alert(err);
->>>>>>> dev
         }
         
     });    
