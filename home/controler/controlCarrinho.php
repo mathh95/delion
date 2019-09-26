@@ -33,7 +33,7 @@ class controlerCarrinho{
 
             $cod_cliente=$idCliente;
             $cod_cupom=$codcupom;
-            $sql=$this->pdo->prepare("INSERT INTO cupom_cliente SET cod_cliente = :cod_cliente, cod_cupom = :cod_cupom, uso = NOW()");
+            $sql=$this->pdo->prepare("INSERT INTO cupom_cliente SET cod_cliente = :cod_cliente, cod_cupom = :cod_cupom, ultimo_uso = NOW()");
             $sql->bindValue(":cod_cliente",$cod_cliente);
             $sql->bindValue(":cod_cupom",$cod_cupom);
             $sql->execute();

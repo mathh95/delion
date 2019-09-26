@@ -49,7 +49,7 @@ function select($parametro, $parametro1){
                         $cupom_cliente1->setNome($result->nome);
                         $cupom_cliente1->setCod_cupom($result->cod_cupom);
                         $cupom_cliente1->setCodigo($result->codigo);
-                        $cupom_cliente1->setUso($result->uso);
+                        $cupom_cliente1->setUltimo_uso($result->ultimo_uso);
                 }
             }
             return $cupom_cliente1;
@@ -62,6 +62,36 @@ function select($parametro, $parametro1){
         return -1;
     }
 }    
+
+function selectDataUso($parametro){
+    $stmt;
+    $cupom_cliente1= new cupom_cliente;
+    try{
+        
+        $cod_cliente=$parametro;
+        $stmt=$this->pdo->prepare("SELECT * FROM cupom_cliente 
+        WHERE cod_cliente =:parametro AND DATE(ultimo_uso) = CURDATE()");
+        $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+       
+        $executa=$stmt->execute();
+        if ($executa){
+            if($stmt->rowCount() > 0){
+                while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                    $cupom_cliente1 = new cupom_cliente();
+                        $cupom_cliente1->setCod_cliente($result->cod_cliente);
+            }
+            return $cupom_cliente1;
+            }else{
+                return -1;
+            }
+        }
+    }
+    catch(PDOException $e){
+        echo $e->getMessage();
+        return -1;
+    }
+}    
+
 
 function selectAll(){
         try{
@@ -79,7 +109,7 @@ function selectAll(){
                         $cupom_cliente1->setNome($result->nome);
                         $cupom_cliente1->setCod_cupom($result->cod_cupom);
                         $cupom_cliente1->setCodigo($result->codigo);
-                        $cupom_cliente1->setUso($result->uso);
+                        $cupom_cliente1->setUltimo_uso($result->ultimo_uso);
                         array_push($cupom_cliente, $cupom_cliente1);
                     }
                     
