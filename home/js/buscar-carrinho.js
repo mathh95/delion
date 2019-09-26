@@ -30,7 +30,7 @@ function esvaziar(){
     });
 }
 // Funcao de Verificar status do cupom e se tem disponibilidade ao clicar no botao.
-function verificarCupom(){
+function adicionarCupom(){
     var codigocupom = $('#codigocupom').val();
     if(codigocupom.length == ''){
         swal('Atenção!' , 'Codigo vazio', 'warning');
@@ -45,6 +45,7 @@ function verificarCupom(){
             if(resultado.valido){
                 swal('Sucesso!', 'Aproveite o desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
                 .then(function(){
+                    //mudar -> reload apenas carrinho!
                     window.location.reload();
                 });
             }
@@ -53,7 +54,7 @@ function verificarCupom(){
             }
         },
         error:function(err){
-            alert(err);
+            console.log(err);
         }
         
     });    

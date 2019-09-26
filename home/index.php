@@ -1,265 +1,120 @@
-<?php 
-
-	session_start();
-
-	include_once "../admin/controler/conexao.php";
-
-	include_once "controler/controlEmpresa.php";
-
-	include_once "controler/controlImagem.php";
-
-	include_once "controler/controlBanner.php";
-
-	$controleEmpresa=new controlerEmpresa(conecta());
-
-	$empresa = $controleEmpresa->select(1,2);
-
-	$controleBanner=new controlerBanner(conecta());
-
-	$banners = $controleBanner->selectAll();
-
-	$controleImagem=new controlerImagem(conecta());
-
-	$imagens = $controleImagem->selectAll();
-
-	//configuração de acesso ao WhatsApp 
-	include "./whats-config.php";
-
-?>
-
 <!DOCTYPE html>
-
 <html lang="pt-br">
-
-<?php
-	include_once "./head.php";
-?>
-
 <head>
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/index/style-xs.css"/>
-
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/index/style-sm.css"/>
-
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/index/style-md.css"/>
-
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/index/style-lg.css"/>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Delion Café</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+	<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 </head>
-
 
 <body>
 
-	<?php
-		include_once "./header.php";
-	?>
+	<div></div>
 
-	<?php
-		include_once "./navbar.php";
-	?>
-
-	<div class="container banner-superior hidden-xs visible-sm-* visible-md-* visible-lg-* visible-xl-*">
-
-		<?php 
-
-			foreach ($banners as $banner) {
-
-				$pagina = json_decode($banner->getPagina());
-
-				if (in_array('inicialSuperior', $pagina)) {
-
-					echo "<a  href='".$banner->getLink()."' ><img src='../admin/".$banner->getFoto()."'></a>";
-
-				}
-			}
-		?>
-
-	</div>
-
-	<div class="container cardapio-evento-pedido-cartao">
-
-		<div>
-			<div class="imagem-cardapio-evento">
-
-				<?php 
-
-					foreach ($imagens as $imagem) {
-
-						$pagina = json_decode($imagem->getPagina());
-
-						if (in_array('inicialCardapio', $pagina)) {
-
-							echo "<a  href='cardapio.php' ><img src='../admin/".$imagem->getFoto()."'></a>";
-						}
-					}
-				?>
-
-			</div>
-
-			<a href='cardapio.php'>
-				<div style="background-color: #C57686;" class="texto">
-					<img src="img/cup.png" class="icone"> CONHEÇA O NOSSO CARDÁPIO
-				</div>
-			</a>
-		</div>
-
-		<div>
-			<div class="imagem-cardapio-evento">
-				<?php 
-
-					foreach ($imagens as $imagem) {
-
-						$pagina = json_decode($imagem->getPagina());
-
-						if (in_array('inicialEvento', $pagina)) {
-
-							echo "<a href='eventos.php'><img src='../admin/".$imagem->getFoto()."'></a>";	 
-						}
-					}
-				?>	
-			</div>
-
-			<a href='eventos.php'>
-				<div style="background-color: #C57686 !important;" class="texto">
-					<img src="img/icone-evento.png" class="icone"> EVENTOS
-				</div>
-			</a>
-		</div>
-	</div>
-
-	<div class="container cardapio-evento-pedido-cartao">
-		<div>
-			<div class="imagem-pedido-cartao">
-
-				<?php 
-
-					foreach ($imagens as $imagem) {
-
-						$pagina = json_decode($imagem->getPagina());
-
-						if (in_array('inicialPedido', $pagina)) {
-
-							echo "<a><img src='../admin/".$imagem->getFoto()."'></a>";
-
-						}
-					}
-				?>	
-			</div>
-
-			<a>
-				<div style="background-color: #C57686 !important;" class="texto">
-					<img src="img/icone-bolo.png" class="icone"> FAÇA SEU PEDIDO
-				</div>
-			</a>
-		</div>
-
-		<div>
-			<div class="imagem-pedido-cartao">
-				<?php 
-
-					foreach ($imagens as $imagem) {
-
-						$pagina = json_decode($imagem->getPagina());
-
-						if (in_array('inicialCartaoFidelidade', $pagina)) {
-
-							echo "<a><img src='../admin/".$imagem->getFoto()."'></a>";
-
-						}
-					}
-				?>	
-			</div>
-
-			<a>
-				<div style="background-color: #C57686 !important;" class="texto">
-					<img src="img/icone-cartao.png" class="icone"> PEÇA O SEU CARTÃO FIDELIDADE
-				</div>
-			</a>
-		</div>
-	</div>
-
-	<div class="container banner-inferior hidden-xs visible-sm-* visible-md-* visible-lg-* visible-xl-*">
-
-		<?php 
-
-			foreach ($banners as $banner) {
-
-				$pagina = json_decode($banner->getPagina());
-
-				if (in_array('inicialInferior', $pagina)) {
-
-					echo "<a  href='".$banner->getLink()."' ><img src='../admin/".$banner->getFoto()."'></a>";
-
-				}
-			}
-		?>
-
-	</div>
+    <div>
 		
-
+		<div>
+			<div id="locationField" style="display:inline-block;">
+				<input id="autocomplete" placeholder="Digite seu endereço ou CEP" type="text" size="60"/>
+			</div>
+			<div  style="display:inline-block;">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+					<span>Continuar</span>
+				</div>
+				<div style="display:inline-block;">
+					<button type="button" class="btn btn-success" onclick="getLocation()">
+						<span>Me Localizar</span>
+				</div>
+			</div>
+		</div>
+				
+			
+	<div></div>
+			
 	<?php
-		include_once "./footer.php";
+		//include_once "./footer.php";
 	?>
 
-	<script>
-		$(document).ready(function(){
 
-			//SlideShow Principal Home
-			$('.banner-superior').slick({
-
-				slidesToShow: 1,
-
-				slidesToScroll: 1,
-
-				autoplay: true,
-
-				autoplaySpeed: 3000,
-
-				arrows: false,
-
-				speed: 800,
-
-				fade: true,
-
-				dots: true
-
-			});
-
-			//SlideShow Secundários Home
-			$('.imagem-cardapio-evento').slick({
-
-				slidesToShow: 1,
-
-				slidesToScroll: 1,
-
-				prevArrow:"<img class='a-left control-c prev slick-prev' src='img/seta-esquerda.png'>",
-
-				nextArrow:"<img class='a-right control-c next slick-next' src='img/seta-direita.png'>"
-
-			});
-
-			//Bem vindo para novo cliente
-			var url_string = window.location.href;
-			var url = new URL(url_string);
-			var bem_vindo = url.searchParams.get("bem_vindo");
-
-			if(bem_vindo){
-				swal("Bem vindo!", "Hora de um bom café!?",
-				{
-					buttons: {
-						cardapio: "Ver o Cardapio"
-					},
-				}).then((value) => {
-					switch (value) {
-						case "cardapio":
-							window.location = "/home/cardapio.php";
-							break;
-						default:
-							return 0;
-					}
-				});
-			}
-		});
-	</script>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<div id="address">
+						<div>
+							<div class="label">UF</div>
+							<div class="slimField"><input class="field" id="administrative_area_level_1" /></div>
+							
+							<div class="label">Cidade</div>
+							<div class="wideField" colspan="3"><input class="field" id="administrative_area_level_2" /></div>
+							
+						</div>
+						<div>
+							<div class="label">CEP</div>
+							<div class="wideField"><input class="field" id="postal_code" /></div>
+							
+							<div class="label">Bairro</div>
+							<div class="wideField"><input class="field" id="sublocality_level_1" /></div>
+							
+						</div>
+						<div>
+							<div class="label">Endereço</div>
+							<div class="wideField" colspan="6"><input class="field" id="route" /></div>
+						</div>
+						<div>        
+							<div class="slimField">Nº<input class="field" id="street_number" /></div>
+							
+							<div class="slimField">
+								Complemento
+								<input class="field" />
+							</div>
+							
+						</div>
+						
+						<div>
+							<div class="label">Seria legal se Ref</div>
+							<div class="wideField" colspan="6"><input class="field" /></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Voltar</button>
+					<button type="button" class="btn btn-primary" id="entrar">Entrar no site</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
+		
+		
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+
+<script src="./js/google-autocomplete.js."></script>
+<script src="./js/google-geolocation.js."></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAS7HedlAWWAMuzXlS8boXxNIC5RJFUH-A&libraries=places&callback=initAutocomplete"
+async defer></script>
+
+
+<script>
+
+	$('#myModal').on('shown.bs.modal', function () {
+		$('sublocality_level_1').focus();
+	});
+
+</script>
 
 </html>
+
