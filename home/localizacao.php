@@ -38,13 +38,13 @@
 
 <head>
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/localizacao/xs/style-xs.css"/>
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/localizacao/style-xs.css"/>
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/localizacao/sm/style-sm.css"/>
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/localizacao/style-sm.css"/>
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/localizacao/md/style-md.css"/>
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/localizacao/style-md.css"/>
 
-	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/localizacao/lg/style-lg.css"/>
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/localizacao/style-lg.css"/>
 </head>
 
 <body>
@@ -122,7 +122,7 @@
 	</div>
 
 	<?php
-		include_once "./rodape.php";
+		include_once "./footer.php";
 	?>
 
 	<script type="text/javascript" src="js/wickedpicker.js"></script>

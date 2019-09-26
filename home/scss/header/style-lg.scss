@@ -1,0 +1,70 @@
+@import "../vendors/bootstrap/bootstrap/variables";
+@import "../vendors/bootstrap/bootstrap/mixins";
+
+@import "../variables";
+
+//Especifico header
+@font-face {
+    font-family: "Century Gothic Regular";
+    src: url("../../fonts/gothic.ttf");
+}
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../fonts/gothicb.ttf");
+}
+
+body{
+    font-family: $font_main;
+    > header{
+        background-color:#C57686;
+        > .container{
+            padding-bottom: 15px;
+            > .logo {
+                @include make-lg-column(3);
+                padding-top: 15px;
+                padding-right: 0px;
+                > a{
+                    > img {
+                        @include img-responsive();
+                        @include center-block();
+                    }
+                }
+                > div {
+                    font-size: 14px;
+                    text-align: right;
+                    color: #FFFFFF;
+                    padding-right: 15px;
+                }
+            }
+
+            > .infos {
+                @include make-lg-column(2);
+                @include make-lg-column-offset(7);
+                padding-left: 33px;
+                padding-top: 20px;
+                color: #FFFFFF;
+                font-size: 12px;
+                font-weight: bold;
+                > .delivery {
+                    > div{
+                        > img{
+                            @include img-responsive;
+                            float: left;
+                        }
+                        > a{
+                            > button{
+                                height: 25px;
+                                width: 80px;
+                                margin-left: 15px;
+                                margin-top: 15px;
+                                background-color: white;
+                                color: #C57686;
+                                border: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,234 @@
+@import "../vendors/bootstrap/bootstrap/variables";
+@import "../vendors/bootstrap/bootstrap/mixins";
+
+@import "../variables";
+
+//Especifico do cliente
+@font-face {
+    font-family: "Century Gothic Regular";
+    src: url("../../fonts/gothic.ttf");
+}
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../fonts/gothicb.ttf");
+}
+
+body {
+    > div.wickedpicker {
+        > p {
+            display: none;
+        }
+        width: 130px;
+        height: 90px;
+    }
+}
+
+.botao-esquerda{
+    width: 171px;
+    height: 34px;
+    border: none;
+    background-color: #C57686;
+    color: #FFFFFF;
+    font-family: $font_main_bold;
+    font-size: 15px;
+    text-align: center;
+    float: left;
+}
+
+body{
+    font-family: $font_main;
+    input::-webkit-input-placeholder,
+    textarea::-webkit-input-placeholder {
+      color: #000000;
+    }
+    input:-moz-placeholder,
+    textarea:-moz-placeholder {
+      color: #000000;
+    }
+    input::-moz-placeholder,
+    textarea::-moz-placeholder {
+      color: #000000;
+    }
+    input:-ms-input-placeholder,
+    textarea:-ms-input-placeholder {
+      color: #000000;
+    }
+    > .cliente {
+        padding-top: 25px;
+        padding-bottom: 5px;
+        > .solicitacao {
+            @include make-sm-column(12);
+            padding-right: 0px;
+            padding-left: 0px;
+            height: 330px;
+            > form {
+                > p{
+                    font-family: $font_main_bold;
+                    font-size: 24px;
+                }
+                > div {
+                    @include make-sm-column(12);
+                    padding-left: 0px;
+                    padding-right: 0px;
+                    height: 60px;
+                    margin-top: 9px;
+                    margin-bottom: 9px;
+                    > p{
+                        font-family: $font_main_bold;
+                        font-size: 14px;
+                    }
+                    > input {
+                        height: 36px;
+                        width: 100%;
+                        border: 2px solid #91414F;
+                        text-indent: 10px;
+                        outline: none;
+                    }
+                }
+                > div:nth-child(1){
+                    margin-top: 0px;
+                }
+                > textarea {
+                    width: 100%;
+                    height: 210px;
+                    border: 2px solid #91414F;
+                    text-indent: 10px;
+                    outline: none;
+                    margin-top: 10px;
+                    margin-bottom: 9px;
+                    resize: none;
+                }
+                > button {
+                    width: 171px;
+                    height: 34px;
+                    border: none;
+                    background-color: #C57686;
+                    color: #FFFFFF;
+                    font-family: $font_main_bold;
+                    font-size: 15px;
+                    text-align: center;
+                    // float: right;
+                }
+                >a{
+                    > .botao-cadastro{
+                        width: 171px;
+                        height: 34px;
+                        border: none;
+                        background-color: #C57686;
+                        color: #FFFFFF;
+                        font-family: $font_main_bold;
+                        font-size: 15px;
+                        text-align: center;
+                        float: right;
+                    }
+                }
+            } 
+            > .tipos_login{
+                // width: 100%;
+                align-items: center;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                > .login_google{
+                    margin: 10px;
+                }
+                > .login_facebook{
+                  margin: 10px;
+                    
+                }
+            }
+        }
+        > .area{
+            @include make-sm-column(12);
+            height: 480px;
+            > div{
+                padding-left: 0px;
+                padding-right: 0px;
+                height: 60px;
+                margin-top: 15px;
+                margin-bottom: 15px;
+                > a {
+                    > button {
+                        width: 100%;
+                        height: 34px;
+                        border: none;
+                        background-color: #C57686;
+                        color: #FFFFFF;
+                        font-family: $font_main_bold;
+                        font-size: 15px;
+                        text-align: center;
+                    }
+                }
+            }
+            > p{
+                text-align:center;
+                font-family: $font_main_bold;
+                font-size: 24px;
+            }
+        }
+        > .imagem {
+            @include make-sm-column(12);
+            padding-right: 0px;
+            padding-left: 0px;
+            > div {
+                > img {
+                    @include img-responsive();
+                    margin-left: auto;
+                }
+            }
+            > div:nth-child(1) {
+                padding-bottom: 30px;
+            }
+        }
+        > .imagem-login {
+            @include make-sm-column(12);
+            > div {
+                > img {
+                    @include img-responsive();
+                }
+            }
+            > div:nth-child(1) {
+                padding-bottom: 37px;
+            }
+        }
+    }
+     > .imagens {
+        > div {
+            @include make-xs-column(12);
+            padding-right: 0px;
+            padding-left: 0px;
+            > .imagem {
+                position: relative;
+                margin-top: 34px;
+                > img {
+                    @include img-responsive();
+                    @include center-block();
+                }
+            }
+            > .info {
+                background-clip: padding-box; 
+                background-color: #C57686;
+                height: 97px;
+                width: 100%;
+                position: relative;
+                bottom: 15px;
+                > .texto {
+                    text-align: center;
+                    font-size: 13px;
+                    color: #FFFFFF;
+                    padding-top: 45px;
+                    padding-right: 10px;
+                    padding-left: 10px;
+                }
+            }
+            > img {
+                @include img-responsive();
+                @include center-block();
+                position: absolute;
+                bottom: 70px;
+                width: 80px;
+                left: 104px;
+                z-index: 25; 
+            }
+        }
+    }
+}

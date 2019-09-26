@@ -1,0 +1,290 @@
+@import "../vendors/bootstrap/bootstrap/variables";
+@import "../vendors/bootstrap/bootstrap/mixins";
+
+@import "../variables";
+
+//Especifico do cardapio
+@font-face {
+    font-family: "Century Gothic Regular";
+    src: url("../../fonts/gothic.ttf");
+}
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../fonts/gothicb.ttf");
+}
+
+body{
+    font-family: $font_main;
+    > .menu {
+        padding-bottom: 15px;
+        padding-top: 15px;
+        > .menu-lateral {
+            @include make-xs-column(12);
+            background-color: #C57686;
+            // width: 165px !important;
+            // margin-left: 15px;
+            // padding-left: 13px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            > a {
+                @include make-xs-column(12);
+                // display: block;
+                padding-bottom: 5px;
+                padding-top: 5px;
+                > img {
+                    @include make-xs-column(3);
+                    @include img-responsive;
+                    height: 30px;
+                    padding-left: 0px;
+                    // display: inline;
+                }
+                > div {
+                    @include make-xs-column(9);
+                    text-align: center;
+                    display: inline;
+                    color: #ffffff;
+                    padding-left: 20px;
+                }
+            }
+           /*  > a:nth-child(1) {
+               > img {
+                   width: 17px;
+                   padding-left: 0px;
+                   margin-left: 5px;
+               }
+               > div {
+                   padding-left: 25px;
+               }
+           } */
+            > a:hover{
+                text-decoration: none;
+                > div {
+                    color: #91414F;
+                    font-family: $font_main_bold;
+                }
+            }
+            > a:focus{
+                text-decoration: none;
+                > div {
+                    color: #91414F;
+                    font-family: $font_main_bold;
+                }
+            }
+        }
+        > .imagem {
+            @include make-xs-column(12);
+            >.slick-prev{
+                z-index: 10;
+                margin-left: 20px;
+            }
+            >.slick-next {
+                margin-right: 20px;
+            }
+            >a {
+                > img {
+                    @include img-responsive();
+                    @include center-block();
+                }
+            }
+            > img {
+                @include img-responsive();
+            }
+        }
+    }
+    > .produtos {
+        > .categoria {
+            @include make-xs-column(12);
+            font-family: $font_main_bold;
+            font-size: 14px;
+            color: #FFFFFF;
+            // width: 317px;
+            background-color: #91414F;
+            border: 5px solid #C57686;
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+            // margin-left: 15px;
+            // padding-left: 15px;
+        }
+        > .modal{
+            @include make-xs-column(12);
+            > .modal-dialog{
+                margin-top: 15%;
+                > .modal-content{
+                    font-size: 15px;
+                    text-align: center;
+                    border-color: #91414F;
+                    background-color: #D7CEC7;
+                    color: black;
+                    >h3{
+                        text-align: center;
+                    }
+                    .ad{
+                        border: none;
+                        text-align: left;
+                        margin-right: 10px;
+                    }
+
+                    .addCombo{
+                        border-color: #91414F;
+                        background-color: #C57686;
+                        color: white;
+                    }
+                    .addCombo:hover{
+                        border-color: #91414F;
+                        background-color: #C57686;
+                        color: #91414F;
+                    }
+                }
+            }
+        }
+        > .produto {
+            @include make-xs-column(12);
+            display: inline-block;
+            padding-top: 7px;
+            // margin-left: 15px;
+            padding-right: 15px;
+            // width: 317px;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            padding-right: 0px;
+            border: 1px solid #91414F;
+            border-left: 0px;
+            border-right: 0px;
+            border-top: 0px;
+
+            > .imagem {
+                @include make-xs-column(12);
+                padding-left: 0px;
+                margin-bottom: 10px;
+                > .titulo {
+                    font-size: 14px;
+                    text-align: center;
+                    padding-bottom: 8px;
+                }
+                > img {
+                    @include img-responsive();
+                    border: 1px solid #91414F;
+                    border-top: 0px;
+                    border-left: 0px;
+                    border-bottom: 0px;
+                    padding-left: 0px;
+                    padding-right: 0px;
+                }
+            }
+            > .descricao {
+                @include make-xs-column(12);
+                padding-left: 0px;
+                padding-right: 0px;
+                > .titulo {
+                    font-size: 14px;
+                    text-align: center;
+                    padding-bottom: 8px;
+                }
+                > .texto {
+                    text-align: center;
+                }
+                #addCarrinho{
+                    // font-size: 10px;
+                    background-color: #C57686;
+                    border: 1px solid #91414F;
+                    color:#fff;
+                    margin-top: 2%;
+                    margin-bottom: 10px;
+                    width: 167px;
+                }
+                #addCombo{
+                    width: 167px;
+                    // font-size: 10px;
+                    background-color: #C57686;
+                    border: 1px solid #91414F;
+                    color:#fff;
+                }
+                #addCarrinho:hover {
+                    color: #91414F;
+                }
+                #addCombo:hover {
+                    color: #91414F;
+                }
+                > .preco{
+                    // @include make-xs-column(12);
+                    text-align: center !important;
+                    margin-bottom:10px;
+                }
+                > button{
+                    margin-left: 25%;
+                }
+                > .compartilhar {
+                    float: right;
+                    background: none;
+                    border: none;
+                    > img {
+                        float: right;
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+                > button:hover{
+                    background-color: #C57686;
+                    color: white;
+                }
+            }   
+        }
+        > .paginacao {
+            @include make-xs-column(12);
+            text-align: right;
+            padding-right: 30px;
+            > nav {
+                > ul {
+                    > li {
+                        > a {
+                            text-align: center;
+                            font-family: $font_main_bold;
+                            background-color: #C57686;
+                            border: 2px solid #C57686;
+                            padding-left: 0px;
+                            padding-top: 0px;
+                            padding-right: 6px;
+                            margin-bottom: 5px;
+                            border-top-width: 0px;
+                            border-bottom-width: 0px;
+                            padding-bottom: 1px;
+                            border-right-width: 2px;
+                            width: 22px;
+                            height: 21px;
+                            color: #FFFFFF;
+                        }
+                    }
+                    > li:first-child, li:last-child {
+                        >a{
+                            border-radius: 0px;
+                            padding-left: 0px;
+                            padding-top: 0px;
+                            padding-right: 6px;
+                            border-top-width: 0px;
+                            border-bottom-width: 0px;
+                            padding-bottom: 1px;
+                            border-right-width: 2px;
+                            width: 25px;
+                            height: 21px;
+                        }
+                    }
+                    > li:first-child {
+                        >a{
+                            padding-right: 8px;
+                        }
+                    }
+                    > li.active {
+
+                        > a {
+                            background-color: #91414F;
+                            border-color:  #91414F;
+                            width: 20px;
+                            padding-left: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,310 @@
+@import "../vendors/bootstrap/bootstrap/variables";
+@import "../vendors/bootstrap/bootstrap/mixins";
+
+@import "../variables";
+
+//Especifico do eventos
+@font-face {
+    font-family: "Century Gothic Regular";
+    src: url("../../fonts/gothic.ttf");
+}
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../fonts/gothicb.ttf");
+}
+
+body {
+    > div.wickedpicker {
+        > p {
+            display: none;
+        }
+        width: 130px;
+        height: 90px;
+    }
+}
+
+body{
+    font-family: $font_main;
+    input::-webkit-input-placeholder,
+    textarea::-webkit-input-placeholder {
+      color: #000000;
+    }
+    input:-moz-placeholder,
+    textarea:-moz-placeholder {
+      color: #000000;
+    }
+    input::-moz-placeholder,
+    textarea::-moz-placeholder {
+      color: #000000;
+    }
+    input:-ms-input-placeholder,
+    textarea:-ms-input-placeholder {
+      color: #000000;
+    }
+    > .solicitar-evento {
+        padding-top: 25px;
+        padding-bottom: 5px;
+        > .solicitacao {
+            @include make-sm-column(12);
+            height: 320px;
+            margin-bottom: 15px;
+            > div:nth-child(1){
+                height: 50px;
+                border: 1px solid #000000;
+                border-left: 0px;
+                border-right: 0px;
+                > h2 {
+                    font-family: $font_main_bold;
+                    font-size: 17px;
+                    text-align: center;
+                    margin-top: 15px;
+                    margin-bottom: 15px;
+                }
+            }
+            > div:nth-child(2) {
+                > form {
+                    > div:nth-child(1){
+                        @include make-sm-column(12);
+                        padding-left: 0px;
+                        padding-right: 0px;
+                        height: 30px;
+                        margin-top: 4px;
+                        > div:nth-child(1) {
+                            @include make-sm-column(7);
+                            padding-left: 0px;
+                            > input {
+                                height: 36px;
+                                width: 100%;
+                                border: 1px solid #000000;
+                                text-indent: 10px;
+                                outline: none;
+                            }
+                        }
+                        > div:nth-child(2) {
+                            @include make-sm-column(5);
+                            padding-right: 0px;
+                            > input {
+                                height: 36px;
+                                width: 100%;
+                                border: 1px solid #000000;
+                                text-indent: 10px;
+                                outline: none;
+                            }
+                        }
+                    } 
+                    > div:nth-child(2){
+                        @include make-sm-column(12);
+                        padding-left: 0px;
+                        padding-right: 0px;
+                        height: 30px;
+                        margin-top: 4px;
+                        > div:nth-child(1){
+                            @include make-sm-column(7);
+                            padding-left: 0px;
+                            margin-top: 5px;
+                            > div:nth-child(1){
+                                > input {
+                                    height: 36px;
+                                    width: 100%;
+                                    border: 1px solid #000000;
+                                    text-indent: 10px;
+                                    outline: none;
+                                }
+                            }
+                            > div:nth-child(2){
+                                margin-top: 3px;
+                                > input {
+                                    height: 36px;
+                                    width: 100%;
+                                    border: 1px solid #000000;
+                                    text-indent: 5px;
+                                    outline: none;
+                                }
+                            }
+                        }
+                        > div:nth-child(2){
+                            @include make-sm-column(5);
+                            padding-right: 0px;
+                            margin-top: 5px;
+                            > div:nth-child(1){
+                                height: 36px;
+                                width: 100%;
+                                border: 1px solid #000000;
+                                > div{
+                                    @include make-sm-column(6);
+                                    margin-top: 4px;
+                                    padding-top: 3px;
+                                    padding-left: 12px;
+                                }
+                                > input {
+                                    @include make-sm-column(6);
+                                    text-indent: 10px;
+                                    width: 65px;
+                                    padding-left: 0px;
+                                    border: none;
+                                    margin-top: 4px;
+                                    padding-top: 3px;
+                                    padding-bottom: 2px;
+                                    padding-right: 12px;
+                                    text-align: right;
+                                    outline: none;
+                                }
+                            }
+                            > div:nth-child(2){
+                                height: 36px;
+                                width: 100%;
+                                border: 1px solid #000000;
+                                margin-top: 3px;
+                                > div{
+                                    @include make-sm-column(6);
+                                    margin-top: 4px;
+                                    padding-top: 3px;
+                                    padding-left: 12px;
+                                }
+                                > input {
+                                    @include make-sm-column(6);
+                                    text-indent: 10px;
+                                    width: 65px;
+                                    padding-left: 0px;
+                                    border: none;
+                                    margin-top: 4px;
+                                    padding-top: 3px;
+                                    padding-bottom: 2px;
+                                    padding-right: 12px;
+                                    text-align: right;
+                                    outline: none;
+                                }
+                            }
+                        }
+                    }
+                    > div:nth-child(3){
+                        @include make-sm-column(12);
+                        padding-left: 0px;
+                        padding-right: 0px;
+                        height: 149px;
+                        margin-top: 53px;
+                        border: 1px solid #000000;
+                        border-left: 0px;
+                        border-right: 0px;
+                        border-top: 0px;
+                        > div:nth-child(1){
+                            @include make-sm-column(7);
+                            padding-left: 0px;
+                            > textarea {
+                                width: 100%;
+                                height: 145px;
+                                border: 1px solid #000000;
+                                text-indent: 10px;
+                                resize: none;
+                                outline: none;
+                            }
+                        }
+
+                        > div:nth-child(2){
+                            @include make-sm-column(5);
+                            padding-right: 0px;
+                            > div {
+                                height: 36px;
+                                width: 100%;
+                                border: 1px solid #000000;
+                                > div {
+                                    @include make-sm-column(6);
+                                    width: 70% !important;
+                                    margin-top: 4px;
+                                    padding-top: 3px;
+                                    padding-left: 10px;
+                                }
+                                > input{
+                                    @include make-sm-column(6);
+                                    text-indent: 10px;
+                                    padding-left: 0px;
+                                    border: none;
+                                    margin-top: 4px;
+                                    padding-top: 3px;
+                                    padding-bottom: 2px;
+                                    padding-right: 8px;
+                                    text-align: right;
+                                    width: 30% !important;
+                                    outline: none;
+                                }
+                            }
+                            > img {
+                                @include img-responsive();
+                                @include center-block();
+                                padding: 10px 0px;
+                                max-width: 74%; 
+                            }
+                            > button {
+                                width: 100%;
+                                height: 34px;
+                                border: none;
+                                background-color: #be392a;
+                                color: #FFFFFF;
+                                font-family: $font_main_bold;
+                                font-size: 15px;
+                                text-align: center;
+                                margin-top: 75px;
+                            }
+                        }
+                    }
+                }
+            } 
+        }
+        > .imagem{
+            @include make-sm-column(12);
+            > img {
+                @include img-responsive();
+                @include center-block();
+
+            }
+        }
+    }
+    > .eventos {
+        padding-bottom: 20px;
+        > .evento {
+            @include make-sm-column(4);
+            padding-bottom: 5px;
+            padding-top: 5px;
+            > .imagem {
+                position: relative;
+                top: 13px;
+                > img {
+                    @include img-responsive();
+                    @include center-block();
+                }
+            }
+            > .info {
+                background-color: #be392a;
+                border-top-left-radius: 15px;
+                height: 95px;
+                position: relative;
+                > .data {
+                    @include make-sm-column(12);
+                    font-weight: bold;
+                    text-align: right;
+                    font-size: 13px;
+                    color: #FFFFFF;
+                    padding-top: 10px;
+                    padding-right: 5px;
+                    padding-bottom: 15px;
+                }
+                > .titulo {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 13px;
+                    color: #FFFFFF;
+                }
+            }
+            > img {
+                @include img-responsive();
+                @include center-block();
+                max-width: 70px;
+                position: absolute;
+                bottom: 65px;
+                width: 70px;
+                left: 28px;
+                z-index: 25; 
+            }
+        }
+    }
+}

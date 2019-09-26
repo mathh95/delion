@@ -1,0 +1,104 @@
+@import "../vendors/bootstrap/bootstrap/variables";
+@import "../vendors/bootstrap/bootstrap/mixins";
+
+@import "../variables";
+
+//Especifico do eventos
+@font-face {
+    font-family: "Century Gothic Regular";
+    src: url("../../fonts/gothic.ttf");
+}
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../fonts/gothicb.ttf");
+}
+
+body {
+    > div.wickedpicker {
+        > p {
+            display: none;
+        }
+        width: 130px;
+        height: 90px;
+    }
+}
+
+body{
+    font-family: $font_main;
+    input::-webkit-input-placeholder,
+    textarea::-webkit-input-placeholder {
+      color: #000000;
+    }
+    input:-moz-placeholder,
+    textarea:-moz-placeholder {
+      color: #000000;
+    }
+    input::-moz-placeholder,
+    textarea::-moz-placeholder {
+      color: #000000;
+    }
+    input:-ms-input-placeholder,
+    textarea:-ms-input-placeholder {
+      color: #000000;
+    }
+    > .solicitar-evento {
+        padding-top: 25px;
+        padding-bottom: 5px;
+        > .imagem{
+            @include make-xs-column(12);
+            > img {
+                @include img-responsive();
+                @include center-block();
+
+            }
+        }
+    }
+    > .eventos {
+        padding-bottom: 20px;
+        > .evento {
+            @include make-xs-column(12);
+            padding-bottom: 5px;
+            padding-top: 5px;
+            > .imagem {
+                position: relative;
+                top: 13px;
+                > img {
+                    @include img-responsive();
+                    @include center-block();
+                }
+            }
+            > .info {
+                background-color: #be392a;
+                border-top-left-radius: 15px;
+                height: 95px;
+                position: relative;
+                > .data {
+                    @include make-xs-column(12);
+                    font-weight: bold;
+                    text-align: right;
+                    font-size: 13px;
+                    color: #FFFFFF;
+                    padding-top: 10px;
+                    padding-right: 5px;
+                    padding-bottom: 15px;
+                }
+                > .titulo {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 13px;
+                    color: #FFFFFF;
+                }
+            }
+            > img {
+                @include img-responsive();
+                @include center-block();
+                max-width: 70px;
+                position: absolute;
+                bottom: 65px;
+                width: 70px;
+                left: 28px;
+                z-index: 25; 
+            }
+        }
+    }
+}

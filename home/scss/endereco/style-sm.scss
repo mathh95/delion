@@ -1,0 +1,158 @@
+@import "../vendors/bootstrap/bootstrap/variables";
+@import "../vendors/bootstrap/bootstrap/mixins";
+
+@import "../variables";
+
+//Especifico do endereco
+@font-face {
+    font-family: "Century Gothic Regular";
+    src: url("../../fonts/gothic.ttf");
+}
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../fonts/gothicb.ttf");
+}
+
+body{
+    font-family: $font_main;
+    > .endereco{
+        > .lista{
+            @include make-sm-column-offset(1);
+            @include make-sm-column(10);
+            > p{
+                text-align:center;
+                font-family: $font_main_bold;
+                font-size: 22px;
+                padding-left: 0px;
+                padding-right: 0px;
+                height: 60px;
+                margin-top: 15px;
+                margin-bottom: 10px;
+            }
+            > .item{
+                padding-right:0px;
+                height: 120px;
+                margin: 15px;
+                border-width: 3px;
+                border-color: #C57686;
+                border-style: solid;
+                border-radius:10px;
+                font-family: $font_main_bold;
+                p{
+                    font-family: $font_main;
+                    font-size: 15px;
+                }
+                label{
+                    margin:10px;
+                    margin-right:5px !important;
+                    
+                }
+            }
+        }
+        > .opcoes{
+            @include make-sm-column-offset(1);
+            @include make-sm-column(10);
+            padding-bottom:50px;
+            > div{
+                > p{
+                    text-align:center;
+                    font-family: $font_main_bold;
+                    font-size: 22px;
+                }
+                padding-left: 0px;
+                padding-right: 0px;
+                height: 60px;
+                margin-top: 15px;
+                margin-bottom: 10px;
+                >a{
+                    > button{
+                    width: 100%;
+                    height: 34px;
+                    border: none;
+                    background-color: #C57686;
+                    color: #FFFFFF;
+                    font-family: $font_main_bold;
+                    font-size: 15px;
+                    text-align: center;
+                    }
+                }
+                > button {
+                    width: 100%;
+                    height: 34px;
+                    border: none;
+                    background-color: #C57686;
+                    color: #FFFFFF;
+                    font-family: $font_main_bold;
+                    font-size: 15px;
+                    text-align: center;
+                }
+                
+            }
+            > form {
+                > p{
+                    text-align:center;
+                    font-family: $font_main_bold;
+                    font-size: 22px;
+                    padding-left: 0px;
+                    padding-right: 0px;
+                    height: 60px;
+                    margin-top: 15px;
+                    margin-bottom: 10px;
+                }
+                > div {
+                    padding-left: 0px;
+                    padding-right: 0px;
+                    height: 60px;
+                    margin-top: 15px;
+                    margin-bottom: 15px;
+                    > input {
+                        height: 36px;
+                        width: 100%;
+                        border: 2px solid #91414F;
+                        text-indent: 10px;
+                        outline: none;
+                    }
+                    > div{
+                        display: inline-block;
+                        width:32.8%;
+                        > .inputs-pequenos{
+                            height: 36px;
+                            width: 100%;
+                            border: 2px solid #91414F;
+                            text-indent: 10px;
+                            outline: none;
+                        }
+                    }
+
+                    > .cadastro-form{
+                        display: inline-block;
+                        width:49.6%;
+                        > .inputs-pequenos{
+                            height: 36px;
+                            width: 100%;
+                            border: 2px solid #91414F;
+                            text-indent: 10px;
+                            outline: none;
+                        }
+                    }
+                }
+                > div:nth-child(1){
+                    margin-top: 0px;
+                }
+                > button {
+                    width: 171px;
+                    height: 34px;
+                    border: none;
+                    background-color: #C57686;
+                    color: #FFFFFF;
+                    font-family: $font_main_bold;
+                    font-size: 15px;
+                    text-align: center;
+                    float: right;
+                    margin-bottom:20px;
+                }
+            }
+            
+        }
+    }
+}
