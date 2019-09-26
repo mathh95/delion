@@ -20,18 +20,21 @@ class controlerCarrinho{
 
     public function setPedido($endereco){
 
-        $idCliente = $_SESSION['cod_cliente'];
-        $valor = $_SESSION['totalCarrinho'];
-        $formaPgt = $_SESSION['formaPagamento'];
-        $codigocupom = $_SESSION['codigocupom'];
-        $codcupom = $_SESSION['codcupom'];
-        $origem = "Site";
+        
+
+        
 
         // echo "<pre>";
         // print_r($_SESSION);
         // echo "</pre>";
         // exit;
         if(isset($codigocupom) && !empty($codigocupom) && isset($codcupom) && !empty($codcupom)){
+            $idCliente = $_SESSION['cod_cliente'];
+            $valor = $_SESSION['totalCarrinho'];
+            $formaPgt = $_SESSION['formaPagamento'];
+            $codigocupom = $_SESSION['codigocupom'];
+            $codcupom = $_SESSION['codcupom'];
+
             $cod_cliente=$idCliente;
             $cod_cupom=$codcupom;
             $sql=$this->pdo->prepare("INSERT INTO cupom_cliente SET cod_cliente = :cod_cliente, cod_cupom = :cod_cupom, uso = NOW()");
@@ -44,7 +47,7 @@ class controlerCarrinho{
             $sql->bindValue(":parametro",$parametro);
             $sql->execute();
 
-            
+            $origem = "Site";
             $status = 1;
             if ($endereco == null){
                 $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem");
@@ -79,8 +82,13 @@ class controlerCarrinho{
             $_SESSION['carrinho'] = array();
             $_SESSION['qtd'] = array();
             $_SESSION['totalCarrinho'] = array();
-            
+
         }else {
+
+            $idCliente = $_SESSION['cod_cliente'];
+            $valor = $_SESSION['totalCarrinho'];
+            $formaPgt = $_SESSION['formaPagamento'];
+            $origem = "Site";
             $status = 1;
             if ($endereco == null){
                 $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem");
