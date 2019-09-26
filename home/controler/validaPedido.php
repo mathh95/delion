@@ -53,7 +53,11 @@ if (isset($_SESSION['pedidoBalcao'])) {
 /**
  * VERIFICA SE FOI UTILIZADO ALGUM CUPOM
  **/
-
+// if(isset($_SESSION['codigocupom']) && !empty($_SESSION['codigocupom'])){
+//     $checkcupom =1;
+// }else {
+//     $checkocupom=-1;
+// }
 /**
  * VERIFICA SE CASO
  * - PEDIDO FOR DELIVERY, NÃO POSSUI PEDIDOS

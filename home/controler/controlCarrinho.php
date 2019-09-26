@@ -6,6 +6,8 @@ include_once MODELPATH."/cardapio.php";
 include_once MODELPATH."/pedido.php";
 include_once MODELPATH."/item.php";
 include_once CONTROLLERPATH. "/controlCupom.php";
+include_once CONTROLLERPATH. "/controlCupom_cliente.php";
+
 
 class controlerCarrinho{
 
@@ -21,47 +23,99 @@ class controlerCarrinho{
         $idCliente = $_SESSION['cod_cliente'];
         $valor = $_SESSION['totalCarrinho'];
         $formaPgt = $_SESSION['formaPagamento'];
+        $codigocupom = $_SESSION['codigocupom'];
+        $codcupom = $_SESSION['codcupom'];
         $origem = "Site";
 
         // echo "<pre>";
         // print_r($_SESSION);
         // echo "</pre>";
         // exit;
+        if(isset($codigocupom) && !empty($codigocupom) && isset($codcupom) && !empty($codcupom)){
+            $cod_cliente=$idCliente;
+            $cod_cupom=$codcupom;
+            $sql=$this->pdo->prepare("INSERT INTO cupom_cliente SET cod_cliente = :cod_cliente, cod_cupom = :cod_cupom, uso = NOW()");
+            $sql->bindValue(":cod_cliente",$cod_cliente);
+            $sql->bindValue(":cod_cupom",$cod_cupom);
+            $sql->execute();
 
-        $status = 1;
-        if ($endereco == null){
-            $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem");
-        }else{
-            $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem, endereco = :endereco");
-            $sql->bindValue(":endereco", $endereco);
-        }
+            $parametro = $codigocupom;
+            $sql=$this->pdo->prepare("UPDATE cupom SET qtde_atual = qtde_atual - 1 WHERE codigo=:parametro");
+            $sql->bindValue(":parametro",$parametro);
+            $sql->execute();
 
-        $sql->bindValue(":idCliente", $idCliente);
-        // $sql->bindValue(":data", $data);
-        $sql->bindValue(":valor", $valor);
-        $sql->bindValue(":formaPgt",$formaPgt);
-        $sql->bindValue(":status", $status);
-        $sql->bindValue(":origem", $origem);
+            
+            $status = 1;
+            if ($endereco == null){
+                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem");
+            }else{
+                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem, endereco = :endereco");
+                $sql->bindValue(":endereco", $endereco);
+            }
 
-        $sql->execute();
-
-        $idPedido = $this->pdo->lastInsertId();
-
-        foreach($_SESSION['carrinho'] as $key => $value){
-            $sql = $this->pdo->prepare("INSERT INTO item_pedido SET cod_produto = :cod_produto, cod_pedido = :cod_pedido, quantidade = :quantidade");
-
-            $sql->bindValue(":cod_produto", $_SESSION['carrinho'][$key]);
-            $sql->bindValue(":cod_pedido", $idPedido);
-            $sql->bindValue(":quantidade", $_SESSION['qtd'][$key]);
+            $sql->bindValue(":idCliente", $idCliente);
+            // $sql->bindValue(":data", $data);
+            $sql->bindValue(":valor", $valor);
+            $sql->bindValue(":formaPgt",$formaPgt);
+            $sql->bindValue(":status", $status);
+            $sql->bindValue(":origem", $origem);
 
             $sql->execute();
+
+            $idPedido = $this->pdo->lastInsertId();
+
+            foreach($_SESSION['carrinho'] as $key => $value){
+                $sql = $this->pdo->prepare("INSERT INTO item_pedido SET cod_produto = :cod_produto, cod_pedido = :cod_pedido, quantidade = :quantidade");
+
+                $sql->bindValue(":cod_produto", $_SESSION['carrinho'][$key]);
+                $sql->bindValue(":cod_pedido", $idPedido);
+                $sql->bindValue(":quantidade", $_SESSION['qtd'][$key]);
+
+                $sql->execute();
+            }
+
+            
+
+            $_SESSION['carrinho'] = array();
+            $_SESSION['qtd'] = array();
+            $_SESSION['totalCarrinho'] = array();
+            
+        }else {
+            $status = 1;
+            if ($endereco == null){
+                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem");
+            }else{
+                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem, endereco = :endereco");
+                $sql->bindValue(":endereco", $endereco);
+            }
+    
+            $sql->bindValue(":idCliente", $idCliente);
+            // $sql->bindValue(":data", $data);
+            $sql->bindValue(":valor", $valor);
+            $sql->bindValue(":formaPgt",$formaPgt);
+            $sql->bindValue(":status", $status);
+            $sql->bindValue(":origem", $origem);
+    
+            $sql->execute();
+    
+            $idPedido = $this->pdo->lastInsertId();
+    
+            foreach($_SESSION['carrinho'] as $key => $value){
+                $sql = $this->pdo->prepare("INSERT INTO item_pedido SET cod_produto = :cod_produto, cod_pedido = :cod_pedido, quantidade = :quantidade");
+    
+                $sql->bindValue(":cod_produto", $_SESSION['carrinho'][$key]);
+                $sql->bindValue(":cod_pedido", $idPedido);
+                $sql->bindValue(":quantidade", $_SESSION['qtd'][$key]);
+    
+                $sql->execute();
+            }
+    
+            
+    
+            $_SESSION['carrinho'] = array();
+            $_SESSION['qtd'] = array();
+            $_SESSION['totalCarrinho'] = array();
         }
-
-        
-
-        $_SESSION['carrinho'] = array();
-        $_SESSION['qtd'] = array();
-        $_SESSION['totalCarrinho'] = array();
     }
 
     function selectPedido($cod_cliente){

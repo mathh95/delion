@@ -195,7 +195,7 @@ if(count($itensSessao) > 0){
                 <div>
                     <strong><p>Adicionar Cupom</p></strong> 
                     <input type='text' name='cupom'>
-                    <a class='botaoAdicionarCupom' href='#'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>
+                    <a class='botaoVerificarCupom' href='#'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>
                                     
                 </div> 
             </div>
@@ -236,7 +236,7 @@ if(count($itensSessao) > 0){
                 <div>
                     <strong><p>Adicionar Cupom</p></strong> 
                     <input type='text' name='cupom'>
-                    <a class='botaoAdicionarCupom' href='#'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>
+                    <a class='botaoVerificarCupom' href='#'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>
                                     
                 </div>
             </div>

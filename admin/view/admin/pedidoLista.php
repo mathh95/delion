@@ -126,6 +126,19 @@
                 );
             }
 
+            //Reload Page 
+            function doRefresh(){
+                $("#tabela-pedido").load("../../ajax/pedido-tabela.php");
+            }
+
+            //Carrega a lista apenas se a modal de impressão nao estiver aberta
+            window.setInterval(function(){
+                var verifica = $('body').hasClass('modal-open'); //Verifica se a modal está aberta
+                if(verifica == false){ 
+                    doRefresh();
+                }
+            }, 5000);
+                
             //Responsável por mostrar os itens em cima do botão detalhes
             function myFunction(int) {
                 var popup = document.getElementById('myPopup'+int);
