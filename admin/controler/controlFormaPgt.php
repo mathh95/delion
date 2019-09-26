@@ -105,7 +105,33 @@
 
         function delete($parametro){
             try{
-                $stmt = $this->pdo->prepare("DELETE FROM formapgt WHERE cod_formaPgt = :parametro");
+                $stmt = $this->pdo->prepare("UPDATE formapgt SET flag_ativo = 0 WHERE cod_formaPgt = :parametro");
+                $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
+        function desativaFormaPgt($parametro){
+            try{
+                $stmt = $this->pdo->prepare("UPDATE formapgt SET flag_ativo = 0 WHERE cod_formaPgt = :parametro");
+                $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
+        function ativaFormaPgt($parametro){
+            try{
+                $stmt = $this->pdo->prepare("UPDATE formapgt SET flag_ativo = 1 WHERE cod_formaPgt = :parametro");
                 $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;

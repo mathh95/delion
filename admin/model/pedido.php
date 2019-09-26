@@ -16,6 +16,8 @@
 
             private $formaPgt;
 
+            private $origem;
+
             function getCod_pedido(){
                 return $this->cod_pedido;
             }
@@ -38,6 +40,10 @@
 
             function getFormaPgt(){
                 return $this->formaPgt;
+            }
+
+            function getOrigem(){
+                return $this->origem;
             }
 
             function setCod_pedido($cod_pedido){
@@ -64,17 +70,22 @@
                 $this->formaPgt=$formaPgt;
             }
 
+            function setOrigem($origem){
+                $this->origem=$origem;
+            }
+
             function __construct(){
 
             }
 
-            function construct($cod_pedido,$cliente,$data,$valor,$status,$formaPgt){
+            function construct($cod_pedido,$cliente,$data,$valor,$status,$formaPgt,$origem){
                 $this->cod_pedido=$cod_pedido;
                 $this->cliente=$cliente;
                 $this->data=$data;
                 $this->valor=$valor;
                 $this->status=$status;
                 $this->formaPgt=$formaPgt;
+                $this->origem=$origem;
             }
 
             function show(){
@@ -84,6 +95,7 @@
                 echo "Valor: ".$this->valor."<br>";
                 echo "Status: ".$this->status."<br>";
                 echo "FormaPgt: ".$this->status."<br>";
+                echo "Origem: ".$this->origem."<br>";
             }
         }
 ?>
