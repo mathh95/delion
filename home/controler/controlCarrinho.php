@@ -20,15 +20,11 @@ class controlerCarrinho{
 
     public function setPedido($endereco){
 
-        
-
-        
-
         // echo "<pre>";
         // print_r($_SESSION);
         // echo "</pre>";
         // exit;
-        if(isset($codigocupom) && !empty($codigocupom) && isset($codcupom) && !empty($codcupom)){
+        if(isset($_SESSION['codigocupom']) && !empty($_SESSION['codigocupom']) && isset($_SESSION['codcupom']) && !empty($_SESSION['codcupom'])){
             $idCliente = $_SESSION['cod_cliente'];
             $valor = $_SESSION['totalCarrinho'];
             $formaPgt = $_SESSION['formaPagamento'];
