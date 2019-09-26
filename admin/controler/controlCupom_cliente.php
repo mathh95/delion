@@ -70,7 +70,7 @@ function selectDataUso($parametro){
         
         $cod_cliente=$parametro;
         $stmt=$this->pdo->prepare("SELECT * FROM cupom_cliente 
-        WHERE cod_cliente =:parametro AND DATE(ultimo_uso) = CURDATE()");
+        WHERE cod_cliente=:parametro AND DATE(ultimo_uso) = CURDATE()");
         $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
        
         $executa=$stmt->execute();
@@ -79,6 +79,8 @@ function selectDataUso($parametro){
                 while($result=$stmt->fetch(PDO::FETCH_OBJ)){
                     $cupom_cliente1 = new cupom_cliente();
                         $cupom_cliente1->setCod_cliente($result->cod_cliente);
+                        $cupom_cliente1->setCod_cupom($result->cod_cupom);
+                        $cupom_cliente1->setUltimo_uso($result->ultimo_uso);
             }
             return $cupom_cliente1;
             }else{
