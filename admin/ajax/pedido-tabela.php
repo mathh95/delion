@@ -55,8 +55,8 @@ if(in_array('pedido', $permissao)){
 			<th width='10%' style='text-align: center;'>Hora Pedido</th>
 			<th width='8%' style='text-align: center;'>Nome Cliente</th>
 			<th width='5%' style='text-align: center;'>Valor Total</th>
-			<th width='15%' style='text-align: center;'>Local Entrega</th>
 			<th width='8%' style='text-align: center;'>Origem do Pedido</th>
+			<th width='15%' style='text-align: center;'>Local Entrega</th>
         </tr>
 	<tbody>";
 	//Pedido com status = 1, não foi impresso nem saiu para entrega
@@ -72,7 +72,8 @@ if(in_array('pedido', $permissao)){
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->getData()->format('H:i')."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getCliente()."</td>
-				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>";
+				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+				<td style='text-align: center;' name='numero'>".$pedido->getOrigem()."</td>";
 
 				if($pedido->rua == NULL){
 					echo "<td style='text-align: center;' name='rua'>Balcão</td>";
@@ -80,8 +81,7 @@ if(in_array('pedido', $permissao)){
 					echo "<td style='text-align: center;' name='rua'>".$pedido->rua." - ".$pedido->numero."</td>";
 				}
 				
-				echo "<td style='text-align: center;' name='numero'>".$pedido->getOrigem()."</td>
-				<div id='buttonbar'>
+				echo "<div id='buttonbar'>
 					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-primary' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido()."' data-id='".$pedido->getCod_pedido()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
 
 				if($pedido->rua == NULL){	
@@ -130,7 +130,8 @@ if(in_array('pedido', $permissao)){
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->getData()->format('H:i')."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getCliente()."</td>
-				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>";
+				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+				<td style='text-align: center;' name='numero'>".$pedido->getOrigem()."</td>";
 				
 				if($pedido->rua == NULL){
 					echo "<td style='text-align: center;' name='rua'>Balcão</td>";
@@ -138,8 +139,7 @@ if(in_array('pedido', $permissao)){
 					echo "<td style='text-align: center;' name='rua'>".$pedido->rua." - ".$pedido->numero."</td>";
 				}
 
-				echo "<td style='text-align: center;' name='numero'>".$pedido->getOrigem()."</td>
-				<div id='buttonbar'>
+				echo "<div id='buttonbar'>
 					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-warning' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido()."' data-id='".$pedido->getCod_pedido()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
 
 					if($pedido->rua == NULL){	
@@ -188,7 +188,8 @@ if(in_array('pedido', $permissao)){
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->getData()->format('H:i')."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getCliente()."</td>
-				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>";
+				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+				<td style='text-align: center;' name='numero'>".$pedido->getOrigem()."</td>";
 
 				if($pedido->rua == NULL){
 					echo "<td style='text-align: center;' name='rua'>Balcão</td>";
@@ -196,8 +197,7 @@ if(in_array('pedido', $permissao)){
 					echo "<td style='text-align: center;' name='rua'>".$pedido->rua." - ".$pedido->numero."</td>";
 				}
 
-				echo "<td style='text-align: center;' name='numero'>".$pedido->getOrigem()."</td>
-				<div id='buttonbar'>
+				echo "<div id='buttonbar'>
 					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button onclick=\"erroDelivery(3,".$pedido->getStatus().")\" class='btn btn-danger' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido()."' data-id='".$pedido->getCod_pedido()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
 
 					if($pedido->rua == NULL){	
@@ -265,8 +265,9 @@ foreach ($pedidos as &$pedido) {
 	$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
 	$itens = $controle->selectItens($pedido->getCod_pedido());
 	$formaPgt = $controlFormaPgt->selectId($pedido->getFormaPgt());
+	$formaPgtVerify = $controlFormaPgt->selectId($pedido->getFormaPgt());
 
-	// var_dump($pedido->getFormaPgt());
+	//  var_dump($formaPgt->getCod_formaPgt());
 
 	$formaPgtDin = "Dinheiro";	//quando o cod da forma de pagamento for igual a zero
 
@@ -294,7 +295,7 @@ foreach ($pedidos as &$pedido) {
 							<br><label for=\"recipient-name\" class=\"control-label\">"." Telefone: ".$pedido->telefone."</label>
 							<br><label for=\"recipient-name\" class=\"control-label\">"." Endereço: ".$pedido->rua.", ".$pedido->numero."</label>";
 
-							if($pedido->getFormaPgt() == 0){
+							if($formaPgt->getCod_formaPgt() == NULL){
 							echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Forma Pagamento: ".$formaPgtDin."</label>";
 							}else{
 								echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Forma Pagamento: ".$formaPgt->getTipoFormaPgt()."</label>";

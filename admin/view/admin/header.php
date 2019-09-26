@@ -304,18 +304,6 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($arquivo_pai, 'pedidoL') !== false){
-                                        echo 'active';
-                                    }
-                                ?>
-                            ">
-                            <a href="pedidoLista.php">Pedido</a>
-                        </li>
-
-                       <li class="dropdown
-
-                                <?php
-                                    //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
                                     if(strpos($arquivo_pai, 'combo') !== false){
                                         echo 'active';
                                     }
@@ -356,12 +344,12 @@
                                 ?>
                             ">
                             <!--/.Mudar aqui -->
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos Whatsapp <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="pedidoWpp.php">Novo Pedido</a></li>
-                                <li><a href="pedidoWppLista.php">Listar Pedidos</a></li>
-                                <li><a href="pedidoLista.php">Listar Pedidos Unificado</a></li>
-                                <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li>
+                                <!-- <li><a href="pedidoWpp.php">Novo Pedido Whatsapp</a></li> -->
+                                <!-- <li><a href="pedidoWppLista.php">Listar Pedidos</a></li> -->
+                                <li><a href="pedidoLista.php">Listar Pedidos</a></li>
+                                <!-- <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li> -->
                             </ul>
                        <li class="dropdown
 

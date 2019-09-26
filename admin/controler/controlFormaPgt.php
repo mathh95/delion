@@ -159,7 +159,7 @@
                             array_push($formapgts, $formapgt);
                         }
                     }else{
-                        echo "Sem resultados";
+                        // echo "Sem resultados";
                         return -1;
                     }
                     return $formapgts;
