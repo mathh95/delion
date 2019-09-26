@@ -8,9 +8,9 @@
 
     include_once CONTROLLERPATH . "/seguranca.php";
 
-    include_once CONTROLLERPATH. "/controlFormaPgt.php";
+   include_once CONTROLLERPATH. "/controlFormaPgt.php";
 
-    include_once MODELPATH. "/formaPgt.php";
+    include_once MODELPATH. "/formaPgt.php"; 
 
 $_SESSION['permissaoPagina'] = 0;
 

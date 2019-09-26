@@ -7,7 +7,7 @@
 	if (in_array('pedidoWpp', json_decode($_SESSION['permissao']))) {
 		$cod_formaPgt = $_GET['cod'];
 		$controle=new controlerFormaPgt($_SG['link']);
-		$result=$controle->desativaFormaPgt($cod_formaPgt);
+		$result=$controle->ativaFormaPgt($cod_formaPgt);
 		
 		if($result == 1){
             header("Location: /admin/view/admin/formaPgtLista.php");

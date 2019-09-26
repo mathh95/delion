@@ -25,6 +25,7 @@ class controlerCarrinho{
         $formaPgt = $_SESSION['formaPagamento'];
         $codigocupom = $_SESSION['codigocupom'];
         $codcupom = $_SESSION['codcupom'];
+        $origem = "Site";
 
         // echo "<pre>";
         // print_r($_SESSION);
@@ -49,9 +50,9 @@ class controlerCarrinho{
 
         $status = 1;
         if ($endereco == null){
-            $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status");
+            $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem");
         }else{
-            $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status, endereco = :endereco");
+            $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem, endereco = :endereco");
             $sql->bindValue(":endereco", $endereco);
         }
 
@@ -60,6 +61,7 @@ class controlerCarrinho{
         $sql->bindValue(":valor", $valor);
         $sql->bindValue(":formaPgt",$formaPgt);
         $sql->bindValue(":status", $status);
+        $sql->bindValue(":origem", $origem);
 
         $sql->execute();
 
@@ -95,7 +97,9 @@ class controlerCarrinho{
                     $pedido->setCod_pedido($result->cod_pedido);
                     $pedido->setData(new DateTime($result->data));
                     $pedido->setValor($result->valor);
+                    $pedido->setFormaPgt($result->formaPgt);
                     $pedido->setStatus($result->status);
+                    $pedido->setOrigem($result->origem);
                     array_push($pedidos,$pedido);  
                 }
             }else{
@@ -138,7 +142,7 @@ class controlerCarrinho{
     function selectAllPedido($parametro, $valormenor, $valormaior){
         $pedidos=array();
         $parametro = "%".$parametro."%";
-        $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor, p.status, p.endereco, p.cliente, c.nome, c.telefone, e.rua, e.numero, e.cep
+        $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor, p.formaPgt,p.status, p.endereco, p.cliente, p.origem, c.nome, c.telefone, e.rua, e.numero, e.cep
         FROM pedido as p
         INNER JOIN
         cliente AS c ON
@@ -146,7 +150,8 @@ class controlerCarrinho{
         LEFT JOIN
         endereco AS e ON
         p.endereco = e.cod_endereco
-        WHERE c.nome like :nome AND p.valor > :menor AND p.valor < :maior");
+        ORDER BY p.cod_pedido DESC");       //Ordenação por cod do pedido
+        // WHERE c.nome like :nome AND p.valor > :menor AND p.valor < :maior");
         $stmt->bindValue(":nome", $parametro);
         $stmt->bindParam(":menor", $valormenor, PDO::PARAM_INT);
         $stmt->bindParam(":maior", $valormaior, PDO::PARAM_INT);
@@ -158,8 +163,10 @@ class controlerCarrinho{
                     $pedido->setCod_pedido($result->cod_pedido);
                     $pedido->setData(new DateTime($result->data));
                     $pedido->setValor($result->valor);
+                    $pedido->setFormaPgt($result->formaPgt);
                     $pedido->setStatus($result->status);
                     $pedido->setCliente($result->nome);
+                    $pedido->setOrigem($result->origem);
                     $pedido->telefone=($result->telefone);
                     $pedido->rua=($result->rua);
                     $pedido->numero=($result->numero);
@@ -181,7 +188,7 @@ class controlerCarrinho{
         $pedidos=array();
         $parametro = "%".$parametro."%";
         $endereco = "%" . $endereco . "%";
-        $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor, p.status, p.endereco, p.cliente, c.nome, c.telefone, e.rua, e.numero, e.cep
+        $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor, p.status, p.endereco, p.cliente, p.origem,c.nome, c.telefone, e.rua, e.numero, e.cep
         FROM pedido as p
         INNER JOIN
         cliente AS c ON
@@ -207,6 +214,7 @@ class controlerCarrinho{
                     $pedido->setValor($result->valor);
                     $pedido->setStatus($result->status);
                     $pedido->setCliente($result->nome);
+                    $pedido->setOrigem($result->origem);
                     $pedido->telefone=($result->telefone);
                     $pedido->rua=($result->rua);
                     $pedido->numero=($result->numero);

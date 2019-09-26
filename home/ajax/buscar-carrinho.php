@@ -98,7 +98,7 @@ if(count($itens) > 0){
             <strong><p>Forma de Pagamento</p></strong>
                 <div class="input-group">
                     <select name="formaPagamento" id="formaPagamento" class="form-control">
-                        <option value="0">Não informado</option>
+                        <option value="0">Dinheiro</option>
                         <?php
                                 foreach($formasPgt as $formaPgt) {
                                     if($formaPgt->getFlag_ativo() == 1){
