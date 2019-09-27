@@ -1,3 +1,7 @@
+<?php
+	session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -18,10 +22,10 @@
 		
 		<div>
 			<div id="locationField" style="display:inline-block;">
-				<input type="text" class="form-control" id="autocomplete" placeholder="Digite seu endereço ou CEP" type="text" size="45"/>
+				<input type="text" class="form-control" id="autocomplete" placeholder="Digite seu endereço ou CEP" type="text" size="45" required/>
 			</div>
 			<div  style="display:inline-block;">
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="continuar">
 					<span>Continuar</span>
 				</div>
 				<div style="display:inline-block;">
@@ -50,47 +54,47 @@
 					<h4 style="text-align:center;" class="modal-title" id="myModalLabel">Falta pouco para você ter em sua casa nossas delícias!<br>Complete seu cadastro para ter acesso ao nosso site.</h4>
 				</div>
 				<div class="modal-body">
-					<form id="address">
+					<form id="address-form" method="POST">
 						<div class="row">
 							<div class="col-sm-3">
 								<label>UF</label>
-								<input type="text" class="form-control" id="administrative_area_level_1" required/>
+								<input type="text" class="form-control" id="administrative_area_level_1" name="administrative_area_level_1" maxlength="2" required/>
 							</div>
 							<div class="col-sm-9">
 								<label>Cidade</label>
-								<input type="text" class="form-control" id="administrative_area_level_2" required/>
+								<input type="text" class="form-control" id="administrative_area_level_2" name="administrative_area_level_2" maxlength="100" required/>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-4">
 								<label>CEP</label>
-								<input type="text" class="form-control" id="postal_code" required/>
+								<input type="text" class="form-control" id="postal_code" name="postal_code" maxlength="9" required/>
 							</div>
 							<div class="col-sm-8">
 								<label>Bairro</label>
-								<input type="text" class="form-control" id="sublocality_level_1" required/>
+								<input type="text" class="form-control" id="sublocality_level_1" name="sublocality_level_1" maxlength="30" required/>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12">
 								<label>Endereço</label>
-								<input type="text" class="form-control" id="route" required/>
+								<input type="text" class="form-control" id="route" name="route" maxlength="30" required/>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-4">
 								<label>Número</label>
-								<input type="text" class="form-control" id="street_number" required/>
+								<input type="text" class="form-control" id="street_number" name="street_number" maxlength="10" required/>
 							</div>
 							<div class="col-sm-8">
 								<label>Complemento</label>
-								<input type="text" class="form-control" id="sublocality_level_1" />
+								<input type="text" class="form-control" id="complemento" name="complemento" maxlength="30"/>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12">
 								<label>Alguma referência para localização?</label>
-								<input type="text" class="form-control" id="complemento" />
+								<input type="text" class="form-control" id="referencia" name="referencia" maxlength="40"/>
 							</div>
 						</div>
 						
@@ -117,14 +121,50 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAS7HedlAWWAMuzXlS8boXxNIC5RJFUH-A&libraries=places&callback=initAutocomplete"
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrg0iCBCR-W5NNqL6IirOTXZ9XcrIH3N0&libraries=places&language=pt-BR&region=BR&callback=initAutocomplete"
 async defer></script>
 
 
 <script>
 
-	$('#myModal').on('shown.bs.modal', function () {
-		$('#street_number').focus();
+	$("#myModal").on("shown.bs.modal", function () {
+		$("#street_number").focus();
+	});
+
+	//redireciona para cardapio
+	$("#entrar").on("click", function(){
+		
+		var data = $("#address-form").serializeArray();
+		
+		//verifica se campos estão preenchidos
+		if(data[0].value == "") return;//uf
+		if(data[1].value == "") return;//cidade		
+		if(data[2].value == "") return;//cep
+		if(data[3].value == "") return;//bairro
+		if(data[4].value == "") return;//endereço
+		if(data[5].value == ""){//numero
+			return;
+		}else{
+
+			$.post({
+				url: "ajax/endereco-index.php",
+				data: data,
+				success: function(result){
+					console.log(result);
+					if(result == "valido"){
+						//redireciona para cardapio
+						window.location = "/home/cardapio.php";
+					}else{
+						//swal("Ops", result , "error");
+						console.log("Ops tente novamente...");
+					}
+				},
+				error: function(err){
+					console.log(err);
+					//swal("Erro :/", "Entre em contato com o suporte." , "error");
+				}
+			});
+		} 
 	});
 
 </script>

@@ -40,7 +40,7 @@ function fillInAddress() {
     // Get each component of the address from the place details,
     // and then fill-in the corresponding field on the form.
     
-    console.log(place.address_components);
+    //console.log(place.address_components);
 
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
