@@ -42,6 +42,7 @@ function verificarCupom(){
         data :{acao: "checar", codigocupom},
         success:function(resultado){
 
+
             if(resultado.valido){
                 swal('Sucesso!', 'Aproveite o desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
                 .then(function(){
@@ -53,6 +54,7 @@ function verificarCupom(){
             }
         },
         error:function(err){
+            console.log(err);
             alert(err);
         }
         
