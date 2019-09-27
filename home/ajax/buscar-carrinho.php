@@ -136,7 +136,7 @@ if(count($itens) > 0){
         </div>
         </div>                    
                     <div class='ladoDireito row'>
-                    <p id='totalSemDesconto'>Subtotal: R$ ".number_format($_SESSION['totalCarrinho'], 2)."</p>
+                    <p id='subTotal'>Subtotal: R$ ".number_format($_SESSION['totalCarrinho'], 2)."</p>
                     <p id='entrega'>Taxa de Entrega: R$ 0.00</p>
                     <p id='desconto'>Desconto: R$ ".number_format($_SESSION['valorcupom'],2)."</p> 
                     <strong><p id='totalDescontado'> Total: R$ ".$_SESSION['totalCorrigido']."</p></strong>
