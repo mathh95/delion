@@ -10,32 +10,56 @@
     <title>Delion Café</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 	
+	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/index/style-xs.css"/>
+
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/index/style-sm.css"/>
+
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/index/style-md.css"/>
+
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/index/style-lg.css"/>
+	
+
+	
 </head>
 
 <body>
 
-	<div></div>
+<div class="container-fluid no-padding">
+	<div class=" imagens-topo">
+			<img class="img-responsive imagem-topo" src="/home/img/topo.png" alt="imagem topo principal">
+			<img class="img-responsive imagem-logo" src="/home/img/Logo.png" alt="logo delion cafe">
+	</div>
+</div>
+	
 
-    <div style="margin: auto; margin-top:300px; width:50%;">
-		
-		<div>
-			<div id="locationField" style="display:inline-block;">
-				<input type="text" class="form-control" id="autocomplete" placeholder="Digite seu endereço ou CEP" type="text" size="45" required/>
+    <div class="form-cep-completo">
+		<div class="tabs">
+			<ul class="nav nav-tabs" >
+				<li class="delivery" >
+					<a href="#">Delivery</a>
+				</li>
+				<li class="retirada">
+					<a href="/../../home/cardapio.php">Retirada na loja</a>
+				</li>
+			</ul>
+		</div>
+		<div class="form-cep-campos">
+			<div class="locationField" style="display:inline-block;">
+				<input type="text" class="form-control input-cep" id="autocomplete" placeholder="Digite seu endereço ou CEP" type="text" size="57">
+					<!-- <i class="fas fa-map-marker-alt"></i> -->
+					<!-- <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> -->
+				</input>
 			</div>
-			<div  style="display:inline-block;">
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="continuar">
-					<span>Continuar</span>
-				</div>
-				<div style="display:inline-block;">
-					<button type="button" class="btn btn-success" onclick="getLocation()">
-						<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-						Me Localizar
+				<div class="buttonField" style="display:inline-block;">
+					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#cepModal" id="localizar">
+						LOCALIZAR
 					</button>
-				</div>
 			</div>
 		</div>
+	</div>
 				
 			
 	<div></div>
@@ -46,7 +70,7 @@
 
 
 	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal fade" id="cepModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">

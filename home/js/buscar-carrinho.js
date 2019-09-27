@@ -78,7 +78,7 @@ $(document).on("click", "#removeItem", function(){
         data: {acao: acao, preco: preco, qtdAtual: qtdAtual, id: id},
 
         success:function(resultado){
-            $("#totalSemDesconto").html(resultado.totalCarrinho);
+            $("#subTotal").html(resultado.totalCarrinho);
             $("#totalDescontado").html(resultado.totalComDesconto);
             
             var tr = $("#idLinha"+linha).fadeOut(100, function(){
@@ -117,7 +117,7 @@ $(document).on("click", "#adicionarUnidade", function(){
 
             
             $("#qtdUnidade"+linha).val(qtdInt+= 1);
-            $("#totalSemDesconto").html("Subtotal: R$ "+totalCarr.toFixed(2));
+            $("#subTotal").html("Subtotal: R$ "+totalCarr.toFixed(2));
             $("#desconto").html("Desconto: R$ "+valorCup.toFixed(2));
             if(totalDesc < 0){
                 $("#totalDescontado").html("Total: R$ 0.00");
@@ -157,7 +157,7 @@ $(document).on("click", "#removerUnidade", function(){
             var totalCarr = res.totalCarrinho;
             var valorCup = parseFloat(res.valorcupom);
             var totalDesc = res.totalComDesconto;
-            $("#totalSemDesconto").html("Subtotal: R$ "+totalCarr.toFixed(2));
+            $("#subTotal").html("Subtotal: R$ "+totalCarr.toFixed(2));
             $("#desconto").html("Desconto: R$ "+valorCup.toFixed(2));
             if(totalDesc < 0){
                 $("#totalDescontado").html("Total: R$ 0.00");
@@ -179,7 +179,7 @@ $(document).on("click", "#removerUnidade", function(){
         data: {acao: acao, preco: preco, id: id},
 
         success:function(resultado){
-            $("#totalSemDesconto").html(resultado.totalCarrinho);
+            $("#subTotal").html(resultado.totalCarrinho);
             $("#totalDescontado").html(resultado.totalComDesconto);
             var tr = $("#idLinha"+linha).fadeOut(100, function(){
                 tr.remove();

@@ -1,0 +1,90 @@
+@import "../vendors/bootstrap/bootstrap/variables";
+@import "../vendors/bootstrap/bootstrap/mixins";
+
+@import "../variables";
+
+//Especifico do index
+body{
+    font-family: $font_main;
+    > .banner-superior {
+        padding-top: 15px;
+        > div {
+            padding-left: 15px;
+            padding-right: 15px;
+            > div {
+                > a {
+                    img {
+                        @include img-responsive();
+                        @include center-block();
+                    }
+                }
+            }
+        }
+    }
+    > div.container.banner-superior.slick-initialized.slick-slider.slick-dotted{
+        margin-bottom: 0px;
+    }
+    > .cardapio-evento-pedido-cartao{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        > div {
+            @include make-md-column(6);
+            > .imagem-cardapio-evento {
+                .slick-prev{
+                    z-index: 10;
+                    margin-left: 10px;
+                }
+                .slick-next {
+                    margin-right: 10px;
+                }
+                a {
+                    > img {
+                        @include img-responsive();
+                        @include center-block();
+                    }
+                }
+            }
+            > .imagem-pedido-cartao {
+                background-color: #FFFFFF;
+                a {
+                    > img {
+                        @include img-responsive();
+                        @include center-block();
+                    }
+                }
+            }
+            a {
+                > div {
+                    font-size: 15px;
+                    background-color: #000000;
+                    color: #ffffff;
+                    > .icone {
+                        height: 29px;
+                        padding-left: 5px;
+                        padding-right: 10px;
+                        padding-bottom: 3px;
+                    }
+                }
+                > .texto {
+                    padding-top: 4px;
+                    height: 34px;
+                }
+            }
+            a:hover {
+                outline: none;
+                text-decoration: none;
+            }
+        }
+    }
+    > .banner-inferior {
+        padding-bottom: 30px;
+        > a {
+            > img {
+                padding-right: 15px;
+                padding-left: 15px;
+                @include img-responsive();
+                @include center-block();
+            }
+        }
+    }
+}
