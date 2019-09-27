@@ -103,6 +103,7 @@ $mail->send();
 $_SESSION['flag_combo'] = "";
 $_SESSION['cod_endereco'] = "";
 $_SESSION['delivery'] = "";
+$_SESSION['valorcupom'] = 0.00;
 
 }catch(Exception $e){
     echo $mail->ErrorInfo;
@@ -180,6 +181,7 @@ echo $html;
     $_SESSION['flag_combo'] = "";
     $_SESSION['cod_endereco'] = "";
     $_SESSION['delivery'] = "";
+    $_SESSION['valorcupom'] = 0.00;
 
     }catch(Exception $e){
         echo $mail->ErrorInfo;

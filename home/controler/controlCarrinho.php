@@ -26,7 +26,7 @@ class controlerCarrinho{
         // exit;
         if(isset($_SESSION['codigocupom']) && !empty($_SESSION['codigocupom']) && isset($_SESSION['codcupom']) && !empty($_SESSION['codcupom'])){
             $idCliente = $_SESSION['cod_cliente'];
-            $valor = $_SESSION['totalCarrinho'];
+            $valor = $_SESSION['totalCorrigido'];
             $formaPgt = $_SESSION['formaPagamento'];
             $codigocupom = $_SESSION['codigocupom'];
             $codcupom = $_SESSION['codcupom'];
@@ -77,15 +77,17 @@ class controlerCarrinho{
 
             $_SESSION['carrinho'] = array();
             $_SESSION['qtd'] = array();
-            $_SESSION['totalCarrinho'] = array();
+            $_SESSION['totalCorrigido'] = array();
 
         }else {
 
             $idCliente = $_SESSION['cod_cliente'];
-            $valor = $_SESSION['totalCarrinho'];
+            $valor = $_SESSION['totalCorrigido'];       //valor com a correção do cupom
             $formaPgt = $_SESSION['formaPagamento'];
             $origem = "Site";
             $status = 1;
+
+
             if ($endereco == null){
                 $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem");
             }else{
@@ -188,7 +190,7 @@ class controlerCarrinho{
         LEFT JOIN
         endereco AS e ON
         p.endereco = e.cod_endereco
-        ORDER BY p.cod_pedido DESC");       //Ordenação por cod do pedido
+        ORDER BY p.data DESC");       //Ordenação por cod do pedido
         // WHERE c.nome like :nome AND p.valor > :menor AND p.valor < :maior");
         $stmt->bindValue(":nome", $parametro);
         $stmt->bindParam(":menor", $valormenor, PDO::PARAM_INT);
