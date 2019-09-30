@@ -6,7 +6,10 @@
     <title>Delion Café</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 	
-	
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/index/style-xs.css"/>
@@ -43,14 +46,14 @@
 			</ul>
 		</div>
 		<div class="form-cep-campos">
-			<div class="locationField" style="display:inline-block;">
+			<div class="locationField">
 				<input type="text" class="form-control input-cep" id="autocomplete" placeholder="Digite seu endereço ou CEP" type="text" size="57">
 					<!-- <i class="fas fa-map-marker-alt"></i> -->
 					<!-- <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> -->
 				</input>
 			</div>
-				<div class="buttonField" style="display:inline-block;">
-					<button type="button" class="btn btn-success" onclick="getLocation()">
+				<div class="buttonField">
+					<button type="button" class="btn btn-light" onclick="getLocation()">
 						LOCALIZAR
 					</button>
 			</div>
@@ -58,7 +61,88 @@
 	</div>
 				
 			
-	<div></div>
+	<div class="grid-images row container-fluid">
+		
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  thumb-home">
+				<a class="thumbnail" href="#">
+					<img class="img-responsive" src="/home/img/Quem somos.png" alt="quem somos">
+				</a>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 thumb-home">
+				<a class="thumbnail" href="#">
+					<img class="img-responsive" src="/home/img/Eventos.png" alt="Eventos">
+				</a>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 thumb-home">
+				<a class="thumbnail" href="#">
+					<img class="img-responsive" src="/home/img/Aplicativo.png" alt="Whatsapp">
+				</a>
+			</div>
+	</div>
+
+	<div class="navbar-social">
+		<a href="facebook.com"><i class="fa fa-facebook"></i></a>
+		<a href="instagram.com"><i class="fa fa-instagram"></i></a>
+	</div>
+
+	<div class="footer container-fluid">
+		<div class="row left">
+			<ul>
+				<li>
+					<p class="bold-text"><b>Navegue</b></p>
+				</li>
+				<li>
+					<a href="#">Quem Somos</a>
+				</li>
+
+				<li>
+					<a href="#">Eventos</a>
+				</li>
+
+				<li>
+					<a href="#">Programa de Fidelidade</a>
+				</li>
+			</ul>
+			
+			
+			
+			
+		</div>
+		<div class="row center">
+
+			<ul>
+				<li>
+					<p class="bold-text"><b>A Empresa</b></p>
+				</li>
+
+				<li>
+					<a href="#">História</a>
+				</li>
+
+				<li>
+					<a href="#">Localização</a>
+				</li>
+
+				<li>
+					<a href="#">Trabalhe Conosco</a>
+				</li>
+			</ul>
+		</div>
+		<div class="row right">
+			<img src="/home/img/Logo_site.png" alt="logo delion branca" style="width:230px;height:120px;">
+			<div class="endereco-footer">
+				<p class="bold-text"><b>Rua Jorge Sanwais, 1137</b></p>
+				<p class="bold-text"><b>Centro</b></p>
+				<p class="bold-text"><b>Foz do Iguaçu - Paraná</b></p>
+				<p class="bold-text"><b>Rua Jorge Sanwais, 1137</b></p>
+				<p class="bold-text"><b>CEP: 85851-150</b></p>
+			</div>
+			
+			
+			
+		</div>
+
+	</div>
 			
 	<?php
 		//include_once "./footer.php";
