@@ -44,6 +44,7 @@ $check2 = $controlcheck2->selectDataUso($cod_cliente);
 
 $codcupom = $cupom1->getCod_cupom();
 $valorcupom = $cupom1->getValor();
+
 if($check2->getCod_cliente() == -1){
     $cod_cliente_uso = 0;
 }else{

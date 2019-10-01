@@ -1,6 +1,6 @@
 <?php
 
-class controlerDistanceMatrix {
+class DistanceMatrix {
 
     function getDistanceInfo($origin, $destination){
         

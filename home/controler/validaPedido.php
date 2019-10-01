@@ -65,7 +65,7 @@ if (isset($_SESSION['pedidoBalcao'])) {
  */
 if (($_SESSION['delivery'] < 0) || ($_SESSION['pedidoBalcao'] == 0) && ($_SESSION['delivery'] > 0)){
     $checkpedido=1;
-    if ($_SESSION['delivery'] > 0) {
+    if (($_SESSION['delivery'] > 0) || ($_SESSION['is_delivery'] == 1)) {
         $checkdelivery=1;
     }else{
         $checkdelivery=-1;
@@ -87,11 +87,65 @@ if($checkcarrinho > 0){
     if($checkopcao > 0){
         if($checkbalcao>0){
             if($checkpedido > 0){
+                //is delivery?
                 if($checkdelivery > 0){
                     if($checkcliente > 0){
-                        // 'termina pedido vai pra area de endereço';
-                        $html.= "<script>swal('Selecione um endereço!', 'Estamos te mandando para tela endereços, escolha um endereço...', 'info').then((value) => {window.location='/home/endereco.php'});</script></body>";
-                        echo $html;
+                        //endereço inserido na homepage?
+                        if(($_SESSION['is_delivery']) && ($_SESSION['delivery_price'] > 0)){
+                            
+                            $route = $_SESSION['endereco']['route'];
+                            $street_number = $_SESSION['endereco']['street_number'];
+
+                            $html.= "
+                            <script type='text/javascript' src='../js/jquery-3.4.1.min.js'></script>
+
+                            <script>
+
+                            function enviaPedido(){
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '../ajax/enviarEmailPedido.php',
+                                    data: {},
+                                    success: function (res) {
+                                        console.log(res);
+                                        console.log('Foi');
+
+                                        swal('Pedido realizado com sucesso!', 'Tempo estimado de entrega: ".$_SESSION['delivery_time']."', 'success').then((value) => {
+                                            window.location = '/home/cardapio.php';
+                                        });
+                                    },
+                                    error: function(err){
+                                        console.log(err);
+                                    }
+                                });
+                            }
+
+                            swal({
+                                title: 'Confirmar Pedido',
+                                text: 'Entrega em: ".$route.", ".$street_number." | Total: ".$_SESSION['totalCorrigido']."',
+                                icon: 'success',
+                                buttons: ['Cancelar', true],
+                              })
+                              .then((enviar) => {
+                                if (enviar) {
+                                    
+                                    enviaPedido();
+
+                                } else {
+                                    window.location = '/home/carrinho.php';
+                                }
+                            });
+                            
+                            </script></body>";
+
+                            echo $html;
+
+                        }else{
+                            // 'termina pedido vai pra area de endereço';
+                            $html.= "<script>swal('Selecione um endereço!', 'Estamos te mandando para tela endereços, escolha um endereço...', 'info').then((value) => {window.location='/home/endereco.php'});</script></body>";
+                            echo $html;
+                        }
+
                     }else {
                         // 'pede pra logar e redireciona pra endereço e depois para pedido';
                         $html.= "<script>swal('É preciso estar logado para efetuar um pedido!', 'Estamos te mandando para tela de login, após disso, mandaremos para a tela de endereço.', 'error').then((value) => {window.location='/home/login.php'});</script></body>";
