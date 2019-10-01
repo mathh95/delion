@@ -23,9 +23,6 @@ if(isset($_SESSION['cod_cliente'])){
     $cod_cliente = NULL;
 }
 
-
-
-
 // $valortotal = $total - $valor;
 // $valortotal = $_GET['valortotal'];
 
@@ -87,6 +84,13 @@ function verificarCupom($cod_cliente, $cupom1, $codigo, $data, $check, $cod_clie
         echo json_encode(array("mensagem" => "Quantidade insuficiente ou cupons esgotados!")); return;
     }else if($cod_cliente == $cod_cliente_uso){
         echo json_encode(array("mensagem" => "Não é possivel usar mais de 1 cupom por dia !")); return;
+    }else if($_SESSION['totalCarrinho'] < $cupom1->getValor_minimo()){ 
+        //Verificação para o valor minimo
+        $txtSemVariavel = "O valor minimo para esse cupom é de";
+        $txtWarning = $txtSemVariavel." R$".$cupom1->getValor_minimo();
+        echo json_encode(array("mensagem" => $txtWarning)); return;
+    }else if($_SESSION['totalCarrinho'] < $valorcupom){
+        echo json_encode(array("mensagem" => "O valor do cupom é maior do que o valor total da compra, a diferença será perdida!")); return;
     }else{ // caso passe pelas verificacoes, atribui os valores e retorna 
         $_SESSION['valorcupom'] = $valorcupom;
         $_SESSION['codigocupom'] = $codigo;

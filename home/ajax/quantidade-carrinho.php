@@ -107,6 +107,7 @@ elseif($acao == "rem"){
 // função para esvaziar o carrinho
 elseif($acao == "esv"){
     $_SESSION['totalCarrinho'] = 0;
+    $_SESSION['valorcupom'] = 0;
     $_SESSION['carrinho'] = array();
 }
 ?>
