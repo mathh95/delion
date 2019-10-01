@@ -107,8 +107,9 @@
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name = "google-signin-client_id" content="1044402294470-h7gko3p3obgouo9kmtemsekno8n08deu.apps.googleusercontent.com">
+<meta name = "google-signin-client_id" content="623570251512-cprdd8eepskvicq7h7lq999e8scsd9ui.apps.googleusercontent.com">
 <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
 
 

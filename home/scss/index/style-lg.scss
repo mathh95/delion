@@ -3,101 +3,225 @@
 
 @import "../variables";
 
+
+@font-face {
+    font-family: "Century Gothic Regular";
+    src: url("../fonts/gothic.ttf");
+}
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../fonts/gothicb.ttf");
+}
 //Especifico do index
-body{
+body, html{
     font-family: $font_main;
-    > .banner-superior {
-        padding-top: 15px;
-        > div {
-            padding-left: 15px;
-            padding-right: 15px;
-            > div {
-                > a {
-                    img {
+    height: auto;
+    width: 100%;
+    margin: 0;
+    overflow-x: hidden;
+
+
+    > div.container-fluid.no-padding{
+        position: absolute;
+        padding: 0;
+        width: 100%;
+        height: auto;
+        >div.imagens-topo {
+            width: 100%;
+            height: auto;
+            background-position: 0 0;
+            background-repeat: no-repeat;
+                    >img.img-responsive.imagem-topo{
+                        position: absolute;
                         @include img-responsive();
                         @include center-block();
                     }
-                }
-            }
+                    >img.imagem-logo{
+                        position: sticky;
+                        padding-top: 40px;
+                        @include img-responsive();
+                        @include center-block();
+                    }
         }
     }
-    > div.container.banner-superior.slick-initialized.slick-slider.slick-dotted{
-        margin-bottom: 0px;
-    }
-    > .cardapio-evento-pedido-cartao{
-        padding-top: 15px;
-        padding-bottom: 15px;
-        > div {
-            @include make-lg-column(6);
-            > .imagem-cardapio-evento {
-                .slick-prev{
-                    z-index: 10;
-                    margin-left: 10px;
-                }
-                .slick-next {
-                    margin-right: 10px;
-                }
-                a {
-                    > img {
-                        @include img-responsive();
-                        @include center-block();
-                    }
-                }
-            }
-            > .imagem-pedido-cartao {
-                background-color: #FFFFFF;
-                > a {
-                    > img {
-                        @include img-responsive();
-                        @include center-block();
-                    }
-                }
-            }
-            a {
-                > div {
-                    font-size: 17px;
-                    background-color: #000000;
-                    color: #ffffff;
-                    > .icone {
-                        height: 29px;
-                        padding-left: 5px;
-                        padding-right: 10px;
-                        padding-bottom: 3px;
-                    }
-                }
-                > .texto {
-                    padding-top: 4px;
-                    height: 34px;
-                }
-            }
-            a:hover {
-                outline: none;
-                text-decoration: none;
-            }
-        }
-    }
-    > .banner-inferior {
+    
+    > .form-cep-completo{
+        font-family: $font_main;
+        text-align: center;
+        width: 100%;
+        height: auto;
+        padding-top: 450px;
         padding-bottom: 30px;
-        > a {
-            > img {
-                padding-right: 15px;
-                padding-left: 15px;
-                @include img-responsive();
-                @include center-block();
+        
+        >div.tabs{
+            position: relative;
+            text-align:center;
+            >ul.nav.nav-tabs{
+                font-size: 20px;
+                float:none;
+                display:inline-flex;
+                margin-bottom: 0;
+                width: 39.8%;
+                >li.delivery{
+                    border-color: $cinza;
+                    width: 50%;
+                    a{
+                        color: $vermelho_fraco;
+                        width: 100%;
+                        background-color: $cinza;
+                        border-top-left-radius: 15px;
+                        border-top-right-radius: 15px;
+                        -moz-border-radius-topleft: 15px;
+                        -moz-border-radius-topright: 15px;
+                        border-top-left-radius: 15px;
+                        border-top-right-radius: 15px; 
+                    }
+                    
+                }
+                >li.retirada{
+                    width: 49.9%;
+                    a{
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px;
+                    -moz-border-radius-topleft: 15px;
+                    -moz-border-radius-topright: 15px;
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px; 
+                    border-color: $cinza;
+                    width: 100%;
+                    color: #000000;
+                    background-color: #ffffff;
+                    }
+                    
+                }
+                
+            }
+        
+        }
+
+        > div.form-cep-campos{
+            position: relative;
+            display: inline-flex;
+            width: 40%;
+            text-align: center;
+
+            > div.locationField{
+                text-align: center;
+                >input.input-cep{
+                    width: 100%;
+                    height: 50px;
+                    border-bottom-left-radius: 10px;
+                    // border-top-left-radius: 10px;
+                }
+            }
+            >div.buttonField{
+                text-align: center;
+                position: relative;
+                button{
+                    color: #30BAEE;
+                    background-color: #ffffff;
+                    border-color: $cinza;
+                    border-left: #ffffff;
+                    height: 50px;
+                    border-bottom-right-radius: 10px;
+                    // border-top-right-radius: 10px;
+                    
+                }
             }
         }
     }
-    > .whatsapp {
-        position: fixed;
-        right: 36px;
-        bottom: 80px;
-        height: 42px;
-        width: 42px;
-        z-index: 9999;
-        > a {
-            > img {
-                width: 50px;
+    >div.grid-images.row{
+        display: inline-block;
+        height: auto;
+        >div.thumb-home{
+            padding: 5px;
+            >a.thumbnail{
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: auto;
+                border: 0 none;
+                box-shadow: none;
+                display: inline-block;
+                overflow: hidden;
+                img{
+                    display: inline-block;
+                    transition: all 0.2s ease;
+                }
+                
+            }
+            >a.thumbnail img:hover{
+                transform: scale(1.1);
+                
             }
         }
     }
+    >div.navbar-social{
+        width: 100%;
+        height: 30%;
+        background-color: $vermelho_forte;
+        text-align: center;
+        font-size: 35px;
+        >a i{
+            padding: 10px;
+            color: #ffffff;
+        }
+    }
+        
+    >div.footer.container-fluid{
+        width: 100%;
+        height: auto;
+        position: absolute;
+        display: flex;
+        background-color: $vermelho_fraco;
+        flex-flow: wrap;
+        color: #ffffff;
+        padding: 40px;
+        
+            >div.row.left{
+                padding-left: 40px;
+                width: 33.3%;
+                text-decoration: none;
+                ul {
+                    list-style-type: none;
+                    a{
+                        color: #ffffff;
+                        text-decoration: none;
+                    }
+                }
+            }
+            >div.row.center{
+
+                width: 33.3%;
+                padding-left: 40px;
+                ul {
+                    list-style-type: none;
+                    a{
+                        color: #ffffff;
+                        text-decoration: none;
+                    }
+                }
+                
+            }
+            >div.row.right{
+                width: 33.3%;
+                display: inline-block;
+
+                >div.endereco-footer{
+                    position: relative;
+                    float: right;
+                    p{
+                        color: #ffffff;
+                    }
+                }
+                
+                img{
+                    padding-right: 30px;
+                    position: absolute;
+                }
+            }
+    }
+   
+    
+    
 }

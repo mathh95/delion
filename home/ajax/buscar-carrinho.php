@@ -21,6 +21,8 @@ include_once "../../admin/controler/controlFormaPgt.php";
 
 include_once "../../admin/model/formaPgt.php";
 
+include_once "../utils/distanceMatrix.php";
+
 // require_once '../ajax/enviarEmailPedido.php';
 
 $itens = array();
@@ -41,6 +43,7 @@ if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
     $_SESSION['qtd'] = array();
     $itens = $_SESSION['carrinho'];
 }
+
 if(count($itens) > 0){
     
     $itens = $cardapio->buscarVariosId($itens);
@@ -110,31 +113,90 @@ if(count($itens) > 0){
                 </div>
 
                 <?php
-                if(!isset($_SESSION['valorcupom'])){
-                    $_SESSION['valorcupom'] = 0.00;
-                    $_SESSION['totalComDesconto'] = 0.00;
+                    if(!isset($_SESSION['valorcupom'])){
+                        $_SESSION['valorcupom'] = 0.00;
+                        $_SESSION['totalComDesconto'] = 0.00;
+                    }
+
+                    $total = $_SESSION['totalCarrinho'] - $_SESSION['valorcupom'];
+                    $total = $total <= 0? number_format(0,2) : number_format($total,2);
+
+                    $_SESSION['totalCorrigido'] = $total;
+        
+            
+            echo "<div>
+                <strong><p>Adicionar Cupom</p></strong> 
+                <input type='text' name='codigocupom' id='codigocupom'>
+                <a class='botaoAdicionarCupom' onclick='adicionarCupom()'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>    
+            </div>";
+
+            //Endereço inserido na página inicial
+            if(isset($_SESSION['endereco']['postal_code'])){
+                
+                //delivery active
+                echo "<strong><p>Entrega</p></strong>
+                <div class='btn-group btn-group-toggle' data-toggle='buttons'>
+                <label class='btn btn-danger active' id='delivery' onclick='tipoPedido(1)'>
+                <input type='radio' name='delivery' autocomplete='off'> Delivery&nbsp;<i class='fas fa-shipping-fast'></i></label>
+                <label class='btn btn-danger' id='balcao' onclick='tipoPedido(-1)'>
+                <input type='radio' name='balcao' autocomplete='off'> Balcão&nbsp;<i class='fas fa-store'></i>
+                </label>
+                </div>";
+
+                //var_dump($_SESSION['endereco']);
+                
+                $admin_area_lv1 = $_SESSION['endereco']['administrative_area_level_1'];
+                $admin_area_lv2 = $_SESSION['endereco']['administrative_area_level_2'];
+                $postal_code = $_SESSION['endereco']['postal_code'];
+                $sublocality_lv1 = $_SESSION['endereco']['sublocality_level_1'];
+                $route = $_SESSION['endereco']['route'];
+                $street_number = $_SESSION['endereco']['street_number'];
+                $complemento = $_SESSION['endereco']['complemento'];
+                $referencia = $_SESSION['endereco']['referencia'];
+                
+                echo "<div id='infoDelivery'>";
+                echo "CEP: ".$postal_code."<br>";
+                echo "End.: ".$route."<br>";
+                echo "Número: ".$street_number."<br>";
+                if(strlen($complemento) > 0 ){
+                    echo "Complemento: ".$complemento."<br>";
+                }else{
+                    echo "Complemento: (vazio)<br>";
                 }
+                echo "Bairro: ".$sublocality_lv1."<br>";
+                echo "Cidade: ".$admin_area_lv2."<br>";
+                //echo "UF: ".$admin_area_lv1."<br>";
+                if(strlen($referencia) > 0 ){
+                    echo "Ponto de Referência: ".$referencia."<br>";
+                }else{
+                    echo "Ponto de Referência: (vazio)<br>";
+                }
+                
+                $distanceMatrix = new controlerDistanceMatrix();
+                
+                $origin = "R. Jorge Sanwais, 1137 - Centro, Foz do Iguaçu"; //-25.54086,-54.581167
+                $dest = $route." ".$street_number." ".$sublocality_lv1." ".$admin_area_lv2; 
+                
+                $dist = $distanceMatrix->getDistanceInfo($origin, $dest);//origin,dest
+                echo "<br>Distância: ".$dist['distance_km']." <br>";
+                echo "Tempo estimado de entrega: ".$dist['duration']." <br>";
+                $delivery_price = $distanceMatrix->getDeliveryPrice($dist['distance_meters']);
+                echo "Taxa de Entrega: R$ ".$delivery_price;
+                echo "</div>";
+            }else{
+                //balcão active
+                echo "<strong><p>Entrega</p></strong>
+                <div class='btn-group btn-group-toggle' data-toggle='buttons'>
+                <label class='btn btn-danger' id='delivery' onclick='tipoPedido(1)'>
+                <input type='radio' name='delivery' autocomplete='off'> Delivery&nbsp;<i class='fas fa-shipping-fast'></i></label>
+                <label class='btn btn-danger active' id='balcao' onclick='tipoPedido(-1)'>
+                <input type='radio' name='balcao' autocomplete='off'> Balcão&nbsp;<i class='fas fa-store'></i>
+                </label>
+                </div>";
 
-                $total = $_SESSION['totalCarrinho'] - $_SESSION['valorcupom'];
-                $total = $total <= 0? number_format(0,2) : number_format($total,2);
+            }
 
-                $_SESSION['totalCorrigido'] = $total;
-        
-        echo "<strong><p>Entrega</p></strong>
-        <div class='btn-group btn-group-toggle' data-toggle='buttons'>
-        <label class='btn btn-danger' id='delivery' onclick='tipoPedido(1)'>
-        <input type='radio' name='delivery'  autocomplete='off'> Delivery&nbsp;<i class='fas fa-shipping-fast'></i></label>
-        <label class='btn btn-danger active'  id='balcao' onclick='tipoPedido(-1)'>
-        <input type='radio' name='balcao' autocomplete='off'> Balcão&nbsp;<i class='fas fa-store'></i>
-        </label>
-        </div>
-        
-        <div>
-            <strong><p>Adicionar Cupom</p></strong> 
-            <input type='text' name='codigocupom' id='codigocupom'>
-            <a class='botaoAdicionarCupom' onclick='adicionarCupom()'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>    
-        </div>
-        </div>                    
+        echo "</div>                    
                     <div class='ladoDireito row'>
                     <p id='subTotal'>Subtotal: R$ ".number_format($_SESSION['totalCarrinho'], 2)."</p>
                     <p id='entrega'>Taxa de Entrega: R$ 0.00</p>

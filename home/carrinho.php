@@ -137,6 +137,15 @@
 			});
 		});
 
+		$(document).on("click", ".active", function(){
+			$(this).removeClass("active");
+			if(this.id == "balcao"){
+				$("#infoDelivery").hide();
+			}else{
+				$("#infoDelivery").show();
+			}
+		});
+
 	</script>
 
 </body>
