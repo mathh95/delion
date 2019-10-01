@@ -124,11 +124,19 @@ if(count($itens) > 0){
                     $_SESSION['totalCorrigido'] = $total;
         
             
+            if($_SESSION['valorcupom'] == 0){
             echo "<div>
                 <strong><p>Adicionar Cupom</p></strong> 
                 <input type='text' name='codigocupom' id='codigocupom'>
                 <a class='botaoAdicionarCupom' onclick='adicionarCupom()'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>    
             </div>";
+            }else{
+                echo "<div>
+                <strong><p>Adicionar Cupom</p></strong> 
+                <input type='text' name='codigocupomrem' id='codigocupomrem' disabled>
+                <a class='botaoAdicionarCupom' onclick='removerCupom()'><button id='removerCupom' class='btn btn-danger'>Remover Cupom<i class='fas fa-trash-alt fa-adjust'></i></button></a>    
+            </div>";
+            }
 
             //Endereço inserido na página inicial
             if(isset($_SESSION['endereco']['postal_code'])){

@@ -29,6 +29,24 @@ function esvaziar(){
         }
     });
 }
+
+//Função que remove o cupom em uso do carrinho
+function removerCupom(){
+    var acao = "removeCupom";
+    
+    $.ajax({
+        type: 'GET',
+
+        url: 'ajax/quantidade-carrinho.php',
+
+        data: {acao:acao},
+
+        success:function(resultado){
+            window.location='/home/carrinho.php';
+        }
+    });
+}
+
 // Funcao de Verificar status do cupom e se tem disponibilidade ao clicar no botao.
 function adicionarCupom(){
     var codigocupom = $('#codigocupom').val();
@@ -70,6 +88,7 @@ function adicionarCupom(){
     });    
     
 }
+
 
 
 $(document).on("click", "#removeItem", function(){

@@ -110,4 +110,10 @@ elseif($acao == "esv"){
     $_SESSION['valorcupom'] = 0;
     $_SESSION['carrinho'] = array();
 }
+
+//função para remover o cupom
+elseif($acao == "removeCupom"){
+    $_SESSION['valorcupom'] = 0;
+}
+
 ?>
