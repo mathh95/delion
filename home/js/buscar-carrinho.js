@@ -50,9 +50,18 @@ function adicionarCupom(){
                     window.location.reload();
                 });
             }
+            else if(resultado.validoErro){
+                swal('Sucesso!', 'O cupom de R$ '+resultado.valorcupom + ' é maior do que o valor total da compra, a diferença será perdida!', 'success')
+                .then(function(){
+                    //mudar -> reload apenas carrinho!
+                    window.location.reload();
+                });
+            }
+            
             else if(!resultado.valido){
                 swal('Atenção!' , resultado.mensagem, 'warning');
             }
+            
         },
         error: function (request, status, error) {
             alert(request.responseText);

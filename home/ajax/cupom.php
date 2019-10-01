@@ -90,7 +90,22 @@ function verificarCupom($cod_cliente, $cupom1, $codigo, $data, $check, $cod_clie
         $txtWarning = $txtSemVariavel." R$".$cupom1->getValor_minimo();
         echo json_encode(array("mensagem" => $txtWarning)); return;
     }else if($_SESSION['totalCarrinho'] < $valorcupom){
-        echo json_encode(array("mensagem" => "O valor do cupom é maior do que o valor total da compra, a diferença será perdida!")); return;
+        // echo json_encode(array("mensagem" => "O valor do cupom é maior do que o valor total da compra, a diferença será perdida!")); return;
+        $_SESSION['valorcupom'] = $valorcupom;
+        $_SESSION['codigocupom'] = $codigo;
+        $_SESSION['codcupom'] = $codcupom;
+        if($_SESSION['valorcupom'] > $_SESSION['totalCarrinho']){
+            $_SESSION['totalComDesconto'] = 0.00;
+        }else{
+            $_SESSION['totalComDesconto'] = ($_SESSION['totalCarrinho'] - $_SESSION['valorcupom']);
+        }
+
+        echo json_encode(
+            array("validoErro" => true, 
+            "valorcupom" => $_SESSION['valorcupom'],
+            "totalCarrinho" => $_SESSION['totalCarrinho'],
+            "totalComDesconto" => $_SESSION['totalComDesconto'])); return;
+    
     }else{ // caso passe pelas verificacoes, atribui os valores e retorna 
         $_SESSION['valorcupom'] = $valorcupom;
         $_SESSION['codigocupom'] = $codigo;
