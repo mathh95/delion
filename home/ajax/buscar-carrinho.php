@@ -71,33 +71,33 @@ if (count($itens) > 0) {
                     $i = 0;
                     $pedidoBalcao = 0;
                     foreach ($itens as $item) : ?>
-                        <tr id="idLinha<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>">
-                            <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
-                            <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['nome'] ?></strong></td>
-                            <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['preco'] ?>"><strong>R$ <?= number_format($item['preco'], 2); ?></strong></td>
-                            <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?= number_format($item['preco'], 2); ?></strong></td>
-                            <td class="quantidadeProdutoTabela">
-                                <input class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" value=1 readonly="true">
-                                <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?= $i ?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
-                                <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?= $i ?>" class="fas fa-cart-arrow-down fa-lg btn iconeExcluirProdutoTabela"></i>
-                            </td>
-                            <td class="nomeProdutoTabela"><strong>
-                        <?php
-                            if ($item['delivery'] == 1) {
-                                echo "Disponível";
-                            } else {
-                                echo "Não disponível";
-                                $pedidoBalcao = $pedidoBalcao + 1;
-                            }
-                        ?>
-                        </strong> </td>
+                    <tr id="idLinha<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>">
+                        <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
+                        <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['nome'] ?></strong></td>
+                        <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['preco'] ?>"><strong>R$ <?= number_format($item['preco'], 2); ?></strong></td>
+                        <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?= number_format($item['preco'], 2); ?></strong></td>
+                        <td class="quantidadeProdutoTabela">
+                            <input class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" value=1 readonly="true">
+                            <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?= $i ?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
+                            <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?= $i ?>" class="fas fa-cart-arrow-down fa-lg btn iconeExcluirProdutoTabela"></i>
+                        </td>
+                        <td class="nomeProdutoTabela"><strong>
+                                <?php
+                                        if ($item['delivery'] == 1) {
+                                            echo "Disponível";
+                                        } else {
+                                            echo "Não disponível";
+                                            $pedidoBalcao = $pedidoBalcao + 1;
+                                        }
+                                        ?>
+                            </strong> </td>
                     </tr>
-                    <?php
+                <?php
                         $i++;
                         $totalCarrinho += $item['preco'];
                     endforeach;
-                        $_SESSION['totalCarrinho'] = $totalCarrinho;
-                        $_SESSION['pedidoBalcao'] = $pedidoBalcao;
+                    $_SESSION['totalCarrinho'] = $totalCarrinho;
+                    $_SESSION['pedidoBalcao'] = $pedidoBalcao;
                     ?>
             </tbody>
         </table>
@@ -111,12 +111,12 @@ if (count($itens) > 0) {
                 <select name="formaPagamento" id="formaPagamento" class="form-control">
                     <option value="0">Dinheiro</option>
                     <?php
-                    foreach ($formasPgt as $formaPgt) {
-                        if ($formaPgt->getFlag_ativo() == 1) {
-                            echo "<option value ='" . $formaPgt->getCod_formaPgt() . "'>" . $formaPgt->getTipoFormaPgt() . "</option>";
+                        foreach ($formasPgt as $formaPgt) {
+                            if ($formaPgt->getFlag_ativo() == 1) {
+                                echo "<option value ='" . $formaPgt->getCod_formaPgt() . "'>" . $formaPgt->getTipoFormaPgt() . "</option>";
+                            }
                         }
-                    }
-                    ?>
+                        ?>
                 </select>
             </div>
 
@@ -132,11 +132,20 @@ if (count($itens) > 0) {
                 $_SESSION['totalCorrigido'] = $totalDesc;
                 $_SESSION['totalComDesconto'] = $totalDesc;
 
-                echo "<div>
-                <strong><p>Adicionar Cupom</p></strong> 
-                <input type='text' name='codigocupom' id='codigocupom'>
-                <a class='botaoAdicionarCupom' onclick='adicionarCupom()'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>    
-                </div>";
+
+                if ($_SESSION['valorcupom'] == 0) {
+                    echo "<div>
+                        <strong><p>Adicionar Cupom</p></strong> 
+                        <input type='text' name='codigocupom' id='codigocupom'>
+                        <a class='botaoAdicionarCupom' onclick='adicionarCupom()'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>    
+                    </div>";
+                } else {
+                    echo "<div>
+                        <strong><p>Adicionar Cupom</p></strong> 
+                        <input type='text' name='codigocupomrem' id='codigocupomrem' disabled>
+                        <a class='botaoAdicionarCupom' onclick='removerCupom()'><button id='removerCupom' class='btn btn-danger'>Remover Cupom<i class='fas fa-trash-alt fa-adjust'></i></button></a>    
+                    </div>";
+                }
 
                 //Endereço inserido na página inicial
                 if (isset($_SESSION['endereco']['postal_code']) || ($_SESSION['is_delivery'] != 0)) {
@@ -144,7 +153,7 @@ if (count($itens) > 0) {
                     $_SESSION['is_delivery'] = 1;
 
                     //taxa de entrega calculada?
-                    if(($_SESSION['delivery_price'] > 0) && ($_SESSION['is_delivery']) ){
+                    if (($_SESSION['delivery_price'] > 0) && ($_SESSION['is_delivery'])) {
                         $_SESSION['totalCorrigido'] += $_SESSION['delivery_price'];
                     }
 
@@ -187,12 +196,12 @@ if (count($itens) > 0) {
                     } else {
                         echo "Ponto de Referência: (vazio)<br>";
                     }
-                    
+
                     $distanceMatrix = new DistanceMatrix();
-                    
+
                     $origin = "R. Jorge Sanwais, 1137 - Centro, Foz do Iguaçu"; //-25.54086,-54.581167
                     $dest = $route . " " . $street_number . " " . $sublocality_lv1 . " " . $admin_area_lv2;
-                    
+
                     $dist = $distanceMatrix->getDistanceInfo($origin, $dest); //origin,dest
                     echo "<br>Distância: " . $dist['distance_km'] . " <br>";
                     echo "Tempo estimado de entrega: " . $dist['duration'] . " <br>";
@@ -201,7 +210,7 @@ if (count($itens) > 0) {
                     echo "</div>";
 
                     $_SESSION['delivery_time'] = $dist['duration'];
-                    $_SESSION['totalCorrigido'] += $delivery_price; 
+                    $_SESSION['totalCorrigido'] += $delivery_price;
 
                     //balcao
                     echo "<div style='display:none;' id='infoBalcao'>";
@@ -212,7 +221,6 @@ if (count($itens) > 0) {
                     echo "Bairro: Centro<br>";
                     echo "Cidade: Foz do Iguaçu<br>";
                     echo "</div>";
-
                 } else {
 
                     $_SESSION['is_delivery'] = 0;
@@ -226,7 +234,7 @@ if (count($itens) > 0) {
                     <input type='radio' name='balcao' autocomplete='off'> Balcão&nbsp;<i class='fas fa-store'></i>
                     </label>
                     </div>";
-                    
+
                     echo "<div id='infoBalcao'>";
                     echo "<br><span style='font-weight:bold;'>Endereço para Retirada: </span> <br><br>";
                     echo "CEP: 85851-150<br>";
@@ -236,12 +244,12 @@ if (count($itens) > 0) {
                     echo "Cidade: Foz do Iguaçu<br>";
                     echo "</div>";
                 }
-                    
-                    
+
+
                 echo "</div>                    
                     <div class='ladoDireito row'>
-                    <p id='subTotal'>Subtotal: R$ <span id='valor_subTotal'>" . number_format($_SESSION['totalCarrinho'], 2) ." </span></p>
-                    <p id='entrega'>Taxa de Entrega: R$ <span id='valor_taxa_entrega'>". number_format($_SESSION['delivery_price'], 2) ."</span></p>
+                    <p id='subTotal'>Subtotal: R$ <span id='valor_subTotal'>" . number_format($_SESSION['totalCarrinho'], 2) . " </span></p>
+                    <p id='entrega'>Taxa de Entrega: R$ <span id='valor_taxa_entrega'>" . number_format($_SESSION['delivery_price'], 2) . "</span></p>
                     <p id='desconto'>Desconto: R$ <span id='valor_desconto'> " . number_format($_SESSION['valorcupom'], 2) . "</span></p> 
                     <strong><p id='total'> Total: R$ <span id='valor_total'>" . number_format($_SESSION['totalCorrigido'], 2) . "</span></p></strong>
                     

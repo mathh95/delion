@@ -122,7 +122,7 @@ if($checkcarrinho > 0){
 
                             swal({
                                 title: 'Confirmar Pedido',
-                                text: 'Entrega em: ".$route.", ".$street_number." | Total: ".$_SESSION['totalCorrigido']."',
+                                text: 'Entrega em: ".$route.", ".$street_number." | Total: R$ ".$_SESSION['totalCorrigido']."',
                                 icon: 'success',
                                 buttons: ['Cancelar', true],
                               })

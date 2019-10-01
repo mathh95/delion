@@ -93,6 +93,23 @@ function esvaziar(){
     });
 }
 
+//Função que remove o cupom em uso do carrinho
+function removerCupom(){
+    var acao = "removeCupom";
+    
+    $.ajax({
+        type: 'GET',
+
+        url: 'ajax/quantidade-carrinho.php',
+
+        data: {acao:acao},
+
+        success:function(resultado){
+            window.location='/home/carrinho.php';
+        }
+    });
+}
+
 // Funcao de Verificar status do cupom e se tem disponibilidade ao clicar no botao.
 function adicionarCupom(){
     var codigocupom = $('#codigocupom').val();
@@ -103,9 +120,9 @@ function adicionarCupom(){
     $.ajax({
         type: 'GET',
         url: 'ajax/cupom.php',
-        data :{acao: "checar", codigocupom},
+        data :{acao: "checar", codigocupom:codigocupom},
         success:function(resultado){
-
+            // alert(resultado);
 
             if(resultado.valido){
                 swal('Sucesso!', 'Aproveite o desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
@@ -114,17 +131,27 @@ function adicionarCupom(){
                     window.location.reload();
                 });
             }
+            else if(resultado.validoErro){
+                swal('Sucesso!', 'O cupom de R$ '+resultado.valorcupom + ' é maior do que o valor total da compra, a diferença será perdida!', 'success')
+                .then(function(){
+                    //mudar -> reload apenas carrinho!
+                    window.location.reload();
+                });
+            }
+            
             else if(!resultado.valido){
                 swal('Atenção!' , resultado.mensagem, 'warning');
             }
+            
         },
-        error:function(err){
-            console.log(err);
+        error: function (request, status, error) {
+            alert(request.responseText);
         }
         
     });    
     
 }
+
 
 
 $(document).on("click", "#removeItem", function(){

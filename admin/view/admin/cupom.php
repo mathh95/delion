@@ -82,6 +82,20 @@
 
                             <br>
 
+                            <small>Valor Minimo:</small>
+
+                            <br>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+
+                                <input class="form-control" placeholder="Valor minimo para uso do Cupom" id="valorMinimo" name="valorMinimo" value="" type="number" step="0.01" min="1" max="99">
+
+                            </div>     
+
+                            <br>
+
                             <small>Quantidade de Usos do Cupom</small>
 
                             <br>

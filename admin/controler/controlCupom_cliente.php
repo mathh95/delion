@@ -76,21 +76,20 @@ function selectDataUso($parametro){
         $executa=$stmt->execute();
         if ($executa){
             if($stmt->rowCount() > 0){
-                while($result=$stmt->fetch(PDO::FETCH_OBJ)){
-                    $cupom_cliente1 = new cupom_cliente();
-                        $cupom_cliente1->setCod_cliente($result->cod_cliente);
-                        $cupom_cliente1->setCod_cupom($result->cod_cupom);
-                        $cupom_cliente1->setUltimo_uso($result->ultimo_uso);
+                $cupom_cliente1 = new cupom_cliente();
+
+                $result=$stmt->fetch(PDO::FETCH_OBJ);
+                $cupom_cliente1->setCod_cliente($result->cod_cliente);
+                $cupom_cliente1->setCod_cupom($result->cod_cupom);
+                $cupom_cliente1->setUltimo_uso($result->ultimo_uso);
             }
             return $cupom_cliente1;
-            }else{
-                return -1;
-            }
+        }else{
+            return -1;
         }
-    }
-    catch(PDOException $e){
+    }catch(PDOException $e){
         echo $e->getMessage();
-        return -1;
+        exit;
     }
 }    
 

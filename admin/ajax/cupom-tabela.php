@@ -31,7 +31,8 @@ if(in_array('pedidoWpp', $permissao)){
         <th width='8%' style='text-align: center;'>Código</th>
         <th width='8%' style='text-align: center;'>Qntd Inicial</th>
         <th width='10%' style='text-align: center;'>Qntd Atual</th>
-        <th width='10%' style='text-align: center;'>Valor</th>
+		<th width='10%' style='text-align: center;'>Valor</th>
+		<th width='10%' style='text-align: center;'>Valor Minimo</th>
         <th width='8%' style='text-align: center;'>Vencimento</th>
         <th width='15%' style='text-align: center;'>Status</th>
         <th width='15%' style='text-align: center;'>Editar</th>
@@ -65,6 +66,7 @@ if(in_array('pedidoWpp', $permissao)){
 				<td style='text-align: center;' name='qtde_inicial'>".$cupom->getQtde_inicial()."</td>
 				<td style='text-align: center;' name='qtde_atual'>".$cupom->getQtde_atual()."</td>
 				<td style='text-align: center;' name='valor'>"." R$ ".$cupom->getValor()."</td>
+				<td style='text-align: center;' name='valorMinimo'>"." R$ ".$cupom->getValor_minimo()."</td>
 				<td style='text-align: center;' name='vencimento'>".$vencimento_data."</td>
 				<td style='text-align: center;' name='status'>".$status."</td>
 				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cupom-view.php?cod_cupom=".$cupom->getCod_cupom()."'><button class='btn btn-kionux' $button><i class='fa fa-edit'></i>Editar</button></a></td>
