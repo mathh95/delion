@@ -65,6 +65,7 @@ if (isset($_SESSION['pedidoBalcao'])) {
  */
 if (($_SESSION['delivery'] < 0) || ($_SESSION['pedidoBalcao'] == 0) && ($_SESSION['delivery'] > 0)){
     $checkpedido=1;
+
     if (($_SESSION['delivery'] > 0) || ($_SESSION['is_delivery'] == 1)) {
         $checkdelivery=1;
     }else{
@@ -83,6 +84,8 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
     $checkcliente=-1;
 }
 
+$html.= "<script type='text/javascript' src='../js/jquery-3.4.1.min.js'></script>";
+
 if($checkcarrinho > 0){
     if($checkopcao > 0){
         if($checkbalcao>0){
@@ -97,8 +100,6 @@ if($checkcarrinho > 0){
                             $street_number = $_SESSION['endereco']['street_number'];
 
                             $html.= "
-                            <script type='text/javascript' src='../js/jquery-3.4.1.min.js'></script>
-
                             <script>
 
                             function enviaPedido(){
@@ -108,7 +109,6 @@ if($checkcarrinho > 0){
                                     data: {},
                                     success: function (res) {
                                         console.log(res);
-                                        console.log('Foi');
 
                                         swal('Pedido realizado com sucesso!', 'Tempo estimado de entrega: ".$_SESSION['delivery_time']."', 'success').then((value) => {
                                             window.location = '/home/cardapio.php';
@@ -122,7 +122,7 @@ if($checkcarrinho > 0){
 
                             swal({
                                 title: 'Confirmar Pedido',
-                                text: 'Entrega em: ".$route.", ".$street_number." | Total: R$ ".$_SESSION['totalCorrigido']."',
+                                text: 'Entrega em: ".$route.", ".$street_number." | Total: R$ ".number_format($_SESSION['totalCorrigido'], 2)."',
                                 icon: 'success',
                                 buttons: ['Cancelar', true],
                               })
@@ -154,7 +154,24 @@ if($checkcarrinho > 0){
                 }else {
                     if ($checkcliente > 0){
                         /*  'termina pedido e envia email'; */
-                        header("Location:../ajax/enviarEmailPedido.php"); 
+                        $html.= "
+                        <script>
+                            swal({
+                                title: 'Confirmar Pedido',
+                                text: 'Retirar em: Rua Jorge Sanwais, 1137 | Total: R$ ".number_format($_SESSION['totalCorrigido'], 2)."',
+                                icon: 'success',
+                                buttons: ['Cancelar', true],
+                            })
+                            .then((enviar) => {
+                                if (enviar) {
+                                    window.location = '../ajax/enviarEmailPedido.php';
+                                }else{
+                                    window.location= '../carrinho.php';
+                                }
+                            });
+                        </script></body>
+                        ";
+                        echo $html;
                     }else {
                         /* 'pede pra logar e termina pedido'; */
                         $html.= "<script>swal('É preciso estar logado para efetuar um pedido!', 'Estamos te mandando para tela de login...', 'error').then((value) => {window.location='/home/login.php'});</script></body>";
