@@ -40,7 +40,7 @@
 
     <div class="form-cep-completo">
 		<div class="tabs">
-			<ul class="nav nav-tabs" >
+			<ul class="nav nav-tabs navbar-collapse" >
 				<li class="delivery" >
 					<a href="#">Delivery</a>
 				</li>
@@ -49,15 +49,16 @@
 				</li>
 			</ul>
 		</div>
-		<div class="form-cep-campos">
+		<div class="form-group form-cep-campos">
 			<div class="locationField">
+				<span class="fa fa-map-marker"></span>
 				<input type="text" class="form-control input-cep" id="autocomplete" placeholder="Digite seu endereço ou CEP" type="text" size="57">
-					<!-- <i class="fas fa-map-marker-alt"></i> -->
+					<!-- <i class="fas fa-map-marker"></i> -->
 					<!-- <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> -->
 				</input>
 			</div>
-				<div class="buttonField" style="display:inline-block;">
-					<button type="button" class="btn btn-light" data-toggle="modal" data-target="#cepModal" id="localizar">
+				<div class="buttonField">
+					<button class="btn btn-light" data-toggle="modal" data-target="#cepModal" id="localizar">
 						LOCALIZAR
 					</button>
 			</div>
@@ -68,12 +69,12 @@
 	<div class="grid-images row container-fluid">
 		
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  thumb-home">
-				<a class="thumbnail" href="#">
+				<a class="thumbnail" href="sobre.php">
 					<img class="img-responsive" src="/home/img/Quem somos.png" alt="quem somos">
 				</a>
 			</div>
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 thumb-home">
-				<a class="thumbnail" href="#">
+				<a class="thumbnail" href="eventos.php">
 					<img class="img-responsive" src="/home/img/Eventos.png" alt="Eventos">
 				</a>
 			</div>
@@ -84,12 +85,15 @@
 			</div>
 	</div>
 
-	<div class="navbar-social">
-		<a href="facebook.com"><i class="fa fa-facebook"></i></a>
-		<a href="instagram.com"><i class="fa fa-instagram"></i></a>
-	</div>
+	
 
-	<div class="footer container-fluid">
+	<!-- <footer class="footer container-fluid">
+
+		<div class="navbar-social navbar-collapse">
+			<a href="facebook.com"><i class="fa fa-facebook"></i></a>
+			<a href="instagram.com"><i class="fa fa-instagram"></i></a>
+		</div>
+
 		<div class="row left">
 			<ul>
 				<li>
@@ -133,23 +137,27 @@
 			</ul>
 		</div>
 		<div class="row right">
-			<img src="/home/img/Logo_site.png" alt="logo delion branca" style="width:230px;height:120px;">
+		<img src="/home/img/logo_branca.png" alt="logo delion branca" style="width:93px;height:140px;">
+			
 			<div class="endereco-footer">
-				<p class="bold-text"><b>Rua Jorge Sanwais, 1137</b></p>
-				<p class="bold-text"><b>Centro</b></p>
-				<p class="bold-text"><b>Foz do Iguaçu - Paraná</b></p>
-				<p class="bold-text"><b>Rua Jorge Sanwais, 1137</b></p>
-				<p class="bold-text"><b>CEP: 85851-150</b></p>
+				<p class="bold-text"><b>
+					Rua Jorge Sanwais, 1137<br>
+					Centro<br>
+					Foz do Iguaçu - Paraná<br>
+					Rua Jorge Sanwais, 1137<br>
+					CEP: 85851-150
+				</b></p>
 			</div>
 			
 			
 			
 		</div>
 
-	</div>
+</footer> -->
 			
 	<?php
-		//include_once "./footer.php";
+		// include_once "./whats-config.php";
+		include_once "./footer.php";
 	?>
 
 

@@ -6,7 +6,7 @@
 //Especifico do endereco
 @font-face {
     font-family: "Century Gothic Regular";
-    src: url("../../fonts/gothic.ttf");
+    src: url("../fonts/gothic.ttf");
 }
 @font-face {
     font-family: "Century Gothic Bold";
@@ -33,7 +33,7 @@ body{
                 height: 120px;
                 margin: 15px;
                 border-width: 3px;
-                border-color: #C57686;
+                border-color: $vermelho_fraco;
                 border-style: solid;
                 border-radius:10px;
                 font-family: $font_main_bold;
@@ -67,7 +67,7 @@ body{
                     width: 100%;
                     height: 34px;
                     border: none;
-                    background-color: #C57686;
+                    background-color: $vermelho_fraco;
                     color: #FFFFFF;
                     font-family: $font_main_bold;
                     font-size: 15px;
@@ -78,7 +78,7 @@ body{
                     width: 100%;
                     height: 34px;
                     border: none;
-                    background-color: #C57686;
+                    background-color: $vermelho_fraco;
                     color: #FFFFFF;
                     font-family: $font_main_bold;
                     font-size: 15px;
@@ -106,7 +106,7 @@ body{
                     > input {
                         height: 36px;
                         width: 100%;
-                        border: 2px solid #91414F;
+                        border: 2px solid $vermelho_forte;
                         text-indent: 10px;
                         outline: none;
                     }
@@ -116,7 +116,7 @@ body{
                         > .inputs-pequenos{
                             height: 36px;
                             width: 100%;
-                            border: 2px solid #91414F;
+                            border: 2px solid $vermelho_forte;
                             text-indent: 10px;
                             outline: none;
                         }
@@ -128,7 +128,7 @@ body{
                         > .inputs-pequenos{
                             height: 36px;
                             width: 100%;
-                            border: 2px solid #91414F;
+                            border: 2px solid $vermelho_forte;
                             text-indent: 10px;
                             outline: none;
                         }
@@ -141,7 +141,7 @@ body{
                     width: 171px;
                     height: 34px;
                     border: none;
-                    background-color: #C57686;
+                    background-color: $vermelho_fraco;
                     color: #FFFFFF;
                     font-family: $font_main_bold;
                     font-size: 15px;

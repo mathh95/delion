@@ -6,7 +6,7 @@
 //Especifico do cardapio
 @font-face {
     font-family: "Century Gothic Regular";
-    src: url("../../fonts/gothic.ttf");
+    src: url("../fonts/gothic.ttf");
 }
 @font-face {
     font-family: "Century Gothic Bold";
@@ -20,7 +20,7 @@ body{
         padding-top: 15px;
         > .menu-lateral {
             @include make-xs-column(12);
-            background-color: #C57686;
+            background-color: $vermelho_fraco;
             // width: 165px !important;
             // margin-left: 15px;
             // padding-left: 13px;
@@ -59,14 +59,14 @@ body{
             > a:hover{
                 text-decoration: none;
                 > div {
-                    color: #91414F;
+                    color: $vermelho_forte;
                     font-family: $font_main_bold;
                 }
             }
             > a:focus{
                 text-decoration: none;
                 > div {
-                    color: #91414F;
+                    color: $vermelho_forte;
                     font-family: $font_main_bold;
                 }
             }
@@ -98,8 +98,8 @@ body{
             font-size: 14px;
             color: #FFFFFF;
             // width: 317px;
-            background-color: #91414F;
-            border: 5px solid #C57686;
+            background-color: $vermelho_forte;
+            border: 5px solid $vermelho_fraco;
             border-top: 0px;
             border-left: 0px;
             border-right: 0px;
@@ -113,7 +113,7 @@ body{
                 > .modal-content{
                     font-size: 15px;
                     text-align: center;
-                    border-color: #91414F;
+                    border-color: $vermelho_forte;
                     background-color: #D7CEC7;
                     color: black;
                     >h3{
@@ -126,14 +126,14 @@ body{
                     }
 
                     .addCombo{
-                        border-color: #91414F;
-                        background-color: #C57686;
+                        border-color: $vermelho_forte;
+                        background-color: $vermelho_fraco;
                         color: white;
                     }
                     .addCombo:hover{
-                        border-color: #91414F;
-                        background-color: #C57686;
-                        color: #91414F;
+                        border-color: $vermelho_forte;
+                        background-color: $vermelho_fraco;
+                        color: $vermelho_forte;
                     }
                 }
             }
@@ -148,7 +148,7 @@ body{
             padding-bottom: 10px;
             margin-bottom: 10px;
             padding-right: 0px;
-            border: 1px solid #91414F;
+            border: 1px solid $vermelho_forte;
             border-left: 0px;
             border-right: 0px;
             border-top: 0px;
@@ -164,7 +164,7 @@ body{
                 }
                 > img {
                     @include img-responsive();
-                    border: 1px solid #91414F;
+                    border: 1px solid $vermelho_forte;
                     border-top: 0px;
                     border-left: 0px;
                     border-bottom: 0px;
@@ -186,8 +186,8 @@ body{
                 }
                 #addCarrinho{
                     // font-size: 10px;
-                    background-color: #C57686;
-                    border: 1px solid #91414F;
+                    background-color: $vermelho_fraco;
+                    border: 1px solid $vermelho_forte;
                     color:#fff;
                     margin-top: 2%;
                     margin-bottom: 10px;
@@ -196,15 +196,15 @@ body{
                 #addCombo{
                     width: 167px;
                     // font-size: 10px;
-                    background-color: #C57686;
-                    border: 1px solid #91414F;
+                    background-color: $vermelho_fraco;
+                    border: 1px solid $vermelho_forte;
                     color:#fff;
                 }
                 #addCarrinho:hover {
-                    color: #91414F;
+                    color: $vermelho_forte;
                 }
                 #addCombo:hover {
-                    color: #91414F;
+                    color: $vermelho_forte;
                 }
                 > .preco{
                     // @include make-xs-column(12);
@@ -225,7 +225,7 @@ body{
                     }
                 }
                 > button:hover{
-                    background-color: #C57686;
+                    background-color: $vermelho_fraco;
                     color: white;
                 }
             }   
@@ -240,8 +240,8 @@ body{
                         > a {
                             text-align: center;
                             font-family: $font_main_bold;
-                            background-color: #C57686;
-                            border: 2px solid #C57686;
+                            background-color: $vermelho_fraco;
+                            border: 2px solid $vermelho_fraco;
                             padding-left: 0px;
                             padding-top: 0px;
                             padding-right: 6px;
@@ -277,8 +277,8 @@ body{
                     > li.active {
 
                         > a {
-                            background-color: #91414F;
-                            border-color:  #91414F;
+                            background-color: $vermelho_forte;
+                            border-color:  $vermelho_forte;
                             width: 20px;
                             padding-left: 5px;
                         }

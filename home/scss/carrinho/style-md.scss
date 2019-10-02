@@ -6,7 +6,7 @@
 //Especifico do carrinho
 @font-face {
     font-family: "Century Gothic Regular";
-    src: url("../../fonts/gothic.ttf");
+    src: url("../fonts/gothic.ttf");
 }
 @font-face {
     font-family: "Century Gothic Bold";
@@ -20,7 +20,7 @@ body{
         padding-top: 15px;
         > .menu-lateral {
             @include make-md-column(3);
-            background-color: #C57686;
+            background-color: $vermelho_fraco;
             width: 270px !important;
             margin-left: 15px;
             padding-left: 20px;
@@ -99,13 +99,13 @@ body{
                 @include make-md-column(12);
                 #cabecalhoTabela{
                     color:white;
-                    background-color:#C57686; 
+                    background-color:$vermelho_fraco; 
                     border-style:solid; 
                     border-bottom-width:5px;
                     border-top-width:0;
                     border-left-width:0;
                     border-right-width:0;
-                    border-bottom-color: #91414F;
+                    border-bottom-color: $vermelho_forte;
                     font-family: "Century Gothic Bold";
                     font-size: 14px;
                 }
@@ -123,13 +123,13 @@ body{
 
                 #cabecalhoTabela {
                     color: white;
-                    background-color: #C57686;
+                    background-color: $vermelho_fraco;
                     border-style: solid;
                     border-bottom-width: 5px;
                     border-top-width: 0;
                     border-left-width: 0;
                     border-right-width: 0;
-                    border-bottom-color: #91414F;
+                    border-bottom-color: $vermelho_forte;
                     font-family: "Century Gothic Bold";
                     font-size: 14px;
                 }
@@ -152,29 +152,29 @@ body{
                     font-family: "Century Gothic Bold";
                 }
                 .botaoAdicionarCupom button {
-                    background-color: #C57686;
-                    border-color: #91414F;
+                    background-color: $vermelho_fraco;
+                    border-color: $vermelho_forte;
                     color: #ffffff;
                 }
                 >.btn-group-toggle{
                     margin-top:10px;
                     > .btn{
                         background-color: #c57682;
-                        border-color: #91414F;
+                        border-color: $vermelho_forte;
                         
                         > input{
-                            background-color: #91414F;
+                            background-color: $vermelho_forte;
                         }
                     }
                     > .btn:active,.btn:hover, .active{
-                        background-color: #91414F;
+                        background-color: $vermelho_forte;
                     }
                     > label{
                         background-color: #c57682;
-                        border-color: #91414F;
+                        border-color: $vermelho_forte;
                         
                         > input{
-                            background-color: #91414F;
+                            background-color: $vermelho_forte;
                         }
                     }
                 }
@@ -192,15 +192,15 @@ body{
                         button{
                             float:right;
                             margin:30px 0 10px 0;
-                            background-color: #C57686;
-                            border-color:#91414F;
+                            background-color: $vermelho_fraco;
+                            border-color:$vermelho_forte;
                             color: #ffffff;
                         }  
                     }
                     > .botaoCarrinhoEsvaziar{
                         button{
-                            background-color: #C57686;
-                            border-color:#91414F;
+                            background-color: $vermelho_fraco;
+                            border-color:$vermelho_forte;
                             float:left;
                             margin:30px 0 10px 10px;
                         }

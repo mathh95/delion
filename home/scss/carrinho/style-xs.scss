@@ -20,7 +20,7 @@ body{
         padding-top: 15px;
         > .menu-lateral {
             @include make-xs-column(3);
-            background-color: #C57686;
+            background-color: $vermelho_fraco;
             width: 270px !important;
             margin-left: 15px;
             padding-left: 20px;
@@ -106,13 +106,13 @@ body{
                 @include make-xs-column(12);
                 #cabecalhoTabela{
                     color:white;
-                    background-color:#C57686; 
+                    background-color:$vermelho_fraco; 
                     border-style:solid; 
                     border-bottom-width:5px;
                     border-top-width:0;
                     border-left-width:0;
                     border-right-width:0;
-                    border-bottom-color: #91414F;
+                    border-bottom-color: $vermelho_forte;
                     font-family: "Century Gothic Bold";
                     font-size: 12px;
                 }
@@ -132,13 +132,13 @@ body{
                 @include make-xs-column(12);
                 #cabecalhoTabela{
                     color:white;
-                    background-color:#C57686; 
+                    background-color:$vermelho_fraco; 
                     border-style:solid; 
                     border-bottom-width:5px;
                     border-top-width:0;
                     border-left-width:0;
                     border-right-width:0;
-                    border-bottom-color: #91414F;
+                    border-bottom-color: $vermelho_forte;
                     font-family: "Century Gothic Bold";
                     font-size: 12px;
                 }
@@ -189,8 +189,8 @@ body{
                     font-family: "Century Gothic Bold";
                 }
                 .botaoAdicionarCupom button {
-                    background-color: #C57686;
-                    border-color: #91414F;
+                    background-color: $vermelho_fraco;
+                    border-color: $vermelho_forte;
                     color: #ffffff;
                 }
                 >.btn-group{
@@ -203,21 +203,21 @@ body{
                     margin-top:10px;
                     > .btn{
                         background-color: #c57682;
-                        border-color: #91414F;
+                        border-color: $vermelho_forte;
                         
                         > input{
-                            background-color: #91414F;
+                            background-color: $vermelho_forte;
                         }
                     }
                     > .btn:active,.btn:hover, .active{
-                        background-color: #91414F;
+                        background-color: $vermelho_forte;
                     }
                     > label{
                         background-color: #c57682;
-                        border-color: #91414F;
+                        border-color: $vermelho_forte;
                         
                         > input{
-                            background-color: #91414F;
+                            background-color: $vermelho_forte;
                         }
                     }
                 }

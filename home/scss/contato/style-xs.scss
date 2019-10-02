@@ -6,7 +6,7 @@
 //Especifico do contato
 @font-face {
     font-family: "Century Gothic Regular";
-    src: url("../../fonts/gothic.ttf");
+    src: url("../fonts/gothic.ttf");
 }
 @font-face {
     font-family: "Century Gothic Bold";
@@ -60,7 +60,7 @@ body{
                     > input {
                         height: 36px;
                         width: 100%;
-                        border: 2px solid #91414F;
+                        border: 2px solid $vermelho_forte;
                         text-indent: 10px;
                         outline: none;
                     }
@@ -71,7 +71,7 @@ body{
                 > textarea {
                     width: 100%;
                     height: 210px;
-                    border: 2px solid #91414F;
+                    border: 2px solid $vermelho_forte;
                     text-indent: 10px;
                     outline: none;
                     margin-top: 10px;
@@ -82,7 +82,7 @@ body{
                     width: 100%;
                     height: 34px;
                     border: none;
-                    background-color: #91414F;
+                    background-color: $vermelho_forte;
                     color: #FFFFFF;
                     font-family: $font_main_bold;
                     font-size: 15px;
@@ -121,7 +121,7 @@ body{
             }
             > .info {
                 background-clip: padding-box; 
-                background-color: #C57686;
+                background-color: $vermelho_fraco;
                 height: 97px;
                 width: 100%;
                 position: relative;
