@@ -12,16 +12,18 @@
             try{
                 $codigo=$cupom->getCodigo();
                 $qtde_inicial=$cupom->getQtde_inicial();
-                $qtde_atual=$cupom->getQtde_atual();
                 $valor=$cupom->getValor();
+                $valor_minimo=$cupom->getValor_minimo();
+                $qtde_atual=$cupom->getQtde_atual();
                 $vencimento_data=$cupom->getVencimento_data();
                 $vencimento_hora=$cupom->getVencimento_hora();
                 $status = $cupom->getStatus();
-                $stmt=$this->pdo->prepare("INSERT INTO cupom(codigo, qtde_inicial, qtde_atual, valor, vencimento_data, vencimento_hora, status) VALUES (:codigo, :qtde_inicial, :qtde_atual, :valor, :vencimento_data, :vencimento_hora, :status)");
+                $stmt=$this->pdo->prepare("INSERT INTO cupom(codigo, qtde_inicial, qtde_atual, valor, valor_minimo ,vencimento_data, vencimento_hora, status) VALUES (:codigo, :qtde_inicial, :qtde_atual, :valor, :valor_minimo,  :vencimento_data, :vencimento_hora, :status)");
                 $stmt->bindParam(":codigo",$codigo, PDO::PARAM_STR);
                 $stmt->bindParam(":qtde_inicial",$qtde_inicial, PDO::PARAM_INT);
                 $stmt->bindParam(":qtde_atual",$qtde_atual, PDO::PARAM_INT);
                 $stmt->bindParam(":valor",$valor, PDO::PARAM_STR);
+                $stmt->bindParam(":valor_minimo",$valor_minimo, PDO::PARAM_STR);
                 $stmt->bindParam(":vencimento_data", $vencimento_data, PDO::PARAM_STR);
                 $stmt->bindParam(":vencimento_hora", $vencimento_hora, PDO::PARAM_STR);
                 $stmt->bindParam(":status",$status, PDO::PARAM_INT);
@@ -40,9 +42,10 @@
     }
     function update($cupom){
         try{
-            $stmt=$this->pdo->prepare("UPDATE cupom SET valor=:valor, vencimento_data=:vencimento_data, vencimento_hora=:vencimento_hora WHERE cod_cupom=:cod_cupom");
+            $stmt=$this->pdo->prepare("UPDATE cupom SET valor=:valor, valor_minimo=:valor_minimo, vencimento_data=:vencimento_data, vencimento_hora=:vencimento_hora WHERE cod_cupom=:cod_cupom");
             $stmt->bindParam(":cod_cupom",$cupom->getCod_cupom(), PDO::PARAM_INT);
             $stmt->bindParam(":valor",$cupom->getValor(), PDO::PARAM_STR);
+            $stmt->bindParam(":valor_minimo",$cupom->getValor_minimo(), PDO::PARAM_STR);
             $stmt->bindParam(":vencimento_data",$cupom->getVencimento_data(), PDO::PARAM_STR);
             $stmt->bindParam(":vencimento_hora", $cupom->getVencimento_hora(), PDO::PARAM_STR);
             $executa = $stmt->execute();
@@ -77,6 +80,7 @@
                         $cupom->setQtde_inicial($result->qtde_inicial);
                         $cupom->setQtde_atual($result->qtde_atual);
                         $cupom->setValor($result->valor);
+                        $cupom->setValor_minimo($result->valor_minimo);
                         $cupom->setVencimento_data($result->vencimento_data);
                         $cupom->setVencimento_hora($result->vencimento_hora);
                         $cupom->setStatus($result->status);
@@ -112,6 +116,7 @@
                         $cupom->setQtde_inicial($result->qtde_inicial);
                         $cupom->setQtde_atual($result->qtde_atual);
                         $cupom->setValor($result->valor);
+                        $cupom->setValor_minimo($result->valor_minimo);
                         $cupom->setVencimento_data($result->vencimento_data);
                         $cupom->setVencimento_hora($result->vencimento_hora);
                         $cupom->setStatus($result->status);
@@ -141,6 +146,7 @@
                         $cupom->setQtde_inicial($result->qtde_inicial);
                         $cupom->setQtde_atual($result->qtde_atual);
                         $cupom->setValor($result->valor);
+                        $cupom->setValor_minimo($result->valor_minimo);
                         $cupom->setVencimento_data($result->vencimento_data);
                         $cupom->setVencimento_hora($result->vencimento_hora);
                         $cupom->setStatus($result->status);

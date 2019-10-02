@@ -37,6 +37,39 @@
             }
         }
 
+        function insertSemCodCli($endereco){
+            try{
+                $stmt=$this->pdo->prepare("INSERT INTO endereco(rua, numero, cep, complemento, bairro, flag_cliente)
+                VALUES (:rua, :numero, :cep, :complemento, :bairro, 1) ");
+                
+                $rua = $endereco->getRua();
+                $numero = $endereco->getNumero();
+                $cep = $endereco->getCep();
+                $complemento = $endereco->getComplemento();
+                $bairro = $endereco->getBairro();
+                
+                $stmt->bindParam(":rua", $rua, PDO::PARAM_STR);
+                $stmt->bindParam(":numero",$numero, PDO::PARAM_INT);
+                $stmt->bindParam(":cep", $cep, PDO::PARAM_STR);
+                $stmt->bindParam(":complemento", $complemento, PDO::PARAM_STR);
+                $stmt->bindParam(":bairro", $bairro, PDO::PARAM_STR);
+
+                $executa=$stmt->execute();
+                                
+                $cod_endereco = $this->pdo->lastInsertId();
+                
+                if ($executa){
+                    return $cod_endereco;
+                }else{
+                    return -1;
+                }
+            }catch(PDOException $e){
+
+                echo $e->getMessage();
+
+            }
+        }
+
         function update($endereco){
             try{
                 $stmt=$this->pdo->prepare("UPDATE endereco SET rua=:rua, numero=:numero, cep=:cep, complemento=:complemento, bairro=:bairro, cliente=:cliente WHERE cod_endereco=:cod_endereco;");

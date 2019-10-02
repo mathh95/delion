@@ -5,7 +5,7 @@ $(document).ready(function () {
 
         url: 'ajax/buscar-endereco.php',
 
-        data: {tipo : 'ativo'},
+        data: { tipo: 'ativo' },
 
         success: function (resultado) {
             $(".lista").html(resultado);
@@ -15,13 +15,13 @@ $(document).ready(function () {
     });
 });
 
-function listarAtivos(){
+function listarAtivos() {
     $.ajax({
         type: 'GET',
 
         url: 'ajax/buscar-endereco.php',
 
-        data: {tipo : 'ativo'},
+        data: { tipo: 'ativo' },
 
         success: function (resultado) {
             $(".lista").html(resultado);
@@ -31,13 +31,13 @@ function listarAtivos(){
     });
 }
 
-function listarInativos(){
+function listarInativos() {
     $.ajax({
         type: 'GET',
 
         url: 'ajax/buscar-endereco.php',
 
-        data: {tipo : 'inativo'},
+        data: { tipo: 'inativo' },
 
         success: function (resultado) {
             $(".lista").html(resultado);
@@ -47,7 +47,7 @@ function listarInativos(){
     });
 }
 
-function cadastrarEndereco(){
+function cadastrarEndereco() {
     $.ajax({
         type: 'GET',
 
@@ -60,13 +60,13 @@ function cadastrarEndereco(){
     });
 }
 
-function alterarEndereco(endereco){
+function alterarEndereco(endereco) {
     $.ajax({
         type: 'GET',
 
         url: 'ajax/salvar-endereco.php',
 
-        data: {endereco:endereco},
+        data: { endereco: endereco },
 
         success: function (resultado) {
             $(".opcoes").html(resultado);
@@ -76,122 +76,123 @@ function alterarEndereco(endereco){
     });
 }
 
-function excluirEndereco(endereco){
+function excluirEndereco(endereco) {
     $.ajax({
-            
-        type:'GET',
-        
+
+        type: 'GET',
+
         url: 'ajax/excluir-endereco.php',
-        
-        data: {endereco : endereco}
+
+        data: { endereco: endereco }
         ,
-        success:function(resultado){
-            if (resultado < 0){
+        success: function (resultado) {
+            if (resultado < 0) {
                 swal("Não foi possível excluir endereço", "erro!", "error");
                 reloadEnderecosAtivos();
-            }else{
+            } else {
                 swal("Endereço excluido com sucesso!", "Excluido!", "success");
                 reloadEnderecosAtivos();
             }
         }
 
     });
-  }
+}
 
-  function ativarEndereco(endereco){
+function ativarEndereco(endereco) {
     $.ajax({
-            
-        type:'GET',
-        
+
+        type: 'GET',
+
         url: 'ajax/restaurar-endereco.php',
-        
-        data: {endereco : endereco}
+
+        data: { endereco: endereco }
         ,
-        success:function(resultado){
-            if (resultado < 0){
+        success: function (resultado) {
+            if (resultado < 0) {
                 swal("Não foi possível ativar endereço", "erro!", "error");
                 reloadEnderecosAtivos();
-            }else{
+            } else {
                 swal("Endereço ativado com sucesso!", "Excluido!", "success");
                 reloadEnderecosAtivos();
             }
         }
 
     });
-  }
+}
 
-  function reloadEnderecosAtivos(){
+function reloadEnderecosAtivos() {
     $.ajax({
-        type:'GET',
+        type: 'GET',
         url: 'ajax/buscar-endereco.php',
-        data:{tipo:'ativo'},
-        success:function(resultado){
+        data: { tipo: 'ativo' },
+        success: function (resultado) {
             $('.lista').html(resultado);
             html = "<button onclick='listarInativos()'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
             $('.listar').html(html);
         }
     });
-  }
+}
 
-  function reloadEnderecosInativos(){
+function reloadEnderecosInativos() {
     $.ajax({
-        type:'GET',
+        type: 'GET',
         url: 'ajax/buscar-endereco.php',
-        data:{tipo:'inativo'},
-        success:function(resultado){
+        data: { tipo: 'inativo' },
+        success: function (resultado) {
             $('.lista').html(resultado);
             html = "<button onclick='listarAtivos()'>LISTAR ENDEREÇOS ATIVOS</button>"
             $('.listar').html(html);
         }
     });
-  }
+}
 
-  function autoCompletar(rua,bairro,cep){
+function autoCompletar(rua, bairro, cep) {
     $.ajax({
-        type:'GET',
+        type: 'GET',
         url: 'ajax/salvar-endereco.php',
-        data:{rua:rua, bairro:bairro, cep:cep},
-        success:function(resultado){
+        data: { rua: rua, bairro: bairro, cep: cep },
+        success: function (resultado) {
             $('.opcoes').html(resultado);
             html = "<button onclick='listarAtivos()'>LISTAR ENDEREÇOS ATIVOS</button>"
             $('.listar').html(html);
         }
     });
-  }
+}
 
-  function selecionarEndereco(endereco, flag){
-      console.log(endereco);
-      console.log(flag);
+function selecionarEndereco(endereco, flag) {
+    console.log(endereco);
+    console.log(flag);
 
-      if(flag == 1){
+    //flag 1 == combo
+    if (flag == 1) {
         var url = "ajax/validaEnd.php";
         $.ajax({
-            
-            type:'GET',
-            
+
+            type: 'GET',
+
             url: url,
-            
-            data: {endereco : endereco},
-            
-            success:function(resultado){
-                swal("Endereço selecionado!", "Por favor, confirme seu pedido novamente!", "success").then((value) => {window.location='/home/combo.php'});
-            } 
-    
+
+            data: { endereco: endereco },
+
+            success: function (resultado) {
+                swal("Endereço selecionado!", "Por favor, confirme seu pedido novamente!", "success").then((value) => { window.location = '/home/combo.php' });
+            }
+
         });
-      }else{
+    } else {
         var url = "ajax/enviarEmailPedido.php";
         $.ajax({
-            
-            type:'GET',
-            
+
+            type: 'GET',
+
             url: url,
-            
-            data: {endereco : endereco},
-            
-            success:function(resultado){
-                swal("Pedido realizado com sucesso!", "Concluido, estaremos enviando seu pedido!", "success").then((value) => {window.location='/home'});
-            } 
-    
+
+            data: { endereco: endereco },
+
+            success: function (resultado) {
+                swal("Pedido realizado com sucesso!", "Concluido, estaremos enviando seu pedido!", "success").then((value) => { window.location = '/home' });
+            }
+
         });
-      }
- }
+    }
+}

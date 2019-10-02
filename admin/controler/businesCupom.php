@@ -12,6 +12,7 @@ if (in_array('pedidoWpp', json_decode($_SESSION['permissao']))) {
     }
     $codigo= addslashes(htmlspecialchars($_POST['codigo']));
     $qntde = $_POST['qtdcupom'];
+    $valor_minimo = $_POST['valorMinimo'];
     if(isset($qntde) && !empty($qntde)){
         $qtde_inicial=addslashes(htmlspecialchars($qntde));
         $qtde_atual = $qtde_inicial;
@@ -34,7 +35,7 @@ if (in_array('pedidoWpp', json_decode($_SESSION['permissao']))) {
 
     $status=1;
     $cupom = new cupom;
-    $cupom->construct($codigo,$qtde_inicial, $qtde_atual, $valor, $vencimento_data, $vencimento_hora, $status);
+    $cupom->construct($codigo,$qtde_inicial, $qtde_atual, $valor, $valor_minimo, $vencimento_data, $vencimento_hora, $status);
     $control = new controlCupom($_SG['link']);
     $result=$control->insert($cupom);
     

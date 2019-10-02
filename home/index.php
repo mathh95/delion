@@ -170,9 +170,9 @@
 					<h4 style="text-align:center;" class="modal-title" id="myModalLabel">Falta pouco para você ter em sua casa nossas delícias!<br>Complete seu cadastro para ter acesso ao nosso site.</h4>
 				</div>
 				<div class="modal-body">
-					<form id="address-form" method="POST">
+					<form id="address-form" method="POST" onsubmit="entrar(); return false;">
 						<div class="row">
-							<div class="col-sm-3">
+							<div class="col-sm-3"> 
 								<label>UF</label>
 								<input type="text" class="form-control" id="administrative_area_level_1" name="administrative_area_level_1" maxlength="2" required/>
 							</div>
@@ -248,8 +248,11 @@ async defer></script>
 	});
 
 	//redireciona para cardapio
-	$("#entrar").on("click", function(){
-		
+	$(document).on("click","#entrar", function(){
+		entrar();
+	});
+
+	function entrar(){
 		var data = $("#address-form").serializeArray();
 		
 		//verifica se campos estão preenchidos
@@ -280,8 +283,8 @@ async defer></script>
 					//swal("Erro :/", "Entre em contato com o suporte." , "error");
 				}
 			});
-		} 
-	});
+		}
+	}
 
 </script>
 

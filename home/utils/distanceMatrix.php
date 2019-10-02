@@ -1,6 +1,6 @@
 <?php
 
-class controlerDistanceMatrix {
+class DistanceMatrix {
 
     function getDistanceInfo($origin, $destination){
         
@@ -27,9 +27,11 @@ class controlerDistanceMatrix {
         $distance_info = array();
 
         $elements = $distance_arr->rows[0]->elements;
-        $distance_info['distance_meters'] = $elements[0]->distance->value;
-        $distance_info['duration'] = $elements[0]->duration->text;
+        $distance_info['duration_text'] = $elements[0]->duration->text;//mins
+        $distance_info['duration_sec'] = $elements[0]->duration->value;
+
         $distance_info['distance_km'] = $elements[0]->distance->text;//km
+        $distance_info['distance_meters'] = $elements[0]->distance->value;
 
 
         return $distance_info;

@@ -14,6 +14,8 @@
 
             private $valor;
 
+            private $valor_minimo;
+
             private $vencimento_data;
 
             private $vencimento_hora;
@@ -42,6 +44,10 @@
 
             function getValor(){
                 return $this->valor;
+            }
+
+            function getValor_minimo(){
+                return $this->valor_minimo;
             }
 
             function getVencimento_data(){
@@ -75,6 +81,11 @@
             function setValor($valor){
                 $this->valor = $valor;
             }
+
+            function setValor_minimo($valor_minimo){
+                $this->valor_minimo = $valor_minimo;
+            }
+
             function setVencimento_data($vencimento_data){
                 $this->vencimento_data=$vencimento_data;
             }
@@ -93,11 +104,12 @@
                 $this->vencimento_hora = $vencimento_hora;
             }
 
-            function construct($codigo,$qtde_inicial, $qtde_atual,$valor, $vencimento_data, $vencimento_hora, $status){
+            function construct($codigo,$qtde_inicial, $qtde_atual,$valor,$valor_minimo , $vencimento_data, $vencimento_hora, $status){
                 $this->codigo = $codigo;
                 $this->qtde_inicial = $qtde_inicial;
                 $this->qtde_atual = $qtde_atual;
                 $this->valor = $valor;
+                $this->valor_minimo = $valor_minimo;
                 $this->vencimento_data = $vencimento_data;
                 $this->vencimento_hora = $vencimento_hora;
                 $this->status = $status;
@@ -113,6 +125,7 @@
                 echo "Quantidade inicial: ".$this->qtde_inicial."<br>";
                 echo "Quantidade atual: ".$this->qtde_atual."<br>";
                 echo "Valor: ".$this->valor."<br>";
+                echo "Valor Minimo:".$this->valor_minimo."<br>";
                 echo "Data de vencimento: ".$this->vencimento_data."<br>";
                 echo "Hora de vencimento: ".$this->vencimento_hora."<br>";
                 echo "Status: ".$this->status."<br>";
