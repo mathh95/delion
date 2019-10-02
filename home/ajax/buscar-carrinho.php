@@ -147,16 +147,22 @@ if (count($itens) > 0) {
                     </div>";
                 }
 
-                //Endereço inserido na página inicial
-                if (isset($_SESSION['endereco']['postal_code']) || ($_SESSION['is_delivery'] != 0)) {
-
+                if(isset($_SESSION['endereco']['postal_code'])){
                     $_SESSION['is_delivery'] = 1;
+                    //unset($_SESSION['endereco']);
+                }else if(!isset($_SESSION['is_delivery'])){//se setado mantem valor
+                    $_SESSION['is_delivery'] = 0;
+                }
 
+                if (($_SESSION['is_delivery'] == 1)) {
+                    
+                    $_SESSION['is_delivery'] = 1;
+                    
                     //taxa de entrega calculada?
                     if (($_SESSION['delivery_price'] > 0) && ($_SESSION['is_delivery'])) {
                         $_SESSION['totalCorrigido'] += $_SESSION['delivery_price'];
                     }
-
+                    
                     //delivery active
                     echo "<strong><p>Entrega</p></strong>
                     <div class='btn-group btn-group-toggle' data-toggle='buttons'>
@@ -166,51 +172,57 @@ if (count($itens) > 0) {
                     <input type='radio' name='balcao' autocomplete='off'> Balcão&nbsp;<i class='fas fa-store'></i>
                     </label>
                     </div>";
-
+                    
                     //var_dump($_SESSION['endereco']);
+                    
+                    //Endereço inserido na página inicial
+                    if(isset($_SESSION['endereco']['postal_code'])){
+                        $cep = $_SESSION['endereco']['postal_code'];
+                        $rua = $_SESSION['endereco']['route'];
+                        $numero = $_SESSION['endereco']['street_number'];
+                        $bairro = $_SESSION['endereco']['sublocality_level_1'];
+                        $complemento = $_SESSION['endereco']['complemento'];
+                        //$uf = $_SESSION['endereco']['administrative_area_level_1'];
+                        $cidade = $_SESSION['endereco']['administrative_area_level_2'];
+                        $referencia = $_SESSION['endereco']['referencia'];
+                    
 
-                    $admin_area_lv1 = $_SESSION['endereco']['administrative_area_level_1'];
-                    $admin_area_lv2 = $_SESSION['endereco']['administrative_area_level_2'];
-                    $postal_code = $_SESSION['endereco']['postal_code'];
-                    $sublocality_lv1 = $_SESSION['endereco']['sublocality_level_1'];
-                    $route = $_SESSION['endereco']['route'];
-                    $street_number = $_SESSION['endereco']['street_number'];
-                    $complemento = $_SESSION['endereco']['complemento'];
-                    $referencia = $_SESSION['endereco']['referencia'];
+                        echo "<div id='infoDelivery'>";
+                        echo "<br><span style='font-weight:bold;'>Endereço para Entrega: </span> <span onclick='location=\"/home\"' style='cursor:pointer;'><i class='fas fa-edit'></i>&nbsp;Alterar</span><br><br>";
+                        echo "CEP: " . $cep . "<br>";
+                        echo "End.: " . $rua . "<br>";
+                        echo "Número: " . $numero . "<br>";
+                        if (strlen($complemento) > 0) {
+                            echo "Complemento: " . $complemento . "<br>";
+                        } else {
+                            echo "Complemento: (vazio)<br>";
+                        }
+                        echo "Bairro: " . $bairro . "<br>";
+                        echo "Cidade: " . $cidade . "<br>";
+                        //echo "UF: ".$admin_area_lv1."<br>";
+                        if (strlen($referencia) > 0) {
+                            echo "Ponto de Referência: " . $referencia . "<br>";
+                        } else {
+                            echo "Ponto de Referência: (vazio)<br>";
+                        }
 
-                    echo "<div id='infoDelivery'>";
-                    echo "<br><span style='font-weight:bold;'>Endereço para Entrega: </span> <span onclick='location=\"/home\"' style='cursor:pointer;'><i class='fas fa-edit'></i>&nbsp;Alterar</span><br><br>";
-                    echo "CEP: " . $postal_code . "<br>";
-                    echo "End.: " . $route . "<br>";
-                    echo "Número: " . $street_number . "<br>";
-                    if (strlen($complemento) > 0) {
-                        echo "Complemento: " . $complemento . "<br>";
-                    } else {
-                        echo "Complemento: (vazio)<br>";
+                        $distanceMatrix = new DistanceMatrix();
+
+                        $origin = "R. Jorge Sanwais, 1137 - Centro, Foz do Iguaçu"; //-25.54086,-54.581167
+                        $dest = $rua . " " . $numero . " " . $bairro . " " . $cidade;
+
+                        $dist = $distanceMatrix->getDistanceInfo($origin, $dest); //origin,dest
+                        
+                        echo "<br>Distância: " . $dist['distance_km'] . " <br>";
+                        echo "Tempo estimado de entrega: " . $dist['duration'] . " <br>";
+                        echo "</div>";
+                        
+                        $delivery_price = $distanceMatrix->getDeliveryPrice($dist['distance_meters']);
+                        $_SESSION['delivery_price'] = $delivery_price;
+
+                        $_SESSION['delivery_time'] = $dist['duration'];
+                        $_SESSION['totalCorrigido'] += $delivery_price;
                     }
-                    echo "Bairro: " . $sublocality_lv1 . "<br>";
-                    echo "Cidade: " . $admin_area_lv2 . "<br>";
-                    //echo "UF: ".$admin_area_lv1."<br>";
-                    if (strlen($referencia) > 0) {
-                        echo "Ponto de Referência: " . $referencia . "<br>";
-                    } else {
-                        echo "Ponto de Referência: (vazio)<br>";
-                    }
-
-                    $distanceMatrix = new DistanceMatrix();
-
-                    $origin = "R. Jorge Sanwais, 1137 - Centro, Foz do Iguaçu"; //-25.54086,-54.581167
-                    $dest = $route . " " . $street_number . " " . $sublocality_lv1 . " " . $admin_area_lv2;
-
-                    $dist = $distanceMatrix->getDistanceInfo($origin, $dest); //origin,dest
-                    echo "<br>Distância: " . $dist['distance_km'] . " <br>";
-                    echo "Tempo estimado de entrega: " . $dist['duration'] . " <br>";
-                    $delivery_price = $distanceMatrix->getDeliveryPrice($dist['distance_meters']);
-                    $_SESSION['delivery_price'] = $delivery_price;
-                    echo "</div>";
-
-                    $_SESSION['delivery_time'] = $dist['duration'];
-                    $_SESSION['totalCorrigido'] += $delivery_price;
 
                     //balcao
                     echo "<div style='display:none;' id='infoBalcao'>";

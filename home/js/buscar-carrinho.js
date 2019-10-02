@@ -201,6 +201,7 @@ $(document).on("click", "#adicionarUnidade", function(){
         data: {acao: acao, preco: preco, qtdAtual: qtdAtual, linha: linha},
 
         success:function(resultado){
+            console.log(resultado);
             var res = JSON.parse(resultado);
             console.log(res);
             var totalCarr = res.totalCarrinho;

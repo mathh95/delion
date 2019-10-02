@@ -240,7 +240,7 @@ async defer></script>
 	});
 
 	//redireciona para cardapio
-	$("#entrar").on("click", function(){
+	$(document).on("click","#entrar", function(){
 		
 		var data = $("#address-form").serializeArray();
 		

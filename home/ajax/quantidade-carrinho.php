@@ -26,8 +26,9 @@ if (isset($_GET['delivery']) && !empty($_GET['delivery'])){
 //função pra aumentar a quantidade de um item no carrinho
 if($acao == "+"){
     $qtdAtual = $_GET['qtdAtual'];
+    //echo $qtdAtual;
     $linha = $_GET['linha'];
-    $_SESSION['qtd'][$linha] = $qtdAtual+1;
+    $_SESSION['qtd'][$linha] = $qtdAtual+1;    
     $_SESSION['totalCarrinho'] += $preco;
     $_SESSION['totalComDesconto'] = ((float)$_SESSION['totalCarrinho'] - (float)$_SESSION['valorcupom']);
     
