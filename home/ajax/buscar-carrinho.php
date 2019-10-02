@@ -32,9 +32,14 @@ $_SESSION['delivery_price'] = 0;
 
 if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     $itens = $_SESSION['carrinho'];
-    foreach ($_SESSION['qtd'] as $key => $value) {
-        $_SESSION['qtd'][$key] = 1;
-    }
+    
+    //seta unidade de itens p/ 1 unidade
+    // if(!isset($_SESSION['qtd'])){
+    //     foreach ($_SESSION['qtd'] as $key => $value) {
+    //         $_SESSION['qtd'][$key] = 1;
+    //     }
+    // }
+
 } else {
     $_SESSION['carrinho'] = array();
     $_SESSION['qtd'] = array();
@@ -70,14 +75,14 @@ if (count($itens) > 0) {
                     $totalCarrinho = 0;
                     $i = 0;
                     $pedidoBalcao = 0;
-                    foreach ($itens as $item) : ?>
+                    foreach ($itens as $key => $item) : ?>
                     <tr id="idLinha<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>">
                         <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
                         <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['nome'] ?></strong></td>
                         <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['preco'] ?>"><strong>R$ <?= number_format($item['preco'], 2); ?></strong></td>
                         <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?= number_format($item['preco'], 2); ?></strong></td>
                         <td class="quantidadeProdutoTabela">
-                            <input class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" value=1 readonly="true">
+                            <input class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" value=<?= $_SESSION['qtd'][$key] ?> readonly="true">
                             <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?= $i ?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
                             <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?= $i ?>" class="fas fa-cart-arrow-down fa-lg btn iconeExcluirProdutoTabela"></i>
                         </td>
@@ -92,12 +97,12 @@ if (count($itens) > 0) {
                                         ?>
                             </strong> </td>
                     </tr>
-                <?php
+                    <?php
                         $i++;
-                        $totalCarrinho += $item['preco'];
-                    endforeach;
-                    $_SESSION['totalCarrinho'] = $totalCarrinho;
-                    $_SESSION['pedidoBalcao'] = $pedidoBalcao;
+                        $totalCarrinho += $item['preco'] * $_SESSION['qtd'][$key];
+                        endforeach;
+                        $_SESSION['totalCarrinho'] = $totalCarrinho;
+                        $_SESSION['pedidoBalcao'] = $pedidoBalcao;
                     ?>
             </tbody>
         </table>
@@ -155,9 +160,7 @@ if (count($itens) > 0) {
                 }
 
                 if (($_SESSION['is_delivery'] == 1)) {
-                    
-                    $_SESSION['is_delivery'] = 1;
-                    
+                                        
                     //taxa de entrega calculada?
                     if (($_SESSION['delivery_price'] > 0) && ($_SESSION['is_delivery'])) {
                         $_SESSION['totalCorrigido'] += $_SESSION['delivery_price'];
@@ -235,6 +238,7 @@ if (count($itens) > 0) {
                     echo "</div>";
                 } else {
 
+                    //balcao
                     $_SESSION['is_delivery'] = 0;
 
                     //balcão active

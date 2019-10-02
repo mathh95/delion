@@ -30,6 +30,8 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
     if(!in_array($id, $_SESSION['carrinho'], true)){
         
         array_push($_SESSION['carrinho'], $id);
+        
+        //seta unidade de itens p/ 1 unidade
         array_push($_SESSION['qtd'], 1);
         //essa sessão está sendo startada na index do projeto
 
