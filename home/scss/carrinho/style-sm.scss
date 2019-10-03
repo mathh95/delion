@@ -158,7 +158,7 @@ body{
                 >.btn-group-toggle{
                     margin-top:10px;
                     > .btn{
-                        background-color: #c57682;
+                        background-color: $vermelho_fraco;
                         border-color: $vermelho_forte;
                         
                         > input{
@@ -169,7 +169,7 @@ body{
                         background-color: $vermelho_forte;
                     }
                     > label{
-                        background-color: #c57682;
+                        background-color: $vermelho_fraco;
                         border-color: $vermelho_forte;
                         
                         > input{
