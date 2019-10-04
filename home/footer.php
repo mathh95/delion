@@ -1,6 +1,6 @@
 <head>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/footer/style-xs.css"/>
 
@@ -15,8 +15,8 @@
 <footer class="footer container-fluid">
 
 		<div class="navbar-social navbar-collapse">
-			<a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a>
-			<a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a>
+			<a href="https://www.facebook.com"><i class="fab fa-facebook"></i></a>
+			<a href="https://www.instagram.com"><i class=" fab fa-instagram"></i></a>
 		</div>
 
 		<div class="row left">

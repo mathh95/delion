@@ -3,61 +3,328 @@
 
 @import "../variables";
 
+@font-face {
+    font-family: "Century Gothic Regular";
+    src: url("../fonts/gothic.ttf");
+}
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../fonts/gothicb.ttf");
+}
+
 //Especifico do index
-body{
+body, html{
     font-family: $font_main;
-    > .cardapio-evento-pedido-cartao{
-        padding-bottom: 15px;
-        padding-right: 0px;
-        padding-left: 0px;
-        > div {
-            @include make-xs-column(12);
-            padding-top: 15px;
-            > .imagem-cardapio-evento {
-                .slick-prev{
-                    z-index: 10;
-                    margin-left: 10px;
-                }
-                .slick-next {
-                    margin-right: 10px;
-                }
-                a {
-                    > img {
+    height: auto;
+    width: 100%;
+    margin: 0;
+    overflow-x: hidden;
+
+
+    > div.container-fluid.no-padding{
+        position: relative;
+        padding: 0;
+        width: 100%;
+        height: auto;
+        >div.imagens-topo {
+            width: 100%;
+            height: auto;
+            background-position: 0 0;
+            background-repeat: no-repeat;
+                    >img.img-responsive.imagem-topo{
+                        position: absolute;
                         @include img-responsive();
                         @include center-block();
                     }
-                }
-            }
-            > .imagem-pedido-cartao {
-                background-color: #FFFFFF;
-                a {
-                    > img {
+                    >img.imagem-logo{
+                        width: 30%;
+                        position: relative;
+                        padding-top: 10px;
                         @include img-responsive();
                         @include center-block();
                     }
-                }
-            }
-            a {
-                > div {
-                    font-size: 14px;
-                    background-color: #000000;
-                    color: #ffffff;
-                    > .icone {
-                        height: 29px;
-                        padding-left: 5px;
-                        padding-right: 10px;
-                        padding-bottom: 3px;
+        }
+    }
+    
+    > .form-cep-completo{
+        font-family: $font_main;
+        position: relative;
+        text-align: center;
+        width: 100%;
+        height: auto;
+        
+        >div.tabs{
+            position: relative;
+            text-align:center;
+            >ul.nav.nav-tabs{
+                font-size: 20px;
+                float:none;
+                display:inline-flex;
+                margin-bottom: 0;
+                width: 100%;
+                border: 0;
+                padding: 0;
+                margin: 0;
+                >li.delivery{
+                    border-color: $cinza;
+                    width: 100%;
+                    a{
+                        color: $vermelho_fraco;
+                        width: 100%;
+                        background-color: $cinza;
+                        border-top-left-radius: 15px;
+                        border-top-right-radius: 15px;
+                        -moz-border-radius-topleft: 15px;
+                        -moz-border-radius-topright: 15px;
+                        border-top-left-radius: 15px;
+                        border-top-right-radius: 15px; 
                     }
+                    
                 }
-                > .texto {
-                    padding-top: 4px;
-                    height: 34px;
+                >li.retirada{
+                    width: 100%;
+                    a{
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px;
+                    -moz-border-radius-topleft: 15px;
+                    -moz-border-radius-topright: 15px;
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px; 
+                    border-color: $cinza;
+                    width: 100%;
+                    color: #000000;
+                    background-color: #ffffff;
+                    }
+                    
+                }
+                
+            }
+        
+        }
+
+        > div.form-cep-campos{
+            position: relative;
+            display: inline-flex;
+            width: 40%;
+            // padding-left: 10px;
+            text-align: center;
+
+           
+
+            > div.locationField{
+                position: relative;
+                // text-align: center;
+                width: 100%;
+                >span.fa-map-marker-alt{
+                    position: absolute;
+                    font-size: 30px;
+                    padding-top: 10px;
+                    left: 92%;
+                    color: $cinza;
+                }
+                >input.input-cep{
+                    width: 100%;
+                    height: 50px;
+                    border-bottom-left-radius: 10px;
+                    // border-top-left-radius: 10px;
                 }
             }
-            a:hover {
-                outline: none;
-                text-decoration: none;
+            >div.buttonField{
+                text-align: center;
+                position: relative;
+                margin: 0 !important;
+                border: 0 !important;
+                box-sizing: border-box;
+                button{
+                    color: #30BAEE;
+                    background-color: #ffffff;
+                    border-color: $cinza;
+                    border-left: #ffffff;
+                    height: 50px;
+                    border-bottom-right-radius: 10px;
+                    padding: 10px;
+                    width: 100%;
+                    // border: none;
+                    font: inherit;
+                    
+                    // border-top-right-radius: 10px;
+                    // button::-moz-focus-inner {
+                    
+                    // padding: 0 !important;
+                    // }
+                    
+                }
+                
             }
         }
     }
+    >div.grid-images.row{
+        display: inline-flex;
+        flex-flow: column;
+        height: auto;
+        width: 100%;
+        margin: 0 !important;
+        >div.thumb-home{
+            padding: 5px;
+            >a.thumbnail{
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: auto;
+                border: 0 none;
+                box-shadow: none;
+                display: inline-block;
+                overflow: hidden;
+                img{
+                    display: inline-flex;
+                    transition: all 0.3s ease;
+                    @include img-responsive();
+                        @include center-block();
+                }
+                
+            }
+            >a.thumbnail img:hover{
+                transform: scale(1.05, 1.05);
+                
+            }
+        }
+    }
+    
+        
+    >footer.footer.container-fluid{
+        width: 100%;
+        height: auto;
+        display: inline-flex;
+        background-color: $vermelho_fraco;
+        flex-flow: wrap;
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+        
+            >div.navbar-social.navbar-collapse{
+                width: 100%;
+                height: 30%;
+                background-color: $vermelho_forte;
+                text-align: center;
+                position: relative;
+                font-size: 35px;
+                margin: 0 !important;
+                >a i{
+                    padding: 10px;
+                    color: #ffffff;
+                }
+            }
+
+            >div.row.left{
+                @include make-lg-column(3);
+				@include make-lg-column-offset(1);
+                padding: 60px;
+                padding-left: 100px;
+                width: 33.3%;
+                text-decoration: none;
+                ul {
+                    list-style-type: none;
+                    a{
+                        color: #ffffff;
+                        text-decoration: none;
+                    }
+                }
+            }
+            >div.row.center{
+                padding: 60px;
+                width: 33.3%;
+                ul {
+                    list-style-type: none;
+                    a{
+                        color: #ffffff;
+                        text-decoration: none;
+                    }
+                }
+                
+            }
+            >div.row.right{
+                @include make-lg-column(3);
+				@include make-lg-column-offset(1);
+                padding-top: 30px;
+                margin: 0 !important;
+                width: 33.3%;
+                display: flex;
+                img{
+                    @include img-responsive();
+					@include center-block();
+                    float: center;
+                }
+                >div.endereco-footer{
+                    padding: 20px;
+                    p{
+                        float: center;
+                        color: #ffffff;
+                    }
+                    
+                }
+                
+                
+            }
+    }
+   
+    
+    
 }
+
+// body{
+//     font-family: $font_main;
+//     > .cardapio-evento-pedido-cartao{
+//         padding-bottom: 15px;
+//         padding-right: 0px;
+//         padding-left: 0px;
+//         > div {
+//             @include make-xs-column(12);
+//             padding-top: 15px;
+//             > .imagem-cardapio-evento {
+//                 .slick-prev{
+//                     z-index: 10;
+//                     margin-left: 10px;
+//                 }
+//                 .slick-next {
+//                     margin-right: 10px;
+//                 }
+//                 a {
+//                     > img {
+//                         @include img-responsive();
+//                         @include center-block();
+//                     }
+//                 }
+//             }
+//             > .imagem-pedido-cartao {
+//                 background-color: #FFFFFF;
+//                 a {
+//                     > img {
+//                         @include img-responsive();
+//                         @include center-block();
+//                     }
+//                 }
+//             }
+//             a {
+//                 > div {
+//                     font-size: 14px;
+//                     background-color: #000000;
+//                     color: #ffffff;
+//                     > .icone {
+//                         height: 29px;
+//                         padding-left: 5px;
+//                         padding-right: 10px;
+//                         padding-bottom: 3px;
+//                     }
+//                 }
+//                 > .texto {
+//                     padding-top: 4px;
+//                     height: 34px;
+//                 }
+//             }
+//             a:hover {
+//                 outline: none;
+//                 text-decoration: none;
+//             }
+//         }
+//     }
+// }

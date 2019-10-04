@@ -83,7 +83,7 @@ body, html{
                     
                 }
                 >li.retirada{
-                    width: 49%;
+                    width: 50%;
                     a{
                     border-top-left-radius: 15px;
                     border-top-right-radius: 15px;
@@ -114,8 +114,9 @@ body, html{
 
             > div.locationField{
                 position: relative;
-                text-align: center;
-                >span.fa-map-marker{
+                // text-align: center;
+                width: 100%;
+                >span.fa-map-marker-alt{
                     position: absolute;
                     font-size: 30px;
                     padding-top: 10px;
