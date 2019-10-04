@@ -20,6 +20,12 @@ include_once "../../admin/model/formaPgt.php";
 
 include_once "../utils/distanceMatrix.php";
 
+include_once "../controler/controlEmpresa.php";
+
+include_once "../../admin/model/entrega.php";
+
+include_once "../../admin/controler/controlEntrega.php";
+
 // require_once '../ajax/enviarEmailPedido.php';
 
 $itens = array();
@@ -185,22 +191,42 @@ if (count($itens) > 0) {
                         echo "</div>";
 
 
-                        $distanceMatrix = new DistanceMatrix();
+                        /*** Estimativas de Tempo, Distância, Taxa de entrega ***/
+                        $controleEmpresa=new controlerEmpresa(conecta());
+                        $empresa = $controleEmpresa->select(1,2);
                         
-                        $origin = "R. Jorge Sanwais, 1137 - Centro, Foz do Iguaçu"; //-25.54086,-54.581167
+                        $endereco_delion = $empresa->getEndereco()." ".$empresa->getCidade();
+                        
+                        $origin = utf8_decode($endereco_delion); //-25.54086,-54.581167
                         $dest = $rua . " " . $numero . " " . $bairro . " " . $cidade;
+                        
+                        $distanceMatrix = new DistanceMatrix();
                         $dist = $distanceMatrix->getDistanceInfo($origin, $dest); //origin,dest
                         
-                        //Estimativa de tempo p/ entrega = Preparação(default=30) + Delivery(google) + MargemSegurança
+                        //Get raio/taxas/tempo
+                        $controle = new controlEntrega($_SG['link']);
+                        $dist_km = $dist['distance_meters']/1000;
+                        $info_entrega = $controle->selectByDist($dist_km);
                         
-                        $tempo_preparacao = 30;//equação?!
-
-                        $estimativa = $tempo_preparacao + ($dist['duration_sec']/60) + 5; 
-                        $_SESSION['delivery_time'] = floor($estimativa);//em minutos
-
+                        //estimativa_tempo = Preparação(default=30) + Tempo_Percurso(google) + MargemSegurança                        
+                        
+                        if($info_entrega->getFlag_ativo()){
+                            //entrega...
+                        }else{
+                            //não entregamos mt longe rapa
+                        }
+                        
+                        $estimativa_tempo = $info_entrega->getTempo();
+                        $_SESSION['delivery_time'] = floor($estimativa_tempo);//em minutos
+                        
+                        // $tempo_preparacao = 30;
+                        
+                        // $estimativa_tempo = $tempo_preparacao + ($dist['duration_sec']/60) + 5; 
+                        // $_SESSION['delivery_time'] = floor($estimativa_tempo);//em minutos
+                        
                         $delivery_price = $distanceMatrix->getDeliveryPrice($dist['distance_meters']);
                         $_SESSION['delivery_price'] = $delivery_price;
-
+                        
                         $_SESSION['totalCorrigido'] += $delivery_price;
                     }
                     
@@ -213,6 +239,7 @@ if (count($itens) > 0) {
                     echo "Bairro: Centro<br>";
                     echo "Cidade: Foz do Iguaçu<br>";
                     echo "</div></div>";//fecha lado esquerdo
+
                 } else {
                     
                     //balcao
@@ -285,7 +312,7 @@ if (count($itens) > 0) {
                     //Info de Entrega
                     echo "<div id='infoEntrega'>";
                     echo "<br><i class='fas fa-road'></i>&nbsp;Distância da entrega: " . $dist['distance_km'] . " <br>";
-                    echo "<i class='far fa-clock'></i>&nbsp;Tempo estimado de entrega: " . $_SESSION['delivery_time']." mins</div>";
+                    echo "<i class='far fa-clock'></i>&nbsp;Estimativa de preparo/entrega: " . $_SESSION['delivery_time']." mins</div>";
                 }
 
                 echo "</div>";

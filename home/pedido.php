@@ -76,8 +76,8 @@ session_start();
             </tbody>
         </table>
 	</div>
-			<!-- FIM DA TABELA -->
-			<?php
+	<!-- FIM DA TABELA -->
+	<?php
 		include_once "./footer.php";
 	?>
 
