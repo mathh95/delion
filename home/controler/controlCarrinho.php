@@ -28,7 +28,8 @@ class controlerCarrinho{
             $idCliente = $_SESSION['cod_cliente'];
             $valor = $_SESSION['totalCorrigido'];
             $desconto = $_SESSION['valorcupom_var'];
-            $taxa_entrega = $_SESSION['delivery_var'];
+            $taxa_entrega = $_SESSION['delivery_price_var'];
+            $tempo_entrega = $_SESSION['delivery_time_var'];
             $subtotal = $_SESSION['totalCarrinho'];
             $formaPgt = $_SESSION['formaPagamento'];
             $codigocupom = $_SESSION['codigocupom'];
@@ -51,8 +52,10 @@ class controlerCarrinho{
             if ($endereco == null){
                 $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, desconto = :desconto , taxa_entrega = :taxa_entrega, subtotal = :subtotal ,formaPgt = :formaPgt ,status = :status ,origem = :origem");
             }else{
-                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, desconto = :desconto , taxa_entrega = :taxa_entrega, subtotal = :subtotal ,formaPgt = :formaPgt ,status = :status ,origem = :origem, endereco = :endereco");
+                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, desconto = :desconto , taxa_entrega = :taxa_entrega, subtotal = :subtotal ,formaPgt = :formaPgt ,status = :status ,origem = :origem, endereco = :endereco, tempo_entrega = :tempo_entrega");
+
                 $sql->bindValue(":endereco", $endereco);
+                $sql->bindValue(":tempo_entrega", $tempo_entrega);
             }
 
             $sql->bindValue(":idCliente", $idCliente);
@@ -91,6 +94,7 @@ class controlerCarrinho{
             $valor = $_SESSION['totalCorrigido'];       //valor com a correção do cupom
             $desconto = $_SESSION['valorcupom_var'];
             $taxa_entrega = $_SESSION['delivery_var'];
+            $tempo_entrega = $_SESSION['delivery_time_var'];
             $subtotal = $_SESSION['totalCarrinho'];
             $formaPgt = $_SESSION['formaPagamento'];
             $origem = "Site";
@@ -100,8 +104,10 @@ class controlerCarrinho{
             if ($endereco == null){
                 $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, desconto = :desconto, taxa_entrega = :taxa_entrega, subtotal = :subtotal ,formaPgt = :formaPgt ,status = :status ,origem = :origem");
             }else{
-                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, desconto = :desconto, taxa_entrega = :taxa_entrega, subtotal = :subtotal ,formaPgt = :formaPgt ,status = :status ,origem = :origem, endereco = :endereco");
+                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, desconto = :desconto, taxa_entrega = :taxa_entrega, subtotal = :subtotal ,formaPgt = :formaPgt ,status = :status ,origem = :origem, endereco = :endereco, tempo_entrega = :tempo_entrega");
+
                 $sql->bindValue(":endereco", $endereco);
+                $sql->bindValue(":tempo_entrega", $tempo_entrega);
             }
     
             $sql->bindValue(":idCliente", $idCliente);
@@ -151,6 +157,7 @@ class controlerCarrinho{
                     $pedido->setValor($result->valor);
                     $pedido->setDesconto($result->desconto);
                     $pedido->setTaxa_entrega($result->taxa_entrega);
+                    $pedido->setTempo_entrega($result->tempo_entrega);
                     $pedido->setSubtotal($result->subtotal);
                     $pedido->setFormaPgt($result->formaPgt);
                     $pedido->setStatus($result->status);
@@ -197,7 +204,7 @@ class controlerCarrinho{
     function selectAllPedido($parametro, $valormenor, $valormaior){
         $pedidos=array();
         $parametro = "%".$parametro."%";
-        $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor,p.desconto,p.taxa_entrega,p.subtotal,p.formaPgt,p.status, p.endereco, p.cliente, p.origem, p.hora_print, p.hora_delivery,p.hora_retirada,c.nome, c.telefone, e.rua, e.numero,e.bairro, e.complemento ,e.cep
+        $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor,p.desconto,p.taxa_entrega,p.subtotal,p.formaPgt,p.status, p.endereco, p.tempo_entrega, p.cliente, p.origem, p.hora_print, p.hora_delivery,p.hora_retirada,c.nome, c.telefone, e.rua, e.numero,e.bairro, e.complemento ,e.cep
         FROM pedido as p
         INNER JOIN
         cliente AS c ON
@@ -220,6 +227,7 @@ class controlerCarrinho{
                     $pedido->setValor($result->valor);
                     $pedido->setDesconto($result->desconto);
                     $pedido->setTaxa_entrega($result->taxa_entrega);
+                    $pedido->setTempo_entrega($result->tempo_entrega);
                     $pedido->setSubtotal($result->subtotal);
                     $pedido->setFormaPgt($result->formaPgt);
                     $pedido->setStatus($result->status);
@@ -251,7 +259,7 @@ class controlerCarrinho{
         $pedidos=array();
         $parametro = "%".$parametro."%";
         $endereco = "%" . $endereco . "%";
-        $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor, p.desconto,p.taxa_entrega,p.subtotal,p.status, p.endereco, p.cliente, p.origem,c.nome, c.telefone, e.rua, e.numero,e.bairro, e.complemento ,e.cep
+        $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor, p.desconto,p.taxa_entrega, p.tempo_entrega, p.subtotal,p.status, p.endereco, p.cliente, p.origem,c.nome, c.telefone, e.rua, e.numero,e.bairro, e.complemento ,e.cep
         FROM pedido as p
         INNER JOIN
         cliente AS c ON
@@ -277,6 +285,7 @@ class controlerCarrinho{
                     $pedido->setValor($result->valor);
                     $pedido->setDesconto($result->desconto);
                     $pedido->setTaxa_entrega($result->taxa_entrega);
+                    $pedido->setTempo_entrega($result->tempo_entrega);
                     $pedido->setSubtotal($result->subtotal);
                     $pedido->setStatus($result->status);
                     $pedido->setCliente($result->nome);
