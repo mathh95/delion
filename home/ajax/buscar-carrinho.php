@@ -36,6 +36,9 @@ $controlFormaPgt = new controlerFormaPgt($_SG['link']);
 $formasPgt = $controlFormaPgt->selectAll();
 $_SESSION['delivery_price'] = 0;
 
+//zera flag Finalizar pedido
+$_SESSION['finalizar_pedido'] = 0;
+
 if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     $itens = $_SESSION['carrinho'];
     
@@ -138,9 +141,11 @@ if (count($itens) > 0) {
                 }else if(!isset($_SESSION['is_delivery'])){//se setado mantem valor
                     $_SESSION['is_delivery'] = 0;
                 }
+                //unset($_SESSION['is_delivery']);
                 
+                $_SESSION['entrega_valida'] = 0;
+
                 if (($_SESSION['is_delivery'] == 1)) {
-                    
                     //taxa de entrega calculada?
                     if (($_SESSION['delivery_price'] > 0) && ($_SESSION['is_delivery'])) {
                         $_SESSION['totalCorrigido'] += $_SESSION['delivery_price'];
@@ -160,6 +165,7 @@ if (count($itens) > 0) {
                     
                     //Endereço inserido na página inicial
                     if(isset($_SESSION['endereco']['postal_code'])){
+
                         $cep = $_SESSION['endereco']['postal_code'];
                         $rua = $_SESSION['endereco']['route'];
                         $numero = $_SESSION['endereco']['street_number'];
@@ -168,27 +174,6 @@ if (count($itens) > 0) {
                         //$uf = $_SESSION['endereco']['administrative_area_level_1'];
                         $cidade = $_SESSION['endereco']['administrative_area_level_2'];
                         $referencia = $_SESSION['endereco']['referencia'];
-                        
-                        
-                        echo "<div id='infoDelivery'>";
-                        echo "<span style='font-weight:bold;'>Endereço para Entrega: </span> <span onclick='location=\"/home\"' style='cursor:pointer;'><i class='fas fa-edit'></i>&nbsp;Alterar</span><br>";
-                        echo "CEP: " . $cep . "<br>";
-                        echo "End.: " . $rua . "<br>";
-                        echo "Número: " . $numero . "<br>";
-                        if (strlen($complemento) > 0) {
-                            echo "Complemento: " . $complemento . "<br>";
-                        } else {
-                            echo "Complemento: (vazio)<br>";
-                        }
-                        echo "Bairro: " . $bairro . "<br>";
-                        echo "Cidade: " . $cidade . "<br>";
-                        //echo "UF: ".$admin_area_lv1."<br>";
-                        if (strlen($referencia) > 0) {
-                            echo "Ponto de Referência: " . $referencia . "<br>";
-                        } else {
-                            echo "Ponto de Referência: (vazio)<br>";
-                        }
-                        echo "</div>";
 
 
                         /*** Estimativas de Tempo, Distância, Taxa de entrega ***/
@@ -206,30 +191,65 @@ if (count($itens) > 0) {
                         //Get raio/taxas/tempo
                         $controle = new controlEntrega($_SG['link']);
                         $dist_km = $dist['distance_meters']/1000;
-                        $info_entrega = $controle->selectByDist($dist_km);
+                        $info_entrega = $controle->selectByDist($dist_km);                     
                         
-                        //estimativa_tempo = Preparação(default=30) + Tempo_Percurso(google) + MargemSegurança                        
-                        
-                        if($info_entrega->getFlag_ativo()){
-                            //entrega...
+                        //Endereço válido para entrega! != -1
+                        //um objeto é esperado
+                        if(!is_int($info_entrega)){
+                            
+                            $_SESSION['entrega_valida'] = 1;
+
+                            $estimativa_tempo = $info_entrega->getTempo();
+                            $_SESSION['delivery_time'] = floor($estimativa_tempo);//em minutos
+                            
+                            
+                            $delivery_price = $info_entrega->getTaxa_entrega();
+                            $_SESSION['delivery_price'] = (float) $delivery_price;
+                            
+                            $_SESSION['totalCorrigido'] += (float) $delivery_price;
+
+
+                            //Display info de entrega
+                            echo "<div id='infoDelivery'>";
+                            echo "<span style='font-weight:bold;'>Endereço para Entrega: </span> <span onclick='location=\"/home\"' style='cursor:pointer;'><i class='fas fa-edit'></i>&nbsp;Alterar</span><br>";
+                            echo "CEP: " . $cep . "<br>";
+                            echo "End.: " . $rua . "<br>";
+                            echo "Número: " . $numero . "<br>";
+                            if (strlen($complemento) > 0) {
+                                echo "Complemento: " . $complemento . "<br>";
+                            } else {
+                                echo "Complemento: (vazio)<br>";
+                            }
+                            echo "Bairro: " . $bairro . "<br>";
+                            echo "Cidade: " . $cidade . "<br>";
+                            //echo "UF: ".$admin_area_lv1."<br>";
+                            if (strlen($referencia) > 0) {
+                                echo "Ponto de Referência: " . $referencia . "<br>";
+                            } else {
+                                echo "Ponto de Referência: (vazio)<br>";
+                            }
+                            echo "</div>";
+
                         }else{
-                            //não entregamos mt longe rapa
+                            //Endereço inválido para entrega
+                            echo "<div id='infoDelivery'>";
+                            echo "<span style='font-weight:bold;'> <i class='fas fa-frown-open'></i>&nbsp;Ops...Ainda não fazemos entrega nesta região: </span><br><br>";
+
+                            echo " <span onclick='location=\"/home\"' style='cursor:pointer;'><i class='fas fa-edit'></i>&nbsp;Alterar</span><br>";
+                            echo "End.: " . $rua . "<br>";
+                            echo "Número: " . $numero . "<br>";
+                            echo "Cidade: " . $cidade . "<br>";
+                            echo "</div>";
                         }
-                        
-                        $estimativa_tempo = $info_entrega->getTempo();
-                        $_SESSION['delivery_time'] = floor($estimativa_tempo);//em minutos
-                        
-                        // $tempo_preparacao = 30;
-                        
-                        // $estimativa_tempo = $tempo_preparacao + ($dist['duration_sec']/60) + 5; 
-                        // $_SESSION['delivery_time'] = floor($estimativa_tempo);//em minutos
-                        
-                        $delivery_price = $distanceMatrix->getDeliveryPrice($dist['distance_meters']);
-                        $_SESSION['delivery_price'] = $delivery_price;
-                        
-                        $_SESSION['totalCorrigido'] += $delivery_price;
+                    }else{
+                        //info de entrega
+                        echo "<div id='infoDelivery'>";
+                        echo "<br>";
+                        echo "<span style='font-weight:bold;'></span> <span onclick='location=\"/home\"' style='cursor:pointer;'>&nbsp;Inserir Endereço de Entrega&nbsp;<i class='fas fa-external-link-alt'></i></span><br>";
+                        echo "<br><span>*Ou selecione um Endereço cadastrado ao Finalizar o Pedido.</span>";
+                        echo "</div>";
                     }
-                    
+
                     //balcao
                     echo "<div style='display:none;' id='infoBalcao'>";
                     echo "<span style='font-weight:bold;'>Endereço para Retirada: </span> <br>";
@@ -246,7 +266,7 @@ if (count($itens) > 0) {
                     $_SESSION['is_delivery'] = 0;
                     
                     //balcão active
-                    echo "<strong><p>Entrega</p></strong>
+                    echo "
                     <div class='btn-group btn-group-toggle' data-toggle='buttons'>
                     <label class='btn btn-danger' id='delivery' onclick='tipoPedido(1)'>
                     <input type='radio' name='delivery' autocomplete='off'> Delivery&nbsp;<i class='fas fa-shipping-fast'></i></label>
@@ -255,6 +275,15 @@ if (count($itens) > 0) {
                     </label>
                     </div>";
 
+                    //info de entrega
+                    echo "<div style='display:none;' id='infoDelivery'>";
+                    echo "<br>";
+                    echo "<span style='font-weight:bold;'></span> <span onclick='location=\"/home\"' style='cursor:pointer;'>&nbsp;Inserir Endereço de Entrega&nbsp;<i class='fas fa-external-link-alt'></i></span><br>";
+                    echo "<br><span>*Ou selecione um Endereço cadastrado ao Finalizar o Pedido.</span>";
+                    echo "</div>";
+
+
+                    //info balcao
                     echo "<div id='infoBalcao'>";
                     echo "<span style='font-weight:bold;'>Endereço para Retirada: </span> <br><br>";
                     echo "CEP: 85851-150<br>";
@@ -307,9 +336,9 @@ if (count($itens) > 0) {
                 </div>
                 
                 <?php
-
-                if(isset($_SESSION['endereco']['postal_code']) && $_SESSION['is_delivery']){
-                    //Info de Entrega
+                
+                //Info de Entrega
+                if($_SESSION['entrega_valida'] && $_SESSION['is_delivery']){
                     echo "<div id='infoEntrega'>";
                     echo "<br><i class='fas fa-road'></i>&nbsp;Distância da entrega: " . $dist['distance_km'] . " <br>";
                     echo "<i class='far fa-clock'></i>&nbsp;Estimativa de preparo/entrega: " . $_SESSION['delivery_time']." mins</div>";
@@ -319,7 +348,7 @@ if (count($itens) > 0) {
 
                 
                 //Lado direito
-                echo "               
+                echo "
                     <div class='ladoDireito row'>
                     <p id='subTotal' class='' >Subtotal: R$ <span id='valor_subTotal'>" . number_format($_SESSION['totalCarrinho'], 2) . " </span></p>
                     <p id='entrega'>Taxa de Entrega: R$ <span id='valor_taxa_entrega'>" . number_format($_SESSION['delivery_price'], 2) . "</span></p>

@@ -84,6 +84,12 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
     $checkcliente=-1;
 }
 
+/**
+ * Seta Finalizar Pedido para Endereco
+ */
+$_SESSION['finalizar_pedido'] = 1;
+
+
 $html.= "<script type='text/javascript' src='../js/jquery-3.4.1.min.js'></script>";
 
 if($checkcarrinho > 0){

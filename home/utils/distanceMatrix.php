@@ -38,6 +38,7 @@ class DistanceMatrix {
         
     }
 
+    //aposentado, usando da Entrega (controlerEntrega)
     function getDeliveryPrice($dist){
 
         //$tempo_preparo = "20" * 1;//sem pedidos, 1.1

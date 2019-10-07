@@ -24,7 +24,14 @@ if ($tipo == 'ativo') {
     if ($enderecos < 1) {
         echo "<p> Não existem endereços registrados</p>";
     } else {
-        if (isset($_SESSION['delivery']) and $_SESSION['delivery'] > 0) {
+        // if (
+        //     (isset($_SESSION['delivery']) and $_SESSION['delivery'] > 0) || 
+        //     (isset($_SESSION['is_delivery']) and $_SESSION['is_delivery'] > 0)
+        // ) {
+        if(
+            (isset($_SESSION['finalizar_pedido']) and $_SESSION['finalizar_pedido'] > 0) and
+            (isset($_SESSION['is_delivery']) and $_SESSION['is_delivery'] > 0)
+        ){
             echo "<p> Lista de endereços cadastrados: </p>";
             foreach ($enderecos as $endereco) {
                 echo "<div class='item'>
