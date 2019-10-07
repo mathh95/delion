@@ -261,6 +261,9 @@ if (count($itens) > 0) {
                     echo "</div>";
                 }
 
+                //Variaveis para passar pra control do carrinho
+                $_SESSION['delivery_var'] = $_SESSION['delivery_price'];
+                $_SESSION['valorcupom_var'] = $_SESSION['valorcupom'];
 
                 echo "</div>                    
                     <div class='ladoDireito row'>
