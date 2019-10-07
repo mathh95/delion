@@ -23,7 +23,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <?php include "../../ajax/desc-pagewpp.php"; ?>
+                <?php include "../../ajax/desc-page.php"; ?>
             </div>
         </div>
     </div>

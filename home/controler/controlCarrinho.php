@@ -27,6 +27,9 @@ class controlerCarrinho{
         if(isset($_SESSION['codigocupom']) && !empty($_SESSION['codigocupom']) && isset($_SESSION['codcupom']) && !empty($_SESSION['codcupom'])){
             $idCliente = $_SESSION['cod_cliente'];
             $valor = $_SESSION['totalCorrigido'];
+            $desconto = $_SESSION['valorcupom_var'];
+            $taxa_entrega = $_SESSION['delivery_var'];
+            $subtotal = $_SESSION['totalCarrinho'];
             $formaPgt = $_SESSION['formaPagamento'];
             $codigocupom = $_SESSION['codigocupom'];
             $codcupom = $_SESSION['codcupom'];
@@ -46,15 +49,18 @@ class controlerCarrinho{
             $origem = "Site";
             $status = 1;
             if ($endereco == null){
-                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem");
+                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, desconto = :desconto , taxa_entrega = :taxa_entrega, subtotal = :subtotal ,formaPgt = :formaPgt ,status = :status ,origem = :origem");
             }else{
-                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem, endereco = :endereco");
+                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, desconto = :desconto , taxa_entrega = :taxa_entrega, subtotal = :subtotal ,formaPgt = :formaPgt ,status = :status ,origem = :origem, endereco = :endereco");
                 $sql->bindValue(":endereco", $endereco);
             }
 
             $sql->bindValue(":idCliente", $idCliente);
             // $sql->bindValue(":data", $data);
             $sql->bindValue(":valor", $valor);
+            $sql->bindValue(":desconto",$desconto);
+            $sql->bindValue(":taxa_entrega",$taxa_entrega);
+            $sql->bindValue(":subtotal",$subtotal);
             $sql->bindValue(":formaPgt",$formaPgt);
             $sql->bindValue(":status", $status);
             $sql->bindValue(":origem", $origem);
@@ -83,21 +89,27 @@ class controlerCarrinho{
 
             $idCliente = $_SESSION['cod_cliente'];
             $valor = $_SESSION['totalCorrigido'];       //valor com a correção do cupom
+            $desconto = $_SESSION['valorcupom_var'];
+            $taxa_entrega = $_SESSION['delivery_var'];
+            $subtotal = $_SESSION['totalCarrinho'];
             $formaPgt = $_SESSION['formaPagamento'];
             $origem = "Site";
             $status = 1;
 
 
             if ($endereco == null){
-                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem");
+                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, desconto = :desconto, taxa_entrega = :taxa_entrega, subtotal = :subtotal ,formaPgt = :formaPgt ,status = :status ,origem = :origem");
             }else{
-                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, formaPgt = :formaPgt ,status = :status ,origem = :origem, endereco = :endereco");
+                $sql = $this->pdo->prepare("INSERT INTO pedido SET cliente = :idCliente, data = NOW(), valor = :valor, desconto = :desconto, taxa_entrega = :taxa_entrega, subtotal = :subtotal ,formaPgt = :formaPgt ,status = :status ,origem = :origem, endereco = :endereco");
                 $sql->bindValue(":endereco", $endereco);
             }
     
             $sql->bindValue(":idCliente", $idCliente);
             // $sql->bindValue(":data", $data);
             $sql->bindValue(":valor", $valor);
+            $sql->bindValue(":desconto",$desconto);
+            $sql->bindValue(":taxa_entrega",$taxa_entrega);
+            $sql->bindValue(":subtotal",$subtotal);
             $sql->bindValue(":formaPgt",$formaPgt);
             $sql->bindValue(":status", $status);
             $sql->bindValue(":origem", $origem);
@@ -137,6 +149,9 @@ class controlerCarrinho{
                     $pedido->setCod_pedido($result->cod_pedido);
                     $pedido->setData(new DateTime($result->data));
                     $pedido->setValor($result->valor);
+                    $pedido->setDesconto($result->desconto);
+                    $pedido->setTaxa_entrega($result->taxa_entrega);
+                    $pedido->setSubtotal($result->subtotal);
                     $pedido->setFormaPgt($result->formaPgt);
                     $pedido->setStatus($result->status);
                     $pedido->setOrigem($result->origem);
@@ -182,7 +197,7 @@ class controlerCarrinho{
     function selectAllPedido($parametro, $valormenor, $valormaior){
         $pedidos=array();
         $parametro = "%".$parametro."%";
-        $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor, p.formaPgt,p.status, p.endereco, p.cliente, p.origem, c.nome, c.telefone, e.rua, e.numero, e.cep
+        $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor,p.desconto,p.taxa_entrega,p.subtotal,p.formaPgt,p.status, p.endereco, p.cliente, p.origem, p.hora_print, p.hora_delivery,p.hora_retirada,c.nome, c.telefone, e.rua, e.numero,e.bairro, e.complemento ,e.cep
         FROM pedido as p
         INNER JOIN
         cliente AS c ON
@@ -203,6 +218,9 @@ class controlerCarrinho{
                     $pedido->setCod_pedido($result->cod_pedido);
                     $pedido->setData(new DateTime($result->data));
                     $pedido->setValor($result->valor);
+                    $pedido->setDesconto($result->desconto);
+                    $pedido->setTaxa_entrega($result->taxa_entrega);
+                    $pedido->setSubtotal($result->subtotal);
                     $pedido->setFormaPgt($result->formaPgt);
                     $pedido->setStatus($result->status);
                     $pedido->setCliente($result->nome);
@@ -210,7 +228,12 @@ class controlerCarrinho{
                     $pedido->telefone=($result->telefone);
                     $pedido->rua=($result->rua);
                     $pedido->numero=($result->numero);
+                    $pedido->bairro=($result->bairro);
+                    $pedido->complemento=($result->complemento);
                     $pedido->cep=($result->cep);
+                    $pedido->setHora_print($result->hora_print);
+                    $pedido->setHora_delivery($result->hora_delivery);
+                    $pedido->setHora_retirada($result->hora_retirada);
                     array_push($pedidos,$pedido);
                 }
             }else{
@@ -228,7 +251,7 @@ class controlerCarrinho{
         $pedidos=array();
         $parametro = "%".$parametro."%";
         $endereco = "%" . $endereco . "%";
-        $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor, p.status, p.endereco, p.cliente, p.origem,c.nome, c.telefone, e.rua, e.numero, e.cep
+        $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor, p.desconto,p.taxa_entrega,p.subtotal,p.status, p.endereco, p.cliente, p.origem,c.nome, c.telefone, e.rua, e.numero,e.bairro, e.complemento ,e.cep
         FROM pedido as p
         INNER JOIN
         cliente AS c ON
@@ -252,12 +275,17 @@ class controlerCarrinho{
                     $pedido->setCod_pedido($result->cod_pedido);
                     $pedido->setData(new DateTime($result->data));
                     $pedido->setValor($result->valor);
+                    $pedido->setDesconto($result->desconto);
+                    $pedido->setTaxa_entrega($result->taxa_entrega);
+                    $pedido->setSubtotal($result->subtotal);
                     $pedido->setStatus($result->status);
                     $pedido->setCliente($result->nome);
                     $pedido->setOrigem($result->origem);
                     $pedido->telefone=($result->telefone);
                     $pedido->rua=($result->rua);
                     $pedido->numero=($result->numero);
+                    $pedido->bairro=($result->bairro);
+                    $pedido->complemento=($result->complemento);
                     $pedido->cep=($result->cep);
                     array_push($pedidos,$pedido);
                 }
@@ -273,16 +301,54 @@ class controlerCarrinho{
     }
 
     function alterarStatusPedido($cod_pedido,$status){
-        $parametro=$cod_pedido;
-        $stmt=$this->pdo->prepare("UPDATE pedido SET status=:status WHERE cod_pedido=:parametro");
-        $stmt->bindParam("status",$status,PDO::PARAM_INT);
-        $stmt->bindParam("parametro",$parametro,PDO::PARAM_INT);
-        $executa=$stmt->execute();
-        if ($executa) {
-            return 1;
-        }else{
-            return -1;
+        try{
+            if($status == "2"){
+                date_default_timezone_set('America/Sao_Paulo');
+                $hora_print = date('H:i');
+                $parametro=$cod_pedido;
+                $stmt=$this->pdo->prepare("UPDATE pedido SET status=:status, hora_print=:hora_print WHERE cod_pedido=:parametro");
+                $stmt->bindParam(":status",$status,PDO::PARAM_INT);
+                $stmt->bindParam(":hora_print", $hora_print, PDO::PARAM_STR);
+                $stmt->bindParam(":parametro",$parametro,PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }else if($status =="3"){
+                date_default_timezone_set('America/Sao_Paulo');
+                $hora_delivery = date('H:i');
+                $parametro=$cod_pedido;
+                $stmt=$this->pdo->prepare("UPDATE pedido SET status=:status, hora_delivery=:hora_delivery WHERE cod_pedido=:parametro");
+                $stmt->bindParam(":status",$status,PDO::PARAM_INT);
+                $stmt->bindParam(":hora_delivery", $hora_delivery, PDO::PARAM_STR);
+                $stmt->bindParam(":parametro",$parametro,PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }else {
+                return 0;
+            }
+        }catch(PDOException $e){
+            return $e->getMessage();
         }
     }
+
+    function alteraStatusPedidoRetirada($cod_pedido,$status){
+        try{
+            if($status == "3"){
+                date_default_timezone_set('America/Sao_Paulo');
+                $hora_retirada = date('H:i');
+                $parametro=$cod_pedido;
+                $stmt=$this->pdo->prepare("UPDATE pedido SET status=:status, hora_retirada=:hora_retirada WHERE cod_pedido=:parametro");
+                $stmt->bindParam(":status",$status,PDO::PARAM_INT);
+                $stmt->bindParam(":hora_retirada", $hora_retirada, PDO::PARAM_STR);
+                $stmt->bindParam(":parametro",$parametro,PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }else{
+                return 0;
+            }
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+
 }
 ?>

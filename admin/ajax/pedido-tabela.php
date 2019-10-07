@@ -91,7 +91,7 @@ if(in_array('pedido', $permissao)){
 				}
 				
 				echo "<td style='text-align: center;' name='editar'>
-								<a style='font-size: 10px;'>
+								<a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido()."'>
 									<div type='button' class='popup btn btn-primary' onmouseover='myFunction(".$array.")' onmouseout='myFunction(".$array.")'>
 									<i class='fa fa-edit'></i> Detalhes
 										<span class='popuptext' id='myPopup".$array."'>
@@ -143,9 +143,9 @@ if(in_array('pedido', $permissao)){
 					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-warning' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido()."' data-id='".$pedido->getCod_pedido()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
 
 					if($pedido->rua == NULL){	
-						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"alterarStatusDelivery(".$pedido->getCod_pedido().",3)\" class='btn btn-danger' disable><i class='fas fa-store'></i> Retirado</button></a></td>";
+						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"alterarStatusRetirado(".$pedido->getCod_pedido().",3)\" class='btn btn-primary' disable><i class='fas fa-store'></i> Retirado</button></a></td>";
 					}else{
-						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"alterarStatusDelivery(".$pedido->getCod_pedido().",3)\" class='btn btn-danger' disable><i class='fa fa-truck'></i> Delivery</button></a></td>";
+						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"alterarStatusDelivery(".$pedido->getCod_pedido().",3)\" class='btn btn-primary' disable><i class='fa fa-truck'></i> Delivery</button></a></td>";
 					}
 
 					echo "<td style='text-align: center;' name='editar'>
@@ -198,15 +198,15 @@ if(in_array('pedido', $permissao)){
 				}
 
 				echo "<div id='buttonbar'>
-					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button onclick=\"erroDelivery(3,".$pedido->getStatus().")\" class='btn btn-danger' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido()."' data-id='".$pedido->getCod_pedido()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
+					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button onclick=\"erroPrint(3,".$pedido->getStatus().")\" class='btn btn-danger' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido()."' data-id='".$pedido->getCod_pedido()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
 
 					if($pedido->rua == NULL){	
-						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(3,".$pedido->getStatus().")\" class='btn btn-danger' disable><i class='fas fa-store'></i> Retirado</button></a></td>";
+						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroRetirada(3,".$pedido->getStatus().")\" class='btn btn-danger' disable><i class='fas fa-store'></i> Retirado</button></a></td>";
 					}else{
 						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(3,".$pedido->getStatus().")\" class='btn btn-danger' disable><i class='fa fa-truck'></i> Delivery</button></a></td>";
 					}					
 					echo "<td style='text-align: center;' name='editar'>
-								<a style='font-size: 10px;' >
+								<a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido()."'>
 									<div type='button' class='popup btn btn-primary' onmouseover='myFunction(".$array.")' onmouseout='myFunction(".$array.") ' href='descPage.php?cod=".$pedido->getCod_pedido()."'>
 									<i class='fa fa-edit'></i> Detalhes
 										<span class='popuptext' id='myPopup".$array."'>
@@ -275,7 +275,7 @@ foreach ($pedidos as &$pedido) {
 	if($pedido->getStatus()==1 || $pedido->getStatus()==2){
 	$array = ($pedido->getCod_pedido());
 	
-	echo " <div class=\"modal fade\" id='modalPedido".$pedido->getCod_pedido()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
+	echo " <div class=\"modal fade\" style='text-align: center' id='modalPedido".$pedido->getCod_pedido()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
 
 			<div class=\"modal-dialog\" role=\"document\">
 			<div class=\"modal-content\">
@@ -286,28 +286,41 @@ foreach ($pedidos as &$pedido) {
 			<div class=\"modal-body\" style=\"text-align:center\" id='divPrin".$array."'>
 				<form>";
 
-				echo "<div class=\"form-group\">
+				echo "<div class=\"form-group\" style='display: inline-block; text-align: left;'>
 						<label for=\"recipient-name\" class=\"control-label\">----------------------------------</label>
 						<br><label for=\"recipient-name\" class=\"control-label\">Restaurante: DELION.O </label>
+						<br><label for=\"message-text\" class=\"control-label\">"."Pedido: #".$pedido->getCod_pedido()."</label>
 							<br><label for=\"message-text\" class=\"control-label\">"."Data: ".$pedido->getData()->format('d/m/Y')." ".$pedido->getData()->format('H:i')."</label>
 							<br><label for=\"message-text\" class=\"control-label\">"."Previsao de Entrega: ".$entrega."</label>
-							<br><label for=\"recipient-name\" class=\"control-label\">"." Cliente: ".$pedido->getCliente()."</label>
-							<br><label for=\"recipient-name\" class=\"control-label\">"." Telefone: ".$pedido->telefone."</label>
-							<br><label for=\"recipient-name\" class=\"control-label\">"." Endereço: ".$pedido->rua.", ".$pedido->numero."</label>";
+							<br>
+							<br><label for=\"recipient-name\" class=\"control-label\">"." Dados do Cliente </label>
+							<br><label for=\"recipient-name\" class=\"control-label\">"."Nome: <b>".$pedido->getCliente()."</b></label>
+							<br><label for=\"recipient-name\" class=\"control-label\">"."Telefone: ".$pedido->telefone."</label>";
+							if($pedido->rua == NULL){
+
+							echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Local Entrega: Balcão</label>";
+
+							}else{
+							echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Endereço: ".$pedido->rua.", ".$pedido->numero."</label>
+							<br><label for=\"recipient-name\" class=\"control-label\">"." Bairro: ".$pedido->bairro."</label>
+							<br><label for=\"recipient-name\" class=\"control-label\">"." Comp: ".$pedido->complemento."</label>
+							<br><label for=\"recipient-name\" class=\"control-label\">"." Cidade: Foz do Iguaçu - PR</label>
+							<br><label for=\"recipient-name\" class=\"control-label\">"." CEP: ".$pedido->cep."</label>";
+							}
 
 							if($formaPgt->getCod_formaPgt() == NULL){
-							echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Forma Pagamento: ".$formaPgtDin."</label>";
+							echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Forma Pagamento: <b>".$formaPgtDin."</b></label>";
 							}else{
 								echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Forma Pagamento: ".$formaPgt->getTipoFormaPgt()."</label>";
 							}
 
 						echo "</div>
-						<div class=\"form-group\">
-							<br><br>
+						<div>
+							<br>
 						</div>
-						<div class=\"form-group\">
+						<div class=\"form-group\" style='display: inline-block; text-align: left;'>
 							<label for=\"recipient-name\" class=\"control-label\">Itens do pedido:</label><br>
-							<label for=\"recipient-name\" class=\"control-label\">Qtd &nbsp&nbsp  Item &nbsp&nbsp&nbsp&nbsp&nbsp  Preço</label><br><br>";
+							<label for=\"recipient-name\" class=\"control-label\">Qtd &nbsp&nbsp  Item &nbsp&nbsp&nbsp&nbsp&nbsp  Preço</label><br>";
 						foreach($itens as &$item){
 							
 							echo "
@@ -318,11 +331,17 @@ foreach ($pedidos as &$pedido) {
 							}
 						
 					echo "</div>
+					<div>
+						<br>
+					</div>
 					
-						<div class=\"form-group\">
-							<label for=\"recipient-name\" class=\"control-label\">----------------------------------</label>
-							<br><label for=\"recipient-name\" class=\"control-label\">"."|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspValor Total: R$ ".$pedido->getValor()."&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|</label>
-							<br><label for=\"recipient-name\" class=\"control-label\">----------------------------------</label>
+						<div class=\"form-group\" style='display: inline-block; text-align: left;'>
+							<label for=\"recipient-name\" class=\"control-label\">+--------------------------------------------------------------------+</label>
+							<br><label for=\"recipient-name\" class=\"control-label\">"." Subtotal:        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspR$ &nbsp".$pedido->getSubtotal()."</label>
+							<br><label for=\"recipient-name\" class=\"control-label\">"." Taxa de entrega: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspR$ &nbsp".$pedido->getTaxa_entrega()."</label>
+							<br><label for=\"recipient-name\" class=\"control-label\">"." Desconto Cupom:  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspR$ &nbsp".$pedido->getDesconto()."</label>
+							<br><label for=\"recipient-name\" class=\"control-label\">"."<b> Total:           &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspR$ &nbsp".$pedido->getValor()."</b></label>
+							<br><label for=\"recipient-name\" class=\"control-label\">+--------------------------------------------------------------------+</label>
 						</div>
 					</form>
 					

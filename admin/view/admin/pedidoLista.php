@@ -183,24 +183,32 @@
             //Erro com a entrega do pedido
             function erroDelivery(pedido,status){
                 if(status == 3) {
-                    //hora Impressão
-                    // var today = new Date();
-                    // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                    // console.log(time);
-                    // horaImpressão(pedido);
-
                     msgRedireciona("Erro!","Esse pedido já saiu para a entrega!",1,"../../view/admin/pedidoLista.php" );
                 }else{
-                    //hora Impressão
-                    // var today = new Date();
-                    // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                    // console.log(time);
-                    
                     msgGenerico("Erro!","O pedido não foi impresso",2,function(){});
                 }
             }
 
-            //Muda o status do pedido para entregue ou retirado
+            //Erro com a retirada do pedido
+            function erroRetirada(pedido,status){
+                if(status == 3) {
+                    msgRedireciona("Erro!","O pedido já foi entregue ao cliente!",1,"../../view/admin/pedidoLista.php" );
+                }else{
+                    msgGenerico("Erro!","O pedido não foi impresso",2,function(){});
+                }
+            }
+
+            //Erro na impressão
+            function erroPrint(pedido,status){
+                if(status == 3) {
+                    msgRedireciona("Erro!","Pedido Entregue!",1,"../../view/admin/pedidoLista.php" );
+                }else{
+                    msgGenerico("Erro!","O pedido não foi impresso",2,function(){});
+                }
+            }
+
+
+            //Muda o status do pedido para entregue
             function alterarStatusDelivery(pedido,status){
                     //Segundo caso: Se o status do pedido for igual a 2
                     //Vai alterar ele apenas para ENTREGA
@@ -221,6 +229,29 @@
                     );
                 }
             } 
+
+            //Muda o status do pedido para retirado
+            function alterarStatusRetirado(pedido,status){
+                    //Segundo caso: Se o status do pedido for igual a 2
+                    //Vai alterar ele apenas para ENTREGA
+                    if(status-1 == 2){
+                    msgConfirmacao('Confirmação','O Cliente retirou o pedido?',
+                        function(linha){
+                            var url ='../../ajax/alterar-pedidoRet.php?pedido='+pedido+'&status='+status;
+                            $.get(url, function(dataReturn) {
+                                if (dataReturn == 1) {
+                                    
+                                    msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php" );
+                                }else{
+                                    msgGenerico("Erro!",dataReturn,2,function(){});
+                                }
+                            });  
+                        },
+                        function(){}
+                    );
+                }
+            } 
+
 
             //Possível imprimir o pedido novamente
             function erroPrintModel(status,pedido){
