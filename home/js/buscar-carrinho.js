@@ -25,6 +25,7 @@ $(document).on('click', '.active', function(){
     $(this).removeClass('active');
     if(this.id == 'balcao'){
         $('#infoDelivery').hide();
+        $('#infoEntrega').hide();
         $('#infoBalcao').show();
         
         $.ajax({
@@ -36,7 +37,7 @@ $(document).on('click', '.active', function(){
                 //console.log(res);
                 var delivery_price = res.delivery_price;
                 var totalCorrigido = res.totalCorrigido;
-            
+                
                 $("#valor_taxa_entrega").html(delivery_price.toFixed(2));
                 if(totalCorrigido < 0){
                     $("#valor_total").html("0.00");
@@ -48,9 +49,10 @@ $(document).on('click', '.active', function(){
                 console.log(err);
             }
         });
-
+        
     }else if(this.id == 'delivery'){
         $('#infoDelivery').show();
+        $('#infoEntrega').show();
         $('#infoBalcao').hide();
         
         $.ajax({

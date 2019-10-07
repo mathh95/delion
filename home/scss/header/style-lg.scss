@@ -6,17 +6,17 @@
 //Especifico header
 @font-face {
     font-family: "Century Gothic Regular";
-    src: url("../../fonts/gothic.ttf");
+    src: url("../fonts/gothic.ttf");
 }
 @font-face {
     font-family: "Century Gothic Bold";
     src: url("../fonts/gothicb.ttf");
 }
 
-body{
+body, html{
     font-family: $font_main;
     > header{
-        background-color:#C57686;
+        background-color: $vermelho_fraco;
         > .container{
             padding-bottom: 15px;
             > .logo {
@@ -58,7 +58,7 @@ body{
                                 margin-left: 15px;
                                 margin-top: 15px;
                                 background-color: white;
-                                color: #C57686;
+                                color: $vermelho_fraco;
                                 border: none;
                             }
                         }

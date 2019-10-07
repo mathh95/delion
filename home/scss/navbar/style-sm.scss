@@ -6,7 +6,7 @@
 //Especifico header
 @font-face {
     font-family: "Century Gothic Regular";
-    src: url("../../fonts/gothic.ttf");
+    src: url("../fonts/gothic.ttf");
 }
 @font-face {
     font-family: "Century Gothic Bold";
@@ -47,12 +47,12 @@ body{
                                         }
                                     }
                                 } li:hover {
-                                    border-bottom: 4px solid #C57686;
+                                    border-bottom: 4px solid $vermelho_fraco;
                                     margin-bottom: -4px;
                                 }
                                 > .active{
                                     > a {
-                                        color: #C57686;
+                                        color: $vermelho_fraco;
                                         background-color: #D7CEC7;
                                         padding-bottom: 15px;
                                         padding-top: 15px;
@@ -77,7 +77,7 @@ body{
                                         > button{
                                             border: 1px solid white;
                                             margin-top: 0px;
-                                            background-color: #C57686;
+                                            background-color: $vermelho_fraco;
                                             padding-bottom: 4px;
                                             padding-top: 4px;
                                             font-weight: bold;

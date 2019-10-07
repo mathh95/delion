@@ -1,4 +1,7 @@
 <head>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/footer/style-xs.css"/>
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/footer/style-sm.css"/>
@@ -8,76 +11,74 @@
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/footer/style-lg.css"/>
 </head>
 
-<footer class="container-fluid">
 
-    <div class="container">
+<footer class="footer container-fluid">
 
-        <div class="logo">
+		<div class="navbar-social navbar-collapse">
+			<a href="https://www.facebook.com"><i class="fab fa-facebook"></i></a>
+			<a href="https://www.instagram.com"><i class=" fab fa-instagram"></i></a>
+		</div>
 
-            <a href="/"><img src="<?= "../admin/".$empresa->getFoto(); ?>"></a>
+		<div class="row left">
+			<ul>
+				<li>
+					<p class="bold-text"><b>Navegue</b></p>
+				</li>
+				<li>
+					<a href="#">Quem Somos</a>
+				</li>
 
-            <div>Toda hora é hora de um bom café!</div>
+				<li>
+					<a href="#">Eventos</a>
+				</li>
 
-        </div>
+				<li>
+					<a href="#">Programa de Fidelidade</a>
+				</li>
+			</ul>
+			
+			
+			
+			
+		</div>
+		<div class="row center">
 
-        <div class="infos">
+			<ul>
+				<li>
+					<p class="bold-text"><b>A Empresa</b></p>
+				</li>
 
-            <div class="links">
+				<li>
+					<a href="#">História</a>
+				</li>
 
-                <div><a href="index.php">Sobre</a><br></div>
+				<li>
+					<a href="#">Localização</a>
+				</li>
 
-                <div><a href="historia.php">História</a><br></div>
-
-                <div><a href="contato.php">Contato</a><br></div>
-
-                <div><a href="localizacao.php">Localização</a><br></div>
-
-            </div>
-
-            <div class="dados">
-
-                <div><?= $empresa->getEndereco(); ?></div>
-
-                <div><?= $empresa->getBairro(); ?></div>
-
-                <div><?= $empresa->getCidade(); ?> - <?= $empresa->getEstado(); ?></div>
-
-                <div>CEP: <?= $empresa->getCep(); ?></div>
-
-                <div>Fone: <?= $empresa->getFone(); ?></div>
-
-            </div>
-
-            <div class="redes">
-
-                <div>Delion Café</div>
-
-                <div>Nas redes sociais</div>
-
-                <div class="rede-social">
-
-                    <a href="<?= !empty($empresa->getFacebook()) ? "https://".$empresa->getFacebook() : "https://www.facebook.com" ?>">
-
-                        <img src="img/face.png">
-
-                    </a>
-
-                    <a href="<?= !empty($empresa->getInstagram()) ? "https://".$empresa->getInstagram() : "https://www.instagram.com" ?>">
-
-                        <img src="img/insta.png">
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+				<li>
+					<a href="#">Trabalhe Conosco</a>
+				</li>
+			</ul>
+		</div>
+		<div class="row right">
+		<img src="/home/img/logo_branca.png" alt="logo delion branca" style="width:93px;height:140px;">
+			
+			<div class="endereco-footer">
+				<p class="bold-text"><b>
+					Rua Jorge Sanwais, 1137<br>
+					Centro<br>
+					Foz do Iguaçu - Paraná<br>
+					Rua Jorge Sanwais, 1137<br>
+					CEP: 85851-150
+				</b></p>
+			</div>
+			
+			
+			
+		</div>
 
 </footer>
-
 <div class="container-fluid rodape">
 
     <div class="container">
@@ -94,15 +95,15 @@
 
 </div>
 
-<div class="whatsapp">
+<!-- <div class="whatsapp">
 
-    <a href="<?= $local ?>">
+    <a href="">
 
         <img src="img/whatsappverde.png" alt="WhatsApp">
 
     </a>
 
-</div>
+</div> -->
 
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

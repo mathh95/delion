@@ -368,19 +368,40 @@
                         </li>
                        <li class="dropdown
 
-                                <?php
-                                    //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($arquivo_pai, 'formaPgt') !== false){
-                                        echo 'active';
-                                    }
-                                ?>
-                            ">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Formas de Pagamento<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="formaPgt.php">Cadastro</a></li>
-                                    <li><a href="formaPgtLista.php">Listar</a></li>
-                                </ul>
-                            </li> 
+                            <?php
+                                //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
+                                if(strpos($arquivo_pai, 'formaPgt') !== false){
+                                    echo 'active';
+                                }
+                            ?>
+                        ">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Formas de Pagamento<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="formaPgt.php">Cadastro</a></li>
+                                <li><a href="formaPgtLista.php">Listar</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="dropdown
+
+                            <?php
+                                //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
+                                if(strpos($arquivo_pai, 'entrega') !== false || $arquivo_pai == "novo-raio"){
+                                    echo 'active';
+                                }
+                            ?>
+                        ">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Informações de Entrega <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+
+                                <li><a href="novo-raio.php">Novo Raio</a></li>
+                                <li><a href="entrega.php">Alterar</a></li>
+
+                            </ul>
+
+                        </li>
 
 
                         </ul>

@@ -20,6 +20,12 @@ include_once "../../admin/model/formaPgt.php";
 
 include_once "../utils/distanceMatrix.php";
 
+include_once "../controler/controlEmpresa.php";
+
+include_once "../../admin/model/entrega.php";
+
+include_once "../../admin/controler/controlEntrega.php";
+
 // require_once '../ajax/enviarEmailPedido.php';
 
 $itens = array();
@@ -100,30 +106,18 @@ if (count($itens) > 0) {
                     <?php
                         $i++;
                         $totalCarrinho += $item['preco'] * $_SESSION['qtd'][$key];
-                        endforeach;
-                        $_SESSION['totalCarrinho'] = $totalCarrinho;
-                        $_SESSION['pedidoBalcao'] = $pedidoBalcao;
+                    endforeach;
+                    $_SESSION['totalCarrinho'] = $totalCarrinho;
+                    $_SESSION['pedidoBalcao'] = $pedidoBalcao;
                     ?>
             </tbody>
         </table>
     </div>
+    <hr>
+
+    <!-- Lado Esquerdo -->
     <div class="rodapeCarrinho row">
         <div class='ladoEsquerdo'>
-            <strong>
-                <p>Forma de Pagamento</p>
-            </strong>
-            <div class="input-group">
-                <select name="formaPagamento" id="formaPagamento" class="form-control">
-                    <option value="0">Dinheiro</option>
-                    <?php
-                        foreach ($formasPgt as $formaPgt) {
-                            if ($formaPgt->getFlag_ativo() == 1) {
-                                echo "<option value ='" . $formaPgt->getCod_formaPgt() . "'>" . $formaPgt->getTipoFormaPgt() . "</option>";
-                            }
-                        }
-                        ?>
-                </select>
-            </div>
 
             <?php
                 if (!isset($_SESSION['valorcupom'])) {
@@ -138,36 +132,22 @@ if (count($itens) > 0) {
                 $_SESSION['totalComDesconto'] = $totalDesc;
 
 
-                if ($_SESSION['valorcupom'] == 0) {
-                    echo "<div>
-                        <strong><p>Adicionar Cupom</p></strong> 
-                        <input type='text' name='codigocupom' id='codigocupom'>
-                        <a class='botaoAdicionarCupom' onclick='adicionarCupom()'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>    
-                    </div>";
-                } else {
-                    echo "<div>
-                        <strong><p>Adicionar Cupom</p></strong> 
-                        <input type='text' name='codigocupomrem' id='codigocupomrem' disabled>
-                        <a class='botaoAdicionarCupom' onclick='removerCupom()'><button id='removerCupom' class='btn btn-danger'>Remover Cupom<i class='fas fa-trash-alt fa-adjust'></i></button></a>    
-                    </div>";
-                }
-
                 if(isset($_SESSION['endereco']['postal_code'])){
                     $_SESSION['is_delivery'] = 1;
                     //unset($_SESSION['endereco']);
                 }else if(!isset($_SESSION['is_delivery'])){//se setado mantem valor
                     $_SESSION['is_delivery'] = 0;
                 }
-
+                
                 if (($_SESSION['is_delivery'] == 1)) {
-                                        
+                    
                     //taxa de entrega calculada?
                     if (($_SESSION['delivery_price'] > 0) && ($_SESSION['is_delivery'])) {
                         $_SESSION['totalCorrigido'] += $_SESSION['delivery_price'];
                     }
                     
                     //delivery active
-                    echo "<strong><p>Entrega</p></strong>
+                    echo "
                     <div class='btn-group btn-group-toggle' data-toggle='buttons'>
                     <label class='btn btn-danger active' id='delivery' onclick='tipoPedido(1)'>
                     <input type='radio' name='delivery' autocomplete='off'> Delivery&nbsp;<i class='fas fa-shipping-fast'></i></label>
@@ -188,10 +168,10 @@ if (count($itens) > 0) {
                         //$uf = $_SESSION['endereco']['administrative_area_level_1'];
                         $cidade = $_SESSION['endereco']['administrative_area_level_2'];
                         $referencia = $_SESSION['endereco']['referencia'];
-                    
-
+                        
+                        
                         echo "<div id='infoDelivery'>";
-                        echo "<br><span style='font-weight:bold;'>Endereço para Entrega: </span> <span onclick='location=\"/home\"' style='cursor:pointer;'><i class='fas fa-edit'></i>&nbsp;Alterar</span><br><br>";
+                        echo "<span style='font-weight:bold;'>Endereço para Entrega: </span> <span onclick='location=\"/home\"' style='cursor:pointer;'><i class='fas fa-edit'></i>&nbsp;Alterar</span><br>";
                         echo "CEP: " . $cep . "<br>";
                         echo "End.: " . $rua . "<br>";
                         echo "Número: " . $numero . "<br>";
@@ -208,39 +188,63 @@ if (count($itens) > 0) {
                         } else {
                             echo "Ponto de Referência: (vazio)<br>";
                         }
+                        echo "</div>";
 
-                        $distanceMatrix = new DistanceMatrix();
 
-                        $origin = "R. Jorge Sanwais, 1137 - Centro, Foz do Iguaçu"; //-25.54086,-54.581167
+                        /*** Estimativas de Tempo, Distância, Taxa de entrega ***/
+                        $controleEmpresa=new controlerEmpresa(conecta());
+                        $empresa = $controleEmpresa->select(1,2);
+                        
+                        $endereco_delion = $empresa->getEndereco()." ".$empresa->getCidade();
+                        
+                        $origin = utf8_decode($endereco_delion); //-25.54086,-54.581167
                         $dest = $rua . " " . $numero . " " . $bairro . " " . $cidade;
-
+                        
+                        $distanceMatrix = new DistanceMatrix();
                         $dist = $distanceMatrix->getDistanceInfo($origin, $dest); //origin,dest
                         
-                        echo "<br>Distância: " . $dist['distance_km'] . " <br>";
-                        echo "Tempo estimado de entrega: " . $dist['duration'] . " <br>";
-                        echo "</div>";
+                        //Get raio/taxas/tempo
+                        $controle = new controlEntrega($_SG['link']);
+                        $dist_km = $dist['distance_meters']/1000;
+                        $info_entrega = $controle->selectByDist($dist_km);
+                        
+                        //estimativa_tempo = Preparação(default=30) + Tempo_Percurso(google) + MargemSegurança                        
+                        
+                        if($info_entrega->getFlag_ativo()){
+                            //entrega...
+                        }else{
+                            //não entregamos mt longe rapa
+                        }
+                        
+                        $estimativa_tempo = $info_entrega->getTempo();
+                        $_SESSION['delivery_time'] = floor($estimativa_tempo);//em minutos
+                        
+                        // $tempo_preparacao = 30;
+                        
+                        // $estimativa_tempo = $tempo_preparacao + ($dist['duration_sec']/60) + 5; 
+                        // $_SESSION['delivery_time'] = floor($estimativa_tempo);//em minutos
                         
                         $delivery_price = $distanceMatrix->getDeliveryPrice($dist['distance_meters']);
                         $_SESSION['delivery_price'] = $delivery_price;
-
-                        $_SESSION['delivery_time'] = $dist['duration'];
+                        
                         $_SESSION['totalCorrigido'] += $delivery_price;
                     }
-
+                    
                     //balcao
                     echo "<div style='display:none;' id='infoBalcao'>";
-                    echo "<br><span style='font-weight:bold;'>Endereço para Retirada: </span> <br><br>";
+                    echo "<span style='font-weight:bold;'>Endereço para Retirada: </span> <br>";
                     echo "CEP: 85851-150<br>";
                     echo "End.: Rua Jorge Sanwais<br>";
                     echo "Número: 1137<br>";
                     echo "Bairro: Centro<br>";
                     echo "Cidade: Foz do Iguaçu<br>";
-                    echo "</div>";
-                } else {
+                    echo "</div></div>";//fecha lado esquerdo
 
+                } else {
+                    
                     //balcao
                     $_SESSION['is_delivery'] = 0;
-
+                    
                     //balcão active
                     echo "<strong><p>Entrega</p></strong>
                     <div class='btn-group btn-group-toggle' data-toggle='buttons'>
@@ -252,29 +256,85 @@ if (count($itens) > 0) {
                     </div>";
 
                     echo "<div id='infoBalcao'>";
-                    echo "<br><span style='font-weight:bold;'>Endereço para Retirada: </span> <br><br>";
+                    echo "<span style='font-weight:bold;'>Endereço para Retirada: </span> <br><br>";
                     echo "CEP: 85851-150<br>";
                     echo "End.: Rua Jorge Sanwais<br>";
                     echo "Número: 1137<br>";
                     echo "Bairro: Centro<br>";
                     echo "Cidade: Foz do Iguaçu<br>";
-                    echo "</div>";
+                    echo "</div></div>";//fecha lado esquerdo
                 }
 
+
+                //meio
+                echo "<div class='meio ladoEsquerdo'>";
+
+                if ($_SESSION['valorcupom'] == 0) {
+                    echo "<div>
+                        <strong><p>Adicionar Cupom</p></strong> 
+                        <div class='form-inline'>                            
+                            <input class='form-control' type='text' name='codigocupom' id='codigocupom'>
+                            <a class='botaoAdicionarCupom' onclick='adicionarCupom()'><button id='adicionarCupom' class='btn btn-danger'>Adicionar <i class='fa fa-ticket-alt fa-adjust'></i></button></a>    
+                        </div>
+                    </div>";
+                } else {
+                    echo "<div>
+                        <strong><p>Adicionar Cupom</p></strong> 
+                        <div class='form-inline'>
+                            <input class='form-control' type='text' name='codigocupomrem' id='codigocupomrem' disabled>
+                            <a class='botaoAdicionarCupom' onclick='removerCupom()'><button id='removerCupom' class='btn btn-danger'>Remover Cupom<i class='fas fa-trash-alt fa-adjust'></i></button></a> 
+                        </div>  
+                    </div>";
+                }
+                ?>
+                
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-8 col-lg-10">
+                        <strong>
+                        <p>Forma de Pagamento</p>
+                        </strong>
+                        <select class="form-control" name="formaPagamento" id="formaPagamento">
+                            <option value="0">Dinheiro</option>
+                            <?php
+                                foreach ($formasPgt as $formaPgt) {
+                                    if ($formaPgt->getFlag_ativo() == 1) {
+                                        echo "<option value ='" . $formaPgt->getCod_formaPgt() . "'>" . $formaPgt->getTipoFormaPgt() . "</option>";
+                                    }
+                                }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                
+                <?php
+
+                if(isset($_SESSION['endereco']['postal_code']) && $_SESSION['is_delivery']){
+                    //Info de Entrega
+                    echo "<div id='infoEntrega'>";
+                    echo "<br><i class='fas fa-road'></i>&nbsp;Distância da entrega: " . $dist['distance_km'] . " <br>";
+                    echo "<i class='far fa-clock'></i>&nbsp;Estimativa de preparo/entrega: " . $_SESSION['delivery_time']." mins</div>";
+                }
+
+<<<<<<< HEAD
                 //Variaveis para passar pra control do carrinho
                 $_SESSION['delivery_var'] = $_SESSION['delivery_price'];
                 $_SESSION['valorcupom_var'] = $_SESSION['valorcupom'];
+=======
+                echo "</div>";
+>>>>>>> 34712282a950e45cd3b785d3b70a59cbfdf5f4d3
 
-                echo "</div>                    
+                
+                //Lado direito
+                echo "               
                     <div class='ladoDireito row'>
-                    <p id='subTotal'>Subtotal: R$ <span id='valor_subTotal'>" . number_format($_SESSION['totalCarrinho'], 2) . " </span></p>
+                    <p id='subTotal' class='' >Subtotal: R$ <span id='valor_subTotal'>" . number_format($_SESSION['totalCarrinho'], 2) . " </span></p>
                     <p id='entrega'>Taxa de Entrega: R$ <span id='valor_taxa_entrega'>" . number_format($_SESSION['delivery_price'], 2) . "</span></p>
                     <p id='desconto'>Desconto: R$ <span id='valor_desconto'> " . number_format($_SESSION['valorcupom'], 2) . "</span></p> 
                     <strong><p id='total'> Total: R$ <span id='valor_total'>" . number_format($_SESSION['totalCorrigido'], 2) . "</span></p></strong>
                     
                     <div class='linhaBotao'>
-                    <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
-                    <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()'><button class='btn btn-danger'>Esvaziar Carrinho <i class='fas fa-trash-alt'></i></button></a>
+                        <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
+                        <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()'><button class='btn btn-danger'>Esvaziar Carrinho <i class='fas fa-trash-alt'></i></button></a>
                     </div>
                     </div>
                     </div>";

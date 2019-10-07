@@ -37,7 +37,7 @@ body, html{
                         @include center-block();
                     }
                     >img.imagem-logo{
-                        position: sticky;
+                        position: relative;
                         padding-top: 40px;
                         @include img-responsive();
                         @include center-block();
@@ -47,10 +47,11 @@ body, html{
     
     > .form-cep-completo{
         font-family: $font_main;
+        position: relative;
         text-align: center;
         width: 100%;
         height: auto;
-        padding-top: 450px;
+        padding-top: 400px;
         padding-bottom: 30px;
         
         >div.tabs{
@@ -61,7 +62,10 @@ body, html{
                 float:none;
                 display:inline-flex;
                 margin-bottom: 0;
-                width: 39.8%;
+                width: 40%;
+                border: 0;
+                padding: 0;
+                margin: 0;
                 >li.delivery{
                     border-color: $cinza;
                     width: 50%;
@@ -79,7 +83,7 @@ body, html{
                     
                 }
                 >li.retirada{
-                    width: 49.9%;
+                    width: 50%;
                     a{
                     border-top-left-radius: 15px;
                     border-top-right-radius: 15px;
@@ -103,10 +107,22 @@ body, html{
             position: relative;
             display: inline-flex;
             width: 40%;
+            // padding-left: 10px;
             text-align: center;
 
+           
+
             > div.locationField{
-                text-align: center;
+                position: relative;
+                // text-align: center;
+                width: 100%;
+                >span.fa-map-marker-alt{
+                    position: absolute;
+                    font-size: 30px;
+                    padding-top: 10px;
+                    left: 92%;
+                    color: $cinza;
+                }
                 >input.input-cep{
                     width: 100%;
                     height: 50px;
@@ -117,6 +133,9 @@ body, html{
             >div.buttonField{
                 text-align: center;
                 position: relative;
+                margin: 0 !important;
+                border: 0 !important;
+                box-sizing: border-box;
                 button{
                     color: #30BAEE;
                     background-color: #ffffff;
@@ -124,9 +143,19 @@ body, html{
                     border-left: #ffffff;
                     height: 50px;
                     border-bottom-right-radius: 10px;
+                    padding: 10px;
+                    width: 100%;
+                    // border: none;
+                    font: inherit;
+                    
                     // border-top-right-radius: 10px;
+                    // button::-moz-focus-inner {
+                    
+                    // padding: 0 !important;
+                    // }
                     
                 }
+                
             }
         }
     }
@@ -146,40 +175,46 @@ body, html{
                 overflow: hidden;
                 img{
                     display: inline-block;
-                    transition: all 0.2s ease;
+                    transition: all 0.3s ease;
                 }
                 
             }
             >a.thumbnail img:hover{
-                transform: scale(1.1);
+                transform: scale(1.05, 1.05);
                 
             }
         }
     }
-    >div.navbar-social{
-        width: 100%;
-        height: 30%;
-        background-color: $vermelho_forte;
-        text-align: center;
-        font-size: 35px;
-        >a i{
-            padding: 10px;
-            color: #ffffff;
-        }
-    }
+    
         
-    >div.footer.container-fluid{
+    >footer.footer.container-fluid{
         width: 100%;
         height: auto;
-        position: absolute;
-        display: flex;
+        display: inline-flex;
         background-color: $vermelho_fraco;
         flex-flow: wrap;
         color: #ffffff;
-        padding: 40px;
+        margin: 0;
+        padding: 0;
         
+            >div.navbar-social.navbar-collapse{
+                width: 100%;
+                height: 30%;
+                background-color: $vermelho_forte;
+                text-align: center;
+                position: relative;
+                font-size: 35px;
+                >a i{
+                    padding: 10px;
+                    color: #ffffff;
+                }
+            }
+
             >div.row.left{
-                padding-left: 40px;
+                @include make-lg-column(3);
+				@include make-lg-column-offset(1);
+                padding: 60px;
+                padding-left: 100px;
                 width: 33.3%;
                 text-decoration: none;
                 ul {
@@ -191,9 +226,8 @@ body, html{
                 }
             }
             >div.row.center{
-
+                padding: 60px;
                 width: 33.3%;
-                padding-left: 40px;
                 ul {
                     list-style-type: none;
                     a{
@@ -204,21 +238,27 @@ body, html{
                 
             }
             >div.row.right{
+                @include make-lg-column(3);
+				@include make-lg-column-offset(1);
+                padding-top: 30px;
+                margin: 0 !important;
                 width: 33.3%;
-                display: inline-block;
-
+                display: flex;
+                img{
+                    @include img-responsive();
+					@include center-block();
+                    float: center;
+                }
                 >div.endereco-footer{
-                    position: relative;
-                    float: right;
+                    padding: 20px;
                     p{
+                        float: center;
                         color: #ffffff;
                     }
+                    
                 }
                 
-                img{
-                    padding-right: 30px;
-                    position: absolute;
-                }
+                
             }
     }
    

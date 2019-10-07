@@ -6,7 +6,7 @@
 //Especifico do cliente
 @font-face {
     font-family: "Century Gothic Regular";
-    src: url("../../fonts/gothic.ttf");
+    src: url("../fonts/gothic.ttf");
 }
 @font-face {
     font-family: "Century Gothic Bold";
@@ -27,7 +27,7 @@ body {
     width: 171px;
     height: 34px;
     border: none;
-    background-color: #C57686;
+    background-color: $vermelho_fraco;
     color: #FFFFFF;
     font-family: $font_main_bold;
     font-size: 15px;
@@ -78,7 +78,7 @@ body{
                     > input {
                         height: 36px;
                         width: 100%;
-                        border: 2px solid #91414F;
+                        border: 2px solid $vermelho_forte;
                         text-indent: 10px;
                         outline: none;
                     }
@@ -89,7 +89,7 @@ body{
                 > textarea {
                     width: 100%;
                     height: 299px;
-                    border: 2px solid #91414F;
+                    border: 2px solid $vermelho_forte;
                     text-indent: 10px;
                     outline: none;
                     margin-top: 15px;
@@ -100,7 +100,7 @@ body{
                     width: 171px;
                     height: 34px;
                     border: none;
-                    background-color: #C57686;
+                    background-color: $vermelho_fraco;
                     color: #FFFFFF;
                     font-family: $font_main_bold;
                     font-size: 15px;
@@ -112,7 +112,7 @@ body{
                         width: 171px;
                         height: 34px;
                         border: none;
-                        background-color: #C57686;
+                        background-color: $vermelho_fraco;
                         color: #FFFFFF;
                         font-family: $font_main_bold;
                         font-size: 15px;
@@ -136,7 +136,7 @@ body{
                         width: 100%;
                         height: 34px;
                         border: none;
-                        background-color: #C57686;
+                        background-color: $vermelho_fraco;
                         color: #FFFFFF;
                         font-family: $font_main_bold;
                         font-size: 15px;
@@ -187,7 +187,7 @@ body{
             }
             > .info {
                 background-clip: padding-box; 
-                background-color: #C57686;
+                background-color: $vermelho_fraco;
                 height: 115px;
                 width: 100%;
                 position: relative;

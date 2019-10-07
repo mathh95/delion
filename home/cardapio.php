@@ -200,10 +200,15 @@
 				success:function(res){
 					$("#spanCarrinho").html(res);
 					if(qtd == res){
-						swal('Este item já está no seu carrinho!', 'Para alterar a quantidade, vá ao seu carrinho.', 'warning');
+						swal('Este item já está no seu carrinho!', 'Para alterar a quantidade, vá para o carrinho ;)', 'warning');
 					}else{
-					// $("body,html").animate({scrollTop: 0 }, 800);
-					swal("Produto Adicionado ao carrinho!!", "Você pode consultar o carrinho para modificar a quantidade.", "success");
+						// $("body,html").animate({scrollTop: 0 }, 800);
+						swal({
+							title: "Produto Adicionado ao carrinho!",
+							text: "Você pode consultar o carrinho para modificar a quantidade :)",
+							icon: "success",
+							timer: 1200
+						});
 					}
 				}, 
 				error: function(erro){

@@ -6,7 +6,7 @@
 //Especifico footer
 @font-face {
     font-family: "Century Gothic Regular";
-    src: url("../../fonts/gothic.ttf");
+    src: url("../fonts/gothic.ttf");
 }
 @font-face {
     font-family: "Century Gothic Bold";
@@ -16,7 +16,7 @@
 body {
     > footer {
         font-family: $font_main;
-        background-color: #C57686;
+        background-color: $vermelho_fraco;
         > .container {
             > .logo {
                 @include make-sm-column(4);

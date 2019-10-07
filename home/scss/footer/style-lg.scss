@@ -6,7 +6,7 @@
 //Especifico footer
 @font-face {
     font-family: "Century Gothic Regular";
-    src: url("../../fonts/gothic.ttf");
+    src: url("../fonts/gothic.ttf");
 }
 @font-face {
     font-family: "Century Gothic Bold";
@@ -14,86 +14,160 @@
 }
 
 body {
-	> footer {
-		font-family: $font_main;
-		background-color: #C57686;
-		padding-bottom: 15px;
-		> .container {
-			> .logo {
-				@include make-lg-column(2);
-				@include make-lg-column-offset(5);
-                padding-top: 15px;
-                padding-right: 0px;
-				padding-left: 0px;
-                > a{
-					> img {
-						@include img-responsive();
-						@include center-block();
-					}
-				}
-                > div {
-                    font-size: 10.99px;
-                    text-align: center;
-                    color: #FFFFFF;
-            		padding: 0px;
+	// > footer {
+	// 	font-family: $font_main;
+	// 	background-color: $vermelho_fraco;
+	// 	padding-bottom: 15px;
+	// 	> .container {
+	// 		> .logo {
+	// 			@include make-lg-column(2);
+	// 			@include make-lg-column-offset(5);
+    //             padding-top: 15px;
+    //             padding-right: 0px;
+	// 			padding-left: 0px;
+    //             > a{
+	// 				> img {
+	// 					@include img-responsive();
+	// 					@include center-block();
+	// 				}
+	// 			}
+    //             > div {
+    //                 font-size: 10.99px;
+    //                 text-align: center;
+    //                 color: #FFFFFF;
+    //         		padding: 0px;
+    //             }
+    //         }
+	// 		> .infos {
+	// 			@include make-lg-column(12);
+    //             padding: 0px;
+    //             > .links {
+	// 				@include make-lg-column(1);
+	// 				> div {
+	// 					padding: 10px 0px;
+	// 					> a {
+	// 						color: #FFFFFF;
+	// 						font-size: 14px;
+	// 						font-weight: bold;
+	// 					}
+	// 				}
+	// 			}
+	// 			> .dados {
+	// 				@include make-lg-column(2);
+	// 				@include make-lg-column-offset(4);
+	// 				text-align: center;
+	// 				padding-right: 0px;
+	// 				padding-left: 0px;
+	// 				padding-top: 20px;
+	// 				> div {
+	// 					font-size: 14;
+	// 					font-weight: bold;
+	// 					padding: 3px 0px;
+    //                 	color: #FFFFFF;
+	// 				}
+	// 			}
+	// 			> .redes {
+	//                 @include make-lg-column(2);
+	//                 @include make-lg-column-offset(3);
+	//                 padding-left: 33px;
+	//                 padding-top: 50px;
+	//                 color: #FFFFFF;
+	//                 font-size: 14px;
+	//                 text-align: center;
+	//                 > div:nth-child(1) {
+	//                 	font-family: $font_main_bold;
+	// 	                font-size: 14px;
+	//                 }
+	//                 > .rede-social {
+	//                     > a {
+	//                         @include make-lg-column(4);
+	//                         padding: 0px;
+	//                         padding-top: 15px;
+	// 						padding-right: 5px;
+	// 						margin-left: 18px;
+	//                         > img {
+	//                             @include img-responsive();
+	//                         }
+	//                     }
+	//                 }
+	//             }
+	// 		}
+	// 	}
+	// }
+	>footer.footer.container-fluid{
+        width: 100%;
+        height: auto;
+        display: inline-flex;
+        background-color: $vermelho_fraco;
+        flex-flow: wrap;
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+        
+            >div.navbar-social.navbar-collapse{
+                width: 100%;
+                height: 30%;
+                background-color: $vermelho_forte;
+                text-align: center;
+                position: relative;
+                font-size: 35px;
+                >a i{
+                    padding: 10px;
+                    color: #ffffff;
                 }
             }
-			> .infos {
-				@include make-lg-column(12);
-                padding: 0px;
-                > .links {
-					@include make-lg-column(1);
-					> div {
-						padding: 10px 0px;
-						> a {
-							color: #FFFFFF;
-							font-size: 14px;
-							font-weight: bold;
-						}
-					}
-				}
-				> .dados {
-					@include make-lg-column(2);
-					@include make-lg-column-offset(4);
-					text-align: center;
-					padding-right: 0px;
-					padding-left: 0px;
-					padding-top: 20px;
-					> div {
-						font-size: 14;
-						font-weight: bold;
-						padding: 3px 0px;
-                    	color: #FFFFFF;
-					}
-				}
-				> .redes {
-	                @include make-lg-column(2);
-	                @include make-lg-column-offset(3);
-	                padding-left: 33px;
-	                padding-top: 50px;
-	                color: #FFFFFF;
-	                font-size: 14px;
-	                text-align: center;
-	                > div:nth-child(1) {
-	                	font-family: $font_main_bold;
-		                font-size: 14px;
-	                }
-	                > .rede-social {
-	                    > a {
-	                        @include make-lg-column(4);
-	                        padding: 0px;
-	                        padding-top: 15px;
-							padding-right: 5px;
-							margin-left: 18px;
-	                        > img {
-	                            @include img-responsive();
-	                        }
-	                    }
-	                }
-	            }
-			}
-		}
-	}
+
+            >div.row.left{
+                @include make-lg-column(3);
+				@include make-lg-column-offset(1);
+                padding: 60px;
+                padding-left: 100px;
+                width: 33.3%;
+                text-decoration: none;
+                ul {
+                    list-style-type: none;
+                    a{
+                        color: #ffffff;
+                        text-decoration: none;
+                    }
+                }
+            }
+            >div.row.center{
+                padding: 60px;
+                width: 33.3%;
+                ul {
+                    list-style-type: none;
+                    a{
+                        color: #ffffff;
+                        text-decoration: none;
+                    }
+                }
+                
+            }
+            >div.row.right{
+                @include make-lg-column(3);
+				@include make-lg-column-offset(1);
+                padding-top: 30px;
+                margin: 0 !important;
+                width: 33.3%;
+                display: flex;
+                img{
+                    @include img-responsive();
+					@include center-block();
+                    float: center;
+                }
+                >div.endereco-footer{
+                    padding: 20px;
+                    p{
+                        float: center;
+                        color: #ffffff;
+                    }
+                    
+                }
+                
+                
+            }
+    }
 	> .rodape {
 		height: 35px;
 		background-color: #D7CEC7;

@@ -6,7 +6,7 @@
 //Especifico do cardapio
 @font-face {
     font-family: "Century Gothic Regular";
-    src: url("../../fonts/gothic.ttf");
+    src: url("../fonts/gothic.ttf");
 }
 @font-face {
     font-family: "Century Gothic Bold";
@@ -21,7 +21,7 @@ body{
         height: 500px;
         > .menu-lateral {
             @include make-sm-column(3);
-            background-color: #C57686;
+            background-color: $vermelho_fraco;
             width: 180px !important;
             margin-left: 10px;
             margin-right: 10px;
@@ -57,14 +57,14 @@ body{
             > a:hover{
                 text-decoration: none;
                 > div {
-                    color: #91414F;
+                    color: $vermelho_forte;
                     font-family: $font_main_bold;
                 }
             }
             > a:focus{
                 text-decoration: none;
                 > div {
-                    color: #91414F;
+                    color: $vermelho_forte;
                     font-family: $font_main_bold;
                 }
             }
@@ -97,8 +97,8 @@ body{
             font-size: 14px;
             color: #FFFFFF;
             width: 690px;
-            background-color: #91414F;
-            border: 5px solid #C57686;
+            background-color: $vermelho_forte;
+            border: 5px solid $vermelho_fraco;
             border-top: 0px;
             border-left: 0px;
             border-right: 0px;
@@ -111,7 +111,7 @@ body{
                 @include make-sm-column-offset(3);
                 @include make-sm-column(5);
                 > .modal-content{
-                    border-color: #91414F;
+                    border-color: $vermelho_forte;
                     background-color: #D7CEC7;
                     color: black;
 
@@ -122,14 +122,14 @@ body{
                     }
 
                     .addCombo{
-                        border-color: #91414F;
-                        background-color: #C57686;
+                        border-color: $vermelho_forte;
+                        background-color: $vermelho_fraco;
                         color: white;
                     }
                     .addCombo:hover{
-                        border-color: #91414F;
-                        background-color: #C57686;
-                        color: #91414F;
+                        border-color: $vermelho_forte;
+                        background-color: $vermelho_fraco;
+                        color: $vermelho_forte;
                     }
                 }
             }
@@ -137,7 +137,7 @@ body{
         > .produto {
             display: flex;
             padding-top: 7px;
-            border: 2px solid #91414F;
+            border: 2px solid $vermelho_forte;
             border-top: 0px;
             border-left: 0px;
             border-right: 0px;
@@ -156,7 +156,7 @@ body{
                 }
                 > img {
                     @include img-responsive();
-                    border: 1px solid #91414F;
+                    border: 1px solid $vermelho_forte;
                     border-top: 0px;
                     border-left: 0px;
                     border-bottom: 0px;
@@ -176,8 +176,8 @@ body{
                 } 
                 #addCarrinho{
                     font-size: 10px;
-                    background-color: #C57686;
-                    border: 1px solid #91414F;
+                    background-color: $vermelho_fraco;
+                    border: 1px solid $vermelho_forte;
                     color:#fff;
                     margin-top: 2%;
                     margin-bottom: 10px;
@@ -186,15 +186,15 @@ body{
                 #addCombo{
                     width: 167px;
                     font-size: 10px;
-                    background-color: #C57686;
-                    border: 1px solid #91414F;
+                    background-color: $vermelho_fraco;
+                    border: 1px solid $vermelho_forte;
                     color:#fff;
                 }
                 #addCarrinho:hover {
-                    color: #91414F;
+                    color: $vermelho_forte;
                 }
                 #addCombo:hover {
-                    color: #91414F;
+                    color: $vermelho_forte;
                 }
                 > .compartilhar {
                     float: right;
@@ -279,8 +279,8 @@ body{
                     > li.active {
 
                         > a {
-                            background-color: #91414F;
-                            border-color:  #91414F;
+                            background-color: $vermelho_forte;
+                            border-color:  $vermelho_forte;
                             width: 20px;
                             padding-left: 0px;
                         }
