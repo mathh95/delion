@@ -18,7 +18,7 @@ include_once "../../admin/controler/controlFormaPgt.php";
 
 include_once "../../admin/model/formaPgt.php";
 
-include_once "../utils/distanceMatrix.php";
+include_once "../utils/googleServices.php";
 
 include_once "../controler/controlEmpresa.php";
 
@@ -35,6 +35,7 @@ $_SESSION['formaPagamento'] = '';
 $controlFormaPgt = new controlerFormaPgt($_SG['link']);
 $formasPgt = $controlFormaPgt->selectAll();
 $_SESSION['delivery_price'] = 0;
+$_SESSION['delivery_time'] = 0;
 
 //zera flag Finalizar pedido
 $_SESSION['finalizar_pedido'] = 0;
@@ -185,13 +186,21 @@ if (count($itens) > 0) {
                         $origin = utf8_decode($endereco_delion); //-25.54086,-54.581167
                         $dest = $rua . " " . $numero . " " . $bairro . " " . $cidade;
                         
-                        $distanceMatrix = new DistanceMatrix();
-                        $dist = $distanceMatrix->getDistanceInfo($origin, $dest); //origin,dest
+                        $googleServices = new GoogleServices();
+
+                        $geoloc_origin = $googleServices->getGeocoding($origin);
+                        $geoloc_dest = $googleServices->getGeocoding($dest);
+
+                        $dist_km = $googleServices->getDistanceGeometry($geoloc_origin->lat,$geoloc_origin->lng, $geoloc_dest->lat, $geoloc_dest->lng,"K");
+
+                        $dist_km = number_format($dist_km, 1);
                         
+                        // $distMatrix = $googleServices->getDistanceMatrixInfo($origin, $dest);
+                        // var_dump($distMatrix);
+
                         //Get raio/taxas/tempo
                         $controle = new controlEntrega($_SG['link']);
-                        $dist_km = $dist['distance_meters']/1000;
-                        $info_entrega = $controle->selectByDist($dist_km);                     
+                        $info_entrega = $controle->selectByDist($dist_km);     
                         
                         //Endereço válido para entrega! != -1
                         //um objeto é esperado
@@ -340,14 +349,16 @@ if (count($itens) > 0) {
                 //Info de Entrega
                 if($_SESSION['entrega_valida'] && $_SESSION['is_delivery']){
                     echo "<div id='infoEntrega'>";
-                    echo "<br><i class='fas fa-road'></i>&nbsp;Distância da entrega: " . $dist['distance_km'] . " <br>";
+                    echo "<br><i class='fas fa-road'></i>&nbsp;Distância da entrega: " . $dist_km . " km <br>";
                     echo "<i class='far fa-clock'></i>&nbsp;Estimativa de preparo/entrega: " . $_SESSION['delivery_time']." mins</div>";
                 }
 
                 //Variaveis passadas pra control do carrinho
                 $_SESSION['delivery_price_var'] = $_SESSION['delivery_price'];
-                $_SESSION['delivery_time_var'] = $_SESSION['delivery_time'];
-                $_SESSION['valorcupom_var'] = $_SESSION['valorcupom'];
+                
+                    $_SESSION['delivery_time_var'] = $_SESSION['delivery_time'];
+                
+                    $_SESSION['valorcupom_var'] = $_SESSION['valorcupom'];
 
                 echo "</div>";
 

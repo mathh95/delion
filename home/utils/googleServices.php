@@ -1,14 +1,57 @@
 <?php
 
-class DistanceMatrix {
+class GoogleServices {
 
-    function getDistanceInfo($origin, $destination){
+    function getGeocoding($address){
+        
+        $geoloc = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?&address='.urlencode($address).'&key=AIzaSyAS7HedlAWWAMuzXlS8boXxNIC5RJFUH-A');
+
+        $geoloc_arr = json_decode($geoloc);
+
+        // var_dump($geoloc_arr->results[0]->formatted_address);
+        // var_dump($geoloc_arr->results[0]->geometry->location);
+
+        if ($geoloc_arr->status=='OK') {
+            $location = $geoloc_arr->results[0]->geometry->location;
+        } else {
+            return "Erro na Requisição";
+            exit();
+        }
+        
+        return $location;
+    }
+
+    //cálculo manual https://www.geodatasource.com/developers/php
+    function getDistanceGeometry($lat1, $lon1, $lat2, $lon2, $unit){
+        
+        if(($lat1 == $lat2) && ($lon1 == $lon2)){
+            return 0;
+        }else{
+            $theta = $lon1 - $lon2;
+
+            $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+
+            $dist = acos($dist);
+            $dist = rad2deg($dist);
+            $miles = $dist * 60 *1.1515;
+            $unit = strtoupper($unit);
+
+            if ($unit == "K"){
+                return ($miles * 1.609344);
+            }else if ($unit == "N"){
+                return $miles;
+            }            
+        }
+    }
+
+    //Distância Rota
+    function getDistanceMatrixInfo($origin, $destination){
         
         $distance_data = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?&origins='.urlencode($origin).'&destinations='.urlencode($destination).'&key=AIzaSyAS7HedlAWWAMuzXlS8boXxNIC5RJFUH-A');
         
         $distance_arr = json_decode($distance_data);
         
-        //var_dump($distance_arr);
+        //var_dump($distance_arr);  
         
         if ($distance_arr->status=='OK') {
             $destination_addresses = $distance_arr->destination_addresses[0];
