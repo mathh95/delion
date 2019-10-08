@@ -154,7 +154,7 @@
 
                         $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                        if (in_array('pedidoWpp', $permissao)){ ?>
+                        if (in_array('cupom', $permissao)){ ?>
 
                             <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Salvar</button>
 
@@ -210,8 +210,8 @@
             
             function uniqid() {
                     var ts=String(new Date().getTime()), i = 0, out = '';
-                    for(i=0;i<ts.length;i+=2) {        
-                    out+=Number(ts.substr(i, 2)).toString(36);    
+                        for(i=0;i<ts.length;i+=3) {        
+                        out+=Number(ts.substr(i, 2)).toString(36);    
                     }
                 return ('d'+out);
             }

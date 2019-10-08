@@ -19,7 +19,7 @@
                     header("Location:../carrinho.php"); 
                 }
             }else{
-                header("Location: ../");
+                header("Location: ../cardapio.php");
             }
         }elseif ($result == 1) {
             alertJSVoltarPagina("Erro!","Erro, sua senha não confere.", 2);
