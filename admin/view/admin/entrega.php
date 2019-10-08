@@ -161,30 +161,35 @@ $arquivo_pai = basename(__FILE__, '.php');
     </div>
 
     <script>
-        // 
-        var radius = {
-            km1: {
-                center: {
-                    lat: -25.54086,
-                    lng: -54.581167
-                },
-                km: 1
+
+        var radius = {};
+        //Delion Café
+        radius.km0 = {
+            center: {
+                lat: -25.54086,
+                lng: -54.581167
             },
-            km3: {
-                center: {
-                    lat: -25.54086,
-                    lng: -54.581167
-                },
-                km: 3
-            },
-            km5: {
-                center: {
-                    lat: -25.54086,
-                    lng: -54.581167
-                },
-                km: 5
-            }
+            km: 0.01
         };
+
+        //raios cadastrados
+        <?php foreach ($entregas as $key => $entrega) { 
+          if($entrega->getFlag_ativo()){
+        ?>
+            
+            radius.km<?=$entrega->getRaio_km(); ?> = {
+                center: {
+                    lat: -25.54086,
+                    lng: -54.581167
+                },
+                km: <?= $entrega->getRaio_km(); ?>
+            };
+
+        <?php 
+            }
+        } ?>
+
+        console.log(radius);
 
         function initMap() {
             // Create the map

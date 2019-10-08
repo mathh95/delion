@@ -160,8 +160,8 @@ function autoCompletar(rua, bairro, cep) {
 }
 
 function selecionarEndereco(endereco, flag) {
-    console.log(endereco);
-    console.log(flag);
+    // console.log(endereco);
+    // console.log(flag);
 
     //flag 1 == combo
     if (flag == 1) {
@@ -179,7 +179,10 @@ function selecionarEndereco(endereco, flag) {
             }
 
         });
+    
+    //pedido    
     } else {
+
         var url = "ajax/enviarEmailPedido.php";
         $.ajax({
 

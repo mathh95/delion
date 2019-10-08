@@ -15,6 +15,8 @@
             private $desconto;
 
             private $taxa_entrega;
+            
+            private $tempo_entrega;
 
             private $subtotal;
 
@@ -48,6 +50,10 @@
 
             function getDesconto(){
                 return $this->desconto;
+            }
+
+            function getTempo_entrega(){
+                return $this->tempo_entrega;
             }
 
             function getTaxa_entrega(){
@@ -106,6 +112,10 @@
                 $this->taxa_entrega=$taxa_entrega;
             }
 
+            function setTempo_entrega($tempo_entrega){
+                $this->tempo_entrega=$tempo_entrega;
+            }
+
             function setSubtotal($subtotal){
                 $this->subtotal=$subtotal;
             }
@@ -138,13 +148,14 @@
 
             }
 
-            function construct($cod_pedido,$cliente,$data,$valor,$desconto,$taxa_entrega,$subtotal,$status,$formaPgt,$origem){
+            function construct($cod_pedido,$cliente,$data,$valor,$desconto,$taxa_entrega,$subtotal,$status,$formaPgt,$origem, $tempo_entrega){
                 $this->cod_pedido=$cod_pedido;
                 $this->cliente=$cliente;
                 $this->data=$data;
                 $this->valor=$valor;
                 $this->desconto=$desconto;
                 $this->taxa_entrega=$taxa_entrega;
+                $this->tempo_entrega=$tempo_entrega;
                 $this->subtotal=$subtotal;
                 $this->status=$status;
                 $this->formaPgt=$formaPgt;
@@ -158,6 +169,7 @@
                 echo "Valor: ".$this->valor."<br>";
                 echo "Desconto".$this->desconto."<br>";
                 echo "Taxa de Entrega".$this->taxa_entrega."<br>";
+                echo "Tempo de Entrega".$this->tempo_entrega."<br>";
                 echo "Subtotal".$this->subtotal."<br>";
                 echo "Status: ".$this->status."<br>";
                 echo "FormaPgt: ".$this->status."<br>";

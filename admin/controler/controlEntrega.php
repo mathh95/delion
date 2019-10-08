@@ -144,7 +144,7 @@
         $entrega = new entrega;
         try{
                         
-            $stmt=$this->pdo->prepare("SELECT * FROM `entrega` WHERE raio_km >= :dist ORDER BY raio_km ASC LIMIT 0,1");
+            $stmt=$this->pdo->prepare("SELECT * FROM `entrega` WHERE raio_km >= :dist AND flag_ativo = 1 ORDER BY raio_km ASC LIMIT 0,1");
             $stmt->bindParam(":dist", $dist, PDO::PARAM_INT);
            
             $executa=$stmt->execute();
@@ -160,6 +160,8 @@
                         $entrega->setMin_frete_gratis($result->min_frete_gratis);
                         $entrega->setFlag_ativo($result->flag_ativo);
                     }
+                }else{
+                    return -1;
                 }
                 return $entrega;
             }else{

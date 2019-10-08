@@ -118,6 +118,6 @@
         // Remove as variáveis da sessão (caso elas existam)
         unset($_SESSION['usuarioID'], $_SESSION['usuarioNome'], $_SESSION['usuarioLogin'], $_SESSION['usuarioSenha']);
         
-        header("Location: ../view/login.html");
+        header("Location: /admin/view/login.html");
     }
 ?>

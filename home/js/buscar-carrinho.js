@@ -14,11 +14,11 @@
 //     }); 
 // });
 
-function atualizaValores(delivery, totalCorrigido){
-    $('#valor_taxa_entrega').html(delivery.toFixed(2));
-    $('#valor_total').html(totalCorrigido.toFixes(2));
-    return;
-}
+// function atualizaValores(delivery, totalCorrigido){
+//     $('#valor_taxa_entrega').html(delivery.toFixed(2));
+//     $('#valor_total').html(totalCorrigido.toFixes(2));
+//     return;
+// }
 
 $(document).on('click', '.active', function(){
 
@@ -34,7 +34,7 @@ $(document).on('click', '.active', function(){
             data: {acao: "balcao"},
             success:function(result){
                 var res = JSON.parse(result);
-                //console.log(res);
+                // console.log(res);
                 var delivery_price = res.delivery_price;
                 var totalCorrigido = res.totalCorrigido;
                 
@@ -61,7 +61,7 @@ $(document).on('click', '.active', function(){
             data: {acao: "delivery"},
             success:function(result){
                 var res = JSON.parse(result);
-                //console.log(res);
+                // console.log(res);
                 var delivery_price = res.delivery_price;
                 var totalCorrigido = res.totalCorrigido;
             

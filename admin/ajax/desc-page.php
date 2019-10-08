@@ -81,8 +81,14 @@ if(in_array('pedido', $permissao)){
 				}else{
 					$retirada = date('H:i', $retirada1);
 				}
+
+				if($pedido->getTempo_entrega() != 0){
+					$tempo_entrega = $pedido->getTempo_entrega();
+				}else{
+					$tempo_entrega = 30;//default
+				}
 				
-				$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
+				$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +".$tempo_entrega." minutes"));
 				echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
 					<td style='text-align: center;' name='cliente'>".$pedido->getCliente()."</td>
 					<td style='text-align: center;' name='dataPedido'>".$pedido->getData()->format('d/m/Y')."</td>
