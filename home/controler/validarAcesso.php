@@ -2,11 +2,15 @@
     //session_start();
     include "controlCliente.php";
     include_once "../lib/alert.php";
+
     if (isset($_POST) and !empty($_POST)){
+
         $control=new controlCliente($_SG['link']);
         $login = addslashes(htmlspecialchars($_POST['login']));
         $senha = addslashes(htmlspecialchars($_POST['senha']));
+        
         $result=$control->validaCliente($login, $senha);
+
         if ($result == 2 ){
             if (isset($_SESSION['carrinho']) and !empty($_SESSION['carrinho'])){
                 if (isset($_SESSION['delivery']) and $_SESSION['delivery'] > 0){

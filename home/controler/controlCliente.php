@@ -29,8 +29,14 @@
 
                 }
                 catch(PDOException $e){
-                    echo $e->getMessage();
-                    return -1;
+                    //var_dump($e);
+                    if ($e->errorInfo[1] == 1062) {
+                        echo "Login já Cadastrado!\n";
+                        return -2;
+                    }else{
+                        echo $e->getMessage();
+                        return -1;
+                    }
                 }
             }
 

@@ -59,7 +59,7 @@
 
 		<div class="solicitacao">
 
-			<form id="cadastro-form">
+			<form method="POST" id="cadastro-form" onsubmit="return false;" >
 				
 				<p>Cadastro de cliente</p>
 
