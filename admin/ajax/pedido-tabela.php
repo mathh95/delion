@@ -201,9 +201,9 @@ if(in_array('pedido', $permissao)){
 					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button onclick=\"erroPrint(3,".$pedido->getStatus().")\" class='btn btn-danger' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido()."' data-id='".$pedido->getCod_pedido()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
 
 					if($pedido->rua == NULL){	
-						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroRetirada(3,".$pedido->getStatus().")\" class='btn btn-danger' disable><i class='fas fa-store'></i> Retirado</button></a></td>";
+						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroRetirada(3,".$pedido->getStatus().")\" class='btn btn-success' disable><i class='fas fa-store'></i> Retirado</button></a></td>";
 					}else{
-						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(3,".$pedido->getStatus().")\" class='btn btn-danger' disable><i class='fa fa-truck'></i> Delivery</button></a></td>";
+						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(3,".$pedido->getStatus().")\" class='btn btn-success' disable><i class='fa fa-truck'></i> Delivery</button></a></td>";
 					}					
 					echo "<td style='text-align: center;' name='editar'>
 								<a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido()."'>

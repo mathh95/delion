@@ -155,6 +155,9 @@ class controlerCarrinho{
                     $pedido->setFormaPgt($result->formaPgt);
                     $pedido->setStatus($result->status);
                     $pedido->setOrigem($result->origem);
+                    $pedido->setHora_print($result->hora_print);
+                    $pedido->setHora_delivery($result->hora_delivery);
+                    $pedido->setHora_retirada($result->hora_retirada);
                     array_push($pedidos,$pedido);  
                 }
             }else{
