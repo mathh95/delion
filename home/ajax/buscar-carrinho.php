@@ -355,10 +355,8 @@ if (count($itens) > 0) {
 
                 //Variaveis passadas pra control do carrinho
                 $_SESSION['delivery_price_var'] = $_SESSION['delivery_price'];
-                
-                    $_SESSION['delivery_time_var'] = $_SESSION['delivery_time'];
-                
-                    $_SESSION['valorcupom_var'] = $_SESSION['valorcupom'];
+                $_SESSION['delivery_time_var'] = $_SESSION['delivery_time'];
+                $_SESSION['valorcupom_var'] = $_SESSION['valorcupom'];
 
                 echo "</div>";
 

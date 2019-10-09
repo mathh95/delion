@@ -93,7 +93,7 @@ class controlerCarrinho{
             $idCliente = $_SESSION['cod_cliente'];
             $valor = $_SESSION['totalCorrigido'];       //valor com a correção do cupom
             $desconto = $_SESSION['valorcupom_var'];
-            $taxa_entrega = $_SESSION['delivery_var'];
+            $taxa_entrega = $_SESSION['delivery_price_var'];
             $tempo_entrega = $_SESSION['delivery_time_var'];
             $subtotal = $_SESSION['totalCarrinho'];
             $formaPgt = $_SESSION['formaPagamento'];
@@ -162,6 +162,9 @@ class controlerCarrinho{
                     $pedido->setFormaPgt($result->formaPgt);
                     $pedido->setStatus($result->status);
                     $pedido->setOrigem($result->origem);
+                    $pedido->setHora_print($result->hora_print);
+                    $pedido->setHora_delivery($result->hora_delivery);
+                    $pedido->setHora_retirada($result->hora_retirada);
                     array_push($pedidos,$pedido);  
                 }
             }else{

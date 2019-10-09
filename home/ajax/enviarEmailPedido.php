@@ -126,7 +126,7 @@ if ($cod_endereco == null) {
 
     $pedido->setPedido(null);
 
-    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home'});</script></body>";
+    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script></body>";
     echo $html;
 
 //delivery   
@@ -208,6 +208,10 @@ if ($cod_endereco == null) {
     }
 
     $pedido->setPedido($cod_endereco);
+
+    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script></body>";
+    echo $html;
+
 }
 unset($_SESSION['delivery']);
 unset($_SESSION['pedidoBalcao']);

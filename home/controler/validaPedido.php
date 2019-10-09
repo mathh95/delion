@@ -116,7 +116,7 @@ if($checkcarrinho > 0){
                                     success: function (res) {
                                         console.log(res);
 
-                                        swal('Pedido realizado com sucesso!', 'Tempo estimado de entrega: ".$_SESSION['delivery_time']." mins', 'success').then((value) => {
+                                        swal('Pedido realizado com sucesso!', 'Tempo estimado de entrega: ".$_SESSION['delivery_time']." mins  | Total: R$ ".number_format($_SESSION['totalCorrigido'], 2)."', 'success').then((value) => {
                                             window.location = '/home/cardapio.php';
                                         });
                                     },
