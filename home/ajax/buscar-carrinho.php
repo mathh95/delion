@@ -353,6 +353,11 @@ if (count($itens) > 0) {
                     echo "<i class='far fa-clock'></i>&nbsp;Estimativa de preparo/entrega: " . $_SESSION['delivery_time']." mins</div>";
                 }
 
+<<<<<<< HEAD
+                //Variaveis para passar pra control do carrinho
+                $_SESSION['delivery_var'] = $_SESSION['delivery_price'];
+                $_SESSION['valorcupom_var'] = $_SESSION['valorcupom'];
+=======
                 //Variaveis passadas pra control do carrinho
                 $_SESSION['delivery_price_var'] = $_SESSION['delivery_price'];
                 
@@ -361,6 +366,7 @@ if (count($itens) > 0) {
                     $_SESSION['valorcupom_var'] = $_SESSION['valorcupom'];
 
                 echo "</div>";
+>>>>>>> 7491ac5b4532b9f7bafa4bfc4ec5bc12480e0eca
 
                 
                 //Lado direito
