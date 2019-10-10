@@ -1,90 +1,342 @@
 @import "../vendors/bootstrap/bootstrap/variables";
 @import "../vendors/bootstrap/bootstrap/mixins";
 
+
+@font-face {
+    font-family: "Century Gothic Regular";
+    src: url("../fonts/gothic.ttf");
+}
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../fonts/gothicb.ttf");
+}
+
 @import "../variables";
 
 //Especifico do index
-body{
+
+
+
+body, html{
     font-family: $font_main;
-    > .banner-superior {
-        padding-top: 15px;
-        > div {
-            padding-left: 15px;
-            padding-right: 15px;
-            > div {
-                > a {
-                    img {
+    height: auto;
+    width: 100%;
+    margin: 0;
+    overflow-x: hidden;
+
+
+    > div.container.no-padding{
+        width: 100%;
+        position: relative;
+        padding: 0;
+        height: auto;
+        >div.imagens-topo {
+            width: 100%;
+            height: auto;
+            background-position: 0 0;
+            background-repeat: no-repeat;
+                    >img.img-responsive.imagem-topo{
+                        position: absolute;
                         @include img-responsive();
                         @include center-block();
                     }
+                    >img.imagem-logo{
+                        position: relative;
+                        padding-top: 25px;
+                        width: 20%;
+                        @include img-responsive();
+                        @include center-block();
+                    }
+        }
+    }
+    
+    > .form-cep-completo{
+        font-family: $font_main;
+        position: relative;
+        text-align: center;
+        max-width: 100%;
+        height: auto;
+        padding-top: 60px;
+        >div.tabs{
+            position: relative;
+            text-align:center;
+            >ul.nav.nav-tabs{
+                font-size: 14px;
+                float:none;
+                display:inline-flex;
+                margin-bottom: 0;
+                width: 45%;
+                border: 0;
+                padding: 0;
+                margin: 0;
+                >li.delivery{
+                    border-color: $cinza;
+                    width: 100%;
+                    a{
+                        color: $vermelho_fraco;
+                        width: 100%;
+                        background-color: $cinza;
+                        border-top-left-radius: 15px;
+                        border-top-right-radius: 15px;
+                        -moz-border-radius-topleft: 15px;
+                        -moz-border-radius-topright: 15px;
+                        border-top-left-radius: 15px;
+                        border-top-right-radius: 15px; 
+                    }
+                    
                 }
+                >li.retirada{
+                    width: 100%;
+                    a{
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px;
+                    -moz-border-radius-topleft: 15px;
+                    -moz-border-radius-topright: 15px;
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px; 
+                    border-color: $cinza;
+                    width: 100%;
+                    color: #000000;
+                    background-color: #ffffff;
+                    }
+                    
+                }
+                
+            }
+        
+        }
+
+        > div.form-cep-campos{
+            position: relative;
+            display: inline-flex;
+            width: 45%;
+            text-align: center;
+
+           
+
+            > div.locationField{
+                position: relative;
+                width: 100%;
+                >span.fa-map-marker-alt{
+                    position: absolute;
+                    font-size: 30px;
+                    padding-top: 10px;
+                    left: 86%;
+                    color: $cinza;
+                }
+                >input.input-cep{
+                    width: 100%;
+                    height: 50px;
+                    font-size: 13px;
+                    border-bottom-left-radius: 10px;
+                    // border-top-left-radius: 10px;
+                }
+            }
+            >div.buttonField{
+                text-align: center;
+                position: relative;
+                margin: 0 !important;
+                border: 0 !important;
+                box-sizing: border-box;
+                button{
+                    color: #30BAEE;
+                    background-color: #ffffff;
+                    border-color: $cinza;
+                    border-left: #ffffff;
+                    height: 50px;
+                    border-bottom-right-radius: 10px;
+                    padding: 10px;
+                    width: 100%;
+                    font: inherit;
+                    
+                }
+                
             }
         }
     }
-    > div.container.banner-superior.slick-initialized.slick-slider.slick-dotted{
-        margin-bottom: 0px;
+    >div.grid-images.row{
+        display: inline-flex;
+        flex-flow: row;
+        height: auto;
+        width: 100%;
+        margin: 0 !important;
+        >div.thumb-home{
+            padding: 5px;
+            >a.thumbnail{
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: auto;
+                border: 0 none;
+                box-shadow: none;
+                display: inline-block;
+                overflow: hidden;
+                img{
+                    display: inline-flex;
+                    transition: all 0.3s ease;
+                    @include img-responsive();
+                        @include center-block();
+                }
+                
+            }
+            >a.thumbnail img:hover{
+                transform: scale(1.05, 1.05);
+                
+            }
+        }
     }
-    > .cardapio-evento-pedido-cartao{
-        padding-top: 15px;
-        padding-bottom: 15px;
-        > div {
-            @include make-md-column(6);
-            > .imagem-cardapio-evento {
-                .slick-prev{
-                    z-index: 10;
-                    margin-left: 10px;
-                }
-                .slick-next {
-                    margin-right: 10px;
-                }
-                a {
-                    > img {
-                        @include img-responsive();
-                        @include center-block();
-                    }
-                }
-            }
-            > .imagem-pedido-cartao {
-                background-color: #FFFFFF;
-                a {
-                    > img {
-                        @include img-responsive();
-                        @include center-block();
-                    }
-                }
-            }
-            a {
-                > div {
-                    font-size: 15px;
-                    background-color: #000000;
+    
+        
+    
+
+    >footer.footer.container-fluid{
+        width: 100%;
+        height: auto;
+        display: inline-flex;
+        justify-content: space-around;
+        background-color: $vermelho_fraco;
+        flex-direction: row;
+        flex-flow: wrap;
+        color: #ffffff;
+        padding: 0;
+        
+            >div.navbar-social.navbar-collapse{
+                width: 100%;
+                height: 30%;
+                background-color: $vermelho_forte;
+                text-align: center;
+                position: relative;
+                font-size: 35px;
+                >a i{
+                    padding: 10px;
                     color: #ffffff;
-                    > .icone {
-                        height: 29px;
-                        padding-left: 5px;
-                        padding-right: 10px;
-                        padding-bottom: 3px;
-                    }
-                }
-                > .texto {
-                    padding-top: 4px;
-                    height: 34px;
                 }
             }
-            a:hover {
-                outline: none;
+
+            >div.row.left{
+                display: flex;
+                flex-direction: row;
+                @include make-sm-column(3);
+                @include make-sm-column-offset(1);
+                padding: 30px;
+                margin: 0 !important;
                 text-decoration: none;
+                ul {
+                    list-style-type: none;
+                    a{
+                        color: #ffffff;
+                        text-decoration: none;
+                    }
+                }
+            }
+            >div.row.center{
+                display: flex;
+                flex-direction: row;
+                margin: 0 !important;
+                padding: 30px;
+                @include make-sm-column(3);
+				@include make-sm-column-offset(1);
+                ul {
+                    list-style-type: none;
+                    a{
+                        color: #ffffff;
+                        text-decoration: none;
+                    }
+                }
+                
+            }
+            >div.row.right{
+                display: flex;
+                flex-direction: row;
+                padding: 30px;
+                margin-left: 0 !important;
+                img{
+                    @include img-responsive();
+					@include center-block();
+                    float: center;
+                    position: relative;
+                }
+                >div.endereco-footer{
+                    padding: 20px;
+                    p{
+                        position: relative;
+                        float: center;
+                        color: #ffffff;
+                    }
+                    
+                }
+                
+                
+            }
+    }
+
+    > .rodape {
+        height: 35px;
+        background-color: #D7CEC7;
+        padding-top: 0px;
+        > div {
+            font-size: 13px;
+            padding-top: 7px;
+            color: #000000;
+            > div:nth-child(1){
+                @include make-sm-column(5);
+            }
+            > div:nth-child(2){
+                @include make-sm-column(7);
+                text-align: right;
+                > div {
+                    > a{
+						> img {
+							@include img-responsive();
+							vertical-align: text-top;
+							display: inline;
+							max-width: 4%;
+						}
+					}
+                }
             }
         }
     }
-    > .banner-inferior {
-        padding-bottom: 30px;
-        > a {
-            > img {
-                padding-right: 15px;
-                padding-left: 15px;
-                @include img-responsive();
-                @include center-block();
+    > .rodape {
+        height: 35px;
+        background-color: #D7CEC7;
+        padding-top: 0px;
+        > div {
+            padding-top: 7px;
+            color: #000000;
+            > div:nth-child(1){
+                @include make-md-column(6);
             }
+            > div:nth-child(2){
+                @include make-md-column(6);
+                text-align: right;
+                > div {
+                    > a{
+                        > img {
+                            @include img-responsive();
+                            vertical-align: text-top;
+                            display: inline;
+                            max-width: 4%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    >div.modal.fade{
+        h4{
+            color: $cinza;
+        }
+        label{
+            color: $cinza;
+        }
+        input{
+            border-color: $cinza;
+        }
+
+        button.btn.btn-danger{
+            background-color: $vermelho_forte;
         }
     }
 }
+

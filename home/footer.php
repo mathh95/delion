@@ -68,9 +68,9 @@
 				<p class="bold-text"><b>
 					Rua Jorge Sanwais, 1137<br>
 					Centro<br>
-					Foz do Iguaçu - Paraná<br>
-					Rua Jorge Sanwais, 1137<br>
-					CEP: 85851-150
+                    Foz do Iguaçu - Paraná<br>
+                    CEP: 85851-150<br>
+                    Fone: (45)3027-0059
 				</b></p>
 			</div>
 			
