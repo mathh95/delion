@@ -1,5 +1,5 @@
 <?php 
-session_start();
+	session_start();
 
 	if(isset($_SESSION['cod_cliente'])){
 		header("Location: /home");
@@ -65,45 +65,24 @@ session_start();
 
 		<div class="solicitacao">
 
-			<form action="controler/validarAcesso.php" method="POST">
+			<form action="controler/recuperarAcesso.php" method="POST">
 			
-				<p>Acesso à área do cliente</p>
+				<p>Recuperação de Senha</p>
 
     			<div>
 
-					<p>Login</p>
+					<p>Login (e-mail)</p>
 
         			<input class="form-control" name="login" type="email" required placeholder="delion@mail.com">
 
     			</div>
 
-    			<div>
 
-					<p>Senha</p>
+				<button type="submit">Recuperar Senha</button>
 
-        			<input class="form-control" name="senha" type="password" required placeholder="******">
-
-				</div>
-
-
-				<span><a href="./recuperarSenha.php"><b>Esqueci minha senha</b></a><br><br></span>
-
-
-				<button type="submit">ENTRAR</button>
-				
-				
-				<a href="cadastroCliente.php"><button class="botao-cadastro" type="button">CADASTRAR</button></a>						
+				<button style="float: right;" onclick="window.history.go(-1)" >Voltar</button>					
 
 			</form>
-
-			<div class="container tipos_login row">
-
-				<div class="g-signin2 login_google" data-onsuccess="onSignIn"></div>
-
-				<div class="fb-login-button login_facebook" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" data-onlogin="loginFb()"></div>
-
-			</div>
-
 			
 			
 		</div>		
@@ -137,29 +116,6 @@ session_start();
 	<script type="text/javascript" src="js/maskedinput.js"></script>
 
 	<script>
-
-		$(document).ready(function(){
-			var url_string = window.location.href;
-			var url = new URL(url_string);
-			var recuperacao_enviada = url.searchParams.get("recuperacao_enviada");
-			var recuperada = url.searchParams.get("recuperada");
-			
-			if(recuperacao_enviada=="true"){
-				swal("E-mail enviado", "Siga as intruções do e-mail", "success");
-
-				//clean params
-				setTimeout(function() {
-					window.location.href = url_string.substring(0, url_string.indexOf('?'));
-				}, 2000);
-			}else if(recuperada=="true"){
-				swal("Senha recuperada", "Esquecidinho, não vá esquecer de Aproveitar!", "success");
-				//clean params
-				setTimeout(function() {
-					window.location.href = url_string.substring(0, url_string.indexOf('?'));
-				}, 2000);
-			}
-		});
-
 
 		function onSignIn(googleUser) {
 			var profile = googleUser.getBasicProfile();
@@ -274,6 +230,7 @@ session_start();
     		twentyFour: true
 
     	});
+		
 	</script>
 
 </body>

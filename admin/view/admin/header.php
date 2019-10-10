@@ -418,7 +418,7 @@
 
                         <h2>
                             <a href="alteraSenha.php"><i class="fa fa-cog"></i>&nbsp;ALTERAR SENHA&nbsp;|</a>
-                            <a href="../../controler/logout.php"><i class="fa fa-sign-out"></i>SAIR&nbsp;</a>
+                            <a href="../../controler/logout.php"><i class="fas fa-sign-out-alt"></i>SAIR&nbsp;</a>
                         </h2>
 
                     </div>

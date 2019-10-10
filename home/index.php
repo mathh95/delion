@@ -47,7 +47,7 @@
 					<a href="#">Delivery</a>
 				</li>
 				<li class="retirada">
-					<a href="/../../home/cardapio.php">Retirada na loja</a>
+					<a href="/../../home/cardapio.php">Ir para loja</a>
 				</li>
 			</ul>
 		</div>

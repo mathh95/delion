@@ -255,7 +255,7 @@ if (count($itens) > 0) {
                         echo "<div id='infoDelivery'>";
                         echo "<br>";
                         echo "<span style='font-weight:bold;'></span> <span onclick='location=\"/home\"' style='cursor:pointer;'>&nbsp;Inserir Endereço de Entrega&nbsp;<i class='fas fa-external-link-alt'></i></span><br>";
-                        echo "<br><span>*Ou selecione um Endereço cadastrado ao Finalizar o Pedido.</span>";
+                        echo "<br><span><i class='fas fa-info-circle'></i>&nbsp;Ou selecione um Endereço cadastrado ao Finalizar o Pedido.</span>";
                         echo "</div>";
                     }
 
@@ -288,7 +288,7 @@ if (count($itens) > 0) {
                     echo "<div style='display:none;' id='infoDelivery'>";
                     echo "<br>";
                     echo "<span style='font-weight:bold;'></span> <span onclick='location=\"/home\"' style='cursor:pointer;'>&nbsp;Inserir Endereço de Entrega&nbsp;<i class='fas fa-external-link-alt'></i></span><br>";
-                    echo "<br><span>*Ou selecione um Endereço cadastrado ao Finalizar o Pedido.</span>";
+                    echo "<br><span><i class='fas fa-info-circle'></i>&nbsp;Ou selecione um Endereço cadastrado ao Finalizar o Pedido.</span>";
                     echo "</div>";
 
 
@@ -353,20 +353,12 @@ if (count($itens) > 0) {
                     echo "<i class='far fa-clock'></i>&nbsp;Estimativa de preparo/entrega: " . $_SESSION['delivery_time']." mins</div>";
                 }
 
-<<<<<<< HEAD
-                //Variaveis para passar pra control do carrinho
-                $_SESSION['delivery_var'] = $_SESSION['delivery_price'];
-                $_SESSION['valorcupom_var'] = $_SESSION['valorcupom'];
-=======
                 //Variaveis passadas pra control do carrinho
                 $_SESSION['delivery_price_var'] = $_SESSION['delivery_price'];
-                
-                    $_SESSION['delivery_time_var'] = $_SESSION['delivery_time'];
-                
-                    $_SESSION['valorcupom_var'] = $_SESSION['valorcupom'];
+                $_SESSION['delivery_time_var'] = $_SESSION['delivery_time'];
+                $_SESSION['valorcupom_var'] = $_SESSION['valorcupom'];
 
                 echo "</div>";
->>>>>>> 7491ac5b4532b9f7bafa4bfc4ec5bc12480e0eca
 
                 
                 //Lado direito

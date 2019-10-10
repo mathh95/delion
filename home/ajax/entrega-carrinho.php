@@ -14,8 +14,8 @@ if($acao == "delivery"){
 
     echo json_encode(
         array(
-            "delivery_price" => $_SESSION['delivery_price'],
-            "totalCorrigido" => $_SESSION['totalCorrigido']
+            "delivery_price" => (float)$_SESSION['delivery_price'],
+            "totalCorrigido" => (float)$_SESSION['totalCorrigido']
             )
         );
     return;
@@ -29,13 +29,13 @@ if($acao == "delivery"){
     echo json_encode(
         array(
             "delivery_price" => 0.00,
-            "totalCorrigido" => $_SESSION['totalCorrigido']
+            "totalCorrigido" => (float)$_SESSION['totalCorrigido']
             )
         );
     return;
 }
 
-echo $_SESSION['totalCorrigido'];
-echo $_SESSION['totalComDesconto'];
+//echo $_SESSION['totalCorrigido'];
+//echo $_SESSION['totalComDesconto'];
 
 ?>
