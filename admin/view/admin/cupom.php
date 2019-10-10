@@ -59,7 +59,7 @@
                             <small>Código do Cupom:</small>
 
                             <div id="test">
-                                    <input id="codigo" class="form-control" type="text" name="codigo" placeholder="Código do Cupom" readonly/>
+                                    <input required id="codigo" class="form-control" type="text" name="codigo" placeholder="Código do Cupom" readonly/>
                                     
                                     <br>
 
@@ -76,7 +76,7 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
 
-                                <input class="form-control" placeholder="Valor do desconto" id="valor" name="valor" value="" type="number" step="0.01" min="1" max="99">
+                                <input required class="form-control" placeholder="Valor do desconto" id="valor" name="valor" value="" type="number" step="0.01" min="1" max="99">
 
                             </div>     
 
@@ -90,7 +90,7 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
 
-                                <input class="form-control" placeholder="Valor minimo para uso do Cupom" id="valorMinimo" name="valorMinimo" value="" type="number" step="0.01" min="1" max="99">
+                                <input required  class="form-control" placeholder="Valor minimo para uso do Cupom" id="valorMinimo" name="valorMinimo" value="" type="number" step="0.01" min="1" max="99">
 
                             </div>     
 
@@ -104,7 +104,7 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
 
-                                <input class="form-control" placeholder="Número de cupons" id="qtdcupom" name="qtdcupom" value="" type="number">
+                                <input required class="form-control" placeholder="Número de cupons" id="qtdcupom" name="qtdcupom" value="" type="number">
 
                             </div> 
 
@@ -118,7 +118,7 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
 
-                                <input class="form-control" placeholder="" name="vencimento_data" value="" type="date">
+                                <input required class="form-control" placeholder="" name="vencimento_data" value="" type="date">
 
                             </div> 
 
@@ -132,7 +132,7 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
 
-                                <input class="form-control" placeholder="" name="vencimento_hora" value="" type="time">
+                                <input required class="form-control" placeholder="" name="vencimento_hora" value="" type="time">
 
                             </div> 
 
