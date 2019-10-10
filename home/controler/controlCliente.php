@@ -29,8 +29,14 @@
 
                 }
                 catch(PDOException $e){
-                    echo $e->getMessage();
-                    return -1;
+                    //var_dump($e);
+                    if ($e->errorInfo[1] == 1062) {
+                        echo "Login já Cadastrado!\n";
+                        return -2;
+                    }else{
+                        echo $e->getMessage();
+                        return -1;
+                    }
                 }
             }
 
@@ -365,6 +371,39 @@
                 }
             }
 
+            function updateSenhaEsquecida($cod_cliente, $novaSenha){
+                try{       
+                    $novaSenha = hash_hmac("md5", $novaSenha, "senha");
+
+                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE cod_cliente=:parametro");
+                    $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+                    
+                    $executa=$stmt->execute();
+                    if ($executa){
+
+                        if($stmt->rowCount() > 0){
+
+                            $stmt=$this->pdo->prepare("UPDATE cliente SET senha=:novaSenha WHERE cod_cliente=:parametro");
+                            $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+                            $stmt->bindParam(":novaSenha", $novaSenha, PDO::PARAM_STR);
+                            $executa=$stmt->execute();
+                            if ($executa){
+                                return 2;
+                            }else{
+                                return -1;
+                            }
+                        }
+                                                
+                    }else{
+                        return -1;
+                    }
+                    
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
             function delete($cod_cliente){
                 try{
                     $status=0;
@@ -383,6 +422,75 @@
                     return -1;
                 }
             }
+
+            function insertRecuperaSenha($cod_cliente_fk, $cod_recuperacao, $data_expiracao){
+                try{
+                    $stmt=$this->pdo->prepare("INSERT INTO recupera_senha(cod_cliente_fk, cod_recuperacao, data_expiracao)
+                    VALUES (:cod_cliente_fk, :cod_recuperacao, :data_expiracao) ");
+                    $stmt->bindParam(":cod_cliente_fk", $cod_cliente_fk, PDO::PARAM_INT);
+                    $stmt->bindParam(":cod_recuperacao", $cod_recuperacao, PDO::PARAM_STR);
+                    $stmt->bindParam(":data_expiracao", $data_expiracao, PDO::PARAM_STR);
+                    $executa=$stmt->execute();
+
+                    if ($executa){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function getCodRecuperacao($cod_recuperacao){
+                try{
+
+                    $stmt=$this->pdo->prepare("SELECT * FROM recupera_senha WHERE cod_recuperacao = :cod_recuperacao");
+                    $stmt->bindParam(":cod_recuperacao", $cod_recuperacao, PDO::PARAM_STR);
+                    $executa=$stmt->execute();
+
+                    if($stmt->rowCount() > 0){
+                        $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
+                    }else{
+                        $result = 0;
+                    }
+
+                    if ($executa && ($result != 0)){
+                        return $result;
+                    }else{
+                        return -1;
+                    }
+
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            
+            function setRecuperacao($cod_recuperacao){
+                try{       
+
+                    $stmt=$this->pdo->prepare("UPDATE recupera_senha SET recuperado=1 WHERE cod_recuperacao=:cod_recuperacao");
+                    $stmt->bindParam(":cod_recuperacao", $cod_recuperacao, PDO::PARAM_STR);
+                    $executa=$stmt->execute();
+                    
+                    if ($executa){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+                            
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
   // Cria tabela cliente no banco      
 /*         function createTable(){
             try{

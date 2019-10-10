@@ -161,6 +161,9 @@
                     $control->validaCliente($cliente->getLogin(),$cliente->getSenha());
                     
                     echo "inserido";
+                }else if($result == -2){
+                    //login duplicado
+                    echo "Erro no cadastro :/...entre em contato com o suporte.";
                 }else{
                     echo "Erro no cadastro :/...entre em contato com o suporte.";
                 }

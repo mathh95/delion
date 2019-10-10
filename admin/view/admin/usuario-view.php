@@ -306,6 +306,29 @@
                                         </label>
                                     </li>
 
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="cupom" name="14permissao" value="cupom">Cupom
+
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="forma_pgto" name="15permissao" value="forma_pgto">Forma de Pagamento
+
+                                        </label>
+                                    </li>
+                                    
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="info_entrega" name="16permissao" value="info_entrega">Informações de Entrega
+
+                                        </label>
+                                    </li>
+
                                 </ul>
 
                             </div>

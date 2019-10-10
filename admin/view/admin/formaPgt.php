@@ -92,7 +92,7 @@
 
                     $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                    if (in_array('pedidoWpp', $permissao)){ ?>
+                    if (in_array('forma_pgto', $permissao)){ ?>
 
                         <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Salvar</button>
 

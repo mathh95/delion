@@ -1,7 +1,7 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 include_once CONTROLLERPATH."/seguranca.php";
-include_once HOMEPATH."admin/controler/controlCarrinhoWpp.php";
+include_once HOMEPATH."home/controler/controlCarrinho.php";
 include_once MODELPATH."/usuario.php";
 include_once CONTROLLERPATH."/controlUsuario.php";
 protegePagina();
@@ -9,7 +9,7 @@ protegePagina();
 $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-$controle=new controlerCarrinhoWpp($_SG['link']);
+$controle=new controlerCarrinho($_SG['link']);
 
 $cod = $_GET['cod'];
 
@@ -42,12 +42,12 @@ if ($pedidos == -1){
 }else{
 
 
-if(in_array('pedidoWpp', $permissao)){
+if(in_array('pedido', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
 		<h1 class=\"page-header\">Dados do Pedido</h1>
 		<div class=\"pull-right\">
-			<a href=\"pedidoWppLista.php\" class=\"btn btn-kionux\"><i class=\"fa fa-arrow-left\"></i> Voltar</a>
+			<a href=\"pedidoLista.php\" class=\"btn btn-kionux\"><i class=\"fa fa-arrow-left\"></i> Voltar</a>
 		</div class=\"pull-right\">
 		<tr>
     		<th width='8%' style='text-align: center;'>Nome do cliente</th>
@@ -55,15 +55,15 @@ if(in_array('pedidoWpp', $permissao)){
 			<th width='10%' style='text-align: center;'>Hora Pedido</th>
 			<th width='10%' style='text-align: center;'>Hora Impressão</th>
 			<th width='10%' style='text-align: center;'>Previsão Entrega</th>
-			<th width='10%' style='text-align: center;'>Hora Delivery</th>
+			<th width='10%' style='text-align: center;'>Hora Delivery/Retirada</th>
         </tr>
 	<tbody>";
 		foreach ($pedidos as &$pedido) {
-				if($pedido->getCod_pedido_wpp() == $cod){
+				if($pedido->getCod_pedido() == $cod){
 				$mensagem='Cliente excluído com sucesso!';
 				$titulo='Excluir';
-				$impressao1 = strtotime($pedido->getHora_impressao());
-				if($pedido->getHora_impressao() == ""){
+				$impressao1 = strtotime($pedido->getHora_print());
+				if($pedido->getHora_print() == ""){
 					$impressao = null;
 				}
 				else {
@@ -75,16 +75,33 @@ if(in_array('pedidoWpp', $permissao)){
 				}else{
 					$delivery = date('H:i', $delivery1);
 				}
+				$retirada1 = strtotime($pedido->getHora_retirada());
+				if($pedido->getHora_retirada() == ""){
+					$retirada = null;
+				}else{
+					$retirada = date('H:i', $retirada1);
+				}
+
+				if($pedido->getTempo_entrega() != 0){
+					$tempo_entrega = $pedido->getTempo_entrega();
+				}else{
+					$tempo_entrega = 30;//default
+				}
 				
-				$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
-				echo "<tr name='resultado' id='status".$pedido->getCod_pedido_wpp()."'>
-					<td style='text-align: center;' name='cliente'>".$pedido->getCliente_wpp()."</td>
+				$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +".$tempo_entrega." minutes"));
+				echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
+					<td style='text-align: center;' name='cliente'>".$pedido->getCliente()."</td>
 					<td style='text-align: center;' name='dataPedido'>".$pedido->getData()->format('d/m/Y')."</td>
 					<td style='text-align: center;' name='horaPedido'>".$pedido->getData()->format('H:i')."</td>
 					<td style='text-align: center;' name='horaImpressão'>".$impressao."</td>
-					<td style='text-align: center;' name='previsaoEntrega'>".$entrega."</td>
-					<td style='text-align: center;' name='horaDelivery'>".$delivery."</td>
-					</tr>";
+					<td style='text-align: center;' name='previsaoEntrega'>".$entrega."</td>";
+					if($pedido->rua == NULL){
+						echo "<td style='text-align: center;' name='horaDelivery'>".$retirada."</td>";
+					}else{
+						echo "<td style='text-align: center;' name='horaDelivery'>".$delivery."</td>";
+
+					}
+					echo "</tr>";
 				}
 			}		
 		}

@@ -187,6 +187,18 @@
                                 </label>
 
                             </div>
+                            
+                            <small>Informar se após o cadastro o item estará disponivel para ser servido:</small>
+
+                                <div class="checkbox">
+
+                                    <label>
+
+                                            <input type="checkbox" id="servido" name="servido" value="1">Pronto para ser servido                               
+                                    
+                                    </label>
+
+                                </div>
 
                             <small>Dias em que o Item Estará Disponível:</small>
 

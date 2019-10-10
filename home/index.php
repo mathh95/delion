@@ -48,7 +48,7 @@
 					<a href="#">Delivery</a>
 				</li>
 				<li class="retirada">
-					<a href="/../../home/cardapio.php">Retirada na loja</a>
+					<a href="/../../home/cardapio.php">Ir para loja</a>
 				</li>
 			</ul>
 		</div>
@@ -186,7 +186,7 @@
 					<h4 style="text-align:center;" class="modal-title" id="myModalLabel">Falta pouco para você ter em sua casa nossas delícias!<br>Complete seu cadastro para ter acesso ao nosso site.</h4>
 				</div>
 				<div class="modal-body">
-					<form id="address-form" method="POST" onsubmit="entrar(); return false;">
+					<form id="address-form" method="POST" onsubmit="return false;">
 						<div class="row">
 							<div class="col-sm-3"> 
 								<label>UF</label>
@@ -263,7 +263,7 @@ async defer></script>
 
 <script>
 
-	$("#myModal").on("shown.bs.modal", function () {
+	$("#cepModal").on("shown.bs.modal", function () {
 		$("#street_number").focus();
 	});
 

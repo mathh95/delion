@@ -76,7 +76,7 @@ if ($cod_endereco == null) {
 
         //Recipients
         $mail->setFrom('teste@gmail.com', $_SESSION['nome']);
-        $mail->addAddress('isshak@corp.kionux.com.br', 'Delion Café');
+        $mail->addAddress('felipemaia@corp.kionux.com.br', 'Delion Café');
 
         //Content
         $mail->isHTML(true);
@@ -109,7 +109,10 @@ if ($cod_endereco == null) {
         }
         $mail->Body .= "</tbody>
             </table>
-            <p>Valor total do pedido: " . number_format($_SESSION['totalCarrinho'], 2) . "</p>";
+            <p>Subtotal: R$ " . number_format($_SESSION['totalCarrinho'], 2) . "</p>
+            <p>Taxa de Entrega: R$ " . number_format($_SESSION['delivery_price'], 2) . "</p>
+            <p>Desconto do Cupom: R$ " . number_format($_SESSION['valorcupom'], 2) . "</p>
+            <p><b>Total: R$ " . number_format($_SESSION['totalCorrigido'], 2) . "</b></p>";
         $mail->AltBody = '';
         $mail->send();
 
@@ -123,7 +126,7 @@ if ($cod_endereco == null) {
 
     $pedido->setPedido(null);
 
-    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home'});</script></body>";
+    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script></body>";
     echo $html;
 
 //delivery   
@@ -154,7 +157,7 @@ if ($cod_endereco == null) {
 
         //Recipients
         $mail->setFrom('teste@gmail.com', $_SESSION['nome']);
-        $mail->addAddress('isshak@corp.kionux.com.br', 'Delion Café');
+        $mail->addAddress('felipemaia@corp.kionux.com.br', 'Delion Café');  //Mudar email para recebimento
 
         //Content
         $mail->isHTML(true);
@@ -189,7 +192,10 @@ if ($cod_endereco == null) {
         }
         $mail->Body .= "</tbody>
                 </table>
-                <p>Valor total do pedido: " . number_format($_SESSION['totalCarrinho'], 2) . "</p>";
+                <p>Subtotal: R$ " . number_format($_SESSION['totalCarrinho'], 2) . "</p>
+                <p>Taxa de Entrega: R$ " . number_format($_SESSION['delivery_price'], 2) . "</p>
+                <p>Desconto do Cupom: R$ " . number_format($_SESSION['valorcupom'], 2) . "</p>
+                <p><b>Total: R$ " . number_format($_SESSION['totalCorrigido'], 2) . "</b></p>";
         $mail->AltBody = '';
         $mail->send();
 
@@ -202,6 +208,10 @@ if ($cod_endereco == null) {
     }
 
     $pedido->setPedido($cod_endereco);
+
+    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script></body>";
+    echo $html;
+
 }
 unset($_SESSION['delivery']);
 unset($_SESSION['pedidoBalcao']);

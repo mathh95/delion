@@ -69,8 +69,8 @@ if(in_array('pedidoWpp', $permissao)){
 				<td style='text-align: center;' name='valorMinimo'>"." R$ ".$cupom->getValor_minimo()."</td>
 				<td style='text-align: center;' name='vencimento'>".$vencimento_data."</td>
 				<td style='text-align: center;' name='status'>".$status."</td>
-				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cupom-view.php?cod_cupom=".$cupom->getCod_cupom()."'><button class='btn btn-kionux' $button><i class='fa fa-edit'></i>Editar</button></a></td>
-				<td style='text-align: center;' name='cancelar' ><button type='button' class='btn btn-kionux' onclick='alterarStatusCupom(".$cupom->getCod_cupom().",1)' $button><i class='fa fa-remove'></i>Cancelar</button></td>
+				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cupom-view.php?cod_cupom=".$cupom->getCod_cupom()."'><button class='btn btn-kionux' $button><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
+				<td style='text-align: center;' name='cancelar' ><button type='button' class='btn btn-kionux' onclick='alterarStatusCupom(".$cupom->getCod_cupom().",1)' $button><i class='fa fa-remove'></i>&nbsp;Cancelar</button></td>
 			</tr>";
 	
 		}
