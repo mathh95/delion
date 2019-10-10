@@ -42,6 +42,14 @@
                 </select>
             </div>
             <div class="mini-divs"> 
+                <label> Em produção </label>
+                <select class="form-control" id="producao">
+                    <option value=''>TODOS</option>
+                    <option value='0'>PAUSADO</option>
+                    <option value='1'>SERVINDO</option>
+                </select>
+            </div>
+            <div class="mini-divs"> 
                 <label> Delivery </label>
                 <select class="form-control" id="delivery">
                     <option value=''>TODOS</option>
@@ -96,9 +104,10 @@
             );
         }
         
-        $('#pesquisa,#flag,#delivery,#prioridade,#categoria').on('change paste keyup', function(){
+        $('#pesquisa,#flag,#producao,#delivery,#prioridade,#categoria').on('change paste keyup', function(){
             var nome = $("#pesquisa").val();
             var flag = $("#flag").val();
+            var producao = $("#producao").val();
             var delivery = $("#delivery").val();
             var prioridade = $("#prioridade").val();
             var categoria = $("#categoria").val();
@@ -108,7 +117,7 @@
 
                 url: url,
 
-                data: {nome:nome, flag:flag, delivery:delivery, prioridade:prioridade, categoria:categoria},
+                data: {nome:nome, flag:flag, producao:producao ,delivery:delivery, prioridade:prioridade, categoria:categoria},
 
                 success:function(res){
                     $("#tabela-cardapio").html(res);

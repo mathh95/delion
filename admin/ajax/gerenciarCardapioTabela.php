@@ -16,17 +16,13 @@ if((isset($_POST['nome']) &&
 !empty($_POST['nome'])) || 
 isset($_POST['flag']) || 
 isset($_POST['delivery']) || 
-isset($_POST['producao']) || 
 isset($_POST['prioridade']) || 
 isset($_POST['categoria'])){
 
 	$nome = $_POST['nome'];
-	$flag_ativo= $_POST['flag'];
-	$flag_servindo= $_POST['producao'];
-	$delivery=$_POST['delivery'];
-	$prioridade=$_POST['prioridade'];
-	$categoria=$_POST['categoria'];
-	$cardapios = $controle->filter($nome, $flag_ativo, $flag_servindo, $delivery, $prioridade, $categoria);
+    //Mudar o filtro -> fazer uma nova função
+    //filterDescrição por exemplo
+    $cardapios = $controle->filterDescricao($nome);
 }else{
 	$cardapios = $controle->selectAll();
 }
@@ -46,8 +42,7 @@ isset($_POST['categoria'])){
 				<th width='8%' style='text-align: center;'>Situação</th>
 				<th width='8%' style='text-align: center;'>Prioridade</th>
 				<th width='8%' style='text-align:center;'>Delivery</th>
-	            <th width='14%' style='text-align: center;'>Editar</th>
-	            <th width='14%' style='text-align: center;'>Apagar</th>
+	            <th width='14%' style='text-align: center;'>Ação</th>
 	        </tr>
 		<tbody>";
 	
@@ -63,10 +58,20 @@ isset($_POST['categoria'])){
 			 	<td style='text-align: center;' name='categoria'>".$cardapio->getCategoria()."</td>
 				<td style='text-align: center;' name='flag_ativo'>".$cardapio->getDsAtivo()."</td>
 				<td style='text-align: center;' name='prioridade'>".$cardapio->getDsPrioridade()."</td>
-				<td style='text-align: center;' name='delivery'>".$cardapio->getDsDelivery()."</td>
-			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cardapio-view.php?cod=".$cardapio->getCod_cardapio()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
-			 	<td style='text-align: center;' name='status'><button type='button' onclick=\"removeCardapio(".$cardapio->getCod_cardapio().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
-			</tr>";
+				<td style='text-align: center;' name='delivery'>".$cardapio->getDsDelivery()."</td>";
+
+				if($cardapio->getFlag_servindo() == 1){
+
+					echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-flagPausado.php?cod=".$cardapio->getCod_cardapio()."'><button type='button' class='btn btn-kionux'><i class='fa fa-pause'></i> Pausar Item</button></a></td>";
+				
+				}else{
+					//Ativa o item
+					echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-flagAtivo.php?cod=".$cardapio->getCod_cardapio()."'><button type='button' class='btn btn-kionux' style='width: 107px'><i class='fa fa-play'></i> Ativar</button></a></td>";
+	
+				}
+
+			 	// echo "<td style='text-align: center;' name='status'><button type='button' onclick=\"removeCardapio(".$cardapio->getCod_cardapio().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i> Pausar</button></td>
+			echo "</tr>";
 		}
 	}else{
 		echo "<table class='table table-responsive' id='tbCardapio' style='text-align = center;'>

@@ -230,6 +230,8 @@
 
                                     <li><a href="cardapioLista.php">Listar</a></li>
 
+                                    <li><a href="gerenciarCardapio.php">Gerenciar</a></li>
+
                                 </ul>
 
                             </li>

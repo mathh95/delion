@@ -12,6 +12,7 @@
         private $foto;
         private $categoria;
         private $flag_ativo;
+        private $flag_servindo;
         private $prioridade;
         private $delivery;
         private $adicional;
@@ -54,6 +55,9 @@
         }
         function getDelivery(){
             return $this->delivery;
+        }
+        function getFlag_servindo(){
+            return $this->flag_servindo;
         }
         function getAdicional(){
             return $this->adicional;
@@ -103,6 +107,9 @@
         function setDelivery($delivery){
             $this->delivery=$delivery;
         }
+        function setFlag_servindo($flag_servindo){
+            $this->flag_servindo=$flag_servindo;
+        }
         function setAdicional($adicional){
             $this->adicional=$adicional;
         }
@@ -137,9 +144,15 @@
             $delivery = ($this->delivery == 1)? "Disponível" : "Não disponível";
             return $delivery;
         }
+
+        function getDsPausado(){
+            $flag_servindo = ($this->flag_servindo == 1)? "Item em produção" : "Item pausado";
+            return $flag_servindo;
+        }
+
         function __construct(){
         }
-        function construct($nome,$preco,$desconto,$descricao,$foto,$categoria,$flag_ativo,$prioridade,$delivery, $adicional, $dias_semana, $cardapio_turno, $cardapio_horas_inicio, $cardapio_horas_final){
+        function construct($nome,$preco,$desconto,$descricao,$foto,$categoria,$flag_ativo,$flag_servindo,$prioridade,$delivery, $adicional, $dias_semana, $cardapio_turno, $cardapio_horas_inicio, $cardapio_horas_final){
             $this->nome=$nome;
             $this->preco = $preco;
             $this->desconto = $desconto;
@@ -147,6 +160,7 @@
             $this->foto=$foto;
             $this->categoria=$categoria;
             $this->flag_ativo=$flag_ativo;
+            $this->flag_servindo=$flag_servindo;
             $this->prioridade=$prioridade;
             $this->delivery=$delivery;
             $this->adicional=$adicional;
