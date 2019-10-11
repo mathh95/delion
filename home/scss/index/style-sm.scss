@@ -296,14 +296,18 @@ body, html{
     }
     >div.modal.fade{
         h4{
-            color: $cinza;
+            color: $cinza_modal;
         }
         label{
-            color: $cinza;
+            color: $cinza_modal;
         }
         input{
-            border-color: $cinza;
+            border-color: $cinza_modal;
         }
+        .form-control:focus {
+            border-color: $vermelho_fraco;
+            box-shadow: 0 0 0 0.2rem rgba(210, 39, 48, 0.25);
+        } 
 
         button.btn.btn-danger{
             background-color: $vermelho_forte;
