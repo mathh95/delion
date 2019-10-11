@@ -87,6 +87,7 @@
     <?php include VIEWPATH."/rodape.html" ?>
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
+        $('#tabela-pedido tbody tr').length;
         function removeCardapio(cardapio,foto){
             msgConfirmacao('Confirmação','Deseja Realmente remover o item cardápio?',
                 function(linha){
