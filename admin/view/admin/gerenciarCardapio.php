@@ -34,9 +34,9 @@
                 <div class="mini-divs"> 
                     <label>Filtro por ingrediente: </label>
                     <input id="pesquisa" class="form-control" type="text" required placeholder="Digite o ingrediente">
-                </div>
-                    <button>Teste</button>
-            </div>
+                <!-- </div>
+                        <button>Teste</button>
+                    </div> -->
 
         </div>
             <div class="row">
