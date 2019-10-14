@@ -1,0 +1,19 @@
+AddDefaultCharset UTF-8
+
+Header set Cache-Control "max-age=604800, public"
+Header add Strict-Transport-Security "max-age=31536000;includeSubDomains;"
+
+# X-Frame-Options
+<IfModule mod_headers.c>
+Header always append X-Frame-Options SAMEORIGIN
+</IfModule>
+
+# X-XSS-Protection
+<IfModule mod_headers.c>
+Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+#X-Content-Type-Options
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options nosniff
+</IfModule>

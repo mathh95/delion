@@ -173,7 +173,7 @@
                 if(verifica == false){ 
                     doRefresh();
                 }
-            }, 5000);
+            }, 3000);
                 
             //Responsável por mostrar os itens em cima do botão detalhes
             function myFunction(int) {
