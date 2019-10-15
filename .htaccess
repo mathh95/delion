@@ -1,6 +1,6 @@
 AddDefaultCharset UTF-8
 
-Header set Cache-Control "max-age=604800, public"
+Header set Cache-Control "max-age=86400, public"
 Header add Strict-Transport-Security "max-age=31536000;includeSubDomains;"
 
 # X-Frame-Options

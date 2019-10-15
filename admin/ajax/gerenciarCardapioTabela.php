@@ -24,7 +24,8 @@ isset($_POST['categoria'])){
     //filterDescrição por exemplo
     $cardapios = $controle->filterDescricao($nome);
 }else{
-	$cardapios = $controle->selectAll();
+	//order by pos -> categoria/itens
+	$cardapios = $controle->selectAllByPos();
 }
 	$permissao =  json_decode($usuarioPermissao->getPermissao());
 	if(in_array('cardapio', $permissao)){ 
@@ -36,12 +37,12 @@ isset($_POST['categoria'])){
 	    		<th width='14%' style='text-align: center;'>Item</th>
 				<th width='14%' style='text-align: center;'>Nome</th>
 				<th width='8%' style='text-align: center;'>Preço</th>
-				<th width='8%' style='text-align:center;'>Desconto</th>
+				<th width='8%' style='text-align: center;'>Desconto</th>
 	    		<th width='14%' style='text-align: center;'>Descrição</th>
 	    		<th width='8%' style='text-align: center;'>Categoria</th>
 				<th width='8%' style='text-align: center;'>Situação</th>
 				<th width='8%' style='text-align: center;'>Prioridade</th>
-				<th width='8%' style='text-align:center;'>Delivery</th>
+				<th width='8%' style='text-align: center;'>Delivery</th>
 	            <th width='14%' style='text-align: center;'>Ação</th>
 	        </tr>
 		<tbody>";

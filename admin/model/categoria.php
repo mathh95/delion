@@ -7,6 +7,7 @@
         private $cod_categoria;
         private $nome;
         private $icone;
+        private $posicao;
 
 
         function getCod_categoria(){
@@ -22,6 +23,9 @@
             $pos = strpos($this->icone, "upload");
             return substr($this->icone, $pos);
         }
+        function getPosicao(){
+            return $this->posicao;
+        }
 
         function setCod_categoria($cod_categoria){
             $this->cod_categoria=$cod_categoria;
@@ -31,6 +35,9 @@
         }
         function setIcone($icone){
             $this->icone=$icone;
+        }
+        function setPosicao($posicao){
+            $this->posicao=$posicao;
         }
 
         function __construct(){
