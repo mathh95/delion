@@ -55,7 +55,10 @@ session_start();
 	<div class="container itens">
         <table class="tabela_itens table table-hover table-responsive table-condensed">
             <thead>
-                <h1 class="text-center">Lista de Itens</h1>
+				<h1 class="text-center">Lista de Itens</h1>
+				<div class="pull-right">
+					<a href="listarPedidos.php" class="btn btn-default"><i class="fa fa-arrow-left"></i> Voltar</a>
+				</div class="pull-right">
                 <tr id="cabecalhoTabela">
                     <th width='33%' style='text-align: center;'>Produto</th>
                     <th width='33%' style='text-align: center;'>Quantidade</th>

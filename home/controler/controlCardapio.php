@@ -390,6 +390,46 @@ include_once MODELPATH."/cardapio.php";
 
         }
 
+        //Seleciona apenas os itens que estão sendo servidos no momento
+        function selectItensServidos($parametro,$offset, $por_pagina, $delivery){
+            $stmte;
+            $cardapios = array();
+            try{
+                if ($delivery == true){
+                    $stmte = $this->pdo->prepare("SELECT * FROM cardapio WHERE flag_servindo = 1 AND delivery = 1 ORDER BY nome ASC");
+                    $stmte->bindValue(":parametro","%". $parametro . "%" , PDO::PARAM_STR);
+                    $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
+                    $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
+                }else{
+                    $stmte = $this->pdo->prepare("SELECT * FROM cardapio WHERE flag_servindo = 1 ORDER BY nome ASC");
+                    $stmte->bindValue(":parametro","%". $parametro . "%" , PDO::PARAM_STR);
+                    $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
+                    $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
+                }
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                            $cardapio= new cardapio();
+                            $cardapio->setCod_cardapio($result->cod_cardapio);
+                            $cardapio->setNome($result->nome);
+                            $cardapio->setPreco($result->preco);
+                            $cardapio->setDescricao($result->descricao);
+                            $cardapio->setFoto($result->foto);
+                            $cardapio->setCategoria($result->categoria);
+                            $cardapio->setFlag_ativo($result->flag_ativo);
+                            $cardapio->setDelivery($result->delivery);
+                            $cardapio->setAdicional($result->adicional);
+                            array_push($cardapios, $cardapio);
+                        }
+                    }
+                }
+                return $cardapios;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
 
 
         function selectPaginadoCategoria($parametro,$offset, $por_pagina, $delivery){

@@ -62,6 +62,9 @@
 					"<table class=\"tabela_itens table table-hover table-responsive table-condensed\">
 						<thead>
 							<h1 class=\"text-center\">Lista de Pedidos</h1>
+							<div class=\"pull-right\">
+								<a href=\"cliente.php\" class=\"btn btn-default\"><i class=\"fa fa-arrow-left\"></i> Voltar</a>
+							</div class=\"pull-right\">
 							<tr id=\"cabecalhoTabela\">
 								<th width='20%' style='text-align: center;'>Data</th>
 								<th width='10%' style='text-align: center;'>Hora do Pedido</th>
@@ -74,23 +77,23 @@
 								foreach ($pedidos as &$pedido) {
 										echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
 											<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
-											<td style='text-align: center;' name='data'>".$pedido->getData()->format('H:i')."</td>
-											<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>";
+											<td style='text-align: center;' name='data'>".$pedido->getData()->format('H:i')."h</td>
+											<td style='text-align: center;' name='valor'>R$ ".$pedido->getValor()."</td>";
 											if($pedido->getStatus() == 1){
 												echo "<td style='text-align: center;' name='status'>Recebido</td>";
 											}
 											else if($pedido->getStatus() == 2){
 												$dateHoraPrint = date_create($pedido->getHora_print());
-												echo "<td style='text-align: center;' name='status'>Em preparo às ".date_format($dateHoraPrint, "H:i")."</td>";
+												echo "<td style='text-align: center;' name='status'>".date_format($dateHoraPrint, "H:i")."h - Em preparo</td>";
 											}
 											else if($pedido->getStatus() == 3 && ($pedido->getHora_delivery() == 0)){//Quando o pedido é retirado no balcão
 												$dateHoraRetirada = date_create($pedido->getHora_retirada());
-												echo "<td style='text-align: center;' name='status'>Pedido pronto para ser retirado às ".date_format($dateHoraRetirada, "H:i")."</td>";
+												echo "<td style='text-align: center;' name='status'>".date_format($dateHoraRetirada, "H:i")."h - Retirado</td>";
 
 											}
 											else if($pedido->getStatus() == 3){//quando o pedido é enviado para entrega
 												$dataHoraDelivery = date_create($pedido->getHora_delivery());
-												echo "<td style='text-align: center;' name='status'>Pedido saiu para entrega às ".date_format($dataHoraDelivery, "H:i")."</td>";
+												echo "<td style='text-align: center;' name='status'>".date_format($dataHoraDelivery, "H:i")."h - Saiu para Entrega</td>";
 											}
 
 											echo "<td style='text-align: center;' name='editar'><a href='pedido.php?cod=".$pedido->getCod_pedido()."'><button class='btn btn-default'>Itens</button></a></td>
