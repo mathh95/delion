@@ -20,7 +20,8 @@ isset($_POST['producao'])){		//Flag_servido
 	$flag_servindo = $_POST['producao'];
 	$cardapios = $controle->filterProducao($nome, $flag_servindo);	//Filtra pela descrição/flag_servido
 }else{
-	$cardapios = $controle->selectAll();
+	//order by pos -> categoria/itens
+	$cardapios = $controle->selectAllByPos();
 }
 	$permissao =  json_decode($usuarioPermissao->getPermissao());
 	if(in_array('cardapio', $permissao)){ 
@@ -32,12 +33,12 @@ isset($_POST['producao'])){		//Flag_servido
 	    		<th width='14%' style='text-align: center;'>Item</th>
 				<th width='14%' style='text-align: center;'>Nome</th>
 				<th width='8%' style='text-align: center;'>Preço</th>
-				<th width='8%' style='text-align:center;'>Desconto</th>
+				<th width='8%' style='text-align: center;'>Desconto</th>
 	    		<th width='14%' style='text-align: center;'>Descrição</th>
 	    		<th width='8%' style='text-align: center;'>Categoria</th>
 				<th width='8%' style='text-align: center;'>Situação</th>
 				<th width='8%' style='text-align: center;'>Prioridade</th>
-				<th width='8%' style='text-align:center;'>Delivery</th>
+				<th width='8%' style='text-align: center;'>Delivery</th>
 	            <th width='14%' style='text-align: center;'>Ação</th>
 	        </tr>
 		<tbody>";

@@ -115,6 +115,29 @@
             }
         }
 
+        function selectAllByPos(){
+            $categorias = array();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM categoria ORDER BY posicao ASC");
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                            $categoria= new categoria();
+                            $categoria->setCod_categoria($result->cod_categoria);
+                            $categoria->setNome($result->nome);
+                            $categoria->setIcone($result->icone);
+                            $categoria->setPosicao($result->posicao);
+                            array_push($categorias, $categoria);
+                        }
+                    }
+                }
+                return $categorias;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
         function countCategoria(){
             $stmte;
             try{

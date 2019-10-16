@@ -79,8 +79,7 @@
 </head>
 <body>
     
-    <?php include_once "./header.php" ?>
-
+    <?php include_once "./header.php" ?>        
         <div class="container-fluid">
             <div class="searchbar">
                     <div class="medium-divs"> 
@@ -109,7 +108,44 @@
         </div>
         <?php include VIEWPATH."/rodape.html" ?>
         <script src="../../js/alert.js"></script>
+        
+
+        <audio id="notificacao">
+            <source src="../../js/notification.mp3" type="audio/mpeg">
+            Sem supp para audio.
+        </audio>
+
         <script type="text/javascript">
+
+            /*Som de Notificação!!!*/
+            var x = document.getElementById("notificacao");
+            var itensCount = $('#tabela-pedido tbody tr').length;
+            var itensCountReloaded;
+
+            function play(url) {
+                return new Promise(function(resolve, reject) {
+                    var audio = new Audio();                     // create audio wo/ src
+                    audio.preload = "auto";                      // intend to play through
+                    audio.autoplay = true;                       // autoplay when loaded
+                    audio.onerror = reject;                      // on error, reject
+                    audio.onended = resolve;                     // when done, resolve
+
+                    audio.src = url;
+                });
+            }
+
+            //Carrega a lista apenas se a modal de impressão nao estiver aberta
+            window.setInterval(function(){
+
+                itensCountReloaded = $('#tabela-pedido tbody tr').length;
+
+                if(itensCountReloaded > itensCount){
+                    play("../../js/notification.mp3");//promise to play sound
+                    itensCount = itensCountReloaded;
+                }
+
+            }, 5000);
+
             function alterarStatus(pedido,status){
                 msgConfirmacao('Confirmação','Deseja Realmente alterar o status do pedido?',
                     function(linha){
@@ -137,7 +173,7 @@
                 if(verifica == false){ 
                     doRefresh();
                 }
-            }, 5000);
+            }, 3000);
                 
             //Responsável por mostrar os itens em cima do botão detalhes
             function myFunction(int) {

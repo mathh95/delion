@@ -20,6 +20,7 @@
         private $cardapio_turno;
         private $cardapio_horas_inicio;
         private $cardapio_horas_final;
+        private $posicao;
 
 
         function getCod_cardapio(){
@@ -47,6 +48,7 @@
         function getCategoria(){
             return $this->categoria;
         }
+        
         function getFlag_ativo(){
             return $this->flag_ativo;
         }
@@ -75,6 +77,10 @@
 
         function getCardapio_horas_final(){
             return $this->cardapio_horas_final;
+        }
+
+        function getPosicao(){
+            return $this->posicao;
         }
 
         function setCod_cardapio($cod_cardapio){
@@ -117,17 +123,21 @@
         function setDias_semana($dias_semana){
             $this->dias_semana=$dias_semana;
         }
-
+        
         function setCardapio_turno($cardapio_turno){
             $this->cardapio_turno=$cardapio_turno;
         }
-
+        
         function setCardapio_horas_inicio($cardapio_horas_inicio){
             $this->cardapio_horas_inicio=$cardapio_horas_inicio;
         }
-
+        
         function setCardapio_horas_final($cardapio_horas_final){
             $this->cardapio_horas_final=$cardapio_horas_final;
+        }
+        
+        function setPosicao($posicao){
+            $this->posicao=$posicao;
         }
 
         function getDsAtivo(){

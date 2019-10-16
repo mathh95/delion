@@ -8,7 +8,8 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Delion Café</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<meta name="format-detection" content="telephone=no">
 	
 
 
@@ -32,8 +33,8 @@
 
 <body>
 
-<div class="container-fluid no-padding">
-	<div class=" imagens-topo">
+<div class="container no-padding">
+	<div class="imagens-topo">
 			<img class="img-responsive imagem-topo" src="/home/img/topo.png" alt="imagem topo principal">
 			<img class="img-responsive imagem-logo" src="/home/img/Logo.png" alt="logo delion cafe">
 	</div>
@@ -54,7 +55,7 @@
 		<div class="form-group form-cep-campos">
 			<div class="locationField">
 				<span class="fas fa-map-marker-alt"></span>
-				<input type="text" class="form-control input-cep" id="autocomplete" placeholder="Digite seu endereço ou CEP" type="text">
+				<input type="text" class="form-control input-cep" id="autocomplete" placeholder="Digite seu endereço ou CEP" type="text" autofocus>
 				</input>
 			</div>
 				<div class="buttonField">
@@ -87,9 +88,9 @@
 
 	
 
-	<footer class="footer container-fluid">
+	<footer class=" container footer container-fluid">
 
-		<div class="navbar-social navbar-collapse">
+	<div class="navbar-social navbar-collapse">
 			<a href="facebook.com"><i class="fab fa-facebook"></i></a>
 			<a href="instagram.com"><i class="fab fa-instagram"></i></a>
 		</div>
@@ -137,23 +138,38 @@
 			</ul>
 		</div>
 		<div class="row right">
-		<img src="/home/img/logo_branca.png" alt="logo delion branca" style="width:93px;height:140px;">
+		<img class="img-responsive" src="/home/img/logo_branca.png" alt="logo delion branca" style="width:93px;height:140px;">
 			
 			<div class="endereco-footer">
-				<p class="bold-text"><b>
-					Rua Jorge Sanwais, 1137<br>
-					Centro<br>
-					Foz do Iguaçu - Paraná<br>
-					Rua Jorge Sanwais, 1137<br>
-					CEP: 85851-150
-				</b></p>
-			</div>
+					<p class="bold-text" style="text-decoration:none;"><b>
+						Rua Jorge Sanwais, 1137<br>
+						Centro<br>
+						Foz do Iguaçu - Paraná<br>
+						CEP: 85851-150<br>
+						Fone: (45)3027-0059
+					</b></p>
+				</div>
 			
 			
 			
 		</div>
 
 </footer>
+<div class="container-fluid rodape">
+
+    <div class="container">
+
+        <div>Todos os direitos reservados a Delion Café</div>
+
+        <div>
+
+            <div>Desenvolvido por Kionux Soluções em Internet <a href="http://www.kionux.com.br"><img src="img/kionuxsite.png" alt=""></a></div>
+
+        </div>
+
+    </div>
+
+</div>
 			
 	<?php
 		// include_once "./whats-config.php";
@@ -215,9 +231,9 @@
 						</div>
 						
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Voltar</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Voltar</button>
 							
-							<button type="submit" class="btn btn-primary" id="entrar">Entrar no site</button>
+							<button type="submit" class="btn btn-danger" id="entrar">Entrar no site</button>
 						</div>
 
 					</form>
