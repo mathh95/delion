@@ -23,36 +23,35 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 	if(in_array('cardapio', $permissao)){
 		
 		$categorias = $controle_categoria->selectAllByPos();
-		$qtd_categorias = sizeof($categorias);
-
+		
 		echo '<div id="list_categorias" class="col-sm-6 list-group" style="padding-right:0px!important">
-		<label>Categorias</label>';	
+		<label>Categorias (qtde. itens)</label>';	
 		
 		foreach ($categorias as $key => $categoria) {
 
 			//itens por categoria ordenados
-			$itens_categoria[$key] =  $controle->selectByCategoriaByPos(
+			$itens_categoria[$key] = $controle->selectByCategoriaByPos(
 				$categoria->getCod_categoria()
 			);
 
 			$qtd_itens[$key] = sizeof($itens_categoria[$key]);
 
 			if ($key == 0){
-				echo '<div data-id="'.$categoria->getCod_categoria().'" class="list-group-item active">
+				echo '<div data-id="'.$categoria->getCod_categoria().'" class="list-group-item categoria active">
 					<span
 						style="cursor:move;"
 						class="glyphicon glyphicon-menu-hamburger" aria-hidden="true">
 					</span>
-					'.$categoria->getNome().'
+					<span style="cursor:pointer;">'.$categoria->getNome().'</span>
 					<span class="badge">'.$qtd_itens[$key].'</span>
 					</div>';
 			}else{
-				echo '<div data-id="'.$categoria->getCod_categoria().'" class="list-group-item">
+				echo '<div data-id="'.$categoria->getCod_categoria().'" class="list-group-item categoria">
 					<span
 						style="cursor:move;"
 						class="glyphicon glyphicon-menu-hamburger" aria-hidden="true">
 					</span>
-					'.$categoria->getNome().'
+					<span style="cursor:pointer;">'.$categoria->getNome().'</span>
 					<span class="badge">'.$qtd_itens[$key].'</span>
 					</div>';
 			}
@@ -61,22 +60,27 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 
 		echo '<div id="list_itens" class="col-sm-6 list-group">
-				<label>Itens</label>';
+			<label>Itens</label>';
+
 		//itens por categoria ordenados
-		foreach ($itens_categoria as $key_cat => $itens) {
-			
+		foreach ($categorias as $key_cat => $categoria) {
+
+			$itens = $controle->selectByCategoriaByPos(
+				$categoria->getCod_categoria()
+			);
+
 			foreach ($itens as $key_item => $item){
 				
 				if($key_cat == 0){//primeira categoria
 					echo '<div
 						data-id="'.$item->getCod_cardapio().'"
-						data-categoria='.$item->getCategoria().'
-						class="list-group-item">
+						data-cod_categoria='.$categoria->getCod_categoria().'
+						class="list-group-item item">
 						<span
 							style="cursor:move;"
 							class="glyphicon glyphicon-menu-hamburger" aria-hidden="true">
 						</span>
-							'.$item->getNome().'
+						<span style="cursor:pointer;">'.$item->getNome().'</span>
 						<span style="float:right;">R$&nbsp;'.$item->getPreco().'</span>
 					</div>';
 
@@ -84,13 +88,13 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 					echo '<div
 						style="display:none;"
 						data-id="'.$item->getCod_cardapio().'"
-						data-categoria='.$item->getCategoria().'
-						class="list-group-item">
+						data-cod_categoria='.$categoria->getCod_categoria().'
+						class="list-group-item item">
 						<span
 							style="cursor:move;"
 							class="glyphicon glyphicon-menu-hamburger" aria-hidden="true">
 						</span>
-							'.$item->getNome().'
+						<span style="cursor:pointer;">'.$item->getNome().'</span>
 						<span style="float:right;">R$&nbsp;'.$item->getPreco().'</span>
 					</div>';
 				}

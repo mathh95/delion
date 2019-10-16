@@ -46,6 +46,27 @@
             }
         }
 
+        function updatePos($cod_categoria, $posicao){
+            try{
+                $stmte =$this->pdo->prepare("UPDATE categoria SET posicao=:posicao WHERE cod_categoria=:cod_categoria");
+
+                $stmte->bindParam(":cod_categoria", $cod_categoria, PDO::PARAM_INT);
+                $stmte->bindParam(":posicao", $posicao, PDO::PARAM_INT);
+                $executa = $stmte->execute();
+                
+                if($executa){
+                    return 1;
+                }
+                else{
+                    return -1;
+                }
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
         /*
 
           modo: 1-Nome, 2-id

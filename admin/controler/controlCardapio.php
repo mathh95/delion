@@ -71,6 +71,27 @@
             }
         }
 
+        function updatePos($cod_cardapio, $posicao){
+            try{
+                $stmte =$this->pdo->prepare("UPDATE cardapio SET posicao=:posicao WHERE cod_cardapio=:cod_cardapio");
+
+                $stmte->bindParam(":cod_cardapio", $cod_cardapio, PDO::PARAM_INT);
+                $stmte->bindParam(":posicao", $posicao, PDO::PARAM_INT);
+                $executa = $stmte->execute();
+                
+                if($executa){
+                    return 1;
+                }
+                else{
+                    return -1;
+                }
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
         /*
 
           modo: 1-Nome, 2-id
@@ -529,7 +550,7 @@
         function selectByCategoriaByPos($cod_categoria){
             $cardapios = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.flag_servindo AS flag_servindo ,A.prioridade AS prioridade, A.posicao AS posicao, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.categoria = :cod_categoria ORDER BY B.posicao ASC, A.posicao ASC");
+                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.flag_servindo AS flag_servindo ,A.prioridade AS prioridade, A.posicao AS posicao, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.categoria = :cod_categoria AND A.flag_ativo = 1 ORDER BY B.posicao ASC, A.posicao ASC");
 
                 $stmte->bindValue(":cod_categoria", $cod_categoria , PDO::PARAM_INT);
 
