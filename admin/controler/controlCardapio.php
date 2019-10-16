@@ -189,12 +189,12 @@
                     }
                     return $cardapios;
                 }elseif ($modo==2) {
-                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, B.nome AS categoria, A.dias_semana AS dias_semana, C.nome AS cardapio_turno, D.horario AS cardapio_horas_inicio, D.horario AS cardapio_horas_final 
+                    $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.flag_servindo AS flag_servindo ,B.nome AS categoria, A.dias_semana AS dias_semana, C.nome AS cardapio_turno, D.horario AS cardapio_horas_inicio, D.horario AS cardapio_horas_final 
                     FROM cardapio AS A 
                     INNER JOIN categoria AS B ON A.categoria = B.cod_categoria
                     INNER JOIN cardapio_turno AS C ON A.cardapio_turno = C.cod_cardapio_turno
                     INNER JOIN cardapio_horas AS D ON A.cardapio_horas_inicio AND A.cardapio_horas_final = D.cod_cardapio_horas 
-                    WHERE A.cod_cardapio = :parametro");
+                    WHERE A.cod_cardapio = :parametro AND A.flag_servindo = 1");
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                     $cardapio= new cardapio();
                     if($stmte->execute()){
@@ -226,6 +226,71 @@
             }
         }
 
+        function selectv2($parametro,$modo){
+            
+            $stmte;
+            try{
+                if($modo==1){
+                    $stmte = $this->pdo->prepare("SELECT * FROM cardapio WHERE flag_ativo = 1 AND flag_servindo = 1");
+                    $stmte->bindValue(":parametro","%".$parametro."%");
+                    $cardapios = array();
+                    if($stmte->execute()){
+                        if($stmte->rowCount() > 0){
+                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                                $cardapio= new cardapio();
+                                $cardapio->setCod_cardapio($result->cod_cardapio);
+                                $cardapio->setNome($result->nome);
+                                $cardapio->setPreco($result->preco);
+                                $cardapio->setDesconto($result->desconto);
+                                $cardapio->setDescricao($result->descricao);
+                                $cardapio->setFoto($result->foto);
+                                $cardapio->setCategoria($result->categoria);
+                                $cardapio->setFlag_ativo($result->flag_ativo);
+                                $cardapio->setPrioridade($result->prioridade);
+                                $cardapio->setDelivery($result->delivery);
+                                $cardapio->setDias_semana($result->dias_semana);
+                                $cardapio->setCardapio_turno($result->cardapio_turno);
+                                $cardapio->setCardapio_horas_inicio($result->cardapio_horas_inicio);
+                                $cardapio->setCardapio_horas_final($result->cardapio_horas_final);
+                                array_push($cardapios, $cardapio);
+                            }
+                        }
+                    }
+                    return $cardapios;
+                }elseif ($modo==2) {
+                    $stmte = $this->pdo->prepare("");
+                    $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
+                    $cardapio= new cardapio();
+                    if($stmte->execute()){
+                        if($stmte->rowCount() > 0){
+                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                                $cardapio->setCod_cardapio($result->cod_cardapio);
+                                $cardapio->setNome($result->nome);
+                                $cardapio->setPreco($result->preco);
+                                $cardapio->setDescricao($result->descricao);
+                                $cardapio->setFoto($result->foto);
+                                $cardapio->setFlag_ativo($result->flag_ativo);
+                                $cardapio->setPrioridade($result->prioridade);
+                                $cardapio->setDelivery($result->delivery);
+                                $cardapio->setDias_semana($result->dias_semana);
+                                $cardapio->setCardapio_turno($result->cardapio_turno);
+                                $cardapio->setCardapio_horas_inicio($result->cardapio_horas_inicio);
+                                $cardapio->setCardapio_horas_final($result->cardapio_horas_final);
+                            }
+                        }
+                    }
+                    return $cardapio;
+                                // echo "<pre>";
+                                // print_r($cardapio);
+                                // echo "</pre>";
+                }
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+
         //Pausa a produção de um item no cardapio
         function desativaItemCardapio($parametro){
             try{
@@ -254,12 +319,33 @@
             }
         }
 
-        //Faz um filtro atraves de uma palavra da descrição
-        function filterDescricao($parametro){
+        //Pausa a produção dos itens listados na pesquisa
+        function pausaProducao($parametro){
+            try{
+                $stmt = $this->pdo->prepare("UPDATE cardapio SET flag_servindo = 0 WHERE descricao LIKE :parametro");
+                $stmt->bindParam(":parametro", $parametro , PDO::PARAM_STR);
+                $stmt->execute();
+                return 1;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
+
+        //Alterar para mostrar o select Em Produção
+        //Todos -> Pausada -> Servido
+        function filter($parametro, $flag_ativo, $flag_servindo , $delivery, $prioridade, $categoria){
             $stmte;
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM cardapio WHERE descricao LIKE :parametro");
-                $stmte->bindValue(":parametro","% ".$parametro."%");
+                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.flag_servindo AS flag_servindo ,A.prioridade AS prioridade, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo LIKE :flag_ativo AND A.flag_servindo LIKE :flag_servindo AND A.delivery LIKE :delivery AND A.prioridade LIKE :prioridade AND B.nome LIKE :categoria");
+                $stmte->bindValue(":parametro","%".$parametro."%");
+                $stmte->bindValue(":flag_ativo","%" .$flag_ativo);
+                $stmte->bindValue(":flag_servindo","%" .$flag_servindo);
+                $stmte->bindValue(":delivery","%".$delivery);
+                $stmte->bindValue(":prioridade","%".$prioridade);
+                $stmte->bindValue(":categoria","%".$categoria."%");
                 $cardapios = array();
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
@@ -281,25 +367,23 @@
                     }
                 }
                 return $cardapios;
-
-            } 
+                
+            }
             catch(PDOException $e){
                 echo $e->getMessage();
             }
         }
 
-        //Alterar para mostrar o select Em Produção
-        //Todos -> Pausada -> Servido
-        function filter($parametro, $flag_ativo, $flag_servindo , $delivery, $prioridade, $categoria){
+        function filterProducao($parametro, $flag_servindo){
             $stmte;
             try{
-                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.flag_servindo AS flag_servindo ,A.prioridade AS prioridade, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo LIKE :flag_ativo AND A.flag_servindo LIKE :flag_servindo AND A.delivery LIKE :delivery AND A.prioridade LIKE :prioridade AND B.nome LIKE :categoria");
+                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.flag_servindo AS flag_servindo ,A.prioridade AS prioridade, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.descricao LIKE :parametro AND A.flag_servindo LIKE :flag_servindo");
                 $stmte->bindValue(":parametro","%".$parametro."%");
-                $stmte->bindValue(":flag_ativo","%" .$flag_ativo);
+                // $stmte->bindValue(":flag_ativo","%" .$flag_ativo);
                 $stmte->bindValue(":flag_servindo","%" .$flag_servindo);
-                $stmte->bindValue(":delivery","%".$delivery);
-                $stmte->bindValue(":prioridade","%".$prioridade);
-                $stmte->bindValue(":categoria","%".$categoria."%");
+                // $stmte->bindValue(":delivery","%".$delivery);
+                // $stmte->bindValue(":prioridade","%".$prioridade);
+                // $stmte->bindValue(":categoria","%".$categoria."%");
                 $cardapios = array();
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
@@ -392,7 +476,6 @@
                 echo $e->getMessage();
             }
         }
-
         function selectPaginadoCategoria($parametro,$offset, $por_pagina){
             $stmte;
             $cardapios = array();

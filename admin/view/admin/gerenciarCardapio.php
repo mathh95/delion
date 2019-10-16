@@ -41,6 +41,25 @@
 
     <div class="container-fluid">
         <div class="searchbar">
+<<<<<<< HEAD
+                <div class="mini-divs"> 
+                    <label>Filtro por ingrediente: </label>
+                    <input id="pesquisa" class="form-control" type="text" required placeholder="Digite o ingrediente">
+                </div>
+
+                <div class="mini-divs"> 
+                    <label> Em produção </label>
+                    <select class="form-control" id="producao">
+                        <option value=''>TODOS</option>
+                        <option value='0'>PAUSADO</option>
+                        <option value='1'>SERVINDO</option>
+                    </select>
+                </div>
+                <div class="mini-divs"> 
+                    <label>Pausar itens listados: </label>
+                    <td style='text-align: center;' name='status'><button type='button' class='btn btn-kionux' onclick="getInputValue();"><i class='fa fa-pause'></i> Parar Produção</button></td>
+                </div>
+=======
             <div class="mini-divs"> 
                 <label>Filtro por ingrediente: </label>
                 <input id="pesquisa" class="form-control" type="text" required placeholder="Digite o ingrediente">
@@ -50,6 +69,7 @@
                 <button id="reordenar" style="margin-top:25px;" type="button" class="btn btn-kionux" data-toggle="modal" data-target="#ordenacaoModal">
                     <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span> Reordenar itens
                 </button>
+>>>>>>> c4b0e076e8cb3cb67988cd77e38f62f2f5af501e
             </div>
 
             <div class="row">
@@ -58,7 +78,11 @@
                 </div>
             </div>
     </div>
+<<<<<<< HEAD
+    <!-- Pode remover essa função -->
+=======
 
+>>>>>>> c4b0e076e8cb3cb67988cd77e38f62f2f5af501e
     <?php include VIEWPATH."/rodape.html" ?>
 
     <!-- Modal Ordenação -->
@@ -105,22 +129,60 @@
                 function(){}
             );
         }
+
+
+        function getInputValue(){
+            var txtPesquisa = document.getElementById("pesquisa").value;
+                msgConfirmacao('Confirmação','Deseja realmente pausar os itens listados?',
+                    function(linha){
+                        var url ='../../ajax/pausa-itens.php?nome='+txtPesquisa;
+                        $.get(url, function(dataReturn) {
+                            if(dataReturn > 0) {
+                                msgGenerico("Pausar!","Itens pausados no cardápio com sucesso!",1,function(){});
+                            }else{
+                                console.log(txtPesquisa);
+                            }
+                        });
+                    },
+                    function(){}
+                );
+            // alert(txtPesquisa);
+        }
+
         
-        $('#pesquisa').on('change paste keyup', function(){
+        $('#pesquisa,#producao').on('change paste keyup', function(){
             var nome = $("#pesquisa").val();
+            var producao = $("#producao").val();
             var url = '../../ajax/gerenciarCardapioTabela.php';
             $.ajax({
                 type: 'POST',
 
                 url: url,
 
-                data: {nome:nome},
+                data: {nome:nome, producao:producao},
 
                 success:function(res){
                     $("#tabela-cardapio").html(res);
                 }
             });
         });
+
+        $('#producao').on('change paste keyup', function(){
+            var producao = $("producao").val();
+            var url = '../../ajax/gerenciarCardapioTabela.php';
+            $ajax({
+                type: 'POST',
+
+                url: url,
+
+                data: {producao:producao},
+
+                success:function(res){
+                    $("#tabela-cardapio").html(res);
+                }
+            });
+        });
+
     </script>
 
     <!-- Ordenação da Categoria -->
