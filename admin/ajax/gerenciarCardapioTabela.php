@@ -13,16 +13,12 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 $controle=new controlerCardapio($_SG['link']);
 if((isset($_POST['nome']) && 
-!empty($_POST['nome'])) || 
-isset($_POST['flag']) || 
-isset($_POST['delivery']) || 
-isset($_POST['prioridade']) || 
-isset($_POST['categoria'])){
+!empty($_POST['nome'])) || 		//Descrição do item
+isset($_POST['producao'])){		//Flag_servido
 
 	$nome = $_POST['nome'];
-    //Mudar o filtro -> fazer uma nova função
-    //filterDescrição por exemplo
-    $cardapios = $controle->filterDescricao($nome);
+	$flag_servindo = $_POST['producao'];
+	$cardapios = $controle->filterProducao($nome, $flag_servindo);	//Filtra pela descrição/flag_servido
 }else{
 	$cardapios = $controle->selectAll();
 }
