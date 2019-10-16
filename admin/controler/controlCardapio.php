@@ -205,71 +205,6 @@
             }
         }
 
-        function selectv2($parametro,$modo){
-            
-            $stmte;
-            try{
-                if($modo==1){
-                    $stmte = $this->pdo->prepare("SELECT * FROM cardapio WHERE flag_ativo = 1 AND flag_servindo = 1");
-                    $stmte->bindValue(":parametro","%".$parametro."%");
-                    $cardapios = array();
-                    if($stmte->execute()){
-                        if($stmte->rowCount() > 0){
-                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                                $cardapio= new cardapio();
-                                $cardapio->setCod_cardapio($result->cod_cardapio);
-                                $cardapio->setNome($result->nome);
-                                $cardapio->setPreco($result->preco);
-                                $cardapio->setDesconto($result->desconto);
-                                $cardapio->setDescricao($result->descricao);
-                                $cardapio->setFoto($result->foto);
-                                $cardapio->setCategoria($result->categoria);
-                                $cardapio->setFlag_ativo($result->flag_ativo);
-                                $cardapio->setPrioridade($result->prioridade);
-                                $cardapio->setDelivery($result->delivery);
-                                $cardapio->setDias_semana($result->dias_semana);
-                                $cardapio->setCardapio_turno($result->cardapio_turno);
-                                $cardapio->setCardapio_horas_inicio($result->cardapio_horas_inicio);
-                                $cardapio->setCardapio_horas_final($result->cardapio_horas_final);
-                                array_push($cardapios, $cardapio);
-                            }
-                        }
-                    }
-                    return $cardapios;
-                }elseif ($modo==2) {
-                    $stmte = $this->pdo->prepare("");
-                    $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
-                    $cardapio= new cardapio();
-                    if($stmte->execute()){
-                        if($stmte->rowCount() > 0){
-                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                                $cardapio->setCod_cardapio($result->cod_cardapio);
-                                $cardapio->setNome($result->nome);
-                                $cardapio->setPreco($result->preco);
-                                $cardapio->setDescricao($result->descricao);
-                                $cardapio->setFoto($result->foto);
-                                $cardapio->setFlag_ativo($result->flag_ativo);
-                                $cardapio->setPrioridade($result->prioridade);
-                                $cardapio->setDelivery($result->delivery);
-                                $cardapio->setDias_semana($result->dias_semana);
-                                $cardapio->setCardapio_turno($result->cardapio_turno);
-                                $cardapio->setCardapio_horas_inicio($result->cardapio_horas_inicio);
-                                $cardapio->setCardapio_horas_final($result->cardapio_horas_final);
-                            }
-                        }
-                    }
-                    return $cardapio;
-                                // echo "<pre>";
-                                // print_r($cardapio);
-                                // echo "</pre>";
-                }
-            }
-            catch(PDOException $e){
-                echo $e->getMessage();
-            }
-        }
-
-
         //Pausa a produção de um item no cardapio
         function desativaItemCardapio($parametro){
             try{
@@ -300,6 +235,7 @@
 
         //Pausa a produção dos itens listados na pesquisa
         function pausaProducao($parametro){
+            $parametro = "%".$parametro."%";
             try{
                 $stmt = $this->pdo->prepare("UPDATE cardapio SET flag_servindo = 0 WHERE descricao LIKE :parametro");
                 $stmt->bindParam(":parametro", $parametro , PDO::PARAM_STR);

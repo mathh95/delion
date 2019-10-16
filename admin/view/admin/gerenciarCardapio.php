@@ -31,7 +31,6 @@
 
     <div class="container-fluid">
         <div class="searchbar">
-<<<<<<< HEAD
                 <div class="mini-divs"> 
                     <label>Filtro por ingrediente: </label>
                     <input id="pesquisa" class="form-control" type="text" required placeholder="Digite o ingrediente">
@@ -49,17 +48,10 @@
                     <label>Pausar itens listados: </label>
                     <td style='text-align: center;' name='status'><button type='button' class='btn btn-kionux' onclick="getInputValue();"><i class='fa fa-pause'></i> Parar Produção</button></td>
                 </div>
-=======
-            <div class="mini-divs"> 
-                <label>Filtro por ingrediente: </label>
-                <input id="pesquisa" class="form-control" type="text" required placeholder="Digite o ingrediente">
-            </div>
-            
             <div class="mini-divs">
                 <button id="reordenar" style="margin-top:25px;" type="button" class="btn btn-kionux" data-toggle="modal" data-target="#ordenacaoModal">
                     <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span> Reordenar itens
                 </button>
->>>>>>> c4b0e076e8cb3cb67988cd77e38f62f2f5af501e
             </div>
 
             <div class="row">
@@ -68,11 +60,8 @@
                 </div>
             </div>
     </div>
-<<<<<<< HEAD
-    <!-- Pode remover essa função -->
-=======
 
->>>>>>> c4b0e076e8cb3cb67988cd77e38f62f2f5af501e
+    <!-- Pode remover essa função -->
     <?php include VIEWPATH."/rodape.html" ?>
 
     <!-- Modal Ordenação -->
@@ -127,10 +116,11 @@
                     function(linha){
                         var url ='../../ajax/pausa-itens.php?nome='+txtPesquisa;
                         $.get(url, function(dataReturn) {
+                            console.log(dataReturn);
                             if(dataReturn > 0) {
-                                msgGenerico("Pausar!","Itens pausados no cardápio com sucesso!",1,function(){});
+                                msgGenerico("Erro!","Itens não foram pausados!",1,function(){});
                             }else{
-                                console.log(txtPesquisa);
+                                msgRedireciona('Pausados!','Itens pausados com sucesso!',1,'/admin/view/admin/gerenciarCardapio.php');
                             }
                         });
                     },
