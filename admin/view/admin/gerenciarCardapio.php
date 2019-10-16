@@ -23,6 +23,16 @@
     <?php include VIEWPATH."/cabecalho.html" ?>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
+<style>
+    .active{
+        background-color: #ee6938 !important;
+        border-color: #ee6938 !important;
+    }
+    .active > .badge{
+        color: black !important;
+    }
+</style>
+
 <body>
     
     <?php include_once "./header.php" ?>
@@ -116,25 +126,67 @@
     <!-- Ordenação da Categoria -->
     <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
     <script type="text/javascript">
+
+        var order_categorias = [];
+        var order_itens = [];
+
         $(document).on("click", "#reordenar", function(){
-            // List with handle
+
+            // Selecionar Categoria
+            $('.categoria').on('click', function(){
+                var $this = $(this);
+                var cod_categoria = $this.data('id');
+
+                // cor
+                $('.active').removeClass('active');
+                $this.toggleClass('active');
+
+                // display lista de itens p/ categoria selecionada
+                $('.item').hide();
+                $("[data-cod_categoria='"+cod_categoria+"']").show();
+
+                // call 
+                // ($this, $categoria, $cod_cardapio)
+
+            });
+
+            //Sortable Order
             var l_categorias = Sortable.create(list_categorias, {
                 handle: '.glyphicon-menu-hamburger',
                 animation: 150,
                 onUpdate: function() {
-                    var order = l_categorias.toArray();
-                    console.log(order);
+                    order_categorias = l_categorias.toArray();
+                    order_categorias.shift();
                 }
             });
-            // List with handle
             var l_itens = Sortable.create(list_itens, {
                 handle: '.glyphicon-menu-hamburger',
                 animation: 150,
                 onUpdate: function() {
-                    var order = l_itens.toArray();
-                    console.log(order);
+                    order_itens = l_itens.toArray();
+                    order_itens.shift();
                 }
             });
+
+            $(document).on("click", "#salvar_ordenacao", function(){
+
+                $.ajax({
+                    type: "POST",
+                    data: {categorias : order_categorias, itens : order_itens},
+                    url: "../../controler/alteraOrdemCardapio.php",
+                    success: function(msg){
+                        console.log(msg);
+                        if(msg.indexOf("sucesso") >= 0){
+                            msgRedireciona('Alteração Realizada!','Reordenação feita com sucesso!',1,'./gerenciarCardapio.php');
+                        }
+                    },
+                    error: function(err){
+                        console.log(err);
+                    }
+                });
+                
+            });
+
         });
     </script>
 
