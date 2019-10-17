@@ -12,7 +12,7 @@ protegePagina();
 $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-	$controle=new controlerCardapio($_SG['link']);
+	$controle_cardapio=new controlerCardapio($_SG['link']);
 	$controle_categoria=new controlerCategoria($_SG['link']);
 
 	//order by pos -> categoria/itens
@@ -30,7 +30,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 		foreach ($categorias as $key => $categoria) {
 
 			//itens por categoria ordenados
-			$itens_categoria[$key] = $controle->selectByCategoriaByPos(
+			$itens_categoria[$key] = $controle_cardapio->selectByCategoriaByPos(
 				$categoria->getCod_categoria()
 			);
 
@@ -65,7 +65,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 		//itens por categoria ordenados
 		foreach ($categorias as $key_cat => $categoria) {
 
-			$itens = $controle->selectByCategoriaByPos(
+			$itens = $controle_cardapio->selectByCategoriaByPos(
 				$categoria->getCod_categoria()
 			);
 

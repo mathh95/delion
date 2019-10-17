@@ -158,7 +158,7 @@
         $('#producao').on('change paste keyup', function(){
             var producao = $("producao").val();
             var url = '../../ajax/gerenciarCardapioTabela.php';
-            $ajax({
+            $.ajax({
                 type: 'POST',
 
                 url: url,
