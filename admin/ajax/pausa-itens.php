@@ -8,11 +8,13 @@
 		$nomeDesc = $_GET['nome'];
 		$controle=new controlerCardapio($_SG['link']);
 		$result=$controle->pausaProducao($nomeDesc);
-		
+
 		if($result == 1){
-            header("Location: /admin/view/admin/gerenciarCardapio.php");    //mudar aqui
+			// var_dump($result);
+			msgRedireciona('Pausados!','Itens pausados com sucesso!',1,'/admin/view/admin/gerenciarCardapio.php');
+            // header("Location: /admin/view/admin/gerenciarCardapio.php");    //mudar aqui
         }else{
-		
+			
 		}
 	}else{
 		expulsaVisitante();
