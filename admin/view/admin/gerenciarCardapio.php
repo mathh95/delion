@@ -125,10 +125,11 @@
                     function(linha){
                         var url ='../../ajax/pausa-itens.php?nome='+txtPesquisa;
                         $.get(url, function(dataReturn) {
+                            console.log(dataReturn);
                             if(dataReturn > 0) {
-                                msgGenerico("Pausar!","Itens pausados no cardápio com sucesso!",1,function(){});
+                                msgGenerico("Erro!","Itens não foram pausados!",1,function(){});
                             }else{
-                                console.log(txtPesquisa);
+                                msgRedireciona('Pausados!','Itens pausados com sucesso!',1,'/admin/view/admin/gerenciarCardapio.php');
                             }
                         });
                     },

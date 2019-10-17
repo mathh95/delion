@@ -30,8 +30,6 @@ isset($_POST['producao'])){		//Flag_servido
 	$permissao =  json_decode($usuarioPermissao->getPermissao());
 	if(in_array('cardapio', $permissao)){ 
 		
-		//glyphicon glyphicon-camera glyphicon 
-
 		echo "<table class='table table-responsive table-striped table-hover' id='tbCardapio' style='text-align = center;'>
 			<thead>
 				<h1 class=\"page-header\">Gerenciar Cardapio</h1>
@@ -65,10 +63,12 @@ isset($_POST['producao'])){		//Flag_servido
 				$mensagem='Cardápio excluído com sucesso!';
 				$titulo='Excluir';
 			
-				//<td style='text-align: center;' name='cardapio'><img src='../../".$item->getFoto()."' style='max-height: 100px' alt='' class='img-thumbnail'/></td>
-
 				echo "<tr name='resutaldo' id='status".$item->getCod_cardapio()."'>
-					<td style='text-align: left;' name='nome'>".$item->getNome()."</td>
+					<td style='text-align: left;' name='nome'>"
+						.$item->getNome().
+						"&nbsp;<span style='cursor: pointer;' class='glyphicon glyphicon-camera glyphicon' aria-hidden='true' data-toggle='modal' data-target='#itemModal".$item->getCod_cardapio()."'></span>	
+
+					</td>
 					<td style='text-align: center;' name='preco'>R$ ".$item->getPreco()."</td>
 					<td style='text-align: center;' name='flag_ativo'>".$item->getDsAtivo()."</td>
 					<td style='text-align: center;' name='prioridade'>".$item->getDsPrioridade()."</td>
@@ -124,4 +124,43 @@ isset($_POST['producao'])){		//Flag_servido
 	}
 
 echo "</tbody></table>";
+
+//Modals fotos dos itens
+//itens por categoria ordenados
+foreach ($categorias as $key_cat => $categoria) {
+
+	$itens = $controle_cardapio->selectByCategoriaByPos(
+		$categoria->getCod_categoria()
+	);
+
+	foreach ($itens as $key_item => $item){	
+
+		// $foto = "";
+		// if(file_exists($item->getFoto())){
+			$foto = $item->getFoto();
+		// }
+		$foto = $item->getFoto();
+
+		echo '
+		<div class="modal fade" id="itemModal'.$item->getCod_cardapio().'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						
+						<h4 style="text-align:center;" class="modal-title" id="myModalLabel">
+							<img src="../../'.$categoria->getIcone().'" style="max-height: 35px; background-color: #BE392A; border-radius:5px; alt=""/>
+
+							&nbsp;'.$item->getNome().'
+						</h4>
+					</div>
+					<div style="height:350px; text-align:center;"  class="modal-body">
+						<img src="../../'.$foto.'" style="max-height: 300px" alt="Imagem não encontrada :/"/>
+					</div>
+				</div>
+			</div>
+		</div>';
+	}
+}
+
 ?>
