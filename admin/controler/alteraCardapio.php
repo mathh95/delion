@@ -61,7 +61,7 @@
 		$prioridade = (isset($_POST['prioridade'])||!empty($_POST['prioridade'])) && $_POST['prioridade'] == 1 ? 1 : 0 ;
 		$delivery = (isset($_POST['delivery'])||!empty($_POST['delivery'])) && $_POST['delivery'] == 1 ? 1 : 0 ;
 		$cardapio= new cardapio();
-		$cardapio->construct($nome, $preco, $desconto, $descricao, $foto, $categoria, $flag_ativo, $prioridade,$delivery,$adicional, $dias_semana, $cardapio_turno, $cardapio_horas_inicio, $cardapio_horas_final);
+		$cardapio->construct($nome, $preco, $desconto, $descricao, $foto, $categoria, $flag_ativo,$flag_servindo, $prioridade,$delivery,$adicional, $dias_semana, $cardapio_turno, $cardapio_horas_inicio, $cardapio_horas_final);
 
 		$cardapio->setCod_cardapio($cod_cardapio);
 		$controle=new controlerCardapio($_SG['link']);

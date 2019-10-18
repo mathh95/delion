@@ -154,6 +154,17 @@ function adicionarCupom(){
     
 }
 
+function postObservacao(){
+    var obs = $('#observacao').val();
+
+    $.ajax({
+        type: 'POST',
+        url: 'ajax/obs-carrinho.php',
+        data: {obs:obs},
+
+        success: function (resultado) {}
+    });
+}
 
 
 $(document).on("click", "#removeItem", function(){

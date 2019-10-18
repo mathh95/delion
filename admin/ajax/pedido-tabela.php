@@ -72,7 +72,7 @@ if(in_array('pedido', $permissao)){
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->getData()->format('H:i')."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getCliente()."</td>
-				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+				<td style='text-align: center;' name='valor'>R$".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='numero'>".$pedido->getOrigem()."</td>";
 
 				if($pedido->rua == NULL){
@@ -130,7 +130,7 @@ if(in_array('pedido', $permissao)){
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->getData()->format('H:i')."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getCliente()."</td>
-				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+				<td style='text-align: center;' name='valor'>R$".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='numero'>".$pedido->getOrigem()."</td>";
 				
 				if($pedido->rua == NULL){
@@ -188,7 +188,7 @@ if(in_array('pedido', $permissao)){
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->getData()->format('H:i')."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getCliente()."</td>
-				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
+				<td style='text-align: center;' name='valor'>R$".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='numero'>".$pedido->getOrigem()."</td>";
 
 				if($pedido->rua == NULL){
@@ -286,7 +286,7 @@ foreach ($pedidos as &$pedido) {
 			<div class=\"modal-body\" style=\"text-align:center\" id='divPrin".$array."'>
 				<form>";
 
-				echo "<div class=\"form-group\" style='display: inline-block; text-align: left;'>
+				echo "<div class=\"form-group\" style='display: inline-block; text-align: left; max-width: 300px; overflow-wrap: break-word;'>
 						<label for=\"recipient-name\" class=\"control-label\">----------------------------------</label>
 						<br><label for=\"recipient-name\" class=\"control-label\">Restaurante: DELION.O </label>
 						<br><label for=\"message-text\" class=\"control-label\">"."Pedido: #".$pedido->getCod_pedido()."</label>
@@ -313,6 +313,8 @@ foreach ($pedidos as &$pedido) {
 							}else{
 								echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Forma Pagamento: ".$formaPgt->getTipoFormaPgt()."</label>";
 							}
+
+							echo "<br><label for=\"recipient-name\" class=\"control-label\" >"." Observação: ".$pedido->getObservacao()."</label>";
 
 						echo "</div>
 						<div>

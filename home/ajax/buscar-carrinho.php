@@ -32,6 +32,7 @@ $itens = array();
 $cardapio = new controlerCardapio(conecta());
 $_SESSION['delivery'] = -1;
 $_SESSION['formaPagamento'] = '';
+$_SESSION['observacao'] = '';
 $controlFormaPgt = new controlerFormaPgt($_SG['link']);
 $formasPgt = $controlFormaPgt->selectAll();
 $_SESSION['delivery_price'] = 0;
@@ -107,6 +108,8 @@ if (count($itens) > 0) {
                                         ?>
                             </strong> </td>
                     </tr>
+                    
+
                     <?php
                         $i++;
                         $totalCarrinho += $item['preco'] * $_SESSION['qtd'][$key];
@@ -116,14 +119,20 @@ if (count($itens) > 0) {
                     ?>
             </tbody>
         </table>
-    </div>
-    <hr>
-
-    <!-- Lado Esquerdo -->
-    <div class="rodapeCarrinho row">
-        <div class='ladoEsquerdo'>
-
-            <?php
+               
+                <div class='form-group shadow-textarea'>
+                <label for='exampleFormControlTextarea6'>Observações</label>
+                <textarea class='form-control z-depth-1' name='observacao' id='observacao' rows='2' placeholder='Ex: X-Salada sem maionese...'></textarea>
+                </div>
+                
+                </div>
+                <hr>
+                
+                <!-- Lado Esquerdo -->
+                <div class="rodapeCarrinho row">
+                    <div class='ladoEsquerdo'>
+                        
+                        <?php
                 if (!isset($_SESSION['valorcupom'])) {
                     $_SESSION['valorcupom'] = 0.00;
                     $_SESSION['totalComDesconto'] = 0.00;
@@ -370,7 +379,7 @@ if (count($itens) > 0) {
                     <strong><p id='total'> Total: R$ <span id='valor_total'>" . number_format($_SESSION['totalCorrigido'], 2) . "</span></p></strong>
                     
                     <div class='linhaBotao'>
-                        <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
+                        <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php' onclick='observacaoSession()'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
                         <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()'><button class='btn btn-danger'>Esvaziar Carrinho <i class='fas fa-trash-alt'></i></button></a>
                     </div>
                     </div>
