@@ -26,10 +26,17 @@ if ($itens > 0) {
     $itens = $cardapio->buscarVariosId($itens);
 }
 
+//endereco cadastrado
 if (isset($_GET['endereco']) and !empty($_GET['endereco'])) {
     $cod_endereco = $_GET['endereco'];
+ 
+//endereco cadastrado
+}else if (isset($_SESSION['cod_endereco']) and !empty($_SESSION['cod_endereco'])){
     
-}else if(($_SESSION['is_delivery']) && ($_SESSION['delivery_price'] > 0)){//endereco homepage
+    $cod_endereco = $_SESSION['cod_endereco'];
+
+//endereco homepage
+}else if(($_SESSION['is_delivery_home']) && ($_SESSION['delivery_price'] > 0)){
     
     include_once "../controler/businesEndereco.php";
 

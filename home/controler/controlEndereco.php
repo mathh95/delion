@@ -7,14 +7,16 @@
 
         function insert($endereco){
             try{
-                $stmt=$this->pdo->prepare("INSERT INTO endereco(rua, numero, cep, complemento, bairro, cliente, flag_cliente)
-                VALUES (:rua, :numero, :cep, :complemento, :bairro, :cliente, 1) ");
+                $stmt=$this->pdo->prepare("INSERT INTO endereco(rua, numero, cep, complemento, bairro, cidade, referencia, cliente, flag_cliente)
+                VALUES (:rua, :numero, :cep, :complemento, :bairro, :cidade, :referencia, :cliente, 1) ");
                 
                 $rua = $endereco->getRua();
                 $numero = $endereco->getNumero();
                 $cep = $endereco->getCep();
                 $complemento = $endereco->getComplemento();
                 $bairro = $endereco->getBairro();
+                $cidade = $endereco->getCidade();
+                $referencia = $endereco->getReferencia();
                 $cliente = $endereco->getCliente();
                 
                 $stmt->bindParam(":rua", $rua, PDO::PARAM_STR);
@@ -22,6 +24,8 @@
                 $stmt->bindParam(":cep", $cep, PDO::PARAM_STR);
                 $stmt->bindParam(":complemento", $complemento, PDO::PARAM_STR);
                 $stmt->bindParam(":bairro", $bairro, PDO::PARAM_STR);
+                $stmt->bindParam(":cidade", $cidade, PDO::PARAM_STR);
+                $stmt->bindParam(":referencia", $referencia, PDO::PARAM_STR);
                 $stmt->bindParam(":cliente", $cliente, PDO::PARAM_INT);
 
                 $executa=$stmt->execute();
@@ -39,20 +43,24 @@
 
         function insertSemCodCli($endereco){
             try{
-                $stmt=$this->pdo->prepare("INSERT INTO endereco(rua, numero, cep, complemento, bairro, flag_cliente)
-                VALUES (:rua, :numero, :cep, :complemento, :bairro, 1) ");
+                $stmt=$this->pdo->prepare("INSERT INTO endereco(rua, numero, cep, complemento, bairro, cidade, referencia, flag_cliente)
+                VALUES (:rua, :numero, :cep, :complemento, :bairro, :cidade, :referencia, 1) ");
                 
                 $rua = $endereco->getRua();
                 $numero = $endereco->getNumero();
                 $cep = $endereco->getCep();
                 $complemento = $endereco->getComplemento();
                 $bairro = $endereco->getBairro();
+                $cidade = $endereco->getCidade();
+                $referencia = $endereco->getReferencia();
                 
                 $stmt->bindParam(":rua", $rua, PDO::PARAM_STR);
                 $stmt->bindParam(":numero",$numero, PDO::PARAM_INT);
                 $stmt->bindParam(":cep", $cep, PDO::PARAM_STR);
                 $stmt->bindParam(":complemento", $complemento, PDO::PARAM_STR);
                 $stmt->bindParam(":bairro", $bairro, PDO::PARAM_STR);
+                $stmt->bindParam(":cidade", $cidade, PDO::PARAM_STR);
+                $stmt->bindParam(":referencia", $referencia, PDO::PARAM_STR);
 
                 $executa=$stmt->execute();
                                 
@@ -72,12 +80,14 @@
 
         function update($endereco){
             try{
-                $stmt=$this->pdo->prepare("UPDATE endereco SET rua=:rua, numero=:numero, cep=:cep, complemento=:complemento, bairro=:bairro, cliente=:cliente WHERE cod_endereco=:cod_endereco;");
+                $stmt=$this->pdo->prepare("UPDATE endereco SET rua=:rua, numero=:numero, cep=:cep, complemento=:complemento, bairro=:bairro, cidade=:cidade, referencia=:referencia, cliente=:cliente WHERE cod_endereco=:cod_endereco;");
                 $stmt->bindParam(":rua", $endereco->getRua(), PDO::PARAM_STR);
                 $stmt->bindParam(":numero",$endereco->getNumero(), PDO::PARAM_INT);
                 $stmt->bindParam(":cep", $endereco->getCep(), PDO::PARAM_STR);
                 $stmt->bindParam(":complemento", $endereco->getComplemento(), PDO::PARAM_STR);
                 $stmt->bindParam(":bairro", $endereco->getBairro(), PDO::PARAM_STR);
+                $stmt->bindParam(":cidade", $endereco->getCidade(), PDO::PARAM_STR);
+                $stmt->bindParam(":referencia", $endereco->getReferencia(), PDO::PARAM_STR);
                 $stmt->bindParam(":cliente", $endereco->getCliente(), PDO::PARAM_INT);
                 $stmt->bindParam(":cod_endereco",$endereco->getCodEndereco(),PDO::PARAM_INT);
 
@@ -134,13 +144,15 @@
             try{
                 $parametro = "%" . $parametro . "%";
                 $enderecos = array();
-                $stmt=$this->pdo->prepare("SELECT endereco.cod_endereco, endereco.rua, endereco.numero, endereco.cep, endereco.complemento, endereco.bairro, endereco.flag_cliente, cliente.cod_cliente, cliente.nome FROM endereco INNER JOIN cliente ON endereco.cliente = cliente.cod_cliente WHERE cliente.nome like :nome OR endereco.rua LIKE :rua OR endereco.numero LIKE :numero OR endereco.bairro LIKE :bairro OR endereco.cep LIKE :cep OR endereco.complemento LIKE :complemento");
+                $stmt=$this->pdo->prepare("SELECT endereco.cod_endereco, endereco.rua, endereco.numero, endereco.cep, endereco.complemento, endereco.bairro, endereco.cidade, endereco.referencia, endereco.flag_cliente, cliente.cod_cliente, cliente.nome FROM endereco INNER JOIN cliente ON endereco.cliente = cliente.cod_cliente WHERE cliente.nome like :nome OR endereco.rua LIKE :rua OR endereco.numero LIKE :numero OR endereco.bairro LIKE :bairro OR endereco.cep LIKE :cep OR endereco.complemento LIKE :complemento OR endereco.cidade LIKE :cidade OR endereco.referencia LIKE :referencia");
                 $stmt->bindValue(":nome", $parametro);
                 $stmt->bindValue(":rua", $parametro);
                 $stmt->bindValue(":cep", $parametro);
                 $stmt->bindValue(":numero", $parametro);
                 $stmt->bindValue(":complemento", $parametro);
                 $stmt->bindValue(":bairro", $parametro);
+                $stmt->bindValue(":cidade", $parametro);
+                $stmt->bindValue(":referencia", $parametro);
                 $executa= $stmt->execute();
                 if ($executa){
                     if ($stmt->rowCount() > 0 ){
@@ -152,6 +164,8 @@
                             $endereco->setCep($result->cep);
                             $endereco->setComplemento($result->complemento);
                             $endereco->setBairro($result->bairro);
+                            $endereco->setCidade($result->cidade);
+                            $endereco->setReferencia($result->referencia);
                             $endereco->setCliente($result->cod_cliente);
                             $endereco->clienteNome=$result->nome;
                             $endereco->setFlagCliente($result->flag_cliente);
@@ -193,6 +207,8 @@
                             $endereco->setCep($result->cep);
                             $endereco->setComplemento($result->complemento);
                             $endereco->setBairro($result->bairro);
+                            $endereco->setCidade($result->cidade);
+                            $endereco->setReferencia($result->referencia);
                             $endereco->setCliente($result->cliente);
                             $endereco->setFlagCliente($result->flag_cliente);
                             array_push($enderecos,$endereco);
@@ -234,6 +250,8 @@
                             $endereco->setCep($result->cep);
                             $endereco->setComplemento($result->complemento);
                             $endereco->setBairro($result->bairro);
+                            $endereco->setCidade($result->cidade);
+                            $endereco->setReferencia($result->referencia);
                             $endereco->setCliente($result->cliente);
                             $endereco->setFlagCliente($result->flag_cliente);
                             array_push($enderecos,$endereco);

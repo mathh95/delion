@@ -58,18 +58,11 @@
                     <label>Pausar itens listados: </label>
                     <td style='text-align: center;' name='status'><button type='button' class='btn btn-kionux' onclick="getInputValue();"><i class='fa fa-pause'></i> Parar Produção</button></td>
                 </div>
-<<<<<<< HEAD
-            <div class="mini-divs">
-                <button id="reordenar" style="margin-top:25px;" type="button" class="btn btn-kionux" data-toggle="modal" data-target="#ordenacaoModal">
-                    <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span> Reordenar itens
-                </button>
-=======
                 <div class="mini-divs">
                     <button id="reordenar" style="margin-top:25px;" type="button" class="btn btn-kionux" data-toggle="modal" data-target="#ordenacaoModal">
                         <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span> Reordenar itens
                     </button>
                 </div>
->>>>>>> 1947fc55b147cbc940c925249e4aa8e06898f39d
             </div>
 
             <div class="row">
@@ -78,11 +71,6 @@
                 </div>
             </div>
     </div>
-<<<<<<< HEAD
-
-    <!-- Pode remover essa função -->
-=======
->>>>>>> 1947fc55b147cbc940c925249e4aa8e06898f39d
     <?php include VIEWPATH."/rodape.html" ?>
 
     <!-- Modal Ordenação -->
@@ -171,7 +159,7 @@
         $('#producao').on('change paste keyup', function(){
             var producao = $("producao").val();
             var url = '../../ajax/gerenciarCardapioTabela.php';
-            $ajax({
+            $.ajax({
                 type: 'POST',
 
                 url: url,
