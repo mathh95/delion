@@ -135,12 +135,6 @@ foreach ($categorias as $key_cat => $categoria) {
 
 	foreach ($itens as $key_item => $item){	
 
-		// $foto = "";
-		// if(file_exists($item->getFoto())){
-			$foto = $item->getFoto();
-		// }
-		$foto = $item->getFoto();
-
 		echo '
 		<div class="modal fade" id="itemModal'.$item->getCod_cardapio().'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -155,7 +149,7 @@ foreach ($categorias as $key_cat => $categoria) {
 						</h4>
 					</div>
 					<div style="height:350px; text-align:center;"  class="modal-body">
-						<img src="../../'.$foto.'" style="max-height: 300px" alt="Imagem não encontrada :/"/>
+						<img src="../../'.$item->getFoto().'" style="max-height: 300px" alt="Imagem não encontrada :/"/>
 					</div>
 				</div>
 			</div>

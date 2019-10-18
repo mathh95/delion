@@ -19,29 +19,38 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
             <p>Alterar dados do endereço</p>    
                 <input name='cod_cliente' type='hidden' value='".$cod_cliente."'>           
                 <input name='cod_endereco' type='hidden' value='".$endereco->getCodEndereco()."'>
+            
+            <div>
+                <div>
+                    <label>Cep:</label>
+                    <input class='inputs-pequenos' name='cep' type='text' required placeholder='cep' value='".$endereco->getCep()."'>
+                </div>
+                <div>
+                    <label>Cidade:</label>
+                    <input class='inputs-pequenos' name='cidade' type='text' required placeholder='Cidade' value='".$endereco->getCidade()."'>
+                </div>
+            </div>
             <div>
                 <label>Rua:</label>
                 <input name='rua' type='text' required placeholder='rua' value='".$endereco->getRua()."'>
-                
             </div>
             <div>
                 <div>
-                <label>Cep:</label>
-                <input class='inputs-pequenos' name='cep' type='text' required placeholder='cep' value='".$endereco->getCep()."'>
+                    <label>Número:</label>
+                    <input class='inputs-pequenos' name='numero' type='text' required placeholder='numero' value='".$endereco->getNumero()."'>
                 </div>
                 <div>
-                <label>Número:</label>
-                <input class='inputs-pequenos' name='numero' type='text' required placeholder='numero' value='".$endereco->getNumero()."'>
-                </div>
-                <div>
-                <label>Bairro:</label>
-                <input class='inputs-pequenos' name='bairro' type='text' required placeholder='bairro' value='".$endereco->getBairro()."'>
+                    <label>Bairro:</label>
+                    <input class='inputs-pequenos' name='bairro' type='text' required placeholder='bairro' value='".$endereco->getBairro()."'>
                 </div>
             </div>
             <div>
                 <label>Complemento:</label>
                 <input name='complemento' type='text' placeholder='complemento' value='".$endereco->getComplemento()."'>
-
+            </div>
+            <div>
+                <label>Referência:</label>
+                <input name='referencia' type='text' placeholder='Referência' value='".$endereco->getReferencia()."'>
             </div>
 
                 <button type='submit'>ALTERAR</button>
@@ -71,14 +80,23 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
     }else{
         $bairro='';
     }
+    if(isset($_GET['cidade']) && !empty($_GET['cidade'])){
+        $cidade = $_GET['cidade'];
+    }else{
+        $cidade ='';
+    }
     echo " <form action='/home/controler/businesEndereco.php' method='POST'>
 
     <p>Alterar dados do endereço</p>
     <input name='cod_cliente' type='hidden' value='".$cod_cliente."'>                
     <div>
         <div class='cadastro-form'>
-        <label>Cep:</label>
-        <input class='inputs-pequenos cep' name='cep' type='text' id='cep' required placeholder='CEP' value='".$cep."'>
+            <label>Cep:</label>
+            <input class='inputs-pequenos cep' name='cep' type='text' id='cep' required placeholder='CEP' value='".$cep."'>
+        </div>
+        <div>
+            <label>Cidade:</label>
+            <input class='inputs-pequenos' name='cidade' type='text' required placeholder='Cidade' value='".$cidade."'>
         </div>
     </div>
     <div>
@@ -98,7 +116,11 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
     <div>
         <label>Complemento:</label>
         <input name='complemento' type='text' placeholder='Complemento' value=''>
+    </div>
 
+    <div>
+        <label>Referência:</label>
+        <input name='referencia' type='text' placeholder='Referência' value=''>
     </div>
 
         <button type='submit'>SALVAR</button>
@@ -123,8 +145,8 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
                         if (data.erro){
                             alert('cep invalido');
                         }else{
-                            console.log(data.logradouro, data.bairro);
-                            autoCompletar(data.logradouro, data.bairro, cep);
+                            console.log(data.logradouro, data.bairro, data.localidade);
+                            autoCompletar(data.logradouro, data.bairro, cep, data.localidade);
                         }
                     });
                 }else{

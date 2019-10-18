@@ -146,11 +146,11 @@ function reloadEnderecosInativos() {
     });
 }
 
-function autoCompletar(rua, bairro, cep) {
+function autoCompletar(rua, bairro, cep, cidade) {
     $.ajax({
         type: 'GET',
         url: 'ajax/salvar-endereco.php',
-        data: { rua: rua, bairro: bairro, cep: cep },
+        data: { rua: rua, bairro: bairro, cep: cep, cidade: cidade },
         success: function (resultado) {
             $('.opcoes').html(resultado);
             html = "<button onclick='listarAtivos()'>LISTAR ENDEREÇOS ATIVOS</button>"
@@ -159,6 +159,7 @@ function autoCompletar(rua, bairro, cep) {
     });
 }
 
+//cod_endereco, flag (combo/carrinho)
 function selecionarEndereco(endereco, flag) {
     // console.log(endereco);
     // console.log(flag);
@@ -183,7 +184,7 @@ function selecionarEndereco(endereco, flag) {
     //pedido    
     } else {
 
-        var url = "ajax/enviarEmailPedido.php";
+        var url = "ajax/validaEnd.php";
         $.ajax({
 
             type: 'GET',
@@ -193,9 +194,10 @@ function selecionarEndereco(endereco, flag) {
             data: { endereco: endereco },
 
             success: function (resultado) {
-                swal("Pedido realizado com sucesso!", "Concluido, estaremos enviando seu pedido!", "success").then((value) => { window.location = '/home' });
+                swal("Endereço selecionado!", "Por favor, confirme seu pedido novamente!", "success").then((value) => { window.location = '/home/carrinho.php' });
             }
 
         });
+
     }
 }

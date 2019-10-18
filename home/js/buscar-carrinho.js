@@ -154,8 +154,6 @@ function adicionarCupom(){
     
 }
 
-
-
 $(document).on("click", "#removeItem", function(){
     var acao = "rem";
     var linha = $(this).data('linha');

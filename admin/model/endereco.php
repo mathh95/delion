@@ -14,6 +14,10 @@
 
             private $complemento;
 
+            private $referencia;
+
+            private $cidade;
+
             private $bairro;
 
             private $cliente;
@@ -38,6 +42,14 @@
 
             function getComplemento(){
                 return $this->complemento;
+            }
+
+            function getReferencia(){
+                return $this->referencia;
+            }
+
+            function getCidade(){
+                return $this->cidade;
             }
 
             function getBairro(){
@@ -72,6 +84,14 @@
                 $this->complemento = $complemento;
             }
 
+            function setReferencia($referencia){
+                $this->referencia = $referencia;
+            }
+
+            function setCidade($cidade){
+                $this->cidade = $cidade;
+            }
+
             function setBairro($bairro){
                 $this->bairro = $bairro;
             }
@@ -92,12 +112,14 @@
                 return $this->flag_cliente==0? 'Inativo': 'Ativo';
             }
             
-            function construct($rua,$numero,$cep,$complemento,$bairro,$cliente){
+            function construct($rua,$numero,$cep,$complemento,$bairro,$cidade,$referencia,$cliente){
                 $this->rua = $rua;
                 $this->numero = $numero;
                 $this->cep = $cep;
                 $this->complemento = $complemento;
                 $this->bairro = $bairro;
+                $this->cidade = $cidade;
+                $this->referencia = $referencia;
                 $this->cliente = $cliente;
             }
 
@@ -105,9 +127,11 @@
                 echo "Código do Endereço: ".$this->cod_endereco."<br>";
                 echo "Rua: ".$this->rua."<br>";
                 echo "Numero: ".$this->numero."<br>";
-                echo "Cep: ".$this->cep."<br>";
-                echo "Complemento: ".$this->complemento."<br>";
                 echo "Bairro: ".$this->bairro."<br>";
+                echo "Cep: ".$this->cep."<br>";
+                echo "Cidade: ".$this->cidade."<br>";
+                echo "Referência: ".$this->referencia."<br>";
+                echo "Complemento: ".$this->complemento."<br>";
                 echo "Cliente: ".$this->cliente."<br>";
             }
         }

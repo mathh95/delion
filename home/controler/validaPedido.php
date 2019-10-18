@@ -99,11 +99,19 @@ if($checkcarrinho > 0){
                 //is delivery?
                 if($checkdelivery > 0){
                     if($checkcliente > 0){
-                        //endereço inserido na homepage?
+                        //endereço inserido?
                         if(($_SESSION['is_delivery']) && ($_SESSION['delivery_price'] > 0)){
                             
-                            $route = $_SESSION['endereco']['route'];
-                            $street_number = $_SESSION['endereco']['street_number'];
+                            //Endereço cadastrado selecionado
+                            if(isset($_SESSION['cod_endereco']) && !empty($_SESSION['cod_endereco'])){
+                                $rua = $_SESSION['rua_entrega'];
+                                $numero = $_SESSION['numero_entrega'];
+                            }else{
+                                //Endereço homepage
+                                $rua = $_SESSION['endereco']['route'];
+                                $numero = $_SESSION['endereco']['street_number'];
+                            }
+
 
                             $html.= "
                             <script>
@@ -128,7 +136,7 @@ if($checkcarrinho > 0){
 
                             swal({
                                 title: 'Confirmar Pedido',
-                                text: 'Entrega em: ".$route.", ".$street_number." | Total: R$ ".number_format($_SESSION['totalCorrigido'], 2)."',
+                                text: 'Entrega em: ".$rua.", ".$numero." | Total: R$ ".number_format($_SESSION['totalCorrigido'], 2)."',
                                 icon: 'success',
                                 buttons: ['Cancelar', true],
                               })
