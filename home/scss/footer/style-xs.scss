@@ -16,8 +16,79 @@
 body {
     > footer {
         font-family: $font_main;
-        background-color: $vermelho_fraco;
-        padding-bottom: 15px;
+        // background-color: $vermelho_forte;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100%;
+        height: auto;
+
+        >div.navbar-social.navbar-collapse{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 100%;
+            height: auto;
+            background-color: $vermelho_forte;
+            text-align: center;
+            position: relative;
+            font-size: 35px;
+            margin: 0 !important;
+            padding: 0 !important;
+            
+            >a i{
+                padding: 10px;
+                color: #ffffff;
+            }
+        }
+        >div.row.left{
+            display: none;
+            position: relative;
+            width: 100%;
+            text-decoration: none;
+            ul {
+                padding: 20px;
+                list-style-type: none;
+                a{
+                    color: #ffffff;
+                    text-decoration: none;
+                }
+            }
+        }
+        >div.row.center{
+            display: none;
+            position: relative;
+            width: 100%;
+            ul {
+                padding: 20px;
+                list-style-type: none;
+                a{
+                    color: #ffffff;
+                    text-decoration: none;
+                }
+            }
+            
+        }
+        >div.row.right{
+            display: none;
+            @include make-lg-column(3);
+            @include make-lg-column-offset(1);
+            width: 100%;
+            position: relative;
+            img{
+                @include img-responsive();
+                @include center-block();
+            }
+            >div.endereco-footer{
+                padding: 20px;
+                p{
+                    float: center;
+                    color: #ffffff;
+                }
+                
+            }
+            
+            
+        }
         > .container {
             > .logo {
                 @include make-xs-column(12);

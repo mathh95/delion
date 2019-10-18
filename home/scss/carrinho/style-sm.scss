@@ -14,6 +14,7 @@
 }
 
 body{
+    overflow-x: hidden;
     font-family: $font_main;
     > .menu {
         padding-bottom: 15px;
@@ -95,6 +96,7 @@ body{
             font-family: "Century Gothic Bold";
         }
         > .carrinho {
+            font-size: 15px;
             > .tabela_itens{
                 @include make-sm-column(12);
                 #cabecalhoTabela{
@@ -107,9 +109,11 @@ body{
                     border-right-width:0;
                     border-bottom-color: $vermelho_forte;
                     font-family: "Century Gothic Bold";
-                    font-size: 14px;
+                    font-size: 15px;
+                    height: 33px;
                 }
                 .quantidadeItemTabela{
+                    padding: 10px;
                     border:none;
                     background-color:transparent;
                     width:30px;
@@ -177,12 +181,18 @@ body{
                         }
                     }
                 }
+                #infoDelivery{
+                    padding-top: 10px;
+                }
+                
             }
             >.ladoDireito{
                 float:right !important;
+                padding-right: 60px !important;
                 @include make-md-column(6);
 
                 #infoDelivery{
+                    padding-top: 20px;
                     margin-top: 5px;
                 }
                 #infoBalcao{

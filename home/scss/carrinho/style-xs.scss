@@ -14,7 +14,9 @@
 }
 
 body{
+    overflow-x: hidden;
     font-family: $font_main;
+    max-width: 100%;
     > .menu {
         padding-bottom: 15px;
         padding-top: 15px;
@@ -75,6 +77,8 @@ body{
         }
     }
     > .itens {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
         >.carrinhoVazio{
             > .imagemCarrinhoVazio{
                 // text-align: center;
@@ -128,9 +132,15 @@ body{
         }
 
         > .carrinho {
+            width: 100%;
+            margin: 0 !important;
+            height: auto;
+            padding: 0 !important;
+            // font-size: 17px;
             > .tabela_itens{
                 @include make-xs-column(12);
                 #cabecalhoTabela{
+                    
                     color:white;
                     background-color:$vermelho_fraco; 
                     border-style:solid; 
@@ -140,23 +150,31 @@ body{
                     border-right-width:0;
                     border-bottom-color: $vermelho_forte;
                     font-family: "Century Gothic Bold";
-                    font-size: 12px;
+                    font-size: 14px;
+                    #precoUnitario{
+                        display: none;
+                    }
+                    #delivery{
+                        display: none;
+                    }
                 }
+                
                 .iconeRemoverProdutoTabela{
                     vertical-align: middle;
                     font-size: 15px;
                 }
                 .nomeProdutoTabela{
                     vertical-align: middle;
-                    font-size: 9px;
+                    font-size: 13px;
                 }
                 .precoProdutoTabela{
                     vertical-align: middle;
-                    font-size: 9px;
+                    font-size: 12px;
+                    display: none;
                 }
                 .subtotalProdutoTabela{
                     vertical-align: middle;
-                    font-size: 9px;
+                    font-size: 13px;
                 }
                 .quantidadeProdutoTabela{
                     vertical-align: middle;
@@ -167,7 +185,7 @@ body{
                         // float: left;
                     } 
                     .iconeAdicionarProdutoTabela{
-                        font-size: 15px;
+                        font-size: 13px;
                         width: 20px;
                         // float: left;
                     }
@@ -177,24 +195,44 @@ body{
                         // float: right;
                     }
                 }
+                .nomeProdutoDisponivel{
+                    display: none;
+                }
             }
         }
         > .rodapeCarrinho{
             >.ladoEsquerdo{
                 padding-bottom: 10px;
+                text-align: center;
                 p{
                     @include make-xs-column(12);
                     text-align: center;
                     font-size: 18px;
                     font-family: "Century Gothic Bold";
                 }
-                .botaoAdicionarCupom button {
-                    background-color: $vermelho_fraco;
-                    border-color: $vermelho_forte;
-                    color: #ffffff;
+                div.botaoCupom{
+
+                    .botaoAdicionarCupom button {
+                        background-color: $vermelho_fraco;
+                        border-color: $vermelho_forte;
+                        color: #ffffff;
+                    }
+                    div.form-inline{
+                        padding-left: 20px !important;
+                        padding-right: 20px !important;
+                        a.botaoAdicionarCupom{
+                            padding-top: 10px;
+                        }
+                    }
+                    
+                }
+                div.forma-pgt{
+                    padding-left: 20px !important;
+                    padding-right: 20px !important;
                 }
                 >.btn-group{
                     @include make-xs-column-offset(3);
+                    margin-left: 0 !important;
                 }
                 label{
                     width:120px;
@@ -223,8 +261,16 @@ body{
                 }
             }
             >.ladoDireito{
+                text-align: center;
                 #infoDelivery{
                     margin-top: 5px;
+                    
+                }
+                #infoDeliverySemEndereco{
+                    display: block;
+                    width: 60%;
+                    padding-right: 10px !important;
+                    padding-left: 10px !important;
                 }
                 #infoBalcao{
                     margin-top: 5px;
@@ -236,24 +282,27 @@ body{
                     font-family: "Century Gothic Regular";
                 }
                 > .linhaBotao{
+                    width: 100%;
+                    height: auto;
+                    display: inline-flex;
+                    flex-direction: row-reverse;
+                    justify-content: center;
+                    padding-bottom: 20px;
                     > .botaoCarrinhoEnviar{
-                        //margin-left: 10px;
                         button{
-                            @include make-xs-column(5);
-                            background-color: #C57686 !important;
-                            border-color:#91414F !important;
+                            // @include make-xs-column(12);
+                            background-color: $vermelho_fraco;
+                            border-color:$vermelho_forte;
                             color: #ffffff;
-                            margin-left: 40px;
-                            margin-bottom: 10px;
                         }
                     }
                     > .botaoCarrinhoEsvaziar{
+                        padding-right: 10px;
+                        position: relative;
                         button{
-                            @include make-xs-column(5);
-                            float:right;
-                            background-color: #C57686 !important;
-                            border-color:#91414F !important;
-                            margin:30px 0 10px 10px;
+                            // @include make-xs-column(12);
+                            background-color: $vermelho_fraco;
+                            border-color:$vermelho_forte;
                         }
                     }
                 }

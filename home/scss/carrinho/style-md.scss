@@ -14,6 +14,7 @@
 }
 
 body{
+    overflow-x: hidden;
     font-family: $font_main;
     > .menu {
         padding-bottom: 15px;
@@ -95,6 +96,7 @@ body{
             font-family: "Century Gothic Bold";
         }
         > .carrinho {
+            font-size: 15px;
             > .tabela_itens{
                 @include make-md-column(12);
                 #cabecalhoTabela{
@@ -107,9 +109,11 @@ body{
                     border-right-width:0;
                     border-bottom-color: $vermelho_forte;
                     font-family: "Century Gothic Bold";
-                    font-size: 14px;
+                    height: 33px;
+                    font-size: 16px;
                 }
                 .quantidadeItemTabela{
+                    padding: 10px;
                     border:none;
                     background-color:transparent;
                     width:30px;
@@ -143,8 +147,10 @@ body{
         }
 
         >.rodapeCarrinho {
+            width: 100%;
             >.ladoEsquerdo{
-                @include make-md-column(5);
+                padding-left: 30px !important;
+                @include make-md-column(6);
                 padding-bottom: 20px;
                 float:left !important;
                 p {
@@ -178,10 +184,14 @@ body{
                         }
                     }
                 }
+                #infoDelivery{
+                    padding-top: 10px;
+                }
             }
             >.ladoDireito{
+                width: 50%;
                 float:right !important;
-                @include make-md-column(5);
+                @include make-md-column(6);
 
                 #infoDelivery{
                     margin-top: 5px;

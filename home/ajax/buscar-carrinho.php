@@ -67,16 +67,16 @@ if (count($itens) > 0) {
         ?>
     <?php //print_r($_SESSION['carrinho']); 
         ?>
-    <div class="carrinho row">
-        <table class="tabela_itens table table-hover table-responsive table-condensed">
+    <div class="container-fluid row carrinho  ">
+        <table class="tabela_itens table ">
             <thead>
                 <tr id="cabecalhoTabela">
                     <th>Excluir</th>
                     <th>Produto</th>
-                    <th>Preço Unitário</th>
+                    <th id="precoUnitario">Preço Unitário</th>
                     <th>Subtotal</th>
                     <th>Quantidade</th>
-                    <th>Delivery</th>
+                    <th id="delivery">Delivery</th>
                 </tr>
             </thead>
             <tbody>
@@ -86,7 +86,7 @@ if (count($itens) > 0) {
                     $i = 0;
                     $pedidoBalcao = 0;
                     foreach ($itens as $key => $item) : ?>
-                    <tr id="idLinha<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>">
+                    <tr id="idLinha<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>" class=<?= ($item['delivery'] == 1) ? "disponivel" : "danger" ?> >
                         <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
                         <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['nome'] ?></strong></td>
                         <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['preco'] ?>"><strong>R$ <?= number_format($item['preco'], 2); ?></strong></td>
@@ -96,7 +96,7 @@ if (count($itens) > 0) {
                             <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?= $i ?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
                             <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?= $i ?>" class="fas fa-cart-arrow-down fa-lg btn iconeExcluirProdutoTabela"></i>
                         </td>
-                        <td class="nomeProdutoTabela"><strong>
+                        <td class="nomeProdutoDisponivel"><strong>
                                 <?php
                                         if ($item['delivery'] == 1) {
                                             echo "Disponível";
@@ -255,7 +255,7 @@ if (count($itens) > 0) {
                         echo "<div id='infoDelivery'>";
                         echo "<br>";
                         echo "<span style='font-weight:bold;'></span> <span onclick='location=\"/home\"' style='cursor:pointer;'>&nbsp;Inserir Endereço de Entrega&nbsp;<i class='fas fa-external-link-alt'></i></span><br>";
-                        echo "<br><span><i class='fas fa-info-circle'></i>&nbsp;Ou selecione um Endereço cadastrado ao Finalizar o Pedido.</span>";
+                        echo "<br><span id='infoDeliverySemEndereco'><i class='fas fa-info-circle'></i>&nbsp;Ou selecione um Endereço cadastrado.</span>";
                         echo "</div>";
                     }
 
@@ -308,7 +308,7 @@ if (count($itens) > 0) {
                 echo "<div class='meio ladoEsquerdo'>";
 
                 if ($_SESSION['valorcupom'] == 0) {
-                    echo "<div>
+                    echo "<div class='botaoCupom'>
                         <strong><p>Adicionar Cupom</p></strong> 
                         <div class='form-inline'>                            
                             <input class='form-control' type='text' name='codigocupom' id='codigocupom'>
@@ -316,7 +316,7 @@ if (count($itens) > 0) {
                         </div>
                     </div>";
                 } else {
-                    echo "<div>
+                    echo "<div class='botaoCupom'>
                         <strong><p>Adicionar Cupom</p></strong> 
                         <div class='form-inline'>
                             <input class='form-control' type='text' name='codigocupomrem' id='codigocupomrem' disabled>
@@ -326,8 +326,8 @@ if (count($itens) > 0) {
                 }
                 ?>
                 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-8 col-lg-10">
+                <div class="forma-pgt row">
+                    <div class=" select-formapgt col-xs-12 col-sm-6 col-md-8 col-lg-10">
                         <strong>
                         <p>Forma de Pagamento</p>
                         </strong>
@@ -369,7 +369,7 @@ if (count($itens) > 0) {
                     <p id='desconto'>Desconto: R$ <span id='valor_desconto'> " . number_format($_SESSION['valorcupom'], 2) . "</span></p> 
                     <strong><p id='total'> Total: R$ <span id='valor_total'>" . number_format($_SESSION['totalCorrigido'], 2) . "</span></p></strong>
                     
-                    <div class='linhaBotao'>
+                    <div class=' btn-group linhaBotao'>
                         <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
                         <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()'><button class='btn btn-danger'>Esvaziar Carrinho <i class='fas fa-trash-alt'></i></button></a>
                     </div>

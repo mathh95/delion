@@ -58,9 +58,9 @@ body{
         padding-bottom: 5px;
         > .solicitacao {
             @include make-sm-column(12);
-            padding-right: 0px;
-            padding-left: 0px;
-            height: 330px;
+            padding-right: 10px;
+            padding-left: 10px;
+            height: auto;
             > form {
                 > p{
                     font-family: $font_main_bold;
@@ -99,7 +99,7 @@ body{
                     resize: none;
                 }
                 > button {
-                    width: 171px;
+                    width: 48%;
                     height: 34px;
                     border: none;
                     background-color: $vermelho_fraco;
@@ -111,7 +111,7 @@ body{
                 }
                 >a{
                     > .botao-cadastro{
-                        width: 171px;
+                        width: 48%;
                         height: 34px;
                         border: none;
                         background-color: $vermelho_fraco;
@@ -124,15 +124,21 @@ body{
                 }
             } 
             > .tipos_login{
-                // width: 100%;
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: row;
                 align-items: center;
                 margin-top: 10px;
                 margin-bottom: 10px;
                 > .login_google{
                     margin: 10px;
+                    width: 100%;
                 }
                 > .login_facebook{
-                  margin: 10px;
+                    width: 48%;
+                    margin: 10px;
+                    padding-right: 40px;
                     
                 }
             }
@@ -148,7 +154,7 @@ body{
                 margin-bottom: 15px;
                 > a {
                     > button {
-                        width: 100%;
+                        width: 48%;
                         height: 34px;
                         border: none;
                         background-color: $vermelho_fraco;
@@ -166,6 +172,7 @@ body{
             }
         }
         > .imagem {
+            display: none;
             @include make-sm-column(12);
             padding-right: 0px;
             padding-left: 0px;
@@ -180,6 +187,7 @@ body{
             }
         }
         > .imagem-login {
+            display: none;
             @include make-sm-column(12);
             > div {
                 > img {

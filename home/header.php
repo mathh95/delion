@@ -15,7 +15,7 @@
         <div class="logo">
         
 
-            <a href="/"><img src="<?= "../admin/".$empresa->getFoto(); ?>"></a>
+            <a href="#"><img src="/home/img/logo_branca.png"></a>
 
 
         </div>

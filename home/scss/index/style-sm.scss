@@ -121,6 +121,11 @@ body, html{
                     left: 86%;
                     color: $cinza;
                 }
+                .form-control:focus {
+                    border-color: $vermelho_fraco;
+                    box-shadow: 0 0 0 0.2rem rgba(210, 39, 48, 0.25);
+                } 
+                
                 >input.input-cep{
                     width: 100%;
                     height: 50px;

@@ -62,7 +62,7 @@
 			</ul>
 		</div>
 		<div class="row right">
-		<img src="/home/img/logo_branca.png" alt="logo delion branca" style="width:93px;height:140px;">
+		    <img src="/home/img/logo_branca.png" alt="logo delion branca" style="width:93px;height:140px;">
 			
 			<div class="endereco-footer">
 				<p class="bold-text"><b>
