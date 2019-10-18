@@ -9,18 +9,18 @@
     $endereco= new endereco();
 
     //insert Endereco home page, sem vínculo com cod_cliente
-    if(($_SESSION['is_delivery']) && ($_SESSION['delivery_price'] > 0)){
+    if(($_SESSION['is_delivery_home']) && ($_SESSION['delivery_price'] > 0)){
         $cep = $_SESSION['endereco']['postal_code'];
         $rua = $_SESSION['endereco']['route'];
         $numero = $_SESSION['endereco']['street_number'];
         $bairro = $_SESSION['endereco']['sublocality_level_1'];
         $complemento = $_SESSION['endereco']['complemento'];
         $cliente = "null";
+        $cidade = $_SESSION['endereco']['administrative_area_level_2'];
+        $referencia = $_SESSION['endereco']['referencia'];
         //$uf = $_SESSION['endereco']['administrative_area_level_1'];
-        //$cidade = $_SESSION['endereco']['administrative_area_level_2'];
-        //$referencia = $_SESSION['endereco']['referencia'];
 
-        $endereco->construct($rua,$numero,$cep,$complemento,$bairro,$cliente);
+        $endereco->construct($rua,$numero,$cep,$complemento,$bairro,$cidade,$referencia,$cliente);
         $cod_endereco = $control->insertSemCodCli($endereco);
         
         $_SESSION['cod_endereco'] = $cod_endereco;
@@ -31,10 +31,12 @@
         $rua=addslashes(htmlspecialchars($_POST['rua']));
         $numero=addslashes(htmlspecialchars($_POST['numero']));
         $bairro=addslashes(htmlspecialchars($_POST['bairro']));
+        $cidade=addslashes(htmlspecialchars($_POST['cidade']));
+        $referencia=addslashes(htmlspecialchars($_POST['referencia']));
         $complemento=addslashes(htmlspecialchars($_POST['complemento']));
         $cliente= addslashes(htmlspecialchars($_POST['cod_cliente']));
     
-        $endereco->construct($rua,$numero,$cep,$complemento,$bairro,$cliente);
+        $endereco->construct($rua,$numero,$cep,$complemento,$bairro,$cidade,$referencia,$cliente);
         $result=$control->insert($endereco);
         
         if ($result > 0){

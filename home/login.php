@@ -73,7 +73,7 @@ session_start();
 
 					<p>Login</p>
 
-        			<input class="form-control" name="login" type="email" required placeholder="delion@mail.com">
+        			<input class="form-control" name="login" type="email" required placeholder="delion@mail.com" autofocus>
 
     			</div>
 

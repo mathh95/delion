@@ -46,6 +46,27 @@
             }
         }
 
+        function updatePos($cod_categoria, $posicao){
+            try{
+                $stmte =$this->pdo->prepare("UPDATE categoria SET posicao=:posicao WHERE cod_categoria=:cod_categoria");
+
+                $stmte->bindParam(":cod_categoria", $cod_categoria, PDO::PARAM_INT);
+                $stmte->bindParam(":posicao", $posicao, PDO::PARAM_INT);
+                $executa = $stmte->execute();
+                
+                if($executa){
+                    return 1;
+                }
+                else{
+                    return -1;
+                }
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
         /*
 
           modo: 1-Nome, 2-id
@@ -104,6 +125,29 @@
                             $categoria->setCod_categoria($result->cod_categoria);
                             $categoria->setNome($result->nome);
                             $categoria->setIcone($result->icone);
+                            array_push($categorias, $categoria);
+                        }
+                    }
+                }
+                return $categorias;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+        function selectAllByPos(){
+            $categorias = array();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM categoria ORDER BY posicao ASC");
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                            $categoria= new categoria();
+                            $categoria->setCod_categoria($result->cod_categoria);
+                            $categoria->setNome($result->nome);
+                            $categoria->setIcone($result->icone);
+                            $categoria->setPosicao($result->posicao);
                             array_push($categorias, $categoria);
                         }
                     }

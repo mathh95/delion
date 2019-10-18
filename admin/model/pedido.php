@@ -26,6 +26,8 @@
 
             private $origem;
 
+            private $observacao;
+
             private $hora_print;
 
             private $hora_delivery;
@@ -74,6 +76,10 @@
 
             function getOrigem(){
                 return $this->origem;
+            }
+
+            function getObservacao(){
+                return $this->observacao;
             }
 
             function getHora_print(){
@@ -132,6 +138,10 @@
                 $this->origem=$origem;
             }
 
+            function setObservacao($observacao){
+                $this->observacao=$observacao;
+            }
+
             function setHora_print($hora_print){
                 $this->hora_print=$hora_print;
             }
@@ -148,7 +158,7 @@
 
             }
 
-            function construct($cod_pedido,$cliente,$data,$valor,$desconto,$taxa_entrega,$subtotal,$status,$formaPgt,$origem, $tempo_entrega){
+            function construct($cod_pedido,$cliente,$data,$valor,$desconto,$taxa_entrega,$subtotal,$status,$formaPgt,$origem,$observacao,$tempo_entrega){
                 $this->cod_pedido=$cod_pedido;
                 $this->cliente=$cliente;
                 $this->data=$data;
@@ -160,6 +170,7 @@
                 $this->status=$status;
                 $this->formaPgt=$formaPgt;
                 $this->origem=$origem;
+                $this->observacao=$observacao;
             }
 
             function show(){
@@ -174,6 +185,7 @@
                 echo "Status: ".$this->status."<br>";
                 echo "FormaPgt: ".$this->status."<br>";
                 echo "Origem: ".$this->origem."<br>";
+                echo "Observação: ".$this->observacao."<br>";
             }
         }
 ?>

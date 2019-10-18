@@ -55,7 +55,7 @@
 		<div class="form-group form-cep-campos">
 			<div class="locationField">
 				<span class="fas fa-map-marker-alt"></span>
-				<input type="text" class="form-control input-cep" id="autocomplete" placeholder="Digite seu endereço ou CEP" type="text">
+				<input type="text" class="form-control input-cep" id="autocomplete" placeholder="Digite seu endereço ou CEP" type="text" autofocus>
 				</input>
 			</div>
 				<div class="buttonField">

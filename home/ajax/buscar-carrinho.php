@@ -26,12 +26,16 @@ include_once "../../admin/model/entrega.php";
 
 include_once "../../admin/controler/controlEntrega.php";
 
+include_once "../controler/controlEndereco.php";
+
 // require_once '../ajax/enviarEmailPedido.php';
 
 $itens = array();
 $cardapio = new controlerCardapio(conecta());
+$controlEndereco = new controlEndereco(conecta());
 $_SESSION['delivery'] = -1;
 $_SESSION['formaPagamento'] = '';
+$_SESSION['observacao'] = '';
 $controlFormaPgt = new controlerFormaPgt($_SG['link']);
 $formasPgt = $controlFormaPgt->selectAll();
 $_SESSION['delivery_price'] = 0;
@@ -107,6 +111,8 @@ if (count($itens) > 0) {
                                         ?>
                             </strong> </td>
                     </tr>
+                    
+
                     <?php
                         $i++;
                         $totalCarrinho += $item['preco'] * $_SESSION['qtd'][$key];
@@ -116,14 +122,20 @@ if (count($itens) > 0) {
                     ?>
             </tbody>
         </table>
-    </div>
-    <hr>
-
-    <!-- Lado Esquerdo -->
-    <div class="rodapeCarrinho row">
-        <div class='ladoEsquerdo'>
-
-            <?php
+               
+                <div class='form-group shadow-textarea'>
+                <label for='exampleFormControlTextarea6'>Observações</label>
+                <textarea class='form-control z-depth-1' name='observacao' id='observacao' rows='2' placeholder='Ex: X-Salada sem maionese...'></textarea>
+                </div>
+                
+                </div>
+                <hr>
+                
+                <!-- Lado Esquerdo -->
+                <div class="rodapeCarrinho row">
+                    <div class='ladoEsquerdo'>
+                        
+                        <?php
                 if (!isset($_SESSION['valorcupom'])) {
                     $_SESSION['valorcupom'] = 0.00;
                     $_SESSION['totalComDesconto'] = 0.00;
@@ -135,20 +147,35 @@ if (count($itens) > 0) {
                 $_SESSION['totalCorrigido'] = $totalDesc;
                 $_SESSION['totalComDesconto'] = $totalDesc;
 
-
+                /*Endereço inserido na Página Inicial*/
                 if(isset($_SESSION['endereco']['postal_code'])){
-                    $_SESSION['is_delivery'] = 1;
+                    $_SESSION['is_delivery_home'] = 1;
                     //unset($_SESSION['endereco']);
-                }else if(!isset($_SESSION['is_delivery'])){//se setado mantem valor
-                    $_SESSION['is_delivery'] = 0;
+                }else if(!isset($_SESSION['is_delivery_home'])){//se setado mantem valor
+                    $_SESSION['is_delivery_home'] = 0;
                 }
-                //unset($_SESSION['is_delivery']);
-                
+                //unset($_SESSION['is_delivery_home']);//p/ test
+
+
+                /*Endereço Cadastrado Selecionado*/
+                if(isset($_SESSION['cod_endereco']) && !empty($_SESSION['cod_endereco'])){
+                    $_SESSION['delivery']= 1;//delivery p/ endereço cadastrado
+
+                    $codEnd = $_SESSION['cod_endereco'];
+                    $endereco_cadastrado = $controlEndereco->select($codEnd, 1);
+                    $endereco_cadastrado = $endereco_cadastrado[0];
+
+                }else{
+                    $_SESSION['delivery']=-1;
+                    $endereco_cadastrado = 0;
+                }
+
+
                 $_SESSION['entrega_valida'] = 0;
 
-                if (($_SESSION['is_delivery'] == 1)) {
+                if (($_SESSION['is_delivery_home'] == 1)) {
                     //taxa de entrega calculada?
-                    if (($_SESSION['delivery_price'] > 0) && ($_SESSION['is_delivery'])) {
+                    if (($_SESSION['delivery_price'] > 0) && ($_SESSION['is_delivery_home'])) {
                         $_SESSION['totalCorrigido'] += $_SESSION['delivery_price'];
                     }
                     
@@ -164,6 +191,7 @@ if (count($itens) > 0) {
                     
                     //var_dump($_SESSION['endereco']);
                     
+                    $destino_setted = 0;
                     //Endereço inserido na página inicial
                     if(isset($_SESSION['endereco']['postal_code'])){
 
@@ -172,11 +200,31 @@ if (count($itens) > 0) {
                         $numero = $_SESSION['endereco']['street_number'];
                         $bairro = $_SESSION['endereco']['sublocality_level_1'];
                         $complemento = $_SESSION['endereco']['complemento'];
-                        //$uf = $_SESSION['endereco']['administrative_area_level_1'];
                         $cidade = $_SESSION['endereco']['administrative_area_level_2'];
                         $referencia = $_SESSION['endereco']['referencia'];
+                        //$uf = $_SESSION['endereco']['administrative_area_level_1'];
+                        
+                        $destino_setted = 1;
 
+                    //Endereço Cadastrado e Selecionado
+                    }else if($endereco_cadastrado){
+                        
+                        $cep = $endereco_cadastrado->getCep();
+                        $rua = $endereco_cadastrado->getRua();
+                        $numero = $endereco_cadastrado->getNumero();
+                        $bairro = $endereco_cadastrado->getBairro();
+                        $complemento = $endereco_cadastrado->getComplemento();
+                        $cidade = $endereco_cadastrado->getCidade();
+                        $referencia = $endereco_cadastrado->getReferencia();
 
+                        //display em fechar pedido
+                        $_SESSION['numero_entrega'] = $numero;
+                        $_SESSION['rua_entrega'] = $rua;
+
+                        $destino_setted = 1;
+                    }
+
+                    if($destino_setted){
                         /*** Estimativas de Tempo, Distância, Taxa de entrega ***/
                         $controleEmpresa=new controlerEmpresa(conecta());
                         $empresa = $controleEmpresa->select(1,2);
@@ -185,7 +233,7 @@ if (count($itens) > 0) {
                         
                         $origin = utf8_decode($endereco_delion); //-25.54086,-54.581167
                         $dest = $rua . " " . $numero . " " . $bairro . " " . $cidade;
-                        
+
                         $googleServices = new GoogleServices();
 
                         $geoloc_origin = $googleServices->getGeocoding($origin);
@@ -272,7 +320,7 @@ if (count($itens) > 0) {
                 } else {
                     
                     //balcao
-                    $_SESSION['is_delivery'] = 0;
+                    $_SESSION['is_delivery_home'] = 0;
                     
                     //balcão active
                     echo "
@@ -347,7 +395,7 @@ if (count($itens) > 0) {
                 <?php
                 
                 //Info de Entrega
-                if($_SESSION['entrega_valida'] && $_SESSION['is_delivery']){
+                if($_SESSION['entrega_valida'] && $_SESSION['is_delivery_home']){
                     echo "<div id='infoEntrega'>";
                     echo "<br><i class='fas fa-road'></i>&nbsp;Distância da entrega: " . $dist_km . " km <br>";
                     echo "<i class='far fa-clock'></i>&nbsp;Estimativa de preparo/entrega: " . $_SESSION['delivery_time']." mins</div>";
@@ -369,8 +417,8 @@ if (count($itens) > 0) {
                     <p id='desconto'>Desconto: R$ <span id='valor_desconto'> " . number_format($_SESSION['valorcupom'], 2) . "</span></p> 
                     <strong><p id='total'> Total: R$ <span id='valor_total'>" . number_format($_SESSION['totalCorrigido'], 2) . "</span></p></strong>
                     
-                    <div class=' btn-group linhaBotao'>
-                        <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
+                    <div class='linhaBotao'>
+                        <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php' onclick='observacaoSession()'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
                         <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()'><button class='btn btn-danger'>Esvaziar Carrinho <i class='fas fa-trash-alt'></i></button></a>
                     </div>
                     </div>

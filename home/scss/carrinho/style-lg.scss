@@ -175,6 +175,9 @@ body {
         }
         
         >.rodapeCarrinho {
+            border: 1px solid #ccc !important;
+            border-radius: 10px;
+            padding: 10px 20px 10px 10px;
             >.ladoEsquerdo{
                 @include make-lg-column(4);
                 padding-bottom: 20px;
