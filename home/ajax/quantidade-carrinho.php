@@ -33,7 +33,7 @@ if($acao == "+"){
     
     $_SESSION['totalCorrigido'] += $preco;
 
-    // if($_SESSION['is_delivery'] == true){
+    // if($_SESSION['is_delivery_home'] == true){
     //     $_SESSION['totalCorrigido'] += $_SESSION['delivery_price'];
     // }
 

@@ -66,7 +66,7 @@ if (isset($_SESSION['pedidoBalcao'])) {
 if (($_SESSION['delivery'] < 0) || ($_SESSION['pedidoBalcao'] == 0) && ($_SESSION['delivery'] > 0)){
     $checkpedido=1;
 
-    if (($_SESSION['delivery'] > 0) || ($_SESSION['is_delivery'] == 1)) {
+    if (($_SESSION['delivery'] > 0) || ($_SESSION['is_delivery_home'] == 1)) {
         $checkdelivery=1;
     }else{
         $checkdelivery=-1;
@@ -100,7 +100,7 @@ if($checkcarrinho > 0){
                 if($checkdelivery > 0){
                     if($checkcliente > 0){
                         //endereço inserido?
-                        if(($_SESSION['is_delivery']) && ($_SESSION['delivery_price'] > 0)){
+                        if(($_SESSION['is_delivery_home']) && ($_SESSION['delivery_price'] > 0)){
                             
                             //Endereço cadastrado selecionado
                             if(isset($_SESSION['cod_endereco']) && !empty($_SESSION['cod_endereco'])){

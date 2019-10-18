@@ -140,20 +140,18 @@ if (count($itens) > 0) {
 
                 /*Endereço inserido na Página Inicial*/
                 if(isset($_SESSION['endereco']['postal_code'])){
-                    $_SESSION['is_delivery'] = 1;
+                    $_SESSION['is_delivery_home'] = 1;
                     //unset($_SESSION['endereco']);
-                }else if(!isset($_SESSION['is_delivery'])){//se setado mantem valor
-                    $_SESSION['is_delivery'] = 0;
+                }else if(!isset($_SESSION['is_delivery_home'])){//se setado mantem valor
+                    $_SESSION['is_delivery_home'] = 0;
                 }
-                //unset($_SESSION['is_delivery']);//p/ test
+                //unset($_SESSION['is_delivery_home']);//p/ test
 
 
                 /*Endereço Cadastrado Selecionado*/
                 if(isset($_SESSION['cod_endereco']) && !empty($_SESSION['cod_endereco'])){
-                    $_SESSION['delivery']=1;//delivery p/ endereço cadastrado
+                    $_SESSION['delivery']= 1;//delivery p/ endereço cadastrado
 
-                    
-                    
                     $codEnd = $_SESSION['cod_endereco'];
                     $endereco_cadastrado = $controlEndereco->select($codEnd, 1);
                     $endereco_cadastrado = $endereco_cadastrado[0];
@@ -166,9 +164,9 @@ if (count($itens) > 0) {
 
                 $_SESSION['entrega_valida'] = 0;
 
-                if (($_SESSION['is_delivery'] == 1)) {
+                if (($_SESSION['is_delivery_home'] == 1)) {
                     //taxa de entrega calculada?
-                    if (($_SESSION['delivery_price'] > 0) && ($_SESSION['is_delivery'])) {
+                    if (($_SESSION['delivery_price'] > 0) && ($_SESSION['is_delivery_home'])) {
                         $_SESSION['totalCorrigido'] += $_SESSION['delivery_price'];
                     }
                     
@@ -313,7 +311,7 @@ if (count($itens) > 0) {
                 } else {
                     
                     //balcao
-                    $_SESSION['is_delivery'] = 0;
+                    $_SESSION['is_delivery_home'] = 0;
                     
                     //balcão active
                     echo "
@@ -388,7 +386,7 @@ if (count($itens) > 0) {
                 <?php
                 
                 //Info de Entrega
-                if($_SESSION['entrega_valida'] && $_SESSION['is_delivery']){
+                if($_SESSION['entrega_valida'] && $_SESSION['is_delivery_home']){
                     echo "<div id='infoEntrega'>";
                     echo "<br><i class='fas fa-road'></i>&nbsp;Distância da entrega: " . $dist_km . " km <br>";
                     echo "<i class='far fa-clock'></i>&nbsp;Estimativa de preparo/entrega: " . $_SESSION['delivery_time']." mins</div>";

@@ -43,8 +43,8 @@
 
         function insertSemCodCli($endereco){
             try{
-                $stmt=$this->pdo->prepare("INSERT INTO endereco(rua, numero, cep, complemento, bairro, cidade, referencia flag_cliente)
-                VALUES (:rua, :numero, :cep, :complemento, :bairro, :cidade, :referencia 1) ");
+                $stmt=$this->pdo->prepare("INSERT INTO endereco(rua, numero, cep, complemento, bairro, cidade, referencia, flag_cliente)
+                VALUES (:rua, :numero, :cep, :complemento, :bairro, :cidade, :referencia, 1) ");
                 
                 $rua = $endereco->getRua();
                 $numero = $endereco->getNumero();

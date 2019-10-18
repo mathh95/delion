@@ -9,7 +9,7 @@
     $endereco= new endereco();
 
     //insert Endereco home page, sem vínculo com cod_cliente
-    if(($_SESSION['is_delivery']) && ($_SESSION['delivery_price'] > 0) && ($_SESSION['delivery'] != -1)){
+    if(($_SESSION['is_delivery_home']) && ($_SESSION['delivery_price'] > 0)){
         $cep = $_SESSION['endereco']['postal_code'];
         $rua = $_SESSION['endereco']['route'];
         $numero = $_SESSION['endereco']['street_number'];
