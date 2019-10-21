@@ -1,3 +1,15 @@
+<?php
+
+    include_once MODELPATH."/usuario.php";
+
+    protegePagina();
+
+    $controleUsuario = new controlerUsuario($_SG['link']);
+
+    $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
+?>
+
+
 <header>
 
     <div class="col-md-12">
@@ -67,7 +79,12 @@
                                     }
                                 ?>
                             ">
-
+                                
+                            <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('usuario', $permissao)){ ?>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuários <span class="caret"></span></a>
 
                                 <ul class="dropdown-menu">
@@ -89,6 +106,13 @@
                                     }
                                 ?>
                             ">
+                                <?php } ?>
+
+                            <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('empresa', $permissao)){ ?>
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Empresa <span class="caret"></span></a>
 
@@ -109,6 +133,13 @@
                                     }
                                 ?>
                             ">
+                            <?php } ?>
+                                
+                            <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('banner', $permissao)){ ?>
 
                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Banners <span class="caret"></span></a>
 
@@ -131,6 +162,13 @@
                                     }
                                 ?>
                             ">
+                            <?php } ?>
+
+                            <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('avaliacao', $permissao)){ ?>
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Avaliacao <span class="caret"></span></a>
 
@@ -155,6 +193,13 @@
                                     }
                                 ?>
                             ">
+                            <?php } ?>
+                                
+                            <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('imagem', $permissao)){ ?>
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Imagens <span class="caret"></span></a>
 
@@ -177,6 +222,13 @@
                                     }
                                 ?>
                             ">
+                            <?php } ?>
+                                
+                            <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('evento', $permissao)){ ?>
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Evento <span class="caret"></span></a>
 
@@ -199,6 +251,13 @@
                                     }
                                 ?>
                             ">
+                            <?php } ?>
+                                
+                            <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('categoria', $permissao)){ ?>
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categoria <span class="caret"></span></a>
 
@@ -221,6 +280,13 @@
                                     }
                                 ?>
                             ">
+                            <?php } ?>
+                                
+                            <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('cardapio', $permissao)){ ?>
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cardápio <span class="caret"></span></a>
 
@@ -245,6 +311,14 @@
                                     }
                                 ?>
                             ">
+                            <?php } ?>
+                                
+                            <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('adicional', $permissao)){ ?>
+
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicional <span class="caret"></span></a>
 
@@ -267,6 +341,13 @@
                                     }
                                 ?>
                             ">
+                            <?php } ?>
+                                
+                            <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('banner', $permissao)){ ?>
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mini banner <span class="caret"></span></a>
 
@@ -289,6 +370,13 @@
                                     }
                                 ?>
                             ">
+                            <?php } ?>
+                            
+                            <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('cliente', $permissao)){ ?>
 
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
                             
@@ -299,8 +387,15 @@
                                 <li><a href="clienteLista.php">Listar</a></li>
                             
                             </ul>
+                            <?php } ?>
                         
                         </li>
+                        
+                        <?php
+                            
+                        $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                        if(in_array('cliente', $permissao)){ ?>
 
                        <li class="dropdown
 
@@ -313,7 +408,15 @@
                             ">
                             <a href="comboLista.php">Combo</a>
                         </li>     
-                        
+                        <?php } ?>
+
+
+                        <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('avaliacao', $permissao)){ ?>
+
                        <li class="dropdown
 
                                 <?php
@@ -325,6 +428,15 @@
                             ">
                             <a href="/home/avaliacao.php">Avaliar</a>
                         </li>
+                        
+                        <?php } ?>
+                        
+                        <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('avaliacao', $permissao)){ ?>
+                        
                        <li class="dropdown
 
                                 <?php
@@ -336,6 +448,15 @@
                             ">
                             <a href="enderecoLista.php">Endereços</a>
                         </li>
+
+                        <?php } ?>
+                        
+                        <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                            if(in_array('pedidoWpp', $permissao)){ ?>
+
                        <li class="dropdown
 
                                 <?php
@@ -353,6 +474,15 @@
                                 <li><a href="pedidoLista.php">Listar Pedidos</a></li>
                                 <!-- <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li> -->
                             </ul>
+                            <?php } ?>
+                        
+                        
+                       <?php
+                            
+                       $permissao = json_decode($usuarioPermissao->getPermissao());
+                            
+                       if(in_array('cupom', $permissao)){ ?>
+
                        <li class="dropdown
 
                                 <?php
@@ -368,6 +498,14 @@
                                 <li><a href="cupomLista.php">Listar Cupons</a></li>
                             </ul>
                         </li>
+                        <?php } ?>
+                        
+                        <?php
+                            
+                        $permissao = json_decode($usuarioPermissao->getPermissao());
+                                 
+                        if(in_array('forma_pgto', $permissao)){ ?>
+
                        <li class="dropdown
 
                             <?php
@@ -383,7 +521,14 @@
                                 <li><a href="formaPgtLista.php">Listar</a></li>
                             </ul>
                         </li>
+                        <?php } ?>
                         
+                        <?php
+                            
+                        $permissao = json_decode($usuarioPermissao->getPermissao());
+                                 
+                        if(in_array('info_entrega', $permissao)){ ?>
+
                         <li class="dropdown
 
                             <?php
@@ -404,6 +549,7 @@
                             </ul>
 
                         </li>
+                        <?php } ?>
 
 
                         </ul>

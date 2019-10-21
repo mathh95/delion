@@ -80,7 +80,7 @@ if (count($itens) > 0) {
                     <th id="precoUnitario">Preço Unitário</th>
                     <th>Subtotal</th>
                     <th>Quantidade</th>
-                    <th id="delivery">Delivery</th>
+                    <th id="deliveryTabela">Delivery</th>
                 </tr>
             </thead>
             <tbody>
@@ -122,14 +122,17 @@ if (count($itens) > 0) {
                     ?>
             </tbody>
         </table>
-               
+                <div class="legenda-carrinho">
+                <br><p id="texto-legenda" class="danger"><i class="fas fa-exclamation-circle"></i> Delivery não disponível para itens em <b>Vermelho!</b></p>
+                </div>
+
+
                 <div class='form-group shadow-textarea'>
                 <label for='exampleFormControlTextarea6'>Observações</label>
                 <textarea class='form-control z-depth-1' name='observacao' id='observacao' rows='2' placeholder='Ex: X-Salada sem maionese...'></textarea>
                 </div>
                 
                 </div>
-                <hr>
                 
                 <!-- Lado Esquerdo -->
                 <div class="rodapeCarrinho row">
