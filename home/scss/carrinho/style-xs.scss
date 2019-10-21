@@ -154,7 +154,7 @@ body{
                     #precoUnitario{
                         display: none;
                     }
-                    #delivery{
+                    #deliveryTabela{
                         display: none;
                     }
                 }
@@ -200,6 +200,13 @@ body{
                 }
             }
         }
+        .legenda-carrinho{
+            padding: 20px;
+        }
+        .shadow-textarea{
+            padding-left: 30px;
+            padding-right: 30px;
+        }
         > .rodapeCarrinho{
             border: 1px solid #ccc !important;
             border-radius: 10px;
@@ -221,8 +228,8 @@ body{
                         color: #ffffff;
                     }
                     div.form-inline{
-                        padding-left: 20px !important;
-                        padding-right: 20px !important;
+                        padding-left: 40px !important;
+                        padding-right: 40px !important;
                         a.botaoAdicionarCupom{
                             padding-top: 10px;
                         }
@@ -230,8 +237,8 @@ body{
                     
                 }
                 div.forma-pgt{
-                    padding-left: 20px !important;
-                    padding-right: 20px !important;
+                    padding-left: 40px !important;
+                    padding-right: 40px !important;
                 }
                 >.btn-group{
                     @include make-xs-column-offset(3);
@@ -300,7 +307,8 @@ body{
                         }
                     }
                     > .botaoCarrinhoEsvaziar{
-                        padding-right: 10px;
+                        padding-right: 20px;
+                        padding-left: 10px;
                         position: relative;
                         button{
                             // @include make-xs-column(12);
