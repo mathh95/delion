@@ -67,7 +67,7 @@ session_start();
 
 			<form action="controler/validarAcesso.php" method="POST">
 			
-				<p>Acesso à área do cliente</p>
+				<p>Acesso</p>
 
     			<div>
 
@@ -96,11 +96,11 @@ session_start();
 
 			</form>
 
-			<div class="container tipos_login row">
+			<div class="container-fluid tipos_login row">
 
-				<div class="g-signin2 login_google" data-onsuccess="onSignIn"></div>
+				<div class="g-signin2 login_google" data-onsuccess="onSignIn" data-width="190"></div>
 
-				<div class="fb-login-button login_facebook" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" data-onlogin="loginFb()"></div>
+				<div class="fb-login-button login_facebook" style="margin-right: -30px;" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" data-onlogin="loginFb()"></div>
 
 			</div>
 
@@ -108,14 +108,7 @@ session_start();
 			
 		</div>		
 
-		<div class="imagem-login">
-
-			<?php
-
-				echo "<div><img src='../admin/".$imagens[9]->getFoto()."'></div>";
-
-			?>
-		</div>
+	
 
 	</div>
 

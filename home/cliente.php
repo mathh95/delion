@@ -84,93 +84,18 @@ session_start();
 				<a href="listarCombos.php"><button class="botao-esquerda" type="submit">LISTAR COMBOS</button></a>
 			</div>
 
-			<div>
-				<a href="endereco.php"><button class="botao-esquerda" type="submit">LISTAR ENDEREÇOS CADASTRADOS</button></a>
+			<div >
+				<a href="endereco.php"><button class="botao-esquerda"  type="submit">LISTAR ENDEREÇOS CADASTRADOS</button></a>
 			</div>
 
 		</div>
 
-		<div class="imagem">
-
-			<?php
-
-			$i = 0; 
-
-			foreach ($imagens as $imagem) {
-
-				$pagina = json_decode($imagem->getPagina());
-
-				if (in_array('contato', $pagina) && ($i < 2)) {
-
-					echo "<div><img src='../admin/".$imagem->getFoto()."'></div>";
-
-					$i++;
-
-				}
-
-			}
-
-			?>
-
-		</div>
+		
 	</div>
 
-	<div class="container imagens">
+	
 
-	<?php
-
-	$j = 0;
-
-	foreach ($miniBanners as $miniBanner) {
-
-		$pagina = json_decode($miniBanner->getPagina());
-
-		if (in_array('contato', $pagina) && ($j < 3) ) {
-
-		echo"
-
-		<div>
-
-			<div class='imagem'>
-
-				<img src='../admin/".$miniBanner->getFoto()."'>
-
-			</div>
-
-		</div>
-
-		";
-
-		$j++;
-
-		}
-	}
-
-	?>
-
-	</div>
-
-	<div class="container banner hidden-xs visible-sm-* visible-md-* visible-lg-* visible-xl-*">
-
-	<?php 
-
-		foreach ($banners as $banner) {
-
-			$pagina = json_decode($miniBanner->getPagina());
-
-			if (in_array('contato', $pagina)) {
-
-				echo "<img src='../admin/".$banner->getFoto()."'>";
-
-				break;
-
-			}
-
-		}
-
-	?>
-
-	</div>
+	
 
 	<?php
 		include_once "./footer.php";

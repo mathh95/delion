@@ -17,13 +17,13 @@ body{
 
     #cabecalhoTabela{
         color:white;
-        background-color:black; 
+        background-color:$vermelho_fraco; 
         border-style:solid; 
         border-bottom-width:5px;
         border-top-width:0;
         border-left-width:0;
         border-right-width:0;
-        border-bottom-color: rgb(190, 57, 42);
+        border-bottom-color: $vermelho_forte;
         font-family: "Century Gothic Bold";
         font-size: 14px;
     }

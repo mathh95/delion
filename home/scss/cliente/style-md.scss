@@ -54,11 +54,16 @@ body{
       color: #000000;
     }
     > .cliente {
+        display: flex;
         padding-top: 25px;
         padding-bottom: 5px;
+        justify-content: center;
         > .solicitacao {
             @include make-md-column(6);
-            height: 392px;
+            height: auto;
+            border: 1px solid #ccc !important;
+            border-radius: 10px;
+            padding-bottom: 10px;
             > form {
                 > p{
                     font-family: $font_main_bold;
@@ -120,15 +125,28 @@ body{
                         float: right;
                     }
                 }
-            } 
+            }
+            > .tipos_login{
+                //@include make-lg-column(12); 
+                width:100%;
+                padding-top: 15px;
+                > .login_google{
+                    float: left;
+                }
+                > .login_facebook{
+                    float: right;
+                }
+            }
         }
         > .area{
             @include make-md-column(6);
             height: 350px;
+            border: 1px solid #ccc !important;
+            border-radius: 10px;
             > div{
                 padding-left: 0px;
                 padding-right: 0px;
-                height: 60px;
+                height: 50px;
                 margin-top: 15px;
                 margin-bottom: 15px;
                 >a{
@@ -164,6 +182,161 @@ body{
         }
         > .imagem-login {
             @include make-md-column(6);
+            > div {
+                > img {
+                    @include img-responsive();
+                }
+            }
+            > div:nth-child(1) {
+                padding-bottom: 37px;
+            }
+        }
+    }
+    > .cliente-recuperar {
+        width: 100%;
+        display: flex;
+        padding-top: 25px;
+        padding-bottom: 5px;
+        justify-content: center;
+        > .solicitacao {
+            @include make-md-column(6);
+            padding-right: 10px;
+            padding-left: 10px;
+            height: auto;
+            border: 1px solid #ccc !important;
+            border-radius: 10px;
+            padding-bottom: 10px;
+            > form {
+                > p{
+                    font-family: $font_main_bold;
+                    font-size: 24px;
+                }
+                > div {
+                    @include make-sm-column(12);
+                    padding-left: 0px;
+                    padding-right: 0px;
+                    height: 60px;
+                    margin-top: 9px;
+                    margin-bottom: 9px;
+                    > p{
+                        font-family: $font_main_bold;
+                        font-size: 14px;
+                    }
+                    > input {
+                        height: 36px;
+                        width: 100%;
+                        border: 2px solid $vermelho_forte;
+                        text-indent: 10px;
+                        outline: none;
+                    }
+                }
+                > div:nth-child(1){
+                    margin-top: 0px;
+                }
+                > textarea {
+                    width: 100%;
+                    height: 210px;
+                    border: 2px solid $vermelho_forte;
+                    text-indent: 10px;
+                    outline: none;
+                    margin-top: 10px;
+                    margin-bottom: 9px;
+                    resize: none;
+                }
+                >.botoes-recuperar{
+                    padding-top: 20px;
+                    > button {
+                        width: 48%;
+                        height: 34px;
+                        border: none;
+                        background-color: $vermelho_fraco;
+                        color: #FFFFFF;
+                        font-family: $font_main_bold;
+                        font-size: 15px;
+                        text-align: center;
+                        // float: right;
+                    }
+                }
+                >a{
+                    > .botao-cadastro{
+                        width: 48%;
+                        height: 34px;
+                        border: none;
+                        background-color: $vermelho_fraco;
+                        color: #FFFFFF;
+                        font-family: $font_main_bold;
+                        font-size: 15px;
+                        text-align: center;
+                        float: right;
+                    }
+                }
+            } 
+            > .tipos_login{
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                > .login_google{
+                    margin: 10px;
+                    width: 100%;
+                }
+                > .login_facebook{
+                    width: 48%;
+                    margin: 10px;
+                    padding-right: 40px;
+                    
+                }
+            }
+        }
+        > .area{
+            @include make-sm-column(12);
+            height: 480px;
+            > div{
+                padding-left: 0px;
+                padding-right: 0px;
+                height: 60px;
+                margin-top: 15px;
+                margin-bottom: 15px;
+                > a {
+                    > button {
+                        width: 48%;
+                        height: 34px;
+                        border: none;
+                        background-color: $vermelho_fraco;
+                        color: #FFFFFF;
+                        font-family: $font_main_bold;
+                        font-size: 15px;
+                        text-align: center;
+                    }
+                }
+            }
+            > p{
+                text-align:center;
+                font-family: $font_main_bold;
+                font-size: 24px;
+            }
+        }
+        > .imagem {
+            display: none;
+            @include make-sm-column(12);
+            padding-right: 0px;
+            padding-left: 0px;
+            > div {
+                > img {
+                    @include img-responsive();
+                    margin-left: auto;
+                }
+            }
+            > div:nth-child(1) {
+                padding-bottom: 30px;
+            }
+        }
+        > .imagem-login {
+            display: none;
+            @include make-sm-column(12);
             > div {
                 > img {
                     @include img-responsive();

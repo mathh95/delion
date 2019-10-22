@@ -61,7 +61,7 @@
 		include_once "./navbar.php";
 	?>
 	
-	<div class="container-fluid cliente row">
+	<div class="container-fluid cliente-recuperar row">
 
 		<div class="solicitacao">
 
@@ -77,24 +77,17 @@
 
     			</div>
 
+				<div class="botoes-recuperar">
+					<button type="submit">Recuperar Senha</button>
 
-				<button type="submit">Recuperar Senha</button>
-
-				<button style="float: right;" onclick="window.history.go(-1)" >Voltar</button>					
-
+					<button style="float: right;" onclick="window.history.go(-1)" >Voltar</button>					
+				</div>
 			</form>
 			
 			
 		</div>		
 
-		<div class="imagem-login">
-
-			<?php
-
-				echo "<div><img src='../admin/".$imagens[9]->getFoto()."'></div>";
-
-			?>
-		</div>
+		
 
 	</div>
 

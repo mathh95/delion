@@ -25,13 +25,13 @@ body{
                 font-size: 22px;
                 padding-left: 0px;
                 padding-right: 0px;
-                height: 60px;
+                height: auto;
                 margin-top: 15px;
                 margin-bottom: 10px;
             }
             > .item{
                 padding-right:0px;
-                height: 120px;
+                height: auto;
                 margin: 15px;
                 border-width: 3px;
                 border-color: $vermelho_fraco;
@@ -65,9 +65,10 @@ body{
                 }
                 padding-left: 0px;
                 padding-right: 0px;
-                height: 60px;
-                margin-top: 15px;
-                margin-bottom: 10px;
+                height: auto;
+                padding-top: 15px;
+                // margin-top: 15px;
+                padding-bottom: 10px;
                 >a{
                     > button{
                     width: 100%;
@@ -82,7 +83,7 @@ body{
                 }
                 > button {
                     width: 100%;
-                    height: 34px;
+                    height: auto;
                     border: none;
                     background-color: $vermelho_fraco;
                     color: #FFFFFF;
