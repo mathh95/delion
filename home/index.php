@@ -1,5 +1,31 @@
-<?php
+<?php 
 	session_start();
+
+	include_once "../admin/controler/conexao.php";
+
+	include_once "controler/controlEmpresa.php";
+
+	include_once "controler/controlBanner.php";
+
+	include_once "controler/controlImagem.php";
+
+	$controleEmpresa=new controlerEmpresa(conecta());
+
+	$empresa = $controleEmpresa->select(1,2);
+
+	$controleBanner=new controlerBanner(conecta());
+
+	$miniBanners = $controleBanner->selectAllMini();
+
+	$banners = $controleBanner->selectAll();
+
+	$controleImagem=new controlerImagem(conecta());
+
+	$imagens = $controleImagem->selectAll();
+
+	//configuração de acesso ao WhatsApp 
+	include "./whats-config.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -35,8 +61,28 @@
 
 <div class="container no-padding">
 	<div class="imagens-topo">
-			<img class="img-responsive imagem-topo" src="/home/img/topo.png" alt="imagem topo principal">
-			<img class="img-responsive imagem-logo" src="/home/img/Logo.png" alt="logo delion cafe">
+
+				<?php
+				foreach ($imagens as $imagem){
+					$pagina = json_decode($imagem->getPagina());
+
+					if (in_array('homeTopo', $pagina)) {
+						echo "<img class='img-responsive imagem-topo' src='/admin/".$imagem->getFoto()."' alt='imagem topo principal'>";
+					}
+				}
+				?>
+			<!-- <img class="img-responsive imagem-topo" src="/home/img/topo.png" alt="imagem topo principal"> -->
+
+			<?php
+			foreach ($imagens as $imagem){
+				$pagina = json_decode($imagem->getPagina());
+
+				if (in_array('homeLogo', $pagina)) {
+					echo "<img class='img-responsive imagem-logo' src='/admin/".$imagem->getFoto()."' alt='logo delion cafe'>";
+				}
+			}
+			?>
+			<!-- <img class="img-responsive imagem-logo" src="/home/img/Logo.png" alt="logo delion cafe"> -->
 	</div>
 </div>
 	
@@ -68,22 +114,70 @@
 				
 			
 	<div class="grid-images row container-fluid">
+
+		<?php
+
+			$i = 0;
+
+			foreach ($imagens as $imagem){
+				$pagina = json_decode($imagem->getPagina());
+
+				if (in_array('homeQuemSomos', $pagina) && ($i < 2)) {
+					echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-14  thumb-home'>
+					<a class='thumbnail' href='sobre.php'>
+						<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='quem somos'>
+					</a>
+				</div>";
+				
+				$i++;
+
+				}
+			}
+
+		?>	
 		
-			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-14  thumb-home">
-				<a class="thumbnail" href="sobre.php">
-					<img class="img-responsive" src="/home/img/Quem somos.png" alt="quem somos">
-				</a>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-14 thumb-home">
-				<a class="thumbnail" href="eventos.php">
-					<img class="img-responsive" src="/home/img/Eventos.png" alt="Eventos">
-				</a>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-14 thumb-home">
-				<a class="thumbnail" href="#">
-					<img class="img-responsive" src="/home/img/Aplicativo.png" alt="Whatsapp">
-				</a>
-			</div>
+			<?php
+
+				$i = 0;
+
+				foreach ($imagens as $imagem){
+					$pagina = json_decode($imagem->getPagina());
+
+					if (in_array('homeEventos', $pagina) && ($i < 2)) {
+						echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-14  thumb-home'>
+						<a class='thumbnail' href='sobre.php'>
+							<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='eventos'>
+						</a>
+					</div>";
+					
+					$i++;
+
+					}
+				}
+
+			?>	
+
+			<?php
+
+				$i = 0;
+
+				foreach ($imagens as $imagem){
+					$pagina = json_decode($imagem->getPagina());
+
+					if (in_array('homeFidelidade', $pagina) && ($i < 2)) {
+						echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-14  thumb-home'>
+						<a class='thumbnail' href='sobre.php'>
+							<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='eventos'>
+						</a>
+					</div>";
+					
+					$i++;
+
+					}
+				}
+
+			?>
+
 	</div>
 
 	

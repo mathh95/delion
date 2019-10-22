@@ -17,7 +17,7 @@
 		$cod_imagem= addslashes(htmlspecialchars($_POST['cod']));
 		$nome= addslashes(htmlspecialchars($_POST['nome']));
 		$pagina = array();
-		for ($i=1; $i <= 9; $i++) { 
+		for ($i=1; $i <= 14; $i++) { 
 			if (!empty($_POST[$i."pagina"])) {
 				array_push($pagina, addslashes(htmlspecialchars($_POST[$i."pagina"])));
 			}

@@ -210,6 +210,56 @@
 
                                     </li>
 
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="homeQuemSomos" name="10pagina" value="homeQuemSomos">Quem Somos
+
+                                        </label>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="homeEventos" name="11pagina" value="homeEventos">Eventos
+
+                                        </label>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="homeFidelidade" name="12pagina" value="homeFidelidade">Fidelidade
+
+                                        </label>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="homeTopo" name="13pagina" value="homeTopo">Topo Home
+
+                                        </label>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="homeLogo" name="14pagina" value="homeLogo">Logo Home
+
+                                        </label>
+
+                                    </li>
+
                                 </ul>
 
                             </div>

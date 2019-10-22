@@ -55,6 +55,16 @@
                     $tela .= "Cardápio</br>";
                 }elseif ($pagina == "historia") {
                     $tela .= "História</br>";
+                }elseif ($pagina == "homeQuemSomos") {
+                    $tela .= "Quem Somos</br>";
+                }elseif ($pagina == "homeEventos") {
+                    $tela .= "Eventos</br>";
+                }elseif ($pagina == "homeFidelidade") {
+                $tela .= "Fidelidade</br>";
+                }elseif ($pagina == "homeTopo") {
+                $tela .= "Topo</br>";
+                }elseif ($pagina == "homeLogo") {
+                $tela .= "Logo</br>";
                 }else {
                     $tela .= ucfirst($pagina)."</br>";
                 }
