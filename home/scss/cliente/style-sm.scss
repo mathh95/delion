@@ -61,7 +61,6 @@ body{
         height: auto;
         > .solicitacao {
             @include make-sm-column(8);
-            border: 1px solid #ccc !important;
             border-radius: 10px;
             height: auto;
             padding: 10px;
@@ -69,8 +68,9 @@ body{
                 > p{
                     font-family: $font_main_bold;
                     font-size: 24px;
+                    text-align: center;
                 }
-                > div {
+                div {
                     @include make-sm-column(12);
                     padding-left: 0px;
                     padding-right: 0px;
@@ -81,7 +81,7 @@ body{
                         font-family: $font_main_bold;
                         font-size: 14px;
                     }
-                    > input {
+                    input {
                         height: 36px;
                         width: 100%;
                         border: 2px solid $vermelho_forte;
@@ -102,8 +102,8 @@ body{
                     margin-bottom: 9px;
                     resize: none;
                 }
-                > button {
-                    width: 171px;
+                button {
+                    width: 100%;
                     height: 34px;
                     border: none;
                     background-color: $vermelho_fraco;
@@ -115,7 +115,8 @@ body{
                 }
                 >a{
                     > .botao-cadastro{
-                        width: 171px;;
+                        width: 100%;
+                        margin-top:10px;
                         height: 34px;
                         border: none;
                         background-color: $vermelho_fraco;
@@ -205,13 +206,13 @@ body{
             padding-right: 10px;
             padding-left: 10px;
             height: auto;
-            border: 1px solid #ccc !important;
             border-radius: 10px;
             padding-bottom: 10px;
             > form {
                 > p{
                     font-family: $font_main_bold;
                     font-size: 24px;
+                    text-align: center;
                 }
                 > div {
                     @include make-sm-column(12);
@@ -261,7 +262,8 @@ body{
                 }
                 >a{
                     > .botao-cadastro{
-                        width: 48%;
+                        width: 100%;
+                        margin-top:10px;
                         height: 34px;
                         border: none;
                         background-color: $vermelho_fraco;

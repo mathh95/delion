@@ -62,23 +62,58 @@
 			<form method="POST" id="cadastro-form" onsubmit="return false;" >
 				
 				<p>Cadastro de cliente</p>
+				
+				<div class="form-row">
+					<div class="col-md-6 col-sm-12 col-xs-12">
+						
+						<p>Nome:</p>
 
-    			<div>
+						<input class="form-control" name="nome" type="text" minlength="4" maxlength="30" required placeholder="Delion" autofocus>
+
+					</div>
 					
-					<p>Nome:</p>
+					<div class="col-md-6 col-sm-12 col-xs-12">
+						
+						<p>Sobrenome:</p>
 
-        			<input class="form-control" name="nome" type="text" minlength="4" maxlength="30" required placeholder="Delion de Oliveira">
+						<input class="form-control" name="nome" type="text" minlength="4" maxlength="30" required placeholder="Oliveira">
 
-    			</div>
-    			<div>
+					</div>
+				</div>
+
+    			<div class="col-md-12 col-sm-12 col-xs-12">
+
+					<p>CPF:</p>
+
+        			<input class="form-control cpf" name="cpf" type="text" minlength="11" maxlength="14" required placeholder="999.999.999-99">
+
+				</div>
+
+    			<div class="col-md-12 col-sm-12 col-xs-12">
+
+					<p>Data Nascimento:</p>
+
+        			<input class="form-control data_nasc" name="login" type="email" minlength="8" maxlength="10" required placeholder="31/03/1931">
+
+				</div>
+				
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					
+					<p>Celular:</p>
+
+					<input class="form-control" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999">
+
+				</div>
+
+				<div class="col-md-12 col-sm-12 col-xs-12">
 
 					<p>Login:</p>
 
         			<input class="form-control" name="login" type="email" minlength="4" maxlength="40" required placeholder="delion@mail.com">
 
-    			</div>
+				</div>
 
-				<div>
+				<div class="col-md-6 col-sm-12 col-xs-12">
 
 					<p>Senha:</p>
 
@@ -86,24 +121,20 @@
 
 				</div>
 
-				<div>
+				<div class="col-md-6 col-sm-12 col-xs-12">
 
 					<p>Confirmar Senha:</p>
 
 					<input class="form-control" name="senha2" type="password" minlength="4" maxlength="40" required placeholder="******">
 
 				</div>
-
-				<div>
-
-					<p>Telefone:</p>
-
-					<input class="form-control" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999">
-
-				</div>
 				
-    			<button type="submit" id="cadastrar">CADASTRAR</button>
-								
+				<div class="col-md-12 col-sm-12 col-xs-12">
+
+					<button type="submit" id="cadastrar">CADASTRAR</button>
+					
+				</div>
+
 			</form>
 
 		</div>
@@ -160,6 +191,10 @@
 					}
 				});
 			}
+		});
+
+		$(document).ready(function(){
+			$(".cpf").mask("999.999.999-99");
 		});
 
     	$('.timepicker-inicio').wickedpicker({
