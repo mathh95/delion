@@ -164,6 +164,56 @@
 
                                     </li>
 
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="homeQuemSomos" name="9pagina" value="homeQuemSomos">Quem Somos
+
+                                        </label>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="homeEventos" name="10pagina" value="homeEventos">Eventos
+
+                                        </label>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="homeFidelidade" name="11pagina" value="homeFidelidade">Fidelidade
+
+                                        </label>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="homeTopo" name="12pagina" value="homeTopo">Topo Home
+
+                                        </label>
+
+                                    </li>
+
+                                        <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="homeLogo" name="13pagina" value="homeLogo">Topo Logo
+
+                                        </label>
+
+                                    </li>
+
                                 </ul>
 
                             </div>
