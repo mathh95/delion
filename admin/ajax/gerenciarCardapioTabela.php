@@ -66,7 +66,7 @@ isset($_POST['producao'])){		//Flag_servido
 				echo "<tr name='resutaldo' id='status".$item->getCod_cardapio()."'>
 					<td style='text-align: left;' name='nome'>"
 						.$item->getNome().
-						"&nbsp;<span style='cursor: pointer;' class='glyphicon glyphicon-camera glyphicon' aria-hidden='true' data-toggle='modal' data-target='#itemModal".$item->getCod_cardapio()."'></span>	
+						"&nbsp;<span style='cursor: pointer; font-size: 20px; top: 4px;' class='glyphicon glyphicon-camera glyphicon' aria-hidden='true' data-toggle='modal' data-target='#itemModal".$item->getCod_cardapio()."'></span>	
 
 					</td>
 					<td style='text-align: center;' name='preco'>R$ ".$item->getPreco()."</td>
