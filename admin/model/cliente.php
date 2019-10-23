@@ -8,6 +8,12 @@
 
             private $nome;
 
+            private $sobrenome;
+
+            private $cpf;
+
+            private $data_nasc;
+
             private $login;
 
             private $senha;
@@ -26,6 +32,18 @@
 
             function getNome(){
                 return $this->nome;
+            }
+
+            function getSobrenome(){
+                return $this->sobrenome;
+            }
+
+            function getCpf(){
+                return $this->cpf;
+            }
+
+            function getData_nasc(){
+                return $this->data_nasc;
             }
 
             function getLogin(){
@@ -54,6 +72,18 @@
 
             function setNome($nome){
                 $this->nome = $nome;
+            }
+
+            function setSobrenome($sobrenome){
+                $this->sobrenome = $sobrenome;
+            }
+
+            function setCpf($cpf){
+                $this->cpf = $cpf;
+            }
+
+            function setData_nasc($data_nasc){
+                $this->data_nasc = $data_nasc;
             }
 
             function setLogin($login){
@@ -85,8 +115,11 @@
             }
 
 
-            function construct($nome,$login,$senha,$telefone,$status){
+            function construct($nome,$sobrenome,$cpf,$data_nasc,$login,$senha,$telefone,$status){
                 $this->nome=$nome;
+                $this->sobrenome=$sobrenome;
+                $this->cpf=$cpf;
+                $this->data_nasc=$data_nasc;
                 $this->login=$login;
                 $this->senha=$senha;
                 $this->telefone=$telefone;
@@ -100,6 +133,9 @@
             function show(){
                 echo "Código do Cliente: ".$this->cod_cliente."<br>";
                 echo "Nome: ".$this->nome."<br>";
+                echo "Sobrenome: ".$this->sobrenome."<br>";
+                echo "Cpf: ".$this->cpf."<br>";
+                echo "Data Nasc: ".$this->data_nasc."<br>";
                 echo "Login: ".$this->login."<br>";
                 echo "Senha: ".$this->senha."<br>";
                 echo "Telefone: ".$this->telefone."<br>";

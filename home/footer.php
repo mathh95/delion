@@ -113,6 +113,7 @@
 <meta name = "google-signin-client_id" content="623570251512-cprdd8eepskvicq7h7lq999e8scsd9ui.apps.googleusercontent.com">
 <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
 
+<script type="text/javascript" src="js/maskedinput.js"></script>
 
 <script type="text/javascript" src="js/jquery-ui.min.js"></script>
 

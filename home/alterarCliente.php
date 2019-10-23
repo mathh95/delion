@@ -73,30 +73,45 @@
 				<p>Alterar dados da sua conta</p>
 
                     <input name="cod_cliente" type="hidden" value="<?php echo $_SESSION['cod_cliente'];?>">
-    			<div>
-
-					<p>Nome:</p>
-
-        			<input name="nome" type="text" minlength="4" maxlength="30" required placeholder="Nome" value="<?php echo $_SESSION['nome'];?>">
-
-    			</div>
-    			<div>
-
-					<p>Login:</p>
-
-        			<input name="login" type="text" minlength="4" maxlength="40" required placeholder="Login" value="<?php echo $_SESSION['login'];?>">
-
-    			</div>
+				
 				<div>
+					<div class="col-md-6 col-sm-12 col-xs-12">
+						
+						<p>Nome:</p>
 
-					<p>Telefone:</p>
+						<input class="form-control" name="nome" type="text" minlength="3" maxlength="30" required value="<?php echo $_SESSION['nome'];?>"autofocus>
+
+					</div>
+					
+					<div class="col-md-6 col-sm-12 col-xs-12">
+						
+						<p>Sobrenome:</p>
+
+						<input class="form-control" name="sobrenome" type="text" minlength="3" maxlength="30" required value="<?php echo $_SESSION['sobrenome'];?>">
+
+					</div>
+				</div>
+				
+    			<div class="col-md-12 col-sm-12 col-xs-12">
+
+					<p>Login (e-mail):</p>
+
+        			<input name="login" class="form-control" type="text" minlength="4" maxlength="40" required placeholder="Login" value="<?php echo $_SESSION['login'];?>">
+
+				</div>
+				
+				<div class="col-md-12 col-sm-12 col-xs-12">
+
+					<p>Celular:</p>
 
 					<input name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999" value="<?php echo $_SESSION['telefone'];?>">
 
 				</div>
+				<div class="col-md-12 col-sm-12 col-xs-12">
 
-    			<button type="submit">ALTERAR</button>
-								
+    				<button class="btn-alterar-cadastro" type="submit">ALTERAR</button>
+				</div>
+
 			</form>
 
 		</div>

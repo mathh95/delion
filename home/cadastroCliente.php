@@ -62,23 +62,66 @@
 			<form method="POST" id="cadastro-form" onsubmit="return false;" >
 				
 				<p>Cadastro de cliente</p>
+				
+				<div class="form-row">
+					<div class="col-md-6 col-sm-12 col-xs-12">
+						
+						<p>Nome:</p>
 
-    			<div>
+						<input class="form-control" name="nome" type="text" minlength="3" maxlength="30" required placeholder="Delion" autofocus>
+
+					</div>
 					
-					<p>Nome:</p>
+					<div class="col-md-6 col-sm-12 col-xs-12">
+						
+						<p>Sobrenome:</p>
 
-        			<input class="form-control" name="nome" type="text" minlength="4" maxlength="30" required placeholder="Delion de Oliveira">
+						<input class="form-control" name="sobrenome" type="text" minlength="3" maxlength="30" required placeholder="Oliveira">
 
-    			</div>
-    			<div>
+					</div>
+				</div>
 
-					<p>Login:</p>
+    			<div class="col-md-12 col-sm-12 col-xs-12">
+
+					<p>CPF:</p>
+
+        			<input class="form-control cpf" name="cpf" type="text" minlength="11" maxlength="14" required placeholder="999.999.999-99">
+
+				</div>
+
+    			<div class="col-md-12 col-sm-12 col-xs-12">
+
+					<p>Data Nascimento:</p>
+
+					<?php
+						$current = date("Y-m-d");
+						$min = date('Y-m-d', strtotime($current.'-90 year'));
+						$max = date('Y-m-d', strtotime($current.'-12 year'));
+
+						echo '
+						<input class="form-control data_nasc" name="data_nasc" type="date" minlength="8" maxlength="10" min="'.$min.'" max="'.$max.'" required>
+						';
+					?>
+
+				</div>
+				
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					
+					<p>Celular:</p>
+
+					<input class="form-control" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999">
+
+				</div>
+
+				<div class="col-md-12 col-sm-12 col-xs-12">
+
+					<p>Login (e-mail):</p>
 
         			<input class="form-control" name="login" type="email" minlength="4" maxlength="40" required placeholder="delion@mail.com">
 
-    			</div>
+				</div>
 
-				<div>
+				<div class="col-md-6 col-sm-12 col-xs-12">
 
 					<p>Senha:</p>
 
@@ -86,24 +129,20 @@
 
 				</div>
 
-				<div>
+				<div class="col-md-6 col-sm-12 col-xs-12">
 
 					<p>Confirmar Senha:</p>
 
 					<input class="form-control" name="senha2" type="password" minlength="4" maxlength="40" required placeholder="******">
 
 				</div>
-
-				<div>
-
-					<p>Telefone:</p>
-
-					<input class="form-control" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999">
-
-				</div>
 				
-    			<button type="submit" id="cadastrar">CADASTRAR</button>
-								
+				<div class="col-md-12 col-sm-12 col-xs-12">
+
+					<button type="submit" id="cadastrar">CADASTRAR</button>
+					
+				</div>
+
 			</form>
 
 		</div>
@@ -141,6 +180,12 @@
 				return;
 			}else if(data[4].value == ""){
 				return;
+			}else if(data[5].value == ""){
+				return;
+			}else if(data[6].value == ""){
+				return;
+			}else if(data[7].value == ""){
+				return;
 			}else{
 				$.post({
 					url: 'controler/businesCliente.php',
@@ -160,6 +205,10 @@
 					}
 				});
 			}
+		});
+
+		$(document).ready(function(){
+			$(".cpf").mask("999.999.999-99");
 		});
 
     	$('.timepicker-inicio').wickedpicker({

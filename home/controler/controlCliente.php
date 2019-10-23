@@ -8,13 +8,19 @@
             function insert($cliente){
                 try{
                     $nome=$cliente->getNome();
+                    $sobrenome=$cliente->getSobrenome();
+                    $cpf=$cliente->getCpf();
+                    $data_nasc=$cliente->getData_nasc();
                     $login=$cliente->getLogin();
                     $senha=hash_hmac("md5",$cliente->getSenha(), "senha");
                     $telefone=$cliente->getTelefone();
                     $status=$cliente->getStatus();
-                    $stmt=$this->pdo->prepare("INSERT INTO cliente(nome, login, senha, telefone, status)
-                    VALUES (:nome, :login, :senha, :telefone, :status) ");
+                    $stmt=$this->pdo->prepare("INSERT INTO cliente(nome, sobrenome, cpf, data_nasc, login, senha, telefone, status)
+                    VALUES (:nome, :sobrenome, :cpf, :data_nasc, :login, :senha, :telefone, :status) ");
                     $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
+                    $stmt->bindParam(":sobrenome", $sobrenome, PDO::PARAM_STR);
+                    $stmt->bindParam(":cpf", $cpf, PDO::PARAM_STR);
+                    $stmt->bindParam(":data_nasc", $data_nasc, PDO::PARAM_STR);
                     $stmt->bindParam(":login", $login, PDO::PARAM_STR);
                     $stmt->bindParam(":senha", $senha, PDO::PARAM_STR);
                     $stmt->bindParam(":telefone", $telefone, PDO::PARAM_STR);
@@ -96,11 +102,15 @@
                 try{
                     $cod_cliente=$cliente->getCod_cliente();
                     $nome=$cliente->getNome();
+                    $sobrenome=$cliente->getSobrenome();
+                    // $cpf=$cliente->getCpf();
+                    // $data_nasc=$cliente->getData_nasc();
                     $login=$cliente->getLogin();
                     $telefone=$cliente->getTelefone();
                     $stmt=$this->pdo->prepare("UPDATE cliente
-                    SET nome=:nome, login=:login, telefone=:telefone WHERE cod_cliente=:cod_cliente ");
+                    SET nome=:nome, sobrenome=:sobrenome, login=:login, telefone=:telefone WHERE cod_cliente=:cod_cliente ");
                     $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
+                    $stmt->bindParam(":sobrenome", $sobrenome, PDO::PARAM_STR);
                     $stmt->bindParam(":login", $login, PDO::PARAM_STR);
                     $stmt->bindParam(":telefone", $telefone, PDO::PARAM_STR);
                     $stmt->bindParam(":cod_cliente", $cod_cliente, PDO::PARAM_STR);
@@ -148,6 +158,9 @@
                                 $cliente->setCod_cliente($result->cod_cliente);
                                 $cliente->setLogin($result->login);
                                 $cliente->setNome($result->nome);
+                                $cliente->setSobrenome($result->sobrenome);
+                                $cliente->setCpf($result->cpf);
+                                $cliente->setData_nasc($result->data_nasc);
                                 $cliente->setTelefone($result->telefone);
                                 $cliente->setStatus($result->status);
                                 array_push($clientes,$cliente);
@@ -196,6 +209,9 @@
                                 $cliente->setCod_cliente($result->cod_cliente);
                                 $cliente->setLogin($result->login);
                                 $cliente->setNome($result->nome);
+                                $cliente->setSobrenome($result->sobrenome);
+                                $cliente->setCpf($result->cpf);
+                                $cliente->setData_nasc($result->data_nasc);
                                 $cliente->setTelefone($result->telefone);
                                 $cliente->setStatus($result->status);
                                 $cliente->setIdFacebook($result->id_facebook);
@@ -229,6 +245,9 @@
                                 $cliente->setCod_cliente($result->cod_cliente);
                                 $cliente->setLogin($result->login);
                                 $cliente->setNome($result->nome);
+                                $cliente->setSobrenome($result->sobrenome);
+                                $cliente->setCpf($result->cpf);
+                                $cliente->setData_nasc($result->data_nasc);
                                 $cliente->setTelefone($result->telefone);
                                 $cliente->setStatus($result->status);
                                 $cliente->setIdFacebook($result->id_facebook);
@@ -271,6 +290,7 @@
                             if(hash_equals($senha,$senhah)){
                                 $_SESSION['cod_cliente']=$result->cod_cliente;
                                 $_SESSION['nome']=$result->nome;
+                                $_SESSION['sobrenome']=$result->sobrenome;
                                 $_SESSION['login']=$result->login;
                                 $_SESSION['telefone']=$result->telefone;
                                 return 2;
@@ -302,6 +322,7 @@
                                 if ($parametro == $idFacebook){
                                     $_SESSION['cod_cliente']=$result->cod_cliente;
                                     $_SESSION['nome']=$result->nome;
+                                    $_SESSION['sobrenome']=$result->sobrenome;
                                     $_SESSION['login']=$result->login;
                                     $_SESSION['telefone']=$result->telefone;
                                     return 2;
@@ -313,6 +334,7 @@
                                 if ($parametro == $idGoogle){
                                     $_SESSION['cod_cliente']=$result->cod_cliente;
                                     $_SESSION['nome']=$result->nome;
+                                    $_SESSION['sobrenome']=$result->sobrenome;
                                     $_SESSION['login']=$result->login;
                                     $_SESSION['telefone']=$result->telefone;
                                     return 2;
@@ -343,6 +365,9 @@
                                 $cliente->setCod_cliente($result->cod_cliente);
                                 $cliente->setLogin($result->login);
                                 $cliente->setNome($result->nome);
+                                $cliente->setSobrenome($result->sobrenome);
+                                $cliente->setCpf($result->cpf);
+                                $cliente->setData_nasc($result->data_nasc);
                                 $cliente->setSenha($result->senha);
                                 $cliente->setTelefone($result->telefone);
                             }
@@ -490,33 +515,6 @@
                     return -1;
                 }
             }
-
-  // Cria tabela cliente no banco      
-/*         function createTable(){
-            try{
-                $stmt= $this->pdo->prepare("CREATE TABLE cliente(
-                    cod_cliente INT PRIMARY KEY AUTO_INCREMENT,
-                    nome VARCHAR(255) NOT NULL,
-                    login VARCHAR(255) NOT NULL UNIQUE,
-                    senha VARCHAR(32) NOT NULL,
-                    telefone VARCHAR(15) NOT NULL,
-                    status BOOLEAN NOT NULL
-                )");
-                $exec= $stmt->execute();
-                if ($exec){
-                    echo "sucess";
-                }else {
-                    echo "fail";
-                }
-
-            }
-            catch(PDOException $e){
-                echo $e->getMessage();
-                return -1;
-           }
-
-        }
- */
         function __construct($pdo){
             $this->pdo=$pdo;
         }

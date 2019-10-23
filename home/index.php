@@ -354,6 +354,8 @@
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrg0iCBCR-W5NNqL6IirOTXZ9XcrIH3N0&libraries=places&language=pt-BR&region=BR&callback=initAutocomplete"
 async defer></script>
 
+<script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
+
 
 <script>
 
@@ -398,6 +400,32 @@ async defer></script>
 				}
 			});
 		}
+	}
+
+	//Bem vindo para novo cliente
+	var url_string = window.location.href;
+	var url = new URL(url_string);
+	var bem_vindo = url.searchParams.get("bem_vindo");
+	var cli = url.searchParams.get("bem_vindo");
+	if(bem_vindo){
+		swal(
+			"Bem vindo!",
+			"Hora de um bom café!?",
+			"success",
+		{
+			buttons: {
+				delivery: "Delivery",
+				cardapio: "Ver o Cardapio"
+			},
+		}).then((value) => {
+			switch (value) {
+				case "cardapio":
+					window.location = "/home/cardapio.php";
+					break;
+				default:
+					return 0;
+			}
+		});
 	}
 
 </script>
