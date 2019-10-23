@@ -46,12 +46,12 @@
             
 
         </div>
-        <li class="active carrinho">
+        <div class="active carrinho">
                     <a data-toggle="tooltip" title="Carrinho." href="carrinho.php">
                         <i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> 
                         <span style="background-color:white; color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span>
                     </a>
-            </li>
+        </div>
         
             
         

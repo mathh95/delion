@@ -50,9 +50,9 @@ body, html{
                 @include make-lg-column(12);
                 
 
-                > div {
-                    width: 100%;
-                   
+                > div.input-group {
+                    @include make-lg-column(12);
+                    display: inline-flex;
                     > input {
                         border: none;
                         border-radius: 0px;
@@ -91,22 +91,24 @@ body, html{
                 }
             }
             > .infos {
-                @include make-lg-column(5);
-                // @include make-lg-column-offset(8);
+                @include make-lg-column(3);
+                // @include make-lg-column-offset(2);
                 display: inline-flex;
-                padding-left: 10px;
-                padding-top: 50px;
+                padding-left: 40px;
+                padding-top: 10px;
                 color: #FFFFFF;
                 font-size: 12px;
                 font-weight: bold;
-                p.semana{
-                    padding-right: 35px;
-                    float: left;    
-                }
-                p.fim-semana{
+                float: right;
+                padding-right: 0 !important;
+                // p.semana{
+                //     padding-right: 35px;
+                //     float: left;    
+                // }
+                // p.fim-semana{
                     
-                    float: right;
-                }
+                //     float: right;
+                // }
                 > .delivery {
                     > div{
                         > img{
@@ -130,14 +132,23 @@ body, html{
                     
                 
             }
-            >li.carrinho{
+            >div.carrinho{
+                height: auto;
+                vertical-align: middle;
                 position: relative;
                 list-style-type: none;
-                font-size: 20px;
+                font-size: 25px;
                 text-align: center;
-                padding-top: 40px;
-                width: 20%;
+                padding-top: 30px;
+                @include make-lg-column(2);
+                padding-left: 80px;
+                a:hover{
+                    text-decoration: none;
+                    border-bottom: 4px solid #ffffff;
+                    margin-bottom: -4px;
+                }
             }
+            
             
         }
     }
