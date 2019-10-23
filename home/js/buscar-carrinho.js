@@ -154,7 +154,6 @@ function adicionarCupom(){
     
 }
 
-<<<<<<< HEAD
 function postObservacao(){
     var obs = $('#observacao').val();
 
@@ -168,8 +167,6 @@ function postObservacao(){
 }
 
 
-=======
->>>>>>> 141879a4359521e394a7be3b8378a26350048611
 $(document).on("click", "#removeItem", function(){
     var acao = "rem";
     var linha = $(this).data('linha');

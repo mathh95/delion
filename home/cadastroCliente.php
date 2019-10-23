@@ -76,7 +76,7 @@
 						
 						<p>Sobrenome:</p>
 
-						<input class="form-control" name="nome" type="text" minlength="4" maxlength="30" required placeholder="Oliveira">
+						<input class="form-control" name="sobrenome" type="text" minlength="4" maxlength="30" required placeholder="Oliveira">
 
 					</div>
 				</div>
@@ -93,7 +93,7 @@
 
 					<p>Data Nascimento:</p>
 
-        			<input class="form-control data_nasc" name="login" type="email" minlength="8" maxlength="10" required placeholder="31/03/1931">
+        			<input class="form-control data_nasc" name="data_nasc" type="date" minlength="8" maxlength="10" required>
 
 				</div>
 				
