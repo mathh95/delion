@@ -6,12 +6,14 @@
     
         $cod_cliente= $_POST['cod_cliente'];
         $nome= addslashes(htmlspecialchars($_POST['nome']));
+        $sobrenome= addslashes(htmlspecialchars($_POST['sobrenome']));
         $login=addslashes(htmlspecialchars($_POST['login']));
         $telefone=addslashes(htmlspecialchars($_POST['telefone']));
         
         $cliente = new cliente;
         $cliente->setLogin($login);
         $cliente->setNome($nome);
+        $cliente->setSobrenome($sobrenome);
         $cliente->setTelefone($telefone);
         $cliente->setCod_cliente($cod_cliente);
         $control = new controlCliente($_SG['link']);

@@ -68,7 +68,7 @@
 						
 						<p>Nome:</p>
 
-						<input class="form-control" name="nome" type="text" minlength="4" maxlength="30" required placeholder="Delion" autofocus>
+						<input class="form-control" name="nome" type="text" minlength="3" maxlength="30" required placeholder="Delion" autofocus>
 
 					</div>
 					
@@ -76,7 +76,7 @@
 						
 						<p>Sobrenome:</p>
 
-						<input class="form-control" name="sobrenome" type="text" minlength="4" maxlength="30" required placeholder="Oliveira">
+						<input class="form-control" name="sobrenome" type="text" minlength="3" maxlength="30" required placeholder="Oliveira">
 
 					</div>
 				</div>
@@ -93,7 +93,15 @@
 
 					<p>Data Nascimento:</p>
 
-        			<input class="form-control data_nasc" name="data_nasc" type="date" minlength="8" maxlength="10" required>
+					<?php
+						$current = date("Y-m-d");
+						$min = date('Y-m-d', strtotime($current.'-90 year'));
+						$max = date('Y-m-d', strtotime($current.'-12 year'));
+
+						echo '
+						<input class="form-control data_nasc" name="data_nasc" type="date" minlength="8" maxlength="10" min="'.$min.'" max="'.$max.'" required>
+						';
+					?>
 
 				</div>
 				
@@ -107,7 +115,7 @@
 
 				<div class="col-md-12 col-sm-12 col-xs-12">
 
-					<p>Login:</p>
+					<p>Login (e-mail):</p>
 
         			<input class="form-control" name="login" type="email" minlength="4" maxlength="40" required placeholder="delion@mail.com">
 
@@ -171,6 +179,12 @@
 			}else if(data[3].value == ""){
 				return;
 			}else if(data[4].value == ""){
+				return;
+			}else if(data[5].value == ""){
+				return;
+			}else if(data[6].value == ""){
+				return;
+			}else if(data[7].value == ""){
 				return;
 			}else{
 				$.post({

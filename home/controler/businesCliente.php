@@ -89,13 +89,18 @@
                     echo -1;
                 }
             }
+           
+        //Cadastro Cliente
         }else{
 
             $nome= addslashes(htmlspecialchars($_POST['nome']));
+            $sobrenome= addslashes(htmlspecialchars($_POST['sobrenome']));
+            $cpf= addslashes(htmlspecialchars($_POST['cpf']));
+            $data_nasc= addslashes(htmlspecialchars($_POST['data_nasc']));
+            $telefone=addslashes(htmlspecialchars($_POST['telefone']));
             $login=addslashes(htmlspecialchars($_POST['login']));
             $senha=addslashes(htmlspecialchars($_POST['senha']));
             $senha2=addslashes(htmlspecialchars($_POST['senha2']));
-            $telefone=addslashes(htmlspecialchars($_POST['telefone']));
 
             $erros=0;
 
@@ -106,11 +111,48 @@
             }else if(!ctype_alpha(str_replace(" ","",$nome))){
                 echo "O Campo Nome só aceita caracteres simples.\n";
                 $erros ++;
-            }else if(strlen($nome) < 4){
+            }else if(strlen($nome) < 3){
                 echo "O Nome precisa ter 4 letras ou mais.\n";
                 $erros ++;
             }else if(strlen($nome) > 30){
                 echo "O Nome precisa ter menos que 30 letras.\n";
+                $erros ++;
+            }
+
+            //valida sobrenome
+            if(strlen($sobrenome) == 0){
+                echo "O Campo Sobrenome precisa ser preenchido.\n";                
+                $erros ++;
+            }else if(!ctype_alpha(str_replace(" ","",$sobrenome))){
+                echo "O Campo Sobrenome só aceita caracteres simples.\n";
+                $erros ++;
+            }else if(strlen($sobrenome) < 3){
+                echo "O Sobrenome precisa ter 4 letras ou mais.\n";
+                $erros ++;
+            }else if(strlen($sobrenome) > 30){
+                echo "O Sobrenome precisa ter menos que 30 letras.\n";
+                $erros ++;
+            }
+
+            //valida cpf
+            if(validaCPF($cpf) == false){
+                echo "CPF inválido.\n";
+                $erros++;
+            }
+            //Remove mascara
+            $cpf_int = str_replace('-', '', $cpf);
+            $cpf_int = preg_replace('/[^A-Za-z0-9\-]/', '', $cpf_int);
+            
+            //valida data_nasc
+            $current = date("Y-m-d");
+            $min = date('Y-m-d', strtotime($current.'-90 year'));
+            $max = date('Y-m-d', strtotime($current.'-12 year'));
+
+            if(strlen($data_nasc) == 0){
+                echo "O Campo Data de Nascimento precisa ser preenchido.\n";
+                $erros ++;
+            }else if(($data_nasc > $max) || ($data_nasc < $min)){
+                echo "Data de Nascimento inválida.\n";
                 $erros ++;
             }
 
@@ -154,7 +196,7 @@
 
                 $status=1;
                 $cliente = new cliente;
-                $cliente->construct($nome,$login,$senha,$telefone,$status);
+                $cliente->construct($nome, $sobrenome, $cpf_int, $data_nasc, $login, $senha,$telefone, $status);
                 $control = new controlCliente($_SG['link']);
                 $result=$control->insert($cliente);
                 if ($result > 0){
@@ -163,7 +205,7 @@
                     echo "inserido";
                 }else if($result == -2){
                     //login duplicado
-                    echo "Erro no cadastro :/...entre em contato com o suporte.";
+                    echo "Erro no cadastro :/";
                 }else{
                     echo "Erro no cadastro :/...entre em contato com o suporte.";
                 }
@@ -173,5 +215,52 @@
         }
     }else{
         echo -1;
-    }   
+    }
+    
+    function validaCPF($cpf = null) {
+
+        // Verifica se um número foi informado
+        if(empty($cpf)) {
+            return false;
+        }
+    
+        // Elimina possivel mascara
+        $cpf = preg_replace("/[^0-9]/", "", $cpf);
+        $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+        
+        // Verifica se o numero de digitos informados é igual a 11 
+        if (strlen($cpf) != 11) {
+            return false;
+        }
+        // Verifica se nenhuma das sequências invalidas abaixo 
+        // foi digitada. Caso afirmativo, retorna falso
+        else if ($cpf == '00000000000' || 
+            $cpf == '11111111111' || 
+            $cpf == '22222222222' || 
+            $cpf == '33333333333' || 
+            $cpf == '44444444444' || 
+            $cpf == '55555555555' || 
+            $cpf == '66666666666' || 
+            $cpf == '77777777777' || 
+            $cpf == '88888888888' || 
+            $cpf == '99999999999') {
+            return false;
+         // Calcula os digitos verificadores para verificar se o
+         // CPF é válido
+         } else {   
+            
+            for ($t = 9; $t < 11; $t++) {
+                
+                for ($d = 0, $c = 0; $c < $t; $c++) {
+                    $d += $cpf{$c} * (($t + 1) - $c);
+                }
+                $d = ((10 * $d) % 11) % 10;
+                if ($cpf{$c} != $d) {
+                    return false;
+                }
+            }
+    
+            return true;
+        }
+    }
 ?>
