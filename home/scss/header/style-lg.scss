@@ -26,13 +26,13 @@ body, html{
             > .logo {
                 padding-top: 15px;
                 padding-right:50px;
-                width: 10%;
+                width: 12%;
                 > a{
                     > img {
                         @include img-responsive();
                         @include center-block();
                         // @include make-lg-column(1);
-                        width: 50px;
+                        width: 100%;
                     }
                 }
                 > div {

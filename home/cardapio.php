@@ -85,25 +85,7 @@
 
 		</div>
 
-		<div class="imagem img hidden-xs">
-
-			<?php 
-
-				foreach ($imagens as $imagem) {
-
-					$pagina = json_decode($imagem->getPagina());
-
-					if (in_array('cardapio', $pagina)) {
-
-						echo "<a  href='cardapio.php' ><img src='../admin/".$imagem->getFoto()."'></a>";
-
-					}
-
-				}
-
-			?>
-
-		</div>
+		
 
 	</div>
 
