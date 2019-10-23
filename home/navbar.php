@@ -48,21 +48,21 @@
 
 				    	<ul class="nav navbar-nav">
 
-				        	<li><a href="index.php"><img src="img/home.png"><span class="sr-only">(current)</span></a></li>
+				        	<!-- <li><a href="index.php"><img src="img/home.png"><span class="sr-only">(current)</span></a></li> -->
 
-				        	<li><a href="sobre.php">Sobre</a></li>
+				        	<!-- <li><a href="sobre.php">Sobre</a></li> -->
 
-				        	<li><a href="historia.php">História</a></li>
+				        	<!-- <li><a href="historia.php">História</a></li> -->
 
-				        	<li><a href="cardapio.php">Cardápio</a></li>
+				        	<li><a href="cardapio.php"><i class="fas fa-book-open"></i>&nbsp;Cardápio</a></li>
 
-				        	<li><a href="contato.php">Contato</a></li>
+				        	<!-- <li><a href="contato.php">Contato</a></li> -->
 
-							<li><a href="localizacao.php">Localização</a></li>
+							<li><a href="localizacao.php"><i class="fas fa-map-marked-alt"></i>&nbsp;Localização</a></li>
 
-							<li class="active"><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> <span style="background-color:white; color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
+							<!-- <li class="active"><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> <span style="background-color:white; color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li> -->
 
-							<li><a href="combo.php">Combo <i style="color:white;" class="fas fa-plus fa-sm"></i> por <i style="color:white;" class="fas fa-minus fa-sm"></i> <span style="background-color:white; color:black;" class="badge" id="spanCombo"><?php echo (isset($_SESSION['combo']))?count($_SESSION['combo']):'0';?></span></a></li>
+							<!-- <li><a href="combo.php">Combo <i style="color:white;" class="fas fa-plus fa-sm"></i> por <i style="color:white;" class="fas fa-minus fa-sm"></i> <span style="background-color:white; color:black;" class="badge" id="spanCombo"><?php echo (isset($_SESSION['combo']))?count($_SESSION['combo']):'0';?></span></a></li> -->
 
 							<?php
 							//signOut oauth
@@ -86,21 +86,7 @@
 
 				   		</ul>
 
-				   		<form method="GET" action="cardapio.php" class="navbar-form navbar-right hidden-xs visible-sm-* visible-md-* visible-lg-* visible-xl-*">
-
-				   			 <div class="input-group">
-
-					        	<input type="text" class="form-control" name="search">
-
-				                <span class="input-group-btn">
-
-				                    <button class="btn btn-default" type="submit">Buscar</button>
-
-				                </span>
-
-				   			</div>
-
-				      	</form>
+				   		
 
 			    	</div><!-- /.navbar-collapse -->
 

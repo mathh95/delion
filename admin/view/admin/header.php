@@ -406,7 +406,7 @@
                                     }
                                 ?>
                             ">
-                            <a href="comboLista.php">Combo</a>
+                            <!-- <a href="comboLista.php">Combo</a> -->
                         </li>     
                         <?php } ?>
 

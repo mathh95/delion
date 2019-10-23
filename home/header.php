@@ -15,37 +15,46 @@
         <div class="logo">
         
 
-            <a href="#"><img src="/home/img/logo_branca.png"></a>
+            <a href="index.php"><img src="/home/img/logo_branca.png"></a>
 
 
         </div>
+        <form method="GET" action="cardapio.php" class=" navbar-form navbar-center hidden-xs visible-sm-* visible-md-* visible-lg-* visible-xl-*">
+
+				<div class="input-group">
+
+					<input type="text" class="form-control" name="search">
+
+				        <span class="input-group-btn">
+
+				        <button class="btn btn-default" type="submit">Buscar</button>
+
+				    </span>
+
+				</div>
+
+		</form>
 
         <div class="infos">
 
             <div>
-                <p><i class="far fa-calendar-alt"></i>&nbsp;Segunda a Sexta <br>
+                <p class="semana"><i class="far fa-calendar-alt"></i>&nbsp;Segunda a Sexta <br>
                 <i class="fas fa-clock"></i>&nbsp;10:00h às 21:00h</p>
-                <p><i class="far fa-calendar-alt"></i>&nbsp;Aos Sábados <br>
+                <p class="fim-semana"><i class="far fa-calendar-alt"></i>&nbsp;Aos Sábados <br>
                 <i class="fas fa-clock"></i>&nbsp;08:30h  às 19:00h</p>
             </div>
-
-            <!-- <div>Segunda a Sábado</div>
-
-            <div>Das 07:00 Hs as 20:00 Hs</div> -->
-
-            <div class="delivery">
-
-                <div>
-
-                    <img src="img/moto.png">
-
-                    <a href="cardapio.php"><button id="btn-pedir">PEDIR</button></a>
-
-                </div>
-
-            </div>
+            
 
         </div>
+        <li class="active carrinho">
+                    <a data-toggle="tooltip" title="Carrinho." href="carrinho.php">
+                        <i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> 
+                        <span style="background-color:white; color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span>
+                    </a>
+            </li>
+        
+            
+        
 
     </div>
 

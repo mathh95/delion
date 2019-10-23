@@ -42,12 +42,13 @@ body{
                 padding-left: 23px;
                 padding-top: 20px;
                 color: #FFFFFF;
-                font-size: 12px;
+                font-size: 10px;
                 font-weight: bold;
                 text-align: center;
                 font-size: 18px;
                 > .delivery {
                     > div{
+                      
                         > img{
                             @include img-responsive;
                             float: left;
