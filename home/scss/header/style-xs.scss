@@ -19,8 +19,11 @@ body{
         background-color: $vermelho_fraco;
         > .container{
             padding-bottom: 15px;
+            
             > .logo {
-                @include make-xs-column(12);
+                
+                @include make-xs-column(6);
+                @include make-xs-column-offset(3);
                 padding-top: 15px;
                 padding-right: 0px;
                 padding-left: 0px;
@@ -38,14 +41,16 @@ body{
             }
 
             > .infos {
-                @include make-xs-column(12);
-                padding-left: 23px;
+                @include make-xs-column(7);
+                padding-left: 0 !important;
                 padding-top: 20px;
                 color: #FFFFFF;
-                font-size: 10px;
+                font-size: 13px;
                 font-weight: bold;
                 text-align: center;
-                font-size: 18px;
+                float: left;
+                text-align: justify;
+                // font-size: 18px;
                 > .delivery {
                     > div{
                       
@@ -66,6 +71,27 @@ body{
                             }
                         }
                     }
+                }
+            }
+            >div.carrinho{
+                // height: auto;
+                // vertical-align: middle;
+                position: relative;
+                list-style-type: none;
+                font-size: 30px;
+                text-align: center;
+                padding-top: 60px;
+                // @include make-lg-column(1);
+                // padding-left: 80px;
+                float: right;
+                a:hover{
+                    padding-bottom: 10px;
+                    text-decoration: none;
+                    border-bottom: 4px solid #ffffff;
+                    margin-bottom: -4px;
+                }
+                .badge{
+                    font-size: 15px;
                 }
             }
         }
