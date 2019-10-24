@@ -199,6 +199,10 @@ body{
                     display: none;
                 }
             }
+            textarea:focus {
+                border-color: $vermelho_fraco;
+                box-shadow: 0 0 0 0.2rem rgba(210, 39, 48, 0.25);
+            } 
         }
         .legenda-carrinho{
             padding: 20px;

@@ -56,7 +56,7 @@
 
                                 <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
 
-                                <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text">
+                                <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text" maxlength="30">
 
                             </div>
 
