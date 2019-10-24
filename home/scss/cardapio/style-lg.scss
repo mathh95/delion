@@ -15,27 +15,33 @@
 
 body{
     > .menu {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
         padding-bottom: 15px;
-        padding-top: 15px;
+        // padding-top: 15px;
+        width: 100%;
         > .menu-lateral {
             @include make-lg-column(3);
-            background-color: $vermelho_fraco;
-            width: 270px !important;
-            // height: 100% !important;
-            margin-left: 15px;
-            padding-left: 20px;
-            padding-top: 15px;
-            padding-bottom: 15px;
+            background-color: $vermelho_forte;
+            width: 100%!important;
+            height: auto;
+            
+            // margin-left: 15px;
+            // // padding-left: 20px;
+            // padding-top: 15px;
+            // padding-bottom: 15px;
+            display: inline-flex;
+            flex-direction: row;
             > a {
                 width: 100%;
                 height: 53px;
-                display: block;
+                display: inline-block;
                 padding-bottom: 10px;
                 padding-top: 10px;
                 > img {
                     width: 27px;
                     padding-left: 0px;
-                    display: inline;
+                    display: inline-block;
                 }
                 > div {
                     display: inline;
