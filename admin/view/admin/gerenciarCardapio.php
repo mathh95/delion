@@ -56,7 +56,7 @@
                 </div>
                 <div class="mini-divs"> 
                     <label>Pausar itens listados: </label>
-                    <td style='text-align: center;' name='status'><button type='button' class='btn btn-kionux' onclick="getInputValue();"><i class='fa fa-pause'></i> Parar Produção</button></td>
+                    <td style='text-align: center;' name='status'><button type='button' class='btn btn-kionux' onclick="pausarProducao();"><i class='fa fa-pause'></i> Parar Produção</button></td>
                 </div>
                 <div class="mini-divs">
                     <button id="reordenar" style="margin-top:25px;" type="button" class="btn btn-kionux" data-toggle="modal" data-target="#ordenacaoModal">
@@ -119,7 +119,7 @@
         }
 
 
-        function getInputValue(){
+        function pausarProducao(){
             var txtPesquisa = document.getElementById("pesquisa").value;
                 msgConfirmacao('Confirmação','Deseja realmente pausar os itens listados?',
                     function(linha){
@@ -140,7 +140,7 @@
 
         
         $('#pesquisa,#producao').on('change paste keyup', function(){
-            var nome = $("#pesquisa").val();
+            var filtro = $("#pesquisa").val();
             var producao = $("#producao").val();
             var url = '../../ajax/gerenciarCardapioTabela.php';
             $.ajax({
@@ -148,7 +148,7 @@
 
                 url: url,
 
-                data: {nome:nome, producao:producao},
+                data: {filtro:filtro, producao:producao},
 
                 success:function(res){
                     $("#tabela-cardapio").html(res);

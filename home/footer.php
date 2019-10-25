@@ -131,6 +131,17 @@
 
 <script>
 
+    // Show carrinho na navbar...
+    // $(document).scrollTop(function() {
+    //     var y = $(this).scrollTop();
+    //     console.log(y);
+    //     if (y > -1) {
+    //         $('.carrinho').hide();
+    //     } else {
+    //         $('.carrinho').show();
+    //     }
+    // });
+
     $(document).ready(function() {
         var largura = $(window).width();
         if(largura >= 1200){

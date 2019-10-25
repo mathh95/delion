@@ -15,49 +15,65 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 $controle_cardapio=new controlerCardapio($_SG['link']);
 $controle_categoria=new controlerCategoria($_SG['link']);
 
-if((isset($_POST['nome']) && 
-!empty($_POST['nome'])) || 		//Descrição do item
-isset($_POST['producao'])){		//Flag_servido
+$permissao =  json_decode($usuarioPermissao->getPermissao());
+if(in_array('cardapio', $permissao)){ 
 
-	$nome = $_POST['nome'];
-	$flag_servindo = $_POST['producao'];
-	$cardapios = $controle->filterProducao($nome, $flag_servindo);	//Filtra pela descrição/flag_servido
-}else{
-	//order by pos -> categoria/itens
-	$categorias = $controle_categoria->selectAllByPos();
-	$cardapios = $controle_cardapio->selectAllByPos();
-}
-	$permissao =  json_decode($usuarioPermissao->getPermissao());
-	if(in_array('cardapio', $permissao)){ 
-		
-		echo "<table class='table table-responsive table-striped table-hover' id='tbCardapio' style='text-align = center;'>
-			<thead>
-				<h1 class=\"page-header\">Gerenciar Cardapio</h1>
-				<tr>
-					<th width='30%' style='text-align: left;'>Item</th>
-					<th width='10%' style='text-align: center;'>Preço</th>
-					<th width='10%' style='text-align: center;'>Situação</th>
-					<th width='10%' style='text-align: center;'>Prioridade</th>
-					<th width='10%' style='text-align: center;'>Delivery</th>
-					<th width='15%' style='text-align: center;'>Serviço</th>
-					<th width='15%' style='text-align: center;'>Editar</th>
-				</tr>
-			<tbody>";
+	//Flag_servido
+	if(
+		(isset($_POST['filtro']) &&
+		!empty($_POST['filtro'])) ||
+		isset($_POST['producao'])) {
 
+		$filtro = $_POST['filtro'];
+		$flag_servindo = $_POST['producao'];
+	}
+
+	echo "<table class='table table-responsive table-striped table-hover' id='tbCardapio' 			style='text-align = center;'>
+		<thead>
+			<h1 class=\"page-header\">Gerenciar Cardapio</h1>
+			<tr>
+				<th width='30%' style='text-align: left;'>Item</th>
+				<th width='10%' style='text-align: center;'>Preço</th>
+				<th width='10%' style='text-align: center;'>Situação</th>
+				<th width='10%' style='text-align: center;'>Prioridade</th>
+				<th width='10%' style='text-align: center;'>Delivery</th>
+				<th width='15%' style='text-align: center;'>Serviço</th>
+				<th width='15%' style='text-align: center;'>Editar</th>
+			</tr>
+		<tbody>";
+
+
+		$categorias = $controle_categoria->selectAllByPos();
 		//itens por categoria ordenados
 		foreach ($categorias as $key_cat => $categoria) {
 
 			echo "<tr>
 					<td colspan='7' style='background-color:#ee6938; color:white; font-size:20px;' >
-						<img src='../../".$categoria->getIcone()."' style='max-height: 25px; background-color: #BE392A; border-radius:5px;' alt=''/>
+						<img src='../../".$categoria->getIcone()."' style='max-height: 25px; border-radius:5px;' alt=''/>
 						".$categoria->getNome()."
 					</td>
 				</tr>";
 
-			$itens = $controle_cardapio->selectByCategoriaByPos(
-				$categoria->getCod_categoria()
-			);
+			
+			//Condição para listar itens com filtro
+			if(
+				(isset($filtro) && strlen($filtro) > 3) ||
+				isset($flag_servindo) && $flag_servindo != null
+			) {
 
+				$itens = $controle_cardapio->selectByCategoriaFilterPos(
+					$categoria->getCod_categoria(),
+					$filtro,
+					$flag_servindo
+				);
+
+			//todos os itens ordenados
+			}else{
+				$itens = $controle_cardapio->selectByCategoriaByPos(
+					$categoria->getCod_categoria()
+				);
+			}	
+			
 			foreach ($itens as $key_item => $item){		
 	
 				$mensagem='Cardápio excluído com sucesso!';
@@ -93,34 +109,6 @@ isset($_POST['producao'])){		//Flag_servido
 	}else{
 
 		/*Sem PERMISSÃO*/
-		
-		// echo "<table class='table table-responsive' id='tbCardapio' style='text-align = center;'>
-		// <thead>
-		// 	<h1 class=\"page-header\">Lista de cardapio</h1>
-		// 	<tr>
-	    // 		<th width='14%' style='text-align: center;'>Item</th>
-		// 		<th width='14%' style='text-align: center;'>Nome</th>
-		// 		<th width='14%' style='text-align: center;'>Preço</th>
-	    // 		<th width='14%' style='text-align: center;'>Descrição</th>
-	    // 		<th width='12%' style='text-align: center;'>Categoria</th>
-		// 		<th width='12%' style='text-align: center;'>Situação</th>
-		// 		<th width='12%' style='text-align: center;'>Prioridade</th>
-		// 		<th width='12%' style='text-align: center;'>Delivery</th>
-	    //     </tr>
-		// <tbody>";
-	
-		// foreach ($cardapios as &$cardapio) {
-		// 	echo "<tr name='resutaldo' id='status".$cardapio->getCod_cardapio()."'>
-		// 	 	<td style='text-align: center;' name='cardapio'><img src='../../".$cardapio->getFoto()."' style='max-height: 100px' alt='' class='img-thumbnail'/></td>
-		// 		<td style='text-align: center;' name='nome'>".$cardapio->getNome()."</td>
-		// 		<td style='text-align: center;' name='preco'>".$cardapio->getPreco()."</td>
-		// 	 	<td style='text-align: center;' name='descricao'>".substr(html_entity_decode($cardapio->getDescricao()), 0, 200)."</td>
-		// 	 	<td style='text-align: center;' name='categoria'>".$cardapio->getCategoria()."</td>
-		// 		<td style='text-align: center;' name='flag_ativo'>".$cardapio->getDsAtivo()."</td>
-		// 		<td style='text-align: center;' name='prioridade'>".$cardapio->getDsPrioridade()."</td>
-		// 		<td style='text-align: center;' name='delivery'>".$cardapio->getDsDelivery()."</td>
-		// 	</tr>";
-		// }
 	}
 
 echo "</tbody></table>";
