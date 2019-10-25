@@ -98,8 +98,9 @@
                 $this->status = $status;
             }
 
-            function construct1($valor, $vencimento_data, $vencimento_hora){
+            function construct1($valor,$valor_minimo ,$vencimento_data, $vencimento_hora){
                 $this->valor = $valor;
+                $this->valor_minimo = $valor_minimo;
                 $this->vencimento_data = $vencimento_data;
                 $this->vencimento_hora = $vencimento_hora;
             }

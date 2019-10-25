@@ -5,7 +5,7 @@
 	include_once "controlCupom.php";
 	include_once "../model/cupom.php";
 	include_once "../lib/alert.php";
-	if (in_array('pedidoWpp', json_decode($_SESSION['permissao']))) {
+	if (in_array('cupom', json_decode($_SESSION['permissao']))) {
 		if (!isset($_POST)||empty($_POST)){
 			echo 'Nada foi postado.';
 		}
@@ -13,6 +13,9 @@
 		$cod_cupom= addslashes(htmlspecialchars($_POST['cod']));
         if(isset($_POST['valor']) && !empty($_POST['valor'] && $_POST['valor'] >= '0.00')){
             $valor = addslashes(htmlspecialchars($_POST['valor']));
+		}
+        if(isset($_POST['valorMinimo']) && !empty($_POST['valorMinimo'] && $_POST['valorMinimo'] >= '0.00')){
+            $valor_minimo = addslashes(htmlspecialchars($_POST['valorMinimo']));
         }
         $dv = explode("-", $_POST['vencimento_data']);
             if(isset($_POST['vencimento_data']) && !empty($_POST['vencimento_data'] 
@@ -27,7 +30,7 @@
     	}
 		
 		$cupom= new cupom();
-		$cupom->construct1($valor, $vencimento_data, $vencimento_hora);
+		$cupom->construct1($valor,$valor_minimo,$vencimento_data, $vencimento_hora);
 
 		$cupom->setCod_cupom($cod_cupom);
 		$controle=new controlCupom($_SG['link']);
