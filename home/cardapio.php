@@ -21,7 +21,6 @@
 
 	$empresa = $controleEmpresa->select(1,2);
 
-	$categorias = $controleCategoria->selectAll();
 
 	$controleImagem=new controlerImagem(conecta());
 
@@ -68,6 +67,7 @@
 		<div class="menu-lateral">
 
 		<?php 
+			$categorias = $controleCategoria->selectAllByPos();
 
 			foreach ($categorias as $categoria) {
 
