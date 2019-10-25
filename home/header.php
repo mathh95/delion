@@ -23,15 +23,8 @@
         <form method="GET" action="cardapio.php" class=" navbar-form navbar-center hidden-xs visible-sm-* visible-md-* visible-lg-* visible-xl-*">
 
 				<div class="input-group">
-
-					<input type="text" class="form-control" name="search">
-
-				        <span class="input-group-btn">
-
-				        <button class="btn btn-default" type="submit">Buscar</button>
-
-				    </span>
-
+                    <span><i class="glyphicon glyphicon-search"></i></span>
+                    <input type="text" class="form-control" name="search" placeholder="Pesquise aqui...">
 				</div>
 
 		</form>
@@ -48,15 +41,21 @@
 
         </div>
         <div class="active carrinho">
-                    <a data-toggle="tooltip" title="Carrinho." href="carrinho.php">
-                        <i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> 
-                        <span style="background-color:white; color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span>
-                    </a>
-        </div>
-        
+            <a data-toggle="tooltip" title="Carrinho." href="carrinho.php">
             
-        
+                <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
+                <!-- <i style="color:white;" class="fas fa-shopping-cart fa-lg"></i>  -->
+
+                <span style="background-color:white; color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span>
+            </a>
+        </div>     
 
     </div>
+
+<script>
+    $(document).ready(function(){
+        $("#spanCarrinho").text();
+    });
+</script>
 
 </header>

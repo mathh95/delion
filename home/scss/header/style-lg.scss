@@ -48,11 +48,10 @@ body, html{
                 padding-top: 30px;
                 padding-left: 75px;
                 @include make-lg-column(12);
-                
-
                 > div.input-group {
-                    @include make-lg-column(12);
+                    width: 100%;
                     display: inline-flex;
+                    border-bottom: 1px solid #FFFFFF;
                     > input {
                         border: none;
                         border-radius: 0px;
@@ -60,32 +59,23 @@ body, html{
                         outline: 0;
                         box-shadow: none;                        
                         background: transparent;
-                        border-bottom: 2px solid #FFFFFF;
                         color: #FFFFFF;
-                        // width: 100%;  
                     }
-                    > input:focus{
-                        outline: none;
-                        border-color: #FFFFFF;
-                        transition: 0.1s linear;
-                        border-bottom: 5px solid #FFFFFF;
-                    box-shadow: none
+                    ::placeholder {
+                        color: white;
+                        opacity: 1; /* Firefox */
+                    }
+                    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+                     color: white;
+                    }
+                    ::-ms-input-placeholder { /* Microsoft Edge */
+                        color: white;
                     }
                     > span {
-                        padding-left: 15px;
-                        > button{
-                            border: 1px solid white;
-                            margin-top: 0px;
-                            background-color: $vermelho_fraco;
-                            padding-bottom: 4px;
-                            padding-top: 4px;
-                            font-weight: bold;
-                            color: white;
-                            border-radius: 0px;
-                            padding-bottom: 7px;
-                            padding-top: 6px;
-                            height: 34px;
-                            
+                        padding-top: 10px;
+                        font-size: 17px;
+                        i {
+                            color: white;                           
                         }
                     }
                 }
@@ -128,28 +118,33 @@ body, html{
                         }
                     }
                 }
-                
-                    
-                
+                   
             }
             >div.carrinho{
                 height: auto;
-                vertical-align: middle;
                 position: relative;
                 list-style-type: none;
-                font-size: 25px;
+                font-size: 27px;
                 text-align: center;
-                padding-top: 30px;
-                @include make-lg-column(2);
-                padding-left: 80px;
-                a:hover{
-                    padding-bottom: 10px;
+                padding-top:20px;
+                width:140px;
+                border-left: 1px solid white;
+                margin: 10px 0 10px 0;
+                a{
                     text-decoration: none;
-                    border-bottom: 4px solid #ffffff;
+                    float:right;
+                    border-bottom: 4px solid #C6151F;
                     margin-bottom: -4px;
                 }
-            }
-            
+                a:hover{
+                    border-bottom: 4px solid #f9e102;
+                    margin-bottom: -4px;
+                    text-decoration: none;
+                }
+                i{
+                    color:white;
+                }
+            }           
             
         }
     }
