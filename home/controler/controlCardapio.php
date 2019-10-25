@@ -558,10 +558,45 @@ include_once MODELPATH."/cardapio.php";
             }
 
         }
-        function selectAllByPos(){
+
+        function selectByCategoriaByPosServindo($cod_categoria){
             $cardapios = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.flag_servindo AS flag_servindo ,A.prioridade AS prioridade, A.posicao AS posicao, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria ORDER BY B.posicao ASC, A.posicao ASC");
+                $stmte = $this->pdo->prepare("SELECT * FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.categoria = :cod_categoria AND A.flag_ativo = 1 AND A.flag_servindo = 1 ORDER BY B.posicao ASC, A.posicao ASC");
+
+                $stmte->bindValue(":cod_categoria", $cod_categoria , PDO::PARAM_INT);
+
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                            $cardapio= new cardapio();
+                            $cardapio->setCod_cardapio($result->cod_cardapio);
+                            $cardapio->setNome($result->nome);
+                            $cardapio->setPreco($result->preco);
+                            $cardapio->setDesconto($result->desconto);
+                            $cardapio->setDescricao($result->descricao);
+                            $cardapio->setFoto($result->foto);
+                            $cardapio->setCategoria($result->categoria);
+                            $cardapio->setFlag_ativo($result->flag_ativo);
+                            $cardapio->setFlag_servindo($result->flag_servindo);
+                            $cardapio->setPrioridade($result->prioridade);
+                            $cardapio->setDelivery($result->delivery);
+                            $cardapio->setPosicao($result->posicao);
+                            array_push($cardapios, $cardapio);
+                        }
+                    }
+                }
+                return $cardapios;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+        function selectAllByPosServindo(){
+            $cardapios = array();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE flag_ativo = 1 AND flag_servindo = 1 ORDER BY B.posicao ASC, A.posicao ASC");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){

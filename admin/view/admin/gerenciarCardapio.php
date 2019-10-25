@@ -145,9 +145,7 @@
             var url = '../../ajax/gerenciarCardapioTabela.php';
             $.ajax({
                 type: 'POST',
-
                 url: url,
-
                 data: {filtro:filtro, producao:producao},
 
                 success:function(res){

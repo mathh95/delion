@@ -83,7 +83,7 @@ if ($cod_endereco == null) {
 
         //Recipients
         $mail->setFrom('teste@gmail.com', $_SESSION['nome']);
-        $mail->addAddress('felipemaia@corp.kionux.com.br', 'Delion Café');
+        $mail->addAddress('isshak@corp.kionux.com.br', 'Delion Café');
 
         //Content
         $mail->isHTML(true);
@@ -164,7 +164,7 @@ if ($cod_endereco == null) {
 
         //Recipients
         $mail->setFrom('teste@gmail.com', $_SESSION['nome']);
-        $mail->addAddress('felipemaia@corp.kionux.com.br', 'Delion Café');  //Mudar email para recebimento
+        $mail->addAddress('isshak@corp.kionux.com.br', 'Delion Café');  //Mudar email para recebimento
 
         //Content
         $mail->isHTML(true);
