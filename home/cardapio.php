@@ -70,12 +70,12 @@
 			$categorias = $controleCategoria->selectAllByPos();
 
 			foreach ($categorias as $categoria) {
-
-				echo "<span href='#' id='".$categoria->getCod_categoria()."' onclick='buscar(1,\"".$categoria->getCod_categoria()."\",\"categoria\")'>
+						
+				echo "<a href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
 							<img src='../admin/".$categoria->getIcone()."'>
 						<div>".strtoupper($categoria->getNome())."</div>
 
-					</span>";
+					</a>";
 
 			}
 
@@ -216,7 +216,15 @@
 			});
 
 		}
-
+		$(document).ready(function() {
+			$('a[href^="#"]').click(function() {
+				var target = $(this.hash);
+				if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
+				if (target.length == 0) target = $('html');
+				$('html, body').animate({ scrollTop: target.offset().top-105 }, 1000);
+				return false;
+			});
+			});
 		function adicionaCombo(item){
 
 			adicionais = new Array();
