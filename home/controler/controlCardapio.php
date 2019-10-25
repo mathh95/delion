@@ -562,7 +562,7 @@ include_once MODELPATH."/cardapio.php";
         function selectByCategoriaByPosServindo($cod_categoria){
             $cardapios = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.categoria = :cod_categoria AND A.flag_ativo = 1 AND A.flag_servindo = 1 ORDER BY B.posicao ASC, A.posicao ASC");
+                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.flag_servindo AS flag_servindo ,A.prioridade AS prioridade, A.posicao AS posicao, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.categoria = :cod_categoria AND A.flag_ativo = 1 AND A.flag_servindo = 1 ORDER BY B.posicao ASC, A.posicao ASC");
 
                 $stmte->bindValue(":cod_categoria", $cod_categoria , PDO::PARAM_INT);
 
@@ -596,7 +596,7 @@ include_once MODELPATH."/cardapio.php";
         function selectAllByPosServindo(){
             $cardapios = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE flag_ativo = 1 AND flag_servindo = 1 ORDER BY B.posicao ASC, A.posicao ASC");
+                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.flag_servindo AS flag_servindo ,A.prioridade AS prioridade, A.posicao AS posicao, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE flag_ativo = 1 AND flag_servindo = 1 ORDER BY B.posicao ASC, A.posicao ASC");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
