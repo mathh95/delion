@@ -17,37 +17,48 @@ body{
     > .menu {
         padding-left: 0 !important;
         padding-right: 0 !important;
-        padding-bottom: 15px;
+        padding-bottom: 20px;
         // padding-top: 15px;
         width: 100%;
         > .menu-lateral {
             @include make-lg-column(3);
-            background-color: $vermelho_forte;
-            width: 100%!important;
+            background-color: #ffffff;
+            width: 100% !important;
             height: auto;
-            
             // margin-left: 15px;
             // // padding-left: 20px;
             // padding-top: 15px;
-            // padding-bottom: 15px;
+            padding-bottom: 15px;   
             display: inline-flex;
             flex-direction: row;
-            > a {
+            justify-content: center;
+            > span {
+                cursor: pointer;
                 width: 100%;
-                height: 53px;
+                height: 50px;
                 display: inline-block;
-                padding-bottom: 10px;
+                // padding-bottom: 10px;
                 padding-top: 10px;
-                > img {
-                    width: 27px;
-                    padding-left: 0px;
-                    display: inline-block;
-                }
+                text-align: center;
+                border-bottom: 2px solid #D7CEC7;
+                    > img {
+                        width: 40px;
+                        height: 35px;
+                        
+                        display: inline-flex;
+                        background-color: $vermelho_forte;
+                        padding: 5px;
+                        border-radius: 10px;
+                        
+                    }
+                
+                
                 > div {
-                    display: inline;
-                    color: #ffffff;
-                    padding-left: 20px;
+                    display: inline-flex;
+                    color: $vermelho_fraco;
+                    padding-left: 5px;
                 }
+                
             }
             /* > a:nth-child(2) {
                 > img {
@@ -59,14 +70,19 @@ body{
                     padding-left: 25px;
                 }
             } */
-            > a:hover{
+            > span:hover{
                 text-decoration: none;
+                
+                    border-bottom: 2px solid $vermelho_forte;
+                    // margin-bottom: -4px;
+                    padding-bottom: 5px;
+
                 > div {
                     font-family: $font_main_bold;
-                    color: $vermelho_forte;
+                    color: $vermelho_fraco;
                 }
             }
-            > a:focus{
+            > span:focus{
                 text-decoration: none;
                 > div {
                     color: $vermelho_forte;

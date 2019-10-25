@@ -15,8 +15,8 @@
         <div class="logo">
         
 
-            <a href="index.php"><img src="/home/img/Logo.png"></a>
-            <!-- <a href="index.php"><img src="/home/img/logo_branca.png"></a> -->
+            <!-- <a href="index.php"><img src="/home/img/Logo.png"></a> -->
+            <a href="index.php"><img src="/home/img/logo_branca.png"></a>
 
 
         </div>

@@ -19,8 +19,10 @@ body{
         background-color: $vermelho_fraco;
         > .container{
             padding-bottom: 15px;
+            display: flex;
+            justify-content: space-evenly;
             > .logo {
-                @include make-md-column(4);
+                @include make-md-column(1);
                 padding-top: 15px;
                 padding-right: 0px;
                 > a{
@@ -36,10 +38,56 @@ body{
                     padding-right: 30px;
                 }
             }
+            > form {
+                // @include make-lg-column-offset(2);
+                padding-top: 30px;
+                padding-left: 75px;
+                @include make-md-column(8);
+                
 
+                > div.input-group {
+                    @include make-md-column(12);
+                    display: inline-flex;
+                    > input {
+                        border: none;
+                        border-radius: 0px;
+                        border: 0;
+                        outline: 0;
+                        box-shadow: none;                        
+                        background: transparent;
+                        border-bottom: 2px solid #FFFFFF;
+                        color: #FFFFFF;
+                        // width: 100%;  
+                    }
+                    > input:focus{
+                        outline: none;
+                        border-color: #FFFFFF;
+                        transition: 0.1s linear;
+                        border-bottom: 5px solid #FFFFFF;
+                    box-shadow: none
+                    }
+                    > span {
+                        padding-left: 15px;
+                        > button{
+                            border: 1px solid white;
+                            margin-top: 0px;
+                            background-color: $vermelho_fraco;
+                            padding-bottom: 4px;
+                            padding-top: 4px;
+                            font-weight: bold;
+                            color: white;
+                            border-radius: 0px;
+                            padding-bottom: 7px;
+                            padding-top: 6px;
+                            height: 34px;
+                            
+                        }
+                    }
+                }
+            }
             > .infos {
                 @include make-md-column(2);
-                @include make-md-column-offset(6);
+                // @include make-md-column-offset(6);
                 padding-left: 0px;
                 padding-top: 20px;
                 color: #FFFFFF;
@@ -63,6 +111,23 @@ body{
                             }
                         }
                     }
+                }
+            }
+            >div.carrinho{
+                float: right;
+                list-style-type: none;
+                font-size: 25px;
+                text-align: center;
+                padding-top: 40px;
+                padding-right: 0 !important;
+                @include make-xs-column(2);
+                // @include make-md-column-offset(6 );
+                
+                a:hover{
+                    padding-bottom: 10px;
+                    text-decoration: none;
+                    border-bottom: 4px solid #ffffff;
+                    margin-bottom: -4px;
                 }
             }
         }

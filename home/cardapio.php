@@ -71,13 +71,11 @@
 
 			foreach ($categorias as $categoria) {
 
-				echo "<a href='#' id='".$categoria->getCod_categoria()."' onclick='buscar(1,\"".$categoria->getCod_categoria()."\",\"categoria\")'>
-
-						<img src='../admin/".$categoria->getIcone()."'>
-
+				echo "<span href='#' id='".$categoria->getCod_categoria()."' onclick='buscar(1,\"".$categoria->getCod_categoria()."\",\"categoria\")'>
+							<img src='../admin/".$categoria->getIcone()."'>
 						<div>".strtoupper($categoria->getNome())."</div>
 
-					</a>";
+					</span>";
 
 			}
 
