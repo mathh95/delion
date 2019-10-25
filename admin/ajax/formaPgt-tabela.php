@@ -13,7 +13,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 $formaPgts = $controle->selectAll();
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
-if(in_array('adicional', $permissao)){
+if(in_array('forma_pgto', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
 		<h1 class=\"page-header\">Lista de Formas de Pagamento</h1>
