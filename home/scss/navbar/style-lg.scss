@@ -15,7 +15,11 @@
 
 body{
     font-family: $font_main;
+    
     > #navegacao{
+        position: sticky;
+        z-index: 9999;
+        top: 0;
         background: $vermelho_forte;
         height: 50px;
         > .container{
