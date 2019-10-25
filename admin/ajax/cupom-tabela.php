@@ -21,7 +21,7 @@ if ($cupons == -1){
 
 
 
-if(in_array('pedidoWpp', $permissao)){
+if(in_array('cupom', $permissao)){
 
 	echo "<table class='table' id='tbCupom' style='text-align = center;'>
 	<thead>

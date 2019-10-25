@@ -44,7 +44,7 @@ body{
                         > #bs-navbar-collapse-1 {
                             > ul {
                                 font-weight: bold;
-                                font-size: 100%;
+                                font-size: 110%;
                                 > li {
                                     height: 50px;
                                     vertical-align: middle;
@@ -58,21 +58,13 @@ body{
                                             @include center-block();
                                         }
                                     }
-                                } li:hover {
-                                    border-bottom: 2px solid #ffffff;
-                                    margin-bottom: -4px;
-                                }
-                                > .active{
-                                    > a {
-                                        color: $vermelho_forte;
-                                        background-color: #D7CEC7;
-                                        padding-bottom: 10px;
-                                        > img {
-                                            width: 27px;
-                                            height: 25px;
-                                            @include center-block();
-                                        }
+                                    a:hover{
+                                        color: #f9e102;
                                     }
+                                } li:hover {
+                                    color: #f9e102;
+                                    border-bottom: 3px solid #f9e102;
+                                    margin-bottom: -4px;
                                 }
                             }
                             > form {
