@@ -18,9 +18,13 @@ body{
         padding-left: 0 !important;
         padding-right: 0 !important;
         padding-bottom: 20px;
+        position: sticky;
+        z-index: 9999;
+        top: 50px;
         // padding-top: 15px;
         width: 100%;
         > .menu-lateral {
+            
             @include make-lg-column(3);
             background-color: #ffffff;
             width: 100% !important;

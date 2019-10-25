@@ -321,7 +321,7 @@ class controlerCarrinho{
     function alterarStatusPedido($cod_pedido,$status){
         try{
             if($status == "2"){
-                date_default_timezone_set('America/Sao_Paulo');
+                date_default_timezone_set('America/Bahia');
                 $hora_print = date('H:i');
                 $parametro=$cod_pedido;
                 $stmt=$this->pdo->prepare("UPDATE pedido SET status=:status, hora_print=:hora_print WHERE cod_pedido=:parametro");
@@ -331,7 +331,7 @@ class controlerCarrinho{
                 $stmt->execute();
                 return 1;
             }else if($status =="3"){
-                date_default_timezone_set('America/Sao_Paulo');
+                date_default_timezone_set('America/Bahia');
                 $hora_delivery = date('H:i');
                 $parametro=$cod_pedido;
                 $stmt=$this->pdo->prepare("UPDATE pedido SET status=:status, hora_delivery=:hora_delivery WHERE cod_pedido=:parametro");
@@ -351,7 +351,7 @@ class controlerCarrinho{
     function alteraStatusPedidoRetirada($cod_pedido,$status){
         try{
             if($status == "3"){
-                date_default_timezone_set('America/Sao_Paulo');
+                date_default_timezone_set('America/Bahia');
                 $hora_retirada = date('H:i');
                 $parametro=$cod_pedido;
                 $stmt=$this->pdo->prepare("UPDATE pedido SET status=:status, hora_retirada=:hora_retirada WHERE cod_pedido=:parametro");
