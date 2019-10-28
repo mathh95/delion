@@ -111,7 +111,7 @@
         
 
         <audio id="notificacao">
-            <source src="../../js/notification.mp3" type="audio/mpeg">
+            <source src="../../js/notification2.mp3" type="audio/mpeg">
             Sem supp para audio.
         </audio>
 
@@ -140,7 +140,7 @@
                 itensCountReloaded = $('#tabela-pedido tbody tr').length;
 
                 if(itensCountReloaded > itensCount){
-                    play("../../js/notification.mp3");//promise to play sound
+                    play("../../js/notification2.mp3");//promise to play sound
                     itensCount = itensCountReloaded;
                 }
 

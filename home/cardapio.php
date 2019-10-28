@@ -69,13 +69,21 @@
 		<?php 
 			$categorias = $controleCategoria->selectAllByPos();
 
-			foreach ($categorias as $categoria) {
-						
-				echo "<a href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
+			foreach ($categorias as $key => $categoria) {
+				
+				if($key == 0){
+					echo "<a class= 'item-categoria active' href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
 							<img src='../admin/".$categoria->getIcone()."'>
 						<div>".strtoupper($categoria->getNome())."</div>
 
 					</a>";
+				}else{
+					echo "<a class= 'item-categoria' href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
+							<img src='../admin/".$categoria->getIcone()."'>
+						<div>".strtoupper($categoria->getNome())."</div>
+
+					</a>";
+				}
 
 			}
 
@@ -104,32 +112,29 @@
 
 	<script>
 
-		$(document).on("click", "#addCombo", function() {
-			var cod = $(this).data('cod');
-			var largura = $(window).width();
-			if(largura <= 767){
-				$('#myModalC'+cod).modal('show');
-			}else{
-				$('#myModal'+cod).modal('show');
-			}
+		// Selecionar Categoria
+		$('.item-categoria').on('click', function(){
 			
+			var $this = $(this);
+			var cod_categoria = $this.data('id');
+
+			// cor
+			$('.active').removeClass('active');
+			$this.toggleClass('active');
+
 		});
 
-    	$(document).ready(function(){
-
-			$('.imagem').slick({
-
-			slidesToShow: 1,
-
-			slidesToScroll: 1,
-
-			prevArrow:"<img class='a-left control-c prev slick-prev' src='img/seta-esquerda.png'>",
-
-				nextArrow:"<img class='a-right control-c next slick-next' src='img/seta-direita.png'>"
-
+		// Scroll p/ Categoria selecionada
+		$(document).ready(function() {
+			$('a[href^="#"]').click(function() {
+				var target = $(this.hash);
+				if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
+				if (target.length == 0) target = $('html');
+				$('html, body').animate({ scrollTop: target.offset().top-105 }, 0);
+				return false;
 			});
-
 		});
+
 
     	$(document).ready(function(){
 
@@ -216,15 +221,7 @@
 			});
 
 		}
-		$(document).ready(function() {
-			$('a[href^="#"]').click(function() {
-				var target = $(this.hash);
-				if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
-				if (target.length == 0) target = $('html');
-				$('html, body').animate({ scrollTop: target.offset().top-105 }, 1000);
-				return false;
-			});
-			});
+
 		function adicionaCombo(item){
 
 			adicionais = new Array();

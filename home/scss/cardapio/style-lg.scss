@@ -32,7 +32,7 @@ body,html{
             // margin-left: 15px;
             // // padding-left: 20px;
             // padding-top: 15px;
-              
+            font-size: 13px;
             display: inline-flex;
             flex-direction: row;
             justify-content: center;
@@ -46,8 +46,8 @@ body,html{
                 text-align: center;
                 border-bottom: 2px solid #D7CEC7;
                     > img {
-                        width: 40px;
-                        height: 35px;
+                        width: 37px;
+                        height: 30px;
                         
                         display: inline-flex;
                         background-color: $vermelho_forte;
@@ -56,7 +56,6 @@ body,html{
                         
                     }
                 
-                
                 > div {
                     display: inline-flex;
                     color: $vermelho_fraco;
@@ -64,22 +63,23 @@ body,html{
                 }
                 
             }
-            /* > a:nth-child(2) {
-                > img {
-                    width: 17px;
-                    padding-left: 0px;
-                    margin-left: 5px;
-                }
+            > a.active{
+                text-decoration: none;
+                
+                border-bottom: 2px solid $vermelho_forte;
+                padding-bottom: 5px;
+
                 > div {
-                    padding-left: 25px;
+                    font-family: $font_main_bold;
+                    color: $vermelho_fraco;
                 }
-            } */
+            }
             > a:hover{
                 text-decoration: none;
                 
-                    border-bottom: 2px solid $vermelho_forte;
-                    // margin-bottom: -4px;
-                    padding-bottom: 5px;
+                border-bottom: 2px solid $vermelho_forte;
+                // margin-bottom: -4px;
+                padding-bottom: 5px;
 
                 > div {
                     font-family: $font_main_bold;
@@ -132,6 +132,7 @@ body,html{
             padding-top: 6px;
             img{
                 width: 30px;
+                vertical-align: text-bottom;
             }
         }
         > .modal{
