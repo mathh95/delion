@@ -109,7 +109,7 @@
 					
 					<p>Celular:</p>
 
-					<input class="form-control" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999">
+					<input class="form-control telefone" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999">
 
 				</div>
 
@@ -209,19 +209,8 @@
 
 		$(document).ready(function(){
 			$(".cpf").mask("999.999.999-99");
+			// $(".telefone").mask("(45) 99999-9999)");
 		});
-
-    	$('.timepicker-inicio').wickedpicker({
-
-    		twentyFour: true
-
-    	});
-
-    	$('.timepicker-termino').wickedpicker({
-
-    		twentyFour: true
-
-    	});
 
     	$("input.telefone").mask("(99) 9999-9999?9").focusout(function (event) {  
 
@@ -246,6 +235,18 @@
             }  
 
         });
+
+		$('.timepicker-inicio').wickedpicker({
+
+		twentyFour: true
+
+		});
+
+		$('.timepicker-termino').wickedpicker({
+
+		twentyFour: true
+
+		});
 
 	</script>
 

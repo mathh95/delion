@@ -4,6 +4,9 @@
     include_once "controlCliente.php";
     include_once CONTROLLERPATH."/seguranca.php";
     include_once "../lib/alert.php";
+    include_once "../utils/VerificaCpf.php";
+    include_once "../utils/VerificaTelefone.php";
+
     if (isset($_POST) and !empty($_POST)){
         if(isset($_POST['idGoogle']) && !empty($_POST['idGoogle'])){
 
@@ -134,15 +137,18 @@
                 $erros ++;
             }
 
+
             //valida cpf
-            if(validaCPF($cpf) == false){
+            $verifica_cpf = new VerificaCpf();
+            if($verifica_cpf->valida($cpf) == false){
                 echo "CPF inválido.\n";
                 $erros++;
             }
-            //Remove mascara
-            $cpf_int = str_replace('-', '', $cpf);
-            $cpf_int = preg_replace('/[^A-Za-z0-9\-]/', '', $cpf_int);
+            // //Remove mascara
+            // $cpf_int = str_replace('-', '', $cpf);
+            // $cpf_int = preg_replace('/[^A-Za-z0-9\-]/', '', $cpf_int);
             
+
             //valida data_nasc
             $current = date("Y-m-d");
             $min = date('Y-m-d', strtotime($current.'-90 year'));
@@ -178,6 +184,9 @@
             }else if(strlen($login) > 40){
                 echo "O Email precisa ter menos que 40 digitos.\n";
                 $erros++;
+            }else if (!filter_var($login, FILTER_VALIDATE_EMAIL)) {
+                echo "Email inválido.\n";
+                $erros++;
             }
 
             //valida telefone
@@ -191,12 +200,22 @@
                 echo "O Telefone precisa ter menos que 15 números.\n";
                 $erros ++;
             }
+            //Remove mascara
+            $telefone_int = str_replace('-', '', $telefone);
+            $telefone_int = preg_replace('/[^A-Za-z0-9\-]/', '', $telefone_int);
+            
+            $verifica_telefone = new VerificaTelefone();
+            if($verifica_telefone->valida($telefone_int, "BR") == false){
+                echo "Telefone inválido.\n";
+                $erros++;
+            }
+
 
             if($erros == 0){
 
                 $status=1;
                 $cliente = new cliente;
-                $cliente->construct($nome, $sobrenome, $cpf_int, $data_nasc, $login, $senha,$telefone, $status);
+                $cliente->construct($nome, $sobrenome, $cpf, $data_nasc, $login, $senha,$telefone, $status);
                 $control = new controlCliente($_SG['link']);
                 $result=$control->insert($cliente);
                 if ($result > 0){
@@ -216,51 +235,5 @@
     }else{
         echo -1;
     }
-    
-    function validaCPF($cpf = null) {
 
-        // Verifica se um número foi informado
-        if(empty($cpf)) {
-            return false;
-        }
-    
-        // Elimina possivel mascara
-        $cpf = preg_replace("/[^0-9]/", "", $cpf);
-        $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
-        
-        // Verifica se o numero de digitos informados é igual a 11 
-        if (strlen($cpf) != 11) {
-            return false;
-        }
-        // Verifica se nenhuma das sequências invalidas abaixo 
-        // foi digitada. Caso afirmativo, retorna falso
-        else if ($cpf == '00000000000' || 
-            $cpf == '11111111111' || 
-            $cpf == '22222222222' || 
-            $cpf == '33333333333' || 
-            $cpf == '44444444444' || 
-            $cpf == '55555555555' || 
-            $cpf == '66666666666' || 
-            $cpf == '77777777777' || 
-            $cpf == '88888888888' || 
-            $cpf == '99999999999') {
-            return false;
-         // Calcula os digitos verificadores para verificar se o
-         // CPF é válido
-         } else {   
-            
-            for ($t = 9; $t < 11; $t++) {
-                
-                for ($d = 0, $c = 0; $c < $t; $c++) {
-                    $d += $cpf{$c} * (($t + 1) - $c);
-                }
-                $d = ((10 * $d) % 11) % 10;
-                if ($cpf{$c} != $d) {
-                    return false;
-                }
-            }
-    
-            return true;
-        }
-    }
 ?>
