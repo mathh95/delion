@@ -59,7 +59,7 @@
 
 	<div class="container mapa">
 
-		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3599.8586232327575!2d-54.58640058539712!3d-25.543085783736494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94f6904b0546e49b%3A0xd5380bc71a8ef24c!2sR.+Quintino+Bocai%C3%BAva%2C+850+-+Centro%2C+Foz+do+Igua%C3%A7u+-+PR%2C+85851-130!5e0!3m2!1spt-BR!2sbr!4v1513268186861" frameborder="0" style="border:0" allowfullscreen></iframe>
+		<iframe src="https://maps.google.com/maps?q=delion%20caf%C3%A9%20jorge%20sanwais&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" style="border:0" allowfullscreen></iframe>
 
 	</div>
 
