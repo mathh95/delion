@@ -40,6 +40,10 @@ $controlFormaPgt = new controlerFormaPgt($_SG['link']);
 $formasPgt = $controlFormaPgt->selectAll();
 $_SESSION['delivery_price'] = 0;
 $_SESSION['delivery_time'] = 0;
+$_SESSION['delivery_free'] = 0;
+$_SESSION['valor_entrega_valido'] = 0;
+$_SESSION['delivery_price_calculado'] = 0;
+
 
 //zera flag Finalizar pedido
 $_SESSION['finalizar_pedido'] = 0;
@@ -94,7 +98,7 @@ if (count($itens) > 0) {
                         <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
                         <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['nome'] ?></strong></td>
                         <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['preco'] ?>"><strong>R$ <?= number_format($item['preco'], 2); ?></strong></td>
-                        <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?= number_format($item['preco'], 2); ?></strong></td>
+                        <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?=  number_format(($item['preco'] * $_SESSION['qtd'][$key]), 2); ?></strong></td>
                         <td class="quantidadeProdutoTabela">
                             <input class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" value=<?= $_SESSION['qtd'][$key] ?> readonly="true">
                             <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?= $i ?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
@@ -259,14 +263,32 @@ if (count($itens) > 0) {
                             
                             $_SESSION['entrega_valida'] = 1;
 
+                            $_SESSION['valor_entrega_minimo'] = $info_entrega->getValor_minimo();
+
+                            //verifica se valor do pedido é suficiente para delivery
+                            if($_SESSION['totalCarrinho'] >= $_SESSION['valor_entrega_minimo']){
+                                $_SESSION['valor_entrega_valido'] = 1;
+                            }else{
+                                $_SESSION['valor_entrega_valido'] = 0;
+                            }
+
+                            $_SESSION['minimo_taxa_gratis'] = (float)$info_entrega->getMin_taxa_gratis();
+                            
+                            $_SESSION['delivery_price_calculado'] = (float) $info_entrega->getTaxa_entrega();
+
+                            //verifica se entrega é grátis
+                            if($_SESSION['totalCarrinho'] >= $_SESSION['minimo_taxa_gratis']){
+                                $_SESSION['delivery_free'] = 1;
+                                $_SESSION['delivery_price'] = (float) 0;
+                            }else{
+
+                                $_SESSION['delivery_price'] = (float) $_SESSION['delivery_price_calculado'];
+                                
+                                $_SESSION['totalCorrigido'] += (float) $_SESSION['delivery_price_calculado'];
+                            }
+
                             $estimativa_tempo = $info_entrega->getTempo();
                             $_SESSION['delivery_time'] = floor($estimativa_tempo);//em minutos
-                            
-                            
-                            $delivery_price = $info_entrega->getTaxa_entrega();
-                            $_SESSION['delivery_price'] = (float) $delivery_price;
-                            
-                            $_SESSION['totalCorrigido'] += (float) $delivery_price;
 
 
                             //Display info de entrega
@@ -291,7 +313,7 @@ if (count($itens) > 0) {
                             echo "</div>";
 
                         }else{
-                            //Endereço inválido para entrega
+                            //Endereço inválido p/ distância da entrega
                             echo "<div id='infoDelivery'>";
                             echo "<span style='font-weight:bold;'> <i class='fas fa-frown-open'></i>&nbsp;Ops...Ainda não fazemos entrega nesta região: </span><br><br>";
 
@@ -301,6 +323,7 @@ if (count($itens) > 0) {
                             echo "Cidade: " . $cidade . "<br>";
                             echo "</div>";
                         }
+
                     }else{
                         //info de entrega
                         echo "<div id='infoDelivery'>";

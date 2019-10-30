@@ -49,7 +49,7 @@
                 
             <p>*Informe Taxa e Tempo de acordo com o Alcance</p>
 
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <form class="form-horizontal" method="POST" action="../../controler/businessNovoRaio.php">
                 <div class="table-responsive">
                     <table class="table table-striped table-highlight">
@@ -57,7 +57,8 @@
                         <th class="col-lg-2">Alcance (km)</th>
                         <th class="col-lg-2">Taxa (R$)</th>
                         <th class="col-lg-2">Tempo (Minutos)</th>
-                        <th class="col-lg-2">Min. p/ Frete Grátis (R$)</th>
+                        <th class="col-lg-2">Valor Mínimo (R$)</th>
+                        <th class="col-lg-2">Min. p/ Taxa Grátis (R$)</th>
                         <th class="col-lg-1" style="text-align:center;">Ativo</th>
                     </thead>
                     
@@ -94,7 +95,16 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
 
-                            <input class="form-control" placeholder="Ex.: 50,00" name="min_frete_gratis" type="number" min="0" step="any" placeholder="">
+                            <input class="form-control" placeholder="Ex.: 10,00" name="valor_minimo" type="number" min="0" step="any" placeholder="">
+
+                            </div>
+                        </td>
+
+                        <td>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+
+                            <input class="form-control" placeholder="Ex.: 50,00" name="min_taxa_gratis" type="number" min="0" step="any" placeholder="">
 
                             </div>
                         </td>

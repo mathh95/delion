@@ -25,6 +25,7 @@ if (isset($_GET['delivery']) && !empty($_GET['delivery'])){
 }
 //função pra aumentar a quantidade de um item no carrinho
 if($acao == "+"){
+    
     $qtdAtual = $_GET['qtdAtual'];
     $linha = $_GET['linha'];
     $_SESSION['qtd'][$linha] = $qtdAtual+1;    
@@ -33,16 +34,34 @@ if($acao == "+"){
     
     $_SESSION['totalCorrigido'] += $preco;
 
-    // if($_SESSION['is_delivery_home'] == true){
-    //     $_SESSION['totalCorrigido'] += $_SESSION['delivery_price'];
-    // }
+    //verifica se valor do pedido é suficiente para delivery
+    if(isset($_SESSION['valor_entrega_minimo'])){
+        if($_SESSION['totalCarrinho'] >= $_SESSION['valor_entrega_minimo']){
+            $_SESSION['valor_entrega_valido'] = 1;
+        }else{
+            $_SESSION['valor_entrega_valido'] = 0;
+        }
+    }
+
+    //verifica se entrega é grátis
+    if($_SESSION['totalCarrinho'] >= $_SESSION['minimo_taxa_gratis']){
+        $_SESSION['delivery_free'] = 1;
+
+        //dec total se valor delivery anteriormente settado
+        if($_SESSION['delivery_price'] > 0){
+            $_SESSION['totalCorrigido'] -= (float) $_SESSION['delivery_price_calculado'];
+        }
+
+        $_SESSION['delivery_price'] = (float) 0;
+    }
 
     echo json_encode(
         array(
             "valorcupom" => $_SESSION['valorcupom'],
             "totalCarrinho" => $_SESSION['totalCarrinho'],
             "totalComDesconto" => $_SESSION['totalComDesconto'],
-            "totalCorrigido" => $_SESSION['totalCorrigido']
+            "totalCorrigido" => $_SESSION['totalCorrigido'],
+            "taxaEntrega" => $_SESSION['delivery_price']
             )
         );
         
@@ -51,7 +70,9 @@ if($acao == "+"){
 //função para diminuir uma quantidade de um item no carrinho
 }elseif($acao == "-"){
 
+    //remove item quando qtd 0
     if(isset($_GET['id']) && !empty($_GET['id'])){
+
         $id = $_GET['id'];
         foreach($_SESSION['carrinho'] as $key => $value){
             if($id == $value){
@@ -72,33 +93,86 @@ if($acao == "+"){
         
         $_SESSION['totalCorrigido'] -= (float)$preco;
 
+
+        //verifica se valor do pedido é suficiente para delivery
+        if(isset($_SESSION['valor_entrega_minimo'])){
+            if($_SESSION['totalCarrinho'] >= $_SESSION['valor_entrega_minimo']){
+                $_SESSION['valor_entrega_valido'] = 1;
+            }else{
+                $_SESSION['valor_entrega_valido'] = 0;
+            }
+        }
+
+        //verifica se entrega é grátis
+        if($_SESSION['totalCarrinho'] < $_SESSION['minimo_taxa_gratis']){
+            
+            $_SESSION['delivery_free'] = 0;
+            
+            //dec total se valor delivery anteriormente settado
+            if($_SESSION['delivery_price'] == 0){
+
+                //já calculado ao carregar o carrinho, delivery_price volátil
+                $_SESSION['delivery_price'] = $_SESSION['delivery_price_calculado'];
+
+                $_SESSION['totalCorrigido'] += (float) $_SESSION['delivery_price'];
+            }
+        }
+
         echo json_encode(
             array(
                 "valorcupom" => $_SESSION['valorcupom'],
                 "totalCarrinho" => $_SESSION['totalCarrinho'],
                 "totalComDesconto" => $_SESSION['totalComDesconto'],
-                "totalCorrigido" => $_SESSION['totalCorrigido']
+                "totalCorrigido" => $_SESSION['totalCorrigido'],
+                "taxaEntrega" => $_SESSION['delivery_price']
                 )
             );
             
         return;
 
 
+    //remove unidade do item sem zerar 
     }else{
+
         $qtdAtual = $_GET['qtdAtual'];
         $linha = $_GET['linha'];
         $_SESSION['qtd'][$linha] = $qtdAtual-1;
         $_SESSION['totalCarrinho'] -= $preco;
         $_SESSION['totalComDesconto'] = ((float)$_SESSION['totalCarrinho'] - (float)$_SESSION['valorcupom']);
         
-        $_SESSION['totalCorrigido'] -= (float)$preco;
+        $_SESSION['totalCorrigido'] -= (float) $preco;
+
+        //verifica se valor do pedido é suficiente para delivery
+        if(isset($_SESSION['valor_entrega_minimo'])){
+            if($_SESSION['totalCarrinho'] >= $_SESSION['valor_entrega_minimo']){
+                $_SESSION['valor_entrega_valido'] = 1;
+            }else{
+                $_SESSION['valor_entrega_valido'] = 0;
+            }
+        }
+
+        //verifica se entrega é grátis
+        if($_SESSION['totalCarrinho'] < $_SESSION['minimo_taxa_gratis']){
+            
+            $_SESSION['delivery_free'] = 0;
+            
+            //dec total se valor delivery anteriormente settado
+            if($_SESSION['delivery_price'] == 0){
+                
+                //já calculado ao carregar o carrinho, delivery_price volátil
+                $_SESSION['delivery_price'] = $_SESSION['delivery_price_calculado'];
+
+                $_SESSION['totalCorrigido'] += (float) $_SESSION['delivery_price'];
+            }
+        }
 
         echo json_encode(
             array(
             "valorcupom" => $_SESSION['valorcupom'],
             "totalCarrinho" => $_SESSION['totalCarrinho'],
             "totalComDesconto" => $_SESSION['totalComDesconto'],
-            "totalCorrigido" => $_SESSION['totalCorrigido']
+            "totalCorrigido" => $_SESSION['totalCorrigido'],
+            "taxaEntrega" => $_SESSION['delivery_price']
             )
         );
             

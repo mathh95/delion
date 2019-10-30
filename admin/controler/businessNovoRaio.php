@@ -17,7 +17,8 @@
         $raio_km = addslashes(htmlspecialchars($_POST['raio_km']));
         $taxa_entrega = addslashes(htmlspecialchars($_POST['taxa_entrega']));
         $tempo = addslashes(htmlspecialchars($_POST['tempo']));
-        $min_frete_gratis = addslashes(htmlspecialchars($_POST['min_frete_gratis']));
+        $valor_minimo = addslashes(htmlspecialchars($_POST['valor_minimo']));
+        $min_taxa_gratis = addslashes(htmlspecialchars($_POST['min_taxa_gratis']));
 
         if(isset($_POST['flag_ativo']) && !empty($_POST['flag_ativo'])){
             $flag_ativo = 1;
@@ -26,7 +27,7 @@
         }
 
         $entrega = new entrega();
-        $entrega->construct($raio_km, $taxa_entrega, $tempo, $min_frete_gratis, $flag_ativo);
+        $entrega->construct($raio_km, $taxa_entrega, $tempo, $valor_minimo, $min_taxa_gratis, $flag_ativo);
 
         $controle = new controlEntrega($_SG['link']);
         if($controle->insert($entrega)> -1){

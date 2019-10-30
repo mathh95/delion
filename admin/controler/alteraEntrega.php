@@ -23,7 +23,8 @@
 		$arr_raio_km = $_POST['raio_km'];
 		$arr_taxa_entrega = $_POST['taxa_entrega'];
 		$arr_tempo = $_POST['tempo'];
-		$arr_min_frete_gratis = $_POST['min_frete_gratis'];
+		$arr_valor_minimo = $_POST['valor_minimo'];
+		$arr_min_taxa_gratis = $_POST['min_taxa_gratis'];
 		$arr_flag_ativo = $_POST['flag_ativo'];
 		
 
@@ -33,7 +34,8 @@
 			$raio_km = addslashes(htmlspecialchars($arr_raio_km[$i]));
 			$taxa_entrega = addslashes(htmlspecialchars($arr_taxa_entrega[$i]));
 			$tempo = addslashes(htmlspecialchars($arr_tempo[$i]));
-			$min_frete_gratis = addslashes(htmlspecialchars($arr_min_frete_gratis[$i]));
+			$valor_minimo = addslashes(htmlspecialchars($arr_valor_minimo[$i]));
+			$min_taxa_gratis = addslashes(htmlspecialchars($arr_min_taxa_gratis[$i]));
 			$flag_ativo = addslashes(htmlspecialchars($arr_flag_ativo[$i]));
 
 			if(isset($flag_ativo) && !empty($flag_ativo)){
@@ -43,7 +45,7 @@
 			}
 
 			$entrega = new entrega();
-			$entrega->construct($raio_km, $taxa_entrega, $tempo, $min_frete_gratis, $flag_ativo);
+			$entrega->construct($raio_km, $taxa_entrega, $tempo, $valor_minimo, $min_taxa_gratis, $flag_ativo);
 			$entrega->setCod_entrega($cod_entrega);
 						
 			if($controle->update($entrega) == -1){

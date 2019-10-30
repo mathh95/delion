@@ -13,15 +13,17 @@
                 $tempo=$entrega->getTempo();
                 $raio_km=$entrega->getRaio_km();
                 $taxa_entrega=$entrega->getTaxa_entrega();
-                $min_frete_gratis=$entrega->getMin_frete_gratis();
+                $valor_minimo=$entrega->getValor_minimo();
+                $min_taxa_gratis=$entrega->getMin_taxa_gratis();
                 $flag_ativo=$entrega->getFlag_ativo();
 
-                $stmt=$this->pdo->prepare("INSERT INTO entrega(tempo, raio_km, taxa_entrega, min_frete_gratis, flag_ativo) VALUES (:tempo, :raio_km, :taxa_entrega, :min_frete_gratis, :flag_ativo)");
+                $stmt=$this->pdo->prepare("INSERT INTO entrega(tempo, raio_km, taxa_entrega, valor_minimo, min_taxa_gratis, flag_ativo) VALUES (:tempo, :raio_km, :taxa_entrega, :valor_minimo, :min_taxa_gratis, :flag_ativo)");
                 
                 $stmt->bindParam(":tempo",$tempo, PDO::PARAM_INT);
                 $stmt->bindParam(":raio_km",$raio_km, PDO::PARAM_INT);
                 $stmt->bindParam(":taxa_entrega",$taxa_entrega, PDO::PARAM_STR);
-                $stmt->bindParam(":min_frete_gratis",$min_frete_gratis, PDO::PARAM_STR);
+                $stmt->bindParam(":valor_minimo",$valor_minimo, PDO::PARAM_STR);
+                $stmt->bindParam(":min_taxa_gratis",$min_taxa_gratis, PDO::PARAM_STR);
                 $stmt->bindParam(":flag_ativo",$flag_ativo, PDO::PARAM_INT);
         
                 $executa = $stmt->execute();
@@ -41,20 +43,22 @@
     function update($entrega){
         try{
             
-            $stmt=$this->pdo->prepare("UPDATE entrega SET tempo=:tempo, raio_km=:raio_km, taxa_entrega=:taxa_entrega, min_frete_gratis=:min_frete_gratis, flag_ativo=:flag_ativo WHERE cod_entrega=:cod_entrega");
+            $stmt=$this->pdo->prepare("UPDATE entrega SET tempo=:tempo, raio_km=:raio_km, taxa_entrega=:taxa_entrega, valor_minimo=:valor_minimo, min_taxa_gratis=:min_taxa_gratis, flag_ativo=:flag_ativo WHERE cod_entrega=:cod_entrega");
             
             $cod_entrega = $entrega->getCod_entrega();
             $tempo  = $entrega->getTempo();
             $raio_km = $entrega->getRaio_km();
             $taxa_entrega = $entrega->getTaxa_entrega();
-            $min_frete_gratis = $entrega->getMin_frete_gratis();
+            $valor_minimo=$entrega->getValor_minimo();
+            $min_taxa_gratis = $entrega->getMin_taxa_gratis();
             $flag_ativo = $entrega->getFlag_ativo();
 
             $stmt->bindParam(":cod_entrega", $cod_entrega, PDO::PARAM_INT);
             $stmt->bindParam(":tempo", $tempo, PDO::PARAM_INT);
             $stmt->bindParam(":raio_km", $raio_km, PDO::PARAM_INT);
             $stmt->bindParam(":taxa_entrega", $taxa_entrega, PDO::PARAM_STR);
-            $stmt->bindParam(":min_frete_gratis", $min_frete_gratis, PDO::PARAM_STR);
+            $stmt->bindParam(":valor_minimo", $valor_minimo, PDO::PARAM_STR);
+            $stmt->bindParam(":min_taxa_gratis", $min_taxa_gratis, PDO::PARAM_STR);
             $stmt->bindParam(":flag_ativo",$flag_ativo, PDO::PARAM_INT);
 
             $executa = $stmt->execute();
@@ -90,7 +94,8 @@
                         $entrega->setTempo($result->tempo);
                         $entrega->setRaio_km($result->raio_km);
                         $entrega->setTaxa_entrega($result->taxa_entrega);
-                        $entrega->setMin_frete_gratis($result->min_frete_gratis);
+                        $entrega->setValor_minimo($result->valor_minimo);
+                        $entrega->setMin_taxa_gratis($result->min_taxa_gratis);
                         $entrega->setFlag_ativo($result->flag_ativo);
                     }
                 }
@@ -121,7 +126,8 @@
                         $entrega->setTempo($result->tempo);
                         $entrega->setRaio_km($result->raio_km);
                         $entrega->setTaxa_entrega($result->taxa_entrega);
-                        $entrega->setMin_frete_gratis($result->min_frete_gratis);
+                        $entrega->setValor_minimo($result->valor_minimo);
+                        $entrega->setMin_taxa_gratis($result->min_taxa_gratis);
                         $entrega->setFlag_ativo($result->flag_ativo);
                         array_push($entregas, $entrega);
                     }
@@ -157,7 +163,8 @@
                         $entrega->setTempo($result->tempo);
                         $entrega->setRaio_km($result->raio_km);
                         $entrega->setTaxa_entrega($result->taxa_entrega);
-                        $entrega->setMin_frete_gratis($result->min_frete_gratis);
+                        $entrega->setValor_minimo($result->valor_minimo);
+                        $entrega->setMin_taxa_gratis($result->min_taxa_gratis);
                         $entrega->setFlag_ativo($result->flag_ativo);
                     }
                 }else{
