@@ -52,10 +52,4 @@
 
     </div>
 
-<script>
-    $(document).ready(function(){
-        $("#spanCarrinho").text();
-    });
-</script>
-
 </header>

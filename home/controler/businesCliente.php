@@ -1,9 +1,15 @@
 <?php 
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
     include_once MODELPATH."/cliente.php";
+    include_once MODELPATH."/sms.php";
     include_once "controlCliente.php";
+    include_once "controlSMS.php";
     include_once CONTROLLERPATH."/seguranca.php";
     include_once "../lib/alert.php";
+    include_once "../utils/VerificaCpf.php";
+    include_once "../utils/VerificaTelefone.php";
+    include_once "../utils/InfoBip.php";
+
     if (isset($_POST) and !empty($_POST)){
         if(isset($_POST['idGoogle']) && !empty($_POST['idGoogle'])){
 
@@ -89,10 +95,13 @@
                     echo -1;
                 }
             }
-           
+        
         //Cadastro Cliente
-        }else{
-
+        }elseif (
+            (isset($_POST['is_verificacao_cadastro']) && 
+            ($_POST['is_verificacao_cadastro'] == 1))
+            || ($_POST['is_cadastro'] == 1)){
+            
             $nome= addslashes(htmlspecialchars($_POST['nome']));
             $sobrenome= addslashes(htmlspecialchars($_POST['sobrenome']));
             $cpf= addslashes(htmlspecialchars($_POST['cpf']));
@@ -102,103 +111,66 @@
             $senha=addslashes(htmlspecialchars($_POST['senha']));
             $senha2=addslashes(htmlspecialchars($_POST['senha2']));
 
-            $erros=0;
+            $erros = 0;
+            $erros = verificaCadastro($erros, $nome, $sobrenome, $cpf, $data_nasc, $telefone, $login, $senha, $senha2);
 
-            //valida nome
-            if(strlen($nome) == 0){
-                echo "O Campo Nome precisa ser preenchido.\n";                
-                $erros ++;
-            }else if(!ctype_alpha(str_replace(" ","",$nome))){
-                echo "O Campo Nome só aceita caracteres simples.\n";
-                $erros ++;
-            }else if(strlen($nome) < 3){
-                echo "O Nome precisa ter 4 letras ou mais.\n";
-                $erros ++;
-            }else if(strlen($nome) > 30){
-                echo "O Nome precisa ter menos que 30 letras.\n";
-                $erros ++;
-            }
-
-            //valida sobrenome
-            if(strlen($sobrenome) == 0){
-                echo "O Campo Sobrenome precisa ser preenchido.\n";                
-                $erros ++;
-            }else if(!ctype_alpha(str_replace(" ","",$sobrenome))){
-                echo "O Campo Sobrenome só aceita caracteres simples.\n";
-                $erros ++;
-            }else if(strlen($sobrenome) < 3){
-                echo "O Sobrenome precisa ter 4 letras ou mais.\n";
-                $erros ++;
-            }else if(strlen($sobrenome) > 30){
-                echo "O Sobrenome precisa ter menos que 30 letras.\n";
-                $erros ++;
-            }
-
-            //valida cpf
-            if(validaCPF($cpf) == false){
-                echo "CPF inválido.\n";
-                $erros++;
-            }
-            //Remove mascara
-            $cpf_int = str_replace('-', '', $cpf);
-            $cpf_int = preg_replace('/[^A-Za-z0-9\-]/', '', $cpf_int);
             
-            //valida data_nasc
-            $current = date("Y-m-d");
-            $min = date('Y-m-d', strtotime($current.'-90 year'));
-            $max = date('Y-m-d', strtotime($current.'-12 year'));
+            $info_bip = new InfoBip();
+            $control_sms = new controlSMS($_SG['link']);
 
-            if(strlen($data_nasc) == 0){
-                echo "O Campo Data de Nascimento precisa ser preenchido.\n";
-                $erros ++;
-            }else if(($data_nasc > $max) || ($data_nasc < $min)){
-                echo "Data de Nascimento inválida.\n";
-                $erros ++;
-            }
+            if($erros > 0){
+                echo "Campos inválidos!";
+                
+            }else if(
+                isset($_POST['is_verificacao_cadastro']) &&
+                $_POST['is_verificacao_cadastro'] == 1) {
+                
+                $telefone_int = limpaTelefone($telefone);
+                $cod_sms = rand(11112, 99998);
 
-            //valida senha
-            if(strlen($senha) == 0){
-                echo "O Campo Senha precisa ser preenchido.\n";
-                $erros++;
-            }else if($senha != $senha2){
-                echo "Senhas diferentes.\n";
-                $erros ++;
-            }else if(strlen($senha) > 40){
-                echo "A Senha precisa ter menos que 40 digitos.\n";
-                $erros ++;
-            }else if(strlen($senha) < 4){
-                echo "A Senha precisa ter 4 ou mais caracteres.\n";
-                $erros++;
-            }
-        
-            //valida login
-            if((strlen($login) == 0)){
-                echo "O Campo Email precisa ser preenchido.\n";
-                $erros++;
-            }else if(strlen($login) > 40){
-                echo "O Email precisa ter menos que 40 digitos.\n";
-                $erros++;
-            }
+                //salva informações de verificação
+                $sms = new sms;
+                $sms->construct($telefone_int, $cod_sms);
 
-            //valida telefone
-            if(strlen($telefone) == 0){
-                echo "O Campo Telefone precisa ser preenchido.\n";                
-                $erros ++;
-            }else if(strlen($telefone) < 8){
-                echo "O Telefone precisa ter 8 números ou mais.\n";
-                $erros ++;
-            }else if(strlen($telefone) > 30){
-                echo "O Telefone precisa ter menos que 15 números.\n";
-                $erros ++;
-            }
+                $result = $control_sms->insert($sms);
+                if($result < 0){
+                    echo "Erro ao salvar SMS :/";
+                    return;
+                }
 
-            if($erros == 0){
+                //envia SMS
+                $res_envio = $info_bip->enviaSMS($telefone_int, $cod_sms);
+                
+                if($res_envio){///////////////////////////////////UPDATE to success msg
+                    echo "verificado";
+                }else{
+                    echo "Erro ao enviar SMS :/...contate o suporte.";
+                }
+                
+            } else if(isset($_POST['is_cadastro']) && $_POST['is_cadastro'] == 1){
+                
+                $telefone = addslashes(htmlspecialchars($_POST['telefone']));
+                $cod_inserido = addslashes(htmlspecialchars($_POST['codigo_sms']));
+                
+                $telefone_int = limpaTelefone($telefone);
 
+                //verifica código SMS
+                $res_sms = $control_sms->selectByTelefoneCodigo($telefone_int, $cod_inserido);
+
+                if($res_sms->getCod_sms() == ""){
+                    echo "Código inválido";
+                    return;
+                }else{
+                    $control_sms->updateVerificado($res_sms->getCod_sms());
+                }
+
+                //insere cliente
                 $status=1;
                 $cliente = new cliente;
-                $cliente->construct($nome, $sobrenome, $cpf_int, $data_nasc, $login, $senha,$telefone, $status);
+                $cliente->construct($nome, $sobrenome, $cpf, $data_nasc, $login, $senha,$telefone, $status);
                 $control = new controlCliente($_SG['link']);
                 $result=$control->insert($cliente);
+
                 if ($result > 0){
                     $control->validaCliente($cliente->getLogin(),$cliente->getSenha());
                     
@@ -209,58 +181,130 @@
                 }else{
                     echo "Erro no cadastro :/...entre em contato com o suporte.";
                 }
-            }else{
-                echo "Campos inválidos!";
             }
+
+            return;
         }
+
     }else{
         echo -1;
     }
-    
-    function validaCPF($cpf = null) {
 
-        // Verifica se um número foi informado
-        if(empty($cpf)) {
-            return false;
+
+
+    function verificaCadastro($erros, $nome, $sobrenome, $cpf, $data_nasc, $telefone, $login, $senha, $senha2){
+
+        //valida nome
+        if(strlen($nome) == 0){
+            echo "O Campo Nome precisa ser preenchido.\n";                
+            $erros ++;
+        }else if(!ctype_alpha(str_replace(" ","",$nome))){
+            echo "O Campo Nome só aceita caracteres simples.\n";
+            $erros ++;
+        }else if(strlen($nome) < 3){
+            echo "O Nome precisa ter 4 letras ou mais.\n";
+            $erros ++;
+        }else if(strlen($nome) > 30){
+            echo "O Nome precisa ter menos que 30 letras.\n";
+            $erros ++;
         }
-    
-        // Elimina possivel mascara
-        $cpf = preg_replace("/[^0-9]/", "", $cpf);
-        $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+
+        //valida sobrenome
+        if(strlen($sobrenome) == 0){
+            echo "O Campo Sobrenome precisa ser preenchido.\n";                
+            $erros ++;
+        }else if(!ctype_alpha(str_replace(" ","",$sobrenome))){
+            echo "O Campo Sobrenome só aceita caracteres simples.\n";
+            $erros ++;
+        }else if(strlen($sobrenome) < 3){
+            echo "O Sobrenome precisa ter 4 letras ou mais.\n";
+            $erros ++;
+        }else if(strlen($sobrenome) > 30){
+            echo "O Sobrenome precisa ter menos que 30 letras.\n";
+            $erros ++;
+        }
+
+
+        //valida cpf
+        $verifica_cpf = new VerificaCpf();
+        if($verifica_cpf->valida($cpf) == false){
+            echo "CPF inválido.\n";
+            $erros++;
+        }
+        // //Remove mascara
+        // $cpf_int = str_replace('-', '', $cpf);
+        // $cpf_int = preg_replace('/[^A-Za-z0-9\-]/', '', $cpf_int);
         
-        // Verifica se o numero de digitos informados é igual a 11 
-        if (strlen($cpf) != 11) {
-            return false;
+
+        //valida data_nasc
+        $current = date("Y-m-d");
+        $min = date('Y-m-d', strtotime($current.'-90 year'));
+        $max = date('Y-m-d', strtotime($current.'-12 year'));
+
+        if(strlen($data_nasc) == 0){
+            echo "O Campo Data de Nascimento precisa ser preenchido.\n";
+            $erros ++;
+        }else if(($data_nasc > $max) || ($data_nasc < $min)){
+            echo "Data de Nascimento inválida.\n";
+            $erros ++;
         }
-        // Verifica se nenhuma das sequências invalidas abaixo 
-        // foi digitada. Caso afirmativo, retorna falso
-        else if ($cpf == '00000000000' || 
-            $cpf == '11111111111' || 
-            $cpf == '22222222222' || 
-            $cpf == '33333333333' || 
-            $cpf == '44444444444' || 
-            $cpf == '55555555555' || 
-            $cpf == '66666666666' || 
-            $cpf == '77777777777' || 
-            $cpf == '88888888888' || 
-            $cpf == '99999999999') {
-            return false;
-         // Calcula os digitos verificadores para verificar se o
-         // CPF é válido
-         } else {   
-            
-            for ($t = 9; $t < 11; $t++) {
-                
-                for ($d = 0, $c = 0; $c < $t; $c++) {
-                    $d += $cpf{$c} * (($t + 1) - $c);
-                }
-                $d = ((10 * $d) % 11) % 10;
-                if ($cpf{$c} != $d) {
-                    return false;
-                }
-            }
+
+        //valida senha
+        if(strlen($senha) == 0){
+            echo "O Campo Senha precisa ser preenchido.\n";
+            $erros++;
+        }else if($senha != $senha2){
+            echo "Senhas diferentes.\n";
+            $erros ++;
+        }else if(strlen($senha) > 40){
+            echo "A Senha precisa ter menos que 40 digitos.\n";
+            $erros ++;
+        }else if(strlen($senha) < 4){
+            echo "A Senha precisa ter 4 ou mais caracteres.\n";
+            $erros++;
+        }
     
-            return true;
+        //valida login
+        if((strlen($login) == 0)){
+            echo "O Campo Email precisa ser preenchido.\n";
+            $erros++;
+        }else if(strlen($login) > 40){
+            echo "O Email precisa ter menos que 40 digitos.\n";
+            $erros++;
+        }else if (!filter_var($login, FILTER_VALIDATE_EMAIL)) {
+            echo "Email inválido.\n";
+            $erros++;
         }
+
+        //valida telefone
+        if(strlen($telefone) == 0){
+            echo "O Campo Telefone precisa ser preenchido.\n";                
+            $erros ++;
+        }else if(strlen($telefone) < 8){
+            echo "O Telefone precisa ter 8 números ou mais.\n";
+            $erros ++;
+        }else if(strlen($telefone) > 30){
+            echo "O Telefone precisa ter menos que 15 números.\n";
+            $erros ++;
+        }
+        
+        $telefone_int = limpaTelefone($telefone);
+        
+        $verifica_telefone = new VerificaTelefone();
+        if($verifica_telefone->valida($telefone_int, "BR") == false){
+            echo "Telefone inválido.\n";
+            $erros++;
+        }
+
+        return $erros;
     }
+
+    function limpaTelefone($telefone){
+        //Remove mascara
+        $telefone_int = str_replace('-', '', $telefone);
+        $telefone_int = preg_replace('/[^A-Za-z0-9\-]/', '', $telefone_int);
+        
+        return $telefone_int;
+    }
+
 ?>

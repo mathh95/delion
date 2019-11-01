@@ -182,8 +182,9 @@ $(document).on("click", "#removeItem", function(){
         data: {acao: acao, preco: preco, qtdAtual: qtdAtual, id: id},
 
         success:function(resultado){
-            $("#valor_subTotal").html(resultado.totalCarrinho);
-            $("#valor_total").html(resultado.totalComDesconto);
+            $("#valor_subTotal").html(resultado.totalCarrinho.toFixed(2));
+            $("#valor_taxa_entrega").html(resultado.taxaEntrega.toFixed(2));
+            $("#valor_total").html(resultado.totalComDesconto.toFixed(2));
             
             var tr = $("#idLinha"+linha).fadeOut(100, function(){
                 tr.remove();
@@ -205,7 +206,6 @@ $(document).on("click", "#adicionarUnidade", function(){
     var qtdInt = parseInt(qtdAtual);
     var subtotal = preco * (qtdInt+1);
    
-    
     $.ajax({
         type: 'GET',
 
@@ -216,22 +216,27 @@ $(document).on("click", "#adicionarUnidade", function(){
         success:function(resultado){
             //console.log(resultado);
             var res = JSON.parse(resultado);
-            //console.log(res);
+            console.log(res);
             var totalCarr = res.totalCarrinho;
             var valorCup = parseFloat(res.valorcupom);
             var totalDesc = res.totalComDesconto;
             var totalCorrigido = res.totalCorrigido;
+            var taxaEntrega = res.taxaEntrega;
             
             $("#qtdUnidade"+linha).val(qtdInt+= 1);
             $("#subtotal"+linha).html("<strong>R$ "+subtotal.toFixed(2)+"</strong>");   
             
             $("#valor_subTotal").html(totalCarr.toFixed(2));
+            $("#valor_taxa_entrega").html(taxaEntrega.toFixed(2));
             $("#valor_desconto").html(valorCup.toFixed(2));
             if(totalDesc < 0){
                 $("#valor_total").html("0.00");
             }else{
                 $("#valor_total").html(totalCorrigido.toFixed(2));
             }
+        },
+        error: function(err){
+            console.log(err);
         }
     });
 });
@@ -263,11 +268,13 @@ $(document).on("click", "#removerUnidade", function(){
                 var valorCup = parseFloat(res.valorcupom);
                 var totalDesc = res.totalComDesconto;
                 var totalCorrigido = res.totalCorrigido;
+                var taxaEntrega = res.taxaEntrega;
 
                 $("#qtdUnidade"+linha).val(qtdTotal);
                 $("#subtotal"+linha).html("<strong>R$ "+subtotal.toFixed(2)+"</strong>");
                 
                 $("#valor_subTotal").html(totalCarr.toFixed(2));
+                $("#valor_taxa_entrega").html(taxaEntrega.toFixed(2));
                 $("#valor_desconto").html(valorCup.toFixed(2));
                 if(totalDesc < 0){
                     $("#valor_total").html("0.00");
@@ -276,7 +283,8 @@ $(document).on("click", "#removerUnidade", function(){
                 }
             }
         });
-
+    
+    //remove item quando qtd 0
     }else if(qtdTotal <= 0){
         $.ajax({
         

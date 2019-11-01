@@ -56,21 +56,22 @@ $arquivo_pai = basename(__FILE__, '.php');
     <div class="col-lg-12">
         <h3>Informações de Entrega</h3>
         <i class="fas fa-info-circle"></i>
-            &nbsp;Informe Taxa e Tempo de acordo com o Alcance | Frete Grátis habilitado a partir do valor informado.
+            &nbsp;Informe Taxa e Tempo de acordo com o Alcance | <b>Taxa Grátis</b> a partir do valor informado.
             
         <hr style="margin-bottom:10px;">
     </div>
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-7">
             <form class="form-horizontal" method="POST" action="../../controler/alteraEntrega.php">
                 <div class="table-responsive">
                     <table class="table table-striped table-hover table-highlight">
                         <thead>
                             <th class="col-lg-1">Alcance</th>
                             <th class="col-lg-2">Taxa (R$)</th>
-                            <th class="col-lg-2">Tempo (Minutos)</th>
-                            <th class="col-lg-2" title="Frete grátis a partir de...">Frete Grátis (R$)</th>
+                            <th class="col-lg-1">Tempo (Minutos)</th>
+                            <th class="col-lg-2">Valor Mínimo (R$)</th>
+                            <th class="col-lg-2" title="Taxa grátis a partir de...">Taxa Grátis (R$)</th>
                             <th class="col-lg-2" style="text-align:center;">Ativo | Excluir</th>
                         </thead>
 
@@ -114,7 +115,16 @@ $arquivo_pai = basename(__FILE__, '.php');
                                         <div class="input-group">
                                             <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span> -->
 
-                                            <input class="form-control" placeholder="Ex.: 100,00" name="min_frete_gratis[]" value="<?= $entrega->getMin_frete_gratis(); ?>" type="number" min="0" step="any">
+                                            <input class="form-control" placeholder="Ex.: 100,00" name="valor_minimo[]" value="<?= $entrega->getValor_minimo(); ?>" type="number" min="0" step="any">
+
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="input-group">
+                                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span> -->
+
+                                            <input class="form-control" placeholder="Ex.: 100,00" name="min_taxa_gratis[]" value="<?= $entrega->getMin_taxa_gratis(); ?>" type="number" min="0" step="any">
 
                                         </div>
                                     </td>
@@ -152,7 +162,7 @@ $arquivo_pai = basename(__FILE__, '.php');
         </div>
 
         <!-- Raio com o mapa style="float:right; width:500px; height:500px;" -->
-        <div class="col-lg-6">
+        <div class="col-lg-5">
             <div class="panel-body col-lg-12" id="map" style="border-radius:20px; height:500px;"> </div>
         </div>
 

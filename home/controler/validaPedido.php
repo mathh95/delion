@@ -102,58 +102,64 @@ if($checkcarrinho > 0){
                         //endereço inserido?
                         if(($_SESSION['is_delivery_home']) && ($_SESSION['delivery_price'] > 0)){
                             
-                            //Endereço cadastrado selecionado
-                            if(isset($_SESSION['cod_endereco']) && !empty($_SESSION['cod_endereco'])){
-                                $rua = $_SESSION['rua_entrega'];
-                                $numero = $_SESSION['numero_entrega'];
+                            // valor mínimo para delivery não atingido
+                            if($_SESSION['valor_entrega_valido'] < 1){
+                                $html.= "<script>swal('Valor Mínimo não Atingido para Delivery :/', 'Valor Mínimo: R$ ".$_SESSION['valor_entrega_minimo']."', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";
+                                echo $html;
                             }else{
-                                //Endereço homepage
-                                $rua = $_SESSION['endereco']['route'];
-                                $numero = $_SESSION['endereco']['street_number'];
-                            }
+
+                                //Endereço cadastrado selecionado
+                                if(isset($_SESSION['cod_endereco']) && !empty($_SESSION['cod_endereco'])){
+                                    $rua = $_SESSION['rua_entrega'];
+                                    $numero = $_SESSION['numero_entrega'];
+                                }else{
+                                    //Endereço homepage
+                                    $rua = $_SESSION['endereco']['route'];
+                                    $numero = $_SESSION['endereco']['street_number'];
+                                }
 
 
-                            $html.= "
-                            <script>
+                                $html.= "
+                                <script>
 
-                            function enviaPedido(){
-                                $.ajax({
-                                    type: 'GET',
-                                    url: '../ajax/enviarEmailPedido.php',
-                                    data: {},
-                                    success: function (res) {
-                                        console.log(res);
+                                function enviaPedido(){
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: '../ajax/enviarEmailPedido.php',
+                                        data: {},
+                                        success: function (res) {
+                                            console.log(res);
 
-                                        swal('Pedido realizado com sucesso!', 'Tempo estimado de entrega: ".$_SESSION['delivery_time']." mins  | Total: R$ ".number_format($_SESSION['totalCorrigido'], 2)."', 'success').then((value) => {
-                                            window.location = '/home/cardapio.php';
-                                        });
-                                    },
-                                    error: function(err){
-                                        console.log(err);
+                                            swal('Pedido realizado com sucesso!', 'Tempo estimado de entrega: ".$_SESSION['delivery_time']." mins  | Total: R$ ".number_format($_SESSION['totalCorrigido'], 2)."', 'success').then((value) => {
+                                                window.location = '/home/cardapio.php';
+                                            });
+                                        },
+                                        error: function(err){
+                                            console.log(err);
+                                        }
+                                    });
+                                }
+
+                                swal({
+                                    title: 'Confirmar Pedido',
+                                    text: 'Entrega em: ".$rua.", ".$numero." | Total: R$ ".number_format($_SESSION['totalCorrigido'], 2)."',
+                                    icon: 'success',
+                                    buttons: ['Cancelar', true],
+                                })
+                                .then((enviar) => {
+                                    if (enviar) {
+                                        
+                                        enviaPedido();
+
+                                    } else {
+                                        window.location = '/home/carrinho.php';
                                     }
                                 });
+                                
+                                </script></body>";
+
+                                echo $html;
                             }
-
-                            swal({
-                                title: 'Confirmar Pedido',
-                                text: 'Entrega em: ".$rua.", ".$numero." | Total: R$ ".number_format($_SESSION['totalCorrigido'], 2)."',
-                                icon: 'success',
-                                buttons: ['Cancelar', true],
-                              })
-                              .then((enviar) => {
-                                if (enviar) {
-                                    
-                                    enviaPedido();
-
-                                } else {
-                                    window.location = '/home/carrinho.php';
-                                }
-                            });
-                            
-                            </script></body>";
-
-                            echo $html;
-
                         }else{
                             // 'termina pedido vai pra area de endereço';
                             $html.= "<script>swal('Selecione um endereço!', 'Estamos te mandando para tela endereços, escolha um endereço...', 'info').then((value) => {window.location='/home/endereco.php'});</script></body>";

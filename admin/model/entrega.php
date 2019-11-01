@@ -9,10 +9,12 @@
             private $raio_km;
             
             private $taxa_entrega;
+
+            private $valor_minimo;
             
             private $tempo;
             
-            private $min_frete_gratis;
+            private $min_taxa_gratis;
 
             private $flag_ativo;
             
@@ -36,8 +38,12 @@
                 return $this->taxa_entrega;
             }
 
-            function getMin_frete_gratis(){
-                return $this->min_frete_gratis;
+            function getValor_minimo(){
+                return $this->valor_minimo;
+            }
+
+            function getMin_taxa_gratis(){
+                return $this->min_taxa_gratis;
             }
 
             function getFlag_ativo(){
@@ -62,20 +68,25 @@
             function setTaxa_entrega($taxa_entrega){
                 $this->taxa_entrega = $taxa_entrega;
             }
+
+            function setValor_minimo($valor_minimo){
+                $this->valor_minimo = $valor_minimo;
+            }
             
-            function setMin_frete_gratis($min_frete_gratis){
-                $this->min_frete_gratis = $min_frete_gratis;
+            function setMin_taxa_gratis($min_taxa_gratis){
+                $this->min_taxa_gratis = $min_taxa_gratis;
             }
 
             function setFlag_ativo($flag_ativo){
                 $this->flag_ativo = $flag_ativo;
             }
             
-            function construct($raio_km, $taxa_entrega, $tempo, $min_frete_gratis, $flag_ativo=1){
+            function construct($raio_km, $taxa_entrega, $tempo, $valor_minimo, $min_taxa_gratis, $flag_ativo=1){
                 $this->tempo = $tempo;
                 $this->raio_km = $raio_km;
                 $this->taxa_entrega = $taxa_entrega;
-                $this->min_frete_gratis = $min_frete_gratis;
+                $this->valor_minimo = $valor_minimo;
+                $this->min_taxa_gratis = $min_taxa_gratis;
                 $this->flag_ativo = $flag_ativo;
             }
 
@@ -88,7 +99,8 @@
                 echo "Tempo p/ Entrega: ".$this->tempo."<br>";
                 echo "Alcance raio: ".$this->raio_km."<br>";
                 echo "Taxa de Entrega: ".$this->taxa_entrega."<br>";
-                echo "Valor Min. p/ Frete Grátis: ".$this->min_frete_gratis."<br>";
+                echo "Valor Min. p/ entrega: ".$this->valor_minimo."<br>";
+                echo "Valor Min. p/ Taxa Grátis: ".$this->min_taxa_gratis."<br>";
                 echo "Raio Ativado: ".$this->flag_ativo."<br>";
             }
         }
