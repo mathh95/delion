@@ -16,6 +16,9 @@
 body{
     font-family: $font_main;
     > #navegacao{
+        position: sticky;
+        z-index: 9999;
+        top: 0;
         background: $vermelho_forte;
         > .container{
             padding: 0px; 

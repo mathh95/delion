@@ -117,7 +117,7 @@ body {
             padding: 0 !important;
             font-size: 17px;
             >.tabela_itens {
-                @include make-lg-column(12);
+                width: 100%;
                 thead{
                     #cabecalhoTabela {
                         color: white;
@@ -130,11 +130,11 @@ body {
                         border-bottom-color: $vermelho_forte;
                         font-family: "Century Gothic Bold";
                         font-size: 16px;
-                        padding: 10px;
+                        padding: 20px;
                     }
                 }
                 
-
+                
                 .quantidadeItemTabela {
                     border: none;
                     background-color: transparent;

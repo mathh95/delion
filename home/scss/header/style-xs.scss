@@ -84,6 +84,11 @@ body{
                 // @include make-lg-column(1);
                 // padding-left: 80px;
                 float: right;
+                a{
+                    i{
+                        color: #FFFFFF;
+                    }
+                }
                 a:hover{
                     padding-bottom: 10px;
                     text-decoration: none;

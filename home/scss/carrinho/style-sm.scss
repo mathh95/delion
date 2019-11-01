@@ -112,12 +112,30 @@ body{
                     font-size: 15px;
                     height: 33px;
                 }
-                .quantidadeItemTabela{
-                    padding: 10px;
-                    border:none;
-                    background-color:transparent;
-                    width:30px;
+                .quantidadeProdutoTabela{
+                    padding-bottom: 10px;
+                    vertical-align: middle;
+                    flex-direction: row;
+                    display: flex;
+                    justify-content: space-around;
+                    .quantidadeItemTabela{
+                        padding: 10px;
+                        border:none;
+                        background-color:transparent;
+                        width:30px;
+                    }
+                    .iconeAdicionarProdutoTabela{
+                        font-size: 18px;
+                        // width: 30px;
+                        // float: left;
+                    }
+                    .iconeExcluirProdutoTabela{
+                        // width: 20px;
+                        font-size: 18px;
+                        // float: right;
+                    }
                 }
+                
             }
             textarea:focus {
                 border-color: $vermelho_fraco;
