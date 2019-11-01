@@ -80,9 +80,9 @@ session_start();
 				<a href="listarPedidos.php"><button class="botao-esquerda" type="submit">LISTAR PEDIDOS</button></a>
 			</div>
 
-			<div>
+			<!-- <div>
 				<a href="listarCombos.php"><button class="botao-esquerda" type="submit">LISTAR COMBOS</button></a>
-			</div>
+			</div> -->
 
 			<div >
 				<a href="endereco.php"><button class="botao-esquerda"  type="submit">LISTAR ENDEREÇOS CADASTRADOS</button></a>
