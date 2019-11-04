@@ -109,7 +109,7 @@
 					
 					<p>Celular:</p>
 
-					<input class="form-control telefone" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999">
+					<input class="form-control telefone" name="telefone" type="text" minlength="15" maxlength="15" required placeholder="(45) 9 9999-9999">
 
 				</div>
 
@@ -200,19 +200,19 @@
 
 							swal({
 								title: 'SMS Enviado!',
-								text: 'Assim que receber insira o código para finalizar o cadastro.',
+								text: 'Insira o código recebido abaixo.',
 								content: "input",
-								button: {
-									text: "Prosseguir",
-									closeModal: false,
-								},
+								button: 'Prosseguir'
 							})
 							.then(cod => {
 								if (!cod) throw null;
-								
-								//remove flag de verificacao
-								data.pop();
-								inserirCliente(data, cod);
+								if (cod.length < 4){
+									swal("Código inválido!", "warning");
+								}else{
+									//remove flag de verificacao
+									data.pop();
+									inserirCliente(data, cod);
+								}
 							})
 							.catch(err => {
 								if (err) {

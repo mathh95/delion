@@ -1,3 +1,7 @@
+<?php
+include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
+?>
+
 <head>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -110,7 +114,7 @@
 <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name = "google-signin-client_id" content="623570251512-cprdd8eepskvicq7h7lq999e8scsd9ui.apps.googleusercontent.com">
+<meta name = "google-signin-client_id" content="<?=GOOGLE_SIGNIN_CREDENTIAL?>.apps.googleusercontent.com">
 <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
 
 <script type="text/javascript" src="js/maskedinput.js"></script>

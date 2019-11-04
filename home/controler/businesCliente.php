@@ -120,45 +120,55 @@
 
             if($erros > 0){
                 echo "Campos inválidos!";
-                
+             
+            //Verificação do Cliente
             }else if(
                 isset($_POST['is_verificacao_cadastro']) &&
                 $_POST['is_verificacao_cadastro'] == 1) {
                 
                 $telefone_int = limpaTelefone($telefone);
-                $cod_sms = rand(11112, 99998);
-
+                $cod_sms = rand(1112, 9998);
+                
                 //salva informações de verificação
                 $sms = new sms;
                 $sms->construct($telefone_int, $cod_sms);
-
+                
                 $result = $control_sms->insert($sms);
                 if($result < 0){
                     echo "Erro ao salvar SMS :/";
                     return;
                 }
+                
+                //add Código país para envio
+                $telefone_int = "55".$telefone_int;
 
                 //envia SMS
                 $res_envio = $info_bip->enviaSMS($telefone_int, $cod_sms);
                 
-                if($res_envio){///////////////////////////////////UPDATE to success msg
+                if($res_envio){
                     echo "verificado";
                 }else{
                     echo "Erro ao enviar SMS :/...contate o suporte.";
                 }
-                
+            
+            //Cadastro do Cliente
             } else if(isset($_POST['is_cadastro']) && $_POST['is_cadastro'] == 1){
                 
                 $telefone = addslashes(htmlspecialchars($_POST['telefone']));
                 $cod_inserido = addslashes(htmlspecialchars($_POST['codigo_sms']));
                 
+                if(strlen($cod_inserido) < 4 || strlen($cod_inserido) > 4){
+                    echo "Código inválido!";
+                    return;
+                }
+                
                 $telefone_int = limpaTelefone($telefone);
-
+                
                 //verifica código SMS
                 $res_sms = $control_sms->selectByTelefoneCodigo($telefone_int, $cod_inserido);
 
                 if($res_sms->getCod_sms() == ""){
-                    echo "Código inválido";
+                    echo "Código inválido!";
                     return;
                 }else{
                     $control_sms->updateVerificado($res_sms->getCod_sms());
@@ -277,19 +287,19 @@
         }
 
         //valida telefone
-        if(strlen($telefone) == 0){
+        $telefone_int = limpaTelefone($telefone);
+
+        if(strlen($telefone_int) == 0){
             echo "O Campo Telefone precisa ser preenchido.\n";                
             $erros ++;
-        }else if(strlen($telefone) < 8){
-            echo "O Telefone precisa ter 8 números ou mais.\n";
+        }else if(strlen($telefone_int) < 11){
+            echo "O Telefone precisa ter 11 números, código de área seguido número.\n";
             $erros ++;
-        }else if(strlen($telefone) > 30){
-            echo "O Telefone precisa ter menos que 15 números.\n";
+        }else if(strlen($telefone_int) > 11){
+            echo "O Telefone precisa ter 11 números, código de área seguido número.\n";
             $erros ++;
         }
-        
-        $telefone_int = limpaTelefone($telefone);
-        
+
         $verifica_telefone = new VerificaTelefone();
         if($verifica_telefone->valida($telefone_int, "BR") == false){
             echo "Telefone inválido.\n";
