@@ -43,6 +43,7 @@ $_SESSION['delivery_time'] = 0;
 $_SESSION['delivery_free'] = 0;
 $_SESSION['valor_entrega_valido'] = 0;
 $_SESSION['delivery_price_calculado'] = 0;
+$_SESSION['minimo_taxa_gratis'] = 99999;
 
 
 //zera flag Finalizar pedido
@@ -245,7 +246,7 @@ if (count($itens) > 0) {
 
                         $geoloc_origin = $googleServices->getGeocoding($origin);
                         $geoloc_dest = $googleServices->getGeocoding($dest);
-
+                        
                         $dist_km = $googleServices->getDistanceGeometry($geoloc_origin->lat,$geoloc_origin->lng, $geoloc_dest->lat, $geoloc_dest->lng,"K");
 
                         $dist_km = number_format($dist_km, 1);

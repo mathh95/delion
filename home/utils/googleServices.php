@@ -18,7 +18,7 @@ class GoogleServices {
         if ($geoloc_arr->status=='OK') {
             $location = $geoloc_arr->results[0]->geometry->location;
         } else {
-            return "Erro na Requisição";
+            return "-1";
             exit();
         }
         
@@ -61,7 +61,7 @@ class GoogleServices {
             $destination_addresses = $distance_arr->destination_addresses[0];
             $origin_addresses = $distance_arr->origin_addresses[0];
         } else {
-            return "Erro na Requisição";
+            return "-1";
             exit();
         }
         

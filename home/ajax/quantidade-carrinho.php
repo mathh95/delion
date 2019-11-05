@@ -156,7 +156,7 @@ if($acao == "+"){
             
             $_SESSION['delivery_free'] = 0;
             
-            //dec total se valor delivery anteriormente settado
+            //dec total se valor delivery anteriormente estava settado
             if($_SESSION['delivery_price'] == 0){
                 
                 //já calculado ao carregar o carrinho, delivery_price volátil
@@ -197,16 +197,55 @@ elseif($acao == "rem"){
                 }
             }
         }
+
         $aux = $qtd * $preco;
         $_SESSION['totalCarrinho']-= $aux;
         $_SESSION['totalComDesconto'] = ($_SESSION['totalCarrinho'] - $_SESSION['valorcupom']);
+
+
+
+        //verifica se valor do pedido é suficiente para delivery
+        if(isset($_SESSION['valor_entrega_minimo'])){
+            if($_SESSION['totalCarrinho'] >= $_SESSION['valor_entrega_minimo']){
+                $_SESSION['valor_entrega_valido'] = 1;
+            }else{
+                $_SESSION['valor_entrega_valido'] = 0;
+            }
+        }
+
+        //verifica se entrega é grátis
+        if($_SESSION['totalCarrinho'] < $_SESSION['minimo_taxa_gratis']){
+            
+            $_SESSION['delivery_free'] = 0;
+            
+            //dec total se valor delivery anteriormente estava settado
+            if($_SESSION['delivery_price'] == 0){
+                
+                //já calculado ao carregar o carrinho, delivery_price volátil
+                $_SESSION['delivery_price'] = $_SESSION['delivery_price_calculado'];
+
+                $_SESSION['totalCorrigido'] += (float) $_SESSION['delivery_price'];
+            }
+        }
+
+        echo json_encode(
+            array(
+                "totalCarrinho" => $_SESSION['totalCarrinho'],
+                "totalComDesconto" => $_SESSION['totalComDesconto'],
+                "totalCorrigido" => $_SESSION['totalCorrigido'],
+                "taxaEntrega" => $_SESSION['delivery_price']
+            )
+        );
         
+        return;        
     }
 }
 // função para esvaziar o carrinho
 elseif($acao == "esv"){
     $_SESSION['totalCarrinho'] = 0;
+    $_SESSION['totalComDesconto'] = 0;
     $_SESSION['valorcupom'] = 0;
+    $_SESSION['totalCorrigido'] = 0;
     unset($_SESSION['carrinho']);
     unset($_SESSION['qtd']);
 }

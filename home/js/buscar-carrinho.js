@@ -182,14 +182,28 @@ $(document).on("click", "#removeItem", function(){
         data: {acao: acao, preco: preco, qtdAtual: qtdAtual, id: id},
 
         success:function(resultado){
-            $("#valor_subTotal").html(resultado.totalCarrinho.toFixed(2));
-            $("#valor_taxa_entrega").html(resultado.taxaEntrega.toFixed(2));
-            $("#valor_total").html(resultado.totalComDesconto.toFixed(2));
+            var res = JSON.parse(resultado);
+
+            var totalCarr = res.totalCarrinho;
+            var totalDesc = res.totalComDesconto;
+            var totalCorrigido = res.totalCorrigido;
+            var taxaEntrega = res.taxaEntrega;
+
+            $("#valor_subTotal").html(totalCarr.toFixed(2));
+            $("#valor_taxa_entrega").html(taxaEntrega.toFixed(2));
+            if(totalDesc < 0){
+                $("#valor_total").html("0.00");
+            }else{
+                $("#valor_total").html(totalCorrigido.toFixed(2));
+            }
+
+            $("#valor_subTotal").html(totalCarr.toFixed(2));
+            $("#valor_taxa_entrega").html(taxaEntrega.toFixed(2));
+            $("#valor_total").html(totalDesc.toFixed(2));
             
             var tr = $("#idLinha"+linha).fadeOut(100, function(){
                 tr.remove();
                 window.location.reload();
-                
             });
             $("#spanCarrinho").html(parseInt($("#spanCarrinho").text()) - 1);
             
@@ -214,7 +228,7 @@ $(document).on("click", "#adicionarUnidade", function(){
         data: {acao: acao, preco: preco, qtdAtual: qtdAtual, linha: linha},
 
         success:function(resultado){
-            //console.log(resultado);
+            console.log(resultado);
             var res = JSON.parse(resultado);
             console.log(res);
             var totalCarr = res.totalCarrinho;
