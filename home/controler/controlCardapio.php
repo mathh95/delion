@@ -10,7 +10,6 @@ include_once MODELPATH."/cardapio.php";
         private $pdo;
 
 
-
         /*
 
 
@@ -34,7 +33,37 @@ include_once MODELPATH."/cardapio.php";
             }
 
             return $array;
-        } 
+        }
+        
+        function selectObs($parametro){
+            $stmte;
+            $cardapio= new cardapio();
+            try{
+                    $stmte = $this->pdo->prepare("SELECT * FROM cardapio WHERE cod_cardapio LIKE :parametro");
+                    $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                            $cardapio->setCod_cardapio($result->cod_cardapio);
+                            $cardapio->setNome($result->nome);
+                            $cardapio->setPreco($result->preco);
+                            $cardapio->setDescricao($result->descricao);
+                            $cardapio->setFoto($result->foto);
+                            $cardapio->setCategoria($result->categoria);
+                            $cardapio->setFlag_ativo($result->flag_ativo);
+                            $cardapio->setDesconto($result->desconto);
+                            $cardapio->setAdicional($result->adicional);
+                            $cardapio->setDelivery($result->delivery);
+                        }
+                    }
+                }
+                return $cardapio;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
 
         function selectSemCategoria($parametro,$modo){
 

@@ -13,6 +13,8 @@
             private $pedido;
             
             private $quantidade;
+
+            private $observacao;
             
             function getCod_item(){
                 return $this->cod_item;
@@ -30,6 +32,10 @@
                 return $this->quantidade;
             }
 
+            function getObservacao(){
+                return $this->observacao;
+            }
+
             function setCod_item($cod_item){
                 $this->cod_item=$cod_item;
             }
@@ -44,6 +50,10 @@
 
             function setQuantidade($quantidade){
                 $this->quantidade=$quantidade;
+            }
+
+            function setObservacao($observacao){
+                $this->observacao=$observacao;
             }
 
             function __construct(){

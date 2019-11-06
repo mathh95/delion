@@ -182,33 +182,27 @@
 			// var quantidade = $("#spanCarrinho").data('quantidade');
 						
 			// console.log(quantidade+1);
-
-			$.ajax({
-				
-				type: 'GET',
-
-				url: url,
-
-				data: {id: id},
-
-				success:function(res){
-					$("#spanCarrinho").html(res);
-					$("#spanCarrinho-navbar").html(res);
-					if(qtd == res){
-						swal('Este item já está no seu carrinho!', 'Para alterar a quantidade, vá para o carrinho ;)', 'warning');
-					}else{
-						// $("body,html").animate({scrollTop: 0 }, 800);
-						swal({
-							title: "Produto Adicionado ao carrinho!",
-							text: "Você pode consultar o carrinho para modificar a quantidade :)",
-							icon: "success",
-							timer: 1200
-						});
+			
+			// console.log(res);
+			swal({
+				title: "Opções para o item",
+				text: "Deseja adicionar alguma observação ao item do pedido?",
+				content: "input",
+				icon: "warning"
+				// timer: 1200 //Timer do swal
+			})
+			.then((observacaoItem) => {
+				$.ajax({type: 'GET', url: url, data: {observacaoItem: observacaoItem, id: id},
+					success:function(resObs){
+						// swal(`Sua observação: ${observacaoItem}`);
+						$("#spanCarrinho").html(resObs);
+						if(qtd == resObs){
+							swal('Este item já está no seu carrinho!', 'Consulte o carrinho', 'warning');
+						}else{
+							swal('Produto Adicionado ao carrinho!', 'Consulte o carrinho para alterar a quantidade', 'success');
+						}
 					}
-				}, 
-				error: function(erro){
-					console.log(erro);
-				}
+				});
 			});
 		});
 

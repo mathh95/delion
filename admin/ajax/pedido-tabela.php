@@ -313,9 +313,15 @@ foreach ($pedidos as &$pedido) {
 							}else{
 								echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Forma Pagamento: ".$formaPgt->getTipoFormaPgt()."</label>";
 							}
-
-							echo "<br><label for=\"recipient-name\" class=\"control-label\" >"." Observação: ".$pedido->getObservacao()."</label>";
-
+							echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Observações do Pedido </label>";
+							if(!empty($item->getObservacao())){
+							echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Observações do Pedido </label>";
+							}
+							foreach($itens as &$item){
+							if(!empty($item->getObservacao())){
+								echo "<br><label for=\"recipient-name\" class=\"control-label\">"."<b> - ".$item->getProduto()." : ".$item->getObservacao()."</b></label>";
+							}
+							}
 						echo "</div>
 						<div>
 							<br>
