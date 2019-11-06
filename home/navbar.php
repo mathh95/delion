@@ -82,7 +82,7 @@
 							}
 
 							?>
-							<li><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style=" font-size: 17px;"class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i> <span style="background-color:white; color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
+							<li><a  data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style=" font-size: 17px;"class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i> <span style="background-color:white; color:black;" class="badge" id="spanCarrinho-navbar"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 
 				   		</ul>
 

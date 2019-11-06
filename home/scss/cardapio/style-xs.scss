@@ -18,15 +18,9 @@ body{
     > .menu {
         padding-bottom: 15px;
         padding-top: 15px;
-        // position: sticky;
-        // z-index: 9999;
-        // top: 50px;
         > .menu-lateral {
             @include make-xs-column(12);
             background-color: #FFFFFF;
-            // width: 165px !important;
-            // margin-left: 15px;
-            // padding-left: 13px;
             padding-top: 5px;
             padding-bottom: 5px;
             > a {
@@ -105,6 +99,9 @@ body{
         }
     }
     > .produtos {
+        min-height: 1000px;
+        padding-left: 0;
+        padding-right: 0;
         > .categoria {
             @include make-xs-column(12);
             font-family: $font_main_bold;
@@ -159,58 +156,78 @@ body{
             @include make-xs-column(12);
             padding-top: 7px;
             padding-right: 15px;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
+            // padding-bottom: 10px;
+            // margin-bottom: 10px;
             padding-right: 0px;
-            border: 1px solid $vermelho_forte;
+            border: 1px solid #CCC;
             border-left: 0px;
             border-right: 0px;
             border-top: 0px;
-            text-align: center;
+            display: inline-flex;
+            justify-content: space-evenly;
 
             > .imagem {
-                display: inline-flex;
-
+                width: 50%;
+                height: 100px;
                 padding-left: 0px;
                 margin-bottom: 10px;
                 justify-content: center;
+                // overflow: hidden;
+                padding-right: 0;
                 > .titulo {
                     font-size: 14px;
                     text-align: center;
                     padding-bottom: 8px;
                 }
                 > img {
-                    @include make-xs-column(10);
+                    object-fit: cover;
+                    object-position: center;
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 10px;
                     
                 }
             }
             > .descricao {
                 @include make-xs-column(12);
-                padding-left: 0px;
+                padding-left: 0px !important;
                 padding-right: 0px;
                 > .tituloNome {
-                    font-size: 18px;
+                    font-size: 12px;
                     padding-bottom: 8px;
                     font-weight: bold;
+                    padding-left: 0px !important;
+                    @include make-xs-column(12);
                 }
                 > .texto {
-                    text-align: center;
+                    // text-align: center;
                 }
-                >.textoDelivery{
+                >.textoDescricao{
                     @include make-xs-column(12);
+                    font-size: 12px;
+                    padding-left: 0;
+                    // display: none;
+                    
+                } 
+                >.textoDelivery{
+                    @include make-xs-column(8);
+                    font-size: 10px;
                     padding-bottom: 20px;
                     padding-top: 10px;
                     padding-left: 0;
+                    display: none;
                 }
                 #addCarrinho{
                     // font-size: 10px;
                     background-color: $vermelho_fraco;
                     border: 1px solid $vermelho_forte;
                     color:#fff;
+                    height: 35px;
                     margin-top: 2%;
                     margin-bottom: 10px;
                     text-align: center;
                     margin: 0;
+                    // display: none;
                 }
                 #addCombo{
                     display: none;
@@ -227,13 +244,14 @@ body{
                     color: $vermelho_forte;
                 }
                 > .preco{
-                    
-                    @include make-xs-column(5);
+                    // display: none;
+                    // @include make-xs-column(4);
                     text-align: center !important;
                     padding-top: 5px;
                     padding-bottom: 20px;
+                    padding-right: 10px;
                     float: left;
-                    font-size: 20px;
+                    font-size: 16px;
                 }
                 > button{
                     margin-left: 25%;

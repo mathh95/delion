@@ -193,6 +193,7 @@
 
 				success:function(res){
 					$("#spanCarrinho").html(res);
+					$("#spanCarrinho-navbar").html(res);
 					if(qtd == res){
 						swal('Este item já está no seu carrinho!', 'Para alterar a quantidade, vá para o carrinho ;)', 'warning');
 					}else{
