@@ -1,5 +1,7 @@
 <?php
 
+include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
+
 /**
 
  * Classe de identificação do Banco de Dados
@@ -8,21 +10,13 @@
 
     class banco {
 
-        private $host='localhost';
+        private $host = DB_HOST;
 
-        private $dbname='delioncafe';
+        private $dbname = DB_NAME;
 
-        private $user='root';
+        private $user = DB_USER;
 
-        private $password='';
-
-        // private $host='localhost';
-
-        // private $dbname='c39delioncafe';
-
-        // private $user='c39delioncafe';
-
-        // private $password='D3l1onC4f3!';
+        private $password = DB_PASS;
 
         function getHost(){
 
