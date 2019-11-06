@@ -1,10 +1,14 @@
 <?php
 
+include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
+
 class GoogleServices {
+
+    private $apikey = APIKEY_GOOGLE_SERVICES;
 
     function getGeocoding($address){
         
-        $geoloc = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?&address='.urlencode($address).'&key=AIzaSyAS7HedlAWWAMuzXlS8boXxNIC5RJFUH-A');
+        $geoloc = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?&address='.urlencode($address).'&key='.$this->apikey);
 
         $geoloc_arr = json_decode($geoloc);
 
@@ -14,7 +18,7 @@ class GoogleServices {
         if ($geoloc_arr->status=='OK') {
             $location = $geoloc_arr->results[0]->geometry->location;
         } else {
-            return "Erro na Requisição";
+            return "-1";
             exit();
         }
         
@@ -47,7 +51,7 @@ class GoogleServices {
     //Distância Rota
     function getDistanceMatrixInfo($origin, $destination){
         
-        $distance_data = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?&origins='.urlencode($origin).'&destinations='.urlencode($destination).'&key=AIzaSyAS7HedlAWWAMuzXlS8boXxNIC5RJFUH-A');
+        $distance_data = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?&origins='.urlencode($origin).'&destinations='.urlencode($destination).'&key='.$this->apikey);
         
         $distance_arr = json_decode($distance_data);
         
@@ -57,7 +61,7 @@ class GoogleServices {
             $destination_addresses = $distance_arr->destination_addresses[0];
             $origin_addresses = $distance_arr->origin_addresses[0];
         } else {
-            return "Erro na Requisição";
+            return "-1";
             exit();
         }
         

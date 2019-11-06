@@ -18,9 +18,12 @@ body{
     > .menu {
         padding-bottom: 15px;
         padding-top: 15px;
+        // position: sticky;
+        // z-index: 9999;
+        // top: 50px;
         > .menu-lateral {
             @include make-xs-column(12);
-            background-color: $vermelho_fraco;
+            background-color: #FFFFFF;
             // width: 165px !important;
             // margin-left: 15px;
             // padding-left: 13px;
@@ -31,33 +34,43 @@ body{
                 // display: block;
                 padding-bottom: 5px;
                 padding-top: 5px;
+                border-bottom: 2px solid #D7CEC7;
                 > img {
-                    @include make-xs-column(3);
-                    @include img-responsive;
-                    height: 30px;
-                    padding-left: 0px;
+                    @include make-xs-column(1);
+                    width: 50px;
+                    height: 45px;
+                    padding: 5px;
+                    // padding: 10px;
+                    border-radius: 10px;
+                    background-color: $vermelho_forte;
                     // display: inline;
                 }
                 > div {
                     @include make-xs-column(9);
                     text-align: center;
                     display: inline;
-                    color: #ffffff;
+                    color: $vermelho_forte;
+                    padding-top: 20px;
                     padding-left: 20px;
+                    vertical-align: middle;
                 }
             }
-           /*  > a:nth-child(1) {
-               > img {
-                   width: 17px;
-                   padding-left: 0px;
-                   margin-left: 5px;
-               }
-               > div {
-                   padding-left: 25px;
-               }
-           } */
+            > a.active{
+                text-decoration: none;
+                
+                border-bottom: 2px solid $vermelho_forte;
+                padding-bottom: 5px;
+
+                > div {
+                    font-family: $font_main_bold;
+                    color: $vermelho_fraco;
+                }
+            }
+           
             > a:hover{
                 text-decoration: none;
+                border-bottom: 2px solid $vermelho_forte;
+                padding-bottom: 5px;
                 > div {
                     color: $vermelho_forte;
                     font-family: $font_main_bold;
@@ -97,14 +110,18 @@ body{
             font-family: $font_main_bold;
             font-size: 14px;
             color: #FFFFFF;
+            padding: 10px;
             // width: 317px;
+            text-align: center;
             background-color: $vermelho_forte;
             border: 5px solid $vermelho_fraco;
             border-top: 0px;
             border-left: 0px;
             border-right: 0px;
-            // margin-left: 15px;
-            // padding-left: 15px;
+            img{
+                width: 30px;
+                vertical-align: text-bottom;
+            }
         }
         > .modal{
             @include make-xs-column(12);
@@ -140,11 +157,8 @@ body{
         }
         > .produto {
             @include make-xs-column(12);
-            display: inline-block;
             padding-top: 7px;
-            // margin-left: 15px;
             padding-right: 15px;
-            // width: 317px;
             padding-bottom: 10px;
             margin-bottom: 10px;
             padding-right: 0px;
@@ -152,37 +166,41 @@ body{
             border-left: 0px;
             border-right: 0px;
             border-top: 0px;
+            text-align: center;
 
             > .imagem {
-                @include make-xs-column(12);
+                display: inline-flex;
+
                 padding-left: 0px;
                 margin-bottom: 10px;
+                justify-content: center;
                 > .titulo {
                     font-size: 14px;
                     text-align: center;
                     padding-bottom: 8px;
                 }
                 > img {
-                    @include img-responsive();
-                    border: 1px solid $vermelho_forte;
-                    border-top: 0px;
-                    border-left: 0px;
-                    border-bottom: 0px;
-                    padding-left: 0px;
-                    padding-right: 0px;
+                    @include make-xs-column(10);
+                    
                 }
             }
             > .descricao {
                 @include make-xs-column(12);
                 padding-left: 0px;
                 padding-right: 0px;
-                > .titulo {
-                    font-size: 14px;
-                    text-align: center;
+                > .tituloNome {
+                    font-size: 18px;
                     padding-bottom: 8px;
+                    font-weight: bold;
                 }
                 > .texto {
                     text-align: center;
+                }
+                >.textoDelivery{
+                    @include make-xs-column(12);
+                    padding-bottom: 20px;
+                    padding-top: 10px;
+                    padding-left: 0;
                 }
                 #addCarrinho{
                     // font-size: 10px;
@@ -191,9 +209,11 @@ body{
                     color:#fff;
                     margin-top: 2%;
                     margin-bottom: 10px;
-                    width: 167px;
+                    text-align: center;
+                    margin: 0;
                 }
                 #addCombo{
+                    display: none;
                     width: 167px;
                     // font-size: 10px;
                     background-color: $vermelho_fraco;
@@ -207,9 +227,13 @@ body{
                     color: $vermelho_forte;
                 }
                 > .preco{
-                    // @include make-xs-column(12);
+                    
+                    @include make-xs-column(5);
                     text-align: center !important;
-                    margin-bottom:10px;
+                    padding-top: 5px;
+                    padding-bottom: 20px;
+                    float: left;
+                    font-size: 20px;
                 }
                 > button{
                     margin-left: 25%;
@@ -284,6 +308,20 @@ body{
                         }
                     }
                 }
+            }
+        }
+    }
+    > .scroll-top {
+        position: fixed;
+        right: 3px;
+        bottom: 20px;
+        height: 42px;
+        width: 42px;
+        z-index: 9999;
+        > a {
+            > i {
+                font-size: 38px;
+                color: $vermelho_forte;
             }
         }
     }

@@ -60,7 +60,6 @@
 
 							<li><a href="localizacao.php"><i class="fas fa-map-marked-alt"></i>&nbsp;Localização</a></li>
 
-							<!-- <li class="active"><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style="color:white;" class="fas fa-shopping-cart fa-lg"></i> <span style="background-color:white; color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li> -->
 
 							<!-- <li><a href="combo.php">Combo <i style="color:white;" class="fas fa-plus fa-sm"></i> por <i style="color:white;" class="fas fa-minus fa-sm"></i> <span style="background-color:white; color:black;" class="badge" id="spanCombo"><?php echo (isset($_SESSION['combo']))?count($_SESSION['combo']):'0';?></span></a></li> -->
 
@@ -83,6 +82,7 @@
 							}
 
 							?>
+							<li><a data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style=" font-size: 17px;"class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i> <span style="background-color:white; color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a></li>
 
 				   		</ul>
 

@@ -109,7 +109,7 @@
 					
 					<p>Celular:</p>
 
-					<input class="form-control telefone" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999">
+					<input class="form-control telefone" name="telefone" type="text" minlength="15" maxlength="15" required placeholder="(45) 9 9999-9999">
 
 				</div>
 
@@ -163,7 +163,6 @@
 	<script type="text/javascript" src="js/maskedinput.js"></script>
 
 	<script>
-
 		//Cadastro Cliente
 		$("#cadastrar").on("click", function(){
 
@@ -187,14 +186,43 @@
 			}else if(data[7].value == ""){
 				return;
 			}else{
+
+				data.push({name: "is_verificacao_cadastro", value: "1"});
+
+				//verifica dados e envia sms
 				$.post({
 					url: 'controler/businesCliente.php',
 					data: data,
 					success: function(resultado){
 						console.log(resultado);
-						if(resultado.includes("inserido")){
-							//redireciona para boas vindas
-							window.location = "/home?bem_vindo=true";
+
+						if(resultado.includes("verificado")){
+
+							swal({
+								title: 'SMS Enviado!',
+								text: 'Insira o código recebido abaixo.',
+								content: "input",
+								button: 'Prosseguir'
+							})
+							.then(cod => {
+								if (!cod) throw null;
+								if (cod.length < 4){
+									swal("Código inválido!", "warning");
+								}else{
+									//remove flag de verificacao
+									data.pop();
+									inserirCliente(data, cod);
+								}
+							})
+							.catch(err => {
+								if (err) {
+									swal("Erro :/", "Erro interno...", "error");
+								} else {
+									swal.stopLoading();
+									swal.close();
+								}
+							});
+
 						}else{
 							swal("Erro :/", resultado , "error");
 						}
@@ -206,6 +234,31 @@
 				});
 			}
 		});
+
+		//Insere cliente após verificação de dados e SMS
+		function inserirCliente(data, cod){
+
+			data.push({name: "codigo_sms", value: cod});
+			data.push({name: "is_cadastro", value: "1"});
+
+			$.post({
+				url: 'controler/businesCliente.php',
+				data: data,
+				success: function(resultado){
+					console.log(resultado);
+					if(resultado.includes("inserido")){
+						//redireciona para boas vindas
+						window.location = "/home?bem_vindo=true";
+					}else{
+						swal("Erro :/", resultado , "error");
+					}
+				},
+				error: function(resultado){
+					console.log(resultado);
+					swal("Erro :/", "Entre em contato com o suporte." , "error");
+				}
+			});
+		}
 
 		$(document).ready(function(){
 			$(".cpf").mask("999.999.999-99");

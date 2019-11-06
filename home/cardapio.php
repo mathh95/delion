@@ -62,7 +62,7 @@
 		include_once "./navbar.php";
 	?>
 
-	<div class="container menu">
+	<div class="container-fluid menu">
 
 		<div class="menu-lateral">
 
@@ -102,7 +102,16 @@
 		
 
 	</div>
+		
+	<div class="scroll-top">
 
+		<a href="#top">
+
+			<i class="far fa-caret-square-up"></i>
+
+		</a>
+
+	</div>
 	<?php
 		include_once "./footer.php";
 	?>
@@ -130,7 +139,7 @@
 				var target = $(this.hash);
 				if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
 				if (target.length == 0) target = $('html');
-				$('html, body').animate({ scrollTop: target.offset().top-105 }, 0);
+				$('html, body').animate({ scrollTop: target.offset().top-105 }, 300);
 				return false;
 			});
 		});

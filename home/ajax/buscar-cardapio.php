@@ -59,7 +59,7 @@ foreach ($categorias as $key_cat => $categoria) {
             "<div class='produto'>
                 <div class='imagem'>
                     
-                    <img title='".$item->getNome()."' alt='".$item->getNome()."' src='../admin/".$item->getFoto()."'>
+                    <img class='img-responsive' title='".$item->getNome()."' alt='".$item->getNome()."' src='../admin/".$item->getFoto()."'>
                 </div>
                 <div class='descricao'>
 

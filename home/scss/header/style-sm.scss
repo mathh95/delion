@@ -24,7 +24,7 @@ body{
             > .logo {
                 @include make-sm-column(2);
                 padding-top: 15px;
-                padding-right: 0px;
+                padding-right: 10px;
                 > a{
                     > img {
                         @include img-responsive();
@@ -38,48 +38,37 @@ body{
                 }
             }
             > form {
-                // @include make-lg-column-offset(2);
                 padding-top: 30px;
-                padding-left: 75px;
-                @include make-xs-column(11);
+                @include make-sm-column(11);
                 
 
                 > div.input-group {
-                    @include make-xs-column(12);
+                    width: 100%;
                     display: inline-flex;
+                    border-bottom: 2px solid #FFFFFF;
                     > input {
                         border: none;
                         border-radius: 0px;
-                        border: 0;
                         outline: 0;
                         box-shadow: none;                        
                         background: transparent;
-                        border-bottom: 2px solid #FFFFFF;
                         color: #FFFFFF;
-                        // width: 100%;  
                     }
-                    > input:focus{
-                        outline: none;
-                        border-color: #FFFFFF;
-                        transition: 0.1s linear;
-                        border-bottom: 5px solid #FFFFFF;
-                    box-shadow: none
+                    ::placeholder {
+                        color: white;
+                        opacity: 1; /* Firefox */
+                    }
+                    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+                     color: white;
+                    }
+                    ::-ms-input-placeholder { /* Microsoft Edge */
+                        color: white;
                     }
                     > span {
-                        padding-left: 15px;
-                        > button{
-                            border: 1px solid white;
-                            margin-top: 0px;
-                            background-color: $vermelho_fraco;
-                            padding-bottom: 4px;
-                            padding-top: 4px;
-                            font-weight: bold;
-                            color: white;
-                            border-radius: 0px;
-                            padding-bottom: 7px;
-                            padding-top: 6px;
-                            height: 34px;
-                            
+                        padding-top: 10px;
+                        font-size: 12px;
+                        i {
+                            color: white;                           
                         }
                     }
                 }
@@ -117,10 +106,17 @@ body{
                 list-style-type: none;
                 font-size: 25px;
                 text-align: center;
-                padding-top: 40px;
+                padding-top: 50px;
                 padding-right: 0 !important;
-                @include make-xs-column(3);
-                
+                width: 20%;
+                a{
+                    i{
+                        color: 
+                        #FFFFFF;
+                    }
+                    border-bottom: 4px solid $vermelho_forte;
+                    padding-bottom: 10px;
+                }
                 a:hover{
                     padding-bottom: 10px;
                     text-decoration: none;

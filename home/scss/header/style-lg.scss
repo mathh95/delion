@@ -82,7 +82,6 @@ body, html{
             }
             > .infos {
                 @include make-lg-column(3);
-                // @include make-lg-column-offset(2);
                 display: inline-flex;
                 padding-left: 40px;
                 padding-top: 10px;
@@ -91,14 +90,7 @@ body, html{
                 font-weight: bold;
                 float: right;
                 padding-right: 0 !important;
-                // p.semana{
-                //     padding-right: 35px;
-                //     float: left;    
-                // }
-                // p.fim-semana{
-                    
-                //     float: right;
-                // }
+               
                 > .delivery {
                     > div{
                         > img{

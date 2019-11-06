@@ -1,4 +1,7 @@
 <?php
+
+include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
+
 //session_start();
 include_once "../../admin/controler/conexao.php";
 
@@ -82,8 +85,8 @@ if ($cod_endereco == null) {
         );
 
         //Recipients
-        $mail->setFrom('teste@gmail.com', $_SESSION['nome']);
-        $mail->addAddress('isshak@corp.kionux.com.br', 'Delion Café');
+        $mail->setFrom(MAIL_SENDER, $_SESSION['nome']);
+        $mail->addAddress(MAIL_RECEIVER, 'Delion Café');
 
         //Content
         $mail->isHTML(true);
@@ -163,8 +166,8 @@ if ($cod_endereco == null) {
         );
 
         //Recipients
-        $mail->setFrom('teste@gmail.com', $_SESSION['nome']);
-        $mail->addAddress('isshak@corp.kionux.com.br', 'Delion Café');  //Mudar email para recebimento
+        $mail->setFrom(MAIL_SENDER, $_SESSION['nome']);
+        $mail->addAddress(MAIL_RECEIVER, 'Delion Café');
 
         //Content
         $mail->isHTML(true);
