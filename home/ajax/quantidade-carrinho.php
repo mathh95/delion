@@ -57,8 +57,11 @@ if($acao == "+"){
             if($id == $value){
                 unset($_SESSION['carrinho'][$key]);
                 unset($_SESSION['qtd'][$key]);
-                sort($_SESSION['carrinho']);
-                sort($_SESSION['qtd']);
+                // sort($_SESSION['carrinho']);
+                // ksort($_SESSION['qtd']);
+                $_SESSION['carrinho'] = array_values($_SESSION['carrinho']);
+                $_SESSION['qtd'] = array_values($_SESSION['qtd']);
+                $_SESSION['observacao'] = array_values($_SESSION['observacao']);
 
                 if(count($_SESSION['carrinho']) < 1){
                     $_SESSION['valorcupom'] = 0.00;
@@ -93,6 +96,11 @@ if($acao == "+"){
         
         $_SESSION['totalCorrigido'] -= (float)$preco;
 
+        //Reordena o index dos itens
+        $_SESSION['carrinho'] = array_values($_SESSION['carrinho']);
+        $_SESSION['qtd'] = array_values($_SESSION['qtd']);
+        $_SESSION['observacao'] = array_values($_SESSION['observacao']);
+
         echo json_encode(
             array(
             "valorcupom" => $_SESSION['valorcupom'],
@@ -114,8 +122,13 @@ elseif($acao == "rem"){
             if($id == $value){
                 unset($_SESSION['carrinho'][$key]);
                 unset($_SESSION['qtd'][$key]);
-                sort($_SESSION['carrinho']);
-                sort($_SESSION['qtd']);
+                unset($_SESSION['observacao'][$key]);
+                // sort($_SESSION['carrinho']);
+                // sort($_SESSION['qtd']);
+                $_SESSION['carrinho'] = array_values($_SESSION['carrinho']);
+                $_SESSION['qtd'] = array_values($_SESSION['qtd']);
+                $_SESSION['observacao'] = array_values($_SESSION['observacao']);
+
 
                 if(count($_SESSION['carrinho']) < 1){
                     $_SESSION['valorcupom'] = 0.00;
@@ -135,6 +148,7 @@ elseif($acao == "esv"){
     $_SESSION['valorcupom'] = 0;
     unset($_SESSION['carrinho']);
     unset($_SESSION['qtd']);
+    unset($_SESSION['observacao']);
 }
 
 //função para remover o cupom

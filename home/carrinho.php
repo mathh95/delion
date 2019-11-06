@@ -136,15 +136,15 @@
 		// });
 		
 		//Função que salva o texto da observação no variavel de seção
-		function observacaoSession(){
-			var obs = document.getElementById('observacao').value;
-			$.ajax({
-				type: 'POST',
-				url: 'ajax/obs-carrinho.php',
-				data: {obs:obs},
-				success: function (resultado) {}
-			});
-		}
+		// function observacaoSession(){
+		// 	var obs = document.getElementById('observacao').value;
+		// 	$.ajax({
+		// 		type: 'POST',
+		// 		url: 'ajax/obs-carrinho.php',
+		// 		data: {obs:obs},
+		// 		success: function (resultado) {}
+		// 	});
+		// }
 
 		$(document).on("change", "#formaPagamento", function(){
 

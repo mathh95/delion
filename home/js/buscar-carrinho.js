@@ -184,6 +184,7 @@ $(document).on("click", "#removeItem", function(){
         success:function(resultado){
             $("#valor_subTotal").html(resultado.totalCarrinho);
             $("#valor_total").html(resultado.totalComDesconto);
+            console.log(resultado);
             
             var tr = $("#idLinha"+linha).fadeOut(100, function(){
                 tr.remove();

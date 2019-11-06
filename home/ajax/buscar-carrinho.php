@@ -32,10 +32,10 @@ include_once "../controler/controlEndereco.php";
 
 $itens = array();
 $cardapio = new controlerCardapio(conecta());
+$cardapioObs = new controlerCardapio(conecta());
 $controlEndereco = new controlEndereco(conecta());
 $_SESSION['delivery'] = -1;
 $_SESSION['formaPagamento'] = '';
-$_SESSION['observacao'] = '';
 $controlFormaPgt = new controlerFormaPgt($_SG['link']);
 $formasPgt = $controlFormaPgt->selectAll();
 $_SESSION['delivery_price'] = 0;
@@ -46,18 +46,37 @@ $_SESSION['finalizar_pedido'] = 0;
 
 if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     $itens = $_SESSION['carrinho'];
+    $itensObservacao = $_SESSION['observacao'];
+
+    //
+    $itens_flip = array_flip($_SESSION['carrinho']);
+
+    //
+    $itens_flip_obs = $itens_flip;
+    $i=0;
+    //Associa o id do item com a observação    
+    foreach ($itens_flip as $key => $item_flip){
+        $itens_flip_obs[$key] = $itensObservacao[$i];
+        $i++;
+    }
+    //Ordena observacao com base no código do item(id)
+    ksort($itens_flip_obs);
     
-    //seta unidade de itens p/ 1 unidade
-    // if(!isset($_SESSION['qtd'])){
-    //     foreach ($_SESSION['qtd'] as $key => $value) {
-    //         $_SESSION['qtd'][$key] = 1;
-    //     }
-    // }
+    //Altera os index da obervação do itens
+    $i=0;
+    foreach ($itens_flip_obs as $key => $obs){
+        $itens_obs[$i] = $obs;   
+        $i++;
+    }
+
+
 
 } else {
     $_SESSION['carrinho'] = array();
     $_SESSION['qtd'] = array();
+    $_SESSION['observacao'] = array();
     $itens = $_SESSION['carrinho'];
+    $itensObservacao = $_SESSION['observacao'];
 }
 
 if (count($itens) > 0) {
@@ -125,13 +144,36 @@ if (count($itens) > 0) {
                 <div class="legenda-carrinho">
                 <br><p id="texto-legenda" class="danger"><i class="fas fa-exclamation-circle"></i> Delivery não disponível para itens em <b>Vermelho!</b></p>
                 </div>
-
-
-                <div class='form-group shadow-textarea'>
-                <label for='exampleFormControlTextarea6'>Observações</label>
-                <textarea class='form-control z-depth-1' name='observacao' id='observacao' rows='2' placeholder='Ex: X-Salada sem maionese...'></textarea>
-                </div>
                 
+                <!-- Observações -->                  
+                <div class="ladoDireito row">
+                        <table class="tabela_itens table">
+                            <strong><p>Observações</p></strong>
+                                <?php
+                                $i = 0;
+                                foreach ($itens as $key => $item) :
+
+                                    $obs = $itens_obs[$key];
+
+                                    // $codItem = $_SESSION['carrinho'][$key];
+                                    // $obsItem = $cardapioObs->selectObs($codItem);
+                                    // $itemObs = $obsItem->getNome();
+                                ?>               
+                                
+                                <tr id="idLinhaObs<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>">    
+                                    <?php
+                                    if(!empty($obs)){ ?>
+                                        <td data-linha="<?= $i ?>" class="text-uppercase nomeProdutoTabela" style="font-weight:bold;width: 296px; font-size: 13px"><?= $item['nome'] ?>:</td>
+                                        <td data-linha="<?= $i ?>" class="text-uppercase nomeProdutoTabela" style="font-size: 13px"><strong><?= $obs?></strong></td>
+                                    <?php 
+                                    }?>
+                                </div>
+                                <?php
+                                $i++;
+                                endforeach;
+                                ?>
+                        </table>
+                        </div>
                 </div>
                 
                 <!-- Lado Esquerdo -->
