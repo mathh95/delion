@@ -89,6 +89,7 @@ body {
         }
     }
     > .itens {
+        min-height: 1000px;
         >.carrinhoVazio{
             > .imagemCarrinhoVazio{
                 @include make-lg-column(4);

@@ -76,6 +76,7 @@ body{
         }
     }
     > .itens {
+        min-height: 1000px;
         >.carrinhoVazio{
             > .imagemCarrinhoVazio{
                 @include make-sm-column(4);

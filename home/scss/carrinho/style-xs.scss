@@ -77,6 +77,7 @@ body{
         }
     }
     > .itens {
+        min-height: 1000px;
         padding-left: 0 !important;
         padding-right: 0 !important;
         >.carrinhoVazio{
@@ -132,10 +133,9 @@ body{
         }
 
         > .carrinho {
-            width: 100%;
-            margin: 0 !important;
+            // margin: 0 !important;
             height: auto;
-            padding: 0 !important;
+            // padding: 0 !important;
             // font-size: 17px;
             > .tabela_itens{
                 @include make-xs-column(12);
@@ -150,13 +150,14 @@ body{
                     border-right-width:0;
                     border-bottom-color: $vermelho_forte;
                     font-family: "Century Gothic Bold";
-                    font-size: 14px;
+                    font-size: 13px;
                     #precoUnitario{
                         display: none;
                     }
                     #deliveryTabela{
                         display: none;
                     }
+                    
                 }
                 
                 .iconeRemoverProdutoTabela{

@@ -107,6 +107,7 @@ body{
         }
     }
     > .produtos {
+        min-height: 1000px;
         > .categoria {
             font-family: $font_main_bold;
             font-size: 14px;
@@ -158,7 +159,7 @@ body{
         > .produto {
             display: flex;
             padding-top: 7px;
-            border: 2px solid $vermelho_forte;
+            border: 2px solid #ccc;
             border-top: 0px;
             border-left: 0px;
             border-right: 0px;

@@ -60,17 +60,20 @@
 
         $dias_semana = json_decode($cardapio->getDias_semana());
 
+        
             $d="[";
+        if(!empty($dias_semana)){
+            foreach($dias_semana as $dias) {
 
-        foreach($dias_semana as $dias) {
-
-            $d.='"'.$dias.'",';
+                $d.='"'.$dias.'",';
+            }
         }
-
-        $d.="]";
+            $d.="]";
+        
+           
     
     // echo '<pre>';
-    // print_r($adicionais);
+    // print_r($cardapio);
     // echo '</pre>';
     // exit;
     
@@ -408,21 +411,22 @@
             
             $(document).ready(function() {
             var categoria = <?= $cardapio->getCategoria()?>;
-            var turno = <?=$cardapio->getCardapio_turno()?>;
-            var horario1 =  <?= $cardapio->getCardapio_horas_inicio()?>;
-            var horario2 = <?= $cardapio->getCardapio_horas_final()?>;
-            var dia =   <?= $d ?>;
+            var turno = '' +<?=$cardapio->getCardapio_turno()?> + '';
+            var horario1 = '' +  <?= $cardapio->getCardapio_horas_inicio()?> + '';
+            var horario2 = '' + <?= $cardapio->getCardapio_horas_final()?> + '';
+            var dia =  <?= $d ?>;
             var ativo =   <?= $cardapio->getFlag_ativo()?>;
-                $('#' + categoria).attr('selected', true);
-                $('#' + turno).attr('selected', true);
-                $('#horaini' + horario1).attr('selected', true);
-                $('#horafim' + horario2).attr('selected', true);
+                
             for(let value of dia){
                 $('#' + value).attr('checked', true);
             }
             if (ativo == 1){
                 $('#ativo').attr('checked', true);
             }
+            $('#' + categoria).attr('selected', true);
+                $('#' + turno).attr('selected', true);
+                $('#horaini' + horario1).attr('selected', true);
+                $('#horafim' + horario2).attr('selected', true);
         })
         
             
