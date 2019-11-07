@@ -24,6 +24,7 @@ class GoogleRecaptcha {
         $response = file_get_contents($url, false, $context);
         $responseKeys = json_decode($response, true);
         
+        //var_dump($responseKeys);
         if($responseKeys["success"] && $responseKeys["score"] >= 0.5) {
             return true;
         } else {

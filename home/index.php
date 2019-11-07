@@ -430,5 +430,16 @@ async defer></script>
 
 </script>
 
+<!-- reCAPTCHAv3 -->
+<script src="https://www.google.com/recaptcha/api.js?render=<?=GOOGLE_reCAPTCHA?>"></script>
+
+<!-- HIDE reCAPTCHAv3 -->
+<style>
+.grecaptcha-badge{
+	visibility: collapse !important;  
+}
+</style>
+
+
 </html>
 

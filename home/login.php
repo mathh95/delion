@@ -68,7 +68,7 @@
 
 		<div class="solicitacao">
 
-			<form action="controler/validarAcesso.php" method="POST">
+			<form id="loginForm" action="controler/validarAcesso.php" method="POST">
 			
 				<p>Acesso</p>
 
@@ -132,7 +132,23 @@
 	<script type="text/javascript" src="js/wickedpicker.js"></script>
 	<script type="text/javascript" src="js/maskedinput.js"></script>
 
+	<!-- reCAPTCHAv3 -->
+	<script src="https://www.google.com/recaptcha/api.js?render=<?=GOOGLE_reCAPTCHA?>"></script>
+
 	<script>
+		// SUBMIT com reCAPTCHAv3
+		$('#loginForm').submit(function(event) {
+			event.preventDefault();
+	
+			grecaptcha.ready(function() {
+				grecaptcha.execute('<?=GOOGLE_reCAPTCHA?>', {action: 'login'}).then(function(token) {
+					$('#loginForm').prepend('<input type="hidden" name="grecaptcha_token_login" value="' + token + '">');
+					
+					$('#loginForm').unbind('submit').submit();
+				});
+			});
+		});
+
 
 		$(document).ready(function(){
 			var url_string = window.location.href;
