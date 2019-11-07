@@ -9,6 +9,7 @@
     include_once "../utils/VerificaCpf.php";
     include_once "../utils/VerificaTelefone.php";
     include_once "../utils/InfoBip.php";
+    include_once "../utils/GoogleRecaptcha.php";
 
     if (isset($_POST) and !empty($_POST)){
         if(isset($_POST['idGoogle']) && !empty($_POST['idGoogle'])){
@@ -96,11 +97,14 @@
                 }
             }
         
-        //Cadastro Cliente
+        //Verificação dos Dados e Cadastro do Cliente
         }elseif (
             (isset($_POST['is_verificacao_cadastro']) && 
             ($_POST['is_verificacao_cadastro'] == 1))
-            || ($_POST['is_cadastro'] == 1)){
+            ||
+            (isset($_POST['is_cadastro']) && 
+            ($_POST['is_cadastro'] == 1))
+        ){
             
             $nome= addslashes(htmlspecialchars($_POST['nome']));
             $sobrenome= addslashes(htmlspecialchars($_POST['sobrenome']));
@@ -110,21 +114,41 @@
             $login=addslashes(htmlspecialchars($_POST['login']));
             $senha=addslashes(htmlspecialchars($_POST['senha']));
             $senha2=addslashes(htmlspecialchars($_POST['senha2']));
-
-            $erros = 0;
-            $erros = verificaCadastro($erros, $nome, $sobrenome, $cpf, $data_nasc, $telefone, $login, $senha, $senha2);
-
             
-            $info_bip = new InfoBip();
-            $control_sms = new controlSMS($_SG['link']);
+            $token_verificar=addslashes(htmlspecialchars($_POST['grecaptcha_token_verificar'])); 
+            
+            $google_recaptcha = new GoogleRecaptcha();
+            //Valida reCAPTCHAv3
+            if(isset($_POST['grecaptcha_token_cadastrar'])){
+                $token_cadastrar=addslashes(htmlspecialchars($_POST['grecaptcha_token_cadastrar']));
+                
+                $valid_token = $google_recaptcha->verificaToken($token_cadastrar);
+            }else{
+                $valid_token = $google_recaptcha->verificaToken($token_verificar);
+            }
+            
+            $erros = 0;
+            if($valid_token){
+
+                $erros = verificaCadastro($erros, $nome, $sobrenome, $cpf, $data_nasc, $telefone, $login, $senha, $senha2);
+                
+                $info_bip = new InfoBip();
+                $control_sms = new controlSMS($_SG['link']);
+                
+            }else{
+                // header('Content-type: application/json');
+                // echo json_encode(array('valid_captcha' => 'false'));
+                echo "reCAPTCHA inválido!";
+                return;
+            }
 
             if($erros > 0){
                 echo "Campos inválidos!";
              
             //Verificação do Cliente
             }else if(
-                isset($_POST['is_verificacao_cadastro']) &&
-                $_POST['is_verificacao_cadastro'] == 1) {
+            isset($_POST['is_verificacao_cadastro']) &&
+            $_POST['is_verificacao_cadastro'] == 1) {
                 
                 $telefone_int = limpaTelefone($telefone);
                 $cod_sms = rand(1112, 9998);
@@ -194,13 +218,14 @@
             }
 
             return;
+
+        }else{
+            echo "Erro :/ Ação não definida!";
         }
 
     }else{
         echo -1;
     }
-
-
 
     function verificaCadastro($erros, $nome, $sobrenome, $cpf, $data_nasc, $telefone, $login, $senha, $senha2){
 
