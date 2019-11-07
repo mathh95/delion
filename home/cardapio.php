@@ -112,6 +112,11 @@
 		</a>
 
 	</div>
+	<div class="barra-carrinho" style="<?php isset($_SESSION['carrinho'])?count($_SESSION['carrinho']):'display:none;';?>">
+			<div>
+			<a  data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style=" font-size: 17px;"class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i> <span style="background-color:white; color:black;" class="badge" id="spanCarrinho-barra"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a>
+		</div>
+	</div>
 	<?php
 		include_once "./footer.php";
 	?>
@@ -133,13 +138,37 @@
 
 		});
 
+
+		var categorias = $('.categoria')
+		, menu_lateral = $('.menu-lateral')
+		, menu_lateral_height = menu_lateral.outerHeight();
+
+		$(window).on('scroll', function () {
+			var cur_pos = $(this).scrollTop();
+			
+			categorias.each(function() {
+				var top = $(this).offset().top - menu_lateral_height,
+				bottom = top + $(this).outerHeight();
+				
+				if (cur_pos >= top && cur_pos <= bottom) {
+
+					menu_lateral.find('a').removeClass('active');
+					// categorias.removeClass('active');
+					$(this).addClass('active');
+					console.log($(this).attr('id'));
+					menu_lateral.find('a[href="#categoria'+$(this).attr('id')+'"]').addClass('active');
+					// console.log('a[href="#'+$('categoria'+this).attr('id')+'"]');
+				}
+			});
+		});
+
 		// Scroll p/ Categoria selecionada
 		$(document).ready(function() {
 			$('a[href^="#"]').click(function() {
 				var target = $(this.hash);
 				if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
 				if (target.length == 0) target = $('html');
-				$('html, body').animate({ scrollTop: target.offset().top-105 }, 300);
+				$('html, body').animate({ scrollTop: target.offset().top-100 }, 600);
 				return false;
 			});
 		});
@@ -196,6 +225,8 @@
 					success:function(resObs){
 						// swal(`Sua observação: ${observacaoItem}`);
 						$("#spanCarrinho").html(resObs);
+						$("#spanCarrinho-navbar").html(resObs);
+						$("#spanCarrinho-barra").html(resObs);
 						if(qtd == resObs){
 							swal('Este item já está no seu carrinho!', 'Consulte o carrinho', 'warning');
 						}else{

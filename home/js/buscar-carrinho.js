@@ -182,11 +182,6 @@ $(document).on("click", "#removeItem", function(){
         data: {acao: acao, preco: preco, qtdAtual: qtdAtual, id: id},
 
         success:function(resultado){
-<<<<<<< HEAD
-            $("#valor_subTotal").html(resultado.totalCarrinho);
-            $("#valor_total").html(resultado.totalComDesconto);
-            console.log(resultado);
-=======
             var res = JSON.parse(resultado);
 
             var totalCarr = res.totalCarrinho;
@@ -205,7 +200,6 @@ $(document).on("click", "#removeItem", function(){
             $("#valor_subTotal").html(totalCarr.toFixed(2));
             $("#valor_taxa_entrega").html(taxaEntrega.toFixed(2));
             $("#valor_total").html(totalDesc.toFixed(2));
->>>>>>> ce3d49f1efff87f9840562aad9164edcd9e4dcad
             
             var tr = $("#idLinha"+linha).fadeOut(100, function(){
                 tr.remove();
