@@ -151,7 +151,7 @@ if (count($itens) > 0) {
                 </div>
                 
                 <!-- Observações -->                  
-                <div class="ladoDireito row">
+                <div class="ladoDireito row" style="padding-left: 10px">
                         <table class="tabela_itens table">
                             
                             <?php
