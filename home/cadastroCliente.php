@@ -1,4 +1,7 @@
 <?php 
+	
+	include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
+
 	session_start();
 
 	include_once "../admin/controler/conexao.php";
@@ -162,144 +165,164 @@
 	<script type="text/javascript" src="js/wickedpicker.js"></script>
 	<script type="text/javascript" src="js/maskedinput.js"></script>
 
+	
+	<!-- reCAPTCHAv3 -->
+	<script src="https://www.google.com/recaptcha/api.js?render=<?=GOOGLE_reCAPTCHA?>"></script>
+
 	<script>
-		//Cadastro Cliente
-		$("#cadastrar").on("click", function(){
 
-			var data = $('#cadastro-form').serializeArray();
+	//Cadastro Cliente
+	$("#cadastrar").on("click", function(){
+
+		var data = $('#cadastro-form').serializeArray();
+		
+		//verifica se campos estão preenchidos
+		if(data[0].value == ""){
+			return;
+		}else if(data[1].value == ""){
+			return;
+		}else if(data[2].value == ""){
+			return;
+		}else if(data[3].value == ""){
+			return;
+		}else if(data[4].value == ""){
+			return;
+		}else if(data[5].value == ""){
+			return;
+		}else if(data[6].value == ""){
+			return;
+		}else if(data[7].value == ""){
+			return;
+		}else{
 			
-			//verifica se campos estão preenchidos
-			if(data[0].value == ""){
-				return;
-			}else if(data[1].value == ""){
-				return;
-			}else if(data[2].value == ""){
-				return;
-			}else if(data[3].value == ""){
-				return;
-			}else if(data[4].value == ""){
-				return;
-			}else if(data[5].value == ""){
-				return;
-			}else if(data[6].value == ""){
-				return;
-			}else if(data[7].value == ""){
-				return;
-			}else{
+			// reCAPTCHAv3
+			grecaptcha.ready(function() {
+				grecaptcha.execute('<?=GOOGLE_reCAPTCHA?>',
+				{action: 'verificar_cliente'})
+				.then(function(token)
+				{	
+					//adiciona token ao array POST
+					data.push({name: "grecaptcha_token_verificar", value: token});
+					//depois! add flag de verificacao
+					data.push({name: "is_verificacao_cadastro", value: "1"});
 
-				data.push({name: "is_verificacao_cadastro", value: "1"});
-
-				//verifica dados e envia sms
-				$.post({
-					url: 'controler/businesCliente.php',
-					data: data,
-					success: function(resultado){
-						console.log(resultado);
-
-						if(resultado.includes("verificado")){
-
-							swal({
-								title: 'SMS Enviado!',
-								text: 'Insira o código recebido abaixo.',
-								content: "input",
-								button: 'Prosseguir'
-							})
-							.then(cod => {
-								if (!cod) throw null;
-								if (cod.length < 4){
-									swal("Código inválido!", "warning");
-								}else{
-									//remove flag de verificacao
-									data.pop();
-									inserirCliente(data, cod);
-								}
-							})
-							.catch(err => {
-								if (err) {
-									swal("Erro :/", "Erro interno...", "error");
-								} else {
-									swal.stopLoading();
-									swal.close();
-								}
-							});
-
-						}else{
-							swal("Erro :/", resultado , "error");
-						}
-					},
-					error: function(resultado){
-						console.log(resultado);
-						swal("Erro :/", "Entre em contato com o suporte." , "error");
-					}
+					verificaCliente(data);
 				});
-			}
-		});
-
-		//Insere cliente após verificação de dados e SMS
-		function inserirCliente(data, cod){
-
-			data.push({name: "codigo_sms", value: cod});
-			data.push({name: "is_cadastro", value: "1"});
-
-			$.post({
-				url: 'controler/businesCliente.php',
-				data: data,
-				success: function(resultado){
-					console.log(resultado);
-					if(resultado.includes("inserido")){
-						//redireciona para boas vindas
-						window.location = "/home?bem_vindo=true";
-					}else{
-						swal("Erro :/", resultado , "error");
-					}
-				},
-				error: function(resultado){
-					console.log(resultado);
-					swal("Erro :/", "Entre em contato com o suporte." , "error");
-				}
 			});
 		}
+	});
 
-		$(document).ready(function(){
-			$(".cpf").mask("999.999.999-99");
-			// $(".telefone").mask("(45) 99999-9999)");
+	//verifica dados e envia sms
+	function verificaCliente(data){
+		$.post({
+			url: 'controler/businesCliente.php',
+			data: data,
+			success: function(resultado){
+				console.log(resultado);
+				
+				if(resultado.includes("verificado")){
+
+					swal({
+						title: 'SMS Enviado!',
+						text: 'Insira o código recebido abaixo.',
+						content: "input",
+						button: 'Prosseguir'
+					})
+					.then(cod_sms => {
+						if (!cod_sms) throw null;
+						if (cod_sms.length < 4){
+							swal("Código inválido!", "warning");
+						}else{
+							//remove flag de verificacao
+							data.pop();
+
+							// reCAPTCHAv3
+							grecaptcha.ready(function() {
+								grecaptcha.execute('<?=GOOGLE_reCAPTCHA?>',
+								{action: 'cadastrar_cliente'})
+								.then(function(token)
+								{
+									//adiciona token ao array POST
+									data.push({name: "grecaptcha_token_cadastrar", value: token});
+
+									data.push({name: "codigo_sms", value: cod_sms});
+									data.push({name: "is_cadastro", value: "1"});
+
+									inserirCliente(data);
+								});
+							});
+						}
+					})
+					.catch(err => {
+						if (err) {
+							swal("Erro :/", err , "error");
+						} else {
+							swal.stopLoading();
+							swal.close();
+						}
+					});
+
+				}else{
+					swal("Erro :/", resultado , "error");
+				}
+			},
+			error: function(resultado){
+				console.log(resultado);
+				swal("Erro :/", "Entre em contato com o suporte." , "error");
+			}
 		});
+	}
 
-    	$("input.telefone").mask("(99) 9999-9999?9").focusout(function (event) {  
+	//Insere cliente após verificação de dados e SMS
+	function inserirCliente(data){
 
-            var target, phone, element;  
-
-            target = (event.currentTarget) ? event.currentTarget : event.srcElement;  
-
-            phone = target.value.replace(/\D/g, '');
-
-            element = $(target);  
-
-            element.unmask();  
-
-            if(phone.length > 10) {  
-
-                element.mask("(99) 99999-999?9");  
-
-            } else {  
-
-                element.mask("(99) 9999-9999?9");  
-
-            }  
-
-        });
-
-		$('.timepicker-inicio').wickedpicker({
-
-		twentyFour: true
-
+		$.post({
+			url: 'controler/businesCliente.php',
+			data: data,
+			success: function(resultado){
+				console.log(resultado);
+				if(resultado.includes("inserido")){
+					//redireciona para boas vindas
+					window.location = "/home?bem_vindo=true";
+				}else{
+					swal("Erro :/", resultado , "error");
+				}
+			},
+			error: function(resultado){
+				console.log(resultado);
+				swal("Erro :/", "Entre em contato com o suporte." , "error");
+			}
 		});
+	}
 
-		$('.timepicker-termino').wickedpicker({
+	$(document).ready(function(){
+		$(".cpf").mask("999.999.999-99");
+		// $(".telefone").mask("(45) 99999-9999)");
+	});
 
-		twentyFour: true
+	$("input.telefone").mask("(99) 9999-9999?9").focusout(function (event) {  
 
-		});
+		var target, phone, element;  
+
+		target = (event.currentTarget) ? event.currentTarget : event.srcElement;  
+
+		phone = target.value.replace(/\D/g, '');
+
+		element = $(target);  
+
+		element.unmask();  
+
+		if(phone.length > 10) {  
+
+			element.mask("(99) 99999-999?9");  
+
+		} else {  
+
+			element.mask("(99) 9999-9999?9");  
+
+		}  
+
+	});
 
 	</script>
 

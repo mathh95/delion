@@ -206,24 +206,18 @@
 		$(document).on("click", "#addCarrinho", function(){
 			var url = $(this).data('url');
 			var qtd = $('#spanCarrinho').text();
-			// alert(qtd);
 			var id = $(this).data('cod');
-			// var quantidade = $("#spanCarrinho").data('quantidade');
-						
-			// console.log(quantidade+1);
-			
-			// console.log(res);
+
+			const nomeItem = $('#tituloNome'+id).text();
 			swal({
-				title: "Opções para o item",
-				text: "Deseja adicionar alguma observação ao item do pedido?",
+				title: "Alguma Observação?",
+				text: `Para: ${nomeItem}`,
 				content: "input",
 				icon: "warning"
-				// timer: 1200 //Timer do swal
 			})
 			.then((observacaoItem) => {
 				$.ajax({type: 'GET', url: url, data: {observacaoItem: observacaoItem, id: id},
 					success:function(resObs){
-						// swal(`Sua observação: ${observacaoItem}`);
 						$("#spanCarrinho").html(resObs);
 						$("#spanCarrinho-navbar").html(resObs);
 						$("#spanCarrinho-barra").html(resObs);

@@ -1,5 +1,8 @@
 <?php 
-session_start();
+	
+	include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
+
+	session_start();
 
 	if(isset($_SESSION['cod_cliente'])){
 		header("Location: /home");
@@ -65,7 +68,7 @@ session_start();
 
 		<div class="solicitacao">
 
-			<form action="controler/validarAcesso.php" method="POST">
+			<form id="loginForm" action="controler/validarAcesso.php" method="POST">
 			
 				<p>Acesso</p>
 
@@ -129,7 +132,23 @@ session_start();
 	<script type="text/javascript" src="js/wickedpicker.js"></script>
 	<script type="text/javascript" src="js/maskedinput.js"></script>
 
+	<!-- reCAPTCHAv3 -->
+	<script src="https://www.google.com/recaptcha/api.js?render=<?=GOOGLE_reCAPTCHA?>"></script>
+
 	<script>
+		// SUBMIT com reCAPTCHAv3
+		$('#loginForm').submit(function(event) {
+			event.preventDefault();
+	
+			grecaptcha.ready(function() {
+				grecaptcha.execute('<?=GOOGLE_reCAPTCHA?>', {action: 'login'}).then(function(token) {
+					$('#loginForm').prepend('<input type="hidden" name="grecaptcha_token_login" value="' + token + '">');
+					
+					$('#loginForm').unbind('submit').submit();
+				});
+			});
+		});
+
 
 		$(document).ready(function(){
 			var url_string = window.location.href;
@@ -176,14 +195,13 @@ session_start();
 
 		window.fbAsyncInit = function() {
 			FB.init({
-			appId      : '859682904420135',
+			appId      : <?=FACEBOOK_APP_ID?>,
 			cookie     : true,
 			xfbml      : true,
-			version    : 'v3.1'
+			version    : 'v5.0'
 			});
 			
 			FB.AppEvents.logPageView();   
-			
 		};
 
 		(function(d, s, id){
@@ -216,57 +234,6 @@ session_start();
 			
 		}
 
-		$(document).ready(function(){
-
-      		$('.banner-superior').slick({
-
-        		slidesToShow: 1,
-
-				slidesToScroll: 1,
-
-				autoplay: true,
-
-				autoplaySpeed: 3000,
-
-				arrows: false,
-
-			 	speed: 800,
-
-				fade: true,
-
-				dots: true
-
-      		});
-
-    	});
-
-    	$(document).ready(function(){
-
-      		$('.imagem-cardapio-evento').slick({
-
-        		slidesToShow: 1,
-
-				slidesToScroll: 1,
-
-				prevArrow:"<img class='a-left control-c prev slick-prev' src='img/seta-esquerda.png'>",
-
-      			nextArrow:"<img class='a-right control-c next slick-next' src='img/seta-direita.png'>"
-
-      		});
-
-    	});
-
-    	$('.timepicker-inicio').wickedpicker({
-
-    		twentyFour: true
-
-    	});
-
-    	$('.timepicker-termino').wickedpicker({
-
-    		twentyFour: true
-
-    	});
 	</script>
 
 </body>

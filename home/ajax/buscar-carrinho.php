@@ -18,7 +18,7 @@ include_once "../../admin/controler/controlFormaPgt.php";
 
 include_once "../../admin/model/formaPgt.php";
 
-include_once "../utils/googleServices.php";
+include_once "../utils/GoogleServices.php";
 
 include_once "../controler/controlEmpresa.php";
 
@@ -151,27 +151,30 @@ if (count($itens) > 0) {
                 </div>
                 
                 <!-- Observações -->                  
-                <div class="ladoDireito row">
+                <div class="ladoDireito row" style="padding-left: 10px">
                         <table class="tabela_itens table">
-                            <strong><p>Observações</p></strong>
+                            
+                            <?php
+                            if($_SESSION['observacao'][$key] != ""){
+                            // var_dump($_SESSION['observacao']);
+                               echo "<strong><p style='padding-left:6px'>Observações</p></strong>";
+                            }
+                            ?>
+                            <!-- <strong><p>Observações</p></strong> -->
                                 <?php
                                 $i = 0;
                                 foreach ($itens as $key => $item) :
 
                                     $obs = $itens_obs[$key];
-
-                                    // $codItem = $_SESSION['carrinho'][$key];
-                                    // $obsItem = $cardapioObs->selectObs($codItem);
-                                    // $itemObs = $obsItem->getNome();
                                 ?>               
                                 
-                                <tr id="idLinhaObs<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>">    
+                                <div id="idLinhaObs<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>" class="ladoDireito row">    
                                     <?php
                                     if(!empty($obs)){ ?>
-                                        <td data-linha="<?= $i ?>" class="text-uppercase nomeProdutoTabela" style="font-weight:bold;width: 296px; font-size: 13px"><?= $item['nome'] ?>:</td>
-                                        <td data-linha="<?= $i ?>" class="text-uppercase nomeProdutoTabela" style="font-size: 13px"><strong><?= $obs?></strong></td>
+                                        <span data-linha="<?= $i ?>" style="padding-left: 22px; width: 200px; font-size: 13px; border:none !important"><b><?= $item['nome'] ?></b> : <?= $obs?></span>
                                     <?php 
                                     }?>
+                                </div>
                                 </div>
                                 <?php
                                 $i++;

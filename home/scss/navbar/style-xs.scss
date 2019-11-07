@@ -60,6 +60,9 @@ body{
                                             @include center-block();
                                         }
                                     }
+                                    .glyphicon-shopping-cart{
+                                        vertical-align: middle;
+                                    }
                                 } li:hover {
                                     border-bottom: 4px solid #FFFFFF;
                                     margin-bottom: -4px;

@@ -63,7 +63,7 @@ foreach ($categorias as $key_cat => $categoria) {
                 </div>
                 <div class='descricao'>
 
-                    <div class='tituloNome'>".$item->getNome()."</div>
+                    <div class='tituloNome' id='tituloNome".$item->getCod_cardapio()."'>".$item->getNome()."</div>
                     <div class='textoDescricao'>".html_entity_decode($item->getDescricao())."</div>
                     <div class='textoDelivery'> Delivery: ". $item->getDsDelivery()."</div>
                     

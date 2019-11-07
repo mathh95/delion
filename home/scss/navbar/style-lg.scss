@@ -58,6 +58,9 @@ body{
                                             @include center-block();
                                         }
                                     }
+                                    .glyphicon-shopping-cart{
+                                        vertical-align: middle;
+                                    }
                                     a:hover{
                                         color: #f9e102;
                                     }
