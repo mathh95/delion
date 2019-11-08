@@ -104,7 +104,7 @@
 
 					<p>Celular:</p>
 
-					<input name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999" value="<?php echo $_SESSION['telefone'];?>">
+					<input class="telefone" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999" value="<?php echo $_SESSION['telefone'];?>">
 
 				</div>
 				<div class="col-md-12 col-sm-12 col-xs-12">
@@ -133,18 +133,7 @@
 	<script>
 
 		$(document).ready(function(){
-			
-			$('.timepicker-inicio').wickedpicker({
-
-				twentyFour: true
-
-			});
-
-			$('.timepicker-termino').wickedpicker({
-
-				twentyFour: true
-
-			});
+		
 
 			$("input.telefone").mask("(99) 9999-9999?9").focusout(function (event) {  
 

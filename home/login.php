@@ -74,7 +74,7 @@
 
     			<div>
 
-					<p>Login</p>
+					<p>Login (e-mail)</p>
 
         			<input class="form-control" name="login" type="email" required placeholder="delion@mail.com" autofocus>
 
