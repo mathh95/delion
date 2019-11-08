@@ -109,6 +109,55 @@
 
                             <br>
 
+                            <small>Dias da Semana:</small>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="fa fa-calendar-alt"></i></span>
+
+                                <input class="form-control" placeholder="" name="dias_semana" value="<?=  $empresa->getDiasSemana(); ?>"  type="text">
+
+                            </div>
+
+                            <br>
+
+                            <small>Horarios de Semana:</small>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="fa fa-clock"></i></span>
+
+                                <input class="form-control" placeholder="" name="horario_semana" value="<?=  $empresa->getHorarioSemana(); ?>"  type="text">
+
+                            </div>
+
+                            <br>
+
+                            <small>Fim de Semana:</small>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="fa fa-calendar-alt"></i></span>
+
+                                <input class="form-control" placeholder="" name="dias_fim_semana" value="<?=  $empresa->getDiasFimSemana(); ?>"  type="text">
+
+                            </div>
+
+                            <br>
+
+                            <small>Horarios Fim de Semana:</small>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="fa fa-clock"></i></span>
+
+                                <input class="form-control" placeholder="" name="horario_fim_semana" value="<?=  $empresa->getHorarioFimSemana(); ?>"  type="text">
+
+                            </div>
+
+                            <br>
+
+                            
                             <small>Endereço:</small>
 
                             <div class="input-group">

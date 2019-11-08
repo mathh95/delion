@@ -20,6 +20,10 @@
         private $instagram;
         private $pinterest;
         private $foto;
+        private $dias_semana;
+        private $horario_semana;
+        private $dias_fim_semana;
+        private $horario_fim_semana;
 
 
         function getCod_empresa(){
@@ -83,6 +87,20 @@
             $pos = strpos($this->foto, "upload");
             return substr($this->foto, $pos);
         }
+        function getDiasSemana(){
+            return $this->dias_semana;
+        }
+        function getHorarioSemana(){
+            return $this->horario_semana;
+        }
+        function getDiasFimSemana(){
+            return $this->dias_fim_semana;
+        }
+        function getHorarioFimSemana(){
+            return $this->horario_fim_semana;
+        }
+
+
 
         function setCod_empresa($cod_empresa){
             $this->cod_empresa=$cod_empresa;
@@ -132,9 +150,23 @@
         function setFoto($foto){
             $this->foto=$foto;
         }
+        function setDiasSemana($dias_semana){
+            $this->dias_semana=$dias_semana;
+        }
+        function setHorarioSemana($horario_semana){
+            $this->horario_semana=$horario_semana;
+        }
+        function setDiasFimSemana($dias_fim_semana){
+            $this->dias_fim_semana=$dias_fim_semana;
+        }
+        function setHorarioFimSemana($horario_fim_semana){
+            $this->horario_fim_semana=$horario_fim_semana;
+        }
+
         function __construct(){
         }
-        function construct($nome,$descricao,$historia,$endereco,$bairro,$cidade,$estado,$cep,$fone,$whats,$email,$facebook,$instagram,$pinterest,$foto){
+
+        function construct($nome,$descricao,$historia,$endereco,$bairro,$cidade,$estado,$cep,$fone,$whats,$email,$facebook,$instagram,$pinterest,$foto, $dias_semana, $horario_semana,  $dias_fim_semana, $horario_fim_semana){
             $this->nome=$nome;
             $this->descricao=$descricao;
             $this->historia=$historia;
@@ -150,6 +182,10 @@
             $this->instagram=$instagram;
             $this->pinterest=$pinterest;
             $this->foto=$foto;
+            $this->dias_semana=$dias_semana;
+            $this->horario_semana=$horario_semana;
+            $this->dias_fim_semana=$dias_fim_semana;
+            $this->horario_fim_semana=$horario_fim_semana;
         }
         function show(){
             echo "Código do Empresa:".$this->cod_empresa."<br>";

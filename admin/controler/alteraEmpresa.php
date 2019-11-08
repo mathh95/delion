@@ -34,8 +34,15 @@
 		}else{
 			$foto = addslashes(htmlspecialchars($_POST['imagem']));
 		}
+
+		$dias_semana = addslashes(htmlspecialchars($_POST['dias_semana']));
+		$horario_semana = addslashes(htmlspecialchars($_POST['horario_semana']));
+		$dias_fim_semana = addslashes(htmlspecialchars($_POST['dias_fim_semana']));
+		$horario_fim_semana = addslashes(htmlspecialchars($_POST['horario_fim_semana']));
+
 		$empresa= new empresa();
-		$empresa->construct(NULL, $descricao, $historia, $endereco, $bairro, $cidade, $estado, $cep, $fone, $whats, $email, $facebook, $instagram, $pinterest, $foto);
+		$empresa->construct(NULL, $descricao, $historia, $endereco, $bairro, $cidade, $estado, $cep, $fone, $whats, $email, $facebook, $instagram, $pinterest, $foto, $dias_semana, $horario_semana, $dias_fim_semana, $horario_fim_semana);
+
 		$empresa->setCod_empresa($cod_empresa);
 		$controle=new controlerEmpresa($_SG['link']);
 		if($controle->update($empresa)> -1){
