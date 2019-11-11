@@ -56,4 +56,15 @@
 
     </div>
 
+    <?php
+
+        if(!$empresa->getAberto()){
+            echo '<p id="msg-funcionamento"> Estamos Fechados! <i class="far fa-surprise"></i></p>';
+        }else if(!$empresa->getEntregando()){
+            echo '<p id="msg-funcionamento"> Não estamos Entregando! <i class="far fa-surprise"></i></p>';
+        }
+
+        
+    ?>
+    
 </header>

@@ -105,8 +105,27 @@
 
                         <div class="col-md-5">
 
-                            <h3>Dados de contato com a empresa</h3>
+                            <h3>Dados de Funcionamento da Empresa</h3>
 
+                            <br>
+
+                            <small>Estabelecimento:</small>
+                            <div class="checkbox" style="display:inline-block;">
+                                <label>
+                                    <input type="checkbox" name="aberto" <?= ($empresa->getAberto() == 1 ? "checked" : "")?> value="1">Aberto
+                                </label>
+                            </div>
+                            
+                            <br>
+                            
+                            <small>Entregas/Delivery:</small>
+                            <div class="checkbox" style="display:inline-block;">
+                                <label>
+                                    <input type="checkbox" name="entregando" <?= ($empresa->getEntregando() == 1 ? "checked" : "")?> value="1">Entregando
+                                </label>
+                            </div>
+
+                            <br>
                             <br>
 
                             <small>Dias da Semana:</small>

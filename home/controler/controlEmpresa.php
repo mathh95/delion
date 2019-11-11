@@ -42,6 +42,8 @@
                             $empresa->setHorarioSemana($result->horario_semana);
                             $empresa->setDiasFimSemana($result->dias_fim_semana);
                             $empresa->setHorarioFimSemana($result->horario_fim_semana);
+                            $empresa->setAberto($result->aberto);
+                            $empresa->setEntregando($result->entregando);
                         }
                     }
                 }
@@ -80,6 +82,8 @@
                             $empresa->setHorarioSemana($result->horario_semana);
                             $empresa->setDiasFimSemana($result->dias_fim_semana);
                             $empresa->setHorarioFimSemana($result->horario_fim_semana);
+                            $empresa->setAberto($result->aberto);
+                            $empresa->setEntregando($result->entregando);
                             array_push($empresas, $empresa);
                         }
                     }

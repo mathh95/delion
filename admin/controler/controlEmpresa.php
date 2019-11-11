@@ -39,7 +39,7 @@
         }
         function update($empresa){
             try{
-                $stmte =$this->pdo->prepare("UPDATE empresa SET descricao=:descricao, historia=:historia, endereco=:endereco, bairro=:bairro, cidade=:cidade, estado=:estado, cep=:cep, fone=:fone, whats=:whats, email=:email, facebook=:facebook, instagram=:instagram, pinterest=:pinterest, foto=:foto, dias_semana=:dias_semana, horario_semana=:horario_semana, dias_fim_semana=:dias_fim_semana, horario_fim_semana=:horario_fim_semana WHERE cod_empresa=:cod_empresa");
+                $stmte =$this->pdo->prepare("UPDATE empresa SET descricao=:descricao, historia=:historia, endereco=:endereco, bairro=:bairro, cidade=:cidade, estado=:estado, cep=:cep, fone=:fone, whats=:whats, email=:email, facebook=:facebook, instagram=:instagram, pinterest=:pinterest, foto=:foto, dias_semana=:dias_semana, horario_semana=:horario_semana, dias_fim_semana=:dias_fim_semana, horario_fim_semana=:horario_fim_semana, aberto=:aberto, entregando=:entregando WHERE cod_empresa=:cod_empresa");
 
                 $stmte->bindParam(":cod_empresa", $empresa->getCod_empresa() , PDO::PARAM_INT);
                 $stmte->bindParam(":descricao", $empresa->getDescricao(), PDO::PARAM_STR);
@@ -60,6 +60,8 @@
                 $stmte->bindParam(":horario_semana", $empresa->getHorarioSemana() , PDO::PARAM_STR);
                 $stmte->bindParam(":dias_fim_semana", $empresa->getDiasFimSemana() , PDO::PARAM_STR);
                 $stmte->bindParam(":horario_fim_semana", $empresa->getHorarioFimSemana() , PDO::PARAM_STR);
+                $stmte->bindParam(":aberto", $empresa->getAberto() , PDO::PARAM_INT);
+                $stmte->bindParam(":entregando", $empresa->getEntregando() , PDO::PARAM_INT);
 
                 $executa = $stmte->execute();
                 if($executa){
@@ -111,6 +113,8 @@
                             $empresa->setHorarioSemana($result->horario_semana);
                             $empresa->setDiasFimSemana($result->dias_fim_semana);
                             $empresa->setHorarioFimSemana($result->horario_fim_semana);
+                            $empresa->setAberto($result->aberto);
+                            $empresa->setEntregando($result->entregando);
                         }
                     }
                 }
@@ -163,6 +167,9 @@
                             $empresa->setHorarioSemana($result->horario_semana);
                             $empresa->setDiasFimSemana($result->dias_fim_semana);
                             $empresa->setHorarioFimSemana($result->horario_fim_semana);
+                            $empresa->setAberto($result->aberto);
+                            $empresa->setEntregando($result->entregando);
+
                             array_push($empresas, $empresa);
                         }
                     }
