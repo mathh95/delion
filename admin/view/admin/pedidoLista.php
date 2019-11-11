@@ -194,13 +194,12 @@
                 mywindow.document.write('</head><body >');
                 mywindow.document.write(data);
                 mywindow.document.write('</body></html>');
+                mywindow.document.close();
 
-
-                setTimeout(function () {
-                mywindow.print();
-                mywindow.close();
-                }, 1000)
-                return true;
+                mywindow.onload=function(){
+                    mywindow.focus();
+                    mywindow.print();
+                };
             }
 
             //Muda o status do pedido quando for impresso dentro da model

@@ -63,6 +63,12 @@
                         <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span> Reordenar itens
                     </button>
                 </div>
+                <div class="mini-divs">
+                    <button id="printCardapio" style="margin-top:25px;" type="button" class="btn btn-kionux" data-toggle="modal" data-target="#printMenuModal">
+                        <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir Cardápio
+                    </button>
+                </div>
+
             </div>
 
             <div class="row">
@@ -70,6 +76,8 @@
                     <?php include "../../ajax/gerenciarCardapioTabela.php";?>
                 </div>
             </div>
+
+            
     </div>
     <?php include VIEWPATH."/rodape.html" ?>
 
@@ -93,6 +101,33 @@
                     <button type="button" class="btn btn-kionux" data-dismiss="modal">Voltar</button>
                     
                     <button type="submit" class="btn btn-kionux" id="salvar_ordenacao">Salvar</button>
+                </div>
+			</div>
+		</div>
+    </div>
+
+    <!-- Modal impressão -->
+    <div class="modal fade" id="printMenuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+                    <h4 style="text-align:center;" class="modal-title" id="myModalLabel">
+                        <i class='fas fa-info-circle'></i>&nbsp;Cardápio a ser impresso.
+                    </h4>
+
+                    <div>
+                        <button class="btn btn-kionux" data-dismiss="modal">Voltar</button>
+
+                        <button id="printCardapioModal" type="button" class="btn btn-kionux" onclick="printDiv('#printModalCardapio')" >
+                            <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir
+                        </button>
+                    </div>
+                
+                </div>
+				<div style="height:400px; overflow-y: auto;" class="modal-body" id="printModalCardapio">
+                    <div class="row" style="margin-left:0px!important">
+                        <?php include "../../ajax/imprimirCardapio.php";?>
+                    </div>
                 </div>
 			</div>
 		</div>
@@ -137,6 +172,27 @@
                 );
             // alert(txtPesquisa);
         }
+
+        function printDiv(elem){
+                renderMe($(elem).html());
+            }
+
+            function renderMe(data) {
+                // console.log(data);
+                var mywindow = window.open('', 'invoice-box', 'height=1000,width=750');
+                mywindow.document.write('<html><head><title>Cardápio</title>');
+                mywindow.document.write('<link rel="stylesheet" href="printstyle.css" type="text/css" style="height=750,width=750"/>');
+                mywindow.document.write('</head><body >');
+                mywindow.document.write(data);
+                mywindow.document.write('</body></html>');
+                mywindow.document.close();
+
+                mywindow.onload=function(){
+                    mywindow.focus();
+                    mywindow.print();
+                };
+            }
+         
 
         
         $('#pesquisa,#producao').on('change paste keyup', function(){
