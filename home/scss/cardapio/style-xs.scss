@@ -26,16 +26,15 @@ body{
         white-space: nowrap; /* [1] */
         overflow-x: auto;
         overflow-y: hidden;
-        -webkit-overflow-scrolling: touch; /* [3] */
-        -ms-overflow-style: -ms-autohiding-scrollbar;
         flex-wrap: nowrap;
         position: sticky;
-        z-index: 9999;
+        z-index: 9;
         top: 50px;
         > .menu-lateral {
             background-color: #FFFFFF;
             display: inline-flex;
             flex-direction: row;
+            height: 50px;
             > a {
                 text-align: center;
                 padding-bottom: 5px;
@@ -53,7 +52,7 @@ body{
                 }
                 > div {
                     @include make-xs-column(12);
-                    font-size: 12px;
+                    font-size: 14px;
                 
                     color: $vermelho_forte;
                     padding-top: 15px;
@@ -114,7 +113,7 @@ body{
         display: none;
     }
     > .produtos {
-        min-height: 1000px;
+        min-height: 200px;
         padding-left: 0;
         padding-right: 0;
         > .categoria {
@@ -348,15 +347,39 @@ body{
 
     >div.barra-carrinho{
         position: fixed;
-        height: 30px;
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: center;
+        height: 50px;
         bottom: 0px;
         width: 100%;
         z-index: 1000;
         background-color: $vermelho_forte;
+        text-align: center;
         div{
+            padding-left: 10px;
             font-size: 20px;
             font-weight: bold;
             color: white;
+            a{
+                font-size: 30px;
+                i{
+                    font-size: 30px;
+                    color: #FFFFFF;
+                    span{
+                        font-size: 30px;
+                    }
+                }
+            }
+        }
+        div.texto-barra{
+            padding-top: 10px;
+            a{
+                color: #FFFFFF;
+                text-decoration: none;
+                font-size: 17px;
+            }
+            
         }
     }
     > .scroll-top {

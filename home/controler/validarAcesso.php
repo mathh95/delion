@@ -38,6 +38,8 @@
                 alertJSVoltarPagina("Erro!","Erro, sua senha não confere.", 2);
             }elseif ($result == 0) {
                 alertJSVoltarPagina("Erro!","Erro, login não cadastrado.", 2);
+            }elseif ($result == 3) {
+                alertJSVoltarPagina("Erro!","Erro, cadastro desativado.", 2);
             }else{
                 alertJSVoltarPagina("Erro!","Erro, não foi possível logar.", 2);
             }

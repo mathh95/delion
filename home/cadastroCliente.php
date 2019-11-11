@@ -69,7 +69,7 @@
 				<div class="form-row">
 					<div class="col-md-6 col-sm-12 col-xs-12">
 						
-						<p>Nome:</p>
+						<p>Nome*</p>
 
 						<input class="form-control" name="nome" type="text" minlength="3" maxlength="30" required placeholder="Delion" autofocus>
 
@@ -77,7 +77,7 @@
 					
 					<div class="col-md-6 col-sm-12 col-xs-12">
 						
-						<p>Sobrenome:</p>
+						<p>Sobrenome*</p>
 
 						<input class="form-control" name="sobrenome" type="text" minlength="3" maxlength="30" required placeholder="Oliveira">
 
@@ -86,7 +86,7 @@
 
     			<div class="col-md-12 col-sm-12 col-xs-12">
 
-					<p>CPF:</p>
+					<p>CPF*</p>
 
         			<input class="form-control cpf" name="cpf" type="text" minlength="11" maxlength="14" required placeholder="999.999.999-99">
 
@@ -94,7 +94,7 @@
 
     			<div class="col-md-12 col-sm-12 col-xs-12">
 
-					<p>Data Nascimento:</p>
+					<p>Data Nascimento*</p>
 
 					<?php
 						$current = date("Y-m-d");
@@ -110,7 +110,7 @@
 				
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					
-					<p>Celular:</p>
+					<p>Celular*</p>
 
 					<input class="form-control telefone" name="telefone" type="text" minlength="15" maxlength="15" required placeholder="(45) 9 9999-9999">
 
@@ -118,7 +118,7 @@
 
 				<div class="col-md-12 col-sm-12 col-xs-12">
 
-					<p>Login (e-mail):</p>
+					<p>Login (e-mail)*</p>
 
         			<input class="form-control" name="login" type="email" minlength="4" maxlength="40" required placeholder="delion@mail.com">
 
@@ -126,7 +126,7 @@
 
 				<div class="col-md-6 col-sm-12 col-xs-12">
 
-					<p>Senha:</p>
+					<p>Senha*</p>
 
 					<input class="form-control" name="senha" type="password" minlength="4" maxlength="40" required placeholder="******">
 
@@ -134,7 +134,7 @@
 
 				<div class="col-md-6 col-sm-12 col-xs-12">
 
-					<p>Confirmar Senha:</p>
+					<p>Confirmar Senha*</p>
 
 					<input class="form-control" name="senha2" type="password" minlength="4" maxlength="40" required placeholder="******">
 
@@ -220,47 +220,9 @@
 			success: function(resultado){
 				console.log(resultado);
 				
-				if(resultado.includes("verificado")){
+				if(resultado.verificado){
 
-					swal({
-						title: 'SMS Enviado!',
-						text: 'Insira o código recebido abaixo.',
-						content: "input",
-						button: 'Prosseguir'
-					})
-					.then(cod_sms => {
-						if (!cod_sms) throw null;
-						if (cod_sms.length < 4){
-							swal("Código inválido!", "warning");
-						}else{
-							//remove flag de verificacao
-							data.pop();
-
-							// reCAPTCHAv3
-							grecaptcha.ready(function() {
-								grecaptcha.execute('<?=GOOGLE_reCAPTCHA?>',
-								{action: 'cadastrar_cliente'})
-								.then(function(token)
-								{
-									//adiciona token ao array POST
-									data.push({name: "grecaptcha_token_cadastrar", value: token});
-
-									data.push({name: "codigo_sms", value: cod_sms});
-									data.push({name: "is_cadastro", value: "1"});
-
-									inserirCliente(data);
-								});
-							});
-						}
-					})
-					.catch(err => {
-						if (err) {
-							swal("Erro :/", err , "error");
-						} else {
-							swal.stopLoading();
-							swal.close();
-						}
-					});
+					getCodigoSms();
 
 				}else{
 					swal("Erro :/", resultado , "error");
@@ -269,6 +231,49 @@
 			error: function(resultado){
 				console.log(resultado);
 				swal("Erro :/", "Entre em contato com o suporte." , "error");
+			}
+		});
+	}
+
+	function getCodigoSms(){
+
+		swal({
+			title: 'SMS Enviado!',
+			text: 'Insira o código recebido abaixo.',
+			content: "input",
+			button: 'Prosseguir'
+		})
+		.then(cod_sms => {
+			if (!cod_sms) throw null;
+			if (cod_sms.length < 4){
+				swal("Código inválido!", "warning");
+			}else{
+				//remove flag de verificacao
+				data.pop();
+
+				// reCAPTCHAv3
+				grecaptcha.ready(function() {
+					grecaptcha.execute('<?=GOOGLE_reCAPTCHA?>',
+					{action: 'cadastrar_cliente'})
+					.then(function(token)
+					{
+						//adiciona token ao array POST
+						data.push({name: "grecaptcha_token_cadastrar", value: token});
+
+						data.push({name: "codigo_sms", value: cod_sms});
+						data.push({name: "is_cadastro", value: "1"});
+
+						inserirCliente(data);
+					});
+				});
+			}
+		})
+		.catch(err => {
+			if (err) {
+				swal("Erro :/", err , "error");
+			} else {
+				swal.stopLoading();
+				swal.close();
 			}
 		});
 	}

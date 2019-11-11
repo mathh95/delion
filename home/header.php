@@ -30,12 +30,16 @@
 		</form>
 
         <div class="infos">
-
+            <?php
+                $controleEmpresa=new controlerEmpresa(conecta());
+                $empresa = $controleEmpresa->select(1,2);
+            ?>
             <div>
-                <p class="semana"><i class="far fa-calendar-alt"></i>&nbsp;Segunda a Sexta <br>
-                <i class="fas fa-clock"></i>&nbsp;10:00h às 21:00h</p>
-                <p class="fim-semana"><i class="far fa-calendar-alt"></i>&nbsp;Aos Sábados <br>
-                <i class="fas fa-clock"></i>&nbsp;08:30h  às 19:00h</p>
+                <p class="semana">
+                    <i class="far fa-calendar-alt"></i>&nbsp;<?= $empresa->getDiasSemana()?><br>
+                    <i class="fas fa-clock"></i>&nbsp;<?= $empresa->getHorarioSemana()?></p>
+                <p class="fim-semana"><i class="far fa-calendar-alt"></i>&nbsp;<?= $empresa->getDiasFimSemana()?><br>
+                <i class="fas fa-clock"></i>&nbsp;<?= $empresa->getHorarioFimSemana()?></p>
             </div>
             
 

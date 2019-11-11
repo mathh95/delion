@@ -38,6 +38,10 @@
                             $empresa->setInstagram($result->instagram);
                             $empresa->setPinterest($result->pinterest);
                             $empresa->setFoto($result->foto);
+                            $empresa->setDiasSemana($result->dias_semana);
+                            $empresa->setHorarioSemana($result->horario_semana);
+                            $empresa->setDiasFimSemana($result->dias_fim_semana);
+                            $empresa->setHorarioFimSemana($result->horario_fim_semana);
                         }
                     }
                 }
@@ -72,6 +76,10 @@
                             $empresa->setInstagram($result->instagram);
                             $empresa->setPinterest($result->pinterest);
                             $empresa->setFoto($result->foto);
+                            $empresa->setDiasSemana($result->dias_semana);
+                            $empresa->setHorarioSemana($result->horario_semana);
+                            $empresa->setDiasFimSemana($result->dias_fim_semana);
+                            $empresa->setHorarioFimSemana($result->horario_fim_semana);
                             array_push($empresas, $empresa);
                         }
                     }

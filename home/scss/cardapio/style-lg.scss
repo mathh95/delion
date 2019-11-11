@@ -112,7 +112,7 @@ body,html{
         }
     }
     > .produtos {
-        min-height: 1000px;
+        min-height: 300px;
         > .categoria {
             font-family: $font_main;
             font-size: 14px;
@@ -367,6 +367,9 @@ body,html{
                 }
             }
         }
+    }
+    >div.barra-carrinho{
+        display: none;
     }
     > .scroll-top {
         position: fixed;

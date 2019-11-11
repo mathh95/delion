@@ -39,7 +39,8 @@
         }
         function update($empresa){
             try{
-                $stmte =$this->pdo->prepare("UPDATE empresa SET descricao=:descricao, historia=:historia, endereco=:endereco, bairro=:bairro, cidade=:cidade, estado=:estado, cep=:cep, fone=:fone, whats=:whats, email=:email, facebook=:facebook, instagram=:instagram, pinterest=:pinterest, foto=:foto WHERE cod_empresa=:cod_empresa");
+                $stmte =$this->pdo->prepare("UPDATE empresa SET descricao=:descricao, historia=:historia, endereco=:endereco, bairro=:bairro, cidade=:cidade, estado=:estado, cep=:cep, fone=:fone, whats=:whats, email=:email, facebook=:facebook, instagram=:instagram, pinterest=:pinterest, foto=:foto, dias_semana=:dias_semana, horario_semana=:horario_semana, dias_fim_semana=:dias_fim_semana, horario_fim_semana=:horario_fim_semana WHERE cod_empresa=:cod_empresa");
+
                 $stmte->bindParam(":cod_empresa", $empresa->getCod_empresa() , PDO::PARAM_INT);
                 $stmte->bindParam(":descricao", $empresa->getDescricao(), PDO::PARAM_STR);
                 $stmte->bindParam(":historia", $empresa->getHistoria(), PDO::PARAM_STR);
@@ -55,6 +56,11 @@
                 $stmte->bindParam(":instagram", $empresa->getInstagram() , PDO::PARAM_STR);
                 $stmte->bindParam(":pinterest", $empresa->getPinterest() , PDO::PARAM_STR);
                 $stmte->bindParam(":foto", $empresa->getFoto() , PDO::PARAM_STR);
+                $stmte->bindParam(":dias_semana", $empresa->getDiasSemana() , PDO::PARAM_STR);
+                $stmte->bindParam(":horario_semana", $empresa->getHorarioSemana() , PDO::PARAM_STR);
+                $stmte->bindParam(":dias_fim_semana", $empresa->getDiasFimSemana() , PDO::PARAM_STR);
+                $stmte->bindParam(":horario_fim_semana", $empresa->getHorarioFimSemana() , PDO::PARAM_STR);
+
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;
@@ -101,6 +107,10 @@
                             $empresa->setInstagram($result->instagram);
                             $empresa->setPinterest($result->pinterest);
                             $empresa->getFoto($result->$foto);
+                            $empresa->setDiasSemana($result->dias_semana);
+                            $empresa->setHorarioSemana($result->horario_semana);
+                            $empresa->setDiasFimSemana($result->dias_fim_semana);
+                            $empresa->setHorarioFimSemana($result->horario_fim_semana);
                         }
                     }
                 }
@@ -149,6 +159,10 @@
                             $empresa->setInstagram($result->instagram);
                             $empresa->setPinterest($result->pinterest);
                             $empresa->setFoto($result->foto);
+                            $empresa->setDiasSemana($result->dias_semana);
+                            $empresa->setHorarioSemana($result->horario_semana);
+                            $empresa->setDiasFimSemana($result->dias_fim_semana);
+                            $empresa->setHorarioFimSemana($result->horario_fim_semana);
                             array_push($empresas, $empresa);
                         }
                     }

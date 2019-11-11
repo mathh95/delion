@@ -119,11 +119,25 @@
 		</a>
 
 	</div>
-	<div class="barra-carrinho" style="<?php isset($_SESSION['carrinho'])?count($_SESSION['carrinho']):'display:none;';?>">
+		<div class="barra-carrinho" id="barra-carrinho">
 			<div>
-			<a  data-toggle="tooltip" title="Carrinho." href="carrinho.php"><i style=" font-size: 17px;"class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i> <span style="background-color:white; color:black;" class="badge" id="spanCarrinho-barra"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span></a>
+			<a  data-toggle="tooltip" title="Carrinho." href="carrinho.php">
+				<i style=" font-size: 17px;"class="glyphicon glyphicon-shopping-cart" aria-hidden="true">
+				</i> 
+				<span style="background-color:white; color:black;" class="badge" id="spanCarrinho-barra">
+				<?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?>
+				</span>
+			</a>
 		</div>
-	</div>
+		<div class="texto-barra">
+
+			<a href="carrinho.php">Ver Carrinho</a>
+		</div>
+
+		
+	</div> 
+	
+	
 	<?php
 		include_once "./footer.php";
 	?>
@@ -146,28 +160,28 @@
 		});
 
 
-		var categorias = $('.categoria')
-		, menu_lateral = $('.menu-lateral')
-		, menu_lateral_height = menu_lateral.outerHeight();
+		// var categorias = $('.categoria')
+		// , menu_lateral = $('.menu-lateral')
+		// , menu_lateral_height = menu_lateral.outerHeight();
 
-		$(window).on('scroll', function () {
-			var cur_pos = $(this).scrollTop();
+		// $(window).on('scroll', function () {
+		// 	var cur_pos = $(this).scrollTop();
 			
-			categorias.each(function() {
-				var top = $(this).offset().top - menu_lateral_height,
-				bottom = top + $(this).outerHeight();
+		// 	categorias.each(function() {
+		// 		var top = $(this).offset().top - menu_lateral_height,
+		// 		bottom = top + $(this).outerHeight();
 				
-				if (cur_pos >= top && cur_pos <= bottom) {
+		// 		if (cur_pos >= top && cur_pos <= bottom) {
 
-					menu_lateral.find('a').removeClass('active');
-					// categorias.removeClass('active');
-					$(this).addClass('active');
-					console.log($(this).attr('id'));
-					menu_lateral.find('a[href="#categoria'+$(this).attr('id')+'"]').addClass('active');
-					// console.log('a[href="#'+$('categoria'+this).attr('id')+'"]');
-				}
-			});
-		});
+		// 			menu_lateral.find('a').removeClass('active');
+		// 			// categorias.removeClass('active');
+		// 			$(this).addClass('active');
+		// 			console.log($(this).attr('id'));
+		// 			menu_lateral.find('a[href="#categoria'+$(this).attr('id')+'"]').addClass('active');
+		// 			// console.log('a[href="#'+$('categoria'+this).attr('id')+'"]');
+		// 		}
+		// 	});
+		// });
 
 		// Scroll p/ Categoria selecionada
 		$(document).ready(function() {
@@ -208,13 +222,25 @@
 			});
 
 		});
+		var qtd_carrinho = "<?= isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : ''?>";
+		function displayBarraCarrinho(){
+			
+				if(qtd_carrinho == '' || qtd_carrinho == 0){
+					$("#barra-carrinho").hide();
+				}else{
+					$("#barra-carrinho").fadeIn(1000);
+				}
+		}
+		$(document).ready(function() {
+			displayBarraCarrinho();
+			
+		});
 
-		
 		$(document).on("click", "#addCarrinho", function(){
 			var url = $(this).data('url');
 			var qtd = $('#spanCarrinho').text();
 			var id = $(this).data('cod');
-
+			
 			const nomeItem = $('#tituloNome'+id).text();
 			swal({
 				title: "Alguma Observação?",
@@ -228,14 +254,21 @@
 						$("#spanCarrinho").html(resObs);
 						$("#spanCarrinho-navbar").html(resObs);
 						$("#spanCarrinho-barra").html(resObs);
+						
 						if(qtd == resObs){
 							swal('Este item já está no seu carrinho!', 'Consulte o carrinho', 'warning');
 						}else{
 							swal('Produto Adicionado ao carrinho!', 'Consulte o carrinho para alterar a quantidade', 'success');
+							//Exibe caso tenha mais de 0 itens no carrinho.
+							qtd_carrinho++; 
+							displayBarraCarrinho();
+							
 						}
+						
 					}
 				});
 			});
+			
 		});
 
 		function buscar (pagina, busca, tipo){
@@ -285,6 +318,7 @@
 			});
 		}
 
+		
 		function fecharModal(idCardapio){
 			var largura = $(window).width();
 			if(largura <= 767){
