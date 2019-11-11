@@ -7,6 +7,9 @@ $html = "<head>
              .swal-overlay {
                  background-color: black;
                }
+               .swal-modal{
+                   
+               }
              </style>
          </head>
          <body>";
@@ -58,6 +61,8 @@ if (isset($_SESSION['pedidoBalcao'])) {
 // }else {
 //     $checkocupom=-1;
 // }
+
+
 /**
  * VERIFICA SE CASO
  * - PEDIDO FOR DELIVERY, NÃO POSSUI PEDIDOS
@@ -83,6 +88,10 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
 }else {
     $checkcliente=-1;
 }
+
+/**
+ * VERIFICA SE O CLIENTE ESTÁ COM CADASTRO ATIVO
+ */
 
 /**
  * Seta Finalizar Pedido para Endereco

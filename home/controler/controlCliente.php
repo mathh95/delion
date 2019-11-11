@@ -293,10 +293,14 @@
                                 $_SESSION['sobrenome']=$result->sobrenome;
                                 $_SESSION['login']=$result->login;
                                 $_SESSION['telefone']=$result->telefone;
+                                $_SESSION['cod_status_cliente']=$result->status;
                                 return 2;
+                            }
+                            }else if($_SESSION['cod_status_cliente'] == 0){
+                                return 3;
                             }else{
                                 return 1;
-                            }
+                            
                         }
                         return 0;
                     }
