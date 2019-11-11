@@ -201,7 +201,7 @@
                 //insere cliente
                 $status=1;
                 $cliente = new cliente;
-                $cliente->construct($nome, $sobrenome, $cpf, $data_nasc, $login, $senha,$telefone, $status);
+                $cliente->construct($nome, $sobrenome, $cpf, $data_nasc, $login, $senha,$telefone_int, $status);
                 $control = new controlCliente($_SG['link']);
                 $result=$control->insert($cliente);
 

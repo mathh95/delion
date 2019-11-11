@@ -50,30 +50,53 @@ $_SESSION['minimo_taxa_gratis'] = 99999;
 $_SESSION['finalizar_pedido'] = 0;
 
 if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
+    //ordenados com base na inserção/add carrinho
     $itens = $_SESSION['carrinho'];
     $itensObservacao = $_SESSION['observacao'];
+    $itensQtd = $_SESSION['qtd'];
 
-    //
-    $itens_flip = array_flip($_SESSION['carrinho']);
+    $itens_fliped = array_flip($itens);
 
-    //
-    $itens_flip_obs = $itens_flip;
+    //itens_fliped -> id no index 
+    $itens_fliped_obs = $itens_fliped;
     $i=0;
-    //Associa o id do item com a observação    
-    foreach ($itens_flip as $key => $item_flip){
-        $itens_flip_obs[$key] = $itensObservacao[$i];
+    //Associa a Observação ao id do item    
+    foreach ($itens_fliped as $key => $item_fliped){
+        $itens_fliped_obs[$key] = $itensObservacao[$i];
         $i++;
     }
-    //Ordena observacao com base no código do item(id)
-    ksort($itens_flip_obs);
     
-    //Altera os index da obervação do itens
+    //itens_fliped -> id no index 
+    $itens_fliped_qtd = $itens_fliped; 
     $i=0;
-    foreach ($itens_flip_obs as $key => $obs){
+    //Associa a Observação ao id do item    
+    foreach ($itens_fliped as $key => $item_fliped){
+        $itens_fliped_qtd[$key] = $itensQtd[$i];
+        $i++;
+    }
+    
+    //Ordena observacao/qtd com base no código do item(id)
+    ksort($itens_fliped_obs);
+    ksort($itens_fliped_qtd);
+    
+    //retorna os index da observação/qtd para incremetal
+    $i=0;
+    foreach ($itens_fliped_obs as $key => $obs){
         $itens_obs[$i] = $obs;   
         $i++;
     }
+    $i=0;
+    foreach ($itens_fliped_qtd as $key => $qtd){
+        $itens_qtd[$i] = $qtd;
+        $i++;
+    }
 
+    //Salva na Session valores Reordenados
+    sort($itens);
+    $_SESSION['carrinho'] = array_values($itens);
+
+    $_SESSION['observacao'] = $itens_obs;
+    $_SESSION['qtd'] = $itens_qtd;
 
 
 } else {
