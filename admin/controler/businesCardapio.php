@@ -36,17 +36,10 @@
 		}
 		$adicional = json_encode($adicional);
 
-		
-		$dias_semana = array();
-		for ($i=1; $i <= 6; $i++) { 
-			if (!empty($_POST[$i."dia"]) && isset($_POST[$i."dia"])) {
-				array_push($dias_semana, addslashes(htmlspecialchars($_POST[$i."dia"])));
-			}
-		}
-		if(!empty($dias_semana)){
-			$dias_semana = json_encode($dias_semana);
-		}
-		else{
+		if(isset($_POST['dias'])){
+			$arr_dias = $_POST['dias'];
+			$dias_semana = json_encode($arr_dias);
+		}else{
 			$dias_semana = NULL;
 		}
 		

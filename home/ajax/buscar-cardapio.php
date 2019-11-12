@@ -3,6 +3,7 @@ session_start();
 
 ini_set('display_errors', true);
 date_default_timezone_set('America/Sao_Paulo');
+
 include_once "../../admin/controler/conexao.php";
 include_once "../controler/controlCardapio.php";
 include_once "../controler/controlCategoria.php";
@@ -53,9 +54,19 @@ foreach ($categorias as $key_cat => $categoria) {
         $categoria->getCod_categoria()
     );	
     foreach ($itens as $key_item => $item){
-        // var_dump($item);
-        // exit;
-        echo
+        
+
+        $hora_atual = date('H:i:s', time() - 3600);
+        $hoje = (date('w')+1); // 1 == domingo, 7 == sábado
+        
+        //verifica se item disponível hoje e agora
+        if(
+            $item->getDias_semana() &&
+            in_array($hoje, json_decode($item->getDias_semana())) &&
+            1 == 1
+        ){
+
+            echo
             "<div class='produto'>
                 <div class='imagem'>
                     
@@ -73,5 +84,6 @@ foreach ($categorias as $key_cat => $categoria) {
                     <button id='addCombo' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao Combo</button>
                 </div>
             </div>";
+        }
     }
 }
