@@ -246,7 +246,8 @@
 				title: "Alguma Observação?",
 				text: `Para: ${nomeItem}`,
 				content: "input",
-				icon: "warning"
+				icon: "warning",
+				button: 'Prosseguir'
 			})
 			.then((observacaoItem) => {
 				$.ajax({type: 'GET', url: url, data: {observacaoItem: observacaoItem, id: id},

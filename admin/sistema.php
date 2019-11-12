@@ -15,7 +15,7 @@
           	</script>";
         }else{
           	echo "<script language=\"javascript\">
-             window.location.href = \"view/admin/empresa.php\"
+             window.location.href = \"view/admin/empresaHorarios.php\"
           	</script>";
         }
 	 ?>

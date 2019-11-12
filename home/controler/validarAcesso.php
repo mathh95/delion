@@ -5,6 +5,32 @@
 
     include_once "../utils/GoogleRecaptcha.php";
 
+
+    $html = "<head>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>  
+            <style>
+                @media only screen and (max-width: 767px) {
+                    .modal-dialog{
+                        width: 80%;
+                        height: 25%;
+                        margin-top: 50%;
+                    }
+                    .bootstrap-dialog-header {
+                        text-align: center;
+                    }
+                    .bootstrap-dialog-title{
+                        font-size: 50px;
+                    }
+                    .bootstrap-dialog-message{
+                        font-size: 40px;
+                    }
+                    .btn btn-lg btn-default{
+                        font-size: 50px;
+                    }
+                }
+            </style>
+         </head>";
+
     if (isset($_POST) and !empty($_POST)){
 
         $control=new controlCliente($_SG['link']);
@@ -47,6 +73,8 @@
             echo "reCAPTCHA inválido!";
             return;
         }
+
+        echo $html;
 
         
     }else {

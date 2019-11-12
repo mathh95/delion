@@ -36,10 +36,20 @@
             ?>
             <div>
                 <p class="semana">
-                    <i class="far fa-calendar-alt"></i>&nbsp;<?= $empresa->getDiasSemana()?><br>
-                    <i class="fas fa-clock"></i>&nbsp;<?= $empresa->getHorarioSemana()?></p>
-                <p class="fim-semana"><i class="far fa-calendar-alt"></i>&nbsp;<?= $empresa->getDiasFimSemana()?><br>
-                <i class="fas fa-clock"></i>&nbsp;<?= $empresa->getHorarioFimSemana()?></p>
+                    <?php
+                        if(strlen($empresa->getDiasSemana()) > 1)
+                            echo '<i class="far fa-calendar-alt"></i>&nbsp;'. $empresa->getDiasSemana().'<br>';
+                            
+                        if(strlen($empresa->getHorarioSemana()) > 1 )
+                            echo '<i class="fas fa-clock"></i>&nbsp;'.$empresa->getHorarioSemana().'</p>';
+                            
+                        if(strlen($empresa->getDiasFimSemana()) > 1 )
+                            echo '<p class="fim-semana"><i class="far fa-calendar-alt"></i>&nbsp;'.$empresa->getDiasFimSemana().'<br>';
+                            
+                        if(strlen($empresa->getHorarioFimSemana()) > 1 )
+                            echo '<i class="fas fa-clock"></i>&nbsp;'. $empresa->getHorarioFimSemana().'</p>';
+                        
+                    ?>
             </div>
             
 

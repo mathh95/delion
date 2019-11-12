@@ -119,6 +119,7 @@
                                 <ul class="dropdown-menu">
 
                                     <li><a href="empresa.php">Alterar</a></li>
+                                    <li><a href="empresaHorarios.php">Gerenciar Funcionamento</a></li>
 
                                 </ul>
 
@@ -170,7 +171,7 @@
                             
                             if(in_array('avaliacao', $permissao)){ ?>
 
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Avaliacao <span class="caret"></span></a>
+                                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Avaliacao <span class="caret"></span></a>
 
                                 <ul class="dropdown-menu">
 
@@ -182,7 +183,7 @@
 
                                 </ul>
 
-                            </li>
+                            </li> -->
 
                            <li class="dropdown
 
@@ -417,7 +418,7 @@
                             
                             if(in_array('avaliacao', $permissao)){ ?>
 
-                       <li class="dropdown
+                       <!-- <li class="dropdown
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
@@ -427,7 +428,7 @@
                                 ?>
                             ">
                             <a href="/home/avaliacao.php">Avaliar</a>
-                        </li>
+                        </li> -->
                         
                         <?php } ?>
                         
@@ -437,7 +438,7 @@
                             
                             if(in_array('avaliacao', $permissao)){ ?>
                         
-                       <li class="dropdown
+                       <!-- <li class="dropdown
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
@@ -447,7 +448,7 @@
                                 ?>
                             ">
                             <a href="enderecoLista.php">Endereços</a>
-                        </li>
+                        </li> -->
 
                         <?php } ?>
                         

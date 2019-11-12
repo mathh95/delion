@@ -34,7 +34,9 @@
         </div>
     </div>
     <?php include VIEWPATH."/rodape.html" ?>
+
     <script src="../../js/alert.js"></script>
+    
     <script type="text/javascript">
         function removeCliente(cliente){
             msgConfirmacao('Confirmação','Deseja Realmente remover o cliente?',
@@ -42,10 +44,10 @@
                     var url ='../../ajax/excluir-cliente.php?cliente='+cliente;
                     $.get(url, function(dataReturn) {
                         if (dataReturn > 0) {
-                            msgGenerico("Excluir!","Cliente excluído com sucesso!",1,function(){});
+                            msgGenerico("Excluir!","Cliente Desativado com sucesso!",1,function(){});
                             $("#status"+cliente).remove();
                         }else{
-                            msgGenerico("Erro!","Não foi possível excluir o cliente!",2,function(){});
+                            msgGenerico("Erro!","Não foi possível Desativar o cliente!",2,function(){});
                         }
                     });  
                 },
