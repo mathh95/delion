@@ -237,43 +237,45 @@
 
                                 </div>
                             
+                                <br>
                                 <small>Turno(s) que o item estará disponível:</small>
                                 
-                                <div class="checkbox">
-                                        <!-- Primeiro Turno -->
-                                                <select name="turnos" id="turnos">
-                                                    <option value="0">Selecione o turno</option>
-                                                    <?php
-                                                        foreach ($turnos as $turno) {
-                                                            echo "<option value='".$turno->getCod_cardapio_turno()."' id='".$turno->getCod_cardapio_turno()."'>".$turno->getNome()."</option>";
-                                                        }  
-                                                    ?>
-                                                </select>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <select name="horario1" id="horario1">
-                                                        <option value="0">Início</option>
-                                                        <?php
-                                                        foreach ($horasini as $hora) {
-                                                            $horaform = date_create($hora->getHorario());
-                                                            $horaform1 = date_format($horaform, 'H:i');
-                                                            echo "<option value='".$hora->getCod_cardapio_horas()."' id='horaini".$hora->getCod_cardapio_horas()."'>".$horaform1."</option>";
-                                                        }  
-                                                    ?>
-                                            </select>&nbsp;
+                                <!-- Primeiro Turno -->
+                                        <select name="turnos" id="turnos">
+                                            <option value="0">Selecione o turno</option>
+                                            <?php
+                                                foreach ($turnos as $turno) {
+                                                    echo "<option value='".$turno->getCod_cardapio_turno()."' id='".$turno->getCod_cardapio_turno()."'>".$turno->getNome()."</option>";
+                                                }  
+                                            ?>
+                                        </select>
+                                    &nbsp;
+                                <br>
+                                
+                                <small>Faixa de Horário que o item estará disponível:</small>
 
-
-
-                                            <select name="horario2" id="horario2">
-                                                        <option value="0">Fim</option>
-                                                    <?php
-                                                        foreach ($horasfim as $hora) {
-                                                            $horaform = date_create($hora->getHorario());
-                                                            $horaform2 = date_format($horaform, 'H:i');
-                                                            echo "<option value='".$hora->getCod_cardapio_horas()."' id='horafim".$hora->getCod_cardapio_horas()."'>".$horaform2."</option>";
-                                                        }  
-                                                    ?>
-                                            </select>
-                                            <br><br>
+                                <select name="horario1" id="horario1">
+                                            <option value="0">Início</option>
+                                            <?php
+                                            foreach ($horasini as $hora) {
+                                                $horaform = date_create($hora->getHorario());
+                                                $horaform1 = date_format($horaform, 'H:i');
+                                                echo "<option value='".$hora->getCod_cardapio_horas()."' id='horaini".$hora->getCod_cardapio_horas()."'>".$horaform1."</option>";
+                                            }  
+                                        ?>
+                                </select>&nbsp;
+                                <select name="horario2" id="horario2">
+                                            <option value="0">Fim</option>
+                                        <?php
+                                            foreach ($horasfim as $hora) {
+                                                $horaform = date_create($hora->getHorario());
+                                                $horaform2 = date_format($horaform, 'H:i');
+                                                echo "<option value='".$hora->getCod_cardapio_horas()."' id='horafim".$hora->getCod_cardapio_horas()."'>".$horaform2."</option>";
+                                            }  
+                                        ?>
+                                </select>
+                            
+                            <br>
                             <br>
 
                             <small>Quais são os adicionais disponiveis para este produto:</small>
