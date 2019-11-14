@@ -31,11 +31,16 @@
 			$entregando = 0;
 		}
 
-		//
+		//fucnionamento
 		if(isset($_POST['dias'])){
-			$arr_dias = $_POST['dias'];
+			$arr_dias = json_encode($_POST['dias']);
 		}
-		// for($i = 0; $i < count($arr_cod_entrega); $i++){
+		if(isset($_POST['horarios_inicio'])){
+			$arr_horarios_inicio = json_encode($_POST['horarios_inicio']);
+		}
+		if(isset($_POST['horarios_final'])){
+			$arr_horarios_final = json_encode($_POST['horarios_final']);
+		}
 
 		$cod_empresa= addslashes(htmlspecialchars($_POST['cod_empresa']));
 
@@ -46,7 +51,7 @@
 
 
 		$empresa= new empresa();
-		$empresa->constructFuncionamento($dias_semana, $horario_semana, $dias_fim_semana, $horario_fim_semana, $aberto, $entregando);
+		$empresa->constructFuncionamento($dias_semana, $horario_semana, $dias_fim_semana, $horario_fim_semana, $arr_dias, $arr_horarios_inicio, $arr_horarios_final, $aberto, $entregando);
 
 		$empresa->setCod_empresa($cod_empresa);
 		$controle=new controlerEmpresa($_SG['link']);

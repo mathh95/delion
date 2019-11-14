@@ -403,28 +403,27 @@
             });
             
             $(document).ready(function() {
-            var categoria = <?= $cardapio->getCategoria()?>;
-            var turno = '' +<?=$cardapio->getCardapio_turno()?> + '';
-            var horario1 = '' +  <?= $cardapio->getCardapio_horas_inicio()?> + '';
-            var horario2 = '' + <?= $cardapio->getCardapio_horas_final()?> + '';
-            var dias =  <?= $dias_semana ?>;
-            var ativo =   <?= $cardapio->getFlag_ativo()?>;
-            
-            //dia -> 1 == domingo...7 == sábado
-            for(let dia of dias){
-                $(":checkbox[value="+dia+"]").prop("checked", "true");
-                // $(':' + value).attr('checked', true);
-            }
+                var categoria = <?= $cardapio->getCategoria()?>;
+                var turno = '' +<?=$cardapio->getCardapio_turno()?> + '';
+                var horario1 = '' +  <?= $cardapio->getCardapio_horas_inicio()?> + '';
+                var horario2 = '' + <?= $cardapio->getCardapio_horas_final()?> + '';
+                var dias =  <?= $dias_semana ?>;
+                var ativo =   <?= $cardapio->getFlag_ativo()?>;
+                
+                //dia -> 1 == domingo...7 == sábado
+                for(let dia of dias){
+                    $(":checkbox[value="+dia+"]").prop("checked", "true");
+                    // $(':' + value).attr('checked', true);
+                }
 
-            if (ativo == 1){
-                $('#ativo').attr('checked', true);
-            }
-            $('#' + categoria).attr('selected', true);
-                $('#' + turno).attr('selected', true);
-                $('#horaini' + horario1).attr('selected', true);
-                $('#horafim' + horario2).attr('selected', true);
-        })
-        
+                if (ativo == 1){
+                    $('#ativo').attr('checked', true);
+                }
+                $('#' + categoria).attr('selected', true);
+                    $('#' + turno).attr('selected', true);
+                    $('#horaini' + horario1).attr('selected', true);
+                    $('#horafim' + horario2).attr('selected', true);
+            });      
             
 
             </script>

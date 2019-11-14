@@ -109,13 +109,14 @@ $_SESSION['finalizar_pedido'] = 1;
 
 $html.= "<script type='text/javascript' src='../js/jquery-3.4.1.min.js'></script>";
 
-//Verifica se o estabelecimento está aberto
-$controleEmpresa=new controlerEmpresa(conecta());
-$empresa = $controleEmpresa->select(1,2);
 
-if(!$empresa->getAberto()){
+//Verifica se o estabelecimento está aberto
+include_once "./FuncionamentoEmpresa.php";
+$funcionamentoEmpresa = new FuncionamentoEmpresa();
+
+if(!$funcionamentoEmpresa->aberto()){
     
-    $html.= "<script>swal('Estamos Fechados! :/', 'Aguarde, os nossos Fornos estão Aquecendo :)', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";
+    $html.= "<script>swal('Estamos Fechados! :/', 'Aguarde :)...os nossos Fornos estão Aquecendo', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";
     echo $html;
 
 }else{

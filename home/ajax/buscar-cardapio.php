@@ -57,6 +57,7 @@ foreach ($categorias as $key_cat => $categoria) {
     $hora_atual = date('H:i:s', time() - 3600);// horário de verão extinto
     $hoje = (date('w')+1); // 1 == domingo, 7 == sábado
     
+    $categoria_com_itens = 0;
     foreach ($itens as $key_item => $item){
 
         //verifica se item disponível hoje e agora
@@ -65,6 +66,8 @@ foreach ($categorias as $key_cat => $categoria) {
             in_array($hoje, json_decode($item->getDias_semana())) &&
             ($hora_atual >= $item->getCardapio_horas_inicio() && $hora_atual < $item->getCardapio_horas_final())
         ){
+
+            $categoria_com_itens++;
 
             echo
             "<div class='produto'>
@@ -86,4 +89,9 @@ foreach ($categorias as $key_cat => $categoria) {
             </div>";
         }
     }
+
+    if($categoria_com_itens == 0){
+        echo '<div style="text-align:center; padding-bottom:10px;">Itens indisponíveis no momento! <i class="far fa-surprise"></i></div>';
+    }
+
 }

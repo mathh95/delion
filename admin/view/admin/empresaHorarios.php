@@ -61,15 +61,17 @@
 
                     <div class="row">
 
-                        </div>
 
-                        <div class="col-md-5">
+                        <div class="col-md-12">
 
                             <h3>Gerenciar Funcionamento</h3>
 
                             <!-- <h4>Disponibilidade de acordo com os Dias/Horários cadastrados abaixo:</h4> -->
                             
                             <input class="form-control" style="display: none;" placeholder="" name="cod_empresa" value="<?=  $empresa->getCod_empresa(); ?>"  type="text">
+
+                            <h5>Aberto/Entregando nos dias/horários informados abaixo.</h5>
+                            <h6>*Caso precise desabilitar o Funcionamento independente das informações inseridas, basta desmarcar os campos (Aberto/Entregando).</h6>
 
 
                             <h5><i class="fas fa-store-alt"></i>
@@ -81,18 +83,106 @@
                             Entregando
                             <input type="checkbox" name="entregando" <?= ($empresa->getEntregando() == 1 ? "checked" : "")?> value="1">
                             </h5>
-                            
-                            
-                            <!-- <br>
-                            
-                            
+                        </div>
+                    </div>
 
-                            <br> -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <small>Funcionanento:</small>
+
+                            <?php
+                                $horarios_inicio = json_decode($empresa->getArrHorariosInicio());
+                                $horarios_final = json_decode($empresa->getArrHorariosFinal());
+                            ?>
+
+                            <div class="checkbox">
+                                
+                                <!-- Domingo  -->
+                                <label style="display:block;">
+                                    <div style="display:inline-block;width:70px;">
+                                    <input type="checkbox" id="diaDom" name="dias[]" value="1"/>Dom &nbsp;
+                                    </div>
+                                    
+                                    Início&nbsp;<input type="time" name="horarios_inicio[]" value="<?= $horarios_inicio[0] ?>"/>
+                                        &nbsp;                             
+                                    Fim&nbsp;<input type="time" name="horarios_final[]" value="<?= $horarios_final[0] ?>"/>
+                                </label>
+
+                                <!-- Segunda -->
+                                <label style="display:block;">
+                                    <div style="display:inline-block;width:70px;">
+                                    <input type="checkbox" id="segunda" name="dias[]" value="2"/>Seg &nbsp;
+                                    </div>
+
+                                    Início&nbsp;<input type="time" name="horarios_inicio[]" value="<?= $horarios_inicio[1] ?>"/>
+                                        &nbsp;                             
+                                    Fim&nbsp;<input type="time" name="horarios_final[]" value="<?= $horarios_final[1] ?>"/>
+                                </label>
+                                <!-- Terça -->
+                                <label style="display:block;">
+                                    <div style="display:inline-block;width:70px;">
+                                    <input type="checkbox" id="terca" name="dias[]" value="3"/>Ter &nbsp;
+                                    </div>
+
+                                    Início&nbsp;<input type="time" name="horarios_inicio[]" value="<?= $horarios_inicio[2] ?>"/>
+                                    &nbsp;                             
+                                    Fim&nbsp;<input type="time" name="horarios_final[]" value="<?= $horarios_final[2] ?>"/>                             
+                                </label>
+                                <!-- Quarta -->
+                                <label style="display:block;">
+                                <div style="display:inline-block;width:70px;">
+                                    <input type="checkbox" id="quarta" name="dias[]" value="4"/>Qua &nbsp;
+                                    </div>
+
+                                    Início&nbsp;<input type="time" name="horarios_inicio[]" value="<?= $horarios_inicio[3] ?>"/>
+                                    &nbsp;                             
+                                    Fim&nbsp;<input type="time" name="horarios_final[]" value="<?= $horarios_final[3] ?>"/>
+                                </label>
+                                <!-- Quinta -->
+                                <label style="display:block;">
+                                    <div style="display:inline-block;width:70px;">
+                                    <input type="checkbox" id="quinta" name="dias[]" value="5"/>Qui &nbsp;
+                                    </div>
+                                    
+                                    Início&nbsp;<input type="time" name="horarios_inicio[]" value="<?= $horarios_inicio[4] ?>"/>
+                                    &nbsp;                             
+                                    Fim&nbsp;<input type="time" name="horarios_final[]" value="<?= $horarios_final[4] ?>"/>
+                                </label>
+                                <!-- Sexta -->
+                                <label style="display:block;">
+                                    <div style="display:inline-block;width:70px;">
+                                    <input type="checkbox" id="sexta" name="dias[]" value="6"/>Sex &nbsp;
+                                    </div>
+
+                                    Início&nbsp;<input type="time" name="horarios_inicio[]" value="<?= $horarios_inicio[5] ?>"/>
+                                    &nbsp;                             
+                                    Fim&nbsp;<input type="time" name="horarios_final[]" value="<?= $horarios_final[5] ?>"/>
+                                </label>
+                                <!-- Sábado -->
+                                <label style="display:block;">
+                                    <div style="display:inline-block;width:70px;">
+                                    <input type="checkbox" id="sabado" name="dias[]" value="7"/>Sáb  &nbsp; 
+                                    </div>
+                                    
+                                    Início&nbsp;<input type="time" name="horarios_inicio[]" value="<?= $horarios_inicio[6] ?>"/>
+                                    &nbsp;                             
+                                    Fim&nbsp;<input type="time" name="horarios_final[]" value="<?= $horarios_final[6] ?>"/>
+                                </label>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-5">
+
                             <br>
 
                             <h4>Texto contido no Header/Topo do site</h4>
                             <h5>*Deixe em branco para omitir o texto</h5>
 
+                                
                             <div class="col-md-6">
                                 <small>Dias da Semana:</small>
 
@@ -104,8 +194,7 @@
 
                                 </div>
                             </div>
-                            
-                            
+
                             <div class="col-md-6">
                                 <small>Horário para dias de Semana:</small>
 
@@ -146,15 +235,14 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
             
                 </div> 
+
                 <br>
 
-
                 <div class="col-md-5">
-
+                    <br>
                     <div class="pull-right">
 
                     <?php
@@ -192,5 +280,22 @@
         <?php include VIEWPATH."/rodape.html" ?>
 
     </body>
+
+    <script>
+
+        $(document).ready(function() {
+
+            var dias =  <?= $empresa->getArrDiasSemana() ?>;
+            console.log(dias);
+            //dia -> 1 == domingo...7 == sábado
+            for(let dia of dias){
+                console.log(dia);
+                $(":checkbox[value="+dia+"]").prop("checked", "true");
+            }
+            
+        });
+
+    </script>
+
 
 </html>

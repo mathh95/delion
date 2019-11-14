@@ -67,13 +67,19 @@
     </div>
 
     <?php
+        /* Funcionamento */
 
-        if(!$empresa->getAberto()){
+        date_default_timezone_set('America/Sao_Paulo');
+
+        include_once "controler/FuncionamentoEmpresa.php";
+        $funcionamentoEmpresa = new FuncionamentoEmpresa();
+
+        if(!$funcionamentoEmpresa->aberto()){
             echo '<p id="msg-funcionamento"> Estamos Fechados! <i class="far fa-surprise"></i></p>';
+
         }else if(!$empresa->getEntregando()){
             echo '<p id="msg-funcionamento"> Não estamos Entregando! <i class="far fa-surprise"></i></p>';
         }
-
         
     ?>
     
