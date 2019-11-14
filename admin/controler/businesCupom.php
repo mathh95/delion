@@ -6,7 +6,7 @@ include_once CONTROLLERPATH."/controlCupom.php";
 include_once "../lib/alert.php";
 protegePagina();
 
-if (in_array('pedidoWpp', json_decode($_SESSION['permissao']))) {
+if (in_array('cupom', json_decode($_SESSION['permissao']))) {
     if (!isset($_POST)||empty($_POST)){
         echo 'Nada foi postado.';
     }
