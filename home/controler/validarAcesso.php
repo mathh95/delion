@@ -11,9 +11,10 @@
             <style>
                 @media only screen and (max-width: 767px) {
                     .modal-dialog{
-                        width: 80%;
+                        width: 95%;
                         height: 25%;
                         margin-top: 50%;
+                        text-align: center;
                     }
                     .bootstrap-dialog-header {
                         text-align: center;
@@ -65,7 +66,7 @@
             }elseif ($result == 0) {
                 alertJSVoltarPagina("Erro!","Erro, login não cadastrado.", 2);
             }elseif ($result == 3) {
-                alertJSVoltarPagina("Erro!","Erro, cadastro desativado.", 2);
+                alertJSVoltarPagina("Erro!","Erro, sua conta está desativada. Entre em contato com o suporte.", 2);
             }else{
                 alertJSVoltarPagina("Erro!","Erro, não foi possível logar.", 2);
             }

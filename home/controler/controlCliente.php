@@ -286,19 +286,21 @@
                         if($stmt->rowCount()>0){
                             $result=$stmt->fetch(PDO::FETCH_OBJ);
                             $senhah=$result->senha;
+                            $status = $result->status;
                             $senha=hash_hmac("md5",$senha, "senha");                            
-                            if(hash_equals($senha,$senhah)){
+                            if(hash_equals($senha,$senhah) && $status == 1){
                                 $_SESSION['cod_cliente']=$result->cod_cliente;
                                 $_SESSION['nome']=$result->nome;
                                 $_SESSION['sobrenome']=$result->sobrenome;
                                 $_SESSION['login']=$result->login;
                                 $_SESSION['telefone']=$result->telefone;
                                 $_SESSION['cod_status_cliente']=$result->status;
+                                
                                 return 2;
-                            }
-                            }else if($_SESSION['cod_status_cliente'] == 0){
+                            }else if( $status == 0){
                                 return 3;
-                            }else{
+                            }
+                        }else{
                                 return 1;
                             
                         }
