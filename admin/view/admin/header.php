@@ -456,7 +456,7 @@
                             
                             $permissao = json_decode($usuarioPermissao->getPermissao());
                             
-                            if(in_array('pedidoWpp', $permissao)){ ?>
+                            if(in_array('pedido', $permissao)){ ?>
 
                        <li class="dropdown
 

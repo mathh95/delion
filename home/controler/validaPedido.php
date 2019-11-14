@@ -114,6 +114,9 @@ $html.= "<script type='text/javascript' src='../js/jquery-3.4.1.min.js'></script
 include_once "./FuncionamentoEmpresa.php";
 $funcionamentoEmpresa = new FuncionamentoEmpresa();
 
+$controleEmpresa=new controlerEmpresa(conecta());
+$empresa = $controleEmpresa->select(1,2);
+
 if(!$funcionamentoEmpresa->aberto()){
     
     $html.= "<script>swal('Estamos Fechados! :/', 'Aguarde :)...os nossos Fornos estão Aquecendo', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";

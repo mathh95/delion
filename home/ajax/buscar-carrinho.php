@@ -309,7 +309,8 @@ if (count($itens) > 0) {
                         
                         $origin = utf8_decode($endereco_delion); //-25.54086,-54.581167
                         $dest = $rua . " " . $numero . " " . $bairro . " " . $cidade;
-
+                        $dest = utf8_decode($dest);
+                        
                         $googleServices = new GoogleServices();
 
                         $geoloc_origin = $googleServices->getGeocoding($origin);
@@ -513,7 +514,7 @@ if (count($itens) > 0) {
                     <strong><p id='total'> Total: R$ <span id='valor_total'>" . number_format($_SESSION['totalCorrigido'], 2) . "</span></p></strong>
                     
                     <div class='linhaBotao'>
-                        <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php' onclick='observacaoSession()'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
+                        <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
                         <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()'><button class='btn btn-danger'>Esvaziar Carrinho <i class='fas fa-trash-alt'></i></button></a>
                     </div>
                     </div>

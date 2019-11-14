@@ -297,14 +297,14 @@
                                         </label>
 
                                     </li>
-
-                                    <li>
+ 
+                                    <!-- <li>
                                         <label>
 
                                             <input type="checkbox" id="pedidoWpp" name="13permissao" value="pedidoWpp">Pedido Whatsapp
 
                                         </label>
-                                    </li>
+                                    </li> -->
 
                                     <li>
                                         <label>

@@ -7,7 +7,10 @@ class GoogleServices {
     private $apikey = APIKEY_GOOGLE_SERVICES;
 
     function getGeocoding($address){
-        
+
+        $address = utf8_encode($address);
+        $address = iconv('UTF-8', 'ASCII//TRANSLIT', $address);
+
         $geoloc = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?&address='.urlencode($address).'&key='.$this->apikey);
 
         $geoloc_arr = json_decode($geoloc);
