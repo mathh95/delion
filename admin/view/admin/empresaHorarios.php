@@ -71,7 +71,7 @@
                             <input class="form-control" style="display: none;" placeholder="" name="cod_empresa" value="<?=  $empresa->getCod_empresa(); ?>"  type="text">
 
                             <h5>Aberto/Entregando nos dias/horários informados abaixo.</h5>
-                            <h6>*Caso precise desabilitar o Funcionamento independente das informações inseridas, basta desmarcar os campos (Aberto/Entregando).</h6>
+                            <h6>*Caso precise desabilitar o Funcionamento <u>independente</u> das informações inseridas, basta desmarcar os campos (Aberto/Entregando).</h6>
 
 
                             <h5><i class="fas fa-store-alt"></i>

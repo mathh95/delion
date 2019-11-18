@@ -220,7 +220,7 @@
 			success: function(resultado){
 				console.log(resultado);
 				
-				if(resultado.verificado){
+				if(resultado.includes("verificado")){
 
 					getCodigoSms();
 
