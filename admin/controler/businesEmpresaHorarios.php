@@ -33,7 +33,7 @@
 
 		
 		$empresa= new empresa();
-		$empresa->constructFuncionamento($dias_semana, $horario_semana, $dias_fim_semana, $horario_fim_semana, $aberto, $entregando);
+		$empresa->constructFuncionamento($dias_semana, $horario_semana, $dias_fim_semana, $horario_fim_semana, $arr_dias, $arr_horarios_inicio, $arr_horarios_final, $aberto, $entregando);
 
 		$empresa->setCod_empresa($cod_empresa);
 		$controle=new controlerEmpresa($_SG['link']);

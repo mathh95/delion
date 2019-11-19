@@ -462,7 +462,7 @@
 
                                 <?php
                                     //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($arquivo_pai, 'Wpp') !== false){
+                                    if(strpos($arquivo_pai, 'pedidoLista') !== false){
                                         echo 'active';
                                     }
                                 ?>
@@ -551,6 +551,37 @@
 
                         </li>
                         <?php } ?>
+
+
+
+                        <?php
+                            
+                        $permissao = json_decode($usuarioPermissao->getPermissao());
+                                 
+                        if(in_array('enviar_sms', $permissao)){ ?>
+
+                        <li class="dropdown
+
+                            <?php
+                                //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
+                                if(strpos($arquivo_pai, 'enviarSms') !== false){
+                                    echo 'active';
+                                }
+                            ?>
+                        ">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SMS <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+
+                                <li><a href="enviarSms.php">Enviar SMS</a></li>
+
+                            </ul>
+
+                        </li>
+                        <?php } ?>
+
+
 
 
                         </ul>

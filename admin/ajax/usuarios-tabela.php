@@ -29,8 +29,8 @@ if(in_array('usuario', $permissao)){
 			 	<td style='text-align: center;' name='nome'>".$usuario->getNome()."</td>
 			 	<td style='text-align: center;' name='login'>".$usuario->getLogin()."</td>
 			 	<td style='text-align: center;' name='perfil'>".$usuario->getDsCod_perfil()."</td>
-			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='usuario-view.php?cod=".$usuario->getCod_usuario()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
-			 	<td style='text-align: center;' name='status'  ><button type='button' onclick=\"removeUsuario(".$usuario->getCod_usuario().");\" class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
+			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='usuario-view.php?cod=".$usuario->getCod_usuario()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
+			 	<td style='text-align: center;' name='status'  ><button type='button' onclick=\"removeUsuario(".$usuario->getCod_usuario().");\" class='btn btn-kionux'><i class='fa fa-remove'></i>&nbsp;Excluir</button></td>
 			</tr>";
 		}
 	}

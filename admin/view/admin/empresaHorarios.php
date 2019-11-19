@@ -289,7 +289,7 @@
             console.log(dias);
             //dia -> 1 == domingo...7 == sábado
             for(let dia of dias){
-                console.log(dia);
+                // console.log(dia);
                 $(":checkbox[value="+dia+"]").prop("checked", "true");
             }
             

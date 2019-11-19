@@ -31,7 +31,7 @@
 			$entregando = 0;
 		}
 
-		//fucnionamento
+		//funcionamento
 		if(isset($_POST['dias'])){
 			$arr_dias = json_encode($_POST['dias']);
 		}

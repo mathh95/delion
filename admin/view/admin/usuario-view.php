@@ -80,18 +80,8 @@
 
             $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-            $permissaos=json_decode($usuario->getPermissao());
-
-            $p="[";
-
-            foreach ($permissaos as $permissao) {
-
-                $p.='"'.$permissao.'",';
-
-            }
-
-            $p.="]";
-
+            $permissoes = $usuario->getPermissao();
+            
         ?>
 
         <div class="container-fluid">
@@ -182,7 +172,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="usuario" name="1permissao" value="usuario">Usuários
+                                            <input type="checkbox" id="usuario" name="permissoes[]" value="usuario">Usuários
 
                                         </label>
 
@@ -192,7 +182,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="empresa" name="2permissao" value="empresa">Empresa
+                                            <input type="checkbox" id="empresa" name="permissoes[]" value="empresa">Empresa
 
                                         </label>
 
@@ -202,7 +192,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="banner" name="3permissao" value="banner">Banners
+                                            <input type="checkbox" id="banner" name="permissoes[]" value="banner">Banners
 
                                         </label>
 
@@ -212,7 +202,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="imagem" name="4permissao" value="imagem">Imagens
+                                            <input type="checkbox" id="imagem" name="permissoes[]" value="imagem">Imagens
 
                                         </label>
 
@@ -222,7 +212,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="evento" name="5permissao" value="evento">Evento
+                                            <input type="checkbox" id="evento" name="permissoes[]" value="evento">Evento
 
                                         </label>
 
@@ -232,7 +222,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="categoria" name="6permissao" value="categoria">Categoria
+                                            <input type="checkbox" id="categoria" name="permissoes[]" value="categoria">Categoria
 
                                         </label>
 
@@ -242,7 +232,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="cardapio" name="7permissao" value="cardapio">Cardápio
+                                            <input type="checkbox" id="cardapio" name="permissoes[]" value="cardapio">Cardápio
 
                                         </label>
 
@@ -252,7 +242,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="cliente" name="8permissao" value="cliente">Cliente
+                                            <input type="checkbox" id="cliente" name="permissoes[]" value="cliente">Cliente
 
                                         </label>
 
@@ -262,7 +252,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="pedido" name="9permissao" value="pedido">Pedido
+                                            <input type="checkbox" id="pedido" name="permissoes[]" value="pedido">Pedido
 
                                         </label>
 
@@ -272,7 +262,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="avaliacao" name="10permissao" value="avaliacao">Avaliação
+                                            <input type="checkbox" id="avaliacao" name="permissoes[]" value="avaliacao">Avaliação
 
                                         </label>
 
@@ -282,7 +272,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="combo" name="11permissao" value="combo">Combo
+                                            <input type="checkbox" id="combo" name="permissoes[]" value="combo">Combo
 
                                         </label>
 
@@ -292,7 +282,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="adicional" name="12permissao" value="adicional">Adicional
+                                            <input type="checkbox" id="adicional" name="permissoes[]" value="adicional">Adicional
 
                                         </label>
 
@@ -301,7 +291,7 @@
                                     <!-- <li>
                                         <label>
 
-                                            <input type="checkbox" id="pedidoWpp" name="13permissao" value="pedidoWpp">Pedido Whatsapp
+                                            <input type="checkbox" id="pedidoWpp" name="permissoes[]" value="pedidoWpp">Pedido Whatsapp
 
                                         </label>
                                     </li> -->
@@ -309,14 +299,14 @@
                                     <li>
                                         <label>
 
-                                            <input type="checkbox" id="cupom" name="14permissao" value="cupom">Cupom
+                                            <input type="checkbox" id="cupom" name="permissoes[]" value="cupom">Cupom
 
                                         </label>
                                     </li>
                                     <li>
                                         <label>
 
-                                            <input type="checkbox" id="forma_pgto" name="15permissao" value="forma_pgto">Forma de Pagamento
+                                            <input type="checkbox" id="forma_pgto" name="permissoes[]" value="forma_pgto">Forma de Pagamento
 
                                         </label>
                                     </li>
@@ -324,7 +314,15 @@
                                     <li>
                                         <label>
 
-                                            <input type="checkbox" id="info_entrega" name="16permissao" value="info_entrega">Informações de Entrega
+                                            <input type="checkbox" id="info_entrega" name="permissoes[]" value="info_entrega">Informações de Entrega
+
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="enviar_sms" name="permissoes[]" value="enviar_sms">Enviar SMS
 
                                         </label>
                                     </li>
@@ -403,39 +401,15 @@
 
         <script>
 
-            var permissao =   <?=$p?>;
-
+            var permissoes = <?= $permissoes ?>;
+            // console.log(permissoes);
             $( document ).ready(function() {
 
-                for(let value of permissao){
-
-                    $('#' + value).attr('checked', true);
-
+                for(let p of permissoes){
+                    $('#' + p).attr('checked', true);
                 }
 
-            })
-
-            function confereSenha() {
-
-            //if(validar($("#senha1").val())){
-
-                if($("#senha1").val().length>5){
-
-                    $("#alteraSenha").submit();
-
-                }else{
-
-                    alertComum('Erro!','Senhas devem conter no mínimo 6 caracteres!',2);
-
-                }
-
-            //}else{
-
-            //    alertComum('Erro!','Senhas devem conter apenas letras e números!',2);
-
-            //}
-
-            }
+            });
 
         </script>
 
