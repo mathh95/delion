@@ -24,6 +24,11 @@
         private $horario_semana;
         private $dias_fim_semana;
         private $horario_fim_semana;
+        private $aberto;
+        private $entregando;
+        private $arr_dias_semana;
+        private $arr_horarios_inicio;
+        private $arr_horarios_final;
 
 
         function getCod_empresa(){
@@ -99,7 +104,21 @@
         function getHorarioFimSemana(){
             return $this->horario_fim_semana;
         }
-
+        function getArrDiasSemana(){
+            return $this->arr_dias_semana;
+        }
+        function getArrHorariosInicio(){
+            return $this->arr_horarios_inicio;
+        }
+        function getArrHorariosFinal(){
+            return $this->arr_horarios_final;
+        }
+        function getAberto(){
+            return $this->aberto;
+        }
+        function getEntregando(){
+            return $this->entregando;
+        }
 
 
         function setCod_empresa($cod_empresa){
@@ -162,11 +181,26 @@
         function setHorarioFimSemana($horario_fim_semana){
             $this->horario_fim_semana=$horario_fim_semana;
         }
+        function setArrDiasSemana($arr_dias_semana){
+            $this->arr_dias_semana=$arr_dias_semana;
+        }
+        function setArrHorariosInicio($arr_horarios_inicio){
+            $this->arr_horarios_inicio=$arr_horarios_inicio;
+        }
+        function setArrHorariosFinal($arr_horarios_final){
+            $this->arr_horarios_final=$arr_horarios_final;
+        }
+        function setAberto($aberto){
+            $this->aberto=$aberto;
+        }
+        function setEntregando($entregando){
+            $this->entregando=$entregando;
+        }
 
         function __construct(){
         }
 
-        function construct($nome,$descricao,$historia,$endereco,$bairro,$cidade,$estado,$cep,$fone,$whats,$email,$facebook,$instagram,$pinterest,$foto, $dias_semana, $horario_semana,  $dias_fim_semana, $horario_fim_semana){
+        function construct($nome, $descricao, $historia, $endereco, $bairro, $cidade, $estado, $cep, $fone ,$whats ,$email ,$facebook ,$instagram ,$pinterest ,$foto){
             $this->nome=$nome;
             $this->descricao=$descricao;
             $this->historia=$historia;
@@ -182,11 +216,21 @@
             $this->instagram=$instagram;
             $this->pinterest=$pinterest;
             $this->foto=$foto;
+        }
+
+        function constructFuncionamento($dias_semana, $horario_semana,  $dias_fim_semana, $horario_fim_semana, $arr_dias, $arr_horarios_inicio, $arr_horarios_final, $aberto, $entregando){
             $this->dias_semana=$dias_semana;
             $this->horario_semana=$horario_semana;
             $this->dias_fim_semana=$dias_fim_semana;
             $this->horario_fim_semana=$horario_fim_semana;
+            $this->arr_dias_semana=$arr_dias;
+            $this->arr_horarios_inicio=$arr_horarios_inicio;
+            $this->arr_horarios_final=$arr_horarios_final;
+            $this->aberto=$aberto;
+            $this->entregando=$entregando;
         }
+
+
         function show(){
             echo "Código do Empresa:".$this->cod_empresa."<br>";
             echo "Nome:".$this->nome."<br>";

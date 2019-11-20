@@ -4,7 +4,7 @@
 	include_once HOMEPATH."/admin/controler/controlCupom.php";
 	include_once MODELPATH."/cupom.php";
 	protegePagina();
-	if (in_array('pedidoWpp', json_decode($_SESSION['permissao']))) {
+	if (in_array('cupom', json_decode($_SESSION['permissao']))) {
         $cod_cupom = $_GET['codigo'];
         $status= $_GET['status'];
         // echo "<pre>";

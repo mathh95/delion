@@ -149,7 +149,42 @@
             function selectAll(){
                 try{
                     $clientes = array();
-                    $stmt=$this->pdo->prepare("SELECT * FROM cliente");
+                    $stmt=$this->pdo->prepare("SELECT * FROM cliente ORDER BY status DESC");
+                    $executa= $stmt->execute();
+                    if ($executa){
+                        if ($stmt->rowCount() > 0 ){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                                $cliente = new cliente();
+                                $cliente->setCod_cliente($result->cod_cliente);
+                                $cliente->setLogin($result->login);
+                                $cliente->setNome($result->nome);
+                                $cliente->setSobrenome($result->sobrenome);
+                                $cliente->setCpf($result->cpf);
+                                $cliente->setData_nasc($result->data_nasc);
+                                $cliente->setTelefone($result->telefone);
+                                $cliente->setStatus($result->status);
+                                array_push($clientes,$cliente);
+                            }
+                        }else{
+                            echo "Sem resultados";
+                            return -1;
+                        }
+                        return $clientes;
+                    }else{
+                        return -1;
+                    }
+
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function selectAllAtivos(){
+                try{
+                    $clientes = array();
+                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE status = 1 ORDER by nome");
                     $executa= $stmt->execute();
                     if ($executa){
                         if ($stmt->rowCount() > 0 ){
@@ -286,19 +321,21 @@
                         if($stmt->rowCount()>0){
                             $result=$stmt->fetch(PDO::FETCH_OBJ);
                             $senhah=$result->senha;
+                            $status = $result->status;
                             $senha=hash_hmac("md5",$senha, "senha");                            
-                            if(hash_equals($senha,$senhah)){
+                            if(hash_equals($senha,$senhah) && $status == 1){
                                 $_SESSION['cod_cliente']=$result->cod_cliente;
                                 $_SESSION['nome']=$result->nome;
                                 $_SESSION['sobrenome']=$result->sobrenome;
                                 $_SESSION['login']=$result->login;
                                 $_SESSION['telefone']=$result->telefone;
                                 $_SESSION['cod_status_cliente']=$result->status;
+                                
                                 return 2;
-                            }
-                            }else if($_SESSION['cod_status_cliente'] == 0){
+                            }else if( $status == 0){
                                 return 3;
-                            }else{
+                            }
+                        }else{
                                 return 1;
                             
                         }

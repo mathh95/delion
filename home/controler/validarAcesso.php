@@ -5,6 +5,33 @@
 
     include_once "../utils/GoogleRecaptcha.php";
 
+
+    $html = "<head>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>  
+            <style>
+                @media only screen and (max-width: 767px) {
+                    .modal-dialog{
+                        width: 95%;
+                        height: 25%;
+                        margin-top: 50%;
+                        text-align: center;
+                    }
+                    .bootstrap-dialog-header {
+                        text-align: center;
+                    }
+                    .bootstrap-dialog-title{
+                        font-size: 50px;
+                    }
+                    .bootstrap-dialog-message{
+                        font-size: 40px;
+                    }
+                    .btn btn-lg btn-default{
+                        font-size: 50px;
+                    }
+                }
+            </style>
+         </head>";
+
     if (isset($_POST) and !empty($_POST)){
 
         $control=new controlCliente($_SG['link']);
@@ -39,7 +66,7 @@
             }elseif ($result == 0) {
                 alertJSVoltarPagina("Erro!","Erro, login não cadastrado.", 2);
             }elseif ($result == 3) {
-                alertJSVoltarPagina("Erro!","Erro, cadastro desativado.", 2);
+                alertJSVoltarPagina("Erro!","Erro, sua conta está desativada. Entre em contato com o suporte.", 2);
             }else{
                 alertJSVoltarPagina("Erro!","Erro, não foi possível logar.", 2);
             }
@@ -47,6 +74,8 @@
             echo "reCAPTCHA inválido!";
             return;
         }
+
+        echo $html;
 
         
     }else {

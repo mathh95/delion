@@ -55,22 +55,8 @@
 
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
-
-
-
-        $dias_semana = json_decode($cardapio->getDias_semana());
-
-        
-            $d="[";
-        if(!empty($dias_semana)){
-            foreach($dias_semana as $dias) {
-
-                $d.='"'.$dias.'",';
-            }
-        }
-            $d.="]";
-        
-           
+    
+    $dias_semana = $cardapio->getDias_semana();
     
     // echo '<pre>';
     // print_r($cardapio);
@@ -217,72 +203,79 @@
                                 <small>Dias em que o Item Estará Disponível:</small>
 
                                 <div class="checkbox">
-                                    <!-- Não abre no domingo, logo não precisa aparecer na lista -->
 
+                                    <!-- Domingo -->
                                     <label>
-                                        <input type="checkbox" id="segunda" name="1dia" value="segunda"/>Seg &nbsp;
+                                        <input type="checkbox" id="domingo" name="dias[]" value="1"/>Dom &nbsp;
+                                    </label>
+
+                                    <!-- Segunda -->
+                                    <label>
+                                        <input type="checkbox" id="segunda" name="dias[]" value="2"/>Seg &nbsp;
                                     </label>
                                     <!-- Terça -->
                                     <label>
-                                        <input type="checkbox" id="terca" name="2dia" value="terca"/>Ter &nbsp;                             
+                                        <input type="checkbox" id="terca" name="dias[]" value="3"/>Ter &nbsp;                             
                                     </label>
                                     <!-- Quarta -->
                                     <label>
-                                        <input type="checkbox" id="quarta" name="3dia" value="quarta"/>Qua &nbsp;
+                                        <input type="checkbox" id="quarta" name="dias[]" value="4"/>Qua &nbsp;
                                     </label>
                                     <!-- Quinta -->
                                     <label>
-                                        <input type="checkbox" id="quinta" name="4dia" value="quinta"/>Qui &nbsp;                              
+                                        <input type="checkbox" id="quinta" name="dias[]" value="5"/>Qui &nbsp;                              
                                     </label>
                                     <!-- Sexta -->
                                     <label>
-                                        <input type="checkbox" id="sexta" name="5dia" value="sexta"/>Sex &nbsp;
+                                        <input type="checkbox" id="sexta" name="dias[]" value="6"/>Sex &nbsp;
                                     </label>
                                     <!-- Sábado -->
                                     <label>
-                                        <input type="checkbox" id="sabado" name="6dia" value="sabado"/>Sáb  &nbsp;                             
+                                        <input type="checkbox" id="sabado" name="dias[]" value="7"/>Sáb  &nbsp;                             
                                     </label>
                                   
 
                                 </div>
                             
+                                <br>
                                 <small>Turno(s) que o item estará disponível:</small>
                                 
-                                <div class="checkbox">
-                                        <!-- Primeiro Turno -->
-                                                <select name="turnos" id="turnos">
-                                                    <option value="0">Selecione o turno</option>
-                                                    <?php
-                                                        foreach ($turnos as $turno) {
-                                                            echo "<option value='".$turno->getCod_cardapio_turno()."' id='".$turno->getCod_cardapio_turno()."'>".$turno->getNome()."</option>";
-                                                        }  
-                                                    ?>
-                                                </select>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <select name="horario1" id="horario1">
-                                                        <option value="0">Início</option>
-                                                        <?php
-                                                        foreach ($horasini as $hora) {
-                                                            $horaform = date_create($hora->getHorario());
-                                                            $horaform1 = date_format($horaform, 'H:i');
-                                                            echo "<option value='".$hora->getCod_cardapio_horas()."' id='horaini".$hora->getCod_cardapio_horas()."'>".$horaform1."</option>";
-                                                        }  
-                                                    ?>
-                                            </select>&nbsp;
+                                <!-- Primeiro Turno -->
+                                        <select name="turnos" id="turnos" required>
+                                            <option value="">Selecione o turno</option>
+                                            <?php
+                                                foreach ($turnos as $turno) {
+                                                    echo "<option value='".$turno->getCod_cardapio_turno()."' id='".$turno->getCod_cardapio_turno()."'>".$turno->getNome()."</option>";
+                                                }  
+                                            ?>
+                                        </select>
+                                    &nbsp;
+                                <br>
+                                
+                                <small>Faixa de Horário que o item estará disponível:</small>
 
-
-
-                                            <select name="horario2" id="horario2">
-                                                        <option value="0">Fim</option>
-                                                    <?php
-                                                        foreach ($horasfim as $hora) {
-                                                            $horaform = date_create($hora->getHorario());
-                                                            $horaform2 = date_format($horaform, 'H:i');
-                                                            echo "<option value='".$hora->getCod_cardapio_horas()."' id='horafim".$hora->getCod_cardapio_horas()."'>".$horaform2."</option>";
-                                                        }  
-                                                    ?>
-                                            </select>
-                                            <br><br>
+                                <select name="horario1" id="horario1">
+                                            <option value="0">Início</option>
+                                            <?php
+                                            foreach ($horasini as $hora) {
+                                                $horaform = date_create($hora->getHorario());
+                                                $horaform1 = date_format($horaform, 'H:i');
+                                                echo "<option value='".$hora->getCod_cardapio_horas()."' id='horaini".$hora->getCod_cardapio_horas()."'>".$horaform1."</option>";
+                                            }  
+                                        ?>
+                                </select>&nbsp;
+                                <select name="horario2" id="horario2">
+                                            <option value="0">Fim</option>
+                                        <?php
+                                            foreach ($horasfim as $hora) {
+                                                $horaform = date_create($hora->getHorario());
+                                                $horaform2 = date_format($horaform, 'H:i');
+                                                echo "<option value='".$hora->getCod_cardapio_horas()."' id='horafim".$hora->getCod_cardapio_horas()."'>".$horaform2."</option>";
+                                            }  
+                                        ?>
+                                </select>
+                            
+                            <br>
                             <br>
 
                             <small>Quais são os adicionais disponiveis para este produto:</small>
@@ -410,25 +403,27 @@
             });
             
             $(document).ready(function() {
-            var categoria = <?= $cardapio->getCategoria()?>;
-            var turno = '' +<?=$cardapio->getCardapio_turno()?> + '';
-            var horario1 = '' +  <?= $cardapio->getCardapio_horas_inicio()?> + '';
-            var horario2 = '' + <?= $cardapio->getCardapio_horas_final()?> + '';
-            var dia =  <?= $d ?>;
-            var ativo =   <?= $cardapio->getFlag_ativo()?>;
+                var categoria = <?= $cardapio->getCategoria()?>;
+                var turno = '' +<?=$cardapio->getCardapio_turno()?> + '';
+                var horario1 = '' +  <?= $cardapio->getCardapio_horas_inicio()?> + '';
+                var horario2 = '' + <?= $cardapio->getCardapio_horas_final()?> + '';
+                var dias =  <?= $dias_semana ?>;
+                var ativo =   <?= $cardapio->getFlag_ativo()?>;
                 
-            for(let value of dia){
-                $('#' + value).attr('checked', true);
-            }
-            if (ativo == 1){
-                $('#ativo').attr('checked', true);
-            }
-            $('#' + categoria).attr('selected', true);
-                $('#' + turno).attr('selected', true);
-                $('#horaini' + horario1).attr('selected', true);
-                $('#horafim' + horario2).attr('selected', true);
-        })
-        
+                //dia -> 1 == domingo...7 == sábado
+                for(let dia of dias){
+                    $(":checkbox[value="+dia+"]").prop("checked", "true");
+                    // $(':' + value).attr('checked', true);
+                }
+
+                if (ativo == 1){
+                    $('#ativo').attr('checked', true);
+                }
+                $('#' + categoria).attr('selected', true);
+                    $('#' + turno).attr('selected', true);
+                    $('#horaini' + horario1).attr('selected', true);
+                    $('#horafim' + horario2).attr('selected', true);
+            });      
             
 
             </script>

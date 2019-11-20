@@ -74,13 +74,13 @@
 				if($key == 0){
 					echo "<a class= 'item-categoria active' href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
 							<img src='../admin/".$categoria->getIcone()."'>
-						<div>".strtoupper($categoria->getNome())."</div>
+						<div>".$categoria->getNome()."</div>
 
 					</a>";
 				}else{
 					echo "<a class= 'item-categoria' href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
 							<img src='../admin/".$categoria->getIcone()."'>
-						<div>".strtoupper($categoria->getNome())."</div>
+						<div>".$categoria->getNome()."</div>
 
 					</a>";
 				}
@@ -246,7 +246,8 @@
 				title: "Alguma Observação?",
 				text: `Para: ${nomeItem}`,
 				content: "input",
-				icon: "warning"
+				icon: "warning",
+				button: 'Prosseguir'
 			})
 			.then((observacaoItem) => {
 				$.ajax({type: 'GET', url: url, data: {observacaoItem: observacaoItem, id: id},

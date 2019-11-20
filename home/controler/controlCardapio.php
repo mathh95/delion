@@ -588,10 +588,18 @@ include_once MODELPATH."/cardapio.php";
 
         }
 
+        //Select composto(categoria, posicao, servindo, disponibilidade dias/horas)
         function selectByCategoriaByPosServindo($cod_categoria){
             $cardapios = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.flag_servindo AS flag_servindo ,A.prioridade AS prioridade, A.posicao AS posicao, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.categoria = :cod_categoria AND A.flag_ativo = 1 AND A.flag_servindo = 1 ORDER BY B.posicao ASC, A.posicao ASC");
+                $stmte = $this->pdo->prepare(
+                    "SELECT CO.cod_cardapio AS cod_cardapio, CO.nome AS nome, CO.preco AS preco, CO.desconto AS desconto, CO.descricao AS descricao, CO.foto AS foto, CO.flag_ativo AS flag_ativo, CO.flag_servindo AS flag_servindo ,CO.prioridade AS prioridade, CO.posicao AS posicao, CO.delivery AS delivery, CO.dias_semana AS dias_semana, CA.nome AS categoria, CSINI.horario AS horario_inicio, CSFIM.horario AS horario_final 
+                    FROM cardapio AS CO 
+                    INNER JOIN categoria AS CA ON CO.categoria = CA.cod_categoria 
+                    INNER JOIN cardapio_horas AS CSINI ON CO.cardapio_horas_inicio = CSINI.cod_cardapio_horas 
+                    INNER JOIN cardapio_horas AS CSFIM ON CO.cardapio_horas_final = CSFIM.cod_cardapio_horas 
+                    WHERE CO.categoria = :cod_categoria AND CO.flag_ativo = 1 AND CO.flag_servindo = 1 
+                    ORDER BY CA.posicao ASC, CO.posicao ASC");
 
                 $stmte->bindValue(":cod_categoria", $cod_categoria , PDO::PARAM_INT);
 
@@ -611,6 +619,9 @@ include_once MODELPATH."/cardapio.php";
                             $cardapio->setPrioridade($result->prioridade);
                             $cardapio->setDelivery($result->delivery);
                             $cardapio->setPosicao($result->posicao);
+                            $cardapio->setDias_semana($result->dias_semana);
+                            $cardapio->setCardapio_horas_inicio($result->horario_inicio);
+                            $cardapio->setCardapio_horas_final($result->horario_final);
                             array_push($cardapios, $cardapio);
                         }
                     }

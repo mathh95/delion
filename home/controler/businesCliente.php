@@ -167,7 +167,7 @@
                 $telefone_int = "55".$telefone_int;
 
                 //envia SMS
-                $res_envio = $info_bip->enviaSMS($telefone_int, $cod_sms);
+                $res_envio = $info_bip->enviaVerificacaoSMS($telefone_int, $cod_sms);
                 
                 if($res_envio){
                     echo "verificado";

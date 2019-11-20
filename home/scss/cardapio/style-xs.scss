@@ -16,6 +16,7 @@
 body{
     scroll-behavior: smooth;
     font-family: $font_main;
+    overflow-x: scroll;
     > .menu {
         // padding-bottom: 25px;
         padding-left: 0;

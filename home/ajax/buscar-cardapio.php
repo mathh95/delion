@@ -3,6 +3,7 @@ session_start();
 
 ini_set('display_errors', true);
 date_default_timezone_set('America/Sao_Paulo');
+
 include_once "../../admin/controler/conexao.php";
 include_once "../controler/controlCardapio.php";
 include_once "../controler/controlCategoria.php";
@@ -51,11 +52,25 @@ foreach ($categorias as $key_cat => $categoria) {
 
     $itens = $controle_cardapio->selectByCategoriaByPosServindo(
         $categoria->getCod_categoria()
-    );	
+    );
+
+    $hora_atual = date('H:i:s', time() - 3600);// horário de verão extinto
+    // $hora_atual = date('H:i:s', time());// servidor possui hora correta
+    $hoje = (date('w')+1); // 1 == domingo, 7 == sábado
+    
+    $categoria_com_itens = 0;
     foreach ($itens as $key_item => $item){
-        // var_dump($item);
-        // exit;
-        echo
+
+        //verifica se item disponível hoje e agora
+        if(
+            $item->getDias_semana() &&
+            in_array($hoje, json_decode($item->getDias_semana())) &&
+            ($hora_atual >= $item->getCardapio_horas_inicio() && $hora_atual < $item->getCardapio_horas_final())
+        ){
+
+            $categoria_com_itens++;
+
+            echo
             "<div class='produto'>
                 <div class='imagem'>
                     
@@ -73,5 +88,11 @@ foreach ($categorias as $key_cat => $categoria) {
                     <button id='addCombo' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao Combo</button>
                 </div>
             </div>";
+        }
     }
+
+    if($categoria_com_itens == 0){
+        echo '<div style="text-align:center; padding-bottom:10px;">Itens indisponíveis no momento! <i class="far fa-surprise"></i></div>';
+    }
+
 }

@@ -205,34 +205,34 @@
                                 <div class="checkbox">
                                     <!-- Não abre no domingo, logo não precisa aparecer na lista -->
 
+                                    <!-- Domingo -->
+                                    <label>
+                                        <input type="checkbox" id="domingo" name="dias[]" value="1"/>Dom &nbsp;
+                                    </label>
                                     <!-- Segunda -->
                                     <label>
-                                        <input type="checkbox" id="segunda" name="1dia" value="segunda"/>Seg &nbsp;
+                                        <input type="checkbox" id="segunda" name="dias[]" value="2"/>Seg &nbsp;
                                     </label>
                                     <!-- Terça -->
                                     <label>
-                                        <input type="checkbox" id="terca" name="2dia" value="terca"/>Ter &nbsp;                             
+                                        <input type="checkbox" id="terca" name="dias[]" value="3"/>Ter &nbsp;                             
                                     </label>
                                     <!-- Quarta -->
                                     <label>
-                                        <input type="checkbox" id="quarta" name="3dia" value="quarta"/>Qua &nbsp;
+                                        <input type="checkbox" id="quarta" name="dias[]" value="4"/>Qua &nbsp;
                                     </label>
                                     <!-- Quinta -->
                                     <label>
-                                        <input type="checkbox" id="quinta" name="4dia" value="quinta"/>Qui &nbsp;                              
+                                        <input type="checkbox" id="quinta" name="dias[]" value="5"/>Qui &nbsp;                              
                                     </label>
                                     <!-- Sexta -->
                                     <label>
-                                        <input type="checkbox" id="sexta" name="5dia" value="sexta"/>Sex &nbsp;
+                                        <input type="checkbox" id="sexta" name="dias[]" value="6"/>Sex &nbsp;
                                     </label>
                                     <!-- Sábado -->
                                     <label>
-                                        <input type="checkbox" id="sabado" name="6dia" value="sabado"/>Sáb  &nbsp;                             
+                                        <input type="checkbox" id="sabado" name="dias[]" value="7"/>Sáb  &nbsp;                             
                                     </label>
-                                    <!-- Domingo -->
-                                    <!-- <label>
-                                        <input type="checkbox" id="diaDom" name="diaDom" value="7"/>Dom                               
-                                    </label> -->
 
                                 </div>
                             

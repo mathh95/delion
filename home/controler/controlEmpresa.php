@@ -38,10 +38,15 @@
                             $empresa->setInstagram($result->instagram);
                             $empresa->setPinterest($result->pinterest);
                             $empresa->setFoto($result->foto);
-                            $empresa->setDiasSemana($result->dias_semana);
-                            $empresa->setHorarioSemana($result->horario_semana);
-                            $empresa->setDiasFimSemana($result->dias_fim_semana);
-                            $empresa->setHorarioFimSemana($result->horario_fim_semana);
+                            $empresa->setDiasSemana($result->txt_dias_semana);
+                            $empresa->setHorarioSemana($result->txt_horario_semana);
+                            $empresa->setDiasFimSemana($result->txt_dias_fim_semana);
+                            $empresa->setHorarioFimSemana($result->txt_horario_fim_semana);
+                            $empresa->setArrDiasSemana($result->arr_dias_semana);
+                            $empresa->setArrHorariosInicio($result->arr_horarios_inicio);
+                            $empresa->setArrHorariosFinal($result->arr_horarios_final);
+                            $empresa->setAberto($result->aberto);
+                            $empresa->setEntregando($result->entregando);
                         }
                     }
                 }
@@ -76,10 +81,15 @@
                             $empresa->setInstagram($result->instagram);
                             $empresa->setPinterest($result->pinterest);
                             $empresa->setFoto($result->foto);
-                            $empresa->setDiasSemana($result->dias_semana);
-                            $empresa->setHorarioSemana($result->horario_semana);
-                            $empresa->setDiasFimSemana($result->dias_fim_semana);
-                            $empresa->setHorarioFimSemana($result->horario_fim_semana);
+                            $empresa->setDiasSemana($result->txt_dias_semana);
+                            $empresa->setHorarioSemana($result->txt_horario_semana);
+                            $empresa->setDiasFimSemana($result->txt_dias_fim_semana);
+                            $empresa->setHorarioFimSemana($result->txt_horario_fim_semana);
+                            $empresa->setArrDiasSemana($result->arr_dias_semana);
+                            $empresa->setArrHorariosInicio($result->arr_horarios_inicio);
+                            $empresa->setArrHorariosFinal($result->arr_horarios_final);
+                            $empresa->setAberto($result->aberto);
+                            $empresa->setEntregando($result->entregando);
                             array_push($empresas, $empresa);
                         }
                     }

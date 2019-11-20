@@ -9,13 +9,14 @@
 	include_once "../model/cardapio.php";
 	include_once "../lib/alert.php";
 	include_once "upload.php";
+
 	if (in_array('cardapio', json_decode($_SESSION['permissao']))) {
 		if (!isset($_POST)||empty($_POST)){
 			echo 'Nada foi postado.';
 		}
 
-		$cod_cardapio= addslashes(htmlspecialchars($_POST['cod']));
-		$nome= addslashes(htmlspecialchars($_POST['nome']));
+		$cod_cardapio = addslashes(htmlspecialchars($_POST['cod']));
+		$nome = addslashes(htmlspecialchars($_POST['nome']));
 		$preco = addslashes(htmlspecialchars($_POST['preco']));
 		$desconto = addslashes(htmlspecialchars($_POST['desconto']));
 		$descricao= addslashes(htmlspecialchars($_POST['descricao']));
@@ -42,14 +43,12 @@
 
 		$adicional = json_encode($adicional);
 
-		$dias_semana = array();
-		for ($i=1; $i <= 6; $i++) { 
-			if (!empty($_POST[$i."dia"]) && isset($_POST[$i."dia"])) {
-				array_push($dias_semana, addslashes(htmlspecialchars($_POST[$i."dia"])));
-			}
+		if(isset($_POST['dias'])){
+			$arr_dias = $_POST['dias'];
+			$dias_semana = json_encode($arr_dias);
+		}else{
+			$dias_semana = NULL;
 		}
-		
-		$dias_semana = json_encode($dias_semana);
 
 		$cardapio_turno = addslashes(htmlspecialchars($_POST['turnos']));
 
