@@ -189,6 +189,74 @@ class controlerCarrinho{
         }
     }
 
+    function selectPaginadoPedidos($offset, $por_pagina){
+        $stmte;
+        $delivery = true;
+        $pedidos = array();
+        try{
+            if ($delivery == true){
+                $stmte = $this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor,p.desconto,p.taxa_entrega,p.subtotal,p.formaPgt,p.status, p.endereco, p.tempo_entrega, p.cliente, p.origem, p.hora_print, p.hora_delivery,p.hora_retirada,c.nome, c.telefone, e.rua, e.numero,e.bairro, e.complemento ,e.cep
+                FROM pedido as p
+                INNER JOIN
+                cliente AS c ON
+                p.cliente = c.cod_cliente
+                LEFT JOIN
+                endereco AS e ON
+                p.endereco = e.cod_endereco
+                ORDER BY p.data DESC, nome ASC LIMIT :offset, :por_pagina");
+                $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
+                $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
+                $executa=$stmte->execute();
+            }else{
+                $stmte = $this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor,p.desconto,p.taxa_entrega,p.subtotal,p.formaPgt,p.status, p.endereco, p.tempo_entrega, p.cliente, p.origem, p.hora_print, p.hora_delivery,p.hora_retirada,c.nome, c.telefone, e.rua, e.numero,e.bairro, e.complemento ,e.cep
+                FROM pedido as p
+                INNER JOIN
+                cliente AS c ON
+                p.cliente = c.cod_cliente
+                LEFT JOIN
+                endereco AS e ON
+                p.endereco = e.cod_endereco
+                ORDER BY p.data DESC, nome ASC LIMIT :offset, :por_pagina");
+                $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
+                $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
+                $executa=$stmte->execute();
+            }
+            if ($executa) {
+                if ($stmte->rowCount() > 0) {
+                    while ($result=$stmte->fetch(PDO::FETCH_OBJ)) {
+                        $pedido = new pedido();
+                        $pedido->setCod_pedido($result->cod_pedido);
+                        $pedido->setData(new DateTime($result->data));
+                        $pedido->setValor($result->valor);
+                        $pedido->setDesconto($result->desconto);
+                        $pedido->setTaxa_entrega($result->taxa_entrega);
+                        $pedido->setTempo_entrega($result->tempo_entrega);
+                        $pedido->setSubtotal($result->subtotal);
+                        $pedido->setFormaPgt($result->formaPgt);
+                        $pedido->setStatus($result->status);
+                        $pedido->setCliente($result->nome);
+                        $pedido->setOrigem($result->origem);
+                        $pedido->telefone=($result->telefone);
+                        $pedido->rua=($result->rua);
+                        $pedido->numero=($result->numero);
+                        $pedido->bairro=($result->bairro);
+                        $pedido->complemento=($result->complemento);
+                        $pedido->cep=($result->cep);
+                        $pedido->setHora_print($result->hora_print);
+                        $pedido->setHora_delivery($result->hora_delivery);
+                        $pedido->setHora_retirada($result->hora_retirada);
+                        array_push($pedidos,$pedido);
+                    }
+                }
+            }
+            return $pedidos;
+        }
+        catch(PDOException $e){
+            echo $e->getMessage();
+        }
+    }
+
+
     function selectItens($cod_pedido){
         $parametro = $cod_pedido;
         $itens=array();
