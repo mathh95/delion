@@ -164,7 +164,17 @@
 
             //Reload Page 
             function doRefresh(){
-                $("#tabela-pedido").load("../../ajax/pedido-tabela.php");
+                //Verificacao se a pagina é nula
+                <?php
+                if(isset($_GET['page'])){ ?>
+                    var pagina = ""+<?= $_GET['page'] ?>+"";
+                <?php
+                }else{?>
+                    var pagina = "";
+                <?php
+                }
+                ?>
+                $("#tabela-pedido").load('../../ajax/pedido-tabela.php?page='+pagina);
             }
 
             //Carrega a lista apenas se a modal de impressão nao estiver aberta
@@ -173,8 +183,10 @@
                 if(verifica == false){ 
                     doRefresh();
                 }
-            }, 3000);
-                
+            }, 10000);
+            
+
+
             //Responsável por mostrar os itens em cima do botão detalhes
             function myFunction(int) {
                 var popup = document.getElementById('myPopup'+int);
@@ -310,6 +322,35 @@
                 }
 
             }
+
+            $(document).ready(function(){
+
+                <?php 
+
+                $search = (isset($_GET['search'])) ? $_GET['search'] : NULL ;
+
+                $page = (isset($_GET['page'])) ? $_GET['page'] : 1 ;
+
+                ?>
+
+                $.ajax({
+
+                    type:'GET',
+
+                    url: '../../ajax/pedido-tabela.php',
+
+                    data: {page: "<?= $page ?>", search: "<?= $search ?>", tipo: 'busca'},
+
+                    success:function(resultado){
+
+                        $('#tabela-pedido').html(resultado);
+
+                    }
+
+                });
+
+                });
+
 
 
             $('#pesquisa, #menor, #maior, #endereco').on('change paste keyup', function(){
