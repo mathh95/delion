@@ -79,14 +79,23 @@
 
                                 <h5><i class="far fa-envelope-open"></i>&nbsp;Mensagem</h5>
 
-                                <textarea class="form-control" id="msgSms" name="msg" maxlength="150" rows="7">Delion Café - ...</textarea>
+                                <textarea class="form-control" id="msgSms" name="msg" maxlength="150" rows="5">Delion Café - ...</textarea>
 
                                 <p>*Caracteres: <span id="charsCount"></span></p>
                             </div>
 
                             <div class="col-md-12">
+                                <h5><i class="fas fa-info-circle"></i>&nbsp;Descrição</h5>
+                                <input class="form-control" placeholder="Ex: Aniversariantes e Pedidos Únicos" name="descricao" type="text" required>
+                            </div>
+
+                            <div class="col-md-12">
 
                                 <h5><i class="fas fa-users"></i>&nbsp;Grupos de envio</h5>
+
+                                Todos (<span id="qtd_todos"></span>)
+                                <input type="checkbox" id="check_todos" name="" value="">
+                                <br>
 
                                 Aniversariantes de Hoje (<span id="qtd_aniversariantes"></span>)
                                 <input type="checkbox" id="check_aniversariantes" name="" value="">
@@ -100,7 +109,7 @@
                                 <input type="checkbox" id="check_1pedido" name="" value="">
                                 -->
 
-                                <!-- Aleatórios (<span id="qtd_aleatorios"></span>)
+                                <!-- Aleatórios (?)
                                 <input type="checkbox" id="check_aleatorios" name="" value=""> -->
                                 
                                 <br>
@@ -135,7 +144,8 @@
                             ?>
 
                             <table class="table table-hover">
-                                <h4>...Ou selecione individualmente</h4>
+                                <h4>Selecione Individualmente</h4>
+                                <h5>*Selecionados: <span id="qtde_selecionados">0</span></h5>
                             <thead>
                                 <tr>
                                     <th style='text-align: center;'>Nome</th>
@@ -190,7 +200,7 @@
                                     <!-- telefones[_cli] e cod_cli[] -->
                                     <input
                                     type="checkbox"
-                                    id="key_cli"
+                                    class="key_cli"
                                     name="key_cli[]"
                                     value="<?=$key?>">
 
@@ -237,23 +247,32 @@
             $('#msgSms').keydown(updateCountChars);
 
             function updateCountChars() {
-                var cs = $('#msgSms').val().length;
+                let cs = $('#msgSms').val().length;
                 $('#charsCount').text(cs);
+            }
+
+            function updateCountChecked(){
+                let count  = $("tbody > tr").find("input:checkbox:checked").length;
+                $("#qtde_selecionados").text(count);
             }
 
             jQuery(window).load(function () {
                 // alert('carreguei, mochila...');
                 $("#loading").hide();
 
+                countTodos();
                 countAniversariantes();
                 countAtivosUltimos30dias();
                 countApenas1pedido();
-
             });
 
             function getTime(d) {
                 return new Date(d.split("-").reverse().join("-")).getTime();
             }
+
+            $(".key_cli").change(function(){
+                updateCountChecked();
+            });
 
             var current_date = "<?= date("d-m") ?>";//19-11
             // var current_date = "30-07-1997";
@@ -275,10 +294,40 @@
                         }
                     });
                 }
+                
+                updateCountChecked();
             });
 
+            /*Check clientes de acordo com grupo selecionado*/
+            $("#check_todos").change(function() {
+                if(this.checked) {
 
-            /**/
+                    $("tbody > tr").each(function(){
+                        $(this).find("input[type=checkbox]").prop("checked", true);
+                    });
+
+                //desmarca clientes
+                }else{
+                    $("tbody > tr").each(function(){
+                        $(this).find("input[type=checkbox]").prop("checked", false);
+                    });
+                }
+
+                updateCountChecked();
+            });
+
+            
+            
+            /*Quantidade dos Grupos*/
+            function countTodos() {
+                let qtd = 0;
+                $("tbody > tr").each(function(){
+                    qtd++;
+                });
+
+                $('#qtd_todos').text(qtd);
+            }
+
             function countAniversariantes() {
                 let qtd = 0;
                 $("tbody > tr").each(function(){

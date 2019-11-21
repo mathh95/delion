@@ -213,7 +213,8 @@
                         for(i=0;i<ts.length;i+=4) {        
                         out+=Number(ts.substr(i, 2)).toString(36);    
                     }
-                return ('d'+out);
+                    out = out.toUpperCase();
+                return ('D'+out);
             }
 
             $(function () {

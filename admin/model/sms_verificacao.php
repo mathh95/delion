@@ -1,6 +1,6 @@
 <?php
 
-    class sms{
+    class smsVerificacao{
 
         private $cod_sms;
 

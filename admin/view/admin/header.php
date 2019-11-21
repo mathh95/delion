@@ -564,7 +564,7 @@
 
                             <?php
                                 //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                if(strpos($arquivo_pai, 'enviarSms') !== false){
+                                if(strpos($arquivo_pai, 'Sms') !== false){
                                     echo 'active';
                                 }
                             ?>
@@ -575,6 +575,7 @@
                             <ul class="dropdown-menu">
 
                                 <li><a href="enviarSms.php">Enviar SMS</a></li>
+                                <li><a href="listarSms.php">Listar Envios</a></li>
 
                             </ul>
 
