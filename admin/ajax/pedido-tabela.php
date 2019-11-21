@@ -24,7 +24,8 @@ if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || 
 		$endereco = $_POST['endereco'];
 		$pedidos = $controle->filterEndereco($nome, $menor, $maior, $endereco);
 	}else{
-		$pedidos = $controle->selectAllPedido($nome, $menor, $maior);
+		//Alterar esse query
+		$pedidos = $controle->filter($nome, $menor, $maior);
 		$por_pagina = 15;
 		if(isset($_GET['page']) && !empty($_GET['page'])){
 			$pagina = (int)$_GET['page'];

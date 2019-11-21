@@ -286,6 +286,61 @@ class controlerCarrinho{
         }        
     }
 
+    //Filtro para nome
+    function filter($parametro,$valormenor, $valormaior){
+        $pedidos=array();
+        $parametro = "%".$parametro."%";
+        $stmt=$this->pdo->prepare("SELECT p.cod_pedido, p.data, p.valor,p.desconto,p.taxa_entrega,p.subtotal,p.formaPgt,p.status, p.endereco, p.tempo_entrega, p.cliente, p.origem, p.hora_print, p.hora_delivery,p.hora_retirada,c.nome, c.telefone, e.rua, e.numero,e.bairro, e.complemento ,e.cep
+        FROM pedido as p
+        INNER JOIN
+        cliente AS c ON
+        p.cliente = c.cod_cliente
+        LEFT JOIN
+        endereco AS e ON
+        p.endereco = e.cod_endereco
+        WHERE c.nome like :parametro AND p.valor > :valormenor AND p.valor < :valormaior
+        ORDER BY p.data DESC");       //Ordenação por cod do pedido
+        $stmt->bindValue(":parametro", $parametro, PDO::PARAM_STR);
+        $stmt->bindParam(":valormenor", $valormenor, PDO::PARAM_INT);
+        $stmt->bindParam(":valormaior", $valormaior, PDO::PARAM_INT);
+        $executa=$stmt->execute();
+        if ($executa) {
+            if ($stmt->rowCount() > 0) {
+                while ($result=$stmt->fetch(PDO::FETCH_OBJ)) {
+                    $pedido = new pedido();
+                    $pedido->setCod_pedido($result->cod_pedido);
+                    $pedido->setData(new DateTime($result->data));
+                    $pedido->setValor($result->valor);
+                    $pedido->setDesconto($result->desconto);
+                    $pedido->setTaxa_entrega($result->taxa_entrega);
+                    $pedido->setTempo_entrega($result->tempo_entrega);
+                    $pedido->setSubtotal($result->subtotal);
+                    $pedido->setFormaPgt($result->formaPgt);
+                    $pedido->setStatus($result->status);
+                    $pedido->setCliente($result->nome);
+                    $pedido->setOrigem($result->origem);
+                    $pedido->telefone=($result->telefone);
+                    $pedido->rua=($result->rua);
+                    $pedido->numero=($result->numero);
+                    $pedido->bairro=($result->bairro);
+                    $pedido->complemento=($result->complemento);
+                    $pedido->cep=($result->cep);
+                    $pedido->setHora_print($result->hora_print);
+                    $pedido->setHora_delivery($result->hora_delivery);
+                    $pedido->setHora_retirada($result->hora_retirada);
+                    array_push($pedidos,$pedido);
+                }
+            }else{
+                return -1;
+
+            }
+            return $pedidos;
+        }else{
+            return -1;
+        }
+    }
+
+
     function selectAllPedido($parametro, $valormenor, $valormaior){
         $pedidos=array();
         $parametro = "%".$parametro."%";

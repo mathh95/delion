@@ -183,8 +183,10 @@
                 if(verifica == false){ 
                     doRefresh();
                 }
-            }, 3000);
-                
+            }, 10000);
+            
+
+
             //Responsável por mostrar os itens em cima do botão detalhes
             function myFunction(int) {
                 var popup = document.getElementById('myPopup'+int);
