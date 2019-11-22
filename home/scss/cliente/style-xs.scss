@@ -21,6 +21,7 @@ body {
         width: 130px;
         height: 90px;
     }
+    position: relative;
 }
 
 .botao-esquerda{
@@ -57,6 +58,8 @@ body{
         padding-top: 25px;
         padding-bottom: 5px;
         height: auto;
+        min-height: 620px;
+        position: relative;
         > .solicitacao {
             @include make-sm-column(12);
             padding-right: 10px;
