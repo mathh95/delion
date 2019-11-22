@@ -64,7 +64,7 @@ class controlerSmsMensagem {
         try{
             $envios = array();
 
-            $stmte = $this->pdo->prepare("SELECT * FROM sms_mensagem");
+            $stmte = $this->pdo->prepare("SELECT * FROM sms_mensagem ORDER BY data_envio DESC");
 
             if($stmte->execute()){
 

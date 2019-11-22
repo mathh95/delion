@@ -127,7 +127,7 @@
 
                                 if (in_array('enviar_sms', $permissao)){ ?>
 
-                                    <button type="submit" class="btn btn-kionux"><i class="fas fa-paper-plane"></i></i> Enviar</button>
+                                    <button id="enviar_msg" type="submit" class="btn btn-kionux"><i class="fas fa-paper-plane"></i></i> Enviar</button>
 
                                 <?php } ?>
 
@@ -246,15 +246,6 @@
             $('#msgSms').keyup(updateCountChars);
             $('#msgSms').keydown(updateCountChars);
 
-            function updateCountChars() {
-                let cs = $('#msgSms').val().length;
-                $('#charsCount').text(cs);
-            }
-
-            function updateCountChecked(){
-                let count  = $("tbody > tr").find("input:checkbox:checked").length;
-                $("#qtde_selecionados").text(count);
-            }
 
             jQuery(window).load(function () {
                 // alert('carreguei, mochila...');
@@ -266,9 +257,26 @@
                 countApenas1pedido();
             });
 
+
+            function updateCountChars() {
+                let cs = $('#msgSms').val().length;
+                $('#charsCount').text(cs);
+            }
+
+            function updateCountChecked(){
+                let count  = $("tbody > tr").find("input:checkbox:checked").length;
+                $("#qtde_selecionados").text(count);
+            }
+
+
             function getTime(d) {
                 return new Date(d.split("-").reverse().join("-")).getTime();
             }
+
+
+            $("form").submit(function(){
+                $("#loading").show();
+            });
 
             $(".key_cli").change(function(){
                 updateCountChecked();
