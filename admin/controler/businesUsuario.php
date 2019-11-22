@@ -18,15 +18,13 @@
 		$nome= addslashes(htmlspecialchars($_POST['nome']));
 		$cod_perfil= addslashes(htmlspecialchars($_POST['perfil']));
 		// $status= addslashes(htmlspecialchars($_POST['flag_bloqueado']));
-		$permissao = array();
-		for ($i=1; $i <= 13; $i++) { 
-			if (!empty($_POST[$i."permissao"])) {
-				array_push($permissao, addslashes(htmlspecialchars($_POST[$i."permissao"])));
-			}
+		
+		if(isset($_POST['permissoes'])){
+			$arr_permissoes = json_encode($_POST['permissoes']);
 		}
-		$permissao = json_encode($permissao);
+
 		$usuario= new usuario();
-		$usuario->construct($nome,$login,$senha,$email,"0",$cod_perfil, $permissao);
+		$usuario->construct($nome,$login,$senha,$email,"0",$cod_perfil, $arr_permissoes);
 		$controle=new controlerUsuario($_SG['link']);
 		if($controle->insert($usuario)> -1){
 			msgRedireciona('Cadastro Realizado!','Usuário cadastrado com sucesso!',1,'../view/admin/usuario.php');

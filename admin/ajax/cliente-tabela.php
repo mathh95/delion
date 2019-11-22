@@ -25,6 +25,7 @@ if(in_array('cliente', $permissao)){
     		<th width='20%' style='text-align: center;'>Nome</th>
     		<th width='15%' style='text-align: center;'>Login</th>
     		<th width='15%' style='text-align: center;'>Telefone</th>
+    		<th width='15%' style='text-align: center;'>Status</th>
             <th width='15%' style='text-align: center;'>Editar</th>
             <th width='15%' style='text-align: center;'>Apagar</th>
         </tr>
@@ -35,16 +36,21 @@ if(in_array('cliente', $permissao)){
 
 
 		if($cliente->getStatus()==1){
-			$mensagem='Cliente excluído com sucesso!';
-			$titulo='Excluir';
-			echo "<tr name='resultado' id='status".$cliente->getCod_cliente()."'>
-			 	<td style='text-align: center;' name='nome'>".$cliente->getNome()."</td>
-			 	<td style='text-align: center;' name='login'>".$cliente->getLogin()."</td>
-			 	<td style='text-align: center;' name='telefone'>".$masked_phone."</td>
-			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cliente-view.php?cod=".$cliente->getCod_cliente()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
-			 	<td style='text-align: center;' name='status' ><button type='button' onclick=\"removeCliente(".$cliente->getCod_cliente().");\" class='btn btn-kionux'><i class='fa fa-remove'></i>&nbsp;Desativar</button></td>
-			</tr>";
+			$status = "Ativo";
+		}else{
+			$status = "Desativado";
 		}
+
+		$mensagem='Cliente excluído com sucesso!';
+		$titulo='Excluir';
+		echo "<tr name='resultado' id='status".$cliente->getCod_cliente()."'>
+			<td style='text-align: center;' name='nome'>".$cliente->getNome()."</td>
+			<td style='text-align: center;' name='login'>".$cliente->getLogin()."</td>
+			<td style='text-align: center;' name='telefone'>".$masked_phone."</td>
+			<td style='text-align: center;' name='telefone'>".$status."</td>
+			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cliente-view.php?cod=".$cliente->getCod_cliente()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
+			<td style='text-align: center;' name='status' ><button type='button' onclick=\"removeCliente(".$cliente->getCod_cliente().");\" class='btn btn-kionux'><i class='fa fa-remove'></i>&nbsp;Desativar</button></td>
+		</tr>";
 	}
 }else{
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>

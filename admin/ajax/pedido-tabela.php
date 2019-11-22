@@ -24,7 +24,22 @@ if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || 
 		$endereco = $_POST['endereco'];
 		$pedidos = $controle->filterEndereco($nome, $menor, $maior, $endereco);
 	}else{
-		$pedidos = $controle->selectAllPedido($nome, $menor, $maior);
+		//Alterar esse query
+		$pedidos = $controle->filter($nome, $menor, $maior);
+		$por_pagina = 15;
+		if(isset($_GET['page']) && !empty($_GET['page'])){
+			$pagina = (int)$_GET['page'];
+		}else{
+			$pagina = 1;
+		}
+	
+		$offset = ($pagina - 1) * $por_pagina;
+		//Separa os pedidos pelas páginas
+		// $pedidos = $controle->selectPaginadoPedidos($offset,$por_pagina);
+		// $total2 = count($pedidosCount);
+		$total = count($pedidos);
+		$paginas = ceil($total/$por_pagina);
+		
 	}
 }else{
 	if (!isset($_POST['nome'])){
@@ -36,18 +51,86 @@ if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || 
 	if (!isset($_POST['maior'])){
 		$maior =999999;
 	}
-	$pedidos = $controle->selectAllPedido($nome, $menor, $maior);
+	$pedidosCount = $controle->selectAllPedido($nome, $menor, $maior);
+	//numero de pedidos por página
+	$por_pagina = 15;
+	if(isset($_GET['page']) && !empty($_GET['page'])){
+		$pagina = (int)$_GET['page'];
+	}else{
+		$pagina = 1;
+	}
+
+	$offset = ($pagina - 1) * $por_pagina;
+	//Separa os pedidos pelas páginas
+	$pedidos = $controle->selectPaginadoPedidos($offset,$por_pagina);
+	$total2 = count($pedidosCount);
+	$total = count($pedidos);
+	$paginas = ceil($total2/$por_pagina);
 }
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
+
 if ($pedidos == -1){
 	echo "<h1> SEM RESULTADOS</h1>";
 }else{
+	if(in_array('pedido', $permissao)){
+		echo "<table class='table' id='tbUsuarios' style='text-align = center;'>";
+			if($pagina > 1){
+				echo "
+				<nav arial-label='...'>
+					<ul class='pagination'>
+						<li>
+							<a class='page-link' href='pedidoLista.php?page=".($pagina - 1)."' class='controle'>&laquo; Anterior</a>
+						</li>";
+				}
+			if($pagina == 1){
+				echo "
+				<nav arial-label='...'>
+					<ul class='pagination'>
+						<li class='page-item active'>
+							<a class='page-link' href='pedidoLista.php?page=".($pagina)."' style='
+							color: #f5f5f5;
+							background: #ee6917;
+							border-color: #ee6917;' 
+							class='controle'>1</a>
+						</li>";
+			}else{
+				echo "
+				<li>
+					<a class='page-link' href='pedidoLista.php?page=1' class='controle'>1</a>
+				</li>";
+			}
+			for($i = 2; $i < $paginas + 1; $i++) {
+				$ativo = ($i == $pagina) ? 'numativo' : '';
+				if($i == $pagina){
+					echo "
+						<li class='page-item active'>	
+							<a class='page-link' href='pedidoLista.php?page=".$i."' style='
+							color: #f5f5f5;
+							background: #ee6917;
+							border-color: #ee6917;'
+						 	class='numero ".$ativo."'> ".$i." </a>
+						</li>";
+				}else{
+					echo "
+					<li class='page-item'>	
+						<a class='page-link' href='pedidoLista.php?page=".$i."' class='numero ".$ativo."'> ".$i." </a>
+					</li>";
+				}
+			}
+				 
+			if($pagina < $paginas) {
+				echo "
+					<li class='page-item'>
+						<a class='page-link' href='pedidoLista.php?page=".($pagina + 1)."' class='controle'>Proximo &raquo;</a>
+					</li>
+				</ul>";
+			}
 
-
-if(in_array('pedido', $permissao)){
-	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
-	<thead>
+			// <a>
+			// ".$paginas."
+			// </a>
+		echo "<thead>
 		<h1 class=\"page-header\">Lista de Pedidos</h1>
 		<tr>
     		<th width='8%' style='text-align: center;'>Código Pedido</th>

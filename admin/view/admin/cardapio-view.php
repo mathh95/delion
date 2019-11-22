@@ -241,8 +241,8 @@
                                 <small>Turno(s) que o item estará disponível:</small>
                                 
                                 <!-- Primeiro Turno -->
-                                        <select name="turnos" id="turnos">
-                                            <option value="0">Selecione o turno</option>
+                                        <select name="turnos" id="turnos" required>
+                                            <option value="">Selecione o turno</option>
                                             <?php
                                                 foreach ($turnos as $turno) {
                                                     echo "<option value='".$turno->getCod_cardapio_turno()."' id='".$turno->getCod_cardapio_turno()."'>".$turno->getNome()."</option>";

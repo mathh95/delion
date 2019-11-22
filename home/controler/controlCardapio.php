@@ -664,8 +664,6 @@ include_once MODELPATH."/cardapio.php";
             }
         }
 
-
-
         function selectAll(){
 
             $stmte;

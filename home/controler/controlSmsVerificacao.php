@@ -1,17 +1,17 @@
 <?php
   
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
-include_once MODELPATH."/sms.php";
+include_once MODELPATH."/sms_verificacao.php";
 include_once CONTROLLERPATH."/seguranca.php";
 
-class controlSMS {
+class controlSmsVerificacao {
 
     private $pdo;
 
     function insert($sms){
 
         try{
-            $stmt=$this->pdo->prepare("INSERT INTO sms (telefone, codigo, verificado) VALUES (:telefone, :codigo, 0) ");
+            $stmt=$this->pdo->prepare("INSERT INTO sms_verificacao (telefone, codigo, verificado) VALUES (:telefone, :codigo, 0) ");
             
             $telefone = $sms->getTelefone();
             $codigo = $sms->getCodigo();
@@ -34,11 +34,11 @@ class controlSMS {
 
     function selectByTelefoneCodigo($telefone, $codigo){
 
-        $sms = new sms();
+        $sms = new smsVerificacao();
 
         try{
 
-            $stmte = $this->pdo->prepare("SELECT * FROM sms WHERE telefone = :telefone AND codigo = :codigo");
+            $stmte = $this->pdo->prepare("SELECT * FROM sms_verificacao WHERE telefone = :telefone AND codigo = :codigo");
 
             $stmte->bindParam(":telefone", $telefone , PDO::PARAM_STR);
             $stmte->bindParam(":codigo", $codigo , PDO::PARAM_INT);
@@ -66,7 +66,7 @@ class controlSMS {
     function updateVerificado($cod_sms){
 
         try{
-            $stmt=$this->pdo->prepare("UPDATE sms SET verificado = 1 WHERE cod_sms=:cod_sms");
+            $stmt=$this->pdo->prepare("UPDATE sms_verificacao SET verificado = 1 WHERE cod_sms=:cod_sms");
             $stmt->bindParam(":cod_sms", $cod_sms, PDO::PARAM_INT);
 
             $executa=$stmt->execute();

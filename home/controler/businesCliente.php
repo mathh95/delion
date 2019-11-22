@@ -1,9 +1,9 @@
 <?php 
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
     include_once MODELPATH."/cliente.php";
-    include_once MODELPATH."/sms.php";
+    include_once MODELPATH."/sms_verificacao.php";
     include_once "controlCliente.php";
-    include_once "controlSMS.php";
+    include_once "controlSmsVerificacao.php";
     include_once CONTROLLERPATH."/seguranca.php";
     include_once "../lib/alert.php";
     include_once "../utils/VerificaCpf.php";
@@ -133,7 +133,7 @@
                 $erros = verificaCadastro($erros, $nome, $sobrenome, $cpf, $data_nasc, $telefone, $login, $senha, $senha2);
                 
                 $info_bip = new InfoBip();
-                $control_sms = new controlSMS($_SG['link']);
+                $control_sms = new controlSmsVerificacao($_SG['link']);
                 
             }else{
                 // header('Content-type: application/json');
@@ -154,7 +154,7 @@
                 $cod_sms = rand(1112, 9998);
                 
                 //salva informações de verificação
-                $sms = new sms;
+                $sms = new smsVerificacao;
                 $sms->construct($telefone_int, $cod_sms);
                 
                 $result = $control_sms->insert($sms);
@@ -167,7 +167,7 @@
                 $telefone_int = "55".$telefone_int;
 
                 //envia SMS
-                $res_envio = $info_bip->enviaSMS($telefone_int, $cod_sms);
+                $res_envio = $info_bip->enviaVerificacaoSMS($telefone_int, $cod_sms);
                 
                 if($res_envio){
                     echo "verificado";
