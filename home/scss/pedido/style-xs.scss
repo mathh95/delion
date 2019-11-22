@@ -87,6 +87,9 @@ body{
         }
     }
     > .itens {
+        min-height: 600px;
+        position: relative;
+        padding: 0;
         > h1{
             @include make-xs-column(12);
             font-family: "Century Gothic Bold";

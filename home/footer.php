@@ -29,11 +29,11 @@ include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 					<p class="bold-text"><b>Navegue</b></p>
 				</li>
 				<li>
-					<a href="#">Quem Somos</a>
+					<a href="sobre.php">Quem Somos</a>
 				</li>
 
 				<li>
-					<a href="#">Eventos</a>
+					<a href="eventos.php">Eventos</a>
 				</li>
 
 				<li>
@@ -53,11 +53,11 @@ include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 				</li>
 
 				<li>
-					<a href="#">História</a>
+					<a href="historia.php">História</a>
 				</li>
 
 				<li>
-					<a href="#">Localização</a>
+					<a href="localizacao.php">Localização</a>
 				</li>
 
 				<li>
@@ -85,20 +85,19 @@ include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 </footer>
 <div class="container-fluid rodape">
 
-    <div class="container">
+        <div class="container">
 
-        <div>Todos os direitos reservados a Delion Café</div>
+            <div>Todos os direitos reservados a Delion Café</div>
 
-        <div>
+            <div>
 
-            <div>Desenvolvido por Kionux Soluções em Internet <a href="http://www.kionux.com.br"><img src="img/kionuxsite.png" alt=""></a></div>
+                <div>Desenvolvido por Kionux Soluções em Internet <a href="http://www.kionux.com.br"><img src="img/kionuxsite.png" alt=""></a></div>
+
+            </div>
 
         </div>
 
     </div>
-
-</div>
-
 <!-- <div class="whatsapp">
 
     <a href="">
