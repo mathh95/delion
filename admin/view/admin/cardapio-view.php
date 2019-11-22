@@ -198,6 +198,18 @@
                                     </label>
 
                                 </div>
+                            
+                            <small>Informar se após o cadastro o item estará disponivel para ser Servido:</small>
+
+                                <div class="checkbox">
+
+                                    <label>
+
+                                            <input type="checkbox" id="servindo" name="servindo" value="1">Servindo                               
+                                    
+                                    </label>
+
+                                </div>
                                
 
                                 <small>Dias em que o Item Estará Disponível:</small>
@@ -288,8 +300,10 @@
                             
                                 <ul>
 
-                                    <?php $i = 1; foreach($adicionais as $adicional):?>
-
+                                    <?php 
+                                        $i = 1;
+                                        foreach($adicionais as $adicional){
+                                    ?>
                                         <li>
                                             
                                             <?php 
@@ -306,7 +320,7 @@
 
                                         </li>
 
-                                    <?php $i++; endforeach;?>
+                                    <?php $i++; }?>
 
                                 </ul>
                             
@@ -412,8 +426,7 @@
                 
                 //dia -> 1 == domingo...7 == sábado
                 for(let dia of dias){
-                    $(":checkbox[value="+dia+"]").prop("checked", "true");
-                    // $(':' + value).attr('checked', true);
+                    $(".checkbox :checkbox[value="+dia+"]").prop("checked", "true");
                 }
 
                 if (ativo == 1){
