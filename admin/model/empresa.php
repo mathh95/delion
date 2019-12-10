@@ -4,250 +4,254 @@
  */
     class empresa {
 
-        private $cod_empresa;
-        private $nome;
-        private $descricao;
-        private $historia;
-        private $endereco;
-        private $bairro;
-        private $cidade;
-        private $estado;
-        private $cep;
-        private $fone;
-        private $whats;
-        private $email;
-        private $facebook;
-        private $instagram;
-        private $pinterest;
-        private $foto;
-        private $dias_semana;
-        private $horario_semana;
-        private $dias_fim_semana;
-        private $horario_fim_semana;
-        private $aberto;
-        private $entregando;
-        private $arr_dias_semana;
-        private $arr_horarios_inicio;
-        private $arr_horarios_final;
+        private $emp_pk_id;
+        private $emp_nome;
+        private $emp_descricao;
+        private $emp_historia;
+        private $emp_endereco;
+        private $emp_bairro;
+        private $emp_cidade;
+        private $emp_estado;
+        private $emp_cep;
+        private $emp_fone;
+        private $emp_whats;
+        private $emp_email;
+        private $emp_facebook;
+        private $emp_instagram;
+        private $emp_pinterest;
+        private $emp_foto;
+        private $emp_txt_dias_semana;
+        private $emp_txt_horario_semana;
+        private $emp_txt_dias_fim_semana;
+        private $emp_txt_horario_fim_semana;
+        private $emp_arr_dias_semana;
+        private $emp_arr_horarios_inicio;
+        private $emp_arr_horarios_final;
+        private $emp_aberto;
+        private $emp_entregando;
+        private $emp_taxa_conversao_fidelidade;
 
 
-        function getCod_empresa(){
-            return $this->cod_empresa;
+        function getPkId(){
+            return $this->emp_pk_id;
         }
         function getNome(){
-            return $this->nome;
+            return $this->emp_nome;
         }
         function getDescricao(){
-            return $this->descricao;
+            return $this->emp_descricao;
         }
         function getHistoria(){
-            return $this->historia;
+            return $this->emp_historia;
         }
         function getEndereco(){
-            return $this->endereco;
+            return $this->emp_endereco;
         }
         function getBairro(){
-            return $this->bairro;
+            return $this->emp_bairro;
         }
         function getCidade(){
-            return $this->cidade;
+            return $this->emp_cidade;
         }
         function getEstado(){
-            return $this->estado;
+            return $this->emp_estado;
         }
         function getCep(){
-            return $this->cep;
+            return $this->emp_cep;
         }
         function getFone(){
-            return $this->fone;
+            return $this->emp_fone;
         }
         function getWhats(){
-            return $this->whats;
+            return $this->emp_whats;
         }
         function getEmail(){
-            return $this->email;
+            return $this->emp_email;
         }
         function getFacebook(){
-            $str = $this->facebook;
+            $str = $this->emp_facebook;
             $str = str_replace("https://", "", $str);
             $str = str_replace("http://", "",$str);
             return $str;
         }
         function getInstagram(){
-            $str = $this->instagram;
+            $str = $this->emp_instagram;
             $str = str_replace("https://", "", $str);
             $str = str_replace("http://", "", $str);
             return $str;
         }
         function getPinterest(){
-            $str = $this->pinterest;
+            $str = $this->emp_pinterest;
             $str = str_replace("https://", "", $str);
             $str = str_replace("http://", "", $str);
             return $str;
         }
         function getFotoAbsoluto(){
-            return $this->foto;
+            return $this->emp_foto;
         }
         function getFoto(){
-            $pos = strpos($this->foto, "upload");
-            return substr($this->foto, $pos);
+            $pos = strpos($emp_this->emp_foto, "upload");
+            return substr($emp_this->emp_foto, $pos);
         }
-        function getDiasSemana(){
-            return $this->dias_semana;
+        function getTxtDiasSemana(){
+            return $this->emp_txt_dias_semana;
         }
-        function getHorarioSemana(){
-            return $this->horario_semana;
+        function getTxtHorarioSemana(){
+            return $this->emp_txt_horario_semana;
         }
-        function getDiasFimSemana(){
-            return $this->dias_fim_semana;
+        function getTxtDiasFimSemana(){
+            return $this->emp_txt_dias_fim_semana;
         }
-        function getHorarioFimSemana(){
-            return $this->horario_fim_semana;
+        function getTxtHorarioFimSemana(){
+            return $this->emp_txt_horario_fim_semana;
         }
         function getArrDiasSemana(){
-            return $this->arr_dias_semana;
+            return $this->emp_arr_dias_semana;
         }
         function getArrHorariosInicio(){
-            return $this->arr_horarios_inicio;
+            return $this->emp_arr_horarios_inicio;
         }
         function getArrHorariosFinal(){
-            return $this->arr_horarios_final;
+            return $this->emp_arr_horarios_final;
         }
         function getAberto(){
-            return $this->aberto;
+            return $this->emp_aberto;
         }
         function getEntregando(){
-            return $this->entregando;
+            return $this->emp_entregando;
         }
 
 
-        function setCod_empresa($cod_empresa){
-            $this->cod_empresa=$cod_empresa;
+        function setPkId($emp_pk_id){
+            $this->emp_pk_id=$emp_pk_id;
         }
-        function setNome($nome){
-            $this->nome=$nome;
+        function setNome($emp_nome){
+            $this->emp_nome=$emp_nome;
         }
-        function setDescricao($descricao){
-            $this->descricao=$descricao;
+        function setDescricao($emp_descricao){
+            $this->emp_descricao=$emp_descricao;
         }
-        function setHistoria($historia){
-            $this->historia=$historia;
+        function setHistoria($emp_historia){
+            $this->emp_historia=$emp_historia;
         }
-        function setEndereco($endereco){
-            $this->endereco=$endereco;
+        function setEndereco($emp_endereco){
+            $this->emp_endereco=$emp_endereco;
         }
-        function setBairro($bairro){
-            $this->bairro=$bairro;
+        function setBairro($emp_bairro){
+            $this->emp_bairro=$emp_bairro;
         }
-        function setCidade($cidade){
-            $this->cidade=$cidade;
+        function setCidade($emp_cidade){
+            $this->emp_cidade=$emp_cidade;
         }
-        function setEstado($estado){
-            $this->estado=$estado;
+        function setEstado($emp_estado){
+            $this->emp_estado=$emp_estado;
         }
-        function setCep($cep){
-            $this->cep=$cep;
+        function setCep($emp_cep){
+            $this->emp_cep=$emp_cep;
         }
-        function setFone($fone){
-            $this->fone=$fone;
+        function setFone($emp_fone){
+            $this->emp_fone=$emp_fone;
         }
-        function setWhats($whats){
-            $this->whats=$whats;
+        function setWhats($emp_whats){
+            $this->emp_whats=$emp_whats;
         }
-        function setEmail($email){
-            $this->email=$email;
+        function setEmail($emp_email){
+            $this->emp_email=$emp_email;
         }
-        function setFacebook($facebook){
-            $this->facebook=$facebook;
+        function setFacebook($emp_facebook){
+            $this->emp_facebook=$emp_facebook;
         }
-        function setInstagram($instagram){
-            $this->instagram=$instagram;
+        function setInstagram($emp_instagram){
+            $this->emp_instagram=$emp_instagram;
         }
-        function setPinterest($pinterest){
-            $this->pinterest=$pinterest;
+        function setPinterest($emp_pinterest){
+            $this->emp_pinterest=$emp_pinterest;
         }
-        function setFoto($foto){
-            $this->foto=$foto;
+        function setFoto($emp_foto){
+            $this->emp_foto=$emp_foto;
         }
-        function setDiasSemana($dias_semana){
-            $this->dias_semana=$dias_semana;
+        function setTxtDiasSemana($emp_dias_semana){
+            $this->emp_dias_semana=$emp_dias_semana;
         }
-        function setHorarioSemana($horario_semana){
-            $this->horario_semana=$horario_semana;
+        function setTxtHorarioSemana($emp_horario_semana){
+            $this->emp_horario_semana=$emp_horario_semana;
         }
-        function setDiasFimSemana($dias_fim_semana){
-            $this->dias_fim_semana=$dias_fim_semana;
+        function setTxtDiasFimSemana($emp_dias_fim_semana){
+            $this->emp_dias_fim_semana=$emp_dias_fim_semana;
         }
-        function setHorarioFimSemana($horario_fim_semana){
-            $this->horario_fim_semana=$horario_fim_semana;
+        function setTxtHorarioFimSemana($emp_horario_fim_semana){
+            $this->emp_horario_fim_semana=$emp_horario_fim_semana;
         }
-        function setArrDiasSemana($arr_dias_semana){
-            $this->arr_dias_semana=$arr_dias_semana;
+        function setArrDiasSemana($emp_arr_dias_semana){
+            $this->emp_arr_dias_semana=$emp_arr_dias_semana;
         }
-        function setArrHorariosInicio($arr_horarios_inicio){
-            $this->arr_horarios_inicio=$arr_horarios_inicio;
+        function setArrHorariosInicio($emp_arr_horarios_inicio){
+            $this->emp_arr_horarios_inicio=$emp_arr_horarios_inicio;
         }
-        function setArrHorariosFinal($arr_horarios_final){
-            $this->arr_horarios_final=$arr_horarios_final;
+        function setArrHorariosFinal($emp_arr_horarios_final){
+            $this->emp_arr_horarios_final=$emp_arr_horarios_final;
         }
-        function setAberto($aberto){
-            $this->aberto=$aberto;
+        function setAberto($emp_aberto){
+            $this->emp_aberto=$emp_aberto;
         }
-        function setEntregando($entregando){
-            $this->entregando=$entregando;
+        function setEntregando($emp_entregando){
+            $this->emp_entregando=$emp_entregando;
+        }
+        function setTaxaConversaoFidelidade($emp_taxa_conversao_fidelidade){
+            $this->emp_taxa_conversao_fidelidade=$emp_taxa_conversao_fidelidade;
         }
 
         function __construct(){
         }
 
-        function construct($nome, $descricao, $historia, $endereco, $bairro, $cidade, $estado, $cep, $fone ,$whats ,$email ,$facebook ,$instagram ,$pinterest ,$foto){
-            $this->nome=$nome;
-            $this->descricao=$descricao;
-            $this->historia=$historia;
-            $this->endereco=$endereco;
-            $this->bairro=$bairro;
-            $this->cidade=$cidade;
-            $this->estado=$estado;
-            $this->cep=$cep;
-            $this->fone=$fone;
-            $this->whats=$whats;
-            $this->email=$email;
-            $this->facebook=$facebook;
-            $this->instagram=$instagram;
-            $this->pinterest=$pinterest;
-            $this->foto=$foto;
+        function construct($emp_nome, $emp_descricao, $emp_historia, $emp_endereco, $emp_bairro, $emp_cidade, $emp_estado, $emp_cep, $emp_fone ,$emp_whats ,$emp_email ,$emp_facebook ,$emp_instagram ,$emp_pinterest ,$emp_foto){
+            $this->emp_nome=$emp_nome;
+            $this->emp_descricao=$emp_descricao;
+            $this->emp_historia=$emp_historia;
+            $this->emp_endereco=$emp_endereco;
+            $this->emp_bairro=$emp_bairro;
+            $this->emp_cidade=$emp_cidade;
+            $this->emp_estado=$emp_estado;
+            $this->emp_cep=$emp_cep;
+            $this->emp_fone=$emp_fone;
+            $this->emp_whats=$emp_whats;
+            $this->emp_email=$emp_email;
+            $this->emp_facebook=$emp_facebook;
+            $this->emp_instagram=$emp_instagram;
+            $this->emp_pinterest=$emp_pinterest;
+            $this->emp_foto=$emp_foto;
         }
 
-        function constructFuncionamento($dias_semana, $horario_semana,  $dias_fim_semana, $horario_fim_semana, $arr_dias, $arr_horarios_inicio, $arr_horarios_final, $aberto, $entregando){
-            $this->dias_semana=$dias_semana;
-            $this->horario_semana=$horario_semana;
-            $this->dias_fim_semana=$dias_fim_semana;
-            $this->horario_fim_semana=$horario_fim_semana;
-            $this->arr_dias_semana=$arr_dias;
-            $this->arr_horarios_inicio=$arr_horarios_inicio;
-            $this->arr_horarios_final=$arr_horarios_final;
-            $this->aberto=$aberto;
-            $this->entregando=$entregando;
+        function constructFuncionamento($emp_dias_semana, $emp_horario_semana,  $emp_dias_fim_semana, $emp_horario_fim_semana, $emp_arr_dias, $emp_arr_horarios_inicio, $emp_arr_horarios_final, $emp_aberto, $emp_entregando){
+            $this->emp_dias_semana=$emp_dias_semana;
+            $this->emp_horario_semana=$emp_horario_semana;
+            $this->emp_dias_fim_semana=$emp_dias_fim_semana;
+            $this->emp_horario_fim_semana=$emp_horario_fim_semana;
+            $this->emp_arr_dias_semana=$emp_arr_dias;
+            $this->emp_arr_horarios_inicio=$emp_arr_horarios_inicio;
+            $this->emp_arr_horarios_final=$emp_arr_horarios_final;
+            $this->emp_aberto=$emp_aberto;
+            $this->emp_entregando=$emp_entregando;
         }
 
 
         function show(){
-            echo "Código do Empresa:".$this->cod_empresa."<br>";
-            echo "Nome:".$this->nome."<br>";
-            echo "Descrição:".$this->descricao."<br>";
-            echo "História:".$this->historia."<br>";
-            echo "Endereço:".$this->endereco."<br>";
-            echo "Bairro:".$this->bairro."<br>";
-            echo "Cidade:".$this->cidade."<br>";
-            echo "Estado:".$this->estado."<br>";
-            echo "Cep:".$this->cep."<br>";
-            echo "Fone:".$this->fone."<br>";
-            echo "Whats:".$this->whats."<br>";
-            echo "E-mail:".$this->email."<br>";
-            echo "Facebook:".$this->facebook."<br>";
-            echo "Instagram:".$this->instagram."<br>";
-            echo "Pinterest:".$this->pinterest."<br>";
-            echo "Foto:".$this->foto."<br>";
+            echo "Código do Empresa:".$this->emp_pk_id."<br>";
+            echo "Nome:".$this->emp_nome."<br>";
+            echo "Descrição:".$this->emp_descricao."<br>";
+            echo "História:".$this->emp_historia."<br>";
+            echo "Endereço:".$this->emp_endereco."<br>";
+            echo "Bairro:".$this->emp_bairro."<br>";
+            echo "Cidade:".$this->emp_cidade."<br>";
+            echo "Estado:".$this->emp_estado."<br>";
+            echo "Cep:".$this->emp_cep."<br>";
+            echo "Fone:".$this->emp_fone."<br>";
+            echo "Whats:".$this->emp_whats."<br>";
+            echo "E-mail:".$this->emp_email."<br>";
+            echo "Facebook:".$this->emp_facebook."<br>";
+            echo "Instagram:".$this->emp_instagram."<br>";
+            echo "Pinterest:".$this->emp_pinterest."<br>";
+            echo "Foto:".$this->emp_foto."<br>";
         }
     }
 ?>
