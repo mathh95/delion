@@ -1,105 +1,168 @@
-<?php
-/**
- *Classe de definição de banner
- */
-    class banner {
-
-        private $cod_banner;
-        private $nome;
-        private $link;
-        // private $legenda;
-        private $flag_tamanho;
-        private $foto;
-        private $pagina;
-
-
-        function getCod_banner(){
-            return $this->cod_banner;
-        }
-        function getNome(){
-            return $this->nome;
-        }
-        function getLink(){
-            return $this->link;
-        }
-        /*function getLegenda(){
-            return $this->legenda;
-        }*/
-        function getFlag_tamanho(){
-            return $this->flag_tamanho;
-        }
-        function getFotoAbsoluto(){
-            return $this->foto;
-        }
-        function getFoto(){
-            $pos = strpos($this->foto, "upload");
-            return substr($this->foto, $pos);
-        }
-        function getPagina(){
-            return $this->pagina;
-        }
-
-        function setCod_banner($cod_banner){
-            $this->cod_banner=$cod_banner;
-        }
-        function setNome($nome){
-            $this->nome=$nome;
-        }
-        function setLink($link){
-            $this->link=$link;
-        }
-        /*function setLegenda($legenda){
-            $this->legenda=$legenda;
-        }*/
-        function setFlag_tamanho($flag_tamanho){
-            $this->flag_tamanho=$flag_tamanho;
-        }
-        function setFoto($foto){
-            $this->foto=$foto;
-        }
-        function setPagina($pagina){
-            $this->pagina=$pagina;
-        }
-        function getDsPagina(){
-            $paginas=json_decode($this->pagina);
-            $tela = "";
-            foreach ($paginas as $pagina) {
-                if ($pagina == "inicialInferior") {
-                    $tela .= "Inicial Inferior</br>";
-                } elseif ($pagina == "inicialSuperior") {
-                    $tela .= "Inicial Superior</br>";
-                } elseif ($pagina == "localizacao") {
-                    $tela .= "Localização</br>";
-                }elseif ($pagina == "cardapio") {
-                    $tela .= "Cardápio</br>";
-                }elseif ($pagina == "historia") {
-                    $tela .= "História</br>";
-                }else {
-                    $tela .= ucfirst($pagina)."</br>";
-                }
-            }
-            return $tela;
-        }
-
-        function __construct(){
-        }
-        function construct($nome,$link/*,$legenda*/,$flag_tamanho,$foto,$pagina){
-            $this->nome=$nome;
-            $this->link=$link;
-            // $this->legenda=$legenda;
-            $this->flag_tamanho=$flag_tamanho;
-            $this->foto=$foto;
-            $this->pagina=$pagina;
-        }
-        function show(){
-            echo "Código do banner:".$this->cod_banner."<br>";
-            echo "Nome:".$this->nome."<br>";
-            echo "Link:".$this->link."<br>";
-            // echo "Legenda:".$this->legenda."<br>";
-            echo "Flag tamanho:".$this->flag_tamanho."<br>";
-            echo "Foto:".$this->foto."<br>";
-            echo "Página:".$this->pagina."<br>";
-
-        }
-    }
-?>
+<?php
+
+/**
+
+ *Classe de definição de banner
+
+ */
+
+    class banner {
+
+
+
+        private $emp_pk_id;
+        private $emp_nome;
+        private $emp_link;
+        private $emp_legenda;
+        private $emp_flag_tamanho;
+        private $emp_foto;
+        private $emp_pagina;
+
+
+        function getPkId(){
+            return $this->emp_pk_id;
+        }
+
+        function getNome(){
+            return $this->emp_nome;
+        }
+
+        function getLink(){
+            return $this->emp_link;
+        }
+
+        function getLegenda(){
+            return $this->emp_legenda;
+        }
+
+        function getFlag_tamanho(){
+            return $this->emp_flag_tamanho;
+        }
+
+        function getFotoAbsoluto(){
+            return $this->emp_foto;
+        }
+
+        function getFoto(){
+            $pos = strpos($this->emp_foto, "upload");
+            return substr($this->emp_foto, $pos);
+        }
+
+        function getPagina(){
+            return $this->emp_pagina;
+        }
+
+        function setPkId($emp_pk_id){
+            $this->emp_pk_id=$emp_pk_id;
+        }
+
+        function setNome($emp_nome){
+            $this->emp_nome=$emp_nome;
+        }
+
+        function setLink($emp_link){
+            $this->emp_link=$emp_link;
+        }
+
+        function setLegenda($emp_legenda){
+            $this->emp_legenda=$emp_legenda;
+        }
+
+        function setFlag_tamanho($emp_flag_tamanho){
+            $this->emp_flag_tamanho=$emp_flag_tamanho;
+        }
+
+        function setFoto($emp_foto){
+            $this->emp_foto=$emp_foto;
+        }
+
+        function setPagina($emp_pagina){
+            $this->emp_pagina=$emp_pagina;
+        }
+
+
+        function getDsPagina(){
+
+            $paginas=json_decode($this->emp_pagina);
+
+            $tela = "";
+
+            foreach ($paginas as $pagina) {
+
+                if ($pagina == "inicialInferior") {
+
+                    $tela .= "Inicial Inferior</br>";
+
+                } elseif ($pagina == "inicialSuperior") {
+
+                    $tela .= "Inicial Superior</br>";
+
+                } elseif ($pagina == "localizacao") {
+
+                    $tela .= "Localização</br>";
+
+                }elseif ($pagina == "cardapio") {
+
+                    $tela .= "Cardápio</br>";
+
+                }elseif ($pagina == "historia") {
+
+                    $tela .= "História</br>";
+
+                }else {
+
+                    $tela .= ucfirst($pagina)."</br>";
+
+                }
+
+            }
+
+            return $tela;
+
+        }
+
+
+
+        function __construct(){
+
+        }
+
+        function construct($emp_nome,$emp_link/*,$emp_legenda*/,$emp_flag_tamanho,$emp_foto,$emp_pagina){
+
+            $this->emp_nome=$emp_nome;
+
+            $this->emp_link=$emp_link;
+
+            // $this->emp_legenda=$emp_legenda;
+
+            $this->emp_flag_tamanho=$emp_flag_tamanho;
+
+            $this->emp_foto=$emp_foto;
+
+            $this->emp_pagina=$emp_pagina;
+        }
+
+        function show(){
+
+            echo "Código do banner:".$this->emp_pk_id."<br>";
+
+            echo "Nome:".$this->emp_nome."<br>";
+
+            echo "Link:".$this->emp_link."<br>";
+
+            // echo "Legenda:".$this->emp_legenda."<br>";
+
+            echo "Flag tamanho:".$this->emp_flag_tamanho."<br>";
+
+            echo "Foto:".$this->emp_foto."<br>";
+
+            echo "Página:".$this->emp_pagina."<br>";
+
+
+
+        }
+
+    }
+
+?>
+
