@@ -5,7 +5,7 @@
 	// mysql_set_charset('utf8');
 	// date_default_timezone_set('America/Sao_Paulo');
 
-	include_once "controlCardapio.php";
+	include_once "controlProduto.php";
 	include_once "controlCategoria.php";
 	include_once "../model/cardapio.php";
 	include_once "../lib/alert.php";

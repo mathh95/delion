@@ -37,17 +37,17 @@
             <div>
                 <p class="semana">
                     <?php
-                        if(strlen($empresa->getDiasSemana()) > 1)
-                            echo '<i class="far fa-calendar-alt"></i>&nbsp;'. $empresa->getDiasSemana().'<br>';
+                        if(strlen($empresa->getTxtDiasSemana()) > 1)
+                            echo '<i class="far fa-calendar-alt"></i>&nbsp;'. $empresa->getTxtDiasSemana().'<br>';
                             
-                        if(strlen($empresa->getHorarioSemana()) > 1 )
-                            echo '<i class="fas fa-clock"></i>&nbsp;'.$empresa->getHorarioSemana().'</p>';
+                        if(strlen($empresa->getTxtHorarioSemana()) > 1 )
+                            echo '<i class="fas fa-clock"></i>&nbsp;'.$empresa->getTxtHorarioSemana().'</p>';
                             
-                        if(strlen($empresa->getDiasFimSemana()) > 1 )
-                            echo '<p class="fim-semana"><i class="far fa-calendar-alt"></i>&nbsp;'.$empresa->getDiasFimSemana().'<br>';
+                        if(strlen($empresa->getTxtDiasFimSemana()) > 1 )
+                            echo '<p class="fim-semana"><i class="far fa-calendar-alt"></i>&nbsp;'.$empresa->getTxtDiasFimSemana().'<br>';
                             
-                        if(strlen($empresa->getHorarioFimSemana()) > 1 )
-                            echo '<i class="fas fa-clock"></i>&nbsp;'. $empresa->getHorarioFimSemana().'</p>';
+                        if(strlen($empresa->getTxtHorarioFimSemana()) > 1 )
+                            echo '<i class="fas fa-clock"></i>&nbsp;'. $empresa->getTxtHorarioFimSemana().'</p>';
                         
                     ?>
             </div>

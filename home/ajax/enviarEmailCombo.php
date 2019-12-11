@@ -9,7 +9,7 @@ require_once "../controler/controlAdicional.php";
 
 require_once "../controler/controlCombo.php";
 
-require_once "../controler/controlCardapio.php";
+require_once "../controler/controlProduto.php";
 
 require_once "../controler/controlEndereco.php";
 

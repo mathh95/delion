@@ -1,7 +1,7 @@
 <?php 
 	include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 	include_once CONTROLLERPATH."/seguranca.php";
-	include_once CONTROLLERPATH."/controlCardapio.php";
+	include_once CONTROLLERPATH."/controlProduto.php";
 	include_once MODELPATH."/cardapio.php";
 	protegePagina();
 	if (in_array('cardapio', json_decode($_SESSION['permissao']))) {

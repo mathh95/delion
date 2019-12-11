@@ -3,7 +3,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 include_once CONTROLLERPATH."/controlUsuario.php";
 include_once MODELPATH."/usuario.php";
 include_once CONTROLLERPATH."/seguranca.php";
-include_once CONTROLLERPATH."/controlCardapio.php";
+include_once CONTROLLERPATH."/controlProduto.php";
 include_once MODELPATH."/cardapio.php";
 
 $_SESSION['permissaoPagina']=0;

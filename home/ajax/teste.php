@@ -11,7 +11,7 @@ session_start();
 
 // require_once "../controler/controlCarrinho.php";
 
-// require_once "../controler/controlCardapio.php";
+// require_once "../controler/controlProduto.php";
 
 // include_once "../lib/alert.php";
  $id = 0;

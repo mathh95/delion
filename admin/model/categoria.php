@@ -4,52 +4,52 @@
  */
     class categoria {
 
-        private $cod_categoria;
-        private $nome;
-        private $icone;
-        private $posicao;
+        private $cat_pk_id;
+        private $cat_nome;
+        private $cat_icone;
+        private $cat_posicao;
 
 
-        function getCod_categoria(){
-            return $this->cod_categoria;
+        function getPkId(){
+            return $this->cat_pk_id;
         }
         function getNome(){
-            return $this->nome;
+            return $this->cat_nome;
         }
         function getIconeAbsoluto(){
-            return $this->icone;
+            return $this->cat_icone;
         }
         function getIcone(){
-            $pos = strpos($this->icone, "upload");
-            return substr($this->icone, $pos);
+            $pos = strpos($this->cat_icone, "upload");
+            return substr($this->cat_icone, $pos);
         }
         function getPosicao(){
-            return $this->posicao;
+            return $this->cat_posicao;
         }
 
-        function setCod_categoria($cod_categoria){
-            $this->cod_categoria=$cod_categoria;
+        function setPkId($cat_pk_id){
+            $this->cat_pk_id=$cat_pk_id;
         }
-        function setNome($nome){
-            $this->nome=$nome;
+        function setNome($cat_nome){
+            $this->cat_nome=$cat_nome;
         }
-        function setIcone($icone){
-            $this->icone=$icone;
+        function setIcone($cat_icone){
+            $this->cat_icone=$cat_icone;
         }
-        function setPosicao($posicao){
-            $this->posicao=$posicao;
+        function setPosicao($cat_posicao){
+            $this->cat_posicao=$cat_posicao;
         }
 
         function __construct(){
         }
-        function construct($nome, $icone){
-            $this->nome=$nome;
-            $this->icone=$icone;
+        function construct($cat_nome, $cat_icone){
+            $this->cat_nome=$cat_nome;
+            $this->cat_icone=$cat_icone;
         }
         function show(){
-            echo "Código do categoria:".$this->cod_categoria."<br>";
-            echo "Nome:".$this->nome."<br>";
-            echo "Ícone:".$this->icone."<br>";
+            echo "Código do categoria:".$this->cat_pk_id."<br>";
+            echo "Nome:".$this->cat_nome."<br>";
+            echo "Ícone:".$this->cat_icone."<br>";
         }
     }
 ?>

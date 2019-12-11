@@ -4,7 +4,7 @@ die('cade');
     /*mysql_set_charset('utf8');
     date_default_timezone_set('America/Sao_Paulo');
 
-    include_once "../admin/controler/controlCardapio.php";
+    include_once "../admin/controler/controlProduto.php";
     include_once "../admin/controler/controlCategoria.php";
     include_once "../lib/alert.php";
     // Verifica se foi feita alguma busca

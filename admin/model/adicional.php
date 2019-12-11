@@ -2,63 +2,63 @@
 
     class adicional{
 
-        private $cod_adicional;
+        private $adi_pk_id;
 
-        private $nome;
+        private $adi_nome;
 
-        private $preco;
+        private $adi_preco;
 
-        private $desconto;
+        private $adi_desconto;
 
-        private $flag_ativo;
+        private $adi_flag_ativo;
 
-        function getCod_adicional(){
-            return $this->cod_adicional;
+        function getPkId(){
+            return $this->adi_pk_id;
         }
 
         function getNome(){
-            return $this->nome;
+            return $this->adi_nome;
         }
 
         function getPreco(){
-            return $this->preco;
+            return $this->adi_preco;
         }
 
         function getDesconto(){
-            return $this->desconto;
+            return $this->adi_desconto;
         }
 
         function getFlag_ativo(){
-            return $this->flag_ativo;
+            return $this->adi_flag_ativo;
         }
 
-        function setCod_adicional($cod_adicional){
-            $this->cod_adicional = $cod_adicional;
+        function setPkId($adi_pk_id){
+            $this->adi_pk_id = $adi_pk_id;
         }
 
-        function setNome($nome){
-            $this->nome = $nome;
+        function setNome($adi_nome){
+            $this->adi_nome = $adi_nome;
         }
 
-        function setPreco($preco){
-            $this->preco = $preco;
+        function setPreco($adi_preco){
+            $this->adi_preco = $adi_preco;
         }
 
-        function setDesconto($desconto){
-            $this->desconto = $desconto;
+        function setDesconto($adi_desconto){
+            $this->adi_desconto = $adi_desconto;
         }
 
-        function setFlag_ativo($flag_ativo){
-            $this->flag_ativo = $flag_ativo;
+        function setFlag_ativo($adi_flag_ativo){
+            $this->adi_flag_ativo = $adi_flag_ativo;
         }
 
         function __construct(){}
 
-        function construct($nome, $preco, $desconto, $flag_ativo){
-            $this->nome = $nome;
-            $this->preco = $preco;
-            $this->desconto = $desconto;
-            $this->flag_ativo = $flag_ativo;
+        function construct($adi_nome, $adi_preco, $adi_desconto, $adi_flag_ativo){
+            $this->nome = $adi_nome;
+            $this->preco = $adi_preco;
+            $this->desconto = $adi_desconto;
+            $this->flag_ativo = $adi_flag_ativo;
         }
     }
 

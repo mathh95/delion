@@ -8,23 +8,11 @@
 
         private $pdo;
 
-
-
         /*
-
-
-
           modo: 1-Nome, 2-id
-
-
-
         */
 
-
-
         function select($parametro,$modo){
-
-            $stmte;
 
             $categoria= new categoria();
 
@@ -32,13 +20,13 @@
 
                 if($modo==1){
 
-                    $stmte = $this->pdo->prepare("SELECT * FROM categoria WHERE nome LIKE :parametro");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_categoria WHERE cat_nome LIKE :parametro");
 
                     $stmte->bindValue(":parametro", $parametro . "%" , PDO::PARAM_STR);
 
                 }elseif ($modo==2) {
 
-                    $stmte = $this->pdo->prepare("SELECT * FROM categoria WHERE cod_categoria = :parametro");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_categoria WHERE cat_pk_id = :parametro");
 
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
 
@@ -50,11 +38,11 @@
 
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
 
-                            $categoria->setCod_categoria($result->cod_categoria);
+                            $categoria->setPkId($result->cat_pk_id);
 
-                            $categoria->setNome($result->nome);
+                            $categoria->setNome($result->cat_nome);
 
-                            $categoria->setIcone($result->icone);
+                            $categoria->setIcone($result->cat_icone);
 
                         }
 
@@ -79,15 +67,15 @@
         function selectAllByPos(){
             $categorias = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM categoria ORDER BY posicao ASC");
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_categoria ORDER BY cat_posicao ASC");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
                             $categoria= new categoria();
-                            $categoria->setCod_categoria($result->cod_categoria);
-                            $categoria->setNome($result->nome);
-                            $categoria->setIcone($result->icone);
-                            $categoria->setPosicao($result->posicao);
+                            $categoria->setPkId($result->cat_pk_id);
+                            $categoria->setNome($result->cat_nome);
+                            $categoria->setIcone($result->cat_icone);
+                            $categoria->setPosicao($result->cat_posicao);
                             array_push($categorias, $categoria);
                         }
                     }
@@ -101,13 +89,11 @@
 
         function selectAll(){
 
-            $stmte;
-
             $categorias = array();
 
             try{
 
-                $stmte = $this->pdo->prepare("SELECT * FROM categoria ORDER BY nome ASC");
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_categoria ORDER BY cat_nome ASC");
 
                 if($stmte->execute()){
 
@@ -117,11 +103,11 @@
 
                             $categoria= new categoria();
 
-                            $categoria->setCod_categoria($result->cod_categoria);
+                            $categoria->setPkId($result->cat_pk_id);
 
-                            $categoria->setNome($result->nome);
+                            $categoria->setNome($result->cat_nome);
 
-                            $categoria->setIcone($result->icone);
+                            $categoria->setIcone($result->cat_icone);
 
                             array_push($categorias, $categoria);
 
@@ -147,11 +133,9 @@
 
         function countCategoria(){
 
-            $stmte;
-
             try{
 
-                $stmte = $this->pdo->prepare("SELECT COUNT(*) AS categorias FROM categoria");
+                $stmte = $this->pdo->prepare("SELECT COUNT(*) AS categorias FROM tb_categoria");
 
                 $stmte->execute();
 
@@ -166,19 +150,12 @@
                 echo $e->getMessage();
 
                 return -1;
-
             }
-
         }
-
-
 
         function __construct($pdo){
-
             $this->pdo=$pdo;
-
         }
-
     }
 
 ?>

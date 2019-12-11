@@ -8,7 +8,7 @@
 
     include_once CONTROLLERPATH."/seguranca.php";
 
-    include_once CONTROLLERPATH."/controlCardapio.php";
+    include_once CONTROLLERPATH."/controlProduto.php";
 
     include_once MODELPATH."/cardapio.php";
 
@@ -18,9 +18,9 @@
 
     include_once MODELPATH."/categoria.php";
 
-    include_once CONTROLLERPATH."/controlCardapioHoras.php";
+    include_once CONTROLLERPATH."/controlProdutoHoras.php";
 
-    include_once CONTROLLERPATH."/controlCardapioTurno.php";
+    include_once CONTROLLERPATH."/controlProdutoTurno.php";
 
     include_once MODELPATH."/cardapio_horas.php";
 

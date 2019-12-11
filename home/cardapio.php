@@ -72,13 +72,13 @@
 			foreach ($categorias as $key => $categoria) {
 				
 				if($key == 0){
-					echo "<a class= 'item-categoria active' href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
+					echo "<a class= 'item-categoria active' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()."'>
 							<img src='../admin/".$categoria->getIcone()."'>
 						<div>".$categoria->getNome()."</div>
 
 					</a>";
 				}else{
-					echo "<a class= 'item-categoria' href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
+					echo "<a class= 'item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()."'>
 							<img src='../admin/".$categoria->getIcone()."'>
 						<div>".$categoria->getNome()."</div>
 
@@ -151,7 +151,7 @@
 		$('.item-categoria').on('click', function(){
 			
 			var $this = $(this);
-			var cod_categoria = $this.data('id');
+			var PkId = $this.data('id');
 
 			// cor
 			$('.active').removeClass('active');

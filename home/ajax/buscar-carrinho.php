@@ -8,7 +8,7 @@ date_default_timezone_set('America/Sao_Paulo');
 
 include_once "../../admin/controler/conexao.php";
 
-require_once "../controler/controlCardapio.php";
+require_once "../controler/controlProduto.php";
 
 include_once "../lib/alert.php";
 
