@@ -4,126 +4,150 @@
      */
         class cliente{
 
-            private $cod_cliente;
+            private $cli_pk_id;
 
-            private $nome;
-
-            private $sobrenome;
-
-            private $cpf;
-
-            private $data_nasc;
-
-            private $login;
-
-            private $senha;
+            private $cli_cpf;
+                        
+            private $cli_nome;
             
-            private $telefone;
+            private $cli_sobrenome;
 
-            private $status;
+            private $cli_login_email;
+            
+            private $cli_senha;
+            
+            private $cli_telefone;
+            
+            private $cli_data_nasc;
 
-            private $idGoogle;
+            private $cli_status;
 
-            private $idFacebook;
+            private $cli_idGoogle;
 
-            function getCod_cliente(){
-                return $this->cod_cliente;
+            private $cli_idFacebook;
+            
+            private $cli_pontos_fidelidade;
+
+            private $cli_fk_empresa;
+
+
+
+            function getPkId(){
+                return $this->cli_pk_id;
             }
 
             function getNome(){
-                return $this->nome;
+                return $this->cli_cli_nome;
             }
 
             function getSobrenome(){
-                return $this->sobrenome;
+                return $this->cli_sobrenome;
             }
 
             function getCpf(){
-                return $this->cpf;
+                return $this->cli_cpf;
             }
 
             function getData_nasc(){
-                return $this->data_nasc;
+                return $this->cli_data_nasc;
             }
 
             function getLogin(){
-                return $this->login;
+                return $this->cli_login_email;
             }
 
             function getSenha(){
-                return $this->senha;
+                return $this->cli_senha;
             }
 
             function getTelefone(){
-                return $this->telefone;
+                return $this->cli_telefone;
             }
             
             function getStatus(){
-                return $this->status;
+                return $this->cli_status;
             }
             
             function getIdFacebook(){
-                return $this->idFacebook;
-            }
-
-            function setCod_cliente($cod_cliente){
-                $this->cod_cliente = $cod_cliente;
-            }
-
-            function setNome($nome){
-                $this->nome = $nome;
-            }
-
-            function setSobrenome($sobrenome){
-                $this->sobrenome = $sobrenome;
-            }
-
-            function setCpf($cpf){
-                $this->cpf = $cpf;
-            }
-
-            function setData_nasc($data_nasc){
-                $this->data_nasc = $data_nasc;
-            }
-
-            function setLogin($login){
-                $this->login = $login;
-            }
-
-            function setSenha($senha){
-                $this->senha = $senha;
-            }
-
-            function setTelefone($telefone){
-                $this->telefone = $telefone;
-            }
-
-            function setStatus($status){
-                $this->status= $status;
-            }
-
-            function setIdGoogle($idGoogle){
-                $this->idGoogle = $idGoogle;
+                return $this->cli_idFacebook;
             }
 
             function getIdGoogle(){
-                return $this->idGoogle;
+                return $this->cli_idGoogle;
             }
 
-            function setIdFacebook($idFacebook){
-                $this->idFacebook=$idFacebook;
+            function getPontosFidelidade(){
+                return $this->cli_pontos_fidelidade;
+            }
+
+            function getFkEmpresa(){
+                return $this->cli_fk_empresa;
             }
 
 
-            function construct($nome,$sobrenome,$cpf,$data_nasc,$login,$senha,$telefone,$status){
-                $this->nome=$nome;
-                $this->sobrenome=$sobrenome;
-                $this->cpf=$cpf;
-                $this->data_nasc=$data_nasc;
-                $this->login=$login;
-                $this->senha=$senha;
-                $this->telefone=$telefone;
-                $this->status=$status;
+
+            function setPkId($cli_pk_id){
+                $this->cli_pk_id = $cli_pk_id;
+            }
+
+            function setNome($cli_nome){
+                $this->cli_nome = $cli_nome;
+            }
+
+            function setSobrenome($cli_sobrenome){
+                $this->cli_sobrenome = $cli_sobrenome;
+            }
+
+            function setCpf($cli_cpf){
+                $this->cli_cpf = $cli_cpf;
+            }
+
+            function setData_nasc($cli_data_nasc){
+                $this->cli_data_nasc = $cli_data_nasc;
+            }
+
+            function setLogin($cli_login){
+                $this->cli_login = $cli_login;
+            }
+
+            function setSenha($cli_senha){
+                $this->cli_senha = $cli_senha;
+            }
+
+            function setTelefone($cli_telefone){
+                $this->cli_telefone = $cli_telefone;
+            }
+
+            function setStatus($cli_status){
+                $this->cli_status= $cli_status;
+            }
+
+            function setIdGoogle($cli_idGoogle){
+                $this->cli_idGoogle = $cli_idGoogle;
+            }
+
+            function setIdFacebook($cli_idFacebook){
+                $this->cli_idFacebook = $cli_idFacebook;
+            }
+
+            function setPontosFidelidade($cli_pontos_fidelidade){
+                $this->cli_pontos_fidelidade = $cli_pontos_fidelidade;
+            }
+
+            function setFkEmpresa($cli_fk_empresa){
+                $this->cli_fk_empresa = $cli_fk_empresa;
+            }
+
+
+            function construct($cli_nome,$cli_sobrenome,$cli_cpf,$cli_data_nasc,$cli_login,$cli_senha,$cli_telefone,$cli_status){
+                $this->cli_nome=$cli_nome;
+                $this->cli_sobrenome=$cli_sobrenome;
+                $this->cli_cpf=$cli_cpf;
+                $this->cli_data_nasc=$cli_data_nasc;
+                $this->cli_login=$cli_login;
+                $this->cli_senha=$cli_senha;
+                $this->cli_telefone=$cli_telefone;
+                $this->cli_status=$cli_status;
             }
 
             function __construct(){
@@ -131,14 +155,14 @@
             }
 
             function show(){
-                echo "Código do Cliente: ".$this->cod_cliente."<br>";
-                echo "Nome: ".$this->nome."<br>";
-                echo "Sobrenome: ".$this->sobrenome."<br>";
-                echo "Cpf: ".$this->cpf."<br>";
-                echo "Data Nasc: ".$this->data_nasc."<br>";
-                echo "Login: ".$this->login."<br>";
-                echo "Senha: ".$this->senha."<br>";
-                echo "Telefone: ".$this->telefone."<br>";
+                echo "Código do Cliente: ".$this->cli_pk_id."<br>";
+                echo "Nome: ".$this->cli_nome."<br>";
+                echo "Sobrenome: ".$this->cli_sobrenome."<br>";
+                echo "Cpf: ".$this->cli_cpf."<br>";
+                echo "Data Nasc: ".$this->cli_data_nasc."<br>";
+                echo "Login: ".$this->cli_login."<br>";
+                echo "Senha: ".$this->cli_senha."<br>";
+                echo "Telefone: ".$this->cli_telefone."<br>";
             }
         }
 ?>

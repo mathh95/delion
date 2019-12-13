@@ -15,7 +15,7 @@
                     $senha=hash_hmac("md5",$cliente->getSenha(), "senha");
                     $telefone=$cliente->getTelefone();
                     $status=$cliente->getStatus();
-                    $stmt=$this->pdo->prepare("INSERT INTO cliente(nome, sobrenome, cpf, data_nasc, login, senha, telefone, status)
+                    $stmt=$this->pdo->prepare("INSERT INTO tb_cliente(cli_nome, cli_sobrenome, cli_cpf, cli_data_nasc, cli_login_email, cli_senha, cli_telefone, cli_status)
                     VALUES (:nome, :sobrenome, :cpf, :data_nasc, :login, :senha, :telefone, :status) ");
                     $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
                     $stmt->bindParam(":sobrenome", $sobrenome, PDO::PARAM_STR);
@@ -53,7 +53,7 @@
                     $idGoogle = $cliente->getIdGoogle();
                     $status = $cliente->getStatus();
 
-                    $stmt = $this->pdo->prepare("INSERT INTO cliente(nome, login, status, id_google) VALUES (:nome, :login, :status, :idGoogle)");
+                    $stmt = $this->pdo->prepare("INSERT INTO tb_cliente(cli_nome, cli_login_email, cli_status, cli_id_google) VALUES (:nome, :login, :status, :idGoogle)");
                     $stmt->bindValue(":nome", $nome);
                     $stmt->bindValue(":login", $login);
                     $stmt->bindValue(":status", $status);
@@ -79,7 +79,7 @@
                     $idFacebook = $cliente->getIdFacebook();
                     $status = $cliente->getStatus();
 
-                    $stmt = $this->pdo->prepare("INSERT INTO cliente (nome, login, status, id_facebook) VALUES (:nome, :login, :status, :idFacebook)");
+                    $stmt = $this->pdo->prepare("INSERT INTO tb_cliente (cli_nome, cli_login_email, cli_status, cli_id_facebook) VALUES (:nome, :login, :status, :idFacebook)");
                     $stmt->bindParam("nome", $nome, PDO::PARAM_STR);
                     $stmt->bindParam("login", $login, PDO::PARAM_STR);
                     $stmt->bindParam("status", $status, PDO::PARAM_INT);
@@ -100,20 +100,20 @@
 
             function update($cliente){
                 try{
-                    $cod_cliente=$cliente->getCod_cliente();
+                    $cli_pk_id=$cliente->getPkId();
                     $nome=$cliente->getNome();
                     $sobrenome=$cliente->getSobrenome();
                     // $cpf=$cliente->getCpf();
                     // $data_nasc=$cliente->getData_nasc();
                     $login=$cliente->getLogin();
                     $telefone=$cliente->getTelefone();
-                    $stmt=$this->pdo->prepare("UPDATE cliente
-                    SET nome=:nome, sobrenome=:sobrenome, login=:login, telefone=:telefone WHERE cod_cliente=:cod_cliente ");
+                    $stmt=$this->pdo->prepare("UPDATE tb_cliente
+                    SET cli_nome=:nome, cli_sobrenome=:sobrenome, cli_login_email=:login, cli_telefone=:telefone WHERE cli_pk_id=:cli_pk_id ");
                     $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
                     $stmt->bindParam(":sobrenome", $sobrenome, PDO::PARAM_STR);
                     $stmt->bindParam(":login", $login, PDO::PARAM_STR);
                     $stmt->bindParam(":telefone", $telefone, PDO::PARAM_STR);
-                    $stmt->bindParam(":cod_cliente", $cod_cliente, PDO::PARAM_STR);
+                    $stmt->bindParam(":cli_pk_id", $cli_pk_id, PDO::PARAM_STR);
 
                     $executa=$stmt->execute();
 
@@ -130,39 +130,42 @@
                 }
             }
 
-            function updateFacebook($cod_cliente,$idFacebook){
+            function updateFacebook($cli_pk_id, $idFacebook){
                 try{
-                    $stmt=$this->pdo->prepare("UPDATE cliente SET id_facebook=:idFacebook WHERE cod_cliente=:cod_cliente");
+                    $stmt=$this->pdo->prepare("UPDATE tb_cliente SET cli_id_facebook=:idFacebook WHERE cli_pk_id=:cli_pk_id");
                     $stmt->bindParam(":idFacebook", $idFacebook, PDO::PARAM_STR);
-                    $stmt->bindParam(":cod_cliente", $cod_cliente, PDO::PARAM_INT);
+                    $stmt->bindParam(":cli_pk_id", $cli_pk_id, PDO::PARAM_INT);
                     $executa=$stmt->execute();
+
                     if ($executa){
                         return 1;
                     }else{
                         return -1;
                     }
+
                 }catch(PDOException $e){
                     echo $e->getMessage();
                     return -1;
                 }
             }
+
             function selectAll(){
                 try{
                     $clientes = array();
-                    $stmt=$this->pdo->prepare("SELECT * FROM cliente ORDER BY status DESC");
+                    $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente ORDER BY cli_status DESC");
                     $executa= $stmt->execute();
                     if ($executa){
                         if ($stmt->rowCount() > 0 ){
                             while($result=$stmt->fetch(PDO::FETCH_OBJ)){
                                 $cliente = new cliente();
-                                $cliente->setCod_cliente($result->cod_cliente);
-                                $cliente->setLogin($result->login);
-                                $cliente->setNome($result->nome);
-                                $cliente->setSobrenome($result->sobrenome);
-                                $cliente->setCpf($result->cpf);
-                                $cliente->setData_nasc($result->data_nasc);
-                                $cliente->setTelefone($result->telefone);
-                                $cliente->setStatus($result->status);
+                                $cliente->setPkId($result->cli_pk_id);
+                                $cliente->setLogin($result->cli_login_email_email);
+                                $cliente->setNome($result->cli_nome);
+                                $cliente->setSobrenome($result->cli_sobrenome);
+                                $cliente->setCpf($result->cli_cpf);
+                                $cliente->setData_nasc($result->cli_data_nasc);
+                                $cliente->setTelefone($result->cli_telefone);
+                                $cliente->setStatus($result->cli_status);
                                 array_push($clientes,$cliente);
                             }
                         }else{
@@ -184,20 +187,20 @@
             function selectAllAtivos(){
                 try{
                     $clientes = array();
-                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE status = 1 ORDER by nome");
+                    $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_status = 1 ORDER by cli_nome");
                     $executa= $stmt->execute();
                     if ($executa){
                         if ($stmt->rowCount() > 0 ){
                             while($result=$stmt->fetch(PDO::FETCH_OBJ)){
                                 $cliente = new cliente();
-                                $cliente->setCod_cliente($result->cod_cliente);
-                                $cliente->setLogin($result->login);
-                                $cliente->setNome($result->nome);
-                                $cliente->setSobrenome($result->sobrenome);
-                                $cliente->setCpf($result->cpf);
-                                $cliente->setData_nasc($result->data_nasc);
-                                $cliente->setTelefone($result->telefone);
-                                $cliente->setStatus($result->status);
+                                $cliente->setPkId($result->cli_pk_id);
+                                $cliente->setLogin($result->cli_login_email_email);
+                                $cliente->setNome($result->cli_nome);
+                                $cliente->setSobrenome($result->cli_sobrenome);
+                                $cliente->setCpf($result->cli_cpf);
+                                $cliente->setData_nasc($result->cli_data_nasc);
+                                $cliente->setTelefone($result->cli_telefone);
+                                $cliente->setStatus($result->cli_status);
                                 array_push($clientes,$cliente);
                             }
                         }else{
@@ -217,39 +220,39 @@
             }
 
             function select($parametro,$modo){
-                $stmt;
+
                 $cliente= new cliente;
                 try{
                     if($modo==1){
                         $nome= "%" . $parametro;
-                        $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE nome LIKE :parametro");
+                        $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_nome LIKE :parametro");
                         $stmt->bindParam(":parametro", $nome, PDO::PARAM_STR);
                     }elseif($modo==2){
-                        $cod_cliente=$parametro;
-                        $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE cod_cliente=:parametro");
-                        $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+                        $cli_pk_id=$parametro;
+                        $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_pk_id=:parametro");
+                        $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
                     }elseif ($modo == 3) {
                         $login = $parametro;
-                        $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE login = :login");
+                        $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_login_email = :login");
                         $stmt->bindParam(":login", $login, PDO::PARAM_STR);
                     }elseif ($modo == 4) {
                         $idFacebook= $parametro;
-                        $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE id_facebook=:parametro");
-                        $stmt->bindParam(":parametro", $parametro, PDO::PARAM_INT);
+                        $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_id_facebook=:parametro");
+                        $stmt->bindParam(":parametro", $idFacebook, PDO::PARAM_INT);
                     }
                     $executa=$stmt->execute();
                     if ($executa){
                         if($stmt->rowCount() > 0){
                             while($result=$stmt->fetch(PDO::FETCH_OBJ)){
-                                $cliente->setCod_cliente($result->cod_cliente);
-                                $cliente->setLogin($result->login);
-                                $cliente->setNome($result->nome);
-                                $cliente->setSobrenome($result->sobrenome);
-                                $cliente->setCpf($result->cpf);
-                                $cliente->setData_nasc($result->data_nasc);
-                                $cliente->setTelefone($result->telefone);
-                                $cliente->setStatus($result->status);
-                                $cliente->setIdFacebook($result->id_facebook);
+                                $cliente->setPkId($result->cli_pk_id);
+                                $cliente->setLogin($result->cli_login_email_email);
+                                $cliente->setNome($result->cli_nome);
+                                $cliente->setSobrenome($result->cli_sobrenome);
+                                $cliente->setCpf($result->cli_cpf);
+                                $cliente->setData_nasc($result->cli_data_nasc);
+                                $cliente->setTelefone($result->cli_telefone);
+                                $cliente->setStatus($result->cli_status);
+                                $cliente->setIdFacebook($result->cli_id_facebook);
                             }
                         }
                         return $cliente;
@@ -264,11 +267,11 @@
             }
 
             function filter($parametro){
-                $stmt;
+
                 $clientes= array();
                 try{
                     $parametro= "%" . $parametro . "%";
-                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE nome LIKE :parametro OR login LIKE :login OR telefone LIKE :telefone");
+                    $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_nome LIKE :parametro OR cli_login_email LIKE :login OR cli_telefone LIKE :telefone");
                     $stmt->bindParam(":parametro", $parametro, PDO::PARAM_STR);
                     $stmt->bindParam(":login", $parametro, PDO::PARAM_STR);
                     $stmt->bindValue(":telefone", $parametro);    
@@ -277,15 +280,15 @@
                         if($stmt->rowCount() > 0){
                             while($result=$stmt->fetch(PDO::FETCH_OBJ)){
                                 $cliente= new cliente;
-                                $cliente->setCod_cliente($result->cod_cliente);
-                                $cliente->setLogin($result->login);
-                                $cliente->setNome($result->nome);
-                                $cliente->setSobrenome($result->sobrenome);
-                                $cliente->setCpf($result->cpf);
-                                $cliente->setData_nasc($result->data_nasc);
-                                $cliente->setTelefone($result->telefone);
-                                $cliente->setStatus($result->status);
-                                $cliente->setIdFacebook($result->id_facebook);
+                                $cliente->setPkId($result->cli_pk_id);
+                                $cliente->setLogin($result->cli_login_email_email);
+                                $cliente->setNome($result->cli_nome);
+                                $cliente->setSobrenome($result->cli_sobrenome);
+                                $cliente->setCpf($result->cli_cpf);
+                                $cliente->setData_nasc($result->cli_data_nasc);
+                                $cliente->setTelefone($result->cli_telefone);
+                                $cliente->setStatus($result->cli_status);
+                                $cliente->setIdFacebook($result->cli_id_facebook);
                                 array_push($clientes, $cliente);
                             }
                         }
@@ -302,10 +305,10 @@
 
             function countCliente(){
                 try{
-                    $stmt=$this->pdo->prepare("SELECT COUNT(*) AS clientes FROM cliente");
+                    $stmt=$this->pdo->prepare("SELECT COUNT(*) AS clientes FROM tb_cliente");
                     $stmt->execute();
                     $result=$stmt->fetch(PDO::FETCH_OBJ);
-                    return $result->clientes;
+                    return $result->cli_clientes;
                 }catch(PDOException $e){
                     echo $e->getMessage();
                     return -1;
@@ -314,30 +317,29 @@
             
             function validaCliente($login,$senha){
                 try{
-                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE login=:login");
+                    $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_login_email=:login");
                     $stmt->bindParam(":login", $login, PDO::PARAM_STR);
                     $executa=$stmt->execute();
                     if ($executa){
                         if($stmt->rowCount()>0){
                             $result=$stmt->fetch(PDO::FETCH_OBJ);
-                            $senhah=$result->senha;
-                            $status = $result->status;
+                            $senhah=$result->cli_senha;
+                            $status = $result->cli_status;
                             $senha=hash_hmac("md5",$senha, "senha");                            
                             if(hash_equals($senha,$senhah) && $status == 1){
-                                $_SESSION['cod_cliente']=$result->cod_cliente;
-                                $_SESSION['nome']=$result->nome;
-                                $_SESSION['sobrenome']=$result->sobrenome;
-                                $_SESSION['login']=$result->login;
-                                $_SESSION['telefone']=$result->telefone;
-                                $_SESSION['cod_status_cliente']=$result->status;
+                                $_SESSION['cod_cliente']=$result->cli_pk_id;
+                                $_SESSION['nome']=$result->cli_nome;
+                                $_SESSION['sobrenome']=$result->cli_sobrenome;
+                                $_SESSION['login']=$result->cli_login_email_email;
+                                $_SESSION['telefone']=$result->cli_telefone;
+                                $_SESSION['cod_status_cliente']=$result->cli_status;
                                 
                                 return 2;
                             }else if( $status == 0){
                                 return 3;
                             }
                         }else{
-                                return 1;
-                            
+                            return 1;
                         }
                         return 0;
                     }
@@ -352,32 +354,32 @@
             //MODO 1 = GOOGLE
             function validaRedeSocial($login,$parametro,$modo){
                 try{
-                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE login=:login");
+                    $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_login_email=:login");
                     $stmt->bindParam(":login", $login, PDO::PARAM_STR);
                     $executa=$stmt->execute();
                     if ($executa){
                         if($stmt->rowCount()>0){
                             $result=$stmt->fetch(PDO::FETCH_OBJ);
                             if($modo == 0){
-                                $idFacebook=$result->id_facebook;
+                                $idFacebook=$result->cli_id_facebook;
                                 if ($parametro == $idFacebook){
-                                    $_SESSION['cod_cliente']=$result->cod_cliente;
-                                    $_SESSION['nome']=$result->nome;
-                                    $_SESSION['sobrenome']=$result->sobrenome;
-                                    $_SESSION['login']=$result->login;
-                                    $_SESSION['telefone']=$result->telefone;
+                                    $_SESSION['cod_cliente']=$result->cli_pk_id;
+                                    $_SESSION['nome']=$result->cli_nome;
+                                    $_SESSION['sobrenome']=$result->cli_sobrenome;
+                                    $_SESSION['login']=$result->cli_login_email_email;
+                                    $_SESSION['telefone']=$result->cli_telefone;
                                     return 2;
                                 }else{
                                     return 1;
                                 }
                             }elseif ($modo == 1) {
-                                $idGoogle=$result->id_google;
+                                $idGoogle=$result->cli_id_google;
                                 if ($parametro == $idGoogle){
-                                    $_SESSION['cod_cliente']=$result->cod_cliente;
-                                    $_SESSION['nome']=$result->nome;
-                                    $_SESSION['sobrenome']=$result->sobrenome;
-                                    $_SESSION['login']=$result->login;
-                                    $_SESSION['telefone']=$result->telefone;
+                                    $_SESSION['cod_cliente']=$result->cli_pk_id;
+                                    $_SESSION['nome']=$result->cli_nome;
+                                    $_SESSION['sobrenome']=$result->cli_sobrenome;
+                                    $_SESSION['login']=$result->cli_login_email_email;
+                                    $_SESSION['telefone']=$result->cli_telefone;
                                     return 2;
                                 }else{
                                     return 1;
@@ -392,29 +394,29 @@
                 }
             }
 
-            function updateSenha($cod_cliente, $senha, $novaSenha){
+            function updateSenha($cli_pk_id, $senha, $novaSenha){
                 try{       
                     $cliente=new cliente;
                     $senha = hash_hmac("md5", $senha, "senha");
                     $novaSenha = hash_hmac("md5", $novaSenha, "senha");         
-                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE cod_cliente=:parametro");
-                    $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+                    $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_pk_id=:parametro");
+                    $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
                     $executa=$stmt->execute();
                     if ($executa){
                         if($stmt->rowCount() > 0){
                             while($result=$stmt->fetch(PDO::FETCH_OBJ)){
-                                $cliente->setCod_cliente($result->cod_cliente);
-                                $cliente->setLogin($result->login);
-                                $cliente->setNome($result->nome);
-                                $cliente->setSobrenome($result->sobrenome);
-                                $cliente->setCpf($result->cpf);
-                                $cliente->setData_nasc($result->data_nasc);
-                                $cliente->setSenha($result->senha);
-                                $cliente->setTelefone($result->telefone);
+                                $cliente->setPkId($result->cli_pk_id);
+                                $cliente->setLogin($result->cli_login_email_email);
+                                $cliente->setNome($result->cli_nome);
+                                $cliente->setSobrenome($result->cli_sobrenome);
+                                $cliente->setCpf($result->cli_cpf);
+                                $cliente->setData_nasc($result->cli_data_nasc);
+                                $cliente->setSenha($result->cli_senha);
+                                $cliente->setTelefone($result->cli_telefone);
                             }
                             if ($cliente->getSenha() == $senha){
-                                $stmt=$this->pdo->prepare("UPDATE cliente SET senha=:novaSenha WHERE cod_cliente=:parametro");
-                                $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+                                $stmt=$this->pdo->prepare("UPDATE tb_cliente SET senha=:novaSenha WHERE cli_pk_id=:parametro");
+                                $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
                                 $stmt->bindParam(":novaSenha", $novaSenha, PDO::PARAM_STR);
                                 $executa=$stmt->execute();
                                 if ($executa){
@@ -437,20 +439,20 @@
                 }
             }
 
-            function updateSenhaEsquecida($cod_cliente, $novaSenha){
+            function updateSenhaEsquecida($cli_pk_id, $novaSenha){
                 try{       
                     $novaSenha = hash_hmac("md5", $novaSenha, "senha");
 
-                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE cod_cliente=:parametro");
-                    $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+                    $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_pk_id=:parametro");
+                    $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
                     
                     $executa=$stmt->execute();
                     if ($executa){
 
                         if($stmt->rowCount() > 0){
 
-                            $stmt=$this->pdo->prepare("UPDATE cliente SET senha=:novaSenha WHERE cod_cliente=:parametro");
-                            $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+                            $stmt=$this->pdo->prepare("UPDATE tb_cliente SET senha=:novaSenha WHERE cli_pk_id=:parametro");
+                            $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
                             $stmt->bindParam(":novaSenha", $novaSenha, PDO::PARAM_STR);
                             $executa=$stmt->execute();
                             if ($executa){
@@ -470,11 +472,11 @@
                 }
             }
 
-            function delete($cod_cliente){
+            function delete($cli_pk_id){
                 try{
                     $status=0;
-                    $parametro=$cod_cliente;
-                    $stmt=$this->pdo->prepare("UPDATE cliente SET status=:status WHERE cod_cliente=:parametro");
+                    $parametro=$cli_pk_id;
+                    $stmt=$this->pdo->prepare("UPDATE tb_cliente SET cli_status=:status WHERE cli_pk_id=:parametro");
                     $stmt->bindParam("status",$status,PDO::PARAM_INT);
                     $stmt->bindParam("parametro",$parametro,PDO::PARAM_INT);
                     $executa=$stmt->execute();
@@ -489,11 +491,11 @@
                 }
             }
 
-            function insertRecuperaSenha($cod_cliente_fk, $cod_recuperacao, $data_expiracao){
+            function insertRecuperaSenha($res_fk_cliente, $cod_recuperacao, $data_expiracao){
                 try{
-                    $stmt=$this->pdo->prepare("INSERT INTO recupera_senha(cod_cliente_fk, cod_recuperacao, data_expiracao)
-                    VALUES (:cod_cliente_fk, :cod_recuperacao, :data_expiracao) ");
-                    $stmt->bindParam(":cod_cliente_fk", $cod_cliente_fk, PDO::PARAM_INT);
+                    $stmt=$this->pdo->prepare("INSERT INTO tb_recupera_senha(res_fk_cliente, cod_recuperacao, data_expiracao)
+                    VALUES (:res_fk_cliente, :cod_recuperacao, :data_expiracao) ");
+                    $stmt->bindParam(":res_fk_cliente", $res_fk_cliente, PDO::PARAM_INT);
                     $stmt->bindParam(":cod_recuperacao", $cod_recuperacao, PDO::PARAM_STR);
                     $stmt->bindParam(":data_expiracao", $data_expiracao, PDO::PARAM_STR);
                     $executa=$stmt->execute();
@@ -514,7 +516,7 @@
             function getCodRecuperacao($cod_recuperacao){
                 try{
 
-                    $stmt=$this->pdo->prepare("SELECT * FROM recupera_senha WHERE cod_recuperacao = :cod_recuperacao");
+                    $stmt=$this->pdo->prepare("SELECT * FROM tb_recupera_senha WHERE res_cod_recuperacao = :cod_recuperacao");
                     $stmt->bindParam(":cod_recuperacao", $cod_recuperacao, PDO::PARAM_STR);
                     $executa=$stmt->execute();
 
@@ -541,7 +543,7 @@
             function setRecuperacao($cod_recuperacao){
                 try{       
 
-                    $stmt=$this->pdo->prepare("UPDATE recupera_senha SET recuperado=1 WHERE cod_recuperacao=:cod_recuperacao");
+                    $stmt=$this->pdo->prepare("UPDATE tb_recupera_senha SET res_recuperado=1 WHERE res_cod_recuperacao=:cod_recuperacao");
                     $stmt->bindParam(":cod_recuperacao", $cod_recuperacao, PDO::PARAM_STR);
                     $executa=$stmt->execute();
                     

@@ -90,8 +90,8 @@
             return $this->emp_foto;
         }
         function getFoto(){
-            $pos = strpos($emp_this->emp_foto, "upload");
-            return substr($emp_this->emp_foto, $pos);
+            $pos = strpos($this->emp_foto, "upload");
+            return substr($this->emp_foto, $pos);
         }
         function getTxtDiasSemana(){
             return $this->emp_txt_dias_semana;
@@ -170,17 +170,17 @@
         function setFoto($emp_foto){
             $this->emp_foto=$emp_foto;
         }
-        function setTxtDiasSemana($emp_dias_semana){
-            $this->emp_dias_semana=$emp_dias_semana;
+        function setTxtDiasSemana($emp_txt_dias_semana){
+            $this->emp_txt_dias_semana=$emp_txt_dias_semana;
         }
-        function setTxtHorarioSemana($emp_horario_semana){
-            $this->emp_horario_semana=$emp_horario_semana;
+        function setTxtHorarioSemana($emp_txt_horario_semana){
+            $this->emp_txt_horario_semana=$emp_txt_horario_semana;
         }
-        function setTxtDiasFimSemana($emp_dias_fim_semana){
-            $this->emp_dias_fim_semana=$emp_dias_fim_semana;
+        function setTxtDiasFimSemana($emp_txt_dias_fim_semana){
+            $this->emp_txt_dias_fim_semana=$emp_txt_dias_fim_semana;
         }
-        function setTxtHorarioFimSemana($emp_horario_fim_semana){
-            $this->emp_horario_fim_semana=$emp_horario_fim_semana;
+        function setTxtHorarioFimSemana($emp_txt_horario_fim_semana){
+            $this->emp_txt_horario_fim_semana=$emp_txt_horario_fim_semana;
         }
         function setArrDiasSemana($emp_arr_dias_semana){
             $this->emp_arr_dias_semana=$emp_arr_dias_semana;
