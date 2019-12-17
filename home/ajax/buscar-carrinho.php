@@ -16,7 +16,7 @@ require_once "../controler/controlCarrinho.php";
 
 include_once "../../admin/controler/controlFormaPgt.php";
 
-include_once "../../admin/model/formaPgt.php";
+include_once "../../admin/model/forma_pgto.php";
 
 include_once "../utils/GoogleServices.php";
 
@@ -31,9 +31,9 @@ include_once "../controler/controlEndereco.php";
 // require_once '../ajax/enviarEmailPedido.php';
 
 $itens = array();
-$cardapio = new controlerCardapio(conecta());
-$cardapioObs = new controlerCardapio(conecta());
+$cardapio = new controlerProduto(conecta());
 $controlEndereco = new controlEndereco(conecta());
+
 $_SESSION['delivery'] = -1;
 $_SESSION['formaPagamento'] = '';
 $controlFormaPgt = new controlerFormaPgt($_SG['link']);
@@ -149,17 +149,17 @@ if (count($itens) > 0) {
 
                     // verifica se item adicionado está disponível
                     if(
-                        $item['dias_semana'] &&
-                        in_array($hoje, json_decode($item['dias_semana'])) &&
-                        ($hora_atual >= $item['horario_inicio'] && $hora_atual < $item['horario_final'])
+                        $item['pro_arr_dias_semana'] &&
+                        in_array($hoje, json_decode($item['pro_arr_dias_semana'])) &&
+                        ($hora_atual >= $item['faho_inicio'] && $hora_atual < $item['faho_final'])
                     ){
                     ?>
                     
-                    <tr id="idLinha<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>" class=<?= ($item['delivery'] == 1) ? "disponivel" : "danger" ?> >
+                    <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_cod_cardapio'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
                         <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
-                        <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['nome'] ?></strong></td>
-                        <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['preco'] ?>"><strong>R$ <?= number_format($item['preco'], 2); ?></strong></td>
-                        <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?=  number_format(($item['preco'] * $_SESSION['qtd'][$key]), 2); ?></strong></td>
+                        <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['pro_nome'] ?></strong></td>
+                        <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
+                        <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?=  number_format(($item['pro_preco'] * $_SESSION['qtd'][$key]), 2); ?></strong></td>
                         <td class="quantidadeProdutoTabela">
                             <input class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" value=<?= $_SESSION['qtd'][$key] ?> readonly="true">
                             <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?= $i ?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
@@ -168,7 +168,7 @@ if (count($itens) > 0) {
                         <td class="nomeProdutoDisponivel">
                         <strong>
                         <?php
-                            if ($item['delivery'] == 1) {
+                            if ($item['pro_flag_delivery'] == 1) {
                                 echo "Disponível";
                             } else {
                                 echo "Não disponível";
@@ -185,10 +185,10 @@ if (count($itens) > 0) {
                     
                     ?>
 
-                        <tr id="idLinha<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>" class=<?= ($item['delivery'] == 1) ? "disponivel" : "danger" ?> >
+                        <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_cod_cardapio'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
                             <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
-                            <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['nome'] ?></strong></td>
-                            <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['preco'] ?>"><strong>R$ <?= number_format($item['preco'], 2); ?></strong></td>
+                            <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['pro_nome'] ?></strong></td>
+                            <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
 
                             <td style="text-align: center;" colspan="3">
                                 Item indisponível no momento! <i class="far fa-surprise"></i>
@@ -201,7 +201,7 @@ if (count($itens) > 0) {
 
                     <?php
 
-                    if ($item['delivery'] != 1) {
+                    if ($item['pro_flag_delivery'] != 1) {
                         $pedidoBalcao = $pedidoBalcao + 1;
                     }
 
@@ -211,7 +211,7 @@ if (count($itens) > 0) {
                     }//end else
 
                     $i++;
-                    $totalCarrinho += $item['preco'] * $_SESSION['qtd'][$key];
+                    $totalCarrinho += $item['pro_preco'] * $_SESSION['qtd'][$key];
 
                     }//foreach
 
@@ -242,10 +242,10 @@ if (count($itens) > 0) {
                                     $obs = $itens_obs[$key];
                                 ?>               
                                 
-                                <div id="idLinhaObs<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>" class="ladoDireito row">    
+                                <div id="idLinhaObs<?= $i ?>" data-id="<?= $item['pro_cod_cardapio'] ?>" class="ladoDireito row">    
                                     <?php
                                     if(!empty($obs)){ ?>
-                                        <span data-linha="<?= $i ?>" style="padding-left: 22px; width: 200px; font-size: 13px; border:none !important"><b><?= $item['nome'] ?></b> : <?= $obs?></span>
+                                        <span data-linha="<?= $i ?>" style="padding-left: 22px; width: 200px; font-size: 13px; border:none !important"><b><?= $item['pro_nome'] ?></b> : <?= $obs?></span>
                                     <?php 
                                     }?>
                                 </div>

@@ -21,7 +21,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 
 $pedido = new controlerCarrinho(conecta());
-$cardapio = new controlerCardapio(conecta());
+$cardapio = new controlerProduto(conecta());
 $mail = new PHPMailer();
 $itens = $_SESSION['carrinho'];
 

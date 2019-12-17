@@ -62,7 +62,7 @@
 		$cardapio= new cardapio();
 		$cardapio->construct($nome, $preco, $desconto, $descricao, $foto, $categoria, $flag_ativo, $flag_servindo ,$prioridade,$delivery, $adicional, $dias_semana, $cardapio_turno, $cardapio_horas_inicio, $cardapio_horas_final);
 		
-		$controle=new controlerCardapio($_SG['link']);
+		$controle=new controlerProduto($_SG['link']);
 		if($controle->insert($cardapio) > -1 && $cardapio_horas_inicio != $cardapio_horas_final && $dias_semana != NULL && $cardapio_horas_inicio != 0 && $cardapio_horas_final != 0 ){
 			msgRedireciona('Cadastro Realizado!','Item do cardápio cadastrado com sucesso!',1,'../view/admin/cardapio.php');
 		}else{

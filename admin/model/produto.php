@@ -4,7 +4,7 @@
  */
     class produto {
 
-        private $pro_cod_cardapio;
+        private $pro_pk_id;
         private $pro_nome;
         private $pro_preco;
         private $pro_desconto;

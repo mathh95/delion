@@ -17,7 +17,7 @@
 		}
 
 		$controle_categoria = new controlerCategoria($_SG['link']);
-		$controle_cardapio = new controlerCardapio($_SG['link']);
+		$controle_cardapio = new controlerProduto($_SG['link']);
 
 		$erro = 0;
 

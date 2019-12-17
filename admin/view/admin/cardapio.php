@@ -10,7 +10,7 @@
 
     include_once CONTROLLERPATH."/controlProduto.php";
 
-    include_once MODELPATH."/cardapio.php";
+    include_once MODELPATH."/produto.php";
 
     include_once CONTROLLERPATH."/controlCategoria.php";
 
@@ -46,11 +46,11 @@
 
     $categorias = $controleCategoria->selectAll();
 
-    $controleTurnos = new controlerCardapioTurno($_SG['link']);
+    $controleTurnos = new controlerProdutoTurno($_SG['link']);
 
     $turnos = $controleTurnos->selectAll();
 
-    $controleHoras = new controlerCardapioHoras($_SG['link']);
+    $controleHoras = new controlerProdutoHoras($_SG['link']);
 
     $horas = $controleHoras->selectAll();
 

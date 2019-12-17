@@ -16,9 +16,8 @@ include_once MODELPATH."/produto.php";
             $array = array();
 
             $sql = 
-                "SELECT *, CSINI.horario AS horario_inicio, CSFIM.horario AS horario_final FROM tb_produto AS CO 
-                INNER JOIN faixa_horario AS CSINI ON PRO.faixa_horario_inicio = CSINI.pro_pk_id_horas 
-                INNER JOIN faixa_horario AS CSFIM ON PRO.faixa_horario_final = CSFIM.pro_pk_id_horas
+                "SELECT *, FAHO.faho_inicio, FAHO.faho_final FROM tb_produto AS PRO 
+                INNER JOIN tb_faixa_horario AS FAHO ON PRO.pro_fk_faixa_horario = FAHO.faho_pk_id 
                 WHERE pro_pk_id IN (".implode(',', $itens).")";
             // print_r($sql);
             // exit;

@@ -4,14 +4,14 @@ include_once CONTROLLERPATH."/controlUsuario.php";
 include_once MODELPATH."/usuario.php";
 include_once CONTROLLERPATH."/seguranca.php";
 include_once CONTROLLERPATH."/controlProduto.php";
-include_once MODELPATH."/cardapio.php";
+include_once MODELPATH."/produto.php";
 
 $_SESSION['permissaoPagina']=0;
 protegePagina();
 $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-$controle=new controlerCardapio($_SG['link']);
+$controle=new controlerProduto($_SG['link']);
 if((isset($_POST['nome']) && 
 !empty($_POST['nome'])) || 
 isset($_POST['flag']) || 

@@ -1,11 +1,11 @@
 <?php
     include_once ROOTPATH."/config.php";
-    include_once MODELPATH."/cardapio.php";
+    include_once MODELPATH."/produto.php";
     include_once "seguranca.php";
 
     protegePagina();
 
-    class controlerCardapio {
+    class controlerProduto {
         private $pdo;
         function insert($cardapio){
             try{

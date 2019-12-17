@@ -347,8 +347,8 @@ foreach ($pedidos as &$pedido) {
 
 	$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
 	$itens = $controle->selectItens($pedido->getCod_pedido());
-	$formaPgt = $controlFormaPgt->selectId($pedido->getFormaPgt());
-	$formaPgtVerify = $controlFormaPgt->selectId($pedido->getFormaPgt());
+	$formaPgt = $controlFormaPgt->selectId($pedido->getFkFormaPgt());
+	$formaPgtVerify = $controlFormaPgt->selectId($pedido->getFkFormaPgt());
 
 	//  var_dump($formaPgt->getCod_formaPgt());
 

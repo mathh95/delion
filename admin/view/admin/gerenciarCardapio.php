@@ -5,7 +5,7 @@
     include_once CONTROLLERPATH."/seguranca.php";
     include_once CONTROLLERPATH."/controlProduto.php";
     include_once CONTROLLERPATH."/controlCategoria.php";
-    include_once MODELPATH."/cardapio.php";
+    include_once MODELPATH."/produto.php";
     $_SESSION['permissaoPagina']=0;
     protegePagina();
     $controleUsuario = new controlerUsuario($_SG['link']);

@@ -2,11 +2,11 @@
 	include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 	include_once CONTROLLERPATH."/seguranca.php";
 	include_once CONTROLLERPATH."/controlProduto.php";
-	include_once MODELPATH."/cardapio.php";
+	include_once MODELPATH."/produto.php";
 	protegePagina();
 	if (in_array('cardapio', json_decode($_SESSION['permissao']))) {
 		$cod_cardapio = $_GET['cardapio'];
-		$controle=new controlerCardapio($_SG['link']);
+		$controle=new controlerProduto($_SG['link']);
 		$foto = $_GET['foto'];
 		unlink($foto);
 		$result=$controle->delete($cod_cardapio);

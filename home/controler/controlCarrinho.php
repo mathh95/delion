@@ -2,11 +2,11 @@
 //  session_start();
 ini_set("allow_url_include", true);
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php";    
-include_once MODELPATH."/cardapio.php";
+include_once MODELPATH."/produto.php";
 include_once MODELPATH."/pedido.php";
-include_once MODELPATH."/item.php";
+include_once MODELPATH."/pedido_produto.php";
 include_once CONTROLLERPATH. "/controlCupom.php";
-include_once CONTROLLERPATH. "/controlCupom_cliente.php";
+include_once CONTROLLERPATH. "/controlClienteCupom.php";
 
 
 class controlerCarrinho{
@@ -14,7 +14,6 @@ class controlerCarrinho{
     private $pdo;
 
     function __construct($pdo){
-
         $this->pdo=$pdo;
     }
 
@@ -61,10 +60,10 @@ class controlerCarrinho{
             $sql->bindValue(":idCliente", $idCliente);
             // $sql->bindValue(":data", $data);
             $sql->bindValue(":valor", $valor);
-            $sql->bindValue(":desconto",$desconto);
-            $sql->bindValue(":taxa_entrega",$taxa_entrega);
-            $sql->bindValue(":subtotal",$subtotal);
-            $sql->bindValue(":formaPgt",$formaPgt);
+            $sql->bindValue(":desconto", $desconto);
+            $sql->bindValue(":taxa_entrega", $taxa_entrega);
+            $sql->bindValue(":subtotal", $subtotal);
+            $sql->bindValue(":formaPgt", $formaPgt);
             $sql->bindValue(":status", $status);
             $sql->bindValue(":origem", $origem);
 

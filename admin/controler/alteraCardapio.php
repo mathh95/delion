@@ -68,7 +68,7 @@
 		$cardapio->construct($nome, $preco, $desconto, $descricao, $foto, $categoria, $flag_ativo,$flag_servindo, $prioridade,$delivery,$adicional, $dias_semana, $cardapio_turno, $cardapio_horas_inicio, $cardapio_horas_final);
 
 		$cardapio->setCod_cardapio($cod_cardapio);
-		$controle=new controlerCardapio($_SG['link']);
+		$controle=new controlerProduto($_SG['link']);
 		if($controle->update($cardapio)> -1 && $cardapio_horas_inicio != $cardapio_horas_final && $cardapio_horas_inicio != 0 && $cardapio_horas_final != 0 ){
 			msgRedireciona('Alteração Realizada!','Item do cardápio alterado com sucesso!',1,'../view/admin/cardapioLista.php');
 		}else{

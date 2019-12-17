@@ -5,14 +5,14 @@ include_once MODELPATH."/usuario.php";
 include_once CONTROLLERPATH."/seguranca.php";
 include_once CONTROLLERPATH."/controlProduto.php";
 include_once CONTROLLERPATH."/controlCategoria.php";
-include_once MODELPATH."/cardapio.php";
+include_once MODELPATH."/produto.php";
 
 $_SESSION['permissaoPagina']=0;
 protegePagina();
 $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-$controle_cardapio=new controlerCardapio($_SG['link']);
+$controle_cardapio=new controlerProduto($_SG['link']);
 $controle_categoria=new controlerCategoria($_SG['link']);
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());

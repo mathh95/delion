@@ -10,7 +10,7 @@
 
     include_once CONTROLLERPATH."/controlProduto.php";
 
-    include_once MODELPATH."/cardapio.php";
+    include_once MODELPATH."/produto.php";
 
     include_once CONTROLLERPATH."/controlCategoria.php";
 
@@ -36,7 +36,7 @@
     $controleCategoria = new controlerCategoria($_SG['link']);
     $categorias = $controleCategoria->selectAll();
 
-    $controle = new controlerCardapio($_SG['link']);
+    $controle = new controlerProduto($_SG['link']);
     $cardapio = $controle->selectSemCategoria($_GET['cod'], 2);
 
     $adicionalObj = json_decode($cardapio->getAdicional());
@@ -44,13 +44,13 @@
 
     $adicionais = $controleAdicional->selectAll();
 
-    $controleTurnos = new controlerCardapioTurno($_SG['link']);
+    $controleTurnos = new controlerProdutoTurno($_SG['link']);
     $turnos = $controleTurnos->selectAll();
 
-    $controleHoras = new controlerCardapioHoras($_SG['link']);
+    $controleHoras = new controlerProdutoHoras($_SG['link']);
     $horasini = $controleHoras->selectAll();
 
-    $controleHoras = new controlerCardapioHoras($_SG['link']);
+    $controleHoras = new controlerProdutoHoras($_SG['link']);
     $horasfim = $controleHoras->selectAll();
 
     //usado para coloração customizada da página seleciona na navbar

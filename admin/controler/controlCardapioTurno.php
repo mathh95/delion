@@ -4,7 +4,7 @@
 
     protegePagina();
 
-    class controlerCardapioTurno {
+    class controlerProdutoTurno {
         private $pdo;
         
         function selectAll(){

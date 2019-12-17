@@ -4,116 +4,118 @@
  */
 
         class cupom{
-            private $cod_cupom;
+            private $cup_pk_id;
 
-            private $codigo;
+            private $cup_codigo;
+            
+            private $cup_valor;
+            
+            private $cup_qtde_inicial;
+            
+            private $cup_qtde_atual;
 
-            private $qtde_inicial;
+            private $cup_valor_minimo;
 
-            private $qtde_atual;
+            private $cup_vencimento_data;
 
-            private $valor;
+            private $cup_vencimento_hora;
 
-            private $valor_minimo;
-
-            private $vencimento_data;
-
-            private $vencimento_hora;
-
-            private $status;
+            private $cup_status;
             
             /**
              * GET'S and SET'S
              */
             
-            function getCod_cupom(){
-                return $this->cod_cupom;
+            function getPkId(){
+                return $this->cup_pk_id;
             }
 
             function getCodigo(){
-                return $this->codigo;
+                return $this->cup_codigo;
             }
 
             function getQtde_inicial(){
-                return $this->qtde_inicial;
+                return $this->cup_qtde_inicial;
             }
 
             function getQtde_atual(){
-                return $this->qtde_atual;
+                return $this->cup_qtde_atual;
             }
 
             function getValor(){
-                return $this->valor;
+                return $this->cup_valor;
             }
 
             function getValor_minimo(){
-                return $this->valor_minimo;
+                return $this->cup_valor_minimo;
             }
 
             function getVencimento_data(){
-                return $this->vencimento_data;
+                return $this->cup_vencimento_data;
             }
 
             function getVencimento_hora(){
-                return $this->vencimento_hora;
+                return $this->cup_vencimento_hora;
             }
 
             function getStatus(){
-                return $this->status;
+                return $this->cup_status;
             }
 
-            function setCod_cupom($cod_cupom){
-                $this->cod_cupom = $cod_cupom;
+
+            
+            function setPkId($pk_id){
+                $this->cup_pk_id = $pk_id;
             }
 
             function setCodigo($codigo){
-                $this->codigo = $codigo;
+                $this->cup_codigo = $codigo;
             }
             
             function setQtde_inicial($qtde_inicial){
-                $this->qtde_inicial = $qtde_inicial;
+                $this->cup_qtde_inicial = $qtde_inicial;
             }
 
             function setQtde_atual($qtde_atual){
-                $this->qtde_atual = $qtde_atual;
+                $this->cup_qtde_atual = $qtde_atual;
             }
 
             function setValor($valor){
-                $this->valor = $valor;
+                $this->cup_valor = $valor;
             }
 
             function setValor_minimo($valor_minimo){
-                $this->valor_minimo = $valor_minimo;
+                $this->cup_valor_minimo = $valor_minimo;
             }
 
             function setVencimento_data($vencimento_data){
-                $this->vencimento_data=$vencimento_data;
+                $this->cup_vencimento_data=$vencimento_data;
             }
 
             function setVencimento_hora($vencimento_hora){
-                $this->vencimento_hora=$vencimento_hora;
+                $this->cup_vencimento_hora=$vencimento_hora;
             }
 
             function setStatus($status){
-                $this->status = $status;
+                $this->cup_status = $status;
             }
 
             function construct1($valor,$valor_minimo ,$vencimento_data, $vencimento_hora){
-                $this->valor = $valor;
-                $this->valor_minimo = $valor_minimo;
-                $this->vencimento_data = $vencimento_data;
-                $this->vencimento_hora = $vencimento_hora;
+                $this->cup_valor = $valor;
+                $this->cup_valor_minimo = $valor_minimo;
+                $this->cup_vencimento_data = $vencimento_data;
+                $this->cup_vencimento_hora = $vencimento_hora;
             }
 
             function construct($codigo,$qtde_inicial, $qtde_atual,$valor,$valor_minimo , $vencimento_data, $vencimento_hora, $status){
-                $this->codigo = $codigo;
-                $this->qtde_inicial = $qtde_inicial;
-                $this->qtde_atual = $qtde_atual;
-                $this->valor = $valor;
-                $this->valor_minimo = $valor_minimo;
-                $this->vencimento_data = $vencimento_data;
-                $this->vencimento_hora = $vencimento_hora;
-                $this->status = $status;
+                $this->cup_codigo = $codigo;
+                $this->cup_qtde_inicial = $qtde_inicial;
+                $this->cup_qtde_atual = $qtde_atual;
+                $this->cup_valor = $valor;
+                $this->cup_valor_minimo = $valor_minimo;
+                $this->cup_vencimento_data = $vencimento_data;
+                $this->cup_vencimento_hora = $vencimento_hora;
+                $this->cup_status = $status;
             }
 
             function __construct(){
@@ -121,15 +123,15 @@
             }
 
             function show(){
-                echo "Código do Cupom: ".$this->cod_cupom."<br>";
-                echo "Código: ".$this->codigo."<br>";
-                echo "Quantidade inicial: ".$this->qtde_inicial."<br>";
-                echo "Quantidade atual: ".$this->qtde_atual."<br>";
-                echo "Valor: ".$this->valor."<br>";
-                echo "Valor Minimo:".$this->valor_minimo."<br>";
-                echo "Data de vencimento: ".$this->vencimento_data."<br>";
-                echo "Hora de vencimento: ".$this->vencimento_hora."<br>";
-                echo "Status: ".$this->status."<br>";
+                echo "Código do Cupom: ".$this->cup_pk_id."<br>";
+                echo "Código: ".$this->cup_codigo."<br>";
+                echo "Quantidade inicial: ".$this->cup_qtde_inicial."<br>";
+                echo "Quantidade atual: ".$this->cup_qtde_atual."<br>";
+                echo "Valor: ".$this->cup_valor."<br>";
+                echo "Valor Minimo:".$this->cup_valor_minimo."<br>";
+                echo "Data de vencimento: ".$this->cup_vencimento_data."<br>";
+                echo "Hora de vencimento: ".$this->cup_vencimento_hora."<br>";
+                echo "Status: ".$this->cup_status."<br>";
             }
         }
 ?>
