@@ -23,7 +23,11 @@ include_once MODELPATH."/cardapio.php";
         function buscarVariosId($itens){
             $array = array();
 
-            $sql = "SELECT * FROM cardapio WHERE cod_cardapio IN (".implode(',', $itens).")";
+            $sql = 
+                "SELECT *, CSINI.horario AS horario_inicio, CSFIM.horario AS horario_final FROM cardapio AS CO 
+                INNER JOIN cardapio_horas AS CSINI ON CO.cardapio_horas_inicio = CSINI.cod_cardapio_horas 
+                INNER JOIN cardapio_horas AS CSFIM ON CO.cardapio_horas_final = CSFIM.cod_cardapio_horas
+                WHERE cod_cardapio IN (".implode(',', $itens).")";
             // print_r($sql);
             // exit;
             $sql = $this->pdo->query($sql);

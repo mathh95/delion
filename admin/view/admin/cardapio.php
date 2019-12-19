@@ -188,13 +188,13 @@
 
                             </div>
                             
-                            <small>Informar se após o cadastro o item estará disponivel para ser servido:</small>
+                            <small>Informar se após o cadastro o item estará disponivel para ser Servido:</small>
 
                                 <div class="checkbox">
 
                                     <label>
 
-                                            <input type="checkbox" id="servido" name="servido" value="1">Pronto para ser servido                               
+                                            <input type="checkbox" id="servindo" name="servindo" value="1">Servindo                               
                                     
                                     </label>
 

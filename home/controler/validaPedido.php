@@ -122,6 +122,11 @@ if(!$funcionamentoEmpresa->aberto()){
     $html.= "<script>swal('Estamos Fechados! :/', 'Aguarde :)...os nossos Fornos estão Aquecendo', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";
     echo $html;
 
+}else if(isset($_SESSION['item_indisponivel']) && $_SESSION['item_indisponivel']){
+
+    $html.= "<script>swal('Item indisponível! :/', 'Algum item do carrinho não está disponível no momento :/', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";
+    echo $html;
+
 }else{
 
 if($checkcarrinho > 0){

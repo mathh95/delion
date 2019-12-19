@@ -150,7 +150,7 @@ if ($pedidos == -1){
 			$array = ($pedido->getCod_pedido());
 			$mensagem='Cliente excluído com sucesso!';
 			$titulo='Excluir';
-			echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
+			echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."' data-cod_pedido='".$pedido->getCod_pedido()."'>
 			 	<td style='text-align: center;' name='data'>".$pedido->getCod_pedido()."</td>
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->getData()->format('H:i')."</td>

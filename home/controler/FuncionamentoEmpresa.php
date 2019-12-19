@@ -12,7 +12,8 @@ class FuncionamentoEmpresa{
         $controleEmpresa=new controlerEmpresa(conecta());
         $empresa = $controleEmpresa->select(1,2);
 
-        $hora_atual = date('H:i', time() - 3600);// horário de verão extinto
+        // $hora_atual = date('H:i', time() - 3600);// horário de verão extinto
+        $hora_atual = date('H:i', time());// horário de verão extinto
         $hoje = (date('w')+1); // 1 == domingo, 7 == sábado
 
         $arr_hora_inicio = json_decode($empresa->getArrHorariosInicio());

@@ -14,6 +14,7 @@
 }
 
 body{
+    position: relative;
     overflow-x: hidden;
     font-family: $font_main;
     max-width: 100%;
@@ -77,9 +78,9 @@ body{
         }
     }
     > .itens {
-        min-height: 200px;
         padding-left: 0 !important;
         padding-right: 0 !important;
+        min-height: 620px;
         >.carrinhoVazio{
             > .imagemCarrinhoVazio{
                 // text-align: center;

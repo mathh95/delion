@@ -15,9 +15,8 @@
 
 body {
     > footer {
-        font-family: $font_main;
         position: relative;
-        bottom: 0;
+       
         // background-color: $vermelho_forte;
         padding-left: 0 !important;
         padding-right: 0 !important;
@@ -32,7 +31,6 @@ body {
             height: auto;
             background-color: $vermelho_forte;
             text-align: center;
-            position: relative;
             font-size: 35px;
             margin: 0 !important;
             padding: 0 !important;
@@ -164,12 +162,15 @@ body {
                 }
             }
         }
+        
     }
     > .rodape {
-        position: absolute;
         height: 35px;
         background-color: #D7CEC7;
         padding-top: 0px;
+        bottom: 0;
+        position: relative;
+        
         > div {
             font-size: 12px;
             padding-top: 7px;
@@ -186,17 +187,18 @@ body {
                 padding: 0px;
                 > div {
                     > a{
-						> img {
-							@include img-responsive();
-							vertical-align: text-top;
-							display: inline;
-							max-width: 4%;
-						}
-					}
+                        > img {
+                            @include img-responsive();
+                            vertical-align: text-top;
+                            display: inline;
+                            max-width: 4%;
+                        }
+                    }
                 }
             }
         }
     }
+    
     > .whatsapp{
         position: fixed;
         right: 15px;

@@ -62,8 +62,8 @@ foreach ($categorias as $key_cat => $categoria) {
         $categoria->getCod_categoria()
     );
 
-    $hora_atual = date('H:i:s', time() - 3600);// horário de verão extinto
-    // $hora_atual = date('H:i:s', time());// servidor possui hora correta
+    // $hora_atual = date('H:i:s', time() - 3600);// horário de verão extinto
+    $hora_atual = date('H:i:s', time());// servidor possui hora correta
     $hoje = (date('w')+1); // 1 == domingo, 7 == sábado
     
     $categoria_com_itens = 0;
