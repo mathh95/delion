@@ -17,6 +17,7 @@
         $cliente->setTelefone($telefone);
         $cliente->setCod_cliente($cod_cliente);
         $control = new controlCliente($_SG['link']);
+        $resultDt = $control->selectDate($cliente);
         $result=$control->update($cliente);
         if ($result > 0){
             alertJSVoltarPagina("Sucesso!","Seus dados foram alterados com sucesso!",1);

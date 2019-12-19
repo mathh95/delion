@@ -286,7 +286,7 @@ class controlerCarrinho{
         }        
     }
 
-    //Filtro para nome
+    //Filtro para nome, valormenor e valormaior
     function filter($parametro,$valormenor, $valormaior){
         $pedidos=array();
         $parametro = "%".$parametro."%";
