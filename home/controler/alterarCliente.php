@@ -17,11 +17,24 @@
         $cliente->setTelefone($telefone);
         $cliente->setCod_cliente($cod_cliente);
         $control = new controlCliente($_SG['link']);
-        $resultDt = $control->selectDate($cliente);
-        $result=$control->update($cliente);
-        if ($result > 0){
-            alertJSVoltarPagina("Sucesso!","Seus dados foram alterados com sucesso!",1);
+        $resultDt = $control->verifyDate($_POST['cod_cliente']);
+        $resultFone = $control->verifyFone($_POST['cod_cliente'],$_POST['telefone']);
+        // 1 -> Telefones Iguais
+        //-1 -> Telefones Diferentes
+        if($resultFone < 0){                            
+            if($resultDt >= 30){
+                $result=$control->updateDate($cliente);
+                alertJSVoltarPagina("Sucesso!","Os dados foram alterados!",1);
+            }else{
+                alertJSVoltarPagina("Erro!","Não é possível alterar todos os dados, o telefone foi alterado nos últimos trinta dias!",1);
+            }
         }else{
-            alertJSVoltarPagina("Erro!","Não foi possível alterar seus dados.",1);
+            $result=$control->update($cliente);
+            if($result > 0){
+                alertJSVoltarPagina("Sucesso!","Os dados foram alterados!",1);
+            }else{
+                alertJSVoltarPagina("Erro!","Não foi possível alterar os dados",1);
+            }
         }
+
 ?>
