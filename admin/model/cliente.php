@@ -30,6 +30,7 @@
 
             private $cli_fk_empresa;
 
+            private $cli_dt_alteracao_fone;
 
 
             function getPkId(){
@@ -84,6 +85,9 @@
                 return $this->cli_fk_empresa;
             }
 
+            function getDtAlteracaoFone(){
+                return $this->cli_dt_alteracao_fone;
+            }
 
 
             function setPkId($cli_pk_id){
@@ -109,6 +113,7 @@
             function setLogin($cli_login){
                 $this->cli_login = $cli_login;
             }
+            
 
             function setSenha($cli_senha){
                 $this->cli_senha = $cli_senha;
@@ -138,6 +143,9 @@
                 $this->cli_fk_empresa = $cli_fk_empresa;
             }
 
+            function setDtAlteracaoFone($cli_dt_alteracao_fone){
+                $this->cli_dt_alteracao_fone = $cli_dt_alteracao_fone;
+            }
 
             function construct($cli_nome,$cli_sobrenome,$cli_cpf,$cli_data_nasc,$cli_login,$cli_senha,$cli_telefone,$cli_status){
                 $this->cli_nome=$cli_nome;

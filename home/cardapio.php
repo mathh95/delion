@@ -95,7 +95,7 @@
 
 	</div>
 
-	<div class="container produtos">
+	<div class="container produtos" id="container-produtos">
 
 		
 
@@ -159,6 +159,17 @@
 
 		});
 
+		//Funções responsá veis por dar reload no cardapio
+		function doRefresh(){
+                $("#container-produtos").load('../home/ajax/buscar-cardapio.php');
+        }
+
+		window.setInterval(function(){
+                var verifica = $('body').hasClass('modal-open'); //Verifica se a modal está aberta
+                if(verifica == false){ 
+                    doRefresh();
+            }
+        }, 10000);
 
 		// var categorias = $('.categoria')
 		// , menu_lateral = $('.menu-lateral')

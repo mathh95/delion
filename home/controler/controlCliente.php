@@ -103,10 +103,9 @@
                     $cli_pk_id=$cliente->getPkId();
                     $nome=$cliente->getNome();
                     $sobrenome=$cliente->getSobrenome();
-                    // $cpf=$cliente->getCpf();
-                    // $data_nasc=$cliente->getData_nasc();
                     $login=$cliente->getLogin();
                     $telefone=$cliente->getTelefone();
+                    
                     $stmt=$this->pdo->prepare("UPDATE tb_cliente
                     SET cli_nome=:nome, cli_sobrenome=:sobrenome, cli_login_email=:login, cli_telefone=:telefone WHERE cli_pk_id=:cli_pk_id ");
                     $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
@@ -130,7 +129,131 @@
                 }
             }
 
-            function updateFacebook($cli_pk_id, $idFacebook){
+            function updateDate($cliente){
+                try{
+                    $cli_pk_id=$cliente->getPkId();
+                    $nome=$cliente->getNome();
+                    $sobrenome=$cliente->getSobrenome();
+                    $login=$cliente->getLogin();
+                    $telefone=$cliente->getTelefone();
+
+                    $stmt=$this->pdo->prepare("UPDATE tb_cliente
+                    SET cli_nome=:nome, cli_sobrenome=:sobrenome, cli_login_email=:login, cli_telefone=:telefone, cli_dt_alteracao_fone=NOW() WHERE cli_pk_id=:cli_pk_id");
+                    $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
+                    $stmt->bindParam(":sobrenome", $sobrenome, PDO::PARAM_STR);
+                    $stmt->bindParam(":login", $login, PDO::PARAM_STR);
+                    $stmt->bindParam(":telefone", $telefone, PDO::PARAM_STR);
+                    $stmt->bindParam(":cli_pk_id", $cli_pk_id, PDO::PARAM_STR);
+
+                    $executa=$stmt->execute();
+
+                    if ($executa){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function verifyDate($parametro){
+                $cliente= new cliente;
+                try{
+                    $cli_pk_id=$parametro;
+                    $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_pk_id=:cli_pk_id");
+                    $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
+                    $executa=$stmt->execute();
+
+                    if($executa){
+                        if($stmt->rowCount() > 0){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                                $cliente->setPkId($result->cli_pk_id);
+                                $cliente->setLogin($result->cli_login_email_email);
+                                $cliente->setNome($result->cli_nome);
+                                $cliente->setSobrenome($result->cli_sobrenome);
+                                $cliente->setCpf($result->cli_cpf);
+                                $cliente->setData_nasc($result->cli_data_nasc);
+                                $cliente->setSenha($result->cli_senha);
+                                $cliente->setTelefone($result->cli_telefone);
+                                $cliente->setDtAlteracaoFone($result->cli_dt_alteracao_fone);
+                                $cliente->setStatus($result->cli_status);
+                                $cliente->setIdFacebook($result->cli_idFacebook);
+                            }
+                        }
+                        
+                        $data_atual = date("Y-m-d");
+                        $data_alteracao = $cliente->getDtAlteracaoFone();
+
+                        // Calcula a diferença em segundos entre as datas
+                        $diferenca = strtotime($data_atual) - strtotime($data_alteracao);
+
+                        //Calcula a diferença em dias
+                        $dias = floor($diferenca / (60 * 60 * 24));
+
+                        return $dias;
+
+                    }else{
+                        return $dias;
+                    }
+
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function verifyFone($parametro,$fone){
+                $cliente= new cliente;
+                try{
+                    $cli_pk_id=$parametro;
+                    $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_pk_id=:cli_pk_id");
+                    $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
+                    $executa=$stmt->execute();
+
+                    if($executa){
+                        if($stmt->rowCount() > 0){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                                $cliente->setPkId($result->cli_pk_id);
+                                $cliente->setLogin($result->cli_login_email_email);
+                                $cliente->setNome($result->cli_nome);
+                                $cliente->setSobrenome($result->cli_sobrenome);
+                                $cliente->setCpf($result->cli_cpf);
+                                $cliente->setData_nasc($result->cli_data_nasc);
+                                $cliente->setSenha($result->cli_senha);
+                                $cliente->setTelefone($result->cli_telefone);
+                                $cliente->setDtAlteracaoFone($result->cli_dt_alteracao_fone);
+                                $cliente->setStatus($result->cli_status);
+                                $cliente->setIdFacebook($result->cli_idFacebook);
+                            }
+                        }
+
+                        $fone_salvo = $cliente->getTelefone();
+
+                        if($fone_salvo === $fone){
+                            $flag_controle = 1;
+                        }else{
+                            $flag_controle = -1;
+                        }
+
+                        return $flag_controle;
+
+                    }else{
+                        return $flag_controle;
+                    }
+
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function updateFacebook($cli_pk_id,$idFacebook){
                 try{
                     $stmt=$this->pdo->prepare("UPDATE tb_cliente SET cli_id_facebook=:idFacebook WHERE cli_pk_id=:cli_pk_id");
                     $stmt->bindParam(":idFacebook", $idFacebook, PDO::PARAM_STR);
