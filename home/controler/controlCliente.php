@@ -185,14 +185,14 @@
                                 $cliente->setCpf($result->cpf);
                                 $cliente->setData_nasc($result->data_nasc);
                                 $cliente->setTelefone($result->telefone);
-                                $cliente->setDt_alteracao_fone($result->dt_alteracao_fone);
+                                $cliente->setDtAlteracaoFone($result->dt_alteracao_fone);
                                 $cliente->setStatus($result->status);
                                 $cliente->setIdFacebook($result->id_facebook);
                             }
                         }
                         
                         $data_atual = date("Y-m-d");
-                        $data_alteracao = $cliente->getDt_alteracao_fone();
+                        $data_alteracao = $cliente->getDtAlteracaoFone();
 
                         // Calcula a diferença em segundos entre as datas
                         $diferenca = strtotime($data_atual) - strtotime($data_alteracao);
@@ -232,7 +232,7 @@
                                 $cliente->setCpf($result->cpf);
                                 $cliente->setData_nasc($result->data_nasc);
                                 $cliente->setTelefone($result->telefone);
-                                $cliente->setDt_alteracao_fone($result->dt_alteracao_fone);
+                                $cliente->setDtAlteracaoFone($result->dt_alteracao_fone);
                                 $cliente->setStatus($result->status);
                                 $cliente->setIdFacebook($result->id_facebook);
                             }

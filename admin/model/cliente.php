@@ -60,7 +60,7 @@
                 return $this->telefone;
             }
 
-            function getDt_alteracao_fone(){
+            function getDtAlteracaoFone(){
                 return $this->dt_alteracao_fone;
             }
             
@@ -104,7 +104,7 @@
                 $this->telefone = $telefone;
             }
 
-            function setDt_alteracao_fone($dt_alteracao_fone){
+            function setDtAlteracaoFone($dt_alteracao_fone){
                 $this->dt_alteracao_fone = $dt_alteracao_fone;
             }
 
