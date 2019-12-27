@@ -7,7 +7,7 @@
         private $pdo;
         function insert($empresa){
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO empresa(nome, descricao, historia, endereco, bairro, cidade, estado, cep, fone, whats, email, facebook, instagram, pinterest, foto)
+                $stmte =$this->pdo->prepare("INSERT INTO tb_empresa(emp_nome, emp_descricao, emp_historia, emp_endereco, emp_bairro, emp_cidade, emp_estado, emp_cep, emp_fone, emp_whats, emp_email, emp_facebook, emp_instagram, emp_pinterest, emp_foto)
                 VALUES (:nome, :descricao, :historia, :endereco, :bairro, :cidade, :estado, :cep, :fone, :whats, :email, :facebook, :instagram, :pinterest, :foto)");
                 $stmte->bindParam("nome", $empresa->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam("descricao", $empresa->getDescricao(), PDO::PARAM_STR);
@@ -39,9 +39,9 @@
         }
         function update($empresa){
             try{
-                $stmte =$this->pdo->prepare("UPDATE empresa SET descricao=:descricao, historia=:historia, endereco=:endereco, bairro=:bairro, cidade=:cidade, estado=:estado, cep=:cep, fone=:fone, whats=:whats, email=:email, facebook=:facebook, instagram=:instagram, pinterest=:pinterest, foto=:foto WHERE cod_empresa=:cod_empresa");
+                $stmte =$this->pdo->prepare("UPDATE tb_empresa SET emp_descricao=:descricao, emp_historia=:historia, emp_endereco=:endereco, emp_bairro=:bairro, emp_cidade=:cidade, emp_estado=:estado, emp_cep=:cep, emp_fone=:fone, emp_whats=:whats, emp_email=:email, emp_facebook=:facebook, emp_instagram=:instagram, emp_pinterest=:pinterest, emp_foto=:foto WHERE emp_pk_id=:cod_empresa");
 
-                $stmte->bindParam(":cod_empresa", $empresa->getCod_empresa() , PDO::PARAM_INT);
+                $stmte->bindParam(":cod_empresa", $empresa->getPkId() , PDO::PARAM_INT);
                 $stmte->bindParam(":descricao", $empresa->getDescricao(), PDO::PARAM_STR);
                 $stmte->bindParam(":historia", $empresa->getHistoria(), PDO::PARAM_STR);
                 $stmte->bindParam(":endereco", $empresa->getEndereco(), PDO::PARAM_STR);
@@ -72,13 +72,13 @@
         }
         function updateFuncionamento($empresa){
             try{
-                $stmte =$this->pdo->prepare("UPDATE empresa SET txt_dias_semana=:txt_dias_semana, txt_horario_semana=:txt_horario_semana, txt_dias_fim_semana=:txt_dias_fim_semana, txt_horario_fim_semana=:txt_horario_fim_semana, arr_dias_semana=:arr_dias_semana, arr_horarios_inicio=:arr_horarios_inicio, arr_horarios_final=:arr_horarios_final, aberto=:aberto, entregando=:entregando WHERE cod_empresa=:cod_empresa");
+                $stmte =$this->pdo->prepare("UPDATE empresa SET txt_dias_semana=:txt_dias_semana, txt_horario_semana=:txt_horario_semana, txt_dias_fim_semana=:txt_dias_fim_semana, txt_horario_fim_semana=:txt_horario_fim_semana, arr_dias_semana=:arr_dias_semana, arr_horarios_inicio=:arr_horarios_inicio, arr_horarios_final=:arr_horarios_final, aberto=:aberto, entregando=:entregando WHERE emp_pk_id=:cod_empresa");
 
-                $stmte->bindParam(":cod_empresa", $empresa->getCod_empresa() , PDO::PARAM_INT);
-                $stmte->bindParam(":txt_dias_semana", $empresa->getDiasSemana() , PDO::PARAM_STR);
-                $stmte->bindParam(":txt_horario_semana", $empresa->getHorarioSemana() , PDO::PARAM_STR);
-                $stmte->bindParam(":txt_dias_fim_semana", $empresa->getDiasFimSemana() , PDO::PARAM_STR);
-                $stmte->bindParam(":txt_horario_fim_semana", $empresa->getHorarioFimSemana() , PDO::PARAM_STR);
+                $stmte->bindParam(":cod_empresa", $empresa->getPkId() , PDO::PARAM_INT);
+                $stmte->bindParam(":txt_dias_semana", $empresa->getTxtDiasSemana() , PDO::PARAM_STR);
+                $stmte->bindParam(":txt_horario_semana", $empresa->getTxtHorarioSemana() , PDO::PARAM_STR);
+                $stmte->bindParam(":txt_dias_fim_semana", $empresa->getTxtDiasFimSemana() , PDO::PARAM_STR);
+                $stmte->bindParam(":txt_horario_fim_semana", $empresa->getTxtHorarioFimSemana() , PDO::PARAM_STR);
                 $stmte->bindParam(":arr_dias_semana", $empresa->getArrDiasSemana() , PDO::PARAM_STR);
                 $stmte->bindParam(":arr_horarios_inicio", $empresa->getArrHorariosInicio() , PDO::PARAM_STR);
                 $stmte->bindParam(":arr_horarios_final", $empresa->getArrHorariosFinal() , PDO::PARAM_STR);
@@ -102,41 +102,49 @@
           modo: 1-Nome, 2-id
         */
         function select($parametro,$modo){
-            $stmte;
-            $empresa= new empresa();
+
+            $empresa = new empresa();
             try{
                 if($modo==1){
-                    $stmte = $this->pdo->prepare("SELECT * FROM empresa WHERE nome LIKE :parametro");
+                    $stmte = $this->pdo->prepare("SELECT *
+                    FROM tb_empresa
+                    WHERE emp_nome LIKE :parametro");
                     $stmte->bindParam(":parametro", $parametro . "%" , PDO::PARAM_STR);
                 }elseif ($modo==2) {
-                    $stmte = $this->pdo->prepare("SELECT * FROM empresa WHERE cod_empresa = :parametro");
+                    $stmte = $this->pdo->prepare("SELECT *
+                    FROM tb_empresa
+                    WHERE emp_pk_id = :parametro");
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 }
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $empresa->getCod_empresa($result->cod_empresa);
-                            $empresa->getNome($result->nome);
-                            $empresa->getDescricao($result->descricao);
-                            $empresa->getHistoria($result->historia);
-                            $empresa->getEndereco($result->endereco);
-                            $empresa->getBairro($result->bairro);
-                            $empresa->getCidade($result->cidade);
-                            $empresa->getEstado($result->estado);
-                            $empresa->getCep($result->cep);
-                            $empresa->getFone($result->fone);
-                            $empresa->getWhats($result->whats);
-                            $empresa->getEmail($result->email);
-                            $empresa->getFacebook($result->facebook);
-                            $empresa->setInstagram($result->instagram);
-                            $empresa->setPinterest($result->pinterest);
-                            $empresa->getFoto($result->foto);
-                            $empresa->setDiasSemana($result->txt_dias_semana);
-                            $empresa->setHorarioSemana($result->txt_horario_semana);
-                            $empresa->setDiasFimSemana($result->txt_dias_fim_semana);
-                            $empresa->setHorarioFimSemana($result->txt_horario_fim_semana);
-                            $empresa->setAberto($result->aberto);
-                            $empresa->setEntregando($result->entregando);
+                            $empresa->setPkId($result->emp_pk_id);
+                            $empresa->setNome($result->emp_nome);
+                            $empresa->setDescricao($result->emp_descricao);
+                            $empresa->setHistoria($result->emp_historia);
+                            $empresa->setEndereco($result->emp_endereco);
+                            $empresa->setBairro($result->emp_bairro);
+                            $empresa->setCidade($result->emp_cidade);
+                            $empresa->setEstado($result->emp_estado);
+                            $empresa->setCep($result->emp_cep);
+                            $empresa->setFone($result->emp_fone);
+                            $empresa->setWhats($result->emp_whats);
+                            $empresa->setEmail($result->emp_email);
+                            $empresa->setFacebook($result->emp_facebook);
+                            $empresa->setInstagram($result->emp_instagram);
+                            $empresa->setPinterest($result->emp_pinterest);
+                            $empresa->setFoto($result->emp_foto);
+                            $empresa->setTxtDiasSemana($result->emp_txt_dias_semana);
+                            $empresa->setTxtHorarioSemana($result->emp_txt_horario_semana);
+                            $empresa->setTxtDiasFimSemana($result->emp_txt_dias_fim_semana);
+                            $empresa->setTxtHorarioFimSemana($result->emp_txt_horario_fim_semana);
+                            $empresa->setArrDiasSemana($result->emp_arr_dias_semana);
+                            $empresa->setArrHorariosInicio($result->emp_arr_horarios_inicio);
+                            $empresa->setArrHorariosFinal($result->emp_arr_horarios_final);
+                            $empresa->setAberto($result->emp_aberto);
+                            $empresa->setEntregando($result->emp_entregando);
+                            $empresa->setTaxaConversaoFidelidade($result->emp_taxa_conversao_fidelidade);
                         }
                     }
                 }
@@ -149,7 +157,7 @@
 
         function delete($parametro){
             try{
-                $stmt = $this->pdo->prepare("DELETE FROM empresa WHERE cod_empresa = :parametro");
+                $stmt = $this->pdo->prepare("DELETE FROM tb_empresa WHERE emp_pk_id = :parametro");
                 $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;
@@ -161,39 +169,40 @@
         }
 
         function selectAll(){
-            $stmte;
             $empresas = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM empresa");
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_empresa");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
                             $empresa= new empresa();
-                          	$empresa->setCod_empresa($result->cod_empresa);
-                            $empresa->setNome($result->nome);
-                            $empresa->setDescricao($result->descricao);
-                            $empresa->setHistoria($result->historia);
-                            $empresa->setEndereco($result->endereco);
-                            $empresa->setBairro($result->bairro);
-                            $empresa->setCidade($result->cidade);
-                            $empresa->setEstado($result->estado);
-                            $empresa->setCep($result->cep);
-                            $empresa->setFone($result->fone);
-                            $empresa->setWhats($result->whats);
-                            $empresa->setEmail($result->email);
-                            $empresa->setFacebook($result->facebook);
-                            $empresa->setInstagram($result->instagram);
-                            $empresa->setPinterest($result->pinterest);
-                            $empresa->setFoto($result->foto);
-                            $empresa->setDiasSemana($result->txt_dias_semana);
-                            $empresa->setHorarioSemana($result->txt_horario_semana);
-                            $empresa->setDiasFimSemana($result->txt_dias_fim_semana);
-                            $empresa->setHorarioFimSemana($result->txt_horario_fim_semana);
-                            $empresa->setArrDiasSemana($result->arr_dias_semana);
-                            $empresa->setArrHorariosInicio($result->arr_horarios_inicio);
-                            $empresa->setArrHorariosFinal($result->arr_horarios_final);
-                            $empresa->setAberto($result->aberto);
-                            $empresa->setEntregando($result->entregando);
+
+                            $empresa->setPkId($result->emp_pk_id);
+                            $empresa->setNome($result->emp_nome);
+                            $empresa->setDescricao($result->emp_descricao);
+                            $empresa->setHistoria($result->emp_historia);
+                            $empresa->setEndereco($result->emp_endereco);
+                            $empresa->setBairro($result->emp_bairro);
+                            $empresa->setCidade($result->emp_cidade);
+                            $empresa->setEstado($result->emp_estado);
+                            $empresa->setCep($result->emp_cep);
+                            $empresa->setFone($result->emp_fone);
+                            $empresa->setWhats($result->emp_whats);
+                            $empresa->setEmail($result->emp_email);
+                            $empresa->setFacebook($result->emp_facebook);
+                            $empresa->setInstagram($result->emp_instagram);
+                            $empresa->setPinterest($result->emp_pinterest);
+                            $empresa->setFoto($result->emp_foto);
+                            $empresa->setTxtDiasSemana($result->emp_txt_dias_semana);
+                            $empresa->setTxtHorarioSemana($result->emp_txt_horario_semana);
+                            $empresa->setTxtDiasFimSemana($result->emp_txt_dias_fim_semana);
+                            $empresa->setTxtHorarioFimSemana($result->emp_txt_horario_fim_semana);
+                            $empresa->setArrDiasSemana($result->emp_arr_dias_semana);
+                            $empresa->setArrHorariosInicio($result->emp_arr_horarios_inicio);
+                            $empresa->setArrHorariosFinal($result->emp_arr_horarios_final);
+                            $empresa->setAberto($result->emp_aberto);
+                            $empresa->setEntregando($result->emp_entregando);
+                            $empresa->setTaxaConversaoFidelidade($result->emp_taxa_conversao_fidelidade);
 
                             array_push($empresas, $empresa);
                         }
@@ -207,9 +216,8 @@
         }
 
         function countEmpresa(){
-            $stmte;
             try{
-                $stmte = $this->pdo->prepare("SELECT COUNT(*) AS empresas FROM empresa");
+                $stmte = $this->pdo->prepare("SELECT COUNT(*) AS empresas FROM tb_empresa");
                 $stmte->execute();
                 $result = $stmte->fetch(PDO::FETCH_OBJ);
                 return $result->empresas;

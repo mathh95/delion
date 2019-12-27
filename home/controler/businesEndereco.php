@@ -21,7 +21,7 @@
         //$uf = $_SESSION['endereco']['administrative_area_level_1'];
 
         $endereco->construct($rua,$numero,$cep,$complemento,$bairro,$cidade,$referencia,$cliente);
-        $cod_endereco = $control->insertSemCodCli($endereco);
+        $cod_endereco = $control->insertSemFkCli($endereco);
         
         $_SESSION['cod_endereco'] = $cod_endereco;
 

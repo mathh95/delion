@@ -106,14 +106,14 @@ if ($cod_endereco == null) {
                         </thead>
                         <tbody>";
         foreach ($_SESSION['carrinho'] as $key => $value) {
-            $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['preco'];
+            $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['pro_preco'];
             $mail->Body .= "<tr>
                         <td height='15%'>" . $_SESSION['carrinho'][$key] . "</td>
                         <td height='15%'>" . date("r") . "</td>
                         <td height='15%'>" . $_SESSION['nome'] . "</td>
-                        <td height='15%'>" . $itens[$key]['nome'] . "</td>
+                        <td height='15%'>" . $itens[$key]['pro_nome'] . "</td>
                         <td height='15%'>" . $_SESSION['qtd'][$key] . "</td> 
-                        <td height='15%'>R$ " . number_format($itens[$key]['preco'], 2) . "</td>
+                        <td height='15%'>R$ " . number_format($itens[$key]['pro_preco'], 2) . "</td>
                         <td height='15%'>R$ " . number_format($subtotal, 2) . "</td>
                 </tr>";
         }
@@ -134,7 +134,8 @@ if ($cod_endereco == null) {
         echo $mail->ErrorInfo;
     }
 
-    $pedido->setPedido(null);
+    $produtos = $itens;
+    $pedido->setPedido(null, null, $produtos);
 
     $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script></body>";
     echo $html;
@@ -188,15 +189,15 @@ if ($cod_endereco == null) {
                             </thead>
                             <tbody>";
         foreach ($_SESSION['carrinho'] as $key => $value) {
-            $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['preco'];
+            $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['pro_preco'];
             $mail->Body .= "<tr>
                             <td height='10%'>" . $_SESSION['carrinho'][$key] . "</td>
                             <td height='10%'>" . date("r") . "</td>
                             <td height='10%'>" . $_SESSION['nome'] . "</td>
                             <td height='10%'>" . $endereco->getRua() . "<br>" . $endereco->getNumero() . "</td>
-                            <td height='10%'>" . $itens[$key]['nome'] . "</td>
+                            <td height='10%'>" . $itens[$key]['pro_nome'] . "</td>
                             <td height='10%'>" . $_SESSION['qtd'][$key] . "</td> 
-                            <td height='10%'>R$ " . number_format($itens[$key]['preco'], 2) . "</td>
+                            <td height='10%'>R$ " . number_format($itens[$key]['pro_preco'], 2) . "</td>
                             <td height='10%'>R$ " . number_format($subtotal, 2) . "</td>
                     </tr>";
         }
@@ -217,7 +218,9 @@ if ($cod_endereco == null) {
         echo $mail->ErrorInfo;
     }
 
-    $pedido->setPedido($cod_endereco);
+    $fk_origem_pedido = 1;
+    $produtos = $itens;
+    $pedido->setPedido($cod_endereco, $fk_origem_pedido, $produtos);
 
     $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script></body>";
     echo $html;

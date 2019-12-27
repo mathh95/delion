@@ -333,7 +333,7 @@ if ($pedidos == -1){
 			$titulo='Excluir';
 			echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
 			 	<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
-			 	<td style='text-align: center;' name='cliente'>".$pedido->getCliente()."</td>
+			 	<td style='text-align: center;' name='cliente'>".$pedido->cliente."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>

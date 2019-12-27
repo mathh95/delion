@@ -151,10 +151,6 @@
                 $this->ped_forma_pgto=$ped_forma_pgto;
             }
 
-            function setOrigem($ped_origem){
-                $this->ped_origem=$ped_origem;
-            }
-
 
             function setHora_print($ped_hora_print){
                 $this->ped_hora_print=$ped_hora_print;

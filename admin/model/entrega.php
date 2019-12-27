@@ -4,90 +4,90 @@
  */
 
         class entrega {
-            private $cod_entrega;
+            private $ent_pk_id;
 
-            private $raio_km;
+            private $ent_raio_km;
             
-            private $taxa_entrega;
+            private $ent_taxa_entrega;
 
-            private $valor_minimo;
+            private $ent_valor_minimo;
             
-            private $tempo;
+            private $ent_tempo;
             
-            private $min_taxa_gratis;
+            private $ent_min_taxa_gratis;
 
-            private $flag_ativo;
+            private $ent_flag_ativo;
             
             /**
              * GET'S and SET'S
              */
             
-            function getCod_entrega(){
-                return $this->cod_entrega;
+            function getPkId(){
+                return $this->ent_pk_id;
             }
 
             function getTempo(){
-                return $this->tempo;
+                return $this->ent_tempo;
             }
 
             function getRaio_km(){
-                return $this->raio_km;
+                return $this->ent_raio_km;
             }
 
             function getTaxa_entrega(){
-                return $this->taxa_entrega;
+                return $this->ent_taxa_entrega;
             }
 
             function getValor_minimo(){
-                return $this->valor_minimo;
+                return $this->ent_valor_minimo;
             }
 
             function getMin_taxa_gratis(){
-                return $this->min_taxa_gratis;
+                return $this->ent_min_taxa_gratis;
             }
 
             function getFlag_ativo(){
-                return $this->flag_ativo;
+                return $this->ent_flag_ativo;
             }
 
 
 
 
-            function setCod_entrega($cod_entrega){
-                $this->cod_entrega = $cod_entrega;
+            function setPkId($ent_pk_id){
+                $this->ent_pk_id = $ent_pk_id;
             }
 
-            function setTempo($tempo){
-                $this->tempo = $tempo;
+            function setTempo($ent_tempo){
+                $this->ent_tempo = $ent_tempo;
             }
             
-            function setRaio_km($raio_km){
-                $this->raio_km = $raio_km;
+            function setRaio_km($ent_raio_km){
+                $this->ent_raio_km = $ent_raio_km;
             }
             
-            function setTaxa_entrega($taxa_entrega){
-                $this->taxa_entrega = $taxa_entrega;
+            function setTaxa_entrega($ent_taxa_entrega){
+                $this->ent_taxa_entrega = $ent_taxa_entrega;
             }
 
-            function setValor_minimo($valor_minimo){
-                $this->valor_minimo = $valor_minimo;
+            function setValor_minimo($ent_valor_minimo){
+                $this->ent_valor_minimo = $ent_valor_minimo;
             }
             
-            function setMin_taxa_gratis($min_taxa_gratis){
-                $this->min_taxa_gratis = $min_taxa_gratis;
+            function setMin_taxa_gratis($ent_min_taxa_gratis){
+                $this->ent_min_taxa_gratis = $ent_min_taxa_gratis;
             }
 
-            function setFlag_ativo($flag_ativo){
-                $this->flag_ativo = $flag_ativo;
+            function setFlag_ativo($ent_flag_ativo){
+                $this->ent_flag_ativo = $ent_flag_ativo;
             }
             
-            function construct($raio_km, $taxa_entrega, $tempo, $valor_minimo, $min_taxa_gratis, $flag_ativo=1){
-                $this->tempo = $tempo;
-                $this->raio_km = $raio_km;
-                $this->taxa_entrega = $taxa_entrega;
-                $this->valor_minimo = $valor_minimo;
-                $this->min_taxa_gratis = $min_taxa_gratis;
-                $this->flag_ativo = $flag_ativo;
+            function construct($ent_raio_km, $ent_taxa_entrega, $ent_tempo, $ent_valor_minimo, $ent_min_taxa_gratis, $ent_flag_ativo=1){
+                $this->ent_tempo = $ent_tempo;
+                $this->ent_raio_km = $ent_raio_km;
+                $this->ent_taxa_entrega = $ent_taxa_entrega;
+                $this->ent_valor_minimo = $ent_valor_minimo;
+                $this->ent_min_taxa_gratis = $ent_min_taxa_gratis;
+                $this->ent_flag_ativo = $ent_flag_ativo;
             }
 
             function __construct(){
@@ -95,13 +95,13 @@
             }
 
             function show(){
-                echo "Código da Entrega: ".$this->cod_entrega."<br>";
-                echo "Tempo p/ Entrega: ".$this->tempo."<br>";
-                echo "Alcance raio: ".$this->raio_km."<br>";
-                echo "Taxa de Entrega: ".$this->taxa_entrega."<br>";
-                echo "Valor Min. p/ entrega: ".$this->valor_minimo."<br>";
-                echo "Valor Min. p/ Taxa Grátis: ".$this->min_taxa_gratis."<br>";
-                echo "Raio Ativado: ".$this->flag_ativo."<br>";
+                echo "Código da Entrega: ".$this->ent_pk_id."<br>";
+                echo "Tempo p/ Entrega: ".$this->ent_tempo."<br>";
+                echo "Alcance raio: ".$this->ent_raio_km."<br>";
+                echo "Taxa de Entrega: ".$this->ent_taxa_entrega."<br>";
+                echo "Valor Min. p/ entrega: ".$this->ent_valor_minimo."<br>";
+                echo "Valor Min. p/ Taxa Grátis: ".$this->ent_min_taxa_gratis."<br>";
+                echo "Raio Ativado: ".$this->ent_flag_ativo."<br>";
             }
         }
 ?>

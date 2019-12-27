@@ -19,8 +19,6 @@ include_once MODELPATH."/produto.php";
                 "SELECT *, FAHO.faho_inicio, FAHO.faho_final FROM tb_produto AS PRO 
                 INNER JOIN tb_faixa_horario AS FAHO ON PRO.pro_fk_faixa_horario = FAHO.faho_pk_id 
                 WHERE pro_pk_id IN (".implode(',', $itens).")";
-            // print_r($sql);
-            // exit;
             $sql = $this->pdo->query($sql);
 
             if($sql -> rowCount() > 0){

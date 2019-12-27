@@ -28,16 +28,15 @@ include_once "../../admin/controler/controlEntrega.php";
 
 include_once "../controler/controlEndereco.php";
 
-// require_once '../ajax/enviarEmailPedido.php';
 
 $itens = array();
 $cardapio = new controlerProduto(conecta());
 $controlEndereco = new controlEndereco(conecta());
 
 $_SESSION['delivery'] = -1;
-$_SESSION['formaPagamento'] = '';
 $controlFormaPgt = new controlerFormaPgt($_SG['link']);
 $formasPgt = $controlFormaPgt->selectAll();
+$_SESSION['formaPagamento'] = $formasPgt[0]->getPkId();
 $_SESSION['delivery_price'] = 0;
 $_SESSION['delivery_time'] = 0;
 $_SESSION['delivery_free'] = 0;
@@ -527,11 +526,10 @@ if (count($itens) > 0) {
                         <p>Forma de Pagamento</p>
                         </strong>
                         <select class="form-control" name="formaPagamento" id="formaPagamento">
-                            <option value="0">Dinheiro</option>
                             <?php
                                 foreach ($formasPgt as $formaPgt) {
                                     if ($formaPgt->getFlag_ativo() == 1) {
-                                        echo "<option value ='" . $formaPgt->getCod_formaPgt() . "'>" . $formaPgt->getTipoFormaPgt() . "</option>";
+                                        echo "<option value ='" . $formaPgt->getPkId() . "'>" . $formaPgt->getNome() . "</option>";
                                     }
                                 }
                             ?>

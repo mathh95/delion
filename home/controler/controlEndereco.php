@@ -7,7 +7,29 @@
 
         function insert($endereco){
             try{
-                $stmt=$this->pdo->prepare("INSERT INTO endereco(rua, numero, cep, complemento, bairro, cidade, referencia, cliente, flag_cliente)
+
+                //tb_endereco
+                $stmt=$this->pdo->prepare("INSERT INTO tb_endereco(end_logradouro, end_cep, end_bairro, end_fk_cidade)
+                VALUES (:logradouro, :cep, :bairro, :fk_cidade) ");
+                
+                $rua = $endereco->getRua();
+                $cep = $endereco->getCep();
+                $bairro = $endereco->getBairro();
+                $cidade = $endereco->getCidade();
+                $referencia = $endereco->getReferencia();
+                $cliente = $endereco->getCliente();
+                
+                $stmt->bindParam(":rua", $rua, PDO::PARAM_STR);
+                $stmt->bindParam(":numero",$numero, PDO::PARAM_INT);
+                $stmt->bindParam(":cep", $cep, PDO::PARAM_STR);
+                $stmt->bindParam(":complemento", $complemento, PDO::PARAM_STR);
+                $stmt->bindParam(":bairro", $bairro, PDO::PARAM_STR);
+                $stmt->bindParam(":cidade", $cidade, PDO::PARAM_STR);
+                $stmt->bindParam(":referencia", $referencia, PDO::PARAM_STR);
+                $stmt->bindParam(":cliente", $cliente, PDO::PARAM_INT);
+
+                //rl_endereco_cliente
+                $stmt=$this->pdo->prepare("INSERT INTO tb_endereco(rua, numero, cep, complemento, bairro, cidade, referencia, cliente, flag_cliente)
                 VALUES (:rua, :numero, :cep, :complemento, :bairro, :cidade, :referencia, :cliente, 1) ");
                 
                 $rua = $endereco->getRua();
@@ -34,6 +56,7 @@
                 }else{
                     return -1;
                 }
+
             }catch(PDOException $e){
 
                 echo $e->getMessage();
@@ -41,9 +64,9 @@
             }
         }
 
-        function insertSemCodCli($endereco){
+        function insertSemFkCli($endereco){
             try{
-                $stmt=$this->pdo->prepare("INSERT INTO endereco(rua, numero, cep, complemento, bairro, cidade, referencia, flag_cliente)
+                $stmt=$this->pdo->prepare("INSERT INTO tb_endereco(rua, numero, cep, complemento, bairro, cidade, referencia, flag_cliente)
                 VALUES (:rua, :numero, :cep, :complemento, :bairro, :cidade, :referencia, 1) ");
                 
                 $rua = $endereco->getRua();
@@ -234,12 +257,23 @@
             try{
                 $enderecos = array();
                 if ($modo == 1) {
-                    $stmt=$this->pdo->prepare("SELECT * FROM endereco WHERE cod_endereco=:parametro");
+                    $stmt=$this->pdo->prepare("SELECT *
+                    FROM rl_endereco_cliente AS ENCL ON
+                    PED.ped_fk_endereco_cliente = ENCL.encl_pk_id
+                    INNER JOIN
+                    tb_endereco AS ENCO ON
+                    ENCO.end_pk_id = ENCL.encl_pk_id
+                    WHERE ENCL.encl_pk_id=:parametro");
+
                 }elseif ($modo == 2) {
-                    $stmt=$this->pdo->prepare("SELECT * FROM pedido WHERE cod_endereco=:parametro");
+                    $stmt=$this->pdo->prepare("SELECT *
+                    FROM tb_pedido
+                    WHERE ped_pk_id=:parametro");
                 }
+
                 $stmt->bindParam(":parametro", $parametro, PDO::PARAM_INT);
                 $executa= $stmt->execute();
+                
                 if ($executa){
                     if ($stmt->rowCount() > 0 ){
                         while($result=$stmt->fetch(PDO::FETCH_OBJ)){
@@ -275,16 +309,4 @@
             $this->pdo=$pdo;
         }
     }
-
-
-#Criação da tabela endereco
-/*  CREATE TABLE endereco ( cod_endereco INT PRIMARY KEY AUTO_INCREMENT,
- rua VARCHAR(255) NOT NULL,
- numero INT NOT NULL,
- cep VARCHAR(10) NOT NULL,
- complemento VARCHAR(255),
- bairro VARCHAR(255),
- cliente INT,
- FOREIGN KEY (cliente) REFERENCES cliente(cod_cliente)
- ) */
 ?>
