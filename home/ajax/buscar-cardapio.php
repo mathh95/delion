@@ -14,7 +14,15 @@ include_once "../lib/alert.php";
 $controleAdicional = new controlerAdicional(conecta());
 
 
-$busca = addslashes(htmlspecialchars($_GET['search']));
+if(isset($_GET['search']) && !empty($_GET['search'])){
+
+    $busca = addslashes(htmlspecialchars($_GET['search']));
+
+}else{
+
+    $busca = "";
+
+}
 
 $controle_categoria = new controlerCategoria(conecta());
 $controle_produto = new controlerProduto(conecta());
