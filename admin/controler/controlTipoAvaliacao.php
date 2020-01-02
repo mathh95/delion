@@ -13,7 +13,7 @@
 
         function insert($tipoAvaliacao){
             try{
-                $stmte = $this->pdo->prepare("INSERT INTO tipo_avaliacao(nome, flag_ativo) VALUES (:nome, :flag)");
+                $stmte = $this->pdo->prepare("INSERT INTO tb_tipo_avaliacao(tiva_nome, tiva_flag_ativo) VALUES (:tiva_nome, :tiva_flag_ativo)");
                 $stmte->bindValue("nome", $tipoAvaliacao->getNome(), PDO::PARAM_STR);
                 $stmte->bindValue("flag", $tipoAvaliacao->getFlag_ativo());
                 $executa = $stmte->execute();
@@ -30,7 +30,7 @@
 
         function update($tipoAvaliacao){
             try{
-                $stmte = $this->pdo->prepare("UPDATE tipo_avaliacao SET nome = :nome, flag_ativo = :flag_ativo WHERE cod_tipo_avaliacao = :cod_tipo_avaliacao");
+                $stmte = $this->pdo->prepare("UPDATE tb_tipo_avaliacao SET tiva_nome = :tiva_nome, tiva_flag_ativo = :tiva_flag_ativo WHERE tiva_pk_id = :tiva_pk_id");
                 $stmte->bindValue(":nome", $tipoAvaliacao->getNome());
                 $stmte->bindValue(":flag_ativo", $tipoAvaliacao->getFlag_ativo());
                 $stmte->bindValue(":cod_tipo_avaliacao", $tipoAvaliacao->getCod_tipo_avaliacao());
@@ -50,7 +50,7 @@
 
         function delete($parametro){
             try{
-                $stmt = $this->pdo->prepare("DELETE FROM tipo_avaliacao WHERE cod_tipo_avaliacao = :parametro");
+                $stmt = $this->pdo->prepare("DELETE FROM tb_tipo_avaliacao WHERE tiva_pk_id = :parametro");
                 $stmt->bindValue(":parametro", $parametro , PDO::PARAM_INT);
                 if($stmt->execute()){
                     return 1;
@@ -68,20 +68,20 @@
         function selectAtivo(){
             $tipos = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM tipo_avaliacao WHERE flag_ativo = 1");
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_tipo_avaliacao WHERE tiva_flag_ativo = 1");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
                             $tipoAvaliacao = new tipoAvaliacao();
-                            $tipoAvaliacao->setCod_tipo_avaliacao($result->cod_tipo_avaliacao); 
-                            $tipoAvaliacao->setNome($result->nome);  
-                            $tipoAvaliacao->setFlag_ativo($result->flag_ativo); 
+                            $tipoAvaliacao->setCod_tipo_avaliacao($result->tiva_pk_id); 
+                            $tipoAvaliacao->setNome($result->tiva_nome);  
+                            $tipoAvaliacao->setFlag_ativo($result->tiva_flag_ativo); 
                             array_push($tipos, $tipoAvaliacao);  
                         }
                     }
                 }
                 return $tipos;
-            }catch(PODException $e){
+            }catch(PDOException $e){
                 echo $e->getMessage();
             }
         }
@@ -89,14 +89,14 @@
         function select(){
             $tipos = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM tipo_avaliacao");
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_tipo_avaliacao");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
                             $tipoAvaliacao = new tipoAvaliacao();
-                            $tipoAvaliacao->setCod_tipo_avaliacao($result->cod_tipo_avaliacao); 
-                            $tipoAvaliacao->setNome($result->nome);  
-                            $tipoAvaliacao->setFlag_ativo($result->flag_ativo); 
+                            $tipoAvaliacao->setCod_tipo_avaliacao($result->tiva_pk_id); 
+                            $tipoAvaliacao->setNome($result->tiva_nome);  
+                            $tipoAvaliacao->setFlag_ativo($result->tiva_flag_ativo); 
                             array_push($tipos, $tipoAvaliacao);                       
                         }
                     }
@@ -110,7 +110,7 @@
         function mediaPorId($id){
             $media = 0;
             try{
-                $stmte = $this->pdo->prepare("SELECT SUM(nota) / COUNT(tipo_avaliacao) AS media FROM avaliacao WHERE tipo_avaliacao = :id");
+                $stmte = $this->pdo->prepare("SELECT SUM(ava_nota) / COUNT(tb_tipo_avaliacao) AS media FROM tb_avaliacao WHERE tb_tipo_avaliacao = :id");
                 $stmte->bindValue(":id", $id);
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
@@ -127,7 +127,7 @@
         function mediaPorData($data, $id){
             $media = 0;
             try{
-                $stmte = $this->pdo->prepare("SELECT SUM(nota) / COUNT(tipo_avaliacao) AS media FROM avaliacao WHERE data = :data AND tipo_avaliacao = :id");
+                $stmte = $this->pdo->prepare("SELECT SUM(ava_nota) / COUNT(tb_tipo_avaliacao) AS media FROM tb_avaliacao WHERE data = :data AND tb_tipo_avaliacao = :id");
                 $stmte->bindValue(":data", $data);
                 $stmte->bindValue(":id", $id);
                 if($stmte->execute()){
@@ -145,7 +145,7 @@
         function mediaPorMes($mes, $id){
             $media = 0;
             try{
-                $stmte = $this->pdo->prepare("SELECT SUM(nota) / COUNT(tipo_avaliacao) AS media FROM avaliacao WHERE data LIKE :mes AND tipo_avaliacao = :id");
+                $stmte = $this->pdo->prepare("SELECT SUM(ava_nota) / COUNT(tb_tipo_avaliacao) AS media FROM tb_avaliacao WHERE data LIKE :mes AND tb_tipo_avaliacao = :id");
                 $stmte->bindValue(":mes","%-".$mes."-%");
                 $stmte->bindValue(":id", $id);
                 if($stmte->execute()){
@@ -161,22 +161,21 @@
         }
 
         function selectSemCategoria($parametro,$modo){
-            $stmte;
             $tipo= new tipoAvaliacao();
             try{
                 if($modo==1){
-                    $stmte = $this->pdo->prepare("SELECT * FROM tipo_avaliacao WHERE nome LIKE :parametro");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_tipo_avaliacao WHERE tiva_nome LIKE :parametro");
                     $stmte->bindParam(":parametro", $parametro . "%" , PDO::PARAM_STR);
                 }elseif ($modo==2) {
-                    $stmte = $this->pdo->prepare("SELECT * FROM tipo_avaliacao WHERE cod_tipo_avaliacao = :parametro");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_tipo_avaliacao WHERE tiva_pk_id = :parametro");
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 }
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $tipo->setCod_tipo_avaliacao($result->cod_tipo_avaliacao);
-                            $tipo->setNome($result->nome);
-                            $tipo->setFlag_ativo($result->flag_ativo);
+                            $tipo->setCod_tipo_avaliacao($result->tiva_pk_id);
+                            $tipo->setNome($result->tiva_nome);
+                            $tipo->setFlag_ativo($result->tiva_flag_ativo);
                         }
                     }
                 }

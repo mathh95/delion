@@ -38,7 +38,7 @@
             }
 
             function getNome(){
-                return $this->cli_cli_nome;
+                return $this->cli_nome;
             }
 
             function getSobrenome(){
@@ -110,8 +110,8 @@
                 $this->cli_data_nasc = $cli_data_nasc;
             }
 
-            function setLogin($cli_login){
-                $this->cli_login = $cli_login;
+            function setLogin($cli_login_email){
+                $this->cli_login_email = $cli_login_email;
             }
             
 

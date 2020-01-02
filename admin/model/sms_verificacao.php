@@ -2,59 +2,59 @@
 
     class smsVerificacao{
 
-        private $cod_sms;
+        private $smve_pk_id;
 
-        private $telefone;
+        private $smve_telefone;
 
-        private $codigo; 
+        private $smve_codigo; 
         
-        private $verificado; 
+        private $smve_verificado; 
 
         /**
         * GET'S sms
         */
 
         function getCod_sms(){
-            return $this->cod_sms;
+            return $this->smve_pk_id;
         }
 
         function getTelefone(){
-            return $this->telefone;
+            return $this->smve_telefone;
         }
 
         function getCodigo(){
-            return $this->codigo;
+            return $this->smve_codigo;
         }
 
         function getVerificado(){
-            return $this->verificado;
+            return $this->smve_verificado;
         }
 
         /**
         * SET'S sms
         */
 
-        function setCod_sms($cod_sms){
-            $this->cod_sms = $cod_sms;
+        function setCod_sms($smve_pk_id){
+            $this->smve_pk_id = $smve_pk_id;
         }
 
-        function setTelefone($telefone){
-            $this->telefone = $telefone;
+        function setTelefone($smve_telefone){
+            $this->smve_telefone = $smve_telefone;
         }
 
-        function setCodigo($codigo){
-            $this->codigo = $codigo;
+        function setCodigo($smve_codigo){
+            $this->smve_codigo = $smve_codigo;
         }
 
-        function setVerificado($verificado){
-            $this->verificado = $verificado;
+        function setVerificado($smve_verificado){
+            $this->smve_verificado = $smve_verificado;
         }
 
         function __construct(){}
         
-        function construct($telefone, $codigo){
-            $this->telefone = $telefone;
-            $this->codigo = $codigo;
+        function construct($smve_telefone, $smve_codigo){
+            $this->smve_telefone = $smve_telefone;
+            $this->smve_codigo = $smve_codigo;
         }
     }
 

@@ -27,13 +27,13 @@
 		$adicional = new adicional();
 		$adicional->construct($nome, $preco, $desconto, $flag_ativo);
 
-		$adicional->setCod_adicional($cod_adicional);
+		$adicional->setPkId($cod_adicional);
 		$controle = new controlerAdicional($_SG['link']);
 		if($controle->update($adicional) > -1){
 			msgRedireciona('Alteração Realizada!','Item adicional alterado com sucesso!',1,'../view/admin/adicionalLista.php');
 		}else{
 			alertJSVoltarPagina('Erro!','Erro ao alterar item adicional!',2);
-			$adicional->show();
+			// $adicional->show();
 		}
 	}else{
 		expulsaVisitante();

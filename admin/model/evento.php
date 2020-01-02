@@ -4,69 +4,69 @@
  */
     class evento {
 
-        private $cod_evento;
-        private $nome;
-        private $data;
-        private $flag_antigo;
-        private $foto;
+        private $eve_pk_id;
+        private $eve_nome;
+        private $eve_data;
+        private $eve_flag_antigo;
+        private $eve_foto;
 
 
         function getCod_evento(){
-            return $this->cod_evento;
+            return $this->eve_pk_id;
         }
         function getNome(){
-            return $this->nome;
+            return $this->eve_nome;
         }
         function getData(){
-            return $this->data;
+            return $this->eve_data;
         }
         function getFlag_antigo(){
-            return $this->flag_antigo;
+            return $this->eve_flag_antigo;
         }
         function getFotoAbsoluto(){
-            return $this->foto;
+            return $this->eve_foto;
         }
         function getFoto(){
-            $pos = strpos($this->foto, "upload");
-            return substr($this->foto, $pos);
+            $pos = strpos($this->eve_foto, "upload");
+            return substr($this->eve_foto, $pos);
         }
 
 
-        function setCod_evento($cod_evento){
-            $this->cod_evento=$cod_evento;
+        function setCod_evento($eve_pk_id){
+            $this->eve_pk_id=$eve_pk_id;
         }
-        function setNome($nome){
-            $this->nome=$nome;
+        function setNome($eve_nome){
+            $this->eve_nome=$eve_nome;
         }
-        function setData($data){
-            $this->data=$data;
+        function setData($eve_data){
+            $this->eve_data=$eve_data;
         }
-        function setFlag_antigo($flag_antigo){
-            $this->flag_antigo=$flag_antigo;
+        function setFlag_antigo($eve_flag_antigo){
+            $this->eve_flag_antigo=$eve_flag_antigo;
         }
-        function setFoto($foto){
-            $this->foto=$foto;
+        function setFoto($eve_foto){
+            $this->eve_foto=$eve_foto;
         }
 
         function getDsAntigo(){
-            $antigo = ($this->flag_antigo == 1) ? "Antigo" : "Novo" ;
+            $antigo = ($this->eve_flag_antigo == 1) ? "Antigo" : "Novo" ;
             return $antigo;
         }
 
         function __construct(){
         }
-        function construct($nome,$data,$flag_antigo,$foto){
-            $this->nome=$nome;
-            $this->data=$data;
-            $this->flag_antigo=$flag_antigo;
-            $this->foto=$foto;
+        function construct($eve_nome,$eve_data,$eve_flag_antigo,$eve_foto){
+            $this->eve_nome=$eve_nome;
+            $this->eve_data=$eve_data;
+            $this->eve_flag_antigo=$eve_flag_antigo;
+            $this->eve_foto=$eve_foto;
         }
         function show(){
-            echo "Código do evento:".$this->cod_evento."<br>";
-            echo "Nome:".$this->nome."<br>";
-            echo "Data:".$this->data."<br>";
-            echo "Flag antigo:".$this->flag_antigo."<br>";
-            echo "Foto:".$this->foto."<br>";
+            echo "Código do evento:".$this->eve_pk_id."<br>";
+            echo "Nome:".$this->eve_nome."<br>";
+            echo "Data:".$this->eve_data."<br>";
+            echo "Flag antigo:".$this->eve_flag_antigo."<br>";
+            echo "Foto:".$this->eve_foto."<br>";
         }
     }
 ?>

@@ -183,8 +183,6 @@
 
         function selectAllMini(){
 
-            $stmte;
-
             $banners = array();
 
             try{

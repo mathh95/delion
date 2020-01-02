@@ -20,7 +20,7 @@
         $cod_recuperacao = bin2hex(openssl_random_pseudo_bytes(6));//12 chars
 
         $cliente = $control->select($login, 3);
-        $cod_cliente = $cliente->getCod_cliente();
+        $cod_cliente = $cliente->getPkId();
 
         $date = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
 

@@ -4,104 +4,104 @@
      */
         class endereco{
 
-            private $cod_endereco;
+            private $end_pk_id;
 
-            private $rua;
+            private $end_rua;
 
-            private $numero;
+            private $end_numero;
 
-            private $cep;
+            private $end_cep;
 
-            private $complemento;
+            private $end_complemento;
+            
+            private $end_bairro;
 
-            private $referencia;
+            private $end_referencia;
 
-            private $cidade;
+            private $end_fk_cliente;
 
-            private $bairro;
+            private $end_flag_cliente;
 
-            private $cliente;
-
-            private $flag_cliente;
+            private $end_fk_cidade;
 
             function getCodEndereco(){
-                return $this->cod_endereco;
+                return $this->end_pk_id;
             }
 
             function getRua(){
-                return $this->rua;
+                return $this->end_rua;
             }
 
             function getNumero(){
-                return $this->numero;
+                return $this->end_numero;
             }
 
             function getCep(){
-                return $this->cep;
+                return $this->end_cep;
             }
 
             function getComplemento(){
-                return $this->complemento;
-            }
-
-            function getReferencia(){
-                return $this->referencia;
-            }
-
-            function getCidade(){
-                return $this->cidade;
+                return $this->end_complemento;
             }
 
             function getBairro(){
-                return $this->bairro;
+                return $this->end_bairro;
+            }
+
+            function getReferencia(){
+                return $this->end_referencia;
             }
 
             function getCliente(){
-                return $this->cliente;
+                return $this->end_fk_cliente;
             }
 
             function getFlagCliente(){
-                return $this->flag_cliente;
+                return $this->end_flag_cliente;
             }
 
-            function setCodEndereco($cod_endereco){
-                $this->cod_endereco = $cod_endereco;
+            function getCidade(){
+                return $this->end_fk_cidade;
             }
 
-            function setRua($rua){
-                $this->rua = $rua;
+            function setCodEndereco($end_pk_id){
+                $this->end_pk_id = $end_pk_id;
             }
 
-            function setNumero($numero){
-                $this->numero = $numero;
+            function setRua($end_rua){
+                $this->end_rua = $end_rua;
             }
 
-            function setCep($cep){
-                $this->cep = $cep;
+            function setNumero($end_numero){
+                $this->end_numero = $end_numero;
             }
 
-            function setComplemento($complemento){
-                $this->complemento = $complemento;
+            function setCep($end_cep){
+                $this->end_cep = $end_cep;
             }
 
-            function setReferencia($referencia){
-                $this->referencia = $referencia;
+            function setComplemento($end_complemento){
+                $this->end_complemento = $end_complemento;
+            }
+            
+            function setBairro($end_bairro){
+                $this->end_bairro = $end_bairro;
             }
 
-            function setCidade($cidade){
-                $this->cidade = $cidade;
+            function setReferencia($end_referencia){
+                $this->end_referencia = $end_referencia;
             }
 
-            function setBairro($bairro){
-                $this->bairro = $bairro;
-            }
-
-            function setCliente($cliente){
-                $this->cliente = $cliente;
+            function setCliente($end_fk_cliente){
+                $this->end_fk_cliente = $end_fk_cliente;
             }
             
             function setFlagCliente($flag_cliente){
                 $this->flag_cliente=$flag_cliente;
+            }
+
+            function setCidade($end_fk_cidade){
+                $this->end_fk_cidade = $end_fk_cidade;
             }
 
             function __construct(){
@@ -112,15 +112,15 @@
                 return $this->flag_cliente==0? 'Inativo': 'Ativo';
             }
             
-            function construct($rua,$numero,$cep,$complemento,$bairro,$cidade,$referencia,$cliente){
-                $this->rua = $rua;
-                $this->numero = $numero;
-                $this->cep = $cep;
-                $this->complemento = $complemento;
-                $this->bairro = $bairro;
-                $this->cidade = $cidade;
-                $this->referencia = $referencia;
-                $this->cliente = $cliente;
+            function construct($end_rua,$end_numero,$end_cep,$end_complemento,$end_bairro,$end_referencia,$end_fk_cliente,$end_fk_cidade){
+                $this->end_rua = $end_rua;
+                $this->end_numero = $end_numero;
+                $this->end_cep = $end_cep;
+                $this->end_complemento = $end_complemento;
+                $this->end_bairro = $end_bairro;
+                $this->end_referencia = $end_referencia;
+                $this->end_fk_cliente = $end_fk_cliente;
+                $this->end_fk_cidade = $end_fk_cidade;
             }
 
             function show(){

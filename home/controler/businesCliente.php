@@ -24,9 +24,9 @@
 
             $cliente = $control->select($login, 3);
 
-            if(null != $cliente->getCod_cliente()){
+            if(null != $cliente->getPkId()){
                
-                $_SESSION['cod_cliente']=$cliente->getCod_cliente();
+                $_SESSION['cod_cliente']=$cliente->getPkId();
                 $_SESSION['nome']=$cliente->getNome();
                 $_SESSION['login']=$cliente->getLogin();
 
@@ -54,8 +54,8 @@
             $login=addslashes(htmlspecialchars($_POST['email']));
             $idFacebook=addslashes(htmlspecialchars($_POST['id']));
             $result=$control->select($login,3);
-            if ($result->getCod_cliente()){
-                $cod_cliente=$result->getCod_cliente();
+            if ($result->getPkId()){
+                $cod_cliente=$result->getPkId();
                 $nome=$result->getNome();
                 $login=$result->getLogin();
                 if ($result->getIdFacebook() and $result->getIdFacebook() == $idFacebook){

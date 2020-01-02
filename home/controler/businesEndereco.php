@@ -35,14 +35,15 @@
         $referencia=addslashes(htmlspecialchars($_POST['referencia']));
         $complemento=addslashes(htmlspecialchars($_POST['complemento']));
         $cliente= addslashes(htmlspecialchars($_POST['cod_cliente']));
-    
+        
+
         $endereco->construct($rua,$numero,$cep,$complemento,$bairro,$cidade,$referencia,$cliente);
         $result=$control->insert($endereco);
         
         if ($result > 0){
             alertJSVoltarPagina("Sucesso!","O endereço foi cadastrado com sucesso!",1);
         }else{
-            alertJSVoltarPagina("Erro!","Não foi cadastrar o endereço.",1);
+            alertJSVoltarPagina("Erro!","Não foi possível cadastrar o endereço.",1);
         }
     }
 
