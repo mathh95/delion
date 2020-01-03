@@ -165,14 +165,14 @@
                 try{
                     $cli_pk_id=$parametro;
                     $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_pk_id=:cli_pk_id");
-                    $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
+                    $stmt->bindParam(":cli_pk_id", $cli_pk_id, PDO::PARAM_INT);
                     $executa=$stmt->execute();
 
                     if($executa){
                         if($stmt->rowCount() > 0){
                             while($result=$stmt->fetch(PDO::FETCH_OBJ)){
                                 $cliente->setPkId($result->cli_pk_id);
-                                $cliente->setLogin($result->cli_login_email_email);
+                                $cliente->setLogin($result->cli_login_email);
                                 $cliente->setNome($result->cli_nome);
                                 $cliente->setSobrenome($result->cli_sobrenome);
                                 $cliente->setCpf($result->cli_cpf);
@@ -181,7 +181,7 @@
                                 $cliente->setTelefone($result->cli_telefone);
                                 $cliente->setDtAlteracaoFone($result->cli_dt_alteracao_fone);
                                 $cliente->setStatus($result->cli_status);
-                                $cliente->setIdFacebook($result->cli_idFacebook);
+                                $cliente->setIdFacebook($result->cli_id_facebook);
                             }
                         }
                         
@@ -212,14 +212,14 @@
                 try{
                     $cli_pk_id=$parametro;
                     $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_pk_id=:cli_pk_id");
-                    $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
+                    $stmt->bindParam(":cli_pk_id", $cli_pk_id, PDO::PARAM_INT);
                     $executa=$stmt->execute();
 
                     if($executa){
                         if($stmt->rowCount() > 0){
                             while($result=$stmt->fetch(PDO::FETCH_OBJ)){
                                 $cliente->setPkId($result->cli_pk_id);
-                                $cliente->setLogin($result->cli_login_email_email);
+                                $cliente->setLogin($result->cli_login_email);
                                 $cliente->setNome($result->cli_nome);
                                 $cliente->setSobrenome($result->cli_sobrenome);
                                 $cliente->setCpf($result->cli_cpf);
@@ -228,7 +228,7 @@
                                 $cliente->setTelefone($result->cli_telefone);
                                 $cliente->setDtAlteracaoFone($result->cli_dt_alteracao_fone);
                                 $cliente->setStatus($result->cli_status);
-                                $cliente->setIdFacebook($result->cli_idFacebook);
+                                $cliente->setIdFacebook($result->cli_id_facebook);
                             }
                         }
 
@@ -529,7 +529,7 @@
                         if($stmt->rowCount() > 0){
                             while($result=$stmt->fetch(PDO::FETCH_OBJ)){
                                 $cliente->setPkId($result->cli_pk_id);
-                                $cliente->setLogin($result->cli_login_email_email);
+                                $cliente->setLogin($result->cli_login_email);
                                 $cliente->setNome($result->cli_nome);
                                 $cliente->setSobrenome($result->cli_sobrenome);
                                 $cliente->setCpf($result->cli_cpf);
@@ -538,7 +538,7 @@
                                 $cliente->setTelefone($result->cli_telefone);
                             }
                             if ($cliente->getSenha() == $senha){
-                                $stmt=$this->pdo->prepare("UPDATE tb_cliente SET senha=:novaSenha WHERE cli_pk_id=:parametro");
+                                $stmt=$this->pdo->prepare("UPDATE tb_cliente SET cli_senha=:novaSenha WHERE cli_pk_id=:parametro");
                                 $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
                                 $stmt->bindParam(":novaSenha", $novaSenha, PDO::PARAM_STR);
                                 $executa=$stmt->execute();

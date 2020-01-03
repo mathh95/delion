@@ -24,7 +24,7 @@
 
             private $cli_idGoogle;
 
-            private $cli_idFacebook;
+            private $cli_id_facebook;
             
             private $cli_pontos_fidelidade;
 
@@ -70,7 +70,7 @@
             }
             
             function getIdFacebook(){
-                return $this->cli_idFacebook;
+                return $this->cli_id_facebook;
             }
 
             function getIdGoogle(){
@@ -131,8 +131,8 @@
                 $this->cli_idGoogle = $cli_idGoogle;
             }
 
-            function setIdFacebook($cli_idFacebook){
-                $this->cli_idFacebook = $cli_idFacebook;
+            function setIdFacebook($cli_id_facebook){
+                $this->cli_id_facebook = $cli_id_facebook;
             }
 
             function setPontosFidelidade($cli_pontos_fidelidade){

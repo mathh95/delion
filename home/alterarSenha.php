@@ -94,8 +94,11 @@
 
     			</div>
 
-    			<button type="submit">ALTERAR</button>
-                
+				<div>
+
+    				<button type="submit">ALTERAR</button>
+				
+				</div>
 
 			</form>
 
