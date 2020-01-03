@@ -29,32 +29,32 @@
     function validaUsuario($usuario, $senha) {
         global $_SG;
         $pdo=$_SG['link'];
-        $stmte = $pdo->prepare("SELECT * FROM usuario WHERE login = :parametro");
+        $stmte = $pdo->prepare("SELECT * FROM tb_usuario WHERE usu_login = :parametro");
         $stmte->bindParam(":parametro", $usuario , PDO::PARAM_STR);
         if($stmte->execute()){
             if($stmte->rowCount() > 0){
                 $result = $stmte->fetch(PDO::FETCH_OBJ);
-                if ($result->flag_bloqueado == 0)  {
-                    if (md5($senha) == $result->senha) {
+                if ($result->usu_flag_bloqueado == 0)  {
+                    if (md5($senha) == $result->usu_senha) {
                     // if (true) {
                         try {
-                            $_SESSION['usuarioID'] = $result->cod_usuario;
+                            $_SESSION['usuarioID'] = $result->usu_pk_id;
                             //  $_SESSION['usuarioLogin'] = strval($result->login);
-                            $_SESSION['usuarioNome'] = strval($result->nome);
-                            $_SESSION['usuarioNivel'] = $result->cod_perfil;
-                            $_SESSION['permissaoPagina'] = $result->cod_perfil;
-                            $_SESSION['permissao'] = $result->permissao;
+                            $_SESSION['usuarioNome'] = strval($result->usu_nome);
+                            $_SESSION['usuarioNivel'] = $result->usu_cod_perfil;
+                            $_SESSION['permissaoPagina'] = $result->usu_cod_perfil;
+                            $_SESSION['permissao'] = $result->usu_permissao;
 
                             $_SESSION['usuario'] = new usuario();
                             $_SESSION['usuario']->construct(
-                                              $result->nome,
-                                              $result->login,
-                                              $result->senha,
-                                              $result->email,
-                                              $result->flag_bloqueado,
-                                              $result->cod_perfil,
-                                              $result->permissao);
-                            $_SESSION['usuario']->setCod_usuario($result->cod_usuario);
+                                              $result->usu_nome,
+                                              $result->usu_login,
+                                              $result->usu_senha,
+                                              $result->usu_email,
+                                              $result->usu_flag_bloqueado,
+                                              $result->usu_cod_perfil,
+                                              $result->usu_permissao);
+                            $_SESSION['usuario']->setCod_usuario($result->usu_pk_id);
 
                         } catch (Exception $e) {
                             print "Error!: " . $e->getMessage() . "<br/>";

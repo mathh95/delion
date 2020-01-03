@@ -19,8 +19,10 @@
 		$cod_perfil= addslashes(htmlspecialchars($_POST['perfil']));
 		// $status= addslashes(htmlspecialchars($_POST['flag_bloqueado']));
 		
-		if(isset($_POST['permissoes'])){
+		if(isset($_POST['permissoes']) && !empty($_POST['permissoes'])){
 			$arr_permissoes = json_encode($_POST['permissoes']);
+		}else{
+			$arr_permissoes = "";
 		}
 
 		$usuario= new usuario();

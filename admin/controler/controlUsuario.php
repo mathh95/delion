@@ -95,7 +95,7 @@
         function delete($cod_usuario){
             try{
                 $block=1;
-                $stmte =$this->pdo->prepare("UPDATE tb_usuario SET usu_flag_bloqueado=:usu_flag_bloqueado WHERE usu_pk_id= :usu_pk_id");
+                $stmte =$this->pdo->prepare("UPDATE tb_usuario SET usu_flag_bloqueado=:usu_flag_bloqueado WHERE usu_pk_id= :cod_usuario");
                 $stmte->bindParam(":cod_usuario", $cod_usuario, PDO::PARAM_INT);
                 $stmte->bindParam(":flag_bloqueado", $block , PDO::PARAM_INT);
                 if ($stmte->execute()) {
