@@ -35,7 +35,7 @@
 		}
 		$imagem= new imagem();
 		$imagem->construct($nome, $foto, $pagina);
-		$imagem->setCod_imagem($cod_imagem);
+		$imagem->setPkId($cod_imagem);
 		$controle=new controlerImagem($_SG['link']);
 		if($controle->update($imagem)> -1){
 			msgRedireciona('Alteração Realizada!','Imagem alterada com sucesso!',1,'../view/admin/imagemLista.php');
