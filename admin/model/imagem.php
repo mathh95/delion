@@ -4,14 +4,14 @@
  */
     class imagem {
 
-        private $ima_cod_imagem;
+        private $ima_pk_id;
         private $ima_nome;
         private $ima_foto;
         private $ima_pagina;
 
 
         function getPkId(){
-            return $this->ima_cod_imagem;
+            return $this->ima_pk_id;
         }
         function getNome(){
             return $this->ima_nome;

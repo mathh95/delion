@@ -8,7 +8,7 @@
         private $pdo;
         function insert($imagem){
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO imagem(nome, foto, pagina)
+                $stmte =$this->pdo->prepare("INSERT INTO tb_imagem(ima_nome, ima_foto, ima_pagina)
                 VALUES (:nome, :foto, :pagina)");
                 $stmte->bindParam("nome", $imagem->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam("foto", $imagem->getFoto(), PDO::PARAM_STR);
@@ -29,7 +29,7 @@
 
         function update($imagem){
             try{
-                $stmte =$this->pdo->prepare("UPDATE imagem SET nome=:nome, foto=:foto, pagina=:pagina WHERE cod_imagem=:cod_imagem");
+                $stmte =$this->pdo->prepare("UPDATE tb_imagem SET ima_nome=:nome, ima_foto=:foto, ima_pagina=:pagina WHERE ima_cod_imagem=:cod_imagem");
                 $stmte->bindParam(":cod_imagem", $imagem->getCod_imagem() , PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $imagem->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam("foto", $imagem->getFoto(), PDO::PARAM_STR);
@@ -55,23 +55,22 @@
         */
 
         function select($parametro,$modo){
-            $stmte;
             $imagem= new imagem();
             try{
                 if($modo==1){
-                    $stmte = $this->pdo->prepare("SELECT * FROM imagem WHERE nome LIKE :parametro");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_imagem WHERE ima_nome LIKE :parametro");
                     $stmte->bindParam(":parametro", $parametro . "%" , PDO::PARAM_STR);
                 }elseif ($modo==2) {
-                    $stmte = $this->pdo->prepare("SELECT * FROM imagem WHERE cod_imagem = :parametro");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_imagem WHERE ima_pk_id = :parametro");
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 }
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $imagem->setCod_imagem($result->cod_imagem);
-                            $imagem->setNome($result->nome);
-                            $imagem->setFoto($result->foto);
-                            $imagem->setPagina($result->pagina);
+                            $imagem->getPkId($result->ima_pk_id);
+                            $imagem->setNome($result->ima_nome);
+                            $imagem->setFoto($result->ima_foto);
+                            $imagem->setPagina($result->ima_pagina);
                         }
                     }
                 }
@@ -84,7 +83,7 @@
 
         function delete($parametro){
             try{
-                $stmt = $this->pdo->prepare("DELETE FROM imagem WHERE cod_imagem = :parametro");
+                $stmt = $this->pdo->prepare("DELETE FROM tb_imagem WHERE ima_pk_id = :parametro");
                 $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;
@@ -96,18 +95,17 @@
         }
 
         function selectAll(){
-            $stmte;
             $imagens = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM imagem");
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_imagem");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
                             $imagem= new imagem();
-                            $imagem->setCod_imagem($result->cod_imagem);
-                            $imagem->setNome($result->nome);
-                            $imagem->setFoto($result->foto);
-                            $imagem->setPagina($result->pagina);
+                            $imagem->getPkId($result->ima_pk_id);
+                            $imagem->setNome($result->ima_nome);
+                            $imagem->setFoto($result->ima_foto);
+                            $imagem->setPagina($result->ima_pagina);
                             array_push($imagens, $imagem);
                         }
                     }
@@ -120,9 +118,8 @@
         }
 
         function countImagem(){
-            $stmte;
             try{
-                $stmte = $this->pdo->prepare("SELECT COUNT(*) AS imagens FROM imagem");
+                $stmte = $this->pdo->prepare("SELECT COUNT(*) AS imagens FROM tb_imagem");
                 $stmte->execute();
                 $result = $stmte->fetch(PDO::FETCH_OBJ);
                 return $result->imagens;

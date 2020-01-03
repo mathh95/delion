@@ -82,7 +82,7 @@
 
                                 <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text" value="<?=  $imagem->getNome(); ?>"/>
 
-                                <input class="form-control" name="cod" style="display: none;" id ="cod" type="text" value="<?=  $imagem->getCod_imagem(); ?>"/>
+                                <input class="form-control" name="cod" style="display: none;" id ="cod" type="text" value="<?=  $imagem->getPkId(); ?>"/>
 
                                 <input class="form-control" name="imagem" style="display: none;" id ="imagem" type="text" value="../<?=  $imagem->getFotoAbsoluto(); ?>"/>
 

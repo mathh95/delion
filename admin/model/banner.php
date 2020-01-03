@@ -8,8 +8,6 @@
 
     class banner {
 
-
-
         private $emp_pk_id;
         private $emp_nome;
         private $emp_link;
