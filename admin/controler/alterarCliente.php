@@ -17,7 +17,7 @@
             $cliente->setLogin($login);
             $cliente->setNome($nome);
             $cliente->setTelefone($telefone);
-            $cliente->setCod_cliente($cod_cliente);
+            $cliente->setPkId($cod_cliente);
             $control = new controlCliente($_SG['link']);
             $result=$control->update($cliente);
             
