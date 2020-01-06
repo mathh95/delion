@@ -28,10 +28,10 @@
 
         function update($categoria){
             try{
-                $stmte =$this->pdo->prepare("UPDATE tb_categoria SET cat_nome=:nome, cat_icone=:icone WHERE cat_pk_id=:cat_pk_id");
-                $stmte->bindParam(":cat_pk_id", $categoria->getPkId() , PDO::PARAM_INT);
-                $stmte->bindParam(":cat_nome", $categoria->getNome(), PDO::PARAM_STR);
-                $stmte->bindParam(":cat_icone", $categoria->getIcone(), PDO::PARAM_STR);
+                $stmte =$this->pdo->prepare("UPDATE tb_categoria SET cat_nome=:nome, cat_icone=:icone WHERE cat_pk_id=:cod_categoria");
+                $stmte->bindParam(":cod_categoria", $categoria->getPkId() , PDO::PARAM_INT);
+                $stmte->bindParam(":nome", $categoria->getNome(), PDO::PARAM_STR);
+                $stmte->bindParam(":icone", $categoria->getIcone(), PDO::PARAM_STR);
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;

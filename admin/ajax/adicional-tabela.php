@@ -32,13 +32,13 @@ if(in_array('adicional', $permissao)){
 	}else{
 		$flag = "Inativo";
 	}
-        echo "<tr name='resultado' id='status".$adicional->getCod_adicional()."'>
+        echo "<tr name='resultado' id='status".$adicional->getPkId()."'>
             <td style='text-align: center;' name='nome'>".$adicional->getNome()."</td>
             <td style='text-align: center;' name='preco'>".$adicional->getPreco()."</td>
 	    <td style='text-align: center;' name='desconto'>".$adicional->getDesconto()."</td>
 	    <td style='text-align: center;' name='flag_ativo'>".$flag."</td>
-            <td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='adicional-view.php?cod=".$adicional->getCod_adicional()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
-            <td style='text-align: center;' name='status'><a href='../../ajax/excluir-adicional.php?cod=".$adicional->getCod_adicional()."'><button type='button' class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></a></td>
+            <td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='adicional-view.php?cod=".$adicional->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+            <td style='text-align: center;' name='status'><a href='../../ajax/excluir-adicional.php?cod=".$adicional->getPkId()."'><button type='button' class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></a></td>
         </tr>";
 	}
 }else{
@@ -55,7 +55,7 @@ if(in_array('adicional', $permissao)){
 	foreach ($adicionais as &$adicional) {
         $mensagem='Adicional excluído com sucesso!';
         $titulo='Excluir';
-        echo "<tr name='resultado' id='status".$adicional->getCod_adicional()."'>
+        echo "<tr name='resultado' id='status".$adicional->getPkId()."'>
             <td style='text-align: center;' name='nome'>".$adicional->getNome()."</td>
             <td style='text-align: center;' name='preco'>".$adicional->getPreco()."</td>
 	    <td style='text-align: center;' name='desconto'>".$adicional->getDesconto()."</td>
