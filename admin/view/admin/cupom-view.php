@@ -49,7 +49,7 @@
 
         $controle = new controlCupom($_SG['link']);
 
-        $cupom = $controle->select($_GET['cod_cupom']);
+        $cupom = $controle->selectByPk($_GET['cod_cupom']);
 
         $vencimento_data = date('d/m/Y', strtotime($cupom->getVencimento_data()));
 
@@ -72,7 +72,7 @@
                             <small>Código do Cupom:</small>
 
                             <div id="test">
-                                    <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $cupom->getCod_cupom();?>">
+                                    <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $cupom->getPkId();?>">
                                     <input id="codigo" class="form-control" type="text" name="codigo" placeholder="Código do Cupom" value="<?=$cupom->getCodigo();?>" readonly/>
                                     
                                     <br>
@@ -149,7 +149,9 @@
 
                                 <input class="form-control" placeholder="" id="vencimento_hora" name="vencimento_hora" value="<?=$cupom->getVencimento_hora();?>" type="time">
 
-                            </div> 
+                            </div>
+                            
+                            <br>
 
                         </div>
 

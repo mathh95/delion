@@ -64,47 +64,47 @@
 
 
             
-            function setPkId($pk_id){
-                $this->cup_pk_id = $pk_id;
+            function setPkId($cup_pk_id){
+                $this->cup_pk_id = $cup_pk_id;
             }
 
-            function setCodigo($codigo){
-                $this->cup_codigo = $codigo;
+            function setCodigo($cup_codigo){
+                $this->cup_codigo = $cup_codigo;
             }
             
             function setQtde_inicial($qtde_inicial){
                 $this->cup_qtde_inicial = $qtde_inicial;
             }
 
-            function setQtde_atual($qtde_atual){
-                $this->cup_qtde_atual = $qtde_atual;
+            function setQtde_atual($cup_qtde_atual){
+                $this->cup_qtde_atual = $cup_qtde_atual;
             }
 
-            function setValor($valor){
-                $this->cup_valor = $valor;
+            function setValor($cup_valor){
+                $this->cup_valor = $cup_valor;
             }
 
-            function setValor_minimo($valor_minimo){
-                $this->cup_valor_minimo = $valor_minimo;
+            function setValor_minimo($cup_valor_minimo){
+                $this->cup_valor_minimo = $cup_valor_minimo;
             }
 
-            function setVencimento_data($vencimento_data){
-                $this->cup_vencimento_data=$vencimento_data;
+            function setVencimento_data($cup_vencimento_data){
+                $this->cup_vencimento_data=$cup_vencimento_data;
             }
 
-            function setVencimento_hora($vencimento_hora){
-                $this->cup_vencimento_hora=$vencimento_hora;
+            function setVencimento_hora($cup_vencimento_hora){
+                $this->cup_vencimento_hora=$cup_vencimento_hora;
             }
 
-            function setStatus($status){
-                $this->cup_status = $status;
+            function setStatus($cup_status){
+                $this->cup_status = $cup_status;
             }
 
-            function construct1($valor,$valor_minimo ,$vencimento_data, $vencimento_hora){
-                $this->cup_valor = $valor;
-                $this->cup_valor_minimo = $valor_minimo;
-                $this->cup_vencimento_data = $vencimento_data;
-                $this->cup_vencimento_hora = $vencimento_hora;
+            function construct1($cup_valor,$cup_valor_minimo ,$cup_vencimento_data, $cup_vencimento_hora){
+                $this->cup_valor = $cup_valor;
+                $this->cup_valor_minimo = $cup_valor_minimo;
+                $this->cup_vencimento_data = $cup_vencimento_data;
+                $this->cup_vencimento_hora = $cup_vencimento_hora;
             }
 
             function construct($codigo,$qtde_inicial, $qtde_atual,$valor,$valor_minimo , $vencimento_data, $vencimento_hora, $status){
