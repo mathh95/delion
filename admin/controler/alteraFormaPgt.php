@@ -6,7 +6,7 @@
     date_default_timezone_set('America/Sao_Paulo');
 
     include_once "controlFormaPgt.php";
-    include_once "../model/formaPgt.php";
+    include_once "../model/forma_pgto.php";
     include_once "../lib/alert.php";
     include_once "upload.php";
     if (in_array('forma_pgto', json_decode($_SESSION['permissao']))) {
@@ -22,16 +22,16 @@
             $flag_ativo = 0;
         }
         
-        $formaPgt = new formaPgt();
+        $formaPgt = new forma_pgto();
         $formaPgt->construct($tipoFormaPgt,$flag_ativo);
 
-        $formaPgt->setCod_formaPgt($cod_formaPgt);
+        $formaPgt->setPkId($cod_formaPgt);
         $controle = new controlerFormaPgt($_SG['link']);
         if($controle->update($formaPgt) > -1){
             msgRedireciona('Alteração Realizada!','Forma de Pagamento alterado com sucesso!',1,'../view/admin/formaPgtLista.php');
         }else{
             alertJSVoltarPagina('Erro!','Erro ao alterar forma de pagamento!',2);
-            $formaPgt->show();
+            // $formaPgt->show();
         }
     }else{
         expulsaVisitante();

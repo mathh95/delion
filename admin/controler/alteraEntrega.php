@@ -46,7 +46,7 @@
 
 			$entrega = new entrega();
 			$entrega->construct($raio_km, $taxa_entrega, $tempo, $valor_minimo, $min_taxa_gratis, $flag_ativo);
-			$entrega->setCod_entrega($cod_entrega);
+			$entrega->setPkId($cod_entrega);
 						
 			if($controle->update($entrega) == -1){
 				$erros++;
@@ -57,7 +57,7 @@
 			msgRedireciona('Alteração Realizada!','Informações de Entrega alterada com sucesso!',1,'../view/admin/entrega.php');
 		}else{
 			alertJSVoltarPagina('Erro!','Erro ao alterar Informações de entrega!',2);
-			$entrega->show();
+			// $entrega->show();
 			//var_dump($entrega);
 		}
 
