@@ -50,9 +50,6 @@
                 return $this->ent_flag_ativo;
             }
 
-
-
-
             function setPkId($ent_pk_id){
                 $this->ent_pk_id = $ent_pk_id;
             }

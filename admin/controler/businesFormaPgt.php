@@ -20,7 +20,8 @@
             $flag_ativo = 2;    //nao ativo
         }
 
-        $formaPgt= new formaPgt();
+
+        $formaPgt= new forma_pgto();
         $formaPgt->construct($tipoFormaPgt, $flag_ativo);
 
         $controle= new controlerFormaPgt($_SG['link']);
@@ -28,7 +29,7 @@
             msgRedireciona('Cadastro Realizado!','Forma de Pagamento cadastrada!',1,'../view/admin/formaPgt.php');
         }else{
             alertJSVoltarPagina('Erro','Erro ao cadastrar forma de pagamento!',2);
-            $formaPgt->show();
+            // $formaPgt->show();
         }
     }else{
         expulsaVisitante();
