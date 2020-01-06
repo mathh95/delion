@@ -8,7 +8,7 @@
         private $pdo;
         function insert($evento){
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO evento(nome, data, flag_antigo, foto)
+                $stmte =$this->pdo->prepare("INSERT INTO tb_evento(eve_nome, eve_data, eve_flag_antigo, eve_foto)
                 VALUES (:nome, :data, :flag_antigo, :foto)");
                 $stmte->bindParam("nome", $evento->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam("data", $evento->getData(), PDO::PARAM_STR);
@@ -30,7 +30,7 @@
 
         function update($evento){
             try{
-                $stmte =$this->pdo->prepare("UPDATE evento SET nome=:nome, data=:data, flag_antigo=:flag_antigo, foto=:foto WHERE cod_evento=:cod_evento");
+                $stmte =$this->pdo->prepare("UPDATE tb_evento SET eve_nome=:nome, eve_data=:data, eve_flag_antigo=:flag_antigo, eve_foto=:foto WHERE eve_pk_id=:cod_evento");
                 $stmte->bindParam(":cod_evento", $evento->getCod_evento() , PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $evento->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":data", $evento->getData(), PDO::PARAM_STR);
@@ -57,24 +57,23 @@
         */
 
         function select($parametro,$modo){
-            $stmte;
             $evento= new evento();
             try{
                 if($modo==1){
-                    $stmte = $this->pdo->prepare("SELECT * FROM evento WHERE nome LIKE :parametro");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_evento WHERE eve_nome LIKE :parametro");
                     $stmte->bindParam(":parametro", $parametro . "%" , PDO::PARAM_STR);
                 }elseif ($modo==2) {
-                    $stmte = $this->pdo->prepare("SELECT * FROM evento WHERE cod_evento = :parametro");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_evento WHERE eve_pk_id = :parametro");
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 }
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $evento->setCod_evento($result->cod_evento);
-                            $evento->setNome($result->nome);
-                            $evento->setData($result->data);
-                            $evento->setFlag_antigo($result->flag_antigo);
-                            $evento->setFoto($result->foto);
+                            $evento->setCod_evento($result->eve_pk_id);
+                            $evento->setNome($result->eve_nome);
+                            $evento->setData($result->eve_data);
+                            $evento->setFlag_antigo($result->eve_flag_antigo);
+                            $evento->setFoto($result->eve_foto);
                         }
                     }
                 }
@@ -87,7 +86,7 @@
 
         function delete($parametro){
             try{
-                $stmt = $this->pdo->prepare("DELETE FROM evento WHERE cod_evento = :parametro");
+                $stmt = $this->pdo->prepare("DELETE FROM tb_evento WHERE eve_pk_id = :parametro");
                 $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;
@@ -99,19 +98,18 @@
         }
 
         function selectAll(){
-            $stmte;
             $eventos = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM evento");
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_evento");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
                             $evento= new evento();
-                            $evento->setCod_evento($result->cod_evento);
-                            $evento->setNome($result->nome);
-                            $evento->setData($result->data);
-                            $evento->setFlag_antigo($result->flag_antigo);
-                            $evento->setFoto($result->foto);
+                            $evento->setCod_evento($result->eve_pk_id);
+                            $evento->setNome($result->eve_nome);
+                            $evento->setData($result->eve_data);
+                            $evento->setFlag_antigo($result->eve_flag_antigo);
+                            $evento->setFoto($result->eve_foto);
                             array_push($eventos, $evento);
                         }
                     }
@@ -124,9 +122,8 @@
         }
 
         function countEvento(){
-            $stmte;
             try{
-                $stmte = $this->pdo->prepare("SELECT COUNT(*) AS eventos FROM evento");
+                $stmte = $this->pdo->prepare("SELECT COUNT(*) AS eventos FROM tb_evento");
                 $stmte->execute();
                 $result = $stmte->fetch(PDO::FETCH_OBJ);
                 return $result->eventos;

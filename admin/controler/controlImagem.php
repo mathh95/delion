@@ -67,7 +67,7 @@
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $imagem->getPkId($result->ima_pk_id);
+                            $imagem->setPkId($result->ima_pk_id);
                             $imagem->setNome($result->ima_nome);
                             $imagem->setFoto($result->ima_foto);
                             $imagem->setPagina($result->ima_pagina);

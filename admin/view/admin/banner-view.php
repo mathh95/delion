@@ -82,7 +82,7 @@
 
                                 <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text" value="<?=  $banner->getNome(); ?>"/>
 
-                                <input class="form-control" name="cod" style="display: none;" id ="cod" type="text" value="<?=  $banner->getCod_banner(); ?>"/>
+                                <input class="form-control" name="cod" style="display: none;" id ="cod" type="text" value="<?=  $banner->getPkId(); ?>"/>
 
                                 <input class="form-control" name="imagem" style="display: none;" id ="imagem" type="text" value="../<?=  $banner->getFotoAbsoluto(); ?>"/>
 
