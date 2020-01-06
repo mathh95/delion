@@ -54,7 +54,7 @@ $banners = $controle->selectAllMini();
 
 			$titulo='Excluir';
 
-			echo "<tr name='resutaldo' id='status".$banner->getCod_Banner()."'>
+			echo "<tr name='resutaldo' id='status".$banner->getPkId()."'>
 
 			 	<td style='text-align: center;' name='banner'><img src='../../".$banner->getFoto()."' style='max-height: 100px' alt='' class='img-thumbnail'/></td>
 
@@ -64,9 +64,9 @@ $banners = $controle->selectAllMini();
 
 			 	<td style='text-align: center;' name='link'>".$banner->getLink()."</td>
 
-			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='miniBanner-view.php?cod=".$banner->getCod_banner()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='miniBanner-view.php?cod=".$banner->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
 
-			 	<td style='text-align: center;' name='status'  ><button type='button' onclick=\"removeBanner(".$banner->getCod_banner().",'../".$banner->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
+			 	<td style='text-align: center;' name='status'  ><button type='button' onclick=\"removeBanner(".$banner->getPkId().",'../".$banner->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
 
 			</tr>";
 
@@ -100,7 +100,7 @@ $banners = $controle->selectAllMini();
 
 		foreach ($banners as &$banner) {
 
-			echo "<tr name='resutaldo' id='status".$banner->getCod_Banner()."'>
+			echo "<tr name='resutaldo' id='status".$banner->getPkId()."'>
 
 			 	<td style='text-align: center;' name='banner'><img src='../../".$banner->getFoto()."' style='max-height: 100px' alt='' class='img-thumbnail'/></td>
 
@@ -110,7 +110,7 @@ $banners = $controle->selectAllMini();
 
 			 	<td style='text-align: center;' name='link'>".$banner->getLink()."</td>
 
-			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='miniBanner-view.php?cod=".$banner->getCod_banner()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='miniBanner-view.php?cod=".$banner->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
 
 			</tr>";
 

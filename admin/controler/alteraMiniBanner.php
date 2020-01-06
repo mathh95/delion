@@ -76,7 +76,7 @@
 
 		$banner->construct($nome, $link,/* $legenda,*/ 1, $foto, $pagina);
 
-		$banner->setCod_banner($cod_banner);
+		$banner->setPkId($cod_banner);
 
 		$controle=new controlerBanner($_SG['link']);
 
