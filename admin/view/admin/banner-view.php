@@ -260,7 +260,7 @@
 
         <script>
 
-            var pagina =   <?=$p?>;
+            var pagina =   <?=$p;?>
 
             $( document ).ready(function() {
 

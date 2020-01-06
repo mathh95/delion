@@ -37,7 +37,7 @@
 			msgRedireciona('Cadastro Realizado!','Item adicional cadastrado com sucesso!',1,'../view/admin/adicional.php');
 		}else{
 			alertJSVoltarPagina('Erro!','Erro ao cadastrar item adicional!',2);
-			$adicional->show();
+			// $adicional->show();
 		}
 	}else{
 		expulsaVisitante();

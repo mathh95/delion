@@ -8,7 +8,7 @@
 
         private $adi_preco;
 
-        private $adi_desconto;
+        private $adi_ck_desconto;
 
         private $adi_flag_ativo;
 
@@ -25,7 +25,7 @@
         }
 
         function getDesconto(){
-            return $this->adi_desconto;
+            return $this->adi_ck_desconto;
         }
 
         function getFlag_ativo(){
@@ -44,8 +44,8 @@
             $this->adi_preco = $adi_preco;
         }
 
-        function setDesconto($adi_desconto){
-            $this->adi_desconto = $adi_desconto;
+        function setDesconto($adi_ck_desconto){
+            $this->adi_ck_desconto = $adi_ck_desconto;
         }
 
         function setFlag_ativo($adi_flag_ativo){
@@ -54,11 +54,11 @@
 
         function __construct(){}
 
-        function construct($adi_nome, $adi_preco, $adi_desconto, $adi_flag_ativo){
-            $this->nome = $adi_nome;
-            $this->preco = $adi_preco;
-            $this->desconto = $adi_desconto;
-            $this->flag_ativo = $adi_flag_ativo;
+        function construct($adi_nome, $adi_preco, $adi_ck_desconto, $adi_flag_ativo){
+            $this->adi_nome = $adi_nome;
+            $this->adi_preco = $adi_preco;
+            $this->adi_ck_desconto = $adi_ck_desconto;
+            $this->adi_flag_ativo = $adi_flag_ativo;
         }
     }
 
