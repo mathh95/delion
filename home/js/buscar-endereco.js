@@ -159,6 +159,19 @@ function autoCompletar(rua, bairro, cep, cidade) {
     });
 }
 
+function autoCompletarAlterar(endereco, rua, bairro, cep, cidade) {
+    $.ajax({
+        type: 'GET',
+        url: 'ajax/salvar-endereco.php?alterar=true',
+        data: { endereco: endereco, rua: rua, bairro: bairro, cep: cep, cidade: cidade },
+        success: function (resultado) {
+            $('.opcoes').html(resultado);
+            html = "<button onclick='listarAtivos()'>LISTAR ENDEREÇOS ATIVOS</button>"
+            $('.listar').html(html);
+        }
+    });
+}
+
 //cod_endereco, flag (combo/carrinho)
 function selecionarEndereco(endereco, flag) {
     // console.log(endereco);

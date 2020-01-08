@@ -146,7 +146,10 @@ if($checkcarrinho > 0){
                         }else{
 
                             //endereço inserido?
-                            if(($_SESSION['is_delivery_home']) && ($_SESSION['delivery_price'] > 0)){
+                            if(
+                                ($_SESSION['is_delivery_home'] == 1)
+                                || ($_SESSION['delivery'] == 1)
+                            ){
                                 
                                 // valor mínimo para delivery não atingido
                                 if($_SESSION['valor_entrega_valido'] < 1){
@@ -159,10 +162,12 @@ if($checkcarrinho > 0){
                                     if(isset($_SESSION['cod_endereco']) && !empty($_SESSION['cod_endereco'])){
                                         $rua = $_SESSION['rua_entrega'];
                                         $numero = $_SESSION['numero_entrega'];
+                                        $cod_endereco = $_SESSION['cod_endereco'];
                                     }else{
                                         //Endereço homepage
                                         $rua = $_SESSION['endereco']['route'];
                                         $numero = $_SESSION['endereco']['street_number'];
+                                        $cod_endereco = "";
                                     }
 
 
@@ -171,14 +176,14 @@ if($checkcarrinho > 0){
 
                                     function enviaPedido(){
                                         $.ajax({
-                                            type: 'GET',
+                                            type: 'POST',
                                             url: '../ajax/enviarEmailPedido.php',
-                                            data: {},
+                                            data: {endereco: '".$cod_endereco."'},
                                             success: function (res) {
-                                                console.log(res);
+                                                //console.log(res);
 
                                                 swal('Pedido realizado com sucesso!', 'Tempo estimado de entrega: ".$_SESSION['delivery_time']." mins  | Total: R$ ".number_format($_SESSION['totalCorrigido'], 2)."', 'success').then((value) => {
-                                                    window.location = '/home/cardapio.php';
+                                                    window.location = '/home/listarPedidos.php';
                                                 });
                                             },
                                             error: function(err){

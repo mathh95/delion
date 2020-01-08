@@ -453,7 +453,7 @@
                                 $_SESSION['cod_cliente']=$result->cli_pk_id;
                                 $_SESSION['nome']=$result->cli_nome;
                                 $_SESSION['sobrenome']=$result->cli_sobrenome;
-                                $_SESSION['login']=$result->cli_login_email_email;
+                                $_SESSION['login']=$result->cli_login_email;
                                 $_SESSION['telefone']=$result->cli_telefone;
                                 $_SESSION['cod_status_cliente']=$result->cli_status;
                                 
@@ -489,7 +489,7 @@
                                     $_SESSION['cod_cliente']=$result->cli_pk_id;
                                     $_SESSION['nome']=$result->cli_nome;
                                     $_SESSION['sobrenome']=$result->cli_sobrenome;
-                                    $_SESSION['login']=$result->cli_login_email_email;
+                                    $_SESSION['login']=$result->cli_login_email;
                                     $_SESSION['telefone']=$result->cli_telefone;
                                     return 2;
                                 }else{
@@ -501,7 +501,7 @@
                                     $_SESSION['cod_cliente']=$result->cli_pk_id;
                                     $_SESSION['nome']=$result->cli_nome;
                                     $_SESSION['sobrenome']=$result->cli_sobrenome;
-                                    $_SESSION['login']=$result->cli_login_email_email;
+                                    $_SESSION['login']=$result->cli_login_email;
                                     $_SESSION['telefone']=$result->cli_telefone;
                                     return 2;
                                 }else{

@@ -1,6 +1,8 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
     include_once MODELPATH."/endereco.php";
+    include_once MODELPATH."/endereco_cliente.php";
+    include_once MODELPATH."/cidade.php";
     include_once CONTROLLERPATH."/seguranca.php";
     class controlEndereco{
         private $pdo;
@@ -8,50 +10,20 @@
         function insert($endereco){
             try{
 
-                //tb_endereco
-                $stmt=$this->pdo->prepare("INSERT INTO tb_endereco(end_logradouro, end_cep, end_bairro, end_fk_cidade)
-                VALUES (:logradouro, :cep, :bairro, :fk_cidade) ");
+                //Insere endereco
+                $stmt=$this->pdo->prepare("INSERT INTO tb_endereco(end_cep, end_logradouro, end_bairro, end_fk_cidade)
+                VALUES (:cep, :logradouro, :bairro, :fk_cidade) ");
                 
-                $rua = $endereco->getRua();
-                $numero = $endereco->getNumero();
                 $cep = $endereco->getCep();
-                $complemento = $endereco->getComplemento();
+                $logradouro = $endereco->getLogradouro();
                 $bairro = $endereco->getBairro();
-                $cidade = $endereco->getCidade();
-                $referencia = $endereco->getReferencia();
-                $cliente = $endereco->getCliente();
+                $cidade = $endereco->getFkCidade();
                 
-                $stmt->bindParam(":rua", $rua, PDO::PARAM_STR);
-                $stmt->bindParam(":numero",$numero, PDO::PARAM_INT);
-                $stmt->bindParam(":cep", $cep, PDO::PARAM_STR);
-                $stmt->bindParam(":complemento", $complemento, PDO::PARAM_STR);
+                $stmt->bindParam(":cep", $cep, PDO::PARAM_INT);
+                $stmt->bindParam(":logradouro", $logradouro, PDO::PARAM_STR);
                 $stmt->bindParam(":bairro", $bairro, PDO::PARAM_STR);
-                $stmt->bindParam(":cidade", $cidade, PDO::PARAM_STR);
-                $stmt->bindParam(":referencia", $referencia, PDO::PARAM_STR);
-                $stmt->bindParam(":cliente", $cliente, PDO::PARAM_INT);
-
-                //rl_endereco_cliente
-                $stmt=$this->pdo->prepare("INSERT INTO tb_endereco(rua, numero, cep, complemento, bairro, cidade, referencia, cliente, flag_cliente)
-                VALUES (:rua, :numero, :cep, :complemento, :bairro, :cidade, :referencia, :cliente, 1) ");
-                
-                $rua = $endereco->getRua();
-                $numero = $endereco->getNumero();
-                $cep = $endereco->getCep();
-                $complemento = $endereco->getComplemento();
-                $bairro = $endereco->getBairro();
-                $cidade = $endereco->getCidade();
-                $referencia = $endereco->getReferencia();
-                $cliente = $endereco->getCliente();
-                
-                $stmt->bindParam(":rua", $rua, PDO::PARAM_STR);
-                $stmt->bindParam(":numero",$numero, PDO::PARAM_INT);
-                $stmt->bindParam(":cep", $cep, PDO::PARAM_STR);
-                $stmt->bindParam(":complemento", $complemento, PDO::PARAM_STR);
-                $stmt->bindParam(":bairro", $bairro, PDO::PARAM_STR);
-                $stmt->bindParam(":cidade", $cidade, PDO::PARAM_STR);
-                $stmt->bindParam(":referencia", $referencia, PDO::PARAM_STR);
-                $stmt->bindParam(":cliente", $cliente, PDO::PARAM_INT);
-
+                $stmt->bindParam(":fk_cidade", $cidade, PDO::PARAM_INT);
+            
                 $executa=$stmt->execute();
                 if ($executa){
                     return 1;
@@ -66,36 +38,99 @@
             }
         }
 
-        function insertSemFkCli($endereco){
+        function insertEnderecoCliente($endereco_cliente){
             try{
-                $stmt=$this->pdo->prepare("INSERT INTO tb_endereco(rua, numero, cep, complemento, bairro, cidade, referencia, flag_cliente)
-                VALUES (:rua, :numero, :cep, :complemento, :bairro, :cidade, :referencia, 1) ");
+
+                //rl_endereco_cliente
+                $stmt=$this->pdo->prepare("INSERT INTO rl_endereco_cliente(encl_numero, encl_referencia, encl_complemento, encl_fk_endereco, encl_fk_cliente, encl_flag_ativo)
+                VALUES (:numero, :referencia, :complemento, :fk_endereco, :fk_cliente, 1) ");
                 
-                $rua = $endereco->getRua();
-                $numero = $endereco->getNumero();
-                $cep = $endereco->getCep();
-                $complemento = $endereco->getComplemento();
-                $bairro = $endereco->getBairro();
-                $cidade = $endereco->getCidade();
-                $referencia = $endereco->getReferencia();
+                $numero = $endereco_cliente->getNumero();
+                $referencia = $endereco_cliente->getReferencia();
+                $complemento = $endereco_cliente->getComplemento();
+                $fk_endereco = $endereco_cliente->getFkEndereco();
+                $fk_cliente = $endereco_cliente->getFkCliente();
                 
-                $stmt->bindParam(":rua", $rua, PDO::PARAM_STR);
                 $stmt->bindParam(":numero",$numero, PDO::PARAM_INT);
-                $stmt->bindParam(":cep", $cep, PDO::PARAM_STR);
-                $stmt->bindParam(":complemento", $complemento, PDO::PARAM_STR);
-                $stmt->bindParam(":bairro", $bairro, PDO::PARAM_STR);
-                $stmt->bindParam(":cidade", $cidade, PDO::PARAM_STR);
                 $stmt->bindParam(":referencia", $referencia, PDO::PARAM_STR);
+                $stmt->bindParam(":complemento", $complemento, PDO::PARAM_STR);
+                $stmt->bindParam(":fk_endereco", $fk_endereco, PDO::PARAM_INT);
+                $stmt->bindParam(":fk_cliente", $fk_cliente, PDO::PARAM_INT);
 
                 $executa=$stmt->execute();
-                                
-                $cod_endereco = $this->pdo->lastInsertId();
+                if ($executa){
+                    return 1;
+                }else{
+                    return -1;
+                }
+
+            }catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+        function insertEnderecoSemFkCliente($endereco_cliente){
+            try{
+
+                //rl_endereco_cliente
+                $stmt=$this->pdo->prepare("INSERT INTO rl_endereco_cliente(encl_numero, encl_referencia, encl_complemento, encl_fk_endereco, encl_flag_ativo)
+                VALUES (:numero, :referencia, :complemento, :fk_endereco, 1) ");
                 
+                $numero = $endereco_cliente->getNumero();
+                $referencia = $endereco_cliente->getReferencia();
+                $complemento = $endereco_cliente->getComplemento();
+                $fk_endereco = $endereco_cliente->getFkEndereco();
+                
+                $stmt->bindParam(":numero",$numero, PDO::PARAM_INT);
+                $stmt->bindParam(":referencia", $referencia, PDO::PARAM_STR);
+                $stmt->bindParam(":complemento", $complemento, PDO::PARAM_STR);
+                $stmt->bindParam(":fk_endereco", $fk_endereco, PDO::PARAM_INT);
+
+                $executa=$stmt->execute();
+                         
+                $cod_endereco = $this->pdo->lastInsertId();
+            
                 if ($executa){
                     return $cod_endereco;
                 }else{
                     return -1;
                 }
+
+            }catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+        function update($endereco_cliente){
+
+            try{
+
+                $stmt = $this->pdo->prepare("UPDATE rl_endereco_cliente
+                SET encl_numero=:numero, encl_referencia=:referencia, encl_complemento=:complemento, encl_fk_endereco=:fk_endereco, encl_fk_cliente=:fk_cliente
+                WHERE encl_pk_id=:pk_id;");
+
+                $pk_id = $endereco_cliente->getPkId();
+                $numero = $endereco_cliente->getNumero();
+                $referencia = $endereco_cliente->getReferencia();
+                $complemento = $endereco_cliente->getComplemento();
+                $fk_endereco = $endereco_cliente->getFkEndereco();
+                $fk_cliente = $endereco_cliente->getFkCliente();
+
+                $stmt->bindParam(":pk_id", $pk_id, PDO::PARAM_INT);
+                $stmt->bindParam(":numero", $numero, PDO::PARAM_INT);
+                $stmt->bindParam(":referencia", $referencia, PDO::PARAM_STR);
+                $stmt->bindParam(":complemento", $complemento, PDO::PARAM_STR);
+                $stmt->bindParam(":fk_endereco", $fk_endereco, PDO::PARAM_INT);
+                $stmt->bindParam(":fk_cliente", $fk_cliente, PDO::PARAM_INT);
+
+                $executa=$stmt->execute();
+
+                if ($executa) {
+                    return 1;
+                }else {
+                    return -1;
+                }
+
             }catch(PDOException $e){
 
                 echo $e->getMessage();
@@ -103,104 +138,47 @@
             }
         }
 
-        function update($endereco){
+        function selectAll(){
             try{
-                $stmt=$this->pdo->prepare("UPDATE tb_endereco SET end_rua=:end_rua, end_numero=:end_numero, end_cep=:end_cep, end_complemento=:end_complemento, end_bairro=:end_bairro, end_fk_cidade=:end_fk_cidade, end_referencia=:end_referencia, end_fk_cliente=:end_fk_cliente WHERE end_pk_id=:end_pk_id;");
-                $stmt->bindParam(":end_rua", $endereco->getRua(), PDO::PARAM_STR);
-                $stmt->bindParam(":end_numero",$endereco->getNumero(), PDO::PARAM_INT);
-                $stmt->bindParam(":end_cep", $endereco->getCep(), PDO::PARAM_STR);
-                $stmt->bindParam(":end_complemento", $endereco->getComplemento(), PDO::PARAM_STR);
-                $stmt->bindParam(":end_bairro", $endereco->getBairro(), PDO::PARAM_STR);
-                $stmt->bindParam(":end_fk_cidade", $endereco->getCidade(), PDO::PARAM_STR);
-                $stmt->bindParam(":end_referencia", $endereco->getReferencia(), PDO::PARAM_STR);
-                $stmt->bindParam(":end_fk_cliente", $endereco->getCliente(), PDO::PARAM_INT);
-                $stmt->bindParam(":end_pk_id",$endereco->getCodEndereco(),PDO::PARAM_INT);
+                $enderecos_cliente = array();
 
-                $executa=$stmt->execute();
-
-                if ($executa) {
-                    return 1;
-                }else {
-                    return -1;
-                }
-
-            }catch(PDOException $e){
-
-                echo $e->getMessage();
-
-            }
-        }
-
-        function deleteCliente($end_pk_id){
-            try{
-                $stmt=$this->pdo->prepare("UPDATE tb_endereco SET end_flag_cliente=0 WHERE end_pk_id=:end_pk_id");
-                $stmt->bindParam(":end_pk_id", $end_pk_id, PDO::PARAM_INT);
-                $executa=$stmt->execute();
-                if ($executa) {
-                    return 1;
-                }else {
-                    return -1;
-                }
-            }catch(PDOException $e){
-
-                echo $e->getMessage();
-
-            }    
-        }
-
-        function ativarCliente($end_pk_id){
-            try{
-                $stmt=$this->pdo->prepare("UPDATE tb_endereco SET end_flag_cliente=1 WHERE end_pk_id=:end_pk_id");
-                $stmt->bindParam(":end_pk_id", $end_pk_id, PDO::PARAM_INT);
-                $executa=$stmt->execute();
-                if ($executa) {
-                    return 1;
-                }else {
-                    return -1;
-                }
-            }catch(PDOException $e){
-
-                echo $e->getMessage();
-
-            }    
-        }
-
-        function selectAll($parametro){
-            try{
-                $parametro = "%" . $parametro . "%";
-                $enderecos = array();
-                $stmt=$this->pdo->prepare("SELECT endereco.end_pk_id, endereco.end_rua, endereco.end_numero, endereco.end_cep, endereco.end_complemento, endereco.end_bairro, endereco.end_referencia, endereco.end_fk_cidade, endereco.end_flag_cliente, cliente.cli_pk_id, cliente.cli_nome 
-                FROM tb_endereco INNER JOIN tb_cliente ON endereco.end_fk_cliente = cliente.cli_pk_id WHERE cliente.cli_nome like :cli_nome OR endereco.rua LIKE :rua OR endereco.end_numero LIKE :end_numero OR endereco.end_bairro LIKE :end_bairro OR endereco.end_cep LIKE :end_cep OR endereco.end_complemento LIKE :end_complemento OR endereco.end_fk_cidade LIKE :end_fk_cidade OR endereco.end_referencia LIKE :end_referencia");
-                $stmt->bindValue(":cli_nome", $parametro);
-                $stmt->bindValue(":end_rua", $parametro);
-                $stmt->bindValue(":end_cep", $parametro);
-                $stmt->bindValue(":end_numero", $parametro);
-                $stmt->bindValue(":end_complemento", $parametro);
-                $stmt->bindValue(":end_bairro", $parametro);
-                $stmt->bindValue(":end_fk_cidade", $parametro);
-                $stmt->bindValue(":end_referencia", $parametro);
+                $stmt=$this->pdo->prepare("SELECT *
+                FROM rl_endereco_cliente AS ENCL
+                INNER JOIN
+                tb_endereco AS ENCO ON
+                ENCO.end_pk_id = ENCL.encl_fk_endereco
+                INNER JOIN
+                tb_cidade ON
+                end_fk_cidade = ci_pk_id
+                WHERE encl_flag_ativo=1");
+                
                 $executa= $stmt->execute();
                 if ($executa){
                     if ($stmt->rowCount() > 0 ){
                         while($result=$stmt->fetch(PDO::FETCH_OBJ)){
-                            $endereco = new endereco();
-                            $endereco->setCodEndereco($result->end_pk_id);
-                            $endereco->setRua($result->end_rua);
-                            $endereco->setNumero($result->end_numero);
-                            $endereco->setCep($result->end_cep);
-                            $endereco->setComplemento($result->end_complemento);
-                            $endereco->setBairro($result->end_bairro);
-                            $endereco->setCidade($result->end_fk_cidade);
-                            $endereco->setReferencia($result->end_referencia);
-                            $endereco->setCliente($result->cli_pk_id);
-                            $endereco->clienteNome=$result->cli_nome;
-                            $endereco->setFlagCliente($result->end_flag_cliente);
-                            array_push($enderecos,$endereco);
+
+                            $endereco_cliente = new enderecoCliente();
+                            $endereco_cliente->setPkId($result->encl_pk_id);
+                            $endereco_cliente->setNumero($result->encl_numero);
+                            $endereco_cliente->setNome($result->encl_nome);
+                            $endereco_cliente->setReferencia($result->encl_referencia);
+                            $endereco_cliente->setComplemento($result->encl_complemento);
+                            $endereco_cliente->setFlagAtivo($result->encl_flag_ativo);
+                            $endereco_cliente->setFkEndereco($result->encl_fk_endereco);
+                            $endereco_cliente->setFkCliente($result->encl_fk_cliente);
+
+                            $endereco_cliente->cep = $result->end_cep;
+                            $endereco_cliente->logradouro= $result->end_logradouro;
+                            $endereco_cliente->bairro =$result->end_bairro;
+                            $endereco_cliente->fkCidade = $result->end_fk_cidade;
+                            $endereco_cliente->cidade = $result->ci_cidade;
+                            array_push($enderecos_cliente, $endereco_cliente);
+
                         }
                     }else{
                         return -1;
                     }
-                    return $enderecos;
+                    return $enderecos_cliente;
                 }else{
                     return -1;
                 }
@@ -211,92 +189,55 @@
                 return -1;
             }
         }
+
         //modo 1= endereços ativos
         //modo 2= endereços inativos
-        function selectByCliente($end_fk_cliente, $modo){
+        function selectByCliente($encl_fk_cliente, $modo){
             try{
-                $enderecos = array();
+                $enderecos_cliente = array();
                 if ($modo==1) {
-                    $stmt=$this->pdo->prepare("SELECT * FROM tb_endereco WHERE end_fk_cliente=:end_fk_cliente AND end_flag_cliente=1");
-                }elseif ($modo==2) {
-                    $stmt=$this->pdo->prepare("SELECT * FROM tb_endereco WHERE end_fk_cliente=:end_fk_cliente AND end_flag_cliente=0");
-                }
-                $stmt->bindParam(":end_fk_cliente", $end_fk_cliente, PDO::PARAM_INT);
-                $executa= $stmt->execute();
-                if ($executa){
-                    if ($stmt->rowCount() > 0 ){
-                        while($result=$stmt->fetch(PDO::FETCH_OBJ)){
-                            $endereco = new endereco();
-                            $endereco->setCodEndereco($result->end_pk_id);
-                            $endereco->setRua($result->end_rua);
-                            $endereco->setNumero($result->end_numero);
-                            $endereco->setCep($result->end_cep);
-                            $endereco->setComplemento($result->end_complemento);
-                            $endereco->setBairro($result->end_bairro);
-                            $endereco->setReferencia($result->end_referencia);
-                            $endereco->setCliente($result->cliente);
-                            $endereco->setCidade($result->cidade);
-                            $endereco->setFlagCliente($result->flag_cliente);
-                            array_push($enderecos,$endereco);
-                        }
-                    }else{
-                        return -1;
-                    }
-                    return $enderecos;
-                }else{
-                    return -1;
-                }
-
-            }
-            catch(PDOException $e){
-                echo $e->getMessage();
-                return -1;
-            }
-        }
-
-        #modo 1=codigo do endereço
-        #modo 2=codigo do pedido
-        function select($parametro,$modo){
-            try{
-                $enderecos = array();
-                if ($modo == 1) {
                     $stmt=$this->pdo->prepare("SELECT *
-                    FROM rl_endereco_cliente AS ENCL ON
-                    PED.ped_fk_endereco_cliente = ENCL.encl_pk_id
+                    FROM rl_endereco_cliente AS ENCL
                     INNER JOIN
                     tb_endereco AS ENCO ON
-                    ENCO.end_pk_id = ENCL.encl_pk_id
-                    WHERE ENCL.encl_pk_id=:parametro");
+                    ENCO.end_pk_id = ENCL.encl_fk_endereco
+                    WHERE encl_fk_cliente=:encl_fk_cliente AND encl_flag_ativo=1");
 
-                }elseif ($modo == 2) {
+                }elseif ($modo==2) {
                     $stmt=$this->pdo->prepare("SELECT *
-                    FROM tb_pedido
-                    WHERE ped_pk_id=:parametro");
+                    FROM rl_endereco_cliente AS ENCL
+                    INNER JOIN
+                    tb_endereco AS ENCO ON
+                    ENCO.end_pk_id = ENCL.encl_fk_endereco
+                    WHERE encl_fk_cliente=:encl_fk_cliente AND encl_flag_ativo=0");
                 }
-
-                $stmt->bindParam(":parametro", $parametro, PDO::PARAM_INT);
-                $executa= $stmt->execute();
                 
+                $stmt->bindParam(":encl_fk_cliente", $encl_fk_cliente, PDO::PARAM_INT);
+                $executa= $stmt->execute();
                 if ($executa){
                     if ($stmt->rowCount() > 0 ){
                         while($result=$stmt->fetch(PDO::FETCH_OBJ)){
-                            $endereco = new endereco();
-                            $endereco->setCodEndereco($result->cod_endereco);
-                            $endereco->setRua($result->rua);
-                            $endereco->setNumero($result->numero);
-                            $endereco->setCep($result->cep);
-                            $endereco->setComplemento($result->complemento);
-                            $endereco->setBairro($result->bairro);
-                            $endereco->setCidade($result->cidade);
-                            $endereco->setReferencia($result->referencia);
-                            $endereco->setCliente($result->cliente);
-                            $endereco->setFlagCliente($result->flag_cliente);
-                            array_push($enderecos,$endereco);
+                            $endereco_cliente = new enderecoCliente();
+                            $endereco_cliente->setPkId($result->encl_pk_id);
+                            $endereco_cliente->setNumero($result->encl_numero);
+                            $endereco_cliente->setNome($result->encl_nome);
+                            $endereco_cliente->setReferencia($result->encl_referencia);
+                            $endereco_cliente->setComplemento($result->encl_complemento);
+                            $endereco_cliente->setFlagAtivo($result->encl_flag_ativo);
+                            $endereco_cliente->setFkEndereco($result->encl_fk_endereco);
+                            $endereco_cliente->setFkCliente($result->encl_fk_cliente);
+
+                            $endereco_cliente->cep = $result->end_cep;
+                            $endereco_cliente->logradouro= $result->end_logradouro;
+                            $endereco_cliente->bairro =$result->end_bairro;
+                            $endereco_cliente->fkCidade = $result->end_fk_cidade;
+
+                            array_push($enderecos_cliente, $endereco_cliente);
                         }
                     }else{
                         return -1;
                     }
-                    return $enderecos;
+                    return $enderecos_cliente;
                 }else{
                     return -1;
                 }
@@ -307,6 +248,195 @@
                 return -1;
             }
         }
+
+        function selectById($pk_id){
+            try{
+
+                $stmt=$this->pdo->prepare("SELECT *
+                FROM rl_endereco_cliente AS ENCL
+                INNER JOIN
+                tb_endereco AS ENCO ON
+                ENCO.end_pk_id = ENCL.encl_fk_endereco
+                INNER JOIN
+                tb_cidade ON
+                end_fk_cidade = ci_pk_id
+                WHERE encl_pk_id=:encl_pk_id AND encl_flag_ativo=1");
+
+                
+                $stmt->bindParam(":encl_pk_id", $pk_id, PDO::PARAM_INT);
+                $executa= $stmt->execute();
+                if ($executa){
+                    if ($stmt->rowCount() > 0 ){
+                        $result=$stmt->fetch(PDO::FETCH_OBJ);
+
+                        $endereco_cliente = new enderecoCliente();
+                        $endereco_cliente->setPkId($result->encl_pk_id);
+                        $endereco_cliente->setNumero($result->encl_numero);
+                        $endereco_cliente->setNome($result->encl_nome);
+                        $endereco_cliente->setReferencia($result->encl_referencia);
+                        $endereco_cliente->setComplemento($result->encl_complemento);
+                        $endereco_cliente->setFlagAtivo($result->encl_flag_ativo);
+                        $endereco_cliente->setFkEndereco($result->encl_fk_endereco);
+                        $endereco_cliente->setFkCliente($result->encl_fk_cliente);
+
+                        $endereco_cliente->cep = $result->end_cep;
+                        $endereco_cliente->logradouro= $result->end_logradouro;
+                        $endereco_cliente->bairro =$result->end_bairro;
+                        $endereco_cliente->fkCidade = $result->end_fk_cidade;
+                        $endereco_cliente->cidade = $result->ci_cidade;
+
+                    }else{
+                        return -1;
+                    }
+                    return $endereco_cliente;
+                }else{
+                    return -1;
+                }
+
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
+
+        function selectNomeCidade($end_fk_cidade){
+            try{
+                $stmt=$this->pdo->prepare("SELECT * 
+                FROM tb_cidade
+                WHERE ci_pk_id=:end_fk_cidade");
+
+                $stmt->bindValue(":end_fk_cidade", $end_fk_cidade);
+
+                $executa= $stmt->execute();
+                if ($executa){
+                    if ($stmt->rowCount() > 0 ){
+                        $result = $stmt->fetch(PDO::FETCH_OBJ);
+                        $cidade = new cidade;
+                        $cidade->setPkId($result->ci_pk_id);
+                        $cidade->setCidade($result->ci_cidade);
+                        $cidade->setFkEstado($result->ci_fk_estado);                        
+                    }else{
+                        return -1;
+                    }
+                    return $cidade->getCidade();
+                }else{
+                    return -1;
+                }
+
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
+        function selectCidadeByNome($end_cidade){
+            try{
+                $stmt=$this->pdo->prepare("SELECT * 
+                FROM tb_cidade
+                WHERE ci_cidade LIKE :end_cidade");
+
+                $stmt->bindValue(":end_cidade", "%".$end_cidade."%");
+
+                $executa = $stmt->execute();
+                if ($executa){
+                    if ($stmt->rowCount() > 0 ){
+                        $result = $stmt->fetch(PDO::FETCH_OBJ);
+                        $cidade = new cidade;
+                        $cidade->setPkId($result->ci_pk_id);
+                        $cidade->setCidade($result->ci_cidade);
+                        $cidade->setFkEstado($result->ci_fk_estado);                        
+                    }else{
+                        return -1;
+                    }
+                    return $cidade;
+                }else{
+                    return -1;
+                }
+
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }      
+        
+        function selectByCep($cep){
+            try{
+                $stmt=$this->pdo->prepare("SELECT *
+                FROM tb_endereco
+                WHERE end_cep = :end_cep");
+
+                $stmt->bindValue(":end_cep", $cep);
+                $executa = $stmt->execute();
+                if ($executa){
+                    if ($stmt->rowCount() > 0 ){
+
+                        $result = $stmt->fetch(PDO::FETCH_OBJ);
+
+                        $endereco = new endereco();
+                        $endereco->setPkId($result->end_pk_id);
+                        $endereco->setCep($result->end_cep);
+                        $endereco->setLogradouro($result->end_logradouro);
+                        $endereco->setBairro($result->end_bairro);
+                        $endereco->setFkCidade($result->end_fk_cidade);                     
+                    }else{
+                        return 0;
+                    }
+
+                    return $endereco;
+
+                }else{
+                    return 0;
+                }
+
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return 0;
+            }
+        }
+
+
+
+
+
+        function deleteEndereco($encl_pk_id){
+            try{
+                $stmt=$this->pdo->prepare("UPDATE rl_endereco_cliente SET encl_flag_ativo=0 WHERE encl_pk_id=:encl_pk_id");
+                $stmt->bindParam(":encl_pk_id", $encl_pk_id, PDO::PARAM_INT);
+                $executa=$stmt->execute();
+                if ($executa) {
+                    return 1;
+                }else {
+                    return -1;
+                }
+            }catch(PDOException $e){
+
+                echo $e->getMessage();
+
+            }    
+        }
+
+        function ativarEndereco($encl_pk_id){
+            try{
+                $stmt=$this->pdo->prepare("UPDATE rl_endereco_cliente SET encl_flag_ativo=1 WHERE encl_pk_id=:encl_pk_id");
+                $stmt->bindParam(":end_pk_id", $encl_pk_id, PDO::PARAM_INT);
+                $executa=$stmt->execute();
+                if ($executa) {
+                    return 1;
+                }else {
+                    return -1;
+                }
+            }catch(PDOException $e){
+
+                echo $e->getMessage();
+
+            }    
+        }
+
 
         function __construct($pdo){
             $this->pdo=$pdo;

@@ -9,7 +9,7 @@ class FuncionamentoEmpresa{
     
     function aberto(){
 
-        $controleEmpresa=new controlerEmpresa(conecta());
+        $controleEmpresa = new controlerEmpresa(conecta());
         $empresa = $controleEmpresa->select(1,2);
 
         // $hora_atual = date('H:i', time() - 3600);// horário de verão extinto
@@ -25,17 +25,19 @@ class FuncionamentoEmpresa{
         if(!$empresa->getAberto()){
             return false;
 
-        }else if(
-            !in_array($hoje, json_decode($empresa->getArrDiasSemana())) ||
-            !($hora_atual >=  $hora_inicio && $hora_atual < $hora_final)
-        ){
+        }else if(!in_array($hoje, json_decode($empresa->getArrDiasSemana()))){
            return false;
-        }else{
 
+        }else if(
+            (strtotime($hora_atual) < strtotime($hora_inicio))
+            || (strtotime($hora_atual) >= strtotime($hora_final))
+        ){
+            return false;
+
+        }else{
             return true;
 
         }
-
     }
 }
 

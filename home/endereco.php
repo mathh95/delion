@@ -54,7 +54,7 @@
         <div class="opcoes">
 
             <div>
-                <p>Opções do endereço:</p>
+                <p>Opções</p>
             </div>	
             <div>
                 <button onclick="cadastrarEndereco()">CADASTRAR NOVO ENDEREÇO</button>
