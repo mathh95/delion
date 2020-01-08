@@ -118,9 +118,9 @@
         <script type="text/javascript">
 
             /*Som de Notificação!!!*/
-            var x = document.getElementById("notificacao");
-            var itensCount = $('#tabela-pedido tbody tr').length;
-            var itensCountReloaded;
+            var x = document.getElementById("notificacao");            
+            var lastCod = $('#tbUsuarios').find('tbody tr:first').data('cod_pedido');
+            var currentCod;
 
             function play(url) {
                 return new Promise(function(resolve, reject) {
@@ -137,30 +137,14 @@
             //Carrega a lista apenas se a modal de impressão nao estiver aberta
             window.setInterval(function(){
 
-                itensCountReloaded = $('#tabela-pedido tbody tr').length;
+                currentCod = $('#tbUsuarios').find('tbody tr:first').data('cod_pedido');
 
-                if(itensCountReloaded > itensCount){
+                if(currentCod != lastCod){
                     play("../../js/notification2.mp3");//promise to play sound
-                    itensCount = itensCountReloaded;
+                    lastCod = currentCod;
                 }
 
             }, 5000);
-
-            function alterarStatus(pedido,status){
-                msgConfirmacao('Confirmação','Deseja Realmente alterar o status do pedido?',
-                    function(linha){
-                        var url ='../../ajax/alterar-pedido.php?pedido='+pedido+'&status='+status;
-                        $.get(url, function(dataReturn) {
-                            if (dataReturn > 0) {
-                                msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php" );
-                            }else{
-                                msgGenerico("Erro!","Não foi possível alterar o status do pedido!",2,function(){});
-                            }
-                        });  
-                    },
-                    function(){}
-                );
-            }
 
             //Reload Page 
             function doRefresh(){
@@ -185,7 +169,6 @@
                 }
             }, 10000);
             
-
 
             //Responsável por mostrar os itens em cima do botão detalhes
             function myFunction(int) {
@@ -212,6 +195,23 @@
                     mywindow.focus();
                     mywindow.print();
                 };
+            }
+
+
+            function alterarStatus(pedido,status){
+                msgConfirmacao('Confirmação','Deseja Realmente alterar o status do pedido?',
+                    function(linha){
+                        var url ='../../ajax/alterar-pedido.php?pedido='+pedido+'&status='+status;
+                        $.get(url, function(dataReturn) {
+                            if (dataReturn > 0) {
+                                msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php" );
+                            }else{
+                                msgGenerico("Erro!","Não foi possível alterar o status do pedido!",2,function(){});
+                            }
+                        });  
+                    },
+                    function(){}
+                );
             }
 
             //Muda o status do pedido quando for impresso dentro da model

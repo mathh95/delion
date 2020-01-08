@@ -1,6 +1,5 @@
 # Delion Café
 
-## Modificar os seguintes Arquivos ao subir para Produção:
+## Modificar o Arquivo de configuração de acordo com o ambiente:
 
-- index.php (admin);
 - config.php (home);

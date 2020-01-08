@@ -101,13 +101,11 @@
 		</div>
 </nav>
 
-	<div class="container produtos" data-spy="scroll" data-target=".menu-lateral" data-offset-top="-200">
-
-		
-
+	<div class="container produtos" id="container-produtos" data-spy="scroll" data-target=".menu-lateral" data-offset-top="-200">
 		
 
 	</div>
+
 		
 	<div class="scroll-top">
 	
@@ -153,7 +151,42 @@
 			var $spy = $(this).scrollspy('refresh')
 		});
 
-		// Animacao do Smooth Scroll p/ Categoria selecionada
+		//Funções responsá veis por dar reload no cardapio
+		function doRefresh(){
+                $("#container-produtos").load('../home/ajax/buscar-cardapio.php');
+        }
+
+		window.setInterval(function(){
+                var verifica = $('body').hasClass('modal-open'); //Verifica se a modal está aberta
+                if(verifica == false){ 
+                    doRefresh();
+            }
+        }, 10000);
+
+		// var categorias = $('.categoria')
+		// , menu_lateral = $('.menu-lateral')
+		// , menu_lateral_height = menu_lateral.outerHeight();
+
+		// $(window).on('scroll', function () {
+		// 	var cur_pos = $(this).scrollTop();
+			
+		// 	categorias.each(function() {
+		// 		var top = $(this).offset().top - menu_lateral_height,
+		// 		bottom = top + $(this).outerHeight();
+				
+		// 		if (cur_pos >= top && cur_pos <= bottom) {
+
+		// 			menu_lateral.find('a').removeClass('active');
+		// 			// categorias.removeClass('active');
+		// 			$(this).addClass('active');
+		// 			console.log($(this).attr('id'));
+		// 			menu_lateral.find('a[href="#categoria'+$(this).attr('id')+'"]').addClass('active');
+		// 			// console.log('a[href="#'+$('categoria'+this).attr('id')+'"]');
+		// 		}
+		// 	});
+		// });
+
+		// Scroll p/ Categoria selecionada
 		$(document).ready(function() {
 			$('a[href^="#"]').click(function() {
 				var target = $(this.hash);
