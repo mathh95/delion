@@ -6,102 +6,151 @@ date_default_timezone_set('America/Sao_Paulo');
 
 include_once "../../admin/controler/conexao.php";
 include_once "../controler/controlEndereco.php";
-$cod_cliente=$_SESSION['cod_cliente'];
-if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
-    $controleEndereco=new controlEndereco(conecta());
-    $cod_endereco=$_GET['endereco'];
-    $endereco=$controleEndereco->select($cod_endereco,1)[0];
-    /**
-     * ALTERAR ENDEREÇO
-     */
-    echo " <form action='/home/controler/alterarEndereco.php' method='POST'>
 
-            <p>Alterar dados do endereço</p>    
+$cod_cliente = $_SESSION['cod_cliente'];
+
+
+//Preenche campos via CEP
+if(isset($_GET['cep']) && !empty($_GET['cep'])){
+    $cep = $_GET['cep'];
+}else{
+    $cep ='';
+}
+if(isset($_GET['rua']) && !empty($_GET['rua'])){
+    $rua = $_GET['rua'];
+}else{
+    $rua ='';
+}
+if(isset($_GET['bairro']) && !empty($_GET['bairro'])){
+    $bairro=$_GET['bairro'];
+}else{
+    $bairro='';
+}
+if(isset($_GET['cidade']) && !empty($_GET['cidade'])){
+    $cidade = $_GET['cidade'];
+}else{
+    $cidade ='';
+}
+
+
+/**
+* ALTERAR ENDEREÇO
+*/
+if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
+
+    $controleEndereco = new controlEndereco(conecta());
+    $cod_endereco = $_GET['endereco'];//pk_id
+
+    $endereco_cliente = $controleEndereco->selectById($cod_endereco);
+
+    $cep = $endereco_cliente->cep;
+    $rua = $endereco_cliente->logradouro;
+    $bairro = $endereco_cliente->bairro;
+    $cidade = $endereco_cliente->cidade;
+
+    //Preenche campos via CEP
+    if(isset($_GET['cep']) && !empty($_GET['cep'])){ $cep = $_GET['cep']; }
+    if(isset($_GET['rua']) && !empty($_GET['rua'])){ $rua = $_GET['rua']; }
+    if(isset($_GET['bairro']) && !empty($_GET['bairro'])){ $bairro = $_GET['bairro']; }
+    if(isset($_GET['cidade']) && !empty($_GET['cidade'])){ $cidade = $_GET['cidade']; }
+
+    echo " 
+        <form action='/home/controler/alterarEndereco.php' method='POST'>
+
+            <p>Alterar Endereço</p>    
                 <input name='cod_cliente' type='hidden' value='".$cod_cliente."'>           
-                <input name='cod_endereco' type='hidden' value='".$endereco->getCodEndereco()."'>
+                <input name='cod_endereco' type='hidden' value='".$endereco_cliente->getPkId()."'>
             
             <div>
-                <div>
+                <div class='cadastro-form'>
                     <label>Cep:</label>
-                    <input class='inputs-pequenos' name='cep' type='text' required placeholder='cep' value='".$endereco->getCep()."'>
+                    <input class='inputs-pequenos' name='cep' type='text' id='cep' required placeholder='cep' autofocus  value='".$cep."'>
                 </div>
-                <div>
+                <div class='cadastro-form'>
                     <label>Cidade:</label>
-                    <input class='inputs-pequenos' name='cidade' type='text' required placeholder='Cidade' value='".$endereco->getCidade()."'>
+                    <input class='inputs-pequenos' name='cidade' type='text' required placeholder='Cidade' value='".$cidade."' style='background-color:#ccc;' readonly>
                 </div>
             </div>
             <div>
                 <label>Rua:</label>
-                <input name='rua' type='text' required placeholder='rua' value='".$endereco->getRua()."'>
+                <input name='rua' type='text' required placeholder='rua' value='".$rua."' style='background-color:#ccc;' readonly>
             </div>
             <div>
-                <div>
+                <div class='cadastro-form'>
                     <label>Número:</label>
-                    <input class='inputs-pequenos' name='numero' type='text' required placeholder='numero' value='".$endereco->getNumero()."'>
+                    <input class='inputs-pequenos' name='numero' type='text' required placeholder='numero' value='".$endereco_cliente->getNumero()."'>
                 </div>
-                <div>
+                <div class='cadastro-form'>
                     <label>Bairro:</label>
-                    <input class='inputs-pequenos' name='bairro' type='text' required placeholder='bairro' value='".$endereco->getBairro()."'>
+                    <input class='inputs-pequenos' name='bairro' type='text' required placeholder='bairro' value='".$bairro."' style='background-color:#ccc;' readonly>
                 </div>
             </div>
             <div>
                 <label>Complemento:</label>
-                <input name='complemento' type='text' placeholder='complemento' value='".$endereco->getComplemento()."'>
+                <input name='complemento' type='text' placeholder='complemento' value='".$endereco_cliente->getComplemento()."'>
             </div>
             <div>
                 <label>Referência:</label>
-                <input name='referencia' type='text' placeholder='Referência' value='".$endereco->getReferencia()."'>
+                <input name='referencia' type='text' placeholder='Referência' value='".$endereco_cliente->getReferencia()."'>
             </div>
 
+                <button style='float:left;' onclick='window.history.go(0); return false;'>VOLTAR</button>
                 <button type='submit'>ALTERAR</button>
-                            
             </form>
 
             <div class='listar'>
-                
             </div>
             ";
+
+            //autocompletar apontando para alterar
+            echo "
+                <script>
+                $('#cep').on('change paste keyup', function() {
+                    var cep = $(this).val();
+                    var cep = cep.replace(/\D/g, '');
+                    if (cep.length >= 8){
+                        console.log(cep);
+                        var validacep = /^[0-9]{8}$/;
+                        console.log(cep);
+                        if (validacep.test(cep)){
+                            var url ='https://viacep.com.br/ws/'+ cep + '/json/';
+                            $.getJSON(url, function(data) {
+                                if (data.erro){
+                                    alert('CEP Inválido :/');
+                                }else{
+                                    autoCompletarAlterar(".$endereco_cliente->getPkId().", data.logradouro, data.bairro, cep, data.localidade);
+                                }
+                            });
+                        }else{
+                            console.log('cep invalido');
+                        }
+                    }
+                    });
+                </script>";
+
+/**
+* CADASTRAR NOVO ENDEREÇO
+*/
 }else{
-    /**
-     * CADASTRAR NOVO ENDEREÇO
-     */
-    if(isset($_GET['cep']) && !empty($_GET['cep'])){
-        $cep = $_GET['cep'];
-    }else{
-        $cep ='';
-    }
-    if(isset($_GET['rua']) && !empty($_GET['rua'])){
-        $rua = $_GET['rua'];
-    }else{
-        $rua ='';
-    }
-    if(isset($_GET['bairro']) && !empty($_GET['bairro'])){
-        $bairro=$_GET['bairro'];
-    }else{
-        $bairro='';
-    }
-    if(isset($_GET['cidade']) && !empty($_GET['cidade'])){
-        $cidade = $_GET['cidade'];
-    }else{
-        $cidade ='';
-    }
+
     echo " <form action='/home/controler/businesEndereco.php' method='POST'>
 
-    <p>Alterar dados do endereço</p>
-    <input name='cod_cliente' type='hidden' value='".$cod_cliente."'>                
+    <p>Novo Endereço</p>
+    <input name='cod_cliente' type='hidden' value='".$cod_cliente."'>
+    
     <div>
         <div class='cadastro-form'>
             <label>Cep:</label>
-            <input class='inputs-pequenos cep' name='cep' type='text' id='cep' required placeholder='CEP' value='".$cep."'>
+            <input class='inputs-pequenos cep' name='cep' type='text' id='cep' required placeholder='CEP' autofocus value='".$cep."'>
         </div>
-        <div>
+        <div class='cadastro-form'>
             <label>Cidade:</label>
-            <input class='inputs-pequenos' name='cidade' type='text' required placeholder='Cidade' value='".$cidade."'>
+            <input class='inputs-pequenos' name='cidade' type='text' required placeholder='Cidade' value='".$cidade."' style='background-color:#ccc;' readonly>
         </div>
     </div>
     <div>
-        <label>Rua:</label>
-        <input name='rua' type='text' required placeholder='Rua' value='".$rua."'>
+        <label>Logradouro:</label>
+        <input name='rua' type='text' required placeholder='Rua' value='".$rua."' style='background-color:#ccc;' readonly>
     </div>
     <div>
         <div class='cadastro-form'>
@@ -110,7 +159,7 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
         </div>
         <div class='cadastro-form'>
             <label>Bairro:</label>
-            <input class='inputs-pequenos' name='bairro' type='text' required placeholder='Bairro' value='".$bairro."'>
+            <input class='inputs-pequenos' name='bairro' type='text' required placeholder='Bairro' value='".$bairro."' style='background-color:#ccc;' readonly>
         </div>
     </div>
     <div>
@@ -123,39 +172,40 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
         <input name='referencia' type='text' placeholder='Referência' value=''>
     </div>
 
-        <button type='submit'>SALVAR</button>
+    <button style='float:left;' onclick='window.history.go(0); return false;'>VOLTAR</button>
+    <button type='submit'>SALVAR</button>
                     
     </form>
 
     <div class='listar'>
-        
     </div>
-    <script>
-        $('#cep').on('change paste keyup', function() {
-            var cep = $(this).val();
-            var cep = cep.replace(/\D/g, '');
-            if (cep.length >= 8){
-                console.log(cep);
-                var validacep = /^[0-9]{8}$/;
-                console.log(cep);
-                if (validacep.test(cep)){
-                    var url ='https://viacep.com.br/ws/'+ cep + '/json/';
-                    console.log(url);
-                    $.getJSON(url, function(data) {
-                        if (data.erro){
-                            alert('cep invalido');
-                        }else{
-                            console.log(data.logradouro, data.bairro, data.localidade);
-                            autoCompletar(data.logradouro, data.bairro, cep, data.localidade);
-                        }
-                    });
-                }else{
-                    console.log('cep invalido');
-                }
-            }
-            });
-    </script>
     ";
 
+    //autocompletar default
+    echo "
+    <script>
+    $('#cep').on('change paste keyup', function() {
+        var cep = $(this).val();
+        var cep = cep.replace(/\D/g, '');
+        if (cep.length >= 8){
+            console.log(cep);
+            var validacep = /^[0-9]{8}$/;
+            console.log(cep);
+            if (validacep.test(cep)){
+                var url ='https://viacep.com.br/ws/'+ cep + '/json/';
+                $.getJSON(url, function(data) {
+                    if (data.erro){
+                        alert('CEP Inválido :/');
+                    }else{
+                        autoCompletar(data.logradouro, data.bairro, cep, data.localidade);
+                    }
+                });
+            }else{
+                console.log('cep invalido');
+            }
+        }
+        });
+    </script>";
 }
+
 ?>

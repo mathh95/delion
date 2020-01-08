@@ -28,9 +28,9 @@
             
             private $cli_pontos_fidelidade;
 
-            private $cli_fk_empresa;
-
             private $cli_dt_alteracao_fone;
+            
+            private $cli_fk_empresa;
 
 
             function getPkId(){
@@ -90,6 +90,8 @@
             }
 
 
+
+            
             function setPkId($cli_pk_id){
                 $this->cli_pk_id = $cli_pk_id;
             }

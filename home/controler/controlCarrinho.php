@@ -17,14 +17,19 @@ class controlerCarrinho{
         $this->pdo=$pdo;
     }
 
-    public function setPedido($endereco, $fk_origem_pedido, $produtos){
+    public function setPedido($fk_endereco, $fk_origem_pedido, $produtos){
 
         if(isset($_SESSION['codigocupom']) && !empty($_SESSION['codigocupom']) && isset($_SESSION['codcupom']) && !empty($_SESSION['codcupom'])){
             $idCliente = $_SESSION['cod_cliente'];
             $valor = $_SESSION['totalCorrigido'];
             $desconto = $_SESSION['valorcupom_var'];
             $taxa_entrega = $_SESSION['delivery_price_var'];
+
+            // $secs = ($_SESSION['delivery_time_var']*60);
+            // $tempo_formated = gmdate("H:i:s", $secs);
+            // $tempo_entrega = date('H:i:s',$tempo_formated);
             $tempo_entrega = $_SESSION['delivery_time_var'];
+
             $subtotal = $_SESSION['totalCarrinho'];
             $formaPgt = $_SESSION['formaPagamento'];
             $codigocupom = $_SESSION['codigocupom'];
@@ -44,12 +49,14 @@ class controlerCarrinho{
             $sql->execute();
 
             $status = 1;//recebido, pronto, saiu
-            if ($endereco == null){
+            //balcao
+            if ($fk_endereco == null){
                 $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_valor = :valor, ped_desconto = :desconto , ped_taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt ,status = :status, ped_fk_origem_pedido = :origem");
+            //delivery
             }else{
                 $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_valor = :valor, ped_desconto = :desconto , taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt , ped_status = :status, ped_fk_origem_pedido = :origem, ped_fk_endereco_cliente = :endereco, ped_tempo_entrega = :tempo_entrega");
 
-                $sql->bindValue(":endereco", $endereco);
+                $sql->bindValue(":endereco", $fk_endereco);
                 $sql->bindValue(":tempo_entrega", $tempo_entrega);
             }
 
@@ -80,13 +87,6 @@ class controlerCarrinho{
                 $sql->execute();
             }
 
-            
-
-            $_SESSION['carrinho'] = array();
-            $_SESSION['qtd'] = array();
-            $_SESSION['observacao'] = array();
-            $_SESSION['totalCorrigido'] = array();
-
         }else {
 
             $idCliente = $_SESSION['cod_cliente'];
@@ -99,14 +99,14 @@ class controlerCarrinho{
             $status = 1;
 
 
-            if ($endereco == null){
+            if ($fk_endereco == null){
                 $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente,  ped_data = NOW(),  ped_valor = :valor,  ped_desconto = :desconto, ped_taxa_entrega = :taxa_entrega,  ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt,  ped_status = :status,  ped_fk_origem_pedido = :origem");
             
             }else{
             
                 $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_valor = :valor, ped_desconto = :desconto, ped_taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt, ped_status = :status, ped_fk_origem_pedido = :origem, ped_fk_endereco_cliente = :endereco, ped_tempo_entrega = :tempo_entrega");
 
-                $sql->bindValue(":endereco", $endereco);
+                $sql->bindValue(":endereco", $fk_endereco);
                 $sql->bindValue(":tempo_entrega", $tempo_entrega);
             }
     
@@ -136,11 +136,6 @@ class controlerCarrinho{
 
                 $sql->execute();
             }
-    
-            $_SESSION['carrinho'] = array();
-            $_SESSION['qtd'] = array();
-            $_SESSION['observacao'] = array();
-            $_SESSION['totalCarrinho'] = array();
         }
     }
 

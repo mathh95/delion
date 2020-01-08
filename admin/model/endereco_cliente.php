@@ -2,137 +2,119 @@
     /**
      * Classe endereço
      */
-        class endereco{
+    class enderecoCliente{
 
-            private $cod_endereco;
+        private $encl_pk_id;
 
-            private $rua;
+        private $encl_numero;
 
-            private $numero;
+        private $encl_nome;
 
-            private $cep;
+        private $encl_referencia;
+                    
+        private $encl_complemento;
+        
+        private $encl_flag_ativo;
+        
+        private $encl_fk_endereco;
 
-            private $complemento;
+        private $encl_fk_cliente;
 
-            private $referencia;
 
-            private $cidade;
-
-            private $bairro;
-
-            private $cliente;
-
-            private $flag_cliente;
-
-            function getCodEndereco(){
-                return $this->cod_endereco;
-            }
-
-            function getRua(){
-                return $this->rua;
-            }
-
-            function getNumero(){
-                return $this->numero;
-            }
-
-            function getCep(){
-                return $this->cep;
-            }
-
-            function getComplemento(){
-                return $this->complemento;
-            }
-
-            function getReferencia(){
-                return $this->referencia;
-            }
-
-            function getCidade(){
-                return $this->cidade;
-            }
-
-            function getBairro(){
-                return $this->bairro;
-            }
-
-            function getCliente(){
-                return $this->cliente;
-            }
-
-            function getFlagCliente(){
-                return $this->flag_cliente;
-            }
-
-            function setCodEndereco($cod_endereco){
-                $this->cod_endereco = $cod_endereco;
-            }
-
-            function setRua($rua){
-                $this->rua = $rua;
-            }
-
-            function setNumero($numero){
-                $this->numero = $numero;
-            }
-
-            function setCep($cep){
-                $this->cep = $cep;
-            }
-
-            function setComplemento($complemento){
-                $this->complemento = $complemento;
-            }
-
-            function setReferencia($referencia){
-                $this->referencia = $referencia;
-            }
-
-            function setCidade($cidade){
-                $this->cidade = $cidade;
-            }
-
-            function setBairro($bairro){
-                $this->bairro = $bairro;
-            }
-
-            function setCliente($cliente){
-                $this->cliente = $cliente;
-            }
-            
-            function setFlagCliente($flag_cliente){
-                $this->flag_cliente=$flag_cliente;
-            }
-
-            function __construct(){
-
-            }
-
-            function getDsFlagCliente(){
-                return $this->flag_cliente==0? 'Inativo': 'Ativo';
-            }
-            
-            function construct($rua,$numero,$cep,$complemento,$bairro,$cidade,$referencia,$cliente){
-                $this->rua = $rua;
-                $this->numero = $numero;
-                $this->cep = $cep;
-                $this->complemento = $complemento;
-                $this->bairro = $bairro;
-                $this->cidade = $cidade;
-                $this->referencia = $referencia;
-                $this->cliente = $cliente;
-            }
-
-            function show(){
-                echo "Código do Endereço: ".$this->cod_endereco."<br>";
-                echo "Rua: ".$this->rua."<br>";
-                echo "Numero: ".$this->numero."<br>";
-                echo "Bairro: ".$this->bairro."<br>";
-                echo "Cep: ".$this->cep."<br>";
-                echo "Cidade: ".$this->cidade."<br>";
-                echo "Referência: ".$this->referencia."<br>";
-                echo "Complemento: ".$this->complemento."<br>";
-                echo "Cliente: ".$this->cliente."<br>";
-            }
+        function getPkId(){
+            return $this->encl_pk_id;
         }
+
+        function getNumero(){
+            return $this->encl_numero;
+        }
+
+        function getNome(){
+            return $this->encl_nome;
+        }
+
+        function getReferencia(){
+            return $this->encl_referencia;
+        }
+
+        function getComplemento(){
+            return $this->encl_complemento;
+        }
+
+
+        function getFlagAtivo(){
+            return $this->encl_flag_ativo;
+        }
+
+        function getFkEndereco(){
+            return $this->encl_fk_endereco;
+        }
+
+        function getFkCliente(){
+            return $this->encl_fk_cliente;
+        }
+
+
+
+        function setPkId($encl_pk_id){
+            $this->encl_pk_id = $encl_pk_id;
+        }
+
+        function setNumero($encl_numero){
+            $this->encl_numero = $encl_numero;
+        }
+
+        function setNome($encl_nome){
+            $this->encl_nome = $encl_nome;
+        }
+        
+        function setBairro($encl_bairro){
+            $this->encl_bairro = $encl_bairro;
+        }
+
+        function setReferencia($encl_referencia){
+            $this->encl_referencia = $encl_referencia;
+        }
+
+        function setComplemento($encl_complemento){
+            $this->encl_complemento = $encl_complemento;
+        }
+        
+        function setFlagAtivo($flag_ativo){
+            $this->flag_ativo=$flag_ativo;
+        }
+
+        function setFkEndereco($encl_fk_endereco){
+            $this->encl_fk_endereco = $encl_fk_endereco;
+        }
+
+        function setFkCliente($encl_fk_cliente){
+            $this->encl_fk_cliente = $encl_fk_cliente;
+        }
+
+        function __construct(){
+
+        }
+
+        function getDsFlagCliente(){
+            return $this->flag_ativo==0? 'Inativo': 'Ativo';
+        }
+
+        function construct($encl_numero, $encl_referencia, $encl_complemento, $encl_fk_endereco, $encl_fk_cliente=null){
+            $this->encl_numero = $encl_numero;
+            // $this->encl_nome = $encl_nome;
+            $this->encl_referencia = $encl_referencia;
+            $this->encl_complemento = $encl_complemento;
+            $this->encl_fk_endereco = $encl_fk_endereco;
+            $this->encl_fk_cliente = $encl_fk_cliente;
+        }
+
+        function show(){
+            echo "Código do Endereço: ".$this->encl_pk_id."<br>";
+            echo "Numero: ".$this->encl_numero."<br>";
+            echo "Referência: ".$this->encl_referencia."<br>";
+            echo "Complemento: ".$this->encl_complemento."<br>";
+            echo "Cliente: ".$this->encl_fk_cliente."<br>";
+        }
+    }
 ?>

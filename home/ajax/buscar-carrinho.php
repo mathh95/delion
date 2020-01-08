@@ -44,7 +44,6 @@ $_SESSION['valor_entrega_valido'] = 0;
 $_SESSION['delivery_price_calculado'] = 0;
 $_SESSION['minimo_taxa_gratis'] = 99999;
 
-
 //zera flag Finalizar pedido
 $_SESSION['finalizar_pedido'] = 0;
 
@@ -288,8 +287,7 @@ if (count($itens) > 0) {
                     $_SESSION['delivery']= 1;//delivery p/ endereço cadastrado
 
                     $codEnd = $_SESSION['cod_endereco'];
-                    $endereco_cadastrado = $controlEndereco->select($codEnd, 1);
-                    $endereco_cadastrado = $endereco_cadastrado[0];
+                    $endereco_cadastrado = $controlEndereco->selectById($codEnd);
 
                 }else{
                     $_SESSION['delivery']=-1;
@@ -335,13 +333,13 @@ if (count($itens) > 0) {
                     //Endereço Cadastrado e Selecionado
                     }else if($endereco_cadastrado){
                         
-                        $cep = $endereco_cadastrado->getCep();
-                        $rua = $endereco_cadastrado->getRua();
+                        $cep = $endereco_cadastrado->cep;
+                        $rua = $endereco_cadastrado->logradouro;
+                        $bairro = $endereco_cadastrado->bairro;
+                        $cidade = $endereco_cadastrado->cidade;
                         $numero = $endereco_cadastrado->getNumero();
-                        $bairro = $endereco_cadastrado->getBairro();
-                        $complemento = $endereco_cadastrado->getComplemento();
-                        $cidade = $endereco_cadastrado->getCidade();
                         $referencia = $endereco_cadastrado->getReferencia();
+                        $complemento = $endereco_cadastrado->getComplemento();
 
                         //display em fechar pedido
                         $_SESSION['numero_entrega'] = $numero;
@@ -352,7 +350,7 @@ if (count($itens) > 0) {
 
                     if($destino_setted){
                         /*** Estimativas de Tempo, Distância, Taxa de entrega ***/
-                        $controleEmpresa=new controlerEmpresa(conecta());
+                        $controleEmpresa = new controlerEmpresa(conecta());
                         $empresa = $controleEmpresa->select(1,2);
                         
                         $endereco_delion = $empresa->getEndereco()." ".$empresa->getCidade();
