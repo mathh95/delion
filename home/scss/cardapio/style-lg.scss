@@ -14,104 +14,117 @@
 }
 
 body,html{
-    > .menu {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        padding-bottom: 20px;
-        position: sticky;
-        z-index: 9999;
-        top: 50px;
-        // padding-top: 15px;
-        width: 100%;
-        > .menu-lateral {
-            
-            @include make-lg-column(3);
-            background-color: #ffffff;
-            width: 100% !important;
-            height: auto;
-            font-size: 13px;
-            display: inline-flex;
-            flex-direction: row;
-            justify-content: center;
-            > a {
-                cursor: pointer;
+    #navbar-cardapio{
+            height: 30px;
+            position: sticky;
+            z-index: 9999;
+            top: 34px;
+        > .menu {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            // padding-bottom: 20px;
+            // padding-top: 15px;
+            width: 100%;
+            // @include make-lg-column(12);
+            > .menu-lateral {
+                
+                // @include make-lg-column(12);
+                background-color: #ffffff;
                 width: 100%;
-                height: 50px;
-                display: inline-block;
-                // padding-bottom: 10px;
-                padding-top: 10px;
-                text-align: center;
-                border-bottom: 2px solid #D7CEC7;
-                    > img {
-                        width: 37px;
-                        height: 30px;
+                height: auto;
+                display: inline-flex;
+                flex-direction: row;
+                justify-content: center;
+                >ul.nav.nav-pills{
+                    padding-left: 30px;
+                    >li{ 
+                        a.nav-link {
+                            cursor: pointer; 
+                            width: 100%;
+                            height: 50px;
+                            display: inline-block;
+                            // padding-bottom: 10px;
+                            padding-top: 10px;
+                            text-align: center;
+                            border-bottom: 2px solid #D7CEC7;
+                                > img {
+                                    width: 37px;
+                                    height: 30px;
+                                    
+                                    display: inline-flex;
+                                    background-color: $vermelho_forte;
+                                    padding: 5px;
+                                    border-radius: 10px;
+                                    
+                                }
                         
-                        display: inline-flex;
-                        background-color: $vermelho_forte;
-                        padding: 5px;
-                        border-radius: 10px;
+                            > div {
+                                display: inline-flex;
+                                color: $vermelho_fraco;
+                                padding-left: 5px;
+                            }
                         
                     }
-                
-                > div {
-                    display: inline-flex;
-                    color: $vermelho_fraco;
-                    padding-left: 5px;
-                }
-                
-            }
-            > a.active{
-                text-decoration: none;
-                
-                border-bottom: 2px solid $vermelho_forte;
-                padding-bottom: 5px;
+                    a.nav-link.active{
+                        background-color: #FFFFFF;
+                    }
+                } 
+                    >li.nav-item.active a{ 
+                        background-color: #D7CEC7;
+                        text-decoration: none;
+                            
+                            border-bottom: 2px solid $vermelho_forte;
+                            padding-bottom: 5px;
+                            > div {
+                                font-family: $font_main_bold;
+                                color: $vermelho_fraco;
+                            }
+                    }
+                    >li a:hover{
+                        text-decoration: none;
+                        
+                        border-bottom: 2px solid $vermelho_forte;
+                        // margin-bottom: -4px;
+                        padding-bottom: 5px;
 
-                > div {
-                    font-family: $font_main_bold;
-                    color: $vermelho_fraco;
+                        > div {
+                            font-family: $font_main_bold;
+                            color: $vermelho_fraco;
+                        }
+                    }
+                    // >li a:focus{
+                    //     background-color: #D7CEC7;
+                    //     text-decoration: none;
+                    //     > div {
+                    //         color: $vermelho_forte;
+                    //         font-family: $font_main_bold;
+                    //     }
+                    // }
                 }
             }
-            > a:hover{
-                text-decoration: none;
-                
-                border-bottom: 2px solid $vermelho_forte;
-                // margin-bottom: -4px;
-                padding-bottom: 5px;
-
-                > div {
-                    font-family: $font_main_bold;
-                    color: $vermelho_fraco;
+            > .imagem {
+                @include make-lg-column(9);
+                >.slick-prev{
+                    z-index: 10;
+                    margin-left: 20px;
                 }
-            }
-            > a:focus{
-                text-decoration: none;
-                > div {
-                    color: $vermelho_forte;
-                    font-family: $font_main_bold;
+                >.slick-next {
+                    margin-right: 20px;
                 }
-            }
-        }
-        > .imagem {
-            @include make-lg-column(9);
-            >.slick-prev{
-                z-index: 10;
-                margin-left: 20px;
-            }
-            >.slick-next {
-                margin-right: 20px;
-            }
-            >a {
+                >a {
+                    > img {
+                        @include img-responsive();
+                        @include center-block();
+                    }
+                }
                 > img {
                     @include img-responsive();
-                    @include center-block();
                 }
-            }
-            > img {
-                @include img-responsive();
             }
         }
     }
     > .produtos {
+        position: relative;
         min-height: 300px;
         > .categoria {
             font-family: $font_main;

@@ -16,107 +16,116 @@
 body{
     scroll-behavior: smooth;
     font-family: $font_main;
-    overflow-x: scroll;
-    > .menu {
-        // padding-bottom: 25px;
-        padding-left: 0;
-        padding-right: 0;
-        // padding-top: 15px;
-        width: 100%;
-        height: 60px;
-        white-space: nowrap; /* [1] */
-        overflow-x: auto;
-        overflow-y: hidden;
-        flex-wrap: nowrap;
+    
+    #navbar-cardapio{
         position: sticky;
         z-index: 9;
-        top: 50px;
-        > .menu-lateral {
-            background-color: #FFFFFF;
-            display: inline-flex;
-            flex-direction: row;
-            height: 50px;
-            > a {
-                text-align: center;
-                padding-bottom: 5px;
-                border-bottom: 2px solid #D7CEC7;
-                > img {
-                    @include make-xs-column(1);
-                    width: 50px;
-                    height: 45px;
-                    padding: 5px;
-                    display: none;
-                    // padding: 10px;
-                    border-radius: 10px;
-                    background-color: $vermelho_forte;
-                    // display: inline;
-                }
-                > div {
-                    @include make-xs-column(12);
-                    font-size: 14px;
+        top: 39px;
+        overflow-x: scroll;
+        margin: 0;
+        
+        > .menu {
+            // padding-bottom: 25px;
+            padding-left: 0;
+            padding-right: 0;
+            width: 100%;
+            height: 60px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            transition: all ease 750ms;
+            // padding-top: 15px;
+            > .menu-lateral {
+                background-color: #FFFFFF;
+                display: inline-flex;
+                flex-direction: row;
+                height: 50px;
                 
-                    color: $vermelho_forte;
-                    padding-top: 15px;
-                    padding-left: 20px;
-                    vertical-align: middle;
+                >ul.nav.nav-pills{
+                    white-space: nowrap;
+                    transition: all ease 750ms;
+                    display: inline-flex;
+                    >li {
+                        display: inline-block;
+                        a.nav-link {
+                            height: 45px;
+                            text-align: center;
+                            padding-bottom: 5px; 
+                            // border-bottom: 2px solid $vermelho_forte;
+                            > img {
+                                display: none;
+                            }
+                            > div {
+                                // @include make-xs-column(12);
+                                font-size: 14px;
+                            
+                                color: $vermelho_fraco;
+                                // padding-top: 15px;
+                                // padding-left: 20px;
+                                vertical-align: middle;
+                            }
+                    }
                 }
-            }
-            > a.active{
-                text-decoration: none;
-                
-                border-bottom: 2px solid $vermelho_forte;
-                padding-bottom: 5px;
+                    >li.nav-item.active a{
+                            background-color: #D7CEC7;
+                            text-decoration: none;
+                            border-bottom: 2px solid $vermelho_forte;
+                            padding-bottom: 10px;
+                            
 
-                > div {
-                    font-family: $font_main_bold;
-                    color: $vermelho_fraco;
+                            > div {
+                                font-family: $font_main_bold;
+                                color: $vermelho_fraco;
+                            }
                 }
+                
+                    >li a:hover{
+                        text-decoration: none;
+                        // border-bottom: 2px solid $vermelho_forte;
+                        padding-bottom: 5px;
+                        > div {
+                            color: $vermelho_forte;
+                            font-family: $font_main_bold;
+                        }
+                    }
+                    >li a:focus{
+                        text-decoration: none;
+                        > div {
+                            color: $vermelho_forte;
+                            font-family: $font_main_bold;
+                        }
+                    }
+                } 
             }
-           
-            > a:hover{
-                text-decoration: none;
-                border-bottom: 2px solid $vermelho_forte;
-                padding-bottom: 5px;
-                > div {
-                    color: $vermelho_forte;
-                    font-family: $font_main_bold;
+            > .imagem {
+                @include make-xs-column(12);
+                >.slick-prev{
+                    z-index: 10;
+                    margin-left: 20px;
                 }
-            }
-            > a:focus{
-                text-decoration: none;
-                > div {
-                    color: $vermelho_forte;
-                    font-family: $font_main_bold;
+                >.slick-next {
+                    margin-right: 20px;
                 }
-            }
-        }
-        > .imagem {
-            @include make-xs-column(12);
-            >.slick-prev{
-                z-index: 10;
-                margin-left: 20px;
-            }
-            >.slick-next {
-                margin-right: 20px;
-            }
-            >a {
+                >a {
+                    > img {
+                        @include img-responsive();
+                        @include center-block();
+                    }
+                }
                 > img {
                     @include img-responsive();
-                    @include center-block();
                 }
             }
-            > img {
-                @include img-responsive();
-            }
+        }
+        >.menu::-webkit-scrollbar{
+            display: none;
         }
     }
-    >.menu::-webkit-scrollbar{
-        display: none;
-    }
+    
     > .produtos {
         min-height: 200px;
         padding-left: 0;
         padding-right: 0;
+        overflow: scroll;
         > .categoria {
             @include make-xs-column(12);
             font-family: $font_main_bold;

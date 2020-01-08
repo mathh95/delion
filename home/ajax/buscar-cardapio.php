@@ -62,10 +62,11 @@ foreach ($categorias as $key_cat => $categoria) {
     foreach ($itens as $key_item => $item){
 
         //verifica se item disponível hoje e agora
-        if(
-            $item->getDias_semana() &&
-            in_array($hoje, json_decode($item->getDias_semana())) &&
-            ($hora_atual >= $item->getCardapio_horas_inicio() && $hora_atual < $item->getCardapio_horas_final())
+        
+        if(1
+            // $item->getDias_semana() &&
+            // in_array($hoje, json_decode($item->getDias_semana())) &&
+            // ($hora_atual >= $item->getCardapio_horas_inicio() && $hora_atual < $item->getCardapio_horas_final())
         ){
 
             $categoria_com_itens++;
