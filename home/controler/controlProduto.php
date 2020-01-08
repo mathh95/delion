@@ -634,7 +634,7 @@ include_once MODELPATH."/produto.php";
 
             try{
 
-                $stmte = $this->pdo->prepare("SELECT COUNT(*) AS produtos FROM tb_produto WHERE flag_ativo = 1 ");
+                $stmte = $this->pdo->prepare("SELECT COUNT(*) AS produtos FROM tb_produto WHERE pro_flag_ativo = 1 ");
 
                 $stmte->execute();
 
