@@ -57,7 +57,7 @@
 
             $adicional = new adicional();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM adicional WHERE adi_pk_id = :id");
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_adicional WHERE adi_pk_id = :id");
                 $stmte->bindParam(":id", $id , PDO::PARAM_INT);
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
