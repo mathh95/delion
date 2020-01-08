@@ -20,6 +20,8 @@
             
             private $telefone;
 
+            private $dt_alteracao_fone;
+
             private $status;
 
             private $idGoogle;
@@ -56,6 +58,10 @@
 
             function getTelefone(){
                 return $this->telefone;
+            }
+
+            function getDtAlteracaoFone(){
+                return $this->dt_alteracao_fone;
             }
             
             function getStatus(){
@@ -96,6 +102,10 @@
 
             function setTelefone($telefone){
                 $this->telefone = $telefone;
+            }
+
+            function setDtAlteracaoFone($dt_alteracao_fone){
+                $this->dt_alteracao_fone = $dt_alteracao_fone;
             }
 
             function setStatus($status){

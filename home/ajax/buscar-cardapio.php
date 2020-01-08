@@ -14,7 +14,15 @@ include_once "../lib/alert.php";
 $controleAdicional = new controlerAdicional(conecta());
 
 
-$busca = addslashes(htmlspecialchars($_GET['search']));
+if(isset($_GET['search']) && !empty($_GET['search'])){
+
+    $busca = addslashes(htmlspecialchars($_GET['search']));
+
+}else{
+
+    $busca = "";
+
+}
 
 $controle_categoria = new controlerCategoria(conecta());
 $controle_cardapio = new controlerCardapio(conecta());
@@ -62,10 +70,11 @@ foreach ($categorias as $key_cat => $categoria) {
     foreach ($itens as $key_item => $item){
 
         //verifica se item disponível hoje e agora
-        if(
-            $item->getDias_semana() &&
-            in_array($hoje, json_decode($item->getDias_semana())) &&
-            ($hora_atual >= $item->getCardapio_horas_inicio() && $hora_atual < $item->getCardapio_horas_final())
+        
+        if(1
+            // $item->getDias_semana() &&
+            // in_array($hoje, json_decode($item->getDias_semana())) &&
+            // ($hora_atual >= $item->getCardapio_horas_inicio() && $hora_atual < $item->getCardapio_horas_final())
         ){
 
             $categoria_com_itens++;

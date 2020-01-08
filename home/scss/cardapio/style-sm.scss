@@ -15,94 +15,104 @@
 
 body{
     font-family: $font_main;
-    > .menu {
-        padding-bottom: 15px;
-        padding-top: 15px;
-        padding-left: 0;
-        padding-right: 0;
-        height: auto;
+    #navbar-cardapio{
         position: sticky;
         z-index: 9999;
         top: 35px;
-        > .menu-lateral {
-            // @include make-sm-column(12);
-            background-color: #ffffff;
+        > .menu {
+            padding-bottom: 15px;
+            padding-top: 15px;
+            padding-left: 0;
+            padding-right: 0;
             height: auto;
-            margin-left: 10px;
-            margin-right: 10px;
-            padding-top: 5px;
-            display: flex;
-            flex-direction: row;
-            a {
-                // width: 100%;
-                display: block;
-                height: auto;
-                padding-bottom: 10px;
-                padding-top: 10px;
-                border-bottom: 2px solid #D7CEC7;
-                text-align: center;
-                padding-right: 10px;
-                justify-content: center;
-                > img {
-                    width: 38px;
-                    height: 35px;
-                    padding: 5px;
-                    display: inline;
-                    background-color: $vermelho_forte;
-                }
-                > div {
-                    display: inline;
-                    color: $vermelho_forte;
-                    padding-left: 10px;
-                }
-            }
-            > a.active{
-                text-decoration: none;
+            
+            > .menu-lateral {
+                @include make-sm-column(12);
                 
-                border-bottom: 2px solid $vermelho_forte;
-                padding-bottom: 5px;
+                ul.nav.nav-pills{
+                    background-color: #ffffff;
+                    height: auto;
+                    margin-left: 10px;
+                    margin-right: 10px;
+                    padding-top: 5px;
+                    display: flex;
+                    flex-direction: row;
+                    li{
+                        a.nav-link {
+                            // width: 100%;
+                            display: block;
+                            height: 80px;
+                            // padding-bottom: 10px;
+                            padding-top: 10px;
+                            border-bottom: 2px solid #D7CEC7;
+                            text-align: center;
+                            padding-right: 10px;
+                            justify-content: center;
+                            > img {
+                                width: 38px;
+                                height: 35px;
+                                padding: 5px;
+                                display: inline;
+                                background-color: $vermelho_forte;
+                            }
+                            > div {
+                                display: inline-flex;
+                                color: $vermelho_forte;
+                                padding-left: 10px;
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                >li.nav-item.active a{
+                    background-color: #D7CEC7;
+                    text-decoration: none;
+                    
+                    border-bottom: 2px solid $vermelho_forte;
+                    padding-bottom: 5px;
 
-                > div {
-                    font-family: $font_main_bold;
-                    color: $vermelho_fraco;
+                    > div {
+                        font-family: $font_main_bold;
+                        color: $vermelho_fraco;
+                    }
                 }
-            }
-            > a:hover{
-                text-decoration: none;
-                border-bottom: 2px solid $vermelho_forte;
-                padding-bottom: 5px;
-                > div {
-                    color: $vermelho_forte;
-                    font-family: $font_main_bold;
+                >li a:hover{
+                    text-decoration: none;
+                    border-bottom: 2px solid $vermelho_forte;
+                    padding-bottom: 5px;
+                    > div {
+                        color: $vermelho_forte;
+                        font-family: $font_main_bold;
+                    }
                 }
-            }
-            > a:focus{
-                text-decoration: none;
-                > div {
-                    color: $vermelho_forte;
-                    font-family: $font_main_bold;
+                >li a:focus{
+                    text-decoration: none;
+                    > div {
+                        color: $vermelho_forte;
+                        font-family: $font_main_bold;
+                    }
                 }
             }
         }
-        > .imagem {
-            // @include make-sm-column(8);
-            @include make-sm-column-offset(3);
-            width: 73%;
-            >.slick-prev{
-                z-index: 10;
-                margin-left: 25px;
-            }
-            >.slick-next {
-                margin-right: 10px;
-            }
-            >a {
+            > .imagem {
+                // @include make-sm-column(8);
+                @include make-sm-column-offset(3);
+                width: 73%;
+                >.slick-prev{
+                    z-index: 10;
+                    margin-left: 25px;
+                }
+                >.slick-next {
+                    margin-right: 10px;
+                }
+                >a {
+                    > img {
+                        @include img-responsive();
+                        @include center-block();
+                    }
+                }
                 > img {
                     @include img-responsive();
-                    @include center-block();
                 }
-            }
-            > img {
-                @include img-responsive();
             }
         }
     }

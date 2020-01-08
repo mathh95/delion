@@ -115,12 +115,141 @@
                     $stmt->bindParam(":telefone", $telefone, PDO::PARAM_STR);
                     $stmt->bindParam(":cod_cliente", $cod_cliente, PDO::PARAM_STR);
 
+                    // $diferenca_dt =$this->pdo->prepare("SELECT DATEDIFF(NOW(), dt_alteracao_fone)");
+
                     $executa=$stmt->execute();
 
                     if ($executa){
                         return 1;
                     }else{
                         return -1;
+                    }
+
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function updateDate($cliente){
+                try{
+                    $cod_cliente=$cliente->getCod_cliente();
+                    $nome=$cliente->getNome();
+                    $sobrenome=$cliente->getSobrenome();
+                    // $cpf=$cliente->getCpf();
+                    // $data_nasc=$cliente->getData_nasc();
+                    $login=$cliente->getLogin();
+                    $telefone=$cliente->getTelefone();
+                    $stmt=$this->pdo->prepare("UPDATE cliente
+                    SET nome=:nome, sobrenome=:sobrenome, login=:login, telefone=:telefone, dt_alteracao_fone=NOW() WHERE cod_cliente=:cod_cliente ");
+                    $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
+                    $stmt->bindParam(":sobrenome", $sobrenome, PDO::PARAM_STR);
+                    $stmt->bindParam(":login", $login, PDO::PARAM_STR);
+                    $stmt->bindParam(":telefone", $telefone, PDO::PARAM_STR);
+                    $stmt->bindParam(":cod_cliente", $cod_cliente, PDO::PARAM_STR);
+
+                    // $diferenca_dt =$this->pdo->prepare("SELECT DATEDIFF(NOW(), dt_alteracao_fone)");
+
+                    $executa=$stmt->execute();
+
+                    if ($executa){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function verifyDate($parametro){
+                $stmt;
+                $cliente= new cliente;
+                try{
+                    $cod_cliente=$parametro;
+                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE cod_cliente=:parametro");
+                    $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+                    $executa=$stmt->execute();
+
+                    if($executa){
+                        if($stmt->rowCount() > 0){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                                $cliente->setCod_cliente($result->cod_cliente);
+                                $cliente->setLogin($result->login);
+                                $cliente->setNome($result->nome);
+                                $cliente->setSobrenome($result->sobrenome);
+                                $cliente->setCpf($result->cpf);
+                                $cliente->setData_nasc($result->data_nasc);
+                                $cliente->setTelefone($result->telefone);
+                                $cliente->setDtAlteracaoFone($result->dt_alteracao_fone);
+                                $cliente->setStatus($result->status);
+                                $cliente->setIdFacebook($result->id_facebook);
+                            }
+                        }
+                        
+                        $data_atual = date("Y-m-d");
+                        $data_alteracao = $cliente->getDtAlteracaoFone();
+
+                        // Calcula a diferença em segundos entre as datas
+                        $diferenca = strtotime($data_atual) - strtotime($data_alteracao);
+
+                        //Calcula a diferença em dias
+                        $dias = floor($diferenca / (60 * 60 * 24));
+
+                        return $dias;
+
+                    }else{
+                        return $dias;
+                    }
+
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function verifyFone($parametro,$fone){
+                $stmt;
+                $cliente= new cliente;
+                try{
+                    $cod_cliente=$parametro;
+                    $stmt=$this->pdo->prepare("SELECT * FROM cliente WHERE cod_cliente=:parametro");
+                    $stmt->bindParam(":parametro", $cod_cliente, PDO::PARAM_INT);
+                    $executa=$stmt->execute();
+
+                    if($executa){
+                        if($stmt->rowCount() > 0){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                                $cliente->setCod_cliente($result->cod_cliente);
+                                $cliente->setLogin($result->login);
+                                $cliente->setNome($result->nome);
+                                $cliente->setSobrenome($result->sobrenome);
+                                $cliente->setCpf($result->cpf);
+                                $cliente->setData_nasc($result->data_nasc);
+                                $cliente->setTelefone($result->telefone);
+                                $cliente->setDtAlteracaoFone($result->dt_alteracao_fone);
+                                $cliente->setStatus($result->status);
+                                $cliente->setIdFacebook($result->id_facebook);
+                            }
+                        }
+
+                        $fone_salvo = $cliente->getTelefone();
+
+                        if($fone_salvo === $fone){
+                            $flag_controle = 1;
+                        }else{
+                            $flag_controle = -1;
+                        }
+
+                        return $flag_controle;
+
+                    }else{
+                        return $flag_controle;
                     }
 
                 }

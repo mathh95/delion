@@ -50,6 +50,10 @@
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js" integrity="sha256-goy7ystDD5xbXSf+kwL4eV6zOPJCEBD1FBiCElIm+U8=" crossorigin="anonymous"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+
+
 </head>
 
 <body>
@@ -62,56 +66,49 @@
 		include_once "./navbar.php";
 	?>
 
+<nav class="navbar" id="navbar-cardapio">
+	
 	<div class="container-fluid menu">
 
 		<div class="menu-lateral">
-
+        	<ul class="nav nav-pills">
+			
 		<?php 
 			$categorias = $controleCategoria->selectAllByPos();
 
 			foreach ($categorias as $key => $categoria) {
 				
-				if($key == 0){
-					echo "<a class= 'item-categoria active' href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
+				if($key == 0){	
+					echo "
+						<li class='nav-item active'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
 							<img src='../admin/".$categoria->getIcone()."'>
-						<div>".$categoria->getNome()."</div>
-
-					</a>";
+							<div>".$categoria->getNome()."</div>
+						</a></li>";
 				}else{
-					echo "<a class= 'item-categoria' href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
+					echo "
+						<li class='nav-item '><a class= 'nav-link item-categoria' href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
 							<img src='../admin/".$categoria->getIcone()."'>
-						<div>".$categoria->getNome()."</div>
-
-					</a>";
+							<div>".$categoria->getNome()."</div>
+						</a></li>";
 				}
 
 			}
 
 		?>
+		</ul>
+      </div>
 
 		</div>
+</nav>
 
+	<div class="container produtos" id="container-produtos" data-spy="scroll" data-target=".menu-lateral" data-offset-top="-200">
 		
 
 	</div>
 
-	<div class="container produtos">
-
-		
-
-		
-
-	</div>
 		
 	<div class="scroll-top">
-		
-		<!-- <a>
-
-			<i class="fa fa-print" aria-hidden="true"></i>
-
-		</a> -->
-
-
+	
 		<a href="#top">
 
 			<i class="far fa-caret-square-up"></i>
@@ -147,18 +144,24 @@
 
 	<script>
 
-		// Selecionar Categoria
-		$('.item-categoria').on('click', function(){
-			
-			var $this = $(this);
-			var cod_categoria = $this.data('id');
 
-			// cor
-			$('.active').removeClass('active');
-			$this.toggleClass('active');
-
+		//Scrollspy para deixar active a categoria atual.
+		$('body').scrollspy({ target: '#navbar-cardapio' })
+		$('[data-spy="scroll"]').each(function () {
+			var $spy = $(this).scrollspy('refresh')
 		});
 
+		//Funções responsá veis por dar reload no cardapio
+		function doRefresh(){
+                $("#container-produtos").load('../home/ajax/buscar-cardapio.php');
+        }
+
+		window.setInterval(function(){
+                var verifica = $('body').hasClass('modal-open'); //Verifica se a modal está aberta
+                if(verifica == false){ 
+                    doRefresh();
+            }
+        }, 10000);
 
 		// var categorias = $('.categoria')
 		// , menu_lateral = $('.menu-lateral')
@@ -193,10 +196,69 @@
 				return false;
 			});
 		});
+		
+
+		// $(document).ready(function(){
+		// 	$(".menu").animate({scrollCenter: "li.active"}, 400);
+		// });
+
+		// $(window).on('load', function() {
+		// 	$(".menu").scrollCenter("li.active", 400);
+		// });
+		
+
+		// setTimeout( function(){
+			 
+		// 	window.scrollTo( screen.width/2, screen.height/2 );
+  		// }  , 500 );
+
+		// $(window).scroll(function (event) {
+    	// 	var scroll = $(window).scrollTop();
+		// 	$(".menu").scrollCenter("li.active", 400);
+		// });
+		// $(".a").on('click', function(){
+		// 	$(".menu").scrollCenter("li.active", 400);
+		// });
+
+		// $(document).ready(function() { 
+		// 	$(window).load(function() { 
+		// 		$(".menu").scrollCenter("li.active", 400);
+		// 	});
+		// });
+
+		// window.addEventListener("DOMContentLoaded", function(){
+		// 	$(".menu").scrollCenter("li.active", 400);
+		// });
+					
+
+		jQuery.fn.scrollCenter = function(elem, speed) {
+
+			var active = jQuery(this).find(elem); // find the active element
+			var activeWidth = active.width() / 2; // get active width center
+
+			var pos = active.position().left + activeWidth; //get left position of active li + center position
+			var elpos = jQuery(this).scrollLeft(); // get current scroll position
+			var elW = jQuery(this).width(); //get div width
+			pos = pos + elpos - elW / 2; // for center position if you want adjust then change this
+
+		jQuery(this).animate({
+			scrollLeft: pos
+		}, speed == undefined ? 1000 : speed);
+		return this;
+		};
+
+		// jQuery.fn.scrollCenterORI = function(elem, speed) {
+		// jQuery(this).animate({
+		// 	scrollLeft: jQuery(this).scrollLeft() - jQuery(this).offset().left + jQuery(elem).offset().left
+		// }, speed == undefined ? 1000 : speed);
+		// return this;
+		// };
+
+
+		
 
 
     	$(document).ready(function(){
-
     		<?php 
 
     		$search = (isset($_GET['search'])) ? $_GET['search'] : NULL ;
@@ -285,6 +347,7 @@
 				success:function(resultado){
 
 					$('.produtos').html(resultado);
+					
 
 				}
 
@@ -328,6 +391,8 @@
 				$("#myModal"+idCardapio).modal('hide');
 			}
 		}
+
+		
 	</script>
 
 </body>
