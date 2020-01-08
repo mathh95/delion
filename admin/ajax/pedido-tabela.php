@@ -5,7 +5,7 @@ include_once HOMEPATH."home/controler/controlCarrinho.php";
 include_once MODELPATH."/usuario.php";
 include_once CONTROLLERPATH."/controlUsuario.php";
 include_once CONTROLLERPATH. "/controlFormaPgt.php";
-include_once MODELPATH. "/formaPgt.php";
+include_once MODELPATH. "/forma_pgto.php";
 protegePagina();
 
 $controleUsuario = new controlerUsuario($_SG['link']);

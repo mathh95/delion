@@ -72,7 +72,7 @@
         }
         function updateFuncionamento($empresa){
             try{
-                $stmte =$this->pdo->prepare("UPDATE empresa SET txt_dias_semana=:txt_dias_semana, txt_horario_semana=:txt_horario_semana, txt_dias_fim_semana=:txt_dias_fim_semana, txt_horario_fim_semana=:txt_horario_fim_semana, arr_dias_semana=:arr_dias_semana, arr_horarios_inicio=:arr_horarios_inicio, arr_horarios_final=:arr_horarios_final, aberto=:aberto, entregando=:entregando WHERE emp_pk_id=:cod_empresa");
+                $stmte =$this->pdo->prepare("UPDATE tb_empresa SET emp_txt_dias_semana=:txt_dias_semana, emp_txt_horario_semana=:txt_horario_semana, emp_txt_dias_fim_semana=:txt_dias_fim_semana, emp_txt_horario_fim_semana=:txt_horario_fim_semana, emp_arr_dias_semana=:arr_dias_semana, emp_arr_horarios_inicio=:arr_horarios_inicio, emp_arr_horarios_final=:arr_horarios_final, emp_aberto=:aberto, emp_entregando=:entregando WHERE emp_pk_id=:cod_empresa");
 
                 $stmte->bindParam(":cod_empresa", $empresa->getPkId() , PDO::PARAM_INT);
                 $stmte->bindParam(":txt_dias_semana", $empresa->getTxtDiasSemana() , PDO::PARAM_STR);

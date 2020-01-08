@@ -20,10 +20,9 @@
 
     include_once MODELPATH."/adicional.php";
 
-    include_once CONTROLLERPATH."/controlProdutoHoras.php";
+    include_once CONTROLLERPATH."/controlCardapioHoras.php";
 
-
-    include_once CONTROLLERPATH."/controlProdutoTurno.php";
+    include_once CONTROLLERPATH."/controlCardapioTurno.php";
 
     include_once MODELPATH."/cardapio_horas.php";
 
@@ -142,7 +141,7 @@
 
                                     foreach ($categorias as $categoria) {
 
-                                        echo "<option value='".$categoria->getCod_categoria()."'>".$categoria->getNome()."</option>";
+                                        echo "<option value='".$categoria->getPkId()."'>".$categoria->getNome()."</option>";
 
                                     }  
 

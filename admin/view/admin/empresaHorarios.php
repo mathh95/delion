@@ -68,7 +68,7 @@
 
                             <!-- <h4>Disponibilidade de acordo com os Dias/Horários cadastrados abaixo:</h4> -->
                             
-                            <input class="form-control" style="display: none;" placeholder="" name="cod_empresa" value="<?=  $empresa->getCod_empresa(); ?>"  type="text">
+                            <input class="form-control" style="display: none;" placeholder="" name="cod_empresa" value="<?=  $empresa->getPkId(); ?>"  type="text">
 
                             <h5>Aberto/Entregando nos dias/horários informados abaixo.</h5>
                             <h6>*Caso precise desabilitar o Funcionamento <u>independente</u> das informações inseridas, basta desmarcar os campos (Aberto/Entregando).</h6>
@@ -190,7 +190,7 @@
 
                                     <span class="input-group-addon"><i class="fa fa-calendar-alt"></i></span>
 
-                                    <input class="form-control" placeholder="" name="dias_semana" value="<?= $empresa->getDiasSemana(); ?>"  type="text">
+                                    <input class="form-control" placeholder="" name="dias_semana" value="<?= $empresa->getTxtDiasSemana(); ?>"  type="text">
 
                                 </div>
                             </div>
@@ -202,7 +202,7 @@
 
                                     <span class="input-group-addon"><i class="fa fa-clock"></i></span>
 
-                                    <input class="form-control" placeholder="" name="horario_semana" value="<?=  $empresa->getHorarioSemana(); ?>"  type="text">
+                                    <input class="form-control" placeholder="" name="horario_semana" value="<?=  $empresa->getTxtHorarioSemana(); ?>"  type="text">
 
                                 </div>
                             </div>
@@ -217,7 +217,7 @@
 
                                     <span class="input-group-addon"><i class="fa fa-calendar-alt"></i></span>
 
-                                    <input class="form-control" placeholder="" name="dias_fim_semana" value="<?=  $empresa->getDiasFimSemana(); ?>"  type="text">
+                                    <input class="form-control" placeholder="" name="dias_fim_semana" value="<?=  $empresa->getTxtDiasFimSemana(); ?>"  type="text">
 
                                 </div>
                             </div>
@@ -230,7 +230,7 @@
 
                                     <span class="input-group-addon"><i class="fa fa-clock"></i></span>
 
-                                    <input class="form-control" placeholder="" name="horario_fim_semana" value="<?=  $empresa->getHorarioFimSemana(); ?>"  type="text">
+                                    <input class="form-control" placeholder="" name="horario_fim_semana" value="<?=  $empresa->getTxtHorarioFimSemana(); ?>"  type="text">
 
                                 </div>
                             </div>
@@ -285,7 +285,7 @@
 
         $(document).ready(function() {
 
-            var dias =  <?= $empresa->getArrDiasSemana() ?>;
+            var dias =  <?= $empresa->getArrDiasSemana(); ?>
             console.log(dias);
             //dia -> 1 == domingo...7 == sábado
             for(let dia of dias){

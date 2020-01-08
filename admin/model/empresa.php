@@ -222,12 +222,12 @@
             $this->emp_foto=$emp_foto;
         }
 
-        function constructFuncionamento($emp_dias_semana, $emp_horario_semana,  $emp_dias_fim_semana, $emp_horario_fim_semana, $emp_arr_dias, $emp_arr_horarios_inicio, $emp_arr_horarios_final, $emp_aberto, $emp_entregando){
+        function constructFuncionamento($emp_dias_semana, $emp_horario_semana,  $emp_dias_fim_semana, $emp_horario_fim_semana, $emp_arr_dias_semana, $emp_arr_horarios_inicio, $emp_arr_horarios_final, $emp_aberto, $emp_entregando){
             $this->emp_dias_semana=$emp_dias_semana;
             $this->emp_horario_semana=$emp_horario_semana;
             $this->emp_dias_fim_semana=$emp_dias_fim_semana;
             $this->emp_horario_fim_semana=$emp_horario_fim_semana;
-            $this->emp_arr_dias_semana=$emp_arr_dias;
+            $this->emp_arr_dias_semana=$emp_arr_dias_semana;
             $this->emp_arr_horarios_inicio=$emp_arr_horarios_inicio;
             $this->emp_arr_horarios_final=$emp_arr_horarios_final;
             $this->emp_aberto=$emp_aberto;
