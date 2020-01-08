@@ -5,7 +5,7 @@ include_once MODELPATH. "/cupom.php";
 include_once CONTROLLERPATH."/seguranca.php";
 
 include_once "../../admin/controler/controlCupom.php";
-include_once "../../admin/controler/controlCupom_cliente.php";
+include_once "../../admin/controler/controlClienteCupom.php";
 protegePagina("carrinho_call");
 header('Content-Type: application/json');
 
@@ -15,86 +15,83 @@ date_default_timezone_set('America/Sao_Paulo');
 // session_start();
 
 $acao = $_GET['acao'];
-$codigo = $_GET['codigocupom'];
+$codigo_inserido = $_GET['codigocupom'];
 
 if(isset($_SESSION['cod_cliente'])){
-    $cod_cliente = $_SESSION['cod_cliente'];
+    $fk_cliente = $_SESSION['cod_cliente'];
 }else{
-    $cod_cliente = NULL;
+    $fk_cliente = NULL;
 }
 
 // $valortotal = $total - $valor;
 // $valortotal = $_GET['valortotal'];
 
 $controlcupom = new controlCupom($_SG['link']);
-$cupom = $controlcupom->selectAll();
+$cupom = $controlcupom->selectPorCodigo($codigo_inserido);
 
-$controlcupom1 = new controlCupom($_SG['link']);
-$cupom1 = $controlcupom1->selectPorCodigo($codigo);
+//verifica se cupom utilizado em cliente/cod_cupom
+$control_clcu = new controlClienteCupom($_SG['link']);
+$clcu_fk_cod = $control_clcu->selectByFkCod($fk_cliente, $codigo_inserido);
+$clcu_ultima_data = $control_clcu->selectUltimaDataUso($fk_cliente);
 
-$controlcheck = new controlCupom_cliente($_SG['link']);
-$check = $controlcheck->select($cod_cliente, $codigo);
+$pk_cupom_inserido = $cupom->getPkId();
+$valor_cupom = $cupom->getValor();
 
-$controlcheck2 = new controlCupom_cliente($_SG['link']);
-$check2 = $controlcheck2->selectDataUso($cod_cliente);
-
-
-$codcupom = $cupom1->getCod_cupom();
-$valorcupom = $cupom1->getValor();
-
-if($check2->getCod_cliente() == -1){
+if($clcu_ultima_data->getFkCliente() == -1){
     $cod_cliente_uso = 0;
 }else{
-    $cod_cliente_uso = $check2->getCod_cliente();
+    $cod_cliente_uso = $clcu_ultima_data->getFkCliente();
 }
-
-// echo "<pre>";
-// var_dump($valorcupom);
-// echo "</pre>";
 
 $_SESSION['valorcupom'] = 0.00;
 $_SESSION['totalComDesconto'] = 0.00;
 $data = date('Y-m-d');
-if($acao == "checar"){
 
-    verificarCupom($cod_cliente, $cupom1, $codigo, $data, $check, $cod_cliente_uso, $valorcupom, $codcupom);
+
+if($acao == "checar"){
+    verificarCupom($fk_cliente, $cupom, $codigo_inserido, $data, $clcu_fk_cod, $cod_cliente_uso, $valor_cupom, $pk_cupom_inserido);
 }
+
+
+
 //Funcao para fazer as verificacoes de uso e fluxo do cupom
-function verificarCupom($cod_cliente, $cupom1, $codigo, $data, $check, $cod_cliente_uso, $valorcupom, $codcupom){
-    if(!isset($cod_cliente)){
+function verificarCupom($fk_cliente, $cupom, $codigo_inserido, $data, $clcu_fk_cod, $cod_cliente_uso, $valor_cupom, $pk_cupom_inserido){
+
+    if(!isset($fk_cliente)){
         echo json_encode(array("mensagem" => "Por favor faça o login!")); return;
-    }else if(empty($codigo)){
+    }else if(empty($codigo_inserido)){
         echo json_encode(array("mensagem" => "Código vazio ou não digitado!")); return;
-    }else if($codigo === $check->getCodigo()){
-        echo json_encode(array("mensagem" => "Você já utilizou esse cupom!")); return;
-    }else if($cod_cliente === $check->getCod_cliente()){
-        echo json_encode(array("mensagem" => "Você não pode usar mais de 1 cupom por dia")); return;
-    }else if($codigo !== $cupom1->getCodigo()){
+    }else if($codigo_inserido !== $cupom->getCodigo()){
         echo json_encode(array("mensagem" => "O cupom digitado não existe!")); return;
-    }else if($cupom1->getStatus() === 2){
+    }else if($pk_cupom_inserido === $clcu_fk_cod->getFkCupom()){
+        echo json_encode(array("mensagem" => "Você já utilizou esse cupom!")); return;
+    }else if($fk_cliente === $clcu_fk_cod->getCod_cliente()){
+        echo json_encode(array("mensagem" => "Você não pode usar mais de 1 cupom por dia")); return;
+    }else if($cupom->getStatus() === 2){
         echo json_encode(array("mensagem" => "O numero de cupons foi esgotado!")); return;
-    }else if($cupom1->getStatus() === 3){
+    }else if($cupom->getStatus() === 3){
         echo json_encode(array("mensagem" => "O cupom expirou!")); return;
-    }else if($cupom1->getStatus() === 4){
+    }else if($cupom->getStatus() === 4){
         echo json_encode(array("mensagem" => "Infelizmente, o cupom foi cancelado!")); return;
-    }else if($cupom1->getVencimento_data() < $data){
+    }else if($cupom->getVencimento_data() < $data){
         echo json_encode(array("mensagem" => "A data máxima do cupom venceu!")); return;
-    }else if($data == $check->getUltimo_uso()){
-        echo json_encode(array("mensagem" => "Não é possivel usar o cupom mais de 1 vez por dia!")); return;
-    }else if($cupom1->getQtde_atual() <= 0){
+    }else if($data == $clcu_fk_cod->getUltimo_uso()){
+        echo json_encode(array("mensagem" => "Não é possivel usar o cupom mais de 1 vez por dia!"));
+        return;
+    }else if($cupom->getQtde_atual() <= 0){
         echo json_encode(array("mensagem" => "Quantidade insuficiente ou cupons esgotados!")); return;
-    }else if($cod_cliente == $cod_cliente_uso){
+    }else if($fk_cliente == $cod_cliente_uso){
         echo json_encode(array("mensagem" => "Não é possivel usar mais de 1 cupom por dia !")); return;
-    }else if($_SESSION['totalCarrinho'] < $cupom1->getValor_minimo()){ 
+    }else if($_SESSION['totalCarrinho'] < $cupom->getValor_minimo()){ 
         //Verificação para o valor minimo
         $txtSemVariavel = "O valor minimo para esse cupom é de";
-        $txtWarning = $txtSemVariavel." R$".$cupom1->getValor_minimo();
+        $txtWarning = $txtSemVariavel." R$".$cupom->getValor_minimo();
         echo json_encode(array("mensagem" => $txtWarning)); return;
-    }else if($_SESSION['totalCarrinho'] < $valorcupom){
+    }else if($_SESSION['totalCarrinho'] < $valor_cupom){
         // echo json_encode(array("mensagem" => "O valor do cupom é maior do que o valor total da compra, a diferença será perdida!")); return;
-        $_SESSION['valorcupom'] = $valorcupom;
-        $_SESSION['codigocupom'] = $codigo;
-        $_SESSION['codcupom'] = $codcupom;
+        $_SESSION['valorcupom'] = $valor_cupom;
+        $_SESSION['codigocupom'] = $codigo_inserido;
+        $_SESSION['codcupom'] = $pk_cupom_inserido;
         if($_SESSION['valorcupom'] > $_SESSION['totalCarrinho']){
             $_SESSION['totalComDesconto'] = 0.00;
         }else{
@@ -108,9 +105,9 @@ function verificarCupom($cod_cliente, $cupom1, $codigo, $data, $check, $cod_clie
             "totalComDesconto" => $_SESSION['totalComDesconto'])); return;
     
     }else{ // caso passe pelas verificacoes, atribui os valores e retorna 
-        $_SESSION['valorcupom'] = $valorcupom;
-        $_SESSION['codigocupom'] = $codigo;
-        $_SESSION['codcupom'] = $codcupom;
+        $_SESSION['valorcupom'] = $valor_cupom;
+        $_SESSION['codigocupom'] = $codigo_inserido;
+        $_SESSION['codcupom'] = $pk_cupom_inserido;
         if($_SESSION['valorcupom'] > $_SESSION['totalCarrinho']){
             $_SESSION['totalComDesconto'] = 0.00;
         }else{

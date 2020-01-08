@@ -90,7 +90,7 @@ if(in_array('pedido', $permissao)){
 				
 				$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +".$tempo_entrega." minutes"));
 				echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
-					<td style='text-align: center;' name='cliente'>".$pedido->getCliente()."</td>
+					<td style='text-align: center;' name='cliente'>".$pedido->cliente."</td>
 					<td style='text-align: center;' name='dataPedido'>".$pedido->getData()->format('d/m/Y')."</td>
 					<td style='text-align: center;' name='horaPedido'>".$pedido->getData()->format('H:i')."</td>
 					<td style='text-align: center;' name='horaImpressão'>".$impressao."</td>

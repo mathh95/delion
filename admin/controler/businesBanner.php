@@ -58,7 +58,7 @@
 
 		$banner= new banner();
 
-		$banner->construct($nome, $link,/* $legenda,*/ 0, $foto, $pagina);
+		$banner->construct($nome, $link, 0, $foto, $pagina);
 
 		$controle=new controlerBanner($_SG['link']);
 
@@ -70,7 +70,7 @@
 
 			alertJSVoltarPagina('Erro!','Erro ao cadastrar banner!',2);
 
-			$banner->show();
+			// $banner->show();
 
 		}
 

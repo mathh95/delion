@@ -44,16 +44,16 @@
 
 		$cod_empresa= addslashes(htmlspecialchars($_POST['cod_empresa']));
 
-		$dias_semana = addslashes(htmlspecialchars($_POST['dias_semana']));
-		$horario_semana = addslashes(htmlspecialchars($_POST['horario_semana']));
-		$dias_fim_semana = addslashes(htmlspecialchars($_POST['dias_fim_semana']));
-		$horario_fim_semana = addslashes(htmlspecialchars($_POST['horario_fim_semana']));
+		$txt_dias_semana = addslashes(htmlspecialchars($_POST['dias_semana']));
+		$txt_horario_semana = addslashes(htmlspecialchars($_POST['horario_semana']));
+		$txt_dias_fim_semana = addslashes(htmlspecialchars($_POST['dias_fim_semana']));
+		$txt_horario_fim_semana = addslashes(htmlspecialchars($_POST['horario_fim_semana']));
 
 
 		$empresa= new empresa();
-		$empresa->constructFuncionamento($dias_semana, $horario_semana, $dias_fim_semana, $horario_fim_semana, $arr_dias, $arr_horarios_inicio, $arr_horarios_final, $aberto, $entregando);
+		$empresa->constructFuncionamento($txt_dias_semana, $txt_horario_semana, $txt_dias_fim_semana, $txt_horario_fim_semana, $arr_dias, $arr_horarios_inicio, $arr_horarios_final, $aberto, $entregando);
 
-		$empresa->setCod_empresa($cod_empresa);
+		$empresa->setPkId($cod_empresa);
 		$controle=new controlerEmpresa($_SG['link']);
 		if($controle->updateFuncionamento($empresa)> -1){
 			msgRedireciona('Alteração Realizada!','Horários alterados com sucesso!',1,'../view/admin/empresaHorarios.php');

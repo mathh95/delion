@@ -7,7 +7,7 @@ include_once "../../admin/controler/conexao.php";
 
 require_once "../controler/controlCarrinho.php";
 
-require_once "../controler/controlCardapio.php";
+require_once "../controler/controlProduto.php";
 
 include_once "../lib/alert.php";
 
@@ -21,7 +21,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 
 $pedido = new controlerCarrinho(conecta());
-$cardapio = new controlerCardapio(conecta());
+$cardapio = new controlerProduto(conecta());
 $mail = new PHPMailer();
 $itens = $_SESSION['carrinho'];
 
@@ -29,33 +29,25 @@ if ($itens > 0) {
     $itens = $cardapio->buscarVariosId($itens);
 }
 
-//endereco cadastrado
-if (isset($_GET['endereco']) and !empty($_GET['endereco'])) {
-    $cod_endereco = $_GET['endereco'];
+$fk_endereco = null;
+//endereco cadastrado previamente
+if (isset($_POST['endereco']) and !empty($_POST['endereco'])) {
+    $fk_endereco = $_POST['endereco'];
  
-//endereco cadastrado
-}else if (isset($_SESSION['cod_endereco']) and !empty($_SESSION['cod_endereco'])){
-    
-    $cod_endereco = $_SESSION['cod_endereco'];
-
 //endereco homepage
-}else if(($_SESSION['is_delivery_home']) && ($_SESSION['delivery_price'] > 0)){
+}else if(($_SESSION['is_delivery_home'])){
     
     include_once "../controler/businesEndereco.php";
 
     if($_SESSION['cod_endereco'] != -1){
-        $cod_endereco = $_SESSION['cod_endereco'];
+        $fk_endereco = $_SESSION['cod_endereco'];
     }else{
         echo "Error Endereco Insert";
-        echo $cod_endereco;
+        echo $fk_endereco;
     }
-}else{
-    $cod_endereco = null;
 }
 
-//balcao
-if ($cod_endereco == null) {
-    $html = "<head>
+$html = "<head>
             <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
              <style>
              .swal-overlay {
@@ -63,7 +55,10 @@ if ($cod_endereco == null) {
                }
              </style>
          </head>
-         <body>";
+         <body></body>";
+
+//Balcao
+if ($fk_endereco == null) {
     try {
         //Server Settings
         $mail->CharSet = 'UTF-8';
@@ -106,14 +101,14 @@ if ($cod_endereco == null) {
                         </thead>
                         <tbody>";
         foreach ($_SESSION['carrinho'] as $key => $value) {
-            $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['preco'];
+            $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['pro_preco'];
             $mail->Body .= "<tr>
                         <td height='15%'>" . $_SESSION['carrinho'][$key] . "</td>
                         <td height='15%'>" . date("r") . "</td>
                         <td height='15%'>" . $_SESSION['nome'] . "</td>
-                        <td height='15%'>" . $itens[$key]['nome'] . "</td>
+                        <td height='15%'>" . $itens[$key]['pro_nome'] . "</td>
                         <td height='15%'>" . $_SESSION['qtd'][$key] . "</td> 
-                        <td height='15%'>R$ " . number_format($itens[$key]['preco'], 2) . "</td>
+                        <td height='15%'>R$ " . number_format($itens[$key]['pro_preco'], 2) . "</td>
                         <td height='15%'>R$ " . number_format($subtotal, 2) . "</td>
                 </tr>";
         }
@@ -126,24 +121,30 @@ if ($cod_endereco == null) {
         $mail->AltBody = '';
         $mail->send();
 
-        $_SESSION['flag_combo'] = "";
-        $_SESSION['cod_endereco'] = "";
-        $_SESSION['delivery'] = "";
-        $_SESSION['valorcupom'] = 0.00;
     } catch (Exception $e) {
         echo $mail->ErrorInfo;
     }
 
-    $pedido->setPedido(null);
+    $produtos = $itens;
+    $pedido->setPedido(null, null, $produtos);
 
-    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script></body>";
+    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
     echo $html;
 
-//delivery   
-} else {
 
-    $controlEndereco = new controlEndereco(conecta());
-    $endereco = $controlEndereco->select($cod_endereco, 1)[0];
+    //reset vars
+    unset($_SESSION['cod_endereco']);
+    $_SESSION['delivery'] = -1;
+    $_SESSION['flag_combo'] = "";
+    $_SESSION['valorcupom'] = 0.00;
+
+
+
+//***************delivery**************   
+} else {
+    
+    $control_endereco = new controlEndereco(conecta());
+    $endereco_cliente = $control_endereco->selectById($fk_endereco);
 
     try {
         //Server Settings
@@ -188,15 +189,15 @@ if ($cod_endereco == null) {
                             </thead>
                             <tbody>";
         foreach ($_SESSION['carrinho'] as $key => $value) {
-            $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['preco'];
+            $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['pro_preco'];
             $mail->Body .= "<tr>
                             <td height='10%'>" . $_SESSION['carrinho'][$key] . "</td>
                             <td height='10%'>" . date("r") . "</td>
                             <td height='10%'>" . $_SESSION['nome'] . "</td>
-                            <td height='10%'>" . $endereco->getRua() . "<br>" . $endereco->getNumero() . "</td>
-                            <td height='10%'>" . $itens[$key]['nome'] . "</td>
+                            <td height='10%'>" . $endereco_cliente->logradouro . "<br>" . $endereco_cliente->getNumero() . "</td>
+                            <td height='10%'>" . $itens[$key]['pro_nome'] . "</td>
                             <td height='10%'>" . $_SESSION['qtd'][$key] . "</td> 
-                            <td height='10%'>R$ " . number_format($itens[$key]['preco'], 2) . "</td>
+                            <td height='10%'>R$ " . number_format($itens[$key]['pro_preco'], 2) . "</td>
                             <td height='10%'>R$ " . number_format($subtotal, 2) . "</td>
                     </tr>";
         }
@@ -209,19 +210,29 @@ if ($cod_endereco == null) {
         $mail->AltBody = '';
         $mail->send();
 
-        $_SESSION['flag_combo'] = "";
-        $_SESSION['cod_endereco'] = "";
-        $_SESSION['delivery'] = "";
-        $_SESSION['valorcupom'] = 0.00;
     } catch (Exception $e) {
         echo $mail->ErrorInfo;
     }
 
-    $pedido->setPedido($cod_endereco);
+    $fk_origem_pedido = 1;
+    $produtos = $itens;
+    $pedido->setPedido($fk_endereco, $fk_origem_pedido, $produtos);
 
-    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script></body>";
+    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
     echo $html;
 
+    //reset vars
+    unset($_SESSION['cod_endereco']);
+    $_SESSION['delivery'] = -1;
+    $_SESSION['flag_combo'] = "";
+    $_SESSION['valorcupom'] = 0.00;
+
 }
-unset($_SESSION['delivery']);
+
+unset($_SESSION['carrinho']);
+unset($_SESSION['qtd']);
+unset($_SESSION['observacao']);
+unset($_SESSION['totalCarrinho']);
+
+$_SESSION['delivery'] == -1;
 unset($_SESSION['pedidoBalcao']);

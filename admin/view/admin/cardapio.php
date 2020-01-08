@@ -8,9 +8,9 @@
 
     include_once CONTROLLERPATH."/seguranca.php";
 
-    include_once CONTROLLERPATH."/controlCardapio.php";
+    include_once CONTROLLERPATH."/controlProduto.php";
 
-    include_once MODELPATH."/cardapio.php";
+    include_once MODELPATH."/produto.php";
 
     include_once CONTROLLERPATH."/controlCategoria.php";
 
@@ -21,7 +21,6 @@
     include_once MODELPATH."/adicional.php";
 
     include_once CONTROLLERPATH."/controlCardapioHoras.php";
-
 
     include_once CONTROLLERPATH."/controlCardapioTurno.php";
 
@@ -46,11 +45,11 @@
 
     $categorias = $controleCategoria->selectAll();
 
-    $controleTurnos = new controlerCardapioTurno($_SG['link']);
+    $controleTurnos = new controlerProdutoTurno($_SG['link']);
 
     $turnos = $controleTurnos->selectAll();
 
-    $controleHoras = new controlerCardapioHoras($_SG['link']);
+    $controleHoras = new controlerProdutoHoras($_SG['link']);
 
     $horas = $controleHoras->selectAll();
 
@@ -142,7 +141,7 @@
 
                                     foreach ($categorias as $categoria) {
 
-                                        echo "<option value='".$categoria->getCod_categoria()."'>".$categoria->getNome()."</option>";
+                                        echo "<option value='".$categoria->getPkId()."'>".$categoria->getNome()."</option>";
 
                                     }  
 

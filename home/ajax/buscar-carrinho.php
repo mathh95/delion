@@ -8,7 +8,7 @@ date_default_timezone_set('America/Sao_Paulo');
 
 include_once "../../admin/controler/conexao.php";
 
-require_once "../controler/controlCardapio.php";
+require_once "../controler/controlProduto.php";
 
 include_once "../lib/alert.php";
 
@@ -16,7 +16,7 @@ require_once "../controler/controlCarrinho.php";
 
 include_once "../../admin/controler/controlFormaPgt.php";
 
-include_once "../../admin/model/formaPgt.php";
+include_once "../../admin/model/forma_pgto.php";
 
 include_once "../utils/GoogleServices.php";
 
@@ -28,23 +28,21 @@ include_once "../../admin/controler/controlEntrega.php";
 
 include_once "../controler/controlEndereco.php";
 
-// require_once '../ajax/enviarEmailPedido.php';
 
 $itens = array();
-$cardapio = new controlerCardapio(conecta());
-$cardapioObs = new controlerCardapio(conecta());
+$cardapio = new controlerProduto(conecta());
 $controlEndereco = new controlEndereco(conecta());
+
 $_SESSION['delivery'] = -1;
-$_SESSION['formaPagamento'] = '';
 $controlFormaPgt = new controlerFormaPgt($_SG['link']);
 $formasPgt = $controlFormaPgt->selectAll();
+$_SESSION['formaPagamento'] = $formasPgt[0]->getPkId();
 $_SESSION['delivery_price'] = 0;
 $_SESSION['delivery_time'] = 0;
 $_SESSION['delivery_free'] = 0;
 $_SESSION['valor_entrega_valido'] = 0;
 $_SESSION['delivery_price_calculado'] = 0;
 $_SESSION['minimo_taxa_gratis'] = 99999;
-
 
 //zera flag Finalizar pedido
 $_SESSION['finalizar_pedido'] = 0;
@@ -149,17 +147,17 @@ if (count($itens) > 0) {
 
                     // verifica se item adicionado está disponível
                     if(
-                        $item['dias_semana'] &&
-                        in_array($hoje, json_decode($item['dias_semana'])) &&
-                        ($hora_atual >= $item['horario_inicio'] && $hora_atual < $item['horario_final'])
+                        $item['pro_arr_dias_semana'] &&
+                        in_array($hoje, json_decode($item['pro_arr_dias_semana'])) &&
+                        ($hora_atual >= $item['faho_inicio'] && $hora_atual < $item['faho_final'])
                     ){
                     ?>
                     
-                    <tr id="idLinha<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>" class=<?= ($item['delivery'] == 1) ? "disponivel" : "danger" ?> >
+                    <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_cod_cardapio'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
                         <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
-                        <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['nome'] ?></strong></td>
-                        <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['preco'] ?>"><strong>R$ <?= number_format($item['preco'], 2); ?></strong></td>
-                        <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?=  number_format(($item['preco'] * $_SESSION['qtd'][$key]), 2); ?></strong></td>
+                        <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['pro_nome'] ?></strong></td>
+                        <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
+                        <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?=  number_format(($item['pro_preco'] * $_SESSION['qtd'][$key]), 2); ?></strong></td>
                         <td class="quantidadeProdutoTabela">
                             <input class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" value=<?= $_SESSION['qtd'][$key] ?> readonly="true">
                             <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?= $i ?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
@@ -168,7 +166,7 @@ if (count($itens) > 0) {
                         <td class="nomeProdutoDisponivel">
                         <strong>
                         <?php
-                            if ($item['delivery'] == 1) {
+                            if ($item['pro_flag_delivery'] == 1) {
                                 echo "Disponível";
                             } else {
                                 echo "Não disponível";
@@ -185,10 +183,10 @@ if (count($itens) > 0) {
                     
                     ?>
 
-                        <tr id="idLinha<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>" class=<?= ($item['delivery'] == 1) ? "disponivel" : "danger" ?> >
+                        <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_cod_cardapio'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
                             <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
-                            <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['nome'] ?></strong></td>
-                            <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['preco'] ?>"><strong>R$ <?= number_format($item['preco'], 2); ?></strong></td>
+                            <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['pro_nome'] ?></strong></td>
+                            <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
 
                             <td style="text-align: center;" colspan="3">
                                 Item indisponível no momento! <i class="far fa-surprise"></i>
@@ -201,7 +199,7 @@ if (count($itens) > 0) {
 
                     <?php
 
-                    if ($item['delivery'] != 1) {
+                    if ($item['pro_flag_delivery'] != 1) {
                         $pedidoBalcao = $pedidoBalcao + 1;
                     }
 
@@ -211,7 +209,7 @@ if (count($itens) > 0) {
                     }//end else
 
                     $i++;
-                    $totalCarrinho += $item['preco'] * $_SESSION['qtd'][$key];
+                    $totalCarrinho += $item['pro_preco'] * $_SESSION['qtd'][$key];
 
                     }//foreach
 
@@ -242,10 +240,10 @@ if (count($itens) > 0) {
                                     $obs = $itens_obs[$key];
                                 ?>               
                                 
-                                <div id="idLinhaObs<?= $i ?>" data-id="<?= $item['cod_cardapio'] ?>" class="ladoDireito row">    
+                                <div id="idLinhaObs<?= $i ?>" data-id="<?= $item['pro_cod_cardapio'] ?>" class="ladoDireito row">    
                                     <?php
                                     if(!empty($obs)){ ?>
-                                        <span data-linha="<?= $i ?>" style="padding-left: 22px; width: 200px; font-size: 13px; border:none !important"><b><?= $item['nome'] ?></b> : <?= $obs?></span>
+                                        <span data-linha="<?= $i ?>" style="padding-left: 22px; width: 200px; font-size: 13px; border:none !important"><b><?= $item['pro_nome'] ?></b> : <?= $obs?></span>
                                     <?php 
                                     }?>
                                 </div>
@@ -289,8 +287,7 @@ if (count($itens) > 0) {
                     $_SESSION['delivery']= 1;//delivery p/ endereço cadastrado
 
                     $codEnd = $_SESSION['cod_endereco'];
-                    $endereco_cadastrado = $controlEndereco->select($codEnd, 1);
-                    $endereco_cadastrado = $endereco_cadastrado[0];
+                    $endereco_cadastrado = $controlEndereco->selectById($codEnd);
 
                 }else{
                     $_SESSION['delivery']=-1;
@@ -336,13 +333,13 @@ if (count($itens) > 0) {
                     //Endereço Cadastrado e Selecionado
                     }else if($endereco_cadastrado){
                         
-                        $cep = $endereco_cadastrado->getCep();
-                        $rua = $endereco_cadastrado->getRua();
+                        $cep = $endereco_cadastrado->cep;
+                        $rua = $endereco_cadastrado->logradouro;
+                        $bairro = $endereco_cadastrado->bairro;
+                        $cidade = $endereco_cadastrado->cidade;
                         $numero = $endereco_cadastrado->getNumero();
-                        $bairro = $endereco_cadastrado->getBairro();
-                        $complemento = $endereco_cadastrado->getComplemento();
-                        $cidade = $endereco_cadastrado->getCidade();
                         $referencia = $endereco_cadastrado->getReferencia();
+                        $complemento = $endereco_cadastrado->getComplemento();
 
                         //display em fechar pedido
                         $_SESSION['numero_entrega'] = $numero;
@@ -353,7 +350,7 @@ if (count($itens) > 0) {
 
                     if($destino_setted){
                         /*** Estimativas de Tempo, Distância, Taxa de entrega ***/
-                        $controleEmpresa=new controlerEmpresa(conecta());
+                        $controleEmpresa = new controlerEmpresa(conecta());
                         $empresa = $controleEmpresa->select(1,2);
                         
                         $endereco_delion = $empresa->getEndereco()." ".$empresa->getCidade();
@@ -527,11 +524,10 @@ if (count($itens) > 0) {
                         <p>Forma de Pagamento</p>
                         </strong>
                         <select class="form-control" name="formaPagamento" id="formaPagamento">
-                            <option value="0">Dinheiro</option>
                             <?php
                                 foreach ($formasPgt as $formaPgt) {
                                     if ($formaPgt->getFlag_ativo() == 1) {
-                                        echo "<option value ='" . $formaPgt->getCod_formaPgt() . "'>" . $formaPgt->getTipoFormaPgt() . "</option>";
+                                        echo "<option value ='" . $formaPgt->getPkId() . "'>" . $formaPgt->getNome() . "</option>";
                                     }
                                 }
                             ?>

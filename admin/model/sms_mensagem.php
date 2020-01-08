@@ -2,59 +2,59 @@
 
     class smsMensagem{
 
-        private $cod_sms_mensagem;
+        private $sms_pk_id;
 
-        private $msg;
+        private $sms_msg;
 
-        private $descricao;
+        private $sms_descricao;
         
-        private $data_envio;
+        private $sms_data_envio;
 
         /**
         * GET'S sms
         */
 
         function getCod_sms_mensagem(){
-            return $this->cod_sms_mensagem;
+            return $this->sms_pk_id;
         }
 
         function getMsg(){
-            return $this->msg;
+            return $this->sms_msg;
         }
 
         function getDescricao(){
-            return $this->descricao;
+            return $this->sms_descricao;
         }
 
         function getData_envio(){
-            return $this->data_envio;
+            return $this->sms_data_envio;
         }
 
         /**
         * SET'S sms
         */
 
-        function setCod_sms_mensagem($cod_sms_mensagem){
-            $this->cod_sms_mensagem = $cod_sms_mensagem;
+        function setCod_sms_mensagem($sms_pk_id){
+            $this->sms_pk_id = $sms_pk_id;
         }
 
-        function setMsg($msg){
-            $this->msg = $msg;
+        function setMsg($sms_msg){
+            $this->sms_msg = $sms_msg;
         }
 
-        function setDescricao($descricao){
-            $this->descricao = $descricao;
+        function setDescricao($sms_descricao){
+            $this->sms_descricao = $sms_descricao;
         }
 
-        function setData_envio($data_envio){
-            $this->data_envio = $data_envio;
+        function setData_envio($sms_data_envio){
+            $this->sms_data_envio = $sms_data_envio;
         }
 
         function __construct(){}
         
-        function construct($msg, $descricao){
-            $this->msg = $msg;
-            $this->descricao = $descricao;
+        function construct($sms_msg, $sms_descricao){
+            $this->sms_msg = $sms_msg;
+            $this->sms_descricao = $sms_descricao;
         }
     }
 

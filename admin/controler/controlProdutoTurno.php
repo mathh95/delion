@@ -1,28 +1,28 @@
 <?php
-    include_once MODELPATH."/cardapio_horas.php";
+    include_once MODELPATH."/cardapio_turno.php";
     include_once "seguranca.php";
 
     protegePagina();
 
-    class controlerCardapioHoras {
+    class controlerProdutoTurno {
         private $pdo;
         
         function selectAll(){
             $stmte;
-            $horas = array();
+            $turnos = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM cardapio_horas");
+                $stmte = $this->pdo->prepare("SELECT * FROM cardapio_turno");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $hora= new cardapio_horas();
-                            $hora->setCod_cardapio_horas($result->cod_cardapio_horas);
-                            $hora->setHorario($result->horario);
-                            array_push($horas, $hora);
+                            $turno= new cardapio_turno();
+                            $turno->setCod_cardapio_turno($result->cod_cardapio_turno);
+                            $turno->setNome($result->nome);
+                            array_push($turnos, $turno);
                         }
                     }
                 }
-                return $horas;
+                return $turnos;
             }
             catch(PDOException $e){
                 echo $e->getMessage();

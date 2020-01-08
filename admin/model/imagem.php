@@ -4,43 +4,43 @@
  */
     class imagem {
 
-        private $cod_imagem;
-        private $nome;
-        private $foto;
-        private $pagina;
+        private $ima_pk_id;
+        private $ima_nome;
+        private $ima_foto;
+        private $ima_pagina;
 
 
-        function getCod_imagem(){
-            return $this->cod_imagem;
+        function getPkId(){
+            return $this->ima_pk_id;
         }
         function getNome(){
-            return $this->nome;
+            return $this->ima_nome;
         }
         function getFotoAbsoluto(){
-            return $this->foto;
+            return $this->ima_foto;
         }
         function getFoto(){
-            $pos = strpos($this->foto, "upload");
-            return substr($this->foto, $pos);
+            $pos = strpos($this->ima_foto, "upload");
+            return substr($this->ima_foto, $pos);
         }
         function getPagina(){
-            return $this->pagina;
+            return $this->ima_pagina;
         }
 
-        function setCod_imagem($cod_imagem){
-            $this->cod_imagem=$cod_imagem;
+        function setPkId($ima_pk_id){
+            $this->ima_pk_id=$ima_pk_id;
         }
         function setNome($nome){
-            $this->nome=$nome;
+            $this->ima_nome=$nome;
         }
         function setFoto($foto){
-            $this->foto=$foto;
+            $this->ima_foto=$foto;
         }
         function setPagina($pagina){
-            $this->pagina=$pagina;
+            $this->ima_pagina=$pagina;
         }
         function getDsPagina(){
-            $paginas=json_decode($this->pagina);
+            $paginas=json_decode($this->ima_pagina);
             $tela = "";
             foreach ($paginas as $pagina) {
                 if ($pagina == "inicialInferior") {
@@ -74,16 +74,16 @@
 
         function __construct(){
         }
-        function construct($nome,$foto,$pagina){
-            $this->nome=$nome;
-            $this->foto=$foto;
-            $this->pagina=$pagina;
+        function construct($ima_nome,$ima_foto,$ima_pagina){
+            $this->ima_nome=$ima_nome;
+            $this->ima_foto=$ima_foto;
+            $this->ima_pagina=$ima_pagina;
         }
         function show(){
-            echo "Código da imagem:".$this->cod_imagem."<br>";
-            echo "Nome:".$this->nome."<br>";
-            echo "Foto:".$this->foto."<br>";
-            echo "Página:".$this->pagina."<br>";
+            echo "Código da imagem:".$this->ima_cod_imagem."<br>";
+            echo "Nome:".$this->ima_nome."<br>";
+            echo "Foto:".$this->ima_foto."<br>";
+            echo "Página:".$this->ima_pagina."<br>";
 
         }
     }

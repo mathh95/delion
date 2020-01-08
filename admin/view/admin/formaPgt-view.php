@@ -10,7 +10,7 @@
 
     include_once CONTROLLERPATH."/controlFormaPgt.php";
 
-    include_once MODELPATH."/formaPgt.php";
+    include_once MODELPATH."/forma_pgto.php";
 
     $_SESSION['permissaoPagina']=0;
 
@@ -69,8 +69,8 @@
                             <small>Tipo de Forma de Pagamento: </small>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                <input class="form-control" placeholder="Tipo de forma de Pagamento" name="tipoFormaPgt" required autofocus id ="tipoForma" type="text" value="<?= $formaPgt->getTipoFormaPgt();?>">
-                                <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $formaPgt->getCod_formaPgt();?>">
+                                <input class="form-control" placeholder="Tipo de forma de Pagamento" name="tipoFormaPgt" required autofocus id ="tipoForma" type="text" value="<?= $formaPgt->getNome();?>">
+                                <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $formaPgt->getPkId();?>">
                             </div>
 
                             <br>
@@ -136,7 +136,7 @@
         <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 
         <script>
-            var ativo =   <?=$formaPgt->getFlag_ativo()?>;
+            var ativo =   <?=$formaPgt->getFlag_ativo();?>
 
             $( document ).ready(function() {
 

@@ -45,7 +45,7 @@
         </div>
         <style>
             #loading{
-                display : block;
+                display : none;
                 position : fixed;
                 z-index: 100;
                 background-image : url('../../img/loading-orange.gif');
@@ -185,7 +185,7 @@
                                 <td><?=99?></td>
                                 
                                 <td>
-                                    <input type="hidden" id="cod_cli" name="cod_cli[]" value="<?=$cliente->getCod_cliente()?>">
+                                    <input type="hidden" id="cod_cli" name="cod_cli[]" value="<?=$cliente->getPkId()?>">
                                     
                                     <input
                                     type="hidden"

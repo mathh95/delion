@@ -5,7 +5,7 @@ ini_set('display_errors', true);
 date_default_timezone_set('America/Sao_Paulo');
 
 include_once "../../admin/controler/conexao.php";
-include_once "../controler/controlCardapio.php";
+include_once "../controler/controlProduto.php";
 include_once "../controler/controlCategoria.php";
 include_once "../controler/controlAdicional.php";
 include_once MODELPATH."/adicional.php";
@@ -25,7 +25,7 @@ if(isset($_GET['search']) && !empty($_GET['search'])){
 }
 
 $controle_categoria = new controlerCategoria(conecta());
-$controle_cardapio = new controlerCardapio(conecta());
+$controle_produto = new controlerProduto(conecta());
 
 // ============================================
 // Monta outra consulta MySQL para a busca
@@ -39,12 +39,13 @@ if (isset($_GET['delivery']) && !empty($_GET['delivery'])) {
     $delivery = false;
 }
 
-if ($delivery == true ){
-    $quantidade = $controle_cardapio->selectDelivery($busca,1);
-}else{
-    $quantidade = $controle_cardapio->select($busca,1);
-    //cria outra busca aqui
-}
+//para Paginação
+// if ($delivery == true ){
+//     $quantidade = $controle_produto->selectDelivery($busca,1);
+// }else{
+//     $quantidade = $controle_produto->select($busca,1);
+//     //cria outra busca aqui
+// }
 
 
 $categorias = $controle_categoria->selectAllByPos();
@@ -52,14 +53,14 @@ $categorias = $controle_categoria->selectAllByPos();
 foreach ($categorias as $key_cat => $categoria) {
 
     echo 
-        "<div class='categoria' id='categoria".$categoria->getCod_categoria()."' >
+        "<div class='categoria' id='categoria".$categoria->getPkId()."' >
                 <img src='../admin/".$categoria->getIcone()."'/>
                 ".$categoria->getNome()."
         </div>";
     
 
-    $itens = $controle_cardapio->selectByCategoriaByPosServindo(
-        $categoria->getCod_categoria()
+    $itens = $controle_produto->selectByCategoriaByPosServindo(
+        $categoria->getPkId()
     );
 
     // $hora_atual = date('H:i:s', time() - 3600);// horário de verão extinto
@@ -68,13 +69,12 @@ foreach ($categorias as $key_cat => $categoria) {
     
     $categoria_com_itens = 0;
     foreach ($itens as $key_item => $item){
-
-        //verifica se item disponível hoje e agora
         
-        if(1
-            // $item->getDias_semana() &&
-            // in_array($hoje, json_decode($item->getDias_semana())) &&
-            // ($hora_atual >= $item->getCardapio_horas_inicio() && $hora_atual < $item->getCardapio_horas_final())
+        // verifica se item disponível hoje e agora
+        if(
+            $item->getDias_semana() &&
+            in_array($hoje, json_decode($item->getDias_semana())) &&
+            ($hora_atual >= $item->getProduto_horas_inicio() && $hora_atual < $item->getProduto_horas_final())
         ){
 
             $categoria_com_itens++;
@@ -87,14 +87,14 @@ foreach ($categorias as $key_cat => $categoria) {
                 </div>
                 <div class='descricao'>
 
-                    <div class='tituloNome' id='tituloNome".$item->getCod_cardapio()."'>".$item->getNome()."</div>
+                    <div class='tituloNome' id='tituloNome".$item->getPkId()."'>".$item->getNome()."</div>
                     <div class='textoDescricao'>".html_entity_decode($item->getDescricao())."</div>
                     <div class='textoDelivery'> Delivery: ". $item->getDsDelivery()."</div>
                     
                     <div class='preco'><strong>R$ ".$item->getPreco()."</strong></div>
                     
-                    <button  id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar</button><br>
-                    <button id='addCombo' data-cod='".$item->getCod_cardapio()."' class='btn btn-default'>Adicionar ao Combo</button>
+                    <button  id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getPkId()."' class='btn btn-default'>Adicionar</button><br>
+                    <button id='addCombo' data-cod='".$item->getPkId()."' class='btn btn-default'>Adicionar ao Combo</button>
                 </div>
             </div>";
         }

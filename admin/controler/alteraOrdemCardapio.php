@@ -5,7 +5,7 @@
 	// mysql_set_charset('utf8');
 	// date_default_timezone_set('America/Sao_Paulo');
 
-	include_once "controlCardapio.php";
+	include_once "controlProduto.php";
 	include_once "controlCategoria.php";
 	include_once "../model/cardapio.php";
 	include_once "../lib/alert.php";
@@ -17,7 +17,7 @@
 		}
 
 		$controle_categoria = new controlerCategoria($_SG['link']);
-		$controle_cardapio = new controlerCardapio($_SG['link']);
+		$controle_cardapio = new controlerProduto($_SG['link']);
 
 		$erro = 0;
 

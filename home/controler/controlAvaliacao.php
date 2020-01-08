@@ -16,7 +16,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 
         function insert($tipo, $nota){
             try{
-                $stmte = $this->pdo->prepare("INSERT INTO avaliacao(tipo_avaliacao, data, hora, nota) VALUES (:tipo, NOW(), NOW(), :nota)");
+                $stmte = $this->pdo->prepare("INSERT INTO tb_avaliacao(ava_fk_tipo_avaliacao, ava_data_hora, hora, ava_nota) VALUES (:ava_fk_tipo_avaliacao, NOW(), :ava_nota)");
                 $stmte->bindValue(":tipo", $tipo);
                 $stmte->bindValue(":nota", $nota);
                 

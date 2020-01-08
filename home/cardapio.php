@@ -80,13 +80,13 @@
 				
 				if($key == 0){	
 					echo "
-						<li class='nav-item active'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
+						<li class='nav-item active'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()."'>
 							<img src='../admin/".$categoria->getIcone()."'>
 							<div>".$categoria->getNome()."</div>
 						</a></li>";
 				}else{
 					echo "
-						<li class='nav-item '><a class= 'nav-link item-categoria' href='#categoria".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>
+						<li class='nav-item '><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()."'>
 							<img src='../admin/".$categoria->getIcone()."'>
 							<div>".$categoria->getNome()."</div>
 						</a></li>";

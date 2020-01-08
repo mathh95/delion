@@ -36,7 +36,7 @@
 		$empresa= new empresa();
 		$empresa->construct(NULL, $descricao, $historia, $endereco, $bairro, $cidade, $estado, $cep, $fone, $whats, $email, $facebook, $instagram, $pinterest, $foto);
 
-		$empresa->setCod_empresa($cod_empresa);
+		$empresa->setPkId($cod_empresa);
 		$controle=new controlerEmpresa($_SG['link']);
 		if($controle->update($empresa)> -1){
 			msgRedireciona('Cadastro Realizado!','Empresa cadastrada com sucesso!',1,'../view/admin/empresa.php');

@@ -3,16 +3,16 @@ include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 include_once CONTROLLERPATH."/controlUsuario.php";
 include_once MODELPATH."/usuario.php";
 include_once CONTROLLERPATH."/seguranca.php";
-include_once CONTROLLERPATH."/controlCardapio.php";
+include_once CONTROLLERPATH."/controlProduto.php";
 include_once CONTROLLERPATH."/controlCategoria.php";
-include_once MODELPATH."/cardapio.php";
+include_once MODELPATH."/produto.php";
 
 $_SESSION['permissaoPagina']=0;
 protegePagina();
 $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-$controle_cardapio=new controlerCardapio($_SG['link']);
+$controle_cardapio=new controlerProduto($_SG['link']);
 $controle_categoria=new controlerCategoria($_SG['link']);
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());
@@ -62,7 +62,7 @@ if(in_array('cardapio', $permissao)){
 			) {
 
 				$itens = $controle_cardapio->selectByCategoriaFilterPos(
-					$categoria->getCod_categoria(),
+					$categoria->getPkId(),
 					$filtro,
 					$flag_servindo
 				);
@@ -70,7 +70,7 @@ if(in_array('cardapio', $permissao)){
 			//todos os itens ordenados
 			}else{
 				$itens = $controle_cardapio->selectByCategoriaByPos(
-					$categoria->getCod_categoria()
+					$categoria->getPkId()
 				);
 			}	
 			
@@ -79,10 +79,10 @@ if(in_array('cardapio', $permissao)){
 				$mensagem='Cardápio excluído com sucesso!';
 				$titulo='Excluir';
 			
-				echo "<tr name='resutaldo' id='status".$item->getCod_cardapio()."'>
+				echo "<tr name='resutaldo' id='status".$item->getPkId()."'>
 					<td style='text-align: left;' name='nome'>"
 						.$item->getNome().
-						"&nbsp;<span style='cursor: pointer; font-size: 20px; top: 4px;' class='glyphicon glyphicon-camera glyphicon' aria-hidden='true' data-toggle='modal' data-target='#itemModal".$item->getCod_cardapio()."'></span>	
+						"&nbsp;<span style='cursor: pointer; font-size: 20px; top: 4px;' class='glyphicon glyphicon-camera glyphicon' aria-hidden='true' data-toggle='modal' data-target='#itemModal".$item->getPkId()."'></span>	
 
 					</td>
 					<td style='text-align: center;' name='preco'>R$ ".$item->getPreco()."</td>
@@ -93,15 +93,15 @@ if(in_array('cardapio', $permissao)){
 					//serviço
 					if($item->getFlag_servindo() == 1){
 
-						echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-flagPausado.php?cod=".$item->getCod_cardapio()."'><button type='button' class='btn btn-kionux' style='width: 100px'><i class='fa fa-pause'></i> Pausar</button></a></td>";
+						echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-flagPausado.php?cod=".$item->getPkId()."'><button type='button' class='btn btn-kionux' style='width: 100px'><i class='fa fa-pause'></i> Pausar</button></a></td>";
 					
 					}else{
 						//Ativa o item
-						echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-flagAtivo.php?cod=".$item->getCod_cardapio()."'><button type='button' class='btn btn-kionux' style='width: 100px'><i class='fa fa-play'></i> Ativar</button></a></td>";
+						echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-flagAtivo.php?cod=".$item->getPkId()."'><button type='button' class='btn btn-kionux' style='width: 100px'><i class='fa fa-play'></i> Ativar</button></a></td>";
 		
 					}
 
-					echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cardapio-view.php?cod=".$item->getCod_cardapio()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
+					echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cardapio-view.php?cod=".$item->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
 
 				echo "</tr>";
 			}
@@ -118,13 +118,13 @@ echo "</tbody></table>";
 foreach ($categorias as $key_cat => $categoria) {
 
 	$itens = $controle_cardapio->selectByCategoriaByPos(
-		$categoria->getCod_categoria()
+		$categoria->getPkId()
 	);
 
 	foreach ($itens as $key_item => $item){	
 
 		echo '
-		<div class="modal fade" id="itemModal'.$item->getCod_cardapio().'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal fade" id="itemModal'.$item->getPkId().'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">

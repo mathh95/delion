@@ -9,44 +9,45 @@
           modo: 1-Nome, 2-id
         */
         function select($parametro,$modo){
-            $stmte;
+
             $empresa= new empresa();
             try{
                 if($modo==1){
-                    $stmte = $this->pdo->prepare("SELECT * FROM empresa WHERE nome LIKE :parametro");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_empresa WHERE emp_nome LIKE :parametro");
                     $stmte->bindParam(":parametro", $parametro . "%" , PDO::PARAM_STR);
                 }elseif ($modo==2) {
-                    $stmte = $this->pdo->prepare("SELECT * FROM empresa WHERE cod_empresa = :parametro");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_empresa WHERE emp_pk_id = :parametro");
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 }
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $empresa->setCod_empresa($result->cod_empresa);
-                            $empresa->setNome($result->nome);
-                            $empresa->setDescricao($result->descricao);
-                            $empresa->setHistoria($result->historia);
-                            $empresa->setEndereco($result->endereco);
-                            $empresa->setBairro($result->bairro);
-                            $empresa->setCidade($result->cidade);
-                            $empresa->setEstado($result->estado);
-                            $empresa->setCep($result->cep);
-                            $empresa->setFone($result->fone);
-                            $empresa->setWhats($result->whats);
-                            $empresa->setEmail($result->email);
-                            $empresa->setFacebook($result->facebook);
-                            $empresa->setInstagram($result->instagram);
-                            $empresa->setPinterest($result->pinterest);
-                            $empresa->setFoto($result->foto);
-                            $empresa->setDiasSemana($result->txt_dias_semana);
-                            $empresa->setHorarioSemana($result->txt_horario_semana);
-                            $empresa->setDiasFimSemana($result->txt_dias_fim_semana);
-                            $empresa->setHorarioFimSemana($result->txt_horario_fim_semana);
-                            $empresa->setArrDiasSemana($result->arr_dias_semana);
-                            $empresa->setArrHorariosInicio($result->arr_horarios_inicio);
-                            $empresa->setArrHorariosFinal($result->arr_horarios_final);
-                            $empresa->setAberto($result->aberto);
-                            $empresa->setEntregando($result->entregando);
+                            $empresa->setPkId($result->emp_pk_id);
+                            $empresa->setNome($result->emp_nome);
+                            $empresa->setDescricao($result->emp_descricao);
+                            $empresa->setHistoria($result->emp_historia);
+                            $empresa->setEndereco($result->emp_endereco);
+                            $empresa->setBairro($result->emp_bairro);
+                            $empresa->setCidade($result->emp_cidade);
+                            $empresa->setEstado($result->emp_estado);
+                            $empresa->setCep($result->emp_cep);
+                            $empresa->setFone($result->emp_fone);
+                            $empresa->setWhats($result->emp_whats);
+                            $empresa->setEmail($result->emp_email);
+                            $empresa->setFacebook($result->emp_facebook);
+                            $empresa->setInstagram($result->emp_instagram);
+                            $empresa->setPinterest($result->emp_pinterest);
+                            $empresa->setFoto($result->emp_foto);
+                            $empresa->setTxtDiasSemana($result->emp_txt_dias_semana);
+                            $empresa->setTxtHorarioSemana($result->emp_txt_horario_semana);
+                            $empresa->setTxtDiasFimSemana($result->emp_txt_dias_fim_semana);
+                            $empresa->setTxtHorarioFimSemana($result->emp_txt_horario_fim_semana);
+                            $empresa->setArrDiasSemana($result->emp_arr_dias_semana);
+                            $empresa->setArrHorariosInicio($result->emp_arr_horarios_inicio);
+                            $empresa->setArrHorariosFinal($result->emp_arr_horarios_final);
+                            $empresa->setAberto($result->emp_aberto);
+                            $empresa->setEntregando($result->emp_entregando);
+                            $empresa->setTaxaConversaoFidelidade($result->emp_taxa_conversao_fidelidade);
                         }
                     }
                 }
@@ -57,39 +58,40 @@
             }
         }
         function selectAll(){
-            $stmte;
+
             $empresas = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM empresa");
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_empresa");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
                             $empresa= new empresa();
-                            $empresa->setCod_empresa($result->cod_empresa);
-                            $empresa->setNome($result->nome);
-                            $empresa->setDescricao($result->descricao);
-                            $empresa->setHistoria($result->historia);
-                            $empresa->setEndereco($result->endereco);
-                            $empresa->setBairro($result->bairro);
-                            $empresa->setCidade($result->cidade);
-                            $empresa->setEstado($result->estado);
-                            $empresa->setCep($result->cep);
-                            $empresa->setFone($result->fone);
-                            $empresa->setWhats($result->whats);
-                            $empresa->setEmail($result->email);
-                            $empresa->setFacebook($result->facebook);
-                            $empresa->setInstagram($result->instagram);
-                            $empresa->setPinterest($result->pinterest);
-                            $empresa->setFoto($result->foto);
-                            $empresa->setDiasSemana($result->txt_dias_semana);
-                            $empresa->setHorarioSemana($result->txt_horario_semana);
-                            $empresa->setDiasFimSemana($result->txt_dias_fim_semana);
-                            $empresa->setHorarioFimSemana($result->txt_horario_fim_semana);
-                            $empresa->setArrDiasSemana($result->arr_dias_semana);
-                            $empresa->setArrHorariosInicio($result->arr_horarios_inicio);
-                            $empresa->setArrHorariosFinal($result->arr_horarios_final);
-                            $empresa->setAberto($result->aberto);
-                            $empresa->setEntregando($result->entregando);
+                            $empresa->setPkId($result->emp_pk_id);
+                            $empresa->setNome($result->emp_nome);
+                            $empresa->setDescricao($result->emp_descricao);
+                            $empresa->setHistoria($result->emp_historia);
+                            $empresa->setEndereco($result->emp_endereco);
+                            $empresa->setBairro($result->emp_bairro);
+                            $empresa->setCidade($result->emp_cidade);
+                            $empresa->setEstado($result->emp_estado);
+                            $empresa->setCep($result->emp_cep);
+                            $empresa->setFone($result->emp_fone);
+                            $empresa->setWhats($result->emp_whats);
+                            $empresa->setEmail($result->emp_email);
+                            $empresa->setFacebook($result->emp_facebook);
+                            $empresa->setInstagram($result->emp_instagram);
+                            $empresa->setPinterest($result->emp_pinterest);
+                            $empresa->setFoto($result->emp_foto);
+                            $empresa->setTxtDiasSemana($result->emp_txt_dias_semana);
+                            $empresa->setTxtHorarioSemana($result->emp_txt_horario_semana);
+                            $empresa->setTxtDiasFimSemana($result->emp_txt_dias_fim_semana);
+                            $empresa->setTxtHorarioFimSemana($result->emp_txt_horario_fim_semana);
+                            $empresa->setArrDiasSemana($result->emp_arr_dias_semana);
+                            $empresa->setArrHorariosInicio($result->emp_arr_horarios_inicio);
+                            $empresa->setArrHorariosFinal($result->emp_arr_horarios_final);
+                            $empresa->setAberto($result->emp_aberto);
+                            $empresa->setEntregando($result->emp_entregando);
+                            $empresa->setTaxaConversaoFidelidade($result->emp_taxa_conversao_fidelidade);
                             array_push($empresas, $empresa);
                         }
                     }

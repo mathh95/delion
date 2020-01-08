@@ -116,13 +116,9 @@
                             <br>
 
                             <div class="input-group">
-
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-
                                 <input class="form-control" placeholder="Nome" name="nome" value="<?=$cliente->getNome(); ?>" required autofocus type="text">
-
-                                <input type="text" class="form-control"  style="display:none" id="cod" name="cod_cliente" maxlength="50" value="<?=  $cliente->getCod_cliente(); ?>" >
-
+                                <input type="text" class="form-control"  style="display:none" id="cod" name="cod_cliente" maxlength="50" value="<?=  $cliente->getPkId(); ?>" >
                             </div>
 
                             <br>
@@ -132,11 +128,8 @@
                             <br>
 
                             <div class="input-group">
-
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-
                                 <input class="form-control" placeholder="Login" name="login" value="<?=$cliente->getLogin(); ?>" required  type="text">
-
                             </div>
 
                             <br>
@@ -146,11 +139,8 @@
                             <br>
 
                             <div class="input-group">
-
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-
-                                <input class="form-control" placeholder="Telefone" name="telefone" value="<?=$cliente->getTelefone(); ?>" type="number">
-
+                                <input class="form-control" placeholder="Telefone" name="telefone" value="<?=$cliente->getTelefone(); ?>" type="text">
                             </div>
 
                         </div>

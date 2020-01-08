@@ -32,18 +32,18 @@ if(in_array('forma_pgto', $permissao)){
 	}else{
 		$flag = "Inativo";
 	}
-        echo "<tr name='resultado' id='status".$formaPgt->getCod_formaPgt()."'>
-            <td style='text-align: center;' name='nome'>".$formaPgt->getTipoFormaPgt()."</td>
+        echo "<tr name='resultado' id='status".$formaPgt->getPkId()."'>
+            <td style='text-align: center;' name='nome'>".$formaPgt->getNome()."</td>
 	    <td style='text-align: center;' name='flag_ativo'>".$flag."</td>
-			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='formaPgt-view.php?cod=".$formaPgt->getCod_formaPgt()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
+			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='formaPgt-view.php?cod=".$formaPgt->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
 			
 			if($formaPgt->getFlag_ativo() == 1){
 
-				echo "<td style='text-align: center;' name='status'><a href='../../ajax/excluir-formaPgt.php?cod=".$formaPgt->getCod_formaPgt()."'><button type='button' class='btn btn-kionux'><i class='fa fa-remove'></i> Desativar</button></a></td>";
+				echo "<td style='text-align: center;' name='status'><a href='../../ajax/excluir-formaPgt.php?cod=".$formaPgt->getPkId()."'><button type='button' class='btn btn-kionux'><i class='fa fa-remove'></i> Desativar</button></a></td>";
 			
 			}else{
 			
-				echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-formaPgt.php?cod=".$formaPgt->getCod_formaPgt()."'><button type='button' class='btn btn-kionux' style='width: 107px'><i class='fa fa-check'></i> Ativar</button></a></td>";
+				echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-formaPgt.php?cod=".$formaPgt->getPkId()."'><button type='button' class='btn btn-kionux' style='width: 107px'><i class='fa fa-check'></i> Ativar</button></a></td>";
 
 			}
 
@@ -64,8 +64,8 @@ if(in_array('forma_pgto', $permissao)){
 	foreach ($formaPgts as &$formaPgt) {
         $mensagem='Adicional excluído com sucesso!';
         $titulo='Excluir';
-        echo "<tr name='resultado' id='status".$formaPgt->getCod_formaPgt()."'>
-            <td style='text-align: center;' name='nome'>".$formaPgt->getTipoFormaPgt()."</td>
+        echo "<tr name='resultado' id='status".$formaPgt->getPkId()."'>
+            <td style='text-align: center;' name='nome'>".$formaPgt->getNome()."</td>
 	    <td style='text-align: center;' name='flag_ativo'>".($formaPgt->getFlag_ativo() == 1)?"Ativo":"Inativo"."</td> 	
         </tr>";
 }

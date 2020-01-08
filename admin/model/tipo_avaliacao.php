@@ -2,32 +2,32 @@
 
     class tipoAvaliacao{
 
-        private $cod_tipo_avaliacao;
-        private $nome;
-        private $flag_ativo;
+        private $tiva_pk_id;
+        private $tiva_nome;
+        private $tiva_flag_ativo;
 
         function getCod_tipo_avaliacao(){
-            return $this->cod_tipo_avaliacao;
+            return $this->tiva_pk_id;
         }
 
         function getNome(){
-            return $this->nome;
+            return $this->tiva_nome;
         }
 
         function getFlag_ativo(){
-            return $this->flag_ativo;
+            return $this->tiva_flag_ativo;
         }
 
-        function setCod_tipo_avaliacao($cod_tipo_avaliacao){
-            $this->cod_tipo_avaliacao = $cod_tipo_avaliacao;
+        function setCod_tipo_avaliacao($tiva_pk_id){
+            $this->tiva_pk_id = $tiva_pk_id;
         }
 
-        function setNome($nome){
-            $this->nome = $nome;
+        function setNome($tiva_nome){
+            $this->tiva_nome = $tiva_nome;
         }
 
-        function setFlag_ativo($flag_ativo){
-            $this->flag_ativo = $flag_ativo;
+        function setFlag_ativo($tiva_flag_ativo){
+            $this->tiva_flag_ativo = $tiva_flag_ativo;
         }
     }
 

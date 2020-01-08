@@ -69,8 +69,8 @@ session_start();
                 <?php 
                     $itens=$controleCarrinho->selectItens($_GET['cod']);
                     foreach ($itens as &$item) { 
-                            echo "<tr name='resultado' id='status".$item->getCod_item()."'>
-                                <td style='text-align: center;' name='produto'>".$item->getProduto()."</td>
+                            echo "<tr name='resultado' id='status".$item->getPkId()."'>
+                                <td style='text-align: center;' name='produto'>".$item->nome."</td>
 								<td style='text-align: center;' name='quantidade'>".$item->getQuantidade()."</td>
                                 <td style='text-align: center;' name='valor'>$item->preco</td>
                             </tr>";  

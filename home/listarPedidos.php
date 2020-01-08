@@ -75,7 +75,7 @@
 						</thead>
 						<tbody>";
 								foreach ($pedidos as &$pedido) {
-										echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
+										echo "<tr name='resultado' id='status".$pedido->getPkId()."'>
 											<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
 											<td style='text-align: center;' name='data'>".$pedido->getData()->format('H:i')."h</td>
 											<td style='text-align: center;' name='valor'>R$ ".$pedido->getValor()."</td>";
@@ -96,7 +96,7 @@
 												echo "<td style='text-align: center;' name='status'>".date_format($dataHoraDelivery, "H:i")."h - Saiu para Entrega</td>";
 											}
 
-											echo "<td style='text-align: center;' name='editar'><a href='pedido.php?cod=".$pedido->getCod_pedido()."'><button class='btn btn-default'>Itens</button></a></td>
+											echo "<td style='text-align: center;' name='editar'><a href='pedido.php?cod=".$pedido->getPkId()."'><button class='btn btn-default'>Itens</button></a></td>
 										</tr>";  
 								}                  
 								echo "

@@ -10,23 +10,11 @@
 
         private $pdo;
 
-
-
         /*
-
-
-
           modo: 1-Nome, 2-id
-
-
-
         */
 
-
-
         function select($parametro,$modo){
-
-            $stmte;
 
             $banner= new banner();
 
@@ -34,13 +22,13 @@
 
                 if($modo==1){
 
-                    $stmte = $this->pdo->prepare("SELECT * FROM banner WHERE nome LIKE :parametro and flag_tamanho = 0");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_banner WHERE ban_nome LIKE :parametro and ban_flag_tamanho = 0");
 
                     $stmte->bindParam(":parametro", $parametro . "%" , PDO::PARAM_STR);
 
                 }elseif ($modo==2) {
 
-                    $stmte = $this->pdo->prepare("SELECT * FROM banner WHERE cod_banner = :parametro and flag_tamanho = 0");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_banner WHERE ban_pk_id = :parametro and ban_flag_tamanho = 0");
 
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
 
@@ -52,19 +40,19 @@
 
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
 
-                            $banner->setCod_banner($result->cod_banner);
+                            $banner->setPkId($result->ban_pk_id);
 
-                            $banner->setNome($result->nome);
+                            $banner->setNome($result->ban_nome);
 
-                            $banner->setLink($result->link);
+                            $banner->setLink($result->ban_link);
 
-                            // $banner->setLegenda($result->legenda);
+                            // $banner->setLegenda($result->ban_legenda);
 
-                            $banner->setFlag_tamanho($result->flag_tamanho);
+                            $banner->setFlag_tamanho($result->ban_flag_tamanho);
 
-                            $banner->setFoto($result->foto);
+                            $banner->setFoto($result->ban_foto);
 
-                            $banner->setPagina($result->pagina);
+                            $banner->setPagina($result->ban_pagina);
 
                         }
 
@@ -86,21 +74,19 @@
 
         function selectMini($parametro,$modo){
 
-            $stmte;
-
             $banner= new banner();
 
             try{
 
                 if($modo==1){
 
-                    $stmte = $this->pdo->prepare("SELECT * FROM banner WHERE nome LIKE :parametro and flag_tamanho = 1");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_banner WHERE ban_nome LIKE :parametro and ban_flag_tamanho = 1");
 
                     $stmte->bindParam(":parametro", $parametro . "%" , PDO::PARAM_STR);
 
                 }elseif ($modo==2) {
 
-                    $stmte = $this->pdo->prepare("SELECT * FROM banner WHERE cod_banner = :parametro and flag_tamanho = 1");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_banner WHERE ban_pk_id = :parametro and ban_flag_tamanho = 1");
 
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
 
@@ -112,24 +98,22 @@
 
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
 
-                            $banner->setCod_banner($result->cod_banner);
+                            $banner->setPkId($result->ban_pk_id);
 
-                            $banner->setNome($result->nome);
+                            $banner->setNome($result->ban_nome);
 
-                            $banner->setLink($result->link);
+                            $banner->setLink($result->ban_link);
 
-                            // $banner->setLegenda($result->legenda);
+                            // $banner->setLegenda($result->ban_legenda);
 
-                            $banner->setFlag_tamanho($result->flag_tamanho);
+                            $banner->setFlag_tamanho($result->ban_flag_tamanho);
 
-                            $banner->setFoto($result->foto);
+                            $banner->setFoto($result->ban_foto);
 
-                            $banner->setPagina($result->pagina);
+                            $banner->setPagina($result->ban_pagina);
 
                         }
-
                     }
-
                 }
 
                 return $banner;
@@ -137,11 +121,8 @@
             }
 
             catch(PDOException $e){
-
                 echo $e->getMessage();
-
             }
-
         }
 
 
@@ -150,13 +131,11 @@
 
         function selectAll(){
 
-            $stmte;
-
             $banners = array();
 
             try{
 
-                $stmte = $this->pdo->prepare("SELECT * FROM banner WHERE flag_tamanho = 0 ORDER BY RAND()");
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_banner WHERE ban_flag_tamanho = 0 ORDER BY RAND()");
 
                 if($stmte->execute()){
 
@@ -166,7 +145,7 @@
 
                             $banner= new banner();
 
-                            $banner->setCod_banner($result->cod_banner);
+                            $banner->setPkId($result->ban_pk_id);
 
                             $banner->setNome($result->nome);
 
@@ -174,7 +153,7 @@
 
                             // $banner->setLegenda($result->legenda);
 
-                            $banner->setFlag_tamanho($result->flag_tamanho);
+                            $banner->setFlag_tamanho($result->ban_flag_tamanho);
 
                             $banner->setFoto($result->foto);
 
@@ -204,13 +183,11 @@
 
         function selectAllMini(){
 
-            $stmte;
-
             $banners = array();
 
             try{
 
-                $stmte = $this->pdo->prepare("SELECT * FROM banner WHERE flag_tamanho = 1 ORDER BY RAND()");
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_banner WHERE ban_flag_tamanho = 1 ORDER BY RAND()");
 
                 if($stmte->execute()){
 
@@ -220,19 +197,19 @@
 
                             $banner= new banner();
 
-                            $banner->setCod_banner($result->cod_banner);
+                            $banner->setPkId($result->ban_pk_id);
 
-                            $banner->setNome($result->nome);
+                            $banner->setNome($result->ban_nome);
 
-                            $banner->setLink($result->link);
+                            $banner->setLink($result->ban_link);
 
-                            // $banner->setLegenda($result->legenda);
+                            // $banner->setLegenda($result->ban_legenda);
 
-                            $banner->setFlag_tamanho($result->flag_tamanho);
+                            $banner->setFlag_tamanho($result->ban_flag_tamanho);
 
-                            $banner->setFoto($result->foto);
+                            $banner->setFoto($result->ban_foto);
 
-                            $banner->setPagina($result->pagina);
+                            $banner->setPagina($result->ban_pagina);
 
                             array_push($banners, $banner);
 
@@ -258,11 +235,9 @@
 
         function countBanner(){
 
-            $stmte;
-
             try{
 
-                $stmte = $this->pdo->prepare("SELECT COUNT(*) AS banners FROM banner");
+                $stmte = $this->pdo->prepare("SELECT COUNT(*) AS banners FROM tb_banner");
 
                 $stmte->execute();
 

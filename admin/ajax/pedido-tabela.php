@@ -5,7 +5,7 @@ include_once HOMEPATH."home/controler/controlCarrinho.php";
 include_once MODELPATH."/usuario.php";
 include_once CONTROLLERPATH."/controlUsuario.php";
 include_once CONTROLLERPATH. "/controlFormaPgt.php";
-include_once MODELPATH. "/formaPgt.php";
+include_once MODELPATH. "/forma_pgto.php";
 protegePagina();
 
 $controleUsuario = new controlerUsuario($_SG['link']);
@@ -333,7 +333,7 @@ if ($pedidos == -1){
 			$titulo='Excluir';
 			echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
 			 	<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
-			 	<td style='text-align: center;' name='cliente'>".$pedido->getCliente()."</td>
+			 	<td style='text-align: center;' name='cliente'>".$pedido->cliente."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getValor()."</td>
 				<td style='text-align: center;' name='status'>".$pedido->getStatus()."</td>
@@ -347,8 +347,8 @@ foreach ($pedidos as &$pedido) {
 
 	$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
 	$itens = $controle->selectItens($pedido->getCod_pedido());
-	$formaPgt = $controlFormaPgt->selectId($pedido->getFormaPgt());
-	$formaPgtVerify = $controlFormaPgt->selectId($pedido->getFormaPgt());
+	$formaPgt = $controlFormaPgt->selectId($pedido->getFkFormaPgt());
+	$formaPgtVerify = $controlFormaPgt->selectId($pedido->getFkFormaPgt());
 
 	//  var_dump($formaPgt->getCod_formaPgt());
 

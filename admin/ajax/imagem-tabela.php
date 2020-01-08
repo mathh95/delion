@@ -25,12 +25,12 @@ $imagens = $controle->selectAll();
 		foreach ($imagens as &$imagem) {
 			$mensagem='Imagem excluída com sucesso!';
 			$titulo='Excluir';
-			echo "<tr name='resutaldo' id='status".$imagem->getCod_imagem()."'>
+			echo "<tr name='resutaldo' id='status".$imagem->getPkId()."'>
 			 	<td style='text-align: center;' name='imagem'><img src='../../".$imagem->getFoto()."' style='max-height: 100px' alt='' class='img-thumbnail'/></td>
 			 	<td style='text-align: center;' name='nome'>".$imagem->getNome()."</td>
 			 	<td style='text-align: center;' name='pagina'>".$imagem->getDsPagina()."</td>
-			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='imagem-view.php?cod=".$imagem->getCod_imagem()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
-			 	<td style='text-align: center;' name='status'  ><button type='button' onclick=\"removeImagem(".$imagem->getCod_imagem().",'../".$imagem->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
+			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='imagem-view.php?cod=".$imagem->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+			 	<td style='text-align: center;' name='status'  ><button type='button' onclick=\"removeImagem(".$imagem->getPkId().",'../".$imagem->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
 			</tr>";
 		}
 	}else{
@@ -46,10 +46,10 @@ $imagens = $controle->selectAll();
 		<tbody>";
 	
 		foreach ($imagens as &$imagem) {
-			echo "<tr name='resutaldo' id='status".$imagem->getCod_imagem()."'>
+			echo "<tr name='resutaldo' id='status".$imagem->getPkId()."'>
 			 	<td style='text-align: center;' name='imagem'><img src='../../".$imagem->getFoto()."' style='max-height: 100px' alt='' class='img-thumbnail'/></td>
 			 	<td style='text-align: center;' name='nome'>".$imagem->getNome()."</td>
-			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='imagem-view.php?cod=".$imagem->getCod_imagem()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='imagem-view.php?cod=".$imagem->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
 			</tr>";
 		}
 	}

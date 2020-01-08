@@ -15,7 +15,7 @@
         $cliente->setNome($nome);
         $cliente->setSobrenome($sobrenome);
         $cliente->setTelefone($telefone);
-        $cliente->setCod_cliente($cod_cliente);
+        $cliente->setPkId($cod_cliente);
         $control = new controlCliente($_SG['link']);
         $resultDt = $control->verifyDate($_POST['cod_cliente']);
         $resultFone = $control->verifyFone($_POST['cod_cliente'],$_POST['telefone']);
