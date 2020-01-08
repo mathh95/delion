@@ -21,7 +21,6 @@ if($acao == "delivery"){
     return;
 
 }else if($acao == "balcao"){
-    
     $_SESSION['is_delivery_home'] = 0;
     if($_SESSION['delivery_price'] > 0){
         $_SESSION['totalCorrigido'] = (float)$_SESSION['totalComDesconto'];

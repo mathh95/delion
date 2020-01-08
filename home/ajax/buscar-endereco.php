@@ -8,6 +8,7 @@ date_default_timezone_set('America/Sao_Paulo');
 
 include_once "../../admin/controler/conexao.php";
 include_once "../controler/controlEndereco.php";
+
 $controleEndereco = new controlEndereco(conecta());
 
 if (isset($_SESSION['flag_combo']) && !empty($_SESSION['flag_combo'])) {
@@ -32,31 +33,31 @@ if ($tipo == 'ativo') {
             (isset($_SESSION['finalizar_pedido']) and $_SESSION['finalizar_pedido'] > 0) and
             (isset($_SESSION['is_delivery_home']) and $_SESSION['is_delivery_home'] > 0)
         ){
-            echo "<p> Lista de endereços cadastrados: </p>";
+            echo "<p> Endereços Cadastrados </p>";
             foreach ($enderecos as $endereco) {
                 echo "<div class='item'>
-                            <label> Rua: <strong>" . $endereco->getRua() . "</strong></label>
-                            <button class='btn btn-success pull-right' onclick='selecionarEndereco(" . $endereco->getCodEndereco() . "," . $flag . ")' > SELECIONAR </button>
-                            <div>
-                            <label> Cep: " . $endereco->getCep() . "</label>
-                            <label> Número: " . $endereco->getNumero() . "</label>
-                            <label> Bairro: " . $endereco->getBairro() . "</label>
-                            </div>
-                            <label> Complemento: " . $endereco->getComplemento() . "</label>
+                        <label> Rua: <strong>" . $endereco->logradouro . "</strong></label>
+                        <button class='btn btn-success pull-right' onclick='selecionarEndereco(" . $endereco->getPkId() . "," . $flag . ")' > SELECIONAR </button>
+                        <div>
+                        <label> Cep: " .  mask_cep($endereco->cep) . "</label>
+                        <label> Número: " . $endereco->getNumero() . "</label>
+                        <label> Bairro: " . $endereco->bairro . "</label>
                         </div>
-                    ";
+                        <label> Complemento: " . $endereco->getComplemento() . "</label>
+                    </div>
+                ";
             }
         } else {
-            echo "<p> Lista de endereços cadastrados: </p>";
+            echo "<p> Endereços Cadastrados </p>";
             foreach ($enderecos as $endereco) {
                 echo "<div class='item'>
-                        <label> Rua: <strong>" . $endereco->getRua() . "</strong></label>
-                        <button class='btn btn-danger pull-right' onclick='excluirEndereco(" . $endereco->getCodEndereco() . ")' > X </button>
-                        <button class='btn btn-warning pull-right' onclick='alterarEndereco(" . $endereco->getCodEndereco() . ")' > ALTERAR </button>
+                        <label> Rua: <strong>" . $endereco->logradouro . "</strong></label>
+                        <button class='btn btn-danger pull-right' onclick='excluirEndereco(" . $endereco->getPkId() . ")' > X </button>
+                        <button class='btn btn-warning pull-right' onclick='alterarEndereco(" . $endereco->getPkId() . ")' > ALTERAR </button>
                         <div>
-                        <label> Cep: " . $endereco->getCep() . "</label>
+                        <label> Cep: " . mask_cep($endereco->cep) . "</label>
                         <label> Número: " . $endereco->getNumero() . "</label>
-                        <label> Bairro: " . $endereco->getBairro() . "</label>
+                        <label> Bairro: " . $endereco->bairro . "</label>
                         </div>
                         <label> Complemento: " . $endereco->getComplemento() . "</label>
                     </div>
@@ -84,4 +85,22 @@ if ($tipo == 'ativo') {
                 ";
         }
     }
+}
+
+function mask_cep($cep){
+
+    $cep = strval($cep);
+    
+    $masked = "";
+    $masked .= $cep[0];
+    $masked .= $cep[1];
+    $masked .= $cep[2];
+    $masked .= $cep[3];
+    $masked .= $cep[4];
+    $masked .= "-";
+    $masked .= $cep[5];
+    $masked .= $cep[6];
+    $masked .= $cep[7];
+
+    return $masked;
 }
