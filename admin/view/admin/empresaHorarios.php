@@ -285,8 +285,9 @@
 
         $(document).ready(function() {
 
-            var dias =  <?= $empresa->getArrDiasSemana(); ?>
-            console.log(dias);
+            var dias = '<?= $empresa->getArrDiasSemana(); ?>';
+            dias = JSON.parse(dias);
+            
             //dia -> 1 == domingo...7 == sábado
             for(let dia of dias){
                 // console.log(dia);
