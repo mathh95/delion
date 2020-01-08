@@ -80,7 +80,7 @@ $arquivo_pai = basename(__FILE__, '.php');
                             <?php foreach ($entregas as $key => $entrega) { ?>
 
                                 <tr>
-                                    <input style="display: none;" name="cod_entrega[]" value="<?= $entrega->getCod_entrega(); ?>" type="text">
+                                    <input style="display: none;" name="cod_entrega[]" value="<?= $entrega->getPkId(); ?>" type="text">
 
                                     <input style="display: none;" name="raio_km[]" value="<?= $entrega->getRaio_km(); ?>" type="number">
 
@@ -133,7 +133,7 @@ $arquivo_pai = basename(__FILE__, '.php');
                                         
                                         <input class="form-check-input" type="checkbox" name="flag_ativo[]" value="1" <?php echo ($entrega->getFlag_ativo() ? "checked" : ""); ?>>
 
-                                        <button style="margin-left:20px;" type="button" class="btn btn-kionux" onclick="excluirRaio(<?= $entrega->getCod_entrega(); ?>)"><i class="fa fa-remove"></i>&nbsp;Excluir</button>
+                                        <button style="margin-left:20px;" type="button" class="btn btn-kionux" onclick="excluirRaio(<?= $entrega->getPkId(); ?>)"><i class="fa fa-remove"></i>&nbsp;Excluir</button>
                                     </td>
 
                                 </tr>

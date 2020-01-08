@@ -22,7 +22,7 @@
 		}
 		$categoria= new categoria();
 		$categoria->construct($nome, $icone);
-		$categoria->setCod_categoria($cod_categoria);
+		$categoria->setPkId($cod_categoria);
 		$controle=new controlerCategoria($_SG['link']);
 		if($controle->update($categoria)> -1){
 			msgRedireciona('Alteração Realizada!','Categoria alterada com sucesso!',1,'../view/admin/categoriaLista.php');

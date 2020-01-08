@@ -43,13 +43,13 @@ if(in_array('cliente', $permissao)){
 
 		$mensagem='Cliente excluído com sucesso!';
 		$titulo='Excluir';
-		echo "<tr name='resultado' id='status".$cliente->getCod_cliente()."'>
+		echo "<tr name='resultado' id='status".$cliente->getPkId()."'>
 			<td style='text-align: center;' name='nome'>".$cliente->getNome()."</td>
 			<td style='text-align: center;' name='login'>".$cliente->getLogin()."</td>
-			<td style='text-align: center;' name='telefone'>".$masked_phone."</td>
+			<td style='text-align: center;' name='telefone'>".$cliente->getTelefone()."</td>
 			<td style='text-align: center;' name='telefone'>".$status."</td>
-			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cliente-view.php?cod=".$cliente->getCod_cliente()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
-			<td style='text-align: center;' name='status' ><button type='button' onclick=\"removeCliente(".$cliente->getCod_cliente().");\" class='btn btn-kionux'><i class='fa fa-remove'></i>&nbsp;Desativar</button></td>
+			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cliente-view.php?cod=".$cliente->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
+			<td style='text-align: center;' name='status' ><button type='button' onclick=\"removeCliente(".$cliente->getPkId().");\" class='btn btn-kionux'><i class='fa fa-remove'></i>&nbsp;Desativar</button></td>
 		</tr>";
 	}
 }else{
@@ -66,7 +66,7 @@ if(in_array('cliente', $permissao)){
 		if($cliente->getStatus()==1){
 			$mensagem='Cliente excluído com sucesso!';
 			$titulo='Excluir';
-			echo "<tr name='resultado' id='status".$cliente->getCod_cliente()."'>
+			echo "<tr name='resultado' id='status".$cliente->getPkId()."'>
 			 	<td style='text-align: center;' name='nome'>".$cliente->getNome()."</td>
 			 	<td style='text-align: center;' name='login'>".$cliente->getLogin()."</td>
 			 	<td style='text-align: center;' name='perfil'>".$cliente->getTelefone()."</td> 	

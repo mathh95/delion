@@ -383,7 +383,7 @@
                             
                             <ul class="dropdown-menu">
                                 
-                                <li><a href="cliente.php">Cadastro</a></li>
+                                <!-- <li><a href="cliente.php">Cadastro</a></li> -->
                                     
                                 <li><a href="clienteLista.php">Listar</a></li>
                             

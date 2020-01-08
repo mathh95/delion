@@ -32,7 +32,7 @@
 		$cupom= new cupom();
 		$cupom->construct1($valor,$valor_minimo,$vencimento_data, $vencimento_hora);
 
-		$cupom->setCod_cupom($cod_cupom);
+		$cupom->setPkId($cod_cupom);
 		$controle=new controlCupom($_SG['link']);
 		if($controle->update($cupom)> -1 ){
 			msgRedireciona('Alteração Realizada!','Cupom alterado com sucesso!',1,'../view/admin/cupomLista.php');

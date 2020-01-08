@@ -74,7 +74,7 @@
 
                                 <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text" value="<?= $adicional->getNome();?>">
 
-                                <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $adicional->getCod_adicional();?>">
+                                <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $adicional->getPkId();?>">
 
                             </div>
 
@@ -170,7 +170,7 @@
         <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 
         <script>
-            var ativo =   <?=$adicional->getFlag_ativo()?>;
+            var ativo =   <?=$adicional->getFlag_ativo();?>
 
             $( document ).ready(function() {
 

@@ -66,7 +66,7 @@
 
                                 <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text" value="<?=  $categoria->getNome(); ?>"/>
 
-                                <input class="form-control" name="cod" style="display: none;" id ="cod" type="hidden" value="<?=  $categoria->getCod_categoria(); ?>"/>
+                                <input class="form-control" name="cod" style="display: none;" id ="cod" type="hidden" value="<?=  $categoria->getPkId(); ?>"/>
 
                             </div>
 
@@ -114,7 +114,7 @@
 
                     <div class="pull-right">
 
-                        <a href="bannerLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Voltar</a>
+                        <a href="categoriaLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Voltar</a>
 
                     </div>
 

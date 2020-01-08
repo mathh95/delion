@@ -61,7 +61,7 @@ if(in_array('cupom', $permissao)){
 		$vencimento_data = date('d/m/Y', strtotime($cupom->getVencimento_data()));
 
 			echo "<tr name='resultado' id='status'>
-			 	<td style='text-align: center;' name='cod_cupom'>".$cupom->getCod_cupom()."</td>
+			 	<td style='text-align: center;' name='cod_cupom'>".$cupom->getPkId()."</td>
 			 	<td style='text-align: center;' name='codigo'>".$cupom->getCodigo()."</td>
 				<td style='text-align: center;' name='qtde_inicial'>".$cupom->getQtde_inicial()."</td>
 				<td style='text-align: center;' name='qtde_atual'>".$cupom->getQtde_atual()."</td>
@@ -69,8 +69,8 @@ if(in_array('cupom', $permissao)){
 				<td style='text-align: center;' name='valorMinimo'>"." R$ ".$cupom->getValor_minimo()."</td>
 				<td style='text-align: center;' name='vencimento'>".$vencimento_data."</td>
 				<td style='text-align: center;' name='status'>".$status."</td>
-				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cupom-view.php?cod_cupom=".$cupom->getCod_cupom()."'><button class='btn btn-kionux' $button><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
-				<td style='text-align: center;' name='cancelar' ><button type='button' class='btn btn-kionux' onclick='alterarStatusCupom(".$cupom->getCod_cupom().",1)' $button><i class='fa fa-remove'></i>&nbsp;Cancelar</button></td>
+				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cupom-view.php?cod_cupom=".$cupom->getPkId()."'><button class='btn btn-kionux' $button><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
+				<td style='text-align: center;' name='cancelar' ><button type='button' class='btn btn-kionux' onclick='alterarStatusCupom(".$cupom->getPkId().",1)' $button><i class='fa fa-remove'></i>&nbsp;Cancelar</button></td>
 			</tr>";
 	
 		}
