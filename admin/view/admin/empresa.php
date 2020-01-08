@@ -118,7 +118,7 @@
 
                                 <input class="form-control" placeholder="" name="endereco" value="<?=  $empresa->getEndereco(); ?>"  type="text">
 
-                                <input class="form-control" style="display: none;" placeholder="" name="cod_empresa" value="<?=  $empresa->getCod_empresa(); ?>"  type="text">
+                                <input class="form-control" style="display: none;" placeholder="" name="cod_empresa" value="<?=  $empresa->getPkId(); ?>"  type="text">
 
                             </div>
 

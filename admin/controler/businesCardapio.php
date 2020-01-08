@@ -59,7 +59,7 @@
 
 		$delivery = (isset($_POST['delivery'])||!empty($_POST['delivery'])) && $_POST['delivery'] == 1 ? 1 : 0 ;
 
-		$cardapio= new cardapio();
+		$cardapio= new produto();
 		$cardapio->construct($nome, $preco, $desconto, $descricao, $foto, $categoria, $flag_ativo, $flag_servindo ,$prioridade,$delivery, $adicional, $dias_semana, $cardapio_turno, $cardapio_horas_inicio, $cardapio_horas_final);
 		
 		$controle=new controlerProduto($_SG['link']);

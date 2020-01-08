@@ -51,10 +51,10 @@ isset($_POST['categoria'])){
 	        </tr>
 		<tbody>";
 	
-		foreach ($cardapios as &$cardapio) {
+		foreach ($cardapios as $cardapio) {
 			$mensagem='Cardápio excluído com sucesso!';
 			$titulo='Excluir';
-			echo "<tr name='resutaldo' id='status".$cardapio->getCod_cardapio()."'>
+			echo "<tr name='resutaldo' id='status".$cardapio->getPkId()."'>
 			 	<td style='text-align: center;' name='cardapio'><img src='../../".$cardapio->getFoto()."' style='max-height: 100px' alt='' class='img-thumbnail'/></td>
 				<td style='text-align: center;' name='nome'>".$cardapio->getNome()."</td>
 				<td style='text-align: center;' name='preco'>".$cardapio->getPreco()."</td>
@@ -64,8 +64,8 @@ isset($_POST['categoria'])){
 				<td style='text-align: center;' name='flag_ativo'>".$cardapio->getDsAtivo()."</td>
 				<td style='text-align: center;' name='prioridade'>".$cardapio->getDsPrioridade()."</td>
 				<td style='text-align: center;' name='delivery'>".$cardapio->getDsDelivery()."</td>
-			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cardapio-view.php?cod=".$cardapio->getCod_cardapio()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
-			 	<td style='text-align: center;' name='status'><button type='button' onclick=\"removeCardapio(".$cardapio->getCod_cardapio().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
+			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cardapio-view.php?cod=".$cardapio->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>Editar</button></a></td>
+			 	<td style='text-align: center;' name='status'><button type='button' onclick=\"removeCardapio(".$cardapio->getPkId().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i>Excluir</button></td>
 			</tr>";
 		}
 	}else{
@@ -85,7 +85,7 @@ isset($_POST['categoria'])){
 		<tbody>";
 	
 		foreach ($cardapios as &$cardapio) {
-			echo "<tr name='resutaldo' id='status".$cardapio->getCod_cardapio()."'>
+			echo "<tr name='resutaldo' id='status".$cardapio->getPkId()."'>
 			 	<td style='text-align: center;' name='cardapio'><img src='../../".$cardapio->getFoto()."' style='max-height: 100px' alt='' class='img-thumbnail'/></td>
 				<td style='text-align: center;' name='nome'>".$cardapio->getNome()."</td>
 				<td style='text-align: center;' name='preco'>".$cardapio->getPreco()."</td>

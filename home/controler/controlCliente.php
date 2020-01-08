@@ -317,7 +317,7 @@
                             while($result=$stmt->fetch(PDO::FETCH_OBJ)){
                                 $cliente = new cliente();
                                 $cliente->setPkId($result->cli_pk_id);
-                                $cliente->setLogin($result->cli_login_email_email);
+                                $cliente->setLogin($result->cli_login_email);
                                 $cliente->setNome($result->cli_nome);
                                 $cliente->setSobrenome($result->cli_sobrenome);
                                 $cliente->setCpf($result->cli_cpf);

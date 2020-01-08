@@ -10,7 +10,7 @@ class controlerSmsMensagem {
 
     function insert($sms){
         try{
-            $stmt=$this->pdo->prepare("INSERT INTO tb_sms (sms_msg, sms_descricao) VALUES (:sms_msg, :sms_descricao) ");
+            $stmt=$this->pdo->prepare("INSERT INTO tb_sms (sms_msg, sms_descricao) VALUES (:msg, :descricao) ");
             $msg = $sms->getMsg();
             $descricao = $sms->getDescricao();
             $stmt->bindParam(":msg", $msg, PDO::PARAM_STR);
