@@ -363,14 +363,14 @@ class controlerCarrinho{
         FROM tb_pedido as PED
         INNER JOIN
         tb_cliente AS CLI ON
-        PED.cliente = CLI.cod_cliente
+        PED.ped_fk_cliente = CLI.cli_pk_id
         INNER JOIN
         rl_endereco_cliente AS ENCL ON
         PED.ped_fk_endereco_cliente = ENCL.encl_pk_id
         INNER JOIN
         tb_endereco AS ENCO ON
         ENCL.encl_fk_endereco = ENCO.end_pk_id
-        ORDER BY PED.data DESC"); //Ordenação por cod do pedido
+        ORDER BY PED.ped_data DESC"); //Ordenação por cod do pedido
 
         $stmt->bindValue(":nome", $parametro);
         $stmt->bindParam(":menor", $valormenor, PDO::PARAM_INT);
