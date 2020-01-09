@@ -20,12 +20,13 @@
 
 
         </div>
+        
         <form method="GET" action="cardapio.php" class=" navbar-form navbar-center hidden-xs visible-sm-* visible-md-* visible-lg-* visible-xl-*">
 
-				<div class="input-group">
+				<!-- <div class="input-group">
                     <span><i class="glyphicon glyphicon-search"></i></span>
                     <input type="text" class="form-control" name="search" placeholder="Pesquise aqui...">
-				</div>
+				</div> -->
 
 		</form>
 
