@@ -45,7 +45,7 @@
             }
 
             function getCliente(){
-                return $this->ped_cliente;
+                return $this->ped_fk_cliente;
             }
             
             function getData(){
