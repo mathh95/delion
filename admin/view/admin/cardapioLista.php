@@ -91,8 +91,9 @@
         function removeCardapio(cardapio,foto){
             msgConfirmacao('Confirmação','Deseja Realmente remover o item cardápio?',
                 function(linha){
-                    var url ='../../ajax/excluir-cardapio.php?cardapio='+cardapio+'&foto='+foto;
+                    var url ='../../ajax/desativa-produto.php?pk_id='+cardapio+'&foto='+foto;
                     $.get(url, function(dataReturn) {
+                        console.log(dataReturn);
                         if (dataReturn > 0) {
                             msgGenerico("Excluir!","Item do cardápio excluido com sucesso!",1,function(){});
                             $("#status"+cardapio).remove();

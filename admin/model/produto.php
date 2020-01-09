@@ -10,16 +10,19 @@
         private $pro_desconto;
         private $pro_descricao;
         private $pro_foto;
-        private $pro_categoria;
         private $pro_flag_ativo;
         private $pro_flag_servindo;
         private $pro_prioridade;
         private $pro_delivery;
         private $pro_adicional;
         private $pro_arr_dias_semana;
+        private $pro_posicao;
+        private $pro_categoria;
+        
+        //dependentes
+        private $pro_fk_faixa_horario;
         private $pro_horas_inicio;
         private $pro_horas_final;
-        private $pro_posicao;
 
 
         function getPkId(){
@@ -79,6 +82,13 @@
             return $this->pro_posicao;
         }
 
+        function getFkFaixaHorario(){
+            return $this->pro_fk_faixa_horario;
+        }
+
+
+        
+
         function setPkId($pro_pk_id){
             $this->pro_pk_id=$pro_pk_id;
         }
@@ -133,6 +143,11 @@
             $this->pro_posicao=$pro_posicao;
         }
 
+        function setFkFaixaHorario($pro_fk_faixa_horario){
+            $this->pro_fk_faixa_horario=$pro_fk_faixa_horario;
+        }
+
+
         function getDsAtivo(){
             $ativo = ($this->pro_flag_ativo == 1) ? "Ativo" : "Não ativo" ;
             return $ativo;
@@ -155,7 +170,8 @@
 
         function __construct(){
         }
-        function construct($pro_nome,$pro_preco,$pro_desconto,$pro_descricao,$pro_foto,$pro_categoria,$pro_flag_ativo,$pro_flag_servindo,$pro_prioridade,$pro_delivery, $pro_adicional, $pro_arr_dias_semana, $pro_turno, $pro_horas_inicio, $pro_horas_final){
+
+        function construct($pro_nome, $pro_preco, $pro_desconto, $pro_descricao,$pro_foto, $pro_categoria, $pro_flag_ativo, $pro_flag_servindo,$pro_prioridade,$pro_delivery, $pro_adicional, $pro_arr_dias_semana, $pro_turno, $pro_horas_inicio, $pro_horas_final){
             $this->pro_nome=$pro_nome;
             $this->pro_preco=$pro_preco;
             $this->pro_desconto=$pro_desconto;
@@ -172,8 +188,26 @@
             $this->pro_horas_inicio=$pro_horas_inicio;
             $this->pro_horas_final=$pro_horas_final;
         }
+
+        function constructFkFaixa($pro_nome, $pro_preco, $pro_desconto, $pro_descricao,$pro_foto, $pro_categoria, $pro_flag_ativo, $pro_flag_servindo,$pro_prioridade,$pro_delivery, $pro_adicional, $pro_arr_dias_semana, $pro_fk_faixa_horario){
+            $this->pro_nome=$pro_nome;
+            $this->pro_preco=$pro_preco;
+            $this->pro_desconto=$pro_desconto;
+            $this->pro_descricao=$pro_descricao;
+            $this->pro_foto=$pro_foto;
+            $this->pro_categoria=$pro_categoria;
+            $this->pro_flag_ativo=$pro_flag_ativo;
+            $this->pro_flag_servindo=$pro_flag_servindo;
+            $this->pro_prioridade=$pro_prioridade;
+            $this->pro_delivery=$pro_delivery;
+            $this->pro_adicional=$pro_adicional;
+            $this->pro_arr_dias_semana=$pro_arr_dias_semana;
+            $this->pro_fk_faixa_horario=$pro_fk_faixa_horario;
+        }
+
+
         function show(){
-            echo "Código do cardapio:".$this->pro_cod_cardapio."<br>";
+            echo "Código do cardapio:".$this->pro_pk_id."<br>";
             echo "Nome:".$this->pro_nome."<br>";
             echo "Preco: ".$this->pro_preco."<br>";
             echo "Descricao:".$this->pro_descricao."<br>";

@@ -7,7 +7,7 @@
 
 	include_once "controlProduto.php";
 	include_once "controlCategoria.php";
-	include_once "../model/cardapio.php";
+	include_once "../model/produto.php";
 	include_once "../lib/alert.php";
 	include_once "upload.php";
 	

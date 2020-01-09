@@ -5,9 +5,15 @@
 	include_once MODELPATH."/produto.php";
 	protegePagina();
 	if (in_array('cardapio', json_decode($_SESSION['permissao']))) {
+		$opcao = $_GET['op'];
 		$cod_cardapio = $_GET['cod'];
 		$controle=new controlerProduto($_SG['link']);
-		$result=$controle->desativaItemCardapio($cod_cardapio);
+
+		if($opcao == "ativar"){
+			$result=$controle->ativaServindo($cod_cardapio);
+		}else{
+			$result=$controle->desativaServindo($cod_cardapio);
+		}
 		
 		if($result == 1){
             header("Location: /admin/view/admin/gerenciarCardapio.php");    //mudar aqui

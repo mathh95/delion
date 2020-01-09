@@ -18,13 +18,9 @@
 
     include_once MODELPATH."/categoria.php";
 
-    include_once CONTROLLERPATH."/controlProdutoHoras.php";
+    include_once CONTROLLERPATH."/controlFaixaHorario.php";
 
-    include_once CONTROLLERPATH."/controlProdutoTurno.php";
 
-    include_once MODELPATH."/cardapio_horas.php";
-
-    include_once MODELPATH."/cardapio_turno.php";
 
     $_SESSION['permissaoPagina']=0;
 
@@ -37,31 +33,19 @@
     $categorias = $controleCategoria->selectAll();
 
     $controle = new controlerProduto($_SG['link']);
-    $cardapio = $controle->selectSemCategoria($_GET['cod'], 2);
+    $produto = $controle->selectById($_GET['cod']);
 
-    $adicionalObj = json_decode($cardapio->getAdicional());
+    $adicionalObj = json_decode($produto->getAdicional());
     $controleAdicional = new controlerAdicional($_SG['link']);
 
     $adicionais = $controleAdicional->selectAll();
-
-    $controleTurnos = new controlerProdutoTurno($_SG['link']);
-    $turnos = $controleTurnos->selectAll();
-
-    $controleHoras = new controlerProdutoHoras($_SG['link']);
-    $horasini = $controleHoras->selectAll();
-
-    $controleHoras = new controlerProdutoHoras($_SG['link']);
-    $horasfim = $controleHoras->selectAll();
-
+    
+    $controleFaixaHorario = new controlerFaixaHorario($_SG['link']);
+    
+    
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
     
-    $dias_semana = $cardapio->getDias_semana();
-    
-    // echo '<pre>';
-    // print_r($cardapio);
-    // echo '</pre>';
-    // exit;
     
 ?>
 
@@ -90,7 +74,7 @@
         
         <div class="container-fluid">
 
-            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/alteraCardapio.php">
+            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/alteraProduto.php">
 
                 <div class="col-md-12">
 
@@ -98,7 +82,7 @@
 
                         <div class="col-md-5">
 
-                            <h3>Dados do item do cardápio</h3>
+                            <h3>Alterar Produto</h3>
 
                             <br>
 
@@ -106,13 +90,13 @@
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fas fa-utensils"></i></span>
 
-                                <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text" value="<?= $cardapio->getNome();?>">
+                                <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text" value="<?= $produto->getNome();?>">
 
-                                <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $cardapio->getCod_cardapio();?>">
+                                <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $produto->getPkId();?>">
 
-                                <input class="form-control" name="imagem" id ="imagem" type="hidden" value="<?= $cardapio->getFoto();?>">
+                                <input class="form-control" name="imagem" id ="imagem" type="hidden" value="<?= $produto->getFoto();?>">
 
                             </div>
 
@@ -122,9 +106,9 @@
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
 
-                                <input class="form-control" placeholder="Preço" name="preco" required autofocus id="preco" type="number" step="0.01" min="1" max="99" value="<?=$cardapio->getPreco(); ?>">
+                                <input class="form-control" placeholder="Preço" name="preco" required id="preco" type="number" step="1" min="1" max="99" value="<?=$produto->getPreco(); ?>">
 
                             </div>
 
@@ -134,9 +118,9 @@
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fas fa-percentage"></i></span>
 
-                                <input class="form-control" placeholder="Desconto" name="desconto" required autofocus id="desconto" type="number" step="0.01" min="1" max="99" value="<?=$cardapio->getDesconto(); ?>">
+                                <input class="form-control" placeholder="Desconto" name="desconto" id="desconto" type="number" step="1" max="99" value="<?=$produto->getDesconto(); ?>">
 
                             </div>
 
@@ -146,16 +130,14 @@
 
                             <select class="form-control" name="categoria" id="categoria" >
 
-                                <option value="0">Não informado</option>
+                                <option value="">Selecionar Categoria</option>
 
                                 <?php
 
                                     foreach ($categorias as $categoria) {
 
-                                        echo "<option value='".$categoria->getCod_categoria()."' id='".$categoria->getCod_categoria()."'>".$categoria->getNome()."</option>";
-
-                                    }  
-
+                                        echo "<option value='".$categoria->getPkId()."' id='".$categoria->getPkId()."'>".$categoria->getNome()."</option>";
+                                    }
                                 ?>
 
                             </select>
@@ -167,7 +149,7 @@
 
                                     <label>
 
-                                        <input type="checkbox" id="ativo" <?=($cardapio->getFlag_ativo() == 1)?"checked":""?> name="flag_ativo" value="1">Ativo
+                                        <input type="checkbox" id="ativo" <?=($produto->getFlag_ativo() == 1)?"checked":""?> name="flag_ativo" value="1">Ativo
 
                                     </label>
 
@@ -177,7 +159,7 @@
                                 <div class="checkbox">
 
                                     <label>
-                                        <?php if ($cardapio->getPrioridade()==1){?>
+                                        <?php if ($produto->getPrioridade()==1){?>
                                             <input type="checkbox" id="prioridade" name="prioridade" value="1" checked>Prioridade
                                             <?php }else{ ?>
                                             <input type="checkbox" id="prioridade" name="prioridade" value="1">Prioridade
@@ -190,7 +172,7 @@
                                 <div class="checkbox">
 
                                     <label>
-                                        <?php if ($cardapio->getDelivery()==1){?>
+                                        <?php if ($produto->getDelivery()==1){?>
                                             <input type="checkbox" id="delivery" name="delivery" value="1" checked>Delivery
                                             <?php }else{ ?>
                                             <input type="checkbox" id="delivery" name="delivery" value="1">Delivery
@@ -199,13 +181,17 @@
 
                                 </div>
                             
-                            <small>Informar se após o cadastro o item estará disponivel para ser Servido:</small>
+                            <small>Informar se o Produto estará disponivel para ser Servido:</small>
 
                                 <div class="checkbox">
 
                                     <label>
-
-                                            <input type="checkbox" id="servindo" name="servindo" value="1">Servindo                               
+                                        <?php if ($produto->getFlag_servindo()==1){?>
+                                            <input type="checkbox" id="servindo" name="servindo" value="1" checked>Servindo
+                                            <?php }else{ ?>
+                                            <input type="checkbox" id="servindo" name="servindo" value="1">Servindo
+                                        <?php }?>  
+                                                            
                                     
                                     </label>
 
@@ -248,45 +234,25 @@
                                   
 
                                 </div>
-                            
+                                            
                                 <br>
-                                <small>Turno(s) que o item estará disponível:</small>
-                                
-                                <!-- Primeiro Turno -->
-                                        <select name="turnos" id="turnos" required>
-                                            <option value="">Selecione o turno</option>
-                                            <?php
-                                                foreach ($turnos as $turno) {
-                                                    echo "<option value='".$turno->getCod_cardapio_turno()."' id='".$turno->getCod_cardapio_turno()."'>".$turno->getNome()."</option>";
-                                                }  
-                                            ?>
-                                        </select>
-                                    &nbsp;
-                                <br>
-                                
-                                <small>Faixa de Horário que o item estará disponível:</small>
+                                <div class="checkbox">
+                                    <select class="form-control" name="faixa_horario" id="faixa_horario">
 
-                                <select name="horario1" id="horario1">
-                                            <option value="0">Início</option>
-                                            <?php
-                                            foreach ($horasini as $hora) {
-                                                $horaform = date_create($hora->getHorario());
-                                                $horaform1 = date_format($horaform, 'H:i');
-                                                echo "<option value='".$hora->getCod_cardapio_horas()."' id='horaini".$hora->getCod_cardapio_horas()."'>".$horaform1."</option>";
-                                            }  
-                                        ?>
-                                </select>&nbsp;
-                                <select name="horario2" id="horario2">
-                                            <option value="0">Fim</option>
+                                        <option value="">Faixa de Horário</option>
                                         <?php
-                                            foreach ($horasfim as $hora) {
-                                                $horaform = date_create($hora->getHorario());
-                                                $horaform2 = date_format($horaform, 'H:i');
-                                                echo "<option value='".$hora->getCod_cardapio_horas()."' id='horafim".$hora->getCod_cardapio_horas()."'>".$horaform2."</option>";
+                                            $faixas_horario = $controleFaixaHorario->selectAll();
+                                            foreach ($faixas_horario as $faixa) {
+                                                $ini = date("H:i", strtotime($faixa->getInicio()));
+                                                $final = date("H:i", strtotime($faixa->getFinal()));
+                                                $txt = $ini."h - ".$final."h";
+                                                echo "<option value='".$faixa->getPkId()."' id='".$faixa->getPkId()."'>".$txt."</option>";
                                             }  
                                         ?>
-                                </select>
-                            
+                                    </select>
+                                    
+                                    <br><br>
+                                </div>
                             <br>
                             <br>
 
@@ -330,7 +296,7 @@
 
                             <br>
 
-                            <img src="../../<?=  $cardapio->getFoto(); ?>"  alt='' class='img-thumbnail img-responsive'/>
+                            <img src="../../<?=  $produto->getFoto(); ?>"  alt='' class='img-thumbnail img-responsive'/>
 
                             <br>
 
@@ -342,7 +308,7 @@
 
                             <small>Descrição do item: </small>
 
-                            <textarea name="descricao" rows="12"><?= html_entity_decode($cardapio->getDescricao()); ?></textarea>
+                            <textarea name="descricao" rows="12"><?= html_entity_decode($produto->getDescricao()); ?></textarea>
 
                             <br>
 
@@ -417,13 +383,13 @@
             });
             
             $(document).ready(function() {
-                var categoria = <?= $cardapio->getCategoria()?>;
-                var turno = '' +<?=$cardapio->getCardapio_turno()?> + '';
-                var horario1 = '' +  <?= $cardapio->getCardapio_horas_inicio()?> + '';
-                var horario2 = '' + <?= $cardapio->getCardapio_horas_final()?> + '';
-                var dias =  <?= $dias_semana ?>;
-                var ativo =   <?= $cardapio->getFlag_ativo()?>;
+
+                var categoria = '<?= $produto->getCategoria() ?>';
+                var faixa_horario = '<?=$produto->getFkFaixaHorario()?>';
+                var dias = JSON.parse('<?= $produto->getDias_semana() ?>');
+                var ativo = '<?= $produto->getFlag_ativo() ?>';
                 
+
                 //dia -> 1 == domingo...7 == sábado
                 for(let dia of dias){
                     $(".checkbox :checkbox[value="+dia+"]").prop("checked", "true");
@@ -432,10 +398,9 @@
                 if (ativo == 1){
                     $('#ativo').attr('checked', true);
                 }
+
                 $('#' + categoria).attr('selected', true);
-                    $('#' + turno).attr('selected', true);
-                    $('#horaini' + horario1).attr('selected', true);
-                    $('#horafim' + horario2).attr('selected', true);
+                $('#' + faixa_horario).attr('selected', true);
             });      
             
 
