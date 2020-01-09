@@ -31,7 +31,7 @@ if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || 
 		$menor =0;
 	}
 	if (!isset($_POST['maior'])){
-		$maior =999999;
+		$maior = 999999;
 	}
 	$pedidos = $controle->selectAllPedido($nome, $menor, $maior);
 }
