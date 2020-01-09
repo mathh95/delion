@@ -125,8 +125,9 @@ if ($fk_endereco == null) {
         echo $mail->ErrorInfo;
     }
 
+    $fk_origem_pedido = 1;
     $produtos = $itens;
-    $pedido->setPedido(null, null, $produtos);
+    $pedido->setPedido(null, $fk_origem_pedido, $produtos);
 
     $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
     echo $html;
