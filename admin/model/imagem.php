@@ -80,7 +80,7 @@
             $this->ima_pagina=$ima_pagina;
         }
         function show(){
-            echo "Código da imagem:".$this->ima_cod_imagem."<br>";
+            echo "Código da imagem:".$this->ima_pk_id."<br>";
             echo "Nome:".$this->ima_nome."<br>";
             echo "Foto:".$this->ima_foto."<br>";
             echo "Página:".$this->ima_pagina."<br>";

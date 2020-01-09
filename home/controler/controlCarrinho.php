@@ -44,14 +44,14 @@ class controlerCarrinho{
             $sql->execute();
 
             $parametro = $codigocupom;
-            $sql=$this->pdo->prepare("UPDATE tb_cupom SET cup_qtde_atual = qtde_atual - 1 WHERE cup_codigo=:parametro");
+            $sql=$this->pdo->prepare("UPDATE tb_cupom SET cup_qtde_atual = cup_qtde_atual - 1 WHERE cup_codigo=:parametro");
             $sql->bindValue(":parametro",$parametro);
             $sql->execute();
 
             $status = 1;//recebido, pronto, saiu
             //balcao
             if ($fk_endereco == null){
-                $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_valor = :valor, ped_desconto = :desconto , ped_taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt ,status = :status, ped_fk_origem_pedido = :origem");
+                $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_valor = :valor, ped_desconto = :desconto , ped_taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt , ped_status = :status, ped_fk_origem_pedido = :origem");
             //delivery
             }else{
                 $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_valor = :valor, ped_desconto = :desconto , taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt , ped_status = :status, ped_fk_origem_pedido = :origem, ped_fk_endereco_cliente = :endereco, ped_tempo_entrega = :tempo_entrega");
