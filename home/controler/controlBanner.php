@@ -147,17 +147,17 @@
 
                             $banner->setPkId($result->ban_pk_id);
 
-                            $banner->setNome($result->nome);
+                            $banner->setNome($result->ban_nome);
 
-                            $banner->setLink($result->link);
+                            $banner->setLink($result->ban_link);
 
                             // $banner->setLegenda($result->legenda);
 
                             $banner->setFlag_tamanho($result->ban_flag_tamanho);
 
-                            $banner->setFoto($result->foto);
+                            $banner->setFoto($result->ban_foto);
 
-                            $banner->setPagina($result->pagina);
+                            $banner->setPagina($result->ban_pagina);
 
                             array_push($banners, $banner);
 
