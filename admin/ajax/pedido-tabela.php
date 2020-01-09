@@ -16,31 +16,41 @@ $controlFormaPgt = new controlerFormaPgt($_SG['link']);
 
 
 if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || isset($_POST['endereco'])){ 
-	$nome = $_POST['nome'];
+	$nome_cliente = $_POST['nome'];
 	$menor = $_POST['menor'];
 	$maior = $_POST['maior'];
 	if (!empty($_POST['endereco'])){
 		$endereco = $_POST['endereco'];
-		$pedidos = $control_carrinho->filterEndereco($nome, $menor, $maior, $endereco);
+		$pedidos = $control_carrinho->filterEndereco($nome_cliente, $menor, $maior, $endereco);
 	}else{
 		//Alterar esse query
-		$pedidos = $control_carrinho->filter($nome, $menor, $maior);
-		$por_pagina = 15;
-		if(isset($_GET['page']) && !empty($_GET['page'])){
-			$pagina = (int)$_GET['page'];
-		}else{
-			$pagina = 1;
-		}
-	
-		$offset = ($pagina - 1) * $por_pagina;
-		//Separa os pedidos pelas páginas
-		// $pedidos = $control_carrinho->selectPaginadoPedidos($offset,$por_pagina);
-		// $total2 = count($pedidosCount);
-		$total = count($pedidos);
-		$paginas = ceil($total/$por_pagina);
-		
+		$pedidos = $control_carrinho->filter($nome_cliente, $menor, $maior);
 	}
+
+	//Paginacao
+	$por_pagina = 15;
+	if(isset($_GET['page']) && !empty($_GET['page'])){
+		$pagina = (int)$_GET['page'];
+	}else{
+		$pagina = 1;
+	}
+
+	$offset = ($pagina - 1) * $por_pagina;
+	//Separa os pedidos pelas páginas
+	// $pedidos = $control_carrinho->selectPaginadoPedidos($offset,$por_pagina);
+	// $total2 = count($pedidosCount);
+
+	if($pedidos != -1){
+		$total = count($pedidos);	
+		$paginas = ceil($total/$por_pagina);
+	}else{
+		$paginas = 1;
+	}
+
+
+//Sem Filtro
 }else{
+
 	if (!isset($_POST['nome'])){
 		$nome ='';
 	}
@@ -62,6 +72,7 @@ if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || 
 	$offset = ($pagina - 1) * $por_pagina;
 	//Separa os pedidos pelas páginas
 	$pedidos = $control_carrinho->selectPaginadoPedidos($offset,$por_pagina);
+	
 	$total2 = count($pedidosCount);
 	$total = count($pedidos);
 	$paginas = ceil($total2/$por_pagina);
@@ -76,7 +87,7 @@ if ($pedidos == -1){
 		echo "<table class='table' id='tbUsuarios' style='text-align = center;'>";
 			if($pagina > 1){
 				echo "
-				<nav arial-label='...'>
+				<nav arial-label='' style='text-align:center!important;' >
 					<ul class='pagination'>
 						<li>
 							<a class='page-link' href='pedidoLista.php?page=".($pagina - 1)."' class='controle'>&laquo; Anterior</a>
@@ -84,7 +95,7 @@ if ($pedidos == -1){
 				}
 			if($pagina == 1){
 				echo "
-				<nav arial-label='...'>
+				<nav arial-label='' style='text-align:center!important;'>
 					<ul class='pagination'>
 						<li class='page-item active'>
 							<a class='page-link' href='pedidoLista.php?page=".($pagina)."' style='
@@ -130,18 +141,19 @@ if ($pedidos == -1){
 			// ".$paginas."
 			// </a>
 		echo "<thead>
-		<h1 class=\"page-header\">Lista de Pedidos</h1>
 		<tr>
     		<th width='8%' style='text-align: center;'>Código Pedido</th>
 			<th width='10%' style='text-align: center;'>Data</th>
 			<th width='10%' style='text-align: center;'>Hora Pedido</th>
 			<th width='8%' style='text-align: center;'>Nome Cliente</th>
 			<th width='5%' style='text-align: center;'>Valor Total</th>
-			<th width='8%' style='text-align: center;'>Origem do Pedido</th>
 			<th width='15%' style='text-align: center;'>Local Entrega</th>
-        </tr>
-	<tbody>";
-	//Pedido com status = 1, não foi impresso nem saiu para entrega
+			<th style='text-align: center;' colspan='3'>Operações</th>
+			</tr>
+		<tbody>";
+		// <th width='8%' style='text-align: center;'>Origem do Pedido</th>
+	
+		//Pedido com status = 1, não foi impresso nem saiu para entrega
 	foreach ($pedidos as &$pedido) {
 
 		if($pedido->getStatus()==1){
@@ -154,8 +166,8 @@ if ($pedidos == -1){
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->getData()->format('H:i')."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getCliente()."</td>
-				<td style='text-align: center;' name='valor'>R$".$pedido->getValor()."</td>
-				<td style='text-align: center;' name='numero'>".$pedido->getFkOrigemPedido()."</td>";
+				<td style='text-align: center;' name='valor'>R$".$pedido->getValor()."</td>";
+				// <td style='text-align: center;' name='origem'>".$pedido->origem_pedido."</td>";
 
 				if($pedido->rua == NULL){
 					echo "<td style='text-align: center;' name='rua'>Balcão</td>";
@@ -212,8 +224,8 @@ if ($pedidos == -1){
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->getData()->format('H:i')."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getCliente()."</td>
-				<td style='text-align: center;' name='valor'>R$".$pedido->getValor()."</td>
-				<td style='text-align: center;' name='numero'>".$pedido->origem_pedido."</td>";
+				<td style='text-align: center;' name='valor'>R$".$pedido->getValor()."</td>";
+				// <td style='text-align: center;' name='numero'>".$pedido->origem_pedido."</td>";
 				
 				if($pedido->rua == NULL){
 					echo "<td style='text-align: center;' name='rua'>Balcão</td>";
@@ -270,8 +282,8 @@ if ($pedidos == -1){
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->getData()->format('H:i')."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getCliente()."</td>
-				<td style='text-align: center;' name='valor'>R$".$pedido->getValor()."</td>
-				<td style='text-align: center;' name='numero'>".$pedido->origem_pedido."</td>";
+				<td style='text-align: center;' name='valor'>R$".$pedido->getValor()."</td>";
+				// <td style='text-align: center;' name='numero'>".$pedido->origem_pedido."</td>";
 
 				if($pedido->rua == NULL){
 					echo "<td style='text-align: center;' name='rua'>Balcão</td>";
@@ -342,6 +354,7 @@ if ($pedidos == -1){
 
 }
 
+if($pedidos == -1) return;
 foreach ($pedidos as $pedido) {
 	$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
 	$itens = $control_carrinho->selectItens($pedido->getPkId());
