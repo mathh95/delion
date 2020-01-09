@@ -171,7 +171,7 @@
             
 
             //Responsável por mostrar os itens em cima do botão detalhes
-            function myFunction(int) {
+            function myPopup(int) {
                 var popup = document.getElementById('myPopup'+int);
                 popup.classList.toggle('show');
             }

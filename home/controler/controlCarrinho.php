@@ -194,6 +194,9 @@ class controlerCarrinho{
                 INNER JOIN
                 tb_endereco AS ENCO ON
                 ENCL.encl_fk_endereco = ENCO.end_pk_id
+                INNER JOIN
+                tb_origem_pedido AS ORPE ON
+                PED.ped_fk_origem_pedido = ORPE.orpe_pk_id
                 ORDER BY PED.ped_data DESC, cli_nome ASC LIMIT :offset, :por_pagina");
 
                 $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
@@ -213,6 +216,9 @@ class controlerCarrinho{
                 INNER JOIN
                 tb_endereco AS ENCO ON
                 ENCO.end_pk_id = ENCL.encl_pk_id
+                INNER JOIN
+                tb_origem_pedido AS ORPE ON
+                PED.ped_fk_origem_pedido = ORPE.orpe_pk_id
                 ORDER BY PED.ped_data DESC, cli_nome ASC LIMIT :offset, :por_pagina");
                 $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
                 $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
@@ -244,6 +250,7 @@ class controlerCarrinho{
                         $pedido->bairro=($result->end_bairro);
                         $pedido->rua=($result->end_logradouro);
                         $pedido->cep=($result->end_cep);
+                        $pedido->origem_pedido=($result->orpe_origem);
 
                         array_push($pedidos,$pedido);
                     }
@@ -257,16 +264,17 @@ class controlerCarrinho{
     }
 
 
-    function selectItens($cod_pedido){
-        $parametro = $cod_pedido;
+    function selectItens($pk_id){
+    
         $produtos=array();
+
         $stmt=$this->pdo->prepare("SELECT * 
         FROM rl_pedido_produto AS PEPR
         INNER JOIN tb_produto AS PRO
         ON PRO.pro_pk_id = PEPR.pepr_fk_produto
-        WHERE PEPR.pepr_fk_pedido = :parametro");
+        WHERE PEPR.pepr_fk_pedido = :pk_id");
         
-        $stmt->bindParam(":parametro", $parametro, PDO::PARAM_INT);
+        $stmt->bindParam(":pk_id", $pk_id, PDO::PARAM_INT);
         $executa=$stmt->execute();
         if ($executa) {
             if ($stmt->rowCount() > 0 ){
@@ -275,7 +283,7 @@ class controlerCarrinho{
                     $pedido_produto->setFkProduto($result->pepr_fk_produto);
                     $pedido_produto->setQuantidade($result->pepr_quantidade);
                     $pedido_produto->setObservacao($result->pepr_observacao);
-                    $pedido_produto->preco=($result->pepr_preco);
+                    $pedido_produto->setPreco($result->pepr_preco);
                     $pedido_produto->nome=($result->pro_nome);
 
                     array_push($produtos,$pedido_produto);  
@@ -307,6 +315,9 @@ class controlerCarrinho{
         INNER JOIN
         tb_endereco AS ENCO ON
         ENCL.encl_fk_endereco = ENCO.end_pk_id
+        INNER JOIN
+        tb_origem_pedido AS ORPE ON
+        PED.ped_fk_origem_pedido = ORPE.orpe_pk_id
         WHERE CLI.cli_nome like :parametro AND PED.ped_valor > :valormenor AND PED.ped_valor < :valormaior
         ORDER BY PED.ped_data DESC");
 
@@ -340,6 +351,7 @@ class controlerCarrinho{
                     $pedido->bairro=($result->end_bairro);
                     $pedido->rua=($result->end_logradouro);
                     $pedido->cep=($result->end_cep);
+                    $pedido->origem_pedido=($result->orpe_origem_pedido);
 
                     array_push($pedidos,$pedido);
                 }
@@ -433,6 +445,9 @@ class controlerCarrinho{
         INNER JOIN
         tb_endereco AS ENCO ON
         ENCL.encl_fk_endereco = ENCO.end_pk_id
+        INNER JOIN
+        tb_origem_pedido AS ORPE ON
+        PED.ped_fk_origem_pedido = ORPE.orpe_pk_id
         WHERE c.nome like :nome AND p.valor > :menor AND p.valor < :maior
         AND e.rua LIKE :rua OR e.numero LIKE :numero OR e.cep LIKE :cep");
 
@@ -465,6 +480,7 @@ class controlerCarrinho{
                     $pedido->bairro=($result->end_bairro);
                     $pedido->rua=($result->end_logradouro);
                     $pedido->cep=($result->end_cep);
+                    $pedido->origem_pedido=($result->orpe_origem_pedido);
 
                     array_push($pedidos,$pedido);
                 }
