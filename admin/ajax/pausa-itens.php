@@ -7,7 +7,8 @@
 	if (in_array('cardapio', json_decode($_SESSION['permissao']))) {
 		$nomeDesc = $_GET['nome'];
 		$controle=new controlerProduto($_SG['link']);
-		$result=$controle->pausaProducao($nomeDesc);
+
+		$result=$controle->pausaServico($nomeDesc);
 
 		if($result == 1){
 			// var_dump($result);

@@ -11,8 +11,7 @@ protegePagina();
 $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-$controle=new controlerCarrinho($_SG['link']);
-$controle1 = new controlerCarrinho($_SG['link']);
+$control_carrinho = new controlerCarrinho($_SG['link']);
 $controlFormaPgt = new controlerFormaPgt($_SG['link']);
 
 
@@ -22,10 +21,10 @@ if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || 
 	$maior = $_POST['maior'];
 	if (!empty($_POST['endereco'])){
 		$endereco = $_POST['endereco'];
-		$pedidos = $controle->filterEndereco($nome, $menor, $maior, $endereco);
+		$pedidos = $control_carrinho->filterEndereco($nome, $menor, $maior, $endereco);
 	}else{
 		//Alterar esse query
-		$pedidos = $controle->filter($nome, $menor, $maior);
+		$pedidos = $control_carrinho->filter($nome, $menor, $maior);
 		$por_pagina = 15;
 		if(isset($_GET['page']) && !empty($_GET['page'])){
 			$pagina = (int)$_GET['page'];
@@ -35,7 +34,7 @@ if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || 
 	
 		$offset = ($pagina - 1) * $por_pagina;
 		//Separa os pedidos pelas páginas
-		// $pedidos = $controle->selectPaginadoPedidos($offset,$por_pagina);
+		// $pedidos = $control_carrinho->selectPaginadoPedidos($offset,$por_pagina);
 		// $total2 = count($pedidosCount);
 		$total = count($pedidos);
 		$paginas = ceil($total/$por_pagina);
@@ -49,9 +48,9 @@ if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || 
 		$menor =0;
 	}
 	if (!isset($_POST['maior'])){
-		$maior =999999;
+		$maior = 999999;
 	}
-	$pedidosCount = $controle->selectAllPedido($nome, $menor, $maior);
+	$pedidosCount = $control_carrinho->selectAllPedido($nome, $menor, $maior);
 	//numero de pedidos por página
 	$por_pagina = 15;
 	if(isset($_GET['page']) && !empty($_GET['page'])){
@@ -62,7 +61,7 @@ if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || 
 
 	$offset = ($pagina - 1) * $por_pagina;
 	//Separa os pedidos pelas páginas
-	$pedidos = $controle->selectPaginadoPedidos($offset,$por_pagina);
+	$pedidos = $control_carrinho->selectPaginadoPedidos($offset,$por_pagina);
 	$total2 = count($pedidosCount);
 	$total = count($pedidos);
 	$paginas = ceil($total2/$por_pagina);
@@ -147,16 +146,16 @@ if ($pedidos == -1){
 
 		if($pedido->getStatus()==1){
 
-			$array = ($pedido->getCod_pedido());
+			$array = ($pedido->getPkId());
 			$mensagem='Cliente excluído com sucesso!';
 			$titulo='Excluir';
-			echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."' data-cod_pedido='".$pedido->getCod_pedido()."'>
-			 	<td style='text-align: center;' name='data'>".$pedido->getCod_pedido()."</td>
+			echo "<tr name='resultado' id='status".$pedido->getPkId()."' data-cod_pedido='".$pedido->getPkId()."'>
+			 	<td style='text-align: center;' name='data'>".$pedido->getPkId()."</td>
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->getData()->format('H:i')."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getCliente()."</td>
 				<td style='text-align: center;' name='valor'>R$".$pedido->getValor()."</td>
-				<td style='text-align: center;' name='numero'>".$pedido->getOrigem()."</td>";
+				<td style='text-align: center;' name='numero'>".$pedido->getFkOrigemPedido()."</td>";
 
 				if($pedido->rua == NULL){
 					echo "<td style='text-align: center;' name='rua'>Balcão</td>";
@@ -165,7 +164,7 @@ if ($pedidos == -1){
 				}
 				
 				echo "<div id='buttonbar'>
-					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-primary' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido()."' data-id='".$pedido->getCod_pedido()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
+					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-primary' data-toggle='modal' data-target='#modalPedido".$pedido->getPkId()."' data-id='".$pedido->getPkId()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
 
 				if($pedido->rua == NULL){	
 					echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(".$pedido->getStatus().")\" class='btn btn-danger' disable><i class='fas fa-store'></i> Retirado</button></a></td>";
@@ -174,18 +173,18 @@ if ($pedidos == -1){
 				}
 				
 				echo "<td style='text-align: center;' name='editar'>
-								<a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido()."'>
-									<div type='button' class='popup btn btn-primary' onmouseover='myFunction(".$array.")' onmouseout='myFunction(".$array.")'>
+								<a style='font-size: 10px;' ' href='pedido-info.php?cod=".$pedido->getPkId()."'>
+									<div type='button' class='popup btn btn-primary' onmouseover='myPopup(".$array.")' onmouseout='myPopup(".$array.")'>
 									<i class='fa fa-edit'></i> Detalhes
 										<span class='popuptext' id='myPopup".$array."'>
 												<table class=''>
 													<tbody>";
-													$itens = $controle1->selectItens($pedido->getCod_pedido());
+													$itens = $control_carrinho->selectItens($pedido->getPkId());
 													foreach($itens as $item){
-													echo " <tr name='resultado' id='status".$item->getCod_item()."'>	
+													echo " <tr name='resultado' id='status".$item->getPkId()."'>	
 															<td id='detalhes'>".$item->getQuantidade()."x</td>
-															<td id='detalhes'> ".$item->getProduto()."</td>
-															<td id='detalhes'>"."R$ ".$item->preco."</td>
+															<td id='detalhes'> ".$item->nome."</td>
+															<td id='detalhes'>"."R$ ".$item->getPreco()."</td>
 														</tr>";
 													}
 												echo "
@@ -205,16 +204,16 @@ if ($pedidos == -1){
 
 		if($pedido->getStatus()==2){
 
-			$array = ($pedido->getCod_pedido());
+			$array = ($pedido->getPkId());
 			$mensagem='Cliente excluído com sucesso!';
 			$titulo='Excluir';
-			echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
-			 	<td style='text-align: center;' name='data'>".$pedido->getCod_pedido()."</td>
+			echo "<tr name='resultado' id='status".$pedido->getPkId()."'>
+			 	<td style='text-align: center;' name='data'>".$pedido->getPkId()."</td>
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->getData()->format('H:i')."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getCliente()."</td>
 				<td style='text-align: center;' name='valor'>R$".$pedido->getValor()."</td>
-				<td style='text-align: center;' name='numero'>".$pedido->getOrigem()."</td>";
+				<td style='text-align: center;' name='numero'>".$pedido->origem_pedido."</td>";
 				
 				if($pedido->rua == NULL){
 					echo "<td style='text-align: center;' name='rua'>Balcão</td>";
@@ -223,28 +222,28 @@ if ($pedidos == -1){
 				}
 
 				echo "<div id='buttonbar'>
-					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-warning' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido()."' data-id='".$pedido->getCod_pedido()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
+					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-warning' data-toggle='modal' data-target='#modalPedido".$pedido->getPkId()."' data-id='".$pedido->getPkId()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
 
 					if($pedido->rua == NULL){	
-						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"alterarStatusRetirado(".$pedido->getCod_pedido().",3)\" class='btn btn-primary' disable><i class='fas fa-store'></i> Retirado</button></a></td>";
+						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"alterarStatusRetirado(".$pedido->getPkId().",3)\" class='btn btn-primary' disable><i class='fas fa-store'></i> Retirado</button></a></td>";
 					}else{
-						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"alterarStatusDelivery(".$pedido->getCod_pedido().",3)\" class='btn btn-primary' disable><i class='fa fa-truck'></i> Delivery</button></a></td>";
+						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"alterarStatusDelivery(".$pedido->getPkId().",3)\" class='btn btn-primary' disable><i class='fa fa-truck'></i> Delivery</button></a></td>";
 					}
 
 					echo "<td style='text-align: center;' name='editar'>
-								<a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido()."'>
-									<div type='button' class='popup btn btn-primary' onmouseover='myFunction(".$array.")' onmouseout='myFunction(".$array.")'>
+								<a style='font-size: 10px;' ' href='pedido-info.php?cod=".$pedido->getPkId()."'>
+									<div type='button' class='popup btn btn-primary' onmouseover='myPopup(".$array.")' onmouseout='myPopup(".$array.")'>
 									<i class='fa fa-edit'></i> Detalhes
 										<span class='popuptext' id='myPopup".$array."'>
 												<table class=''>
 													<tbody>";
-													$itens = $controle1->selectItens($pedido->getCod_pedido());
+													$itens = $control_carrinho->selectItens($pedido->getPkId());
 													foreach($itens as $item){
-													echo " <tr name='resultado' id='status".$item->getCod_item()."'>	
-															<td id='detalhes'>".$item->getQuantidade()."x</td>
-															<td id='detalhes'> ".$item->getProduto()."</td>
-															<td id='detalhes'>"."R$ ".$item->preco."</td>
-														</tr>";
+														echo " <tr name='resultado' id='status".$item->getPkId()."'>	
+														<td id='detalhes'>".$item->getQuantidade()."x</td>
+														<td id='detalhes'> ".$item->nome."</td>
+														<td id='detalhes'>"."R$ ".$item->getPreco()."</td>
+													</tr>";
 													}
 												echo "
 												</tbody>
@@ -263,16 +262,16 @@ if ($pedidos == -1){
 
 		if($pedido->getStatus()==3){
 
-			$array = ($pedido->getCod_pedido());
+			$array = ($pedido->getPkId());
 			$mensagem='Cliente excluído com sucesso!';
 			$titulo='Excluir';
-			echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
-			 	<td style='text-align: center;' name='data'>".$pedido->getCod_pedido()."</td>
+			echo "<tr name='resultado' id='status".$pedido->getPkId()."'>
+			 	<td style='text-align: center;' name='data'>".$pedido->getPkId()."</td>
 			 	<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->getData()->format('H:i')."</td>
 				<td style='text-align: center;' name='valor'>".$pedido->getCliente()."</td>
 				<td style='text-align: center;' name='valor'>R$".$pedido->getValor()."</td>
-				<td style='text-align: center;' name='numero'>".$pedido->getOrigem()."</td>";
+				<td style='text-align: center;' name='numero'>".$pedido->origem_pedido."</td>";
 
 				if($pedido->rua == NULL){
 					echo "<td style='text-align: center;' name='rua'>Balcão</td>";
@@ -281,7 +280,7 @@ if ($pedidos == -1){
 				}
 
 				echo "<div id='buttonbar'>
-					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button onclick=\"erroPrint(3,".$pedido->getStatus().")\" class='btn btn-danger' data-toggle='modal' data-target='#modalPedido".$pedido->getCod_pedido()."' data-id='".$pedido->getCod_pedido()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
+					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button onclick=\"erroPrint(3,".$pedido->getStatus().")\" class='btn btn-danger' data-toggle='modal' data-target='#modalPedido".$pedido->getPkId()."' data-id='".$pedido->getPkId()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
 
 					if($pedido->rua == NULL){	
 						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroRetirada(3,".$pedido->getStatus().")\" class='btn btn-success' disable><i class='fas fa-store'></i> Retirado</button></a></td>";
@@ -289,19 +288,19 @@ if ($pedidos == -1){
 						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick=\"erroDelivery(3,".$pedido->getStatus().")\" class='btn btn-success' disable><i class='fa fa-truck'></i> Delivery</button></a></td>";
 					}					
 					echo "<td style='text-align: center;' name='editar'>
-								<a style='font-size: 10px;' ' href='descPage.php?cod=".$pedido->getCod_pedido()."'>
-									<div type='button' class='popup btn btn-primary' onmouseover='myFunction(".$array.")' onmouseout='myFunction(".$array.") ' href='descPage.php?cod=".$pedido->getCod_pedido()."'>
+								<a style='font-size: 10px;' ' href='pedido-info.php?cod=".$pedido->getPkId()."'>
+									<div type='button' class='popup btn btn-primary' onmouseover='myPopup(".$array.")' onmouseout='myPopup(".$array.") ' href='pedido-info.php?cod=".$pedido->getPkId()."'>
 									<i class='fa fa-edit'></i> Detalhes
 										<span class='popuptext' id='myPopup".$array."'>
 												<table class=''>
 													<tbody>";
-													$itens = $controle1->selectItens($pedido->getCod_pedido());
+													$itens = $control_carrinho->selectItens($pedido->getPkId());
 													foreach($itens as $item){
-													echo " <tr name='resultado' id='status".$item->getCod_item()."'>	
-															<td id='detalhes'>".$item->getQuantidade()."x</td>
-															<td id='detalhes'> ".$item->getProduto()."</td>
-															<td id='detalhes'>"."R$ ".$item->preco."</td>
-														</tr>";
+														echo " <tr name='resultado' id='status".$item->getPkId()."'>	
+														<td id='detalhes'>".$item->getQuantidade()."x</td>
+														<td id='detalhes'> ".$item->nome."</td>
+														<td id='detalhes'>"."R$ ".$item->getPreco()."</td>
+													</tr>";
 													}
 												echo "
 												</tbody>
@@ -331,7 +330,7 @@ if ($pedidos == -1){
 	foreach ($pedidos as &$pedido) {
 			$mensagem='Cliente excluído com sucesso!';
 			$titulo='Excluir';
-			echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
+			echo "<tr name='resultado' id='status".$pedido->getPkId()."'>
 			 	<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
 			 	<td style='text-align: center;' name='cliente'>".$pedido->cliente."</td>
 				<td style='text-align: center;' name='telefone'>".$pedido->telefone."</td>
@@ -343,12 +342,14 @@ if ($pedidos == -1){
 
 }
 
-foreach ($pedidos as &$pedido) {
-
+foreach ($pedidos as $pedido) {
 	$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
-	$itens = $controle->selectItens($pedido->getCod_pedido());
+	$itens = $control_carrinho->selectItens($pedido->getPkId());
 	$formaPgt = $controlFormaPgt->selectId($pedido->getFkFormaPgt());
 	$formaPgtVerify = $controlFormaPgt->selectId($pedido->getFkFormaPgt());
+
+	// echo $pedido->getData()->format('H:i');
+
 
 	//  var_dump($formaPgt->getCod_formaPgt());
 
@@ -356,9 +357,9 @@ foreach ($pedidos as &$pedido) {
 
 
 	if($pedido->getStatus()==1 || $pedido->getStatus()==2){
-	$array = ($pedido->getCod_pedido());
+	$array = ($pedido->getPkId());
 	
-	echo " <div class=\"modal fade\" style='text-align: center' id='modalPedido".$pedido->getCod_pedido()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
+	echo "<div class=\"modal fade\" style='text-align: center' id='modalPedido".$pedido->getPkId()."' tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\">
 
 			<div class=\"modal-dialog\" role=\"document\">
 			<div class=\"modal-content\">
@@ -372,7 +373,7 @@ foreach ($pedidos as &$pedido) {
 				echo "<div class=\"form-group\" style='display: inline-block; text-align: left; max-width: 300px; overflow-wrap: break-word;'>
 						<label for=\"recipient-name\" class=\"control-label\">----------------------------------</label>
 						<br><label for=\"recipient-name\" class=\"control-label\">Restaurante: DELION.O </label>
-						<br><label for=\"message-text\" class=\"control-label\">"."Pedido: #".$pedido->getCod_pedido()."</label>
+						<br><label for=\"message-text\" class=\"control-label\">"."Pedido: #".$pedido->getPkId()."</label>
 							<br><label for=\"message-text\" class=\"control-label\">"."Data: ".$pedido->getData()->format('d/m/Y')." ".$pedido->getData()->format('H:i')."</label>
 							<br><label for=\"message-text\" class=\"control-label\">"."Previsao de Entrega: ".$entrega."</label>
 							<br>
@@ -391,10 +392,10 @@ foreach ($pedidos as &$pedido) {
 							<br><label for=\"recipient-name\" class=\"control-label\">"." CEP: ".$pedido->cep."</label>";
 							}
 
-							if($formaPgt->getCod_formaPgt() == NULL){
+							if($formaPgt->getPkId() == NULL){
 							echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Forma Pagamento: <b>".$formaPgtDin."</b></label>";
 							}else{
-								echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Forma Pagamento: ".$formaPgt->getTipoFormaPgt()."</label>";
+								echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Forma Pagamento: ".$formaPgt->getPkId()."</label>";
 							}
 							echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Observações do Pedido </label>";
 							if(!empty($item->getObservacao())){
@@ -402,7 +403,7 @@ foreach ($pedidos as &$pedido) {
 							}
 							foreach($itens as &$item){
 							if(!empty($item->getObservacao())){
-								echo "<br><label for=\"recipient-name\" class=\"control-label\">"."<b> - ".$item->getProduto()." : ".$item->getObservacao()."</b></label>";
+								echo "<br><label for=\"recipient-name\" class=\"control-label\">"."<b> - ".$item->nome." : ".$item->getObservacao()."</b></label>";
 							}
 							}
 						echo "</div>
@@ -416,8 +417,8 @@ foreach ($pedidos as &$pedido) {
 							
 							echo "
 								<label for=\"recipient-name\" class=\"control-label\">"." ".$item->getQuantidade()."</label>
-								<label for=\"recipient-name\" class=\"control-label\">"." - ".$item->getProduto()."</label>
-								<label for=\"recipient-name\" class=\"control-label\">"." -         R$".$item->preco."</label>
+								<label for=\"recipient-name\" class=\"control-label\">"." - ".$item->nome."</label>
+								<label for=\"recipient-name\" class=\"control-label\">"." -         R$".$item->getPreco()."</label>
 								<br>";
 							}
 						
@@ -445,7 +446,9 @@ foreach ($pedidos as &$pedido) {
 		</div>
 		</div>";
 	}
+	
 	}
 
 echo "</tbody></table>";
+
 ?>

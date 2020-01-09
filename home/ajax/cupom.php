@@ -65,7 +65,7 @@ function verificarCupom($fk_cliente, $cupom, $codigo_inserido, $data, $clcu_fk_c
         echo json_encode(array("mensagem" => "O cupom digitado não existe!")); return;
     }else if($pk_cupom_inserido === $clcu_fk_cod->getFkCupom()){
         echo json_encode(array("mensagem" => "Você já utilizou esse cupom!")); return;
-    }else if($fk_cliente === $clcu_fk_cod->getCod_cliente()){
+    }else if($fk_cliente === $clcu_fk_cod->getPkId()){
         echo json_encode(array("mensagem" => "Você não pode usar mais de 1 cupom por dia")); return;
     }else if($cupom->getStatus() === 2){
         echo json_encode(array("mensagem" => "O numero de cupons foi esgotado!")); return;

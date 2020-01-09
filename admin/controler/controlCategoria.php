@@ -46,12 +46,12 @@
             }
         }
 
-        function updatePos($cat_pk_id, $cat_posicao){
+        function updatePos($pk_id, $cat_posicao){
             try{
-                $stmte =$this->pdo->prepare("UPDATE tb_categoria SET cat_posicao=:cat_posicao WHERE cat_pk_id=:cat_pk_id");
+                $stmte =$this->pdo->prepare("UPDATE tb_categoria SET cat_posicao=:posicao WHERE cat_pk_id=:pk_id");
 
-                $stmte->bindParam(":cod_categoria", $cat_pk_id, PDO::PARAM_INT);
-                $stmte->bindParam(":cat_posicao", $cat_posicao, PDO::PARAM_INT);
+                $stmte->bindParam(":pk_id", $pk_id, PDO::PARAM_INT);
+                $stmte->bindParam(":posicao", $cat_posicao, PDO::PARAM_INT);
                 $executa = $stmte->execute();
                 
                 if($executa){

@@ -31,7 +31,7 @@ if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || 
 		$menor =0;
 	}
 	if (!isset($_POST['maior'])){
-		$maior =999999;
+		$maior = 999999;
 	}
 	$pedidos = $controle->selectAllPedido($nome, $menor, $maior);
 }
@@ -59,7 +59,7 @@ if(in_array('pedido', $permissao)){
         </tr>
 	<tbody>";
 		foreach ($pedidos as &$pedido) {
-				if($pedido->getCod_pedido() == $cod){
+				if($pedido->getPkId() == $cod){
 				$mensagem='Cliente excluído com sucesso!';
 				$titulo='Excluir';
 				$impressao1 = strtotime($pedido->getHora_print());
@@ -89,8 +89,8 @@ if(in_array('pedido', $permissao)){
 				}
 				
 				$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +".$tempo_entrega." minutes"));
-				echo "<tr name='resultado' id='status".$pedido->getCod_pedido()."'>
-					<td style='text-align: center;' name='cliente'>".$pedido->cliente."</td>
+				echo "<tr name='resultado' id='status".$pedido->getPkId()."'>
+					<td style='text-align: center;' name='cliente'>".$pedido->getCliente()."</td>
 					<td style='text-align: center;' name='dataPedido'>".$pedido->getData()->format('d/m/Y')."</td>
 					<td style='text-align: center;' name='horaPedido'>".$pedido->getData()->format('H:i')."</td>
 					<td style='text-align: center;' name='horaImpressão'>".$impressao."</td>

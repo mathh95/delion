@@ -29,8 +29,8 @@
 
         function update($imagem){
             try{
-                $stmte =$this->pdo->prepare("UPDATE tb_imagem SET ima_nome=:nome, ima_foto=:foto, ima_pagina=:pagina WHERE ima_cod_imagem=:cod_imagem");
-                $stmte->bindParam(":cod_imagem", $imagem->getCod_imagem() , PDO::PARAM_INT);
+                $stmte =$this->pdo->prepare("UPDATE tb_imagem SET ima_nome=:nome, ima_foto=:foto, ima_pagina=:pagina WHERE ima_pk_id=:cod_imagem");
+                $stmte->bindParam(":cod_imagem", $imagem->getPkId() , PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $imagem->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam("foto", $imagem->getFoto(), PDO::PARAM_STR);
                 $stmte->bindParam("pagina", $imagem->getPagina(), PDO::PARAM_INT);
