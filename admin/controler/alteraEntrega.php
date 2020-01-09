@@ -36,9 +36,9 @@
 			$tempo = addslashes(htmlspecialchars($arr_tempo[$i]));
 			$valor_minimo = addslashes(htmlspecialchars($arr_valor_minimo[$i]));
 			$min_taxa_gratis = addslashes(htmlspecialchars($arr_min_taxa_gratis[$i]));
-			$flag_ativo = addslashes(htmlspecialchars($arr_flag_ativo[$i]));
 
-			if(isset($flag_ativo) && !empty($flag_ativo)){
+			//raio checked?
+			if(in_array($cod_entrega, $arr_flag_ativo)){
 				$flag_ativo = 1;
 			}else{
 				$flag_ativo = 0;
