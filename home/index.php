@@ -184,9 +184,9 @@
 
 	<footer class=" container footer container-fluid">
 
-	<div class="navbar-social navbar-collapse">
-			<a href="facebook.com"><i class="fab fa-facebook"></i></a>
-			<a href="instagram.com"><i class="fab fa-instagram"></i></a>
+		<div class="navbar-social navbar-collapse">
+			<a href="https://www.facebook.com/delioncafe"><i class="fab fa-facebook"></i></a>
+			<a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
 		</div>
 
 		<div class="row left">
