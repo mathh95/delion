@@ -16,7 +16,8 @@
 		}
 		
 		if($result == 1){
-            header("Location: /admin/view/admin/gerenciarCardapio.php");    //mudar aqui
+			header("Location: /admin/view/admin/gerenciarCardapio.php");    //mudar aqui
+			
         }else{
 		
 		}

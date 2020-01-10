@@ -779,7 +779,7 @@
                     $stmte = $this->pdo->prepare("SELECT *
                     FROM tb_produto AS PRO
                     INNER JOIN tb_categoria AS CAT
-                    ON PRO.categoria = CAT.cat_pk_id
+                    ON PRO.pro_fk_categoria = CAT.cat_pk_id
                     WHERE PRO.pro_fk_categoria = :fk_categoria AND PRO.pro_descricao LIKE :filtro AND PRO.pro_flag_servindo = :flag_servindo ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
                     $stmte->bindValue(":flag_servindo", $flag_servindo , PDO::PARAM_INT);
                 }
