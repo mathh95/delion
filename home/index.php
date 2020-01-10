@@ -24,7 +24,7 @@
 	$imagens = $controleImagem->selectAll();
 
 	//configuração de acesso ao WhatsApp 
-	include "./whats-config.php";
+	//include "./whats-config.php";
 
 ?>
 
@@ -145,7 +145,7 @@
 
 					if (in_array('homeEventos', $pagina) && ($i < 2)) {
 						echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-14  thumb-home'>
-						<a class='thumbnail' href='sobre.php'>
+						<a class='thumbnail' href='eventos.php'>
 							<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='eventos'>
 						</a>
 					</div>";
@@ -166,7 +166,7 @@
 
 					if (in_array('homeFidelidade', $pagina) && ($i < 2)) {
 						echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-14  thumb-home'>
-						<a class='thumbnail' href='sobre.php'>
+						<a class='thumbnail' href='fidelidade.php'>
 							<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='eventos'>
 						</a>
 					</div>";
@@ -195,15 +195,15 @@
 					<p class="bold-text"><b>Navegue</b></p>
 				</li>
 				<li>
-					<a href="#">Quem Somos</a>
+					<a href="/home/sobre.php">Quem Somos</a>
 				</li>
 
 				<li>
-					<a href="#">Eventos</a>
+					<a href="/home/eventos.php">Eventos</a>
 				</li>
 
 				<li>
-					<a href="#">Programa de Fidelidade</a>
+					<a href="/home/fidelidade.php">Programa de Fidelidade</a>
 				</li>
 			</ul>
 			
@@ -219,15 +219,15 @@
 				</li>
 
 				<li>
-					<a href="#">História</a>
+					<a href="/home/historia.php">História</a>
 				</li>
 
 				<li>
-					<a href="#">Localização</a>
+					<a href="/home/localizacao.php">Localização</a>
 				</li>
 
 				<li>
-					<a href="#">Trabalhe Conosco</a>
+					<a href="/home/contato.php">Trabalhe Conosco</a>
 				</li>
 			</ul>
 		</div>

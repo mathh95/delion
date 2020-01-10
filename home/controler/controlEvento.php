@@ -13,7 +13,7 @@
         */
 
         function select($parametro,$modo){
-            $evento= new evento();
+            $evento = new evento();
             try{
                 if($modo==1){
                     $stmte = $this->pdo->prepare("SELECT * FROM tb_evento WHERE eve_nome LIKE :parametro");
@@ -42,7 +42,11 @@
         function selectAllAntigo(){
             $eventos = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM tb_evento WHERE eve_flag_antigo = 1 ORDER BY data ASC");
+                $stmte = $this->pdo->prepare("SELECT *
+                FROM tb_evento
+                WHERE eve_flag_antigo = 1
+                ORDER BY eve_data ASC");
+                
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
@@ -66,7 +70,11 @@
         function selectAllNovo(){
             $eventos = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM tb_evento WHERE eve_flag_antigo = 0 ORDER BY eve_pk_id ASC LIMIT 1");
+                $stmte = $this->pdo->prepare("SELECT *
+                FROM tb_evento
+                WHERE eve_flag_antigo = 0
+                ORDER BY eve_pk_id ASC LIMIT 1");
+
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
