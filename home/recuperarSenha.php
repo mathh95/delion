@@ -28,7 +28,7 @@
 	$imagens = $controleImagem->selectAll();
 
 	//configuração de acesso ao WhatsApp 
-	include "./whats-config.php";
+	//include "./whats-config.php";
 
 ?>
 

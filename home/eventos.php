@@ -20,7 +20,7 @@ session_start();
 	setlocale (LC_TIME, 'ptb');
 
 	//configuração de acesso ao WhatsApp 
-	include "./whats-config.php";
+	//include "./whats-config.php";
 
 ?>
 
