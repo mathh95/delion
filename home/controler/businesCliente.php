@@ -266,9 +266,10 @@
             echo "CPF inválido.\n";
             $erros++;
         }
-        // //Remove mascara
-        // $cpf_int = str_replace('-', '', $cpf);
-        // $cpf_int = preg_replace('/[^A-Za-z0-9\-]/', '', $cpf_int);
+        
+        //Remove mascara
+        $cpf_int = str_replace('-', '', $cpf);
+        $cpf_int = preg_replace('/[^A-Za-z0-9\-]/', '', $cpf_int);
         
 
         //valida data_nasc
