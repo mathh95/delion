@@ -83,31 +83,42 @@
 
         function filter($parametro, $flag_ativo, $delivery, $prioridade){
             try{
-                $stmte = $this->pdo->prepare("SELECT A.cod_cardapio AS cod_cardapio, A.nome AS nome, A.preco AS preco, A.desconto AS desconto, A.descricao AS descricao, A.foto AS foto, A.flag_ativo AS flag_ativo, A.prioridade AS prioridade, A.delivery AS delivery, B.nome AS categoria FROM cardapio AS A inner join categoria AS B ON A.categoria = B.cod_categoria WHERE A.nome LIKE :parametro AND A.flag_ativo LIKE :flag_ativo AND A.delivery LIKE :delivery AND A.prioridade LIKE :prioridade");
+                $stmte = $this->pdo->prepare("SELECT *
+                FROM tb_produto AS PRO
+                INNER JOIN tb_categoria AS CAT
+                ON PRO.pro_fk_categoria = CAT.cat_pk_id
+                WHERE PRO.pro_nome LIKE :parametro AND PRO.pro_flag_ativo LIKE :flag_ativo AND PRO.pro_flag_delivery LIKE :delivery AND PRO.pro_flag_prioridade LIKE :prioridade");
+
                 $stmte->bindValue(":parametro","%".$parametro."%");
                 $stmte->bindValue(":flag_ativo","%" .$flag_ativo);
                 $stmte->bindValue(":delivery","%".$delivery);
                 $stmte->bindValue(":prioridade","%".$prioridade);
-                $cardapios = array();
+
+                $produtos = array();
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $cardapio= new cardapio();
-                            $cardapio->setCod_cardapio($result->cod_cardapio);
-                            $cardapio->setNome($result->nome);
-                            $cardapio->setPreco($result->preco);
-                            $cardapio->setDesconto($result->desconto);
-                            $cardapio->setDescricao($result->descricao);
-                            $cardapio->setFoto($result->foto);
-                            $cardapio->setCategoria($result->categoria);
-                            $cardapio->setFlag_ativo($result->flag_ativo);
-                            $cardapio->setPrioridade($result->prioridade);
-                            $cardapio->setDelivery($result->delivery);
-                            array_push($cardapios, $cardapio);
+                            $produto = new produto();
+                            $produto->setPkId($result->pro_pk_id);
+                            $produto->setNome($result->pro_nome);
+                            $produto->setPreco($result->pro_preco);
+                            $produto->setDesconto($result->pro_desconto);
+                            $produto->setDescricao($result->pro_descricao);
+                            $produto->setFoto($result->pro_foto);
+                            $produto->setCategoria($result->cat_nome);
+                            $produto->setFlag_ativo($result->pro_flag_ativo);
+                            $produto->setFlag_servindo($result->pro_flag_servindo);
+                            $produto->setPrioridade($result->pro_flag_prioridade);
+                            $produto->setDelivery($result->pro_flag_delivery);
+                            $produto->setPosicao($result->pro_posicao);
+                            $produto->setDias_semana($result->pro_arr_dias_semana);
+                            $produto->setProduto_horas_inicio($result->faho_inicio);
+                            $produto->setProduto_horas_final($result->faho_final);
+                            array_push($produtos, $produto);
                         }
                     }
                 }
-                return $cardapios;
+                return $produtos;
                 
             }
             catch(PDOException $e){
@@ -156,8 +167,6 @@
             $array = array();
 
             $sql = "SELECT * FROM tb_adicional WHERE adi_pk_id IN (".implode(',', $itens).")";
-            // print_r($sql);
-            // exit;
             $sql = $this->pdo->query($sql);
 
             if($sql -> rowCount() > 0){
@@ -165,19 +174,6 @@
             }
 
             return $array;
-        }
-
-        function countCardapio(){
-            try{
-                $stmte = $this->pdo->prepare("SELECT COUNT(*) AS cardapios FROM cardapio WHERE flag_ativo = 1 ");
-                $stmte->execute();
-                $result = $stmte->fetch(PDO::FETCH_OBJ);
-                return $result->cardapios;
-            }
-            catch(PDOException $e){
-                echo $e->getMessage();
-                return -1;
-            }
         }
 
         function __construct($pdo){

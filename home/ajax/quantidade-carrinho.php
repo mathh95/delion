@@ -190,8 +190,10 @@ if($acao == "+"){
 }
 elseif($acao == "rem"){
     if(isset($_GET['id']) && !empty($_GET['id'])){
+        
         $id = $_GET['id'];
         $qtd = $_GET['qtdAtual'];
+
         foreach($_SESSION['carrinho'] as $key => $value){
             if($id == $value){
                 unset($_SESSION['carrinho'][$key]);

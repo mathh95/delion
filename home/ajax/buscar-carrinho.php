@@ -153,7 +153,7 @@ if (count($itens) > 0) {
                     ){
                     ?>
                     
-                    <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_cod_cardapio'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
+                    <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
                         <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
                         <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['pro_nome'] ?></strong></td>
                         <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
@@ -183,7 +183,7 @@ if (count($itens) > 0) {
                     
                     ?>
 
-                        <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_cod_cardapio'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
+                        <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
                             <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
                             <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['pro_nome'] ?></strong></td>
                             <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
@@ -240,7 +240,7 @@ if (count($itens) > 0) {
                                     $obs = $itens_obs[$key];
                                 ?>               
                                 
-                                <div id="idLinhaObs<?= $i ?>" data-id="<?= $item['pro_cod_cardapio'] ?>" class="ladoDireito row">    
+                                <div id="idLinhaObs<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class="ladoDireito row">    
                                     <?php
                                     if(!empty($obs)){ ?>
                                         <span data-linha="<?= $i ?>" style="padding-left: 22px; width: 200px; font-size: 13px; border:none !important"><b><?= $item['pro_nome'] ?></b> : <?= $obs?></span>
