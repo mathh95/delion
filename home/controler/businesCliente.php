@@ -12,63 +12,42 @@
     include_once "../utils/GoogleRecaptcha.php";
 
     if (isset($_POST) and !empty($_POST)){
-        if(isset($_POST['idGoogle']) && !empty($_POST['idGoogle'])){
 
-            $nome= addslashes(htmlspecialchars($_POST['nomeCliente']));
-            $idGoogle = addslashes(htmlspecialchars($_POST['idGoogle']));
-            $status=1;
-            $login=addslashes(htmlspecialchars($_POST['emailCliente']));
+        //Cadastro/Login Google
+        if(isset($_POST['id_google']) && !empty($_POST['id_google'])){
+
+            $id_google = addslashes(htmlspecialchars($_POST['id_google']));
+            $nome = addslashes(htmlspecialchars($_POST['nome']));
+            $sobrenome = addslashes(htmlspecialchars($_POST['sobrenome']));
+            $login_email = addslashes(htmlspecialchars($_POST['email']));
+            $status = 1;
             
             $cliente = new cliente;
             $control = new controlCliente($_SG['link']);
 
-            $cliente = $control->select($login, 3);
+            // $result = $control->selectByIdGoogle($id_google);
+            $result = $control->selectByEmail($login_email);
 
-            if(null != $cliente->getPkId()){
-               
-                $_SESSION['cod_cliente']=$cliente->getPkId();
-                $_SESSION['nome']=$cliente->getNome();
-                $_SESSION['login']=$cliente->getLogin();
+            if (($result != null) && $result->getPkId()){
 
-                echo $_SESSION['nome'];
-                
-            }else{
+                $cod_cliente = $result->getPkId();
+                $nome = $result->getNome();
+                $login = $result->getLogin();
 
-                $cliente->setNome($nome);
-                $cliente->setLogin($login);
-                $cliente->setIdGoogle($idGoogle);
-                $cliente->setStatus($status);
-
-                $result=$control->insertGoogle($cliente);
-                if ($result > 0){
-                    $control->validaCliente($cliente->getLogin(),$cliente->getSenha());
-                    header("Location: ../");
-                }else{
-                    echo "erro";
-                }
-            }
-
-        }elseif (isset($_POST['id']) && !empty($_POST['id'])) {
-            $control = new controlCliente ($_SG['link']);
-            $nome=addslashes(htmlspecialchars($_POST['nome']));
-            $login=addslashes(htmlspecialchars($_POST['email']));
-            $idFacebook=addslashes(htmlspecialchars($_POST['id']));
-            $result=$control->select($login,3);
-            if ($result->getPkId()){
-                $cod_cliente=$result->getPkId();
-                $nome=$result->getNome();
-                $login=$result->getLogin();
-                if ($result->getIdFacebook() and $result->getIdFacebook() == $idFacebook){
-                    $result=$control->validaRedeSocial($login,$idFacebook,0);
+                if ($result->getIdGoogle() && ($result->getIdGoogle() == $id_google)){
+                    $result = $control->validaRedeSocial($login_email, $id_google, 0);
                     if ($result == 2){
                         echo "sucesso";
                     }else{
                         echo -1;
                     }
+
                 }else{
-                    $result=$control->updateFacebook($cod_cliente, $idFacebook);
+                    //atualiza id
+                    $result = $control->updateIdGoogle($cod_cliente, $id_google);
+
                     if ($result > 0){
-                        $result=$control->validaRedeSocial($login, $idFacebook,0);
+                        $result = $control->validaRedeSocial($login_email, $id_google, 1);
                         if ($result == 2){
                             echo "sucesso";
                         }else{
@@ -78,15 +57,82 @@
                         echo -1;
                     }
                 }
+
             }else{
                 $cliente = new cliente;
                 $cliente->setNome($nome);
-                $cliente->setLogin($login);
+                $cliente->setSobrenome($sobrenome);
+                $cliente->setLogin($login_email);
                 $cliente->setStatus(1);
-                $cliente->setIdFacebook($idFacebook);
+                $cliente->setIdGoogle($id_google);
+
+                $result = $control->insertGoogle($cliente);
+                if ($result > 0){
+                    $result = $control->validaRedeSocial($login_email, $id_google, 1);
+                    if ($result == 2){
+                        echo "sucesso";
+                    }else{
+                        echo -1;
+                    }
+                }else{
+                    echo -1;
+                }
+            }
+
+        
+        //Cadastro/Login Facebook
+        }elseif (isset($_POST['id_facebook']) && !empty($_POST['id_facebook'])) {
+
+            $control = new controlCliente ($_SG['link']);
+            $nome = addslashes(htmlspecialchars($_POST['nome']));
+            $sobrenome = addslashes(htmlspecialchars($_POST['sobrenome']));
+            $login_email = addslashes(htmlspecialchars($_POST['email']));
+            $id_facebook = addslashes(htmlspecialchars($_POST['id_facebook']));
+
+            //$result = $control->selectByIdFacebook($id_facebook);//unique for each app
+            $result = $control->selectByEmail($login_email);
+
+            if (($result != null) && $result->getPkId()){
+
+                $cod_cliente = $result->getPkId();
+                $nome = $result->getNome();
+                $login = $result->getLogin();
+
+                if ($result->getIdFacebook() && ($result->getIdFacebook() == $id_facebook)){
+                    $result = $control->validaRedeSocial($login_email, $id_facebook, 0);
+                    if ($result == 2){
+                        echo "sucesso";
+                    }else{
+                        echo -1;
+                    }
+
+                }else{
+                    //atualiza id
+                    $result = $control->updateIdFacebook($cod_cliente, $id_facebook);
+
+                    if ($result > 0){
+                        $result = $control->validaRedeSocial($login_email, $id_facebook, 0);
+                        if ($result == 2){
+                            echo "sucesso";
+                        }else{
+                            echo -1;
+                        }
+                    }else{
+                        echo -1;
+                    }
+                }
+
+            }else{
+                $cliente = new cliente;
+                $cliente->setNome($nome);
+                $cliente->setSobrenome($sobrenome);
+                $cliente->setLogin($login_email);
+                $cliente->setStatus(1);
+                $cliente->setIdFacebook($id_facebook);
+
                 $result = $control->insertFacebook($cliente);
                 if ($result > 0){
-                    $result=$control->validaRedeSocial($login,$idFacebook, 0);
+                    $result = $control->validaRedeSocial($login_email, $id_facebook, 0);
                     if ($result == 2){
                         echo "sucesso";
                     }else{
@@ -147,8 +193,9 @@
              
             //Verificação do Cliente
             }else if(
-            isset($_POST['is_verificacao_cadastro']) &&
-            $_POST['is_verificacao_cadastro'] == 1) {
+                isset($_POST['is_verificacao_cadastro']) &&
+                $_POST['is_verificacao_cadastro'] == 1)
+            {
                 
                 $telefone_int = limpaTelefone($telefone);
                 $cod_sms = rand(1112, 9998);
@@ -198,13 +245,17 @@
                     $control_sms->updateVerificado($res_sms->getCod_sms());
                 }
 
+                //Remove mascara
+                $cpf_int = str_replace('-', '', $cpf);
+                $cpf_int = preg_replace('/[^A-Za-z0-9\-]/', '', $cpf_int);
+
                 //insere cliente
                 $status=1;
                 $cliente = new cliente;
-                $cliente->construct($nome, $sobrenome, $cpf, $data_nasc, $login, $senha,$telefone_int, $status);
+                $cliente->construct($nome, $sobrenome, $cpf_int, $data_nasc, $login, $senha,$telefone_int, $status);
                 $control = new controlCliente($_SG['link']);
-                $result=$control->insert($cliente);
-
+                
+                $result = $control->insert($cliente);
                 if ($result > 0){
                     $control->validaCliente($cliente->getLogin(),$cliente->getSenha());
                     
@@ -266,10 +317,6 @@
             echo "CPF inválido.\n";
             $erros++;
         }
-        
-        //Remove mascara
-        $cpf_int = str_replace('-', '', $cpf);
-        $cpf_int = preg_replace('/[^A-Za-z0-9\-]/', '', $cpf_int);
         
 
         //valida data_nasc

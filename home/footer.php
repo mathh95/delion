@@ -112,9 +112,9 @@ include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 <meta name = "google-signin-client_id" content="<?=GOOGLE_SIGNIN_CREDENTIAL?>.apps.googleusercontent.com">
-<script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
+
 
 <script type="text/javascript" src="js/maskedinput.js"></script>
 
@@ -129,8 +129,6 @@ include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
-
-<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
 <script>
 
