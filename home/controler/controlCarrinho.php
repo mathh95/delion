@@ -278,7 +278,7 @@ class controlerCarrinho{
         $executa=$stmt->execute();
         if ($executa) {
             if ($stmt->rowCount() > 0 ){
-                while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                while($result = $stmt->fetch(PDO::FETCH_OBJ)){
                     $pedido_produto = new pedido_produto();
                     $pedido_produto->setFkProduto($result->pepr_fk_produto);
                     $pedido_produto->setQuantidade($result->pepr_quantidade);

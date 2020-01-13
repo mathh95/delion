@@ -5,7 +5,7 @@ session_start();
 $acao = $_POST['acao'];
 if($acao == "delivery"){
 
-    $_SESSION['is_delivery_home'] = 1;
+    $_SESSION['delivery'] = 1;
     if($_SESSION['delivery_price'] > 0){
 
         $_SESSION['totalCorrigido'] = (float)$_SESSION['totalComDesconto'] + (float)$_SESSION['delivery_price'];
@@ -21,7 +21,7 @@ if($acao == "delivery"){
     return;
 
 }else if($acao == "balcao"){
-    $_SESSION['is_delivery_home'] = 0;
+    $_SESSION['delivery'] = 0;
     if($_SESSION['delivery_price'] > 0){
         $_SESSION['totalCorrigido'] = (float)$_SESSION['totalComDesconto'];
     }
