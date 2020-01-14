@@ -100,7 +100,6 @@ $body_pedido =
         <thead>
             <tr>
                 <th width='15%' height='20%'>Nº Item</th>
-                <th width='15%'>Data</th>
                 <th width='15%'>Produto</th>
                 <th width='15%'>Quantidade</th>
                 <th width='15%'>Unidade</th>
@@ -113,7 +112,6 @@ $body_pedido =
         
         $body_pedido .= "<tr>
             <td height='15%'>" . $_SESSION['carrinho'][$key] . "</td>
-            <td height='15%'>" . $date . "</td>
             <td height='15%'>" . $itens[$key]['pro_nome'] . "</td>
             <td height='15%'>" . $_SESSION['qtd'][$key] . "</td> 
             <td height='15%'>R$ " . number_format($itens[$key]['pro_preco'], 2) . "</td>
@@ -136,12 +134,15 @@ if ($fk_endereco == null) {
         $mail->isHTML(true);
         $mail->Subject = "[Pedido - Retirada] ".$subject;
 
-        $mail->Body = "Cliente: <b>".$_SESSION['nome']." ".$_SESSION['sobrenome']. "</b>";
+        $mail->Body = "Data: <b>". $date . "</b><br>";
+        $mail->Body .= "Cliente: <b>".$_SESSION['nome']." ".$_SESSION['sobrenome']. "</b>";
 
         $mail->Body .= $body_pedido;
 
         $mail->AltBody = '';
-        $mail->send();
+        
+        //verifica validade do pedido antes de enviar pedido
+        if($_SESSION['carrinho']) $mail->send();
 
     } catch (Exception $e) {
         echo $mail->ErrorInfo;
@@ -171,13 +172,16 @@ if ($fk_endereco == null) {
         $rua = $endereco_cliente->logradouro;
         $bairro = $endereco_cliente->bairro;
 
-        $mail->Body = "Cliente: <b>".$_SESSION['nome']." ".$_SESSION['sobrenome']. "</b><br>";
+        $mail->Body = "Data: <b>". $date . "</b><br>";
+        $mail->Body .= "Cliente: <b>".$_SESSION['nome']." ".$_SESSION['sobrenome']. "</b><br>";
         $mail->Body .= "Endereço: <b>".$rua.", ".$num." - ".$bairro."</b>";
 
         $mail->Body .= $body_pedido;
 
         $mail->AltBody = '';
-        $mail->send();
+        
+        //verifica validade do pedido antes de enviar pedido
+        if($_SESSION['carrinho']) $mail->send();
 
     } catch (Exception $e) {
         echo $mail->ErrorInfo;
