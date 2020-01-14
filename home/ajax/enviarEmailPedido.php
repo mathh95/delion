@@ -1,6 +1,7 @@
 <?php
 
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
+include_once HELPERPATH."/mask.php";
 
 //session_start();
 include_once "../../admin/controler/conexao.php";
@@ -10,6 +11,7 @@ require_once "../controler/controlCarrinho.php";
 require_once "../controler/controlProduto.php";
 
 include_once "../lib/alert.php";
+
 
 require_once "../controler/controlCarrinho.php";
 require_once "../controler/controlEndereco.php";
@@ -84,42 +86,46 @@ $mail->setFrom(MAIL_SERVER, "Site - Delion Café");
 $mail->addAddress(MAIL_SERVER, "Delion Café");
 
 $nome = $_SESSION['nome']." ".$_SESSION['sobrenome'];
-$telefone = $_SESSION['telefone'];
-$subject = $nome." | ".$telefone;
 
+$mask = new Mask;
+$masked_phone = $mask->addMaskPhone($_SESSION['telefone']);
+$subject = $nome." | ".$masked_phone;
 
+$date = new DateTime();
+$date = $date->format('d-m-Y H:i');
 
-$body_pedidos = 
-        "<h2>Produtos</h2>
-        <table width='100%' border='1px' style='text-align:center;'>
-            <thead>
-                <tr>
-                    <th width='15%' height='20%'>Nº Item</th>
-                    <th width='15%'>Data</th>
-                    <th width='15%'>Produto</th>
-                    <th width='15%'>Quantidade</th>
-                    <th width='15%'>Unidade</th>
-                    <th width='15%'>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>";
-        foreach ($_SESSION['carrinho'] as $key => $value) {
+$body_pedido = 
+    "<h2>Produtos</h2>
+    <table width='100%' border='1px' style='text-align:center;'>
+        <thead>
+            <tr>
+                <th width='15%' height='20%'>Nº Item</th>
+                <th width='15%'>Data</th>
+                <th width='15%'>Produto</th>
+                <th width='15%'>Quantidade</th>
+                <th width='15%'>Unidade</th>
+                <th width='15%'>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>";
+    foreach ($_SESSION['carrinho'] as $key => $value) {
         $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['pro_preco'];
-        $body_pedidos .= "<tr>
+        
+        $body_pedido .= "<tr>
             <td height='15%'>" . $_SESSION['carrinho'][$key] . "</td>
-            <td height='15%'>" . date("r") . "</td>
+            <td height='15%'>" . $date . "</td>
             <td height='15%'>" . $itens[$key]['pro_nome'] . "</td>
             <td height='15%'>" . $_SESSION['qtd'][$key] . "</td> 
             <td height='15%'>R$ " . number_format($itens[$key]['pro_preco'], 2) . "</td>
             <td height='15%'>R$ " . number_format($subtotal, 2) . "</td>
         </tr>";
-        }
-        $body_pedidos .= "</tbody>
-        </table>
-        <p>Subtotal: R$ " . number_format($_SESSION['totalCarrinho'], 2) . "</p>
-        <p>Taxa de Entrega: R$ " . number_format($_SESSION['delivery_price'], 2) . "</p>
-        <p>Desconto do Cupom: R$ " . number_format($_SESSION['valorcupom'], 2) . "</p>
-        <p><b>Total: R$ " . number_format($_SESSION['totalCorrigido'], 2) . "</b></p>";
+    }
+    $body_pedido .= "</tbody>
+    </table>
+    <p>Subtotal: R$ " . number_format($_SESSION['totalCarrinho'], 2) . "</p>
+    <p>Taxa de Entrega: R$ " . number_format($_SESSION['delivery_price'], 2) . "</p>
+    <p>Desconto do Cupom: R$ " . number_format($_SESSION['valorcupom'], 2) . "</p>
+    <p><b>Total: R$ " . number_format($_SESSION['totalCorrigido'], 2) . "</b></p>";
 
 
 //Balcao
@@ -132,7 +138,7 @@ if ($fk_endereco == null) {
 
         $mail->Body = "Cliente: <b>".$_SESSION['nome']." ".$_SESSION['sobrenome']. "</b>";
 
-        $mail->Body .= $body_produtos;
+        $mail->Body .= $body_pedido;
 
         $mail->AltBody = '';
         $mail->send();
@@ -168,7 +174,7 @@ if ($fk_endereco == null) {
         $mail->Body = "Cliente: <b>".$_SESSION['nome']." ".$_SESSION['sobrenome']. "</b><br>";
         $mail->Body .= "Endereço: <b>".$rua.", ".$num." - ".$bairro."</b>";
 
-        $mail->Body .= $body_pedidos;
+        $mail->Body .= $body_pedido;
 
         $mail->AltBody = '';
         $mail->send();

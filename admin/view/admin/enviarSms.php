@@ -30,7 +30,6 @@
 <!DOCTYPE html>
 
 <html class="no-js" lang="pt-br">
-
     <head>
 
         <?php include VIEWPATH."/cabecalho.html" ?>
@@ -185,11 +184,10 @@
                                 <td><?=99?></td>
                                 
                                 <td>
-                                    <input type="hidden" id="cod_cli" name="cod_cli[]" value="<?=$cliente->getPkId()?>">
+                                    <input type="hidden" name="cod_cli[]" value="<?=$cliente->getPkId()?>">
                                     
                                     <input
                                     type="hidden"
-                                    id="telefone_cli"
                                     name="telefone_cli[]"
                                     data-nasc="<?=$cliente->getData_nasc()?>"
                                     data-numero_pedidos=""
@@ -247,7 +245,7 @@
             $('#msgSms').keydown(updateCountChars);
 
 
-            jQuery(window).load(function () {
+            $(window).on("load", function () {
                 // alert('carreguei, mochila...');
                 $("#loading").hide();
 
@@ -350,7 +348,7 @@
                 
                 let qtd = 0;
                 $("tbody > tr").each(function(){
-                    console.log(getTime(current_date)  - getTime(this.dataset.data_ultimo_pedido));
+                    //console.log(getTime(current_date) - getTime(this.dataset.data_ultimo_pedido));
 
                     // if(getTime(current_date)  - getTime(this.dataset.data_ultimo_pedido)){
                     //     qtd++;

@@ -10,6 +10,9 @@
     include_once "../utils/VerificaTelefone.php";
     include_once "../utils/InfoBip.php";
     include_once "../utils/GoogleRecaptcha.php";
+    include_once HELPERPATH."/mask.php";
+
+    $mask = new Mask;
 
     if (isset($_POST) and !empty($_POST)){
 
@@ -197,7 +200,7 @@
                 $_POST['is_verificacao_cadastro'] == 1)
             {
                 
-                $telefone_int = limpaTelefone($telefone);
+                $telefone_int = $mask->rmMaskPhone($telefone);
                 $cod_sms = rand(1112, 9998);
                 
                 //salva informações de verificação
@@ -233,7 +236,7 @@
                     return;
                 }
                 
-                $telefone_int = limpaTelefone($telefone);
+                $telefone_int = $mask->rmMaskPhone($telefone);
                 
                 //verifica código SMS
                 $res_sms = $control_sms->selectByTelefoneCodigo($telefone_int, $cod_inserido);
@@ -360,7 +363,7 @@
         }
 
         //valida telefone
-        $telefone_int = limpaTelefone($telefone);
+        $telefone_int = $mask->rmMaskPhone($telefone);
 
         if(strlen($telefone_int) == 0){
             echo "O Campo Telefone precisa ser preenchido.\n";                
@@ -380,14 +383,6 @@
         }
 
         return $erros;
-    }
-
-    function limpaTelefone($telefone){
-        //Remove mascara
-        $telefone_int = str_replace('-', '', $telefone);
-        $telefone_int = preg_replace('/[^A-Za-z0-9\-]/', '', $telefone_int);
-        
-        return $telefone_int;
     }
 
 ?>
