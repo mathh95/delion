@@ -25,11 +25,22 @@ use PHPMailer\PHPMailer\PHPMailer;
 $pedido = new controlerCarrinho(conecta());
 $cardapio = new controlerProduto(conecta());
 $mail = new PHPMailer();
-$itens = $_SESSION['carrinho'];
 
+
+$itens = $_SESSION['carrinho'];
 if ($itens > 0) {
+
     $itens = $cardapio->buscarVariosId($itens);
+
+}else{
+    //redireciona cliente
+    if(isset($_SESSION['cod_cliente'])){
+        header("Location: /home/listarPedidos.php");
+    }else{
+        header("Location: /home/cardapio.php");
+    }
 }
+
 
 $fk_endereco = null;
 //endereco cadastrado previamente
@@ -50,18 +61,6 @@ if (isset($_POST['endereco']) and !empty($_POST['endereco'])) {
 }
 
 
-
-$html = 
-    "<head>
-        <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
-        <style>
-            .swal-overlay {
-                background-color: black;
-            }
-        </style>
-    </head><body></body>";
-
-
 //Server Settings
 $mail->CharSet = 'UTF-8';
 $mail->isSMTP();
@@ -72,7 +71,6 @@ $mail->SMTPAuth  =  true;
 $mail->Username = MAIL_SERVER;
 $mail->Password = MAIL_SERVER_PASS;
 $mail->Port = 587;
-
 $mail->SMTPOptions = array(
     'ssl' => array(
         'verify_peer' => false,
@@ -80,10 +78,20 @@ $mail->SMTPOptions = array(
         'allow_self_signed' => true
     )
 );
-
 //Recipients
 $mail->setFrom(MAIL_SERVER, "Site - Delion Café");
 $mail->addAddress(MAIL_SERVER, "Delion Café");
+
+//content
+$html = 
+    "<head>
+        <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
+        <style>
+            .swal-overlay {
+                background-color: black;
+            }
+        </style>
+    </head><body></body>";
 
 $nome = $_SESSION['nome']." ".$_SESSION['sobrenome'];
 
@@ -126,6 +134,7 @@ $body_pedido =
     <p><b>Total: R$ " . number_format($_SESSION['totalCorrigido'], 2) . "</b></p>";
 
 
+
 //Balcao
 if ($fk_endereco == null) {
 
@@ -141,18 +150,29 @@ if ($fk_endereco == null) {
 
         $mail->AltBody = '';
         
-        //verifica validade do pedido antes de enviar pedido
-        if($_SESSION['carrinho']) $mail->send();
 
+        $fk_origem_pedido = 1;
+        $produtos = $itens;
+        
+        $salvo = $pedido->setPedido(null, $fk_origem_pedido, $produtos);
+            
+
+        if ($salvo){
+            $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
+        }else{
+            $mail->Body .= "<p>*Erro ao salvar pedido na base de dados.</p>";
+            
+            $html .= "<script>swal('Tivemos um problema aqui :/', 'tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+        }
+        
+        
+        $mail->send();
+        
     } catch (Exception $e) {
-        echo $mail->ErrorInfo;
+        $html .= "<script>swal('Tivemos um problema aqui :/', 'tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+        // echo $mail->ErrorInfo;
     }
-
-    $fk_origem_pedido = 1;
-    $produtos = $itens;
-    $pedido->setPedido(null, $fk_origem_pedido, $produtos);
-
-    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
+    
     echo $html;
 
 
@@ -179,21 +199,31 @@ if ($fk_endereco == null) {
         $mail->Body .= $body_pedido;
 
         $mail->AltBody = '';
+
+
+        $fk_origem_pedido = 1;
+        $produtos = $itens;
+        $salvo = $pedido->setPedido($fk_endereco, $fk_origem_pedido, $produtos);
+
+
+        if ($salvo){
+            $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
+        }else{
+            $mail->Body .= "<p>*Erro ao salvar pedido na base de dados.</p>";
+            
+            $html .= "<script>swal('Tivemos um problema aqui :/', 'tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+        }
         
-        //verifica validade do pedido antes de enviar pedido
-        if($_SESSION['carrinho']) $mail->send();
+
+        $mail->send();
 
     } catch (Exception $e) {
-        echo $mail->ErrorInfo;
+        $html .= "<script>swal('Tivemos um problema aqui :/', 'tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+
+        // echo $mail->ErrorInfo;
     }
 
-    $fk_origem_pedido = 1;
-    $produtos = $itens;
-    $pedido->setPedido($fk_endereco, $fk_origem_pedido, $produtos);
-
-    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
     echo $html;
-
 }
 
 //reset vars

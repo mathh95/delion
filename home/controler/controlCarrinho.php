@@ -41,12 +41,12 @@ class controlerCarrinho{
             $sql=$this->pdo->prepare("INSERT INTO rl_cliente_cupom SET clcu_fk_cliente = :clcu_fk_cliente, clcu_fk_cupom = :clcu_fk_cupom, clcu_ultimo_uso = NOW()");
             $sql->bindValue(":clcu_fk_cliente", $clcu_fk_cliente);
             $sql->bindValue(":clcu_fk_cupom", $clcu_fk_cupom);
-            $sql->execute();
+            if(!$sql->execute()) return false;
 
             $parametro = $codigocupom;
             $sql=$this->pdo->prepare("UPDATE tb_cupom SET cup_qtde_atual = cup_qtde_atual - 1 WHERE cup_codigo=:parametro");
             $sql->bindValue(":parametro",$parametro);
-            $sql->execute();
+            if(!$sql->execute()) return false;
 
             $status = 1;//recebido, pronto, saiu
             //balcao
@@ -70,7 +70,7 @@ class controlerCarrinho{
             $sql->bindValue(":status", $status);
             $sql->bindValue(":origem", $fk_origem_pedido);
 
-            $sql->execute();
+            if(!$sql->execute()) return false;
 
             $idPedido = $this->pdo->lastInsertId();
 
@@ -84,7 +84,7 @@ class controlerCarrinho{
                 $sql->bindValue(":observacao", $_SESSION['observacao'][$key]);
                 $sql->bindValue(":pepr_preco", $produtos[$key]['pro_preco']);
 
-                $sql->execute();
+                if(!$sql->execute()) return false;
             }
 
         }else {
@@ -120,7 +120,7 @@ class controlerCarrinho{
             $sql->bindValue(":status", $status);
             $sql->bindValue(":origem", $fk_origem_pedido);
     
-            $sql->execute();
+            if(!$sql->execute()) return false;
     
             $idPedido = $this->pdo->lastInsertId();
             
@@ -134,9 +134,11 @@ class controlerCarrinho{
                 $sql->bindValue(":observacao", $_SESSION['observacao'][$key]);
                 $sql->bindValue(":pepr_preco", $produtos[$key]['pro_preco']);
 
-                $sql->execute();
+                if(!$sql->execute()) return false;
             }
         }
+
+        return true;
     }
 
     function selectPedido($fk_cliente){
