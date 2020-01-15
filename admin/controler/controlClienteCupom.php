@@ -3,7 +3,7 @@
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
 include_once MODELPATH. "/cliente_cupom.php";
 include_once CONTROLLERPATH."/seguranca.php";
-protegePagina("carrinho_call");
+protegePagina("cross_call");
 
 class controlClienteCupom{
     private $pdo;

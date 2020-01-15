@@ -1,5 +1,12 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
+
+
+
+
+$controle=new controlerEmpresa(conecta());
+
+$empresa = $controle->selectAll();
+
 ?>
 
 <head>
@@ -70,11 +77,11 @@ include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 			
 			<div class="endereco-footer">
 				<p class="bold-text"><b>
-					Rua Jorge Sanwais, 1137<br>
-					Centro<br>
-                    Foz do Iguaçu - Paraná<br>
-                    CEP: 85851-150<br>
-                    Fone: (45)3027-0059
+					<?= $empresa->getEndereco(); ?><br>
+					<?= $empresa->getBairro(); ?> <br>  
+                    <?= $empresa->getCidade(); ?> - <?= $empresa->getEstado();?><br>
+                    CEP: <?=$empresa->getCep(); ?><br>
+                    Fone: <?= $empresa->getFone(); ?>
 				</b></p>
 			</div>
 			

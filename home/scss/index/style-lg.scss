@@ -158,16 +158,20 @@ body, html{
         }
     }
     >div.grid-images.row{
-        display: flex;
+        display: inline-flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-evenly;
+        width: 100% !important;
         height: auto;
+        padding-right: 0;
+        padding-left: 0;
+        margin-left: 5px;
         >div.thumb-home{
-            padding: 5px;
+            width: auto;
             >a.thumbnail{
                 margin: 0;
                 padding: 0;
-                width: 100%;
+                width: auto;
                 height: auto;
                 border: 0 none;
                 box-shadow: none;

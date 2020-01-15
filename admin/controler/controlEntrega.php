@@ -3,7 +3,7 @@
     include_once MODELPATH. "/entrega.php";
     include_once CONTROLLERPATH."/seguranca.php";
     
-    protegePagina("carrinho_call");//flag de exceção, permite acessar control sem login
+    protegePagina("cross_call");//flag de exceção, permite acessar control sem login
 
     class controlEntrega{
         private $pdo;

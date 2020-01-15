@@ -3,7 +3,7 @@
     include_once MODELPATH. "/forma_pgto.php";
     include_once "seguranca.php";
 
-    protegePagina("carrinho_call");//flag de exceção, permite acessar control sem login
+    protegePagina("cross_call");//flag de exceção, permite acessar control sem login
 
     class controlerFormaPgt{
 

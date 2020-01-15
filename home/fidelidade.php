@@ -1,26 +1,25 @@
 <?php
     session_start();
 
+    include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
+    include_once CONTROLLERPATH."/seguranca.php";
     include_once "../admin/controler/conexao.php";
-
     include_once "controler/controlEmpresa.php";
-
     include_once "controler/controlBanner.php";
-
     include_once "controler/controlImagem.php";
 
-    $controleEmpresa=new controlerEmpresa(conecta());
+    $_SESSION['permissaoPagina']=0;
 
+    protegePagina("cross_call");
+
+    $controleEmpresa=new controlerEmpresa(conecta());
     $empresa = $controleEmpresa->select(1,2);
 
     $controleBanner=new controlerBanner(conecta());
-
     $miniBanners = $controleBanner->selectAllMini();
-
     $banners = $controleBanner->selectAll();
 
     $controleImagem=new controlerImagem(conecta());
-
     $imagens = $controleImagem->selectAll();
 
     //configuração de acesso ao WhatsApp 
@@ -50,7 +49,6 @@
 
     <link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/fidelidade/style-lg.css"/>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.js" integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo=" crossorigin="anonymous"></script>
 </head>
 <body>
     <header class="container-fluid">

@@ -6,7 +6,7 @@ include_once CONTROLLERPATH."/seguranca.php";
 
 include_once "../../admin/controler/controlCupom.php";
 include_once "../../admin/controler/controlClienteCupom.php";
-protegePagina("carrinho_call");
+protegePagina("cross_call");
 header('Content-Type: application/json');
 
 

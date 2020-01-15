@@ -84,7 +84,7 @@
 
         //flag de exceção para chamada cruzada (home<->admin) sem login
         //a partir do carrinho
-        if($flag_exception != "carrinho_call"){    
+        if($flag_exception != "cross_call"){    
             if (!isset($_SESSION['usuarioID']) OR !isset($_SESSION['usuarioNome'])) {
                 // Não há usuário logado, manda pra página de login
                 expulsaVisitante();
@@ -100,7 +100,7 @@
             }
             if($_SESSION['permissaoPagina']!=$_SESSION['usuarioNivel']){
             // echo "Permissão requisitada =".$_SESSION['permissaoPagina']." Permissão apresentada=".$_SESSION['usuarioNivel'];
-            expulsaVisitante();
+                expulsaVisitante();
             }else{
             }
         }else{
