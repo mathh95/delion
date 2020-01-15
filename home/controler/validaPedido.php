@@ -147,8 +147,11 @@ if($checkcarrinho > 0){
 
                             //endereço inserido?
                             if(
-                                ($_SESSION['is_delivery_home'] == 1)
-                                || ($_SESSION['delivery'] == 1)
+                                ($_SESSION['is_delivery_home'] == 1
+                                && isset($_SESSION['endereco']['postal_code']))
+                                ||
+                                ($_SESSION['delivery'] == 1
+                                && isset($_SESSION['cod_endereco']))
                             ){
                                 
                                 // valor mínimo para delivery não atingido

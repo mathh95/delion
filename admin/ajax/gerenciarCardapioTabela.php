@@ -93,15 +93,15 @@ if(in_array('cardapio', $permissao)){
 					//serviço
 					if($item->getFlag_servindo() == 1){
 
-						echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-flagPausado.php?cod=".$item->getPkId()."'><button type='button' class='btn btn-kionux' style='width: 100px'><i class='fa fa-pause'></i> Pausar</button></a></td>";
+						echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-servindo.php?op=pausar&cod=".$item->getPkId()."'><button type='button' class='btn btn-kionux' style='width: 100px'><i class='fa fa-pause'></i> Pausar</button></a></td>";
 					
 					}else{
 						//Ativa o item
-						echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-flagAtivo.php?cod=".$item->getPkId()."'><button type='button' class='btn btn-kionux' style='width: 100px'><i class='fa fa-play'></i> Ativar</button></a></td>";
+						echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-servindo.php?op=ativar&cod=".$item->getPkId()."'><button type='button' class='btn btn-kionux' style='width: 100px'><i class='fa fa-play'></i> Ativar</button></a></td>";
 		
 					}
 
-					echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cardapio-view.php?cod=".$item->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
+					echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='produto-view.php?cod=".$item->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
 
 				echo "</tr>";
 			}

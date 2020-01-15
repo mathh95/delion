@@ -31,7 +31,7 @@
 	$imagens = $controleImagem->selectAll();
 
 	//configuração de acesso ao WhatsApp 
-	include "./whats-config.php";
+	//include "./whats-config.php";
 
 ?>
 
@@ -103,11 +103,9 @@
 
 				<div class="g-signin2 login_google" data-onsuccess="onSignIn" data-width="190"></div>
 
-				<div class="fb-login-button login_facebook" style="margin-right: -30px;" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" data-onlogin="loginFb()"></div>
+				<div class="fb-login-button login_facebook" style="margin-right: -30px;" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" data-onlogin="fbLoginStatus()" data-scope="email"></div>
 
 			</div>
-
-			
 			
 		</div>		
 
@@ -172,67 +170,123 @@
 			}
 		});
 
-
+		//oAuth GOOGLE
 		function onSignIn(googleUser) {
+
 			var profile = googleUser.getBasicProfile();
-			var idCliente =  profile.getId(); 
-			var nomeCliente = profile.getName();
-			var emailCliente = profile.getEmail();
+			
+			var id_google =  profile.getId();
+			var nome = profile.getGivenName();
+			var sobrenome = profile.getFamilyName();
+			var email = profile.getEmail();
 
 			$.ajax({
 				type: 'POST',
-
 				url: 'controler/businesCliente.php',
-
-				data: {idGoogle: idCliente, nomeCliente: nomeCliente, emailCliente: emailCliente},
-
-				success:function(resultado){
-					swal("Login efetuado com sucesso!", "Bem vindo!", "success").then((value) => {window.location="/home"});
+				data: {
+					id_google: id_google,
+					nome: nome,
+					sobrenome: sobrenome,
+					email: email
+				},
+				success:function(res){
+					if (res == -1){
+						swal("Não foi possível efetuar login!", "erro!", "error").then((value) => {window.location="/home/login.php"});
+					}else{
+						swal("Login efetuado com sucesso!", "Bem vindo!", "success").then((value) => {window.location="/home/cardapio.php"});
+					}
 				}
 			});
 		}
 
 
-		window.fbAsyncInit = function() {
-			FB.init({
-			appId      : <?=FACEBOOK_APP_ID?>,
-			cookie     : true,
-			xfbml      : true,
-			version    : 'v5.0'
-			});
-			
-			FB.AppEvents.logPageView();   
-		};
-
-		(function(d, s, id){
+		// Load the Facebook SDK asynchronously
+		(function(d, s, id) { 
 			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) {return;}
+			if (d.getElementById(id)) return;
 			js = d.createElement(s); js.id = id;
-			js.src = "https://connect.facebook.net/en_US/sdk.js";
+			js.src = "https://connect.facebook.net/pt_BR/sdk.js";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 
-
-		function loginFb() {
-			FB.api('/me',{fields: 'name, email'}, function(response) {
-				var id =  response.id; 
-				var nome = response.name;
-				var email = response.email;
-				$.ajax({
-					type: 'POST',
-					url: 'controler/businesCliente.php',
-					data: {id: id, nome: nome, email: email},
-					success:function(resultado){
-					if (resultado == -1){
-						swal("Não foi possível efetuar login!", "erro!", "error").then((value) => {window.location="/home/login.php"});
-					}else{
-						swal("Login efetuado com sucesso!", "Bem vindo!", "success").then((value) => {window.location="/home"});
-					}
-					}
-				});
+		//oAuth FACEBOOK
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId      : <?=FACEBOOK_APP_ID?>,
+				cookie     : true,
+				xfbml      : true,
+				version    : 'v5.0'
 			});
-			
+
+			FB.AppEvents.logPageView();
+		};
+
+		function fbLoginStatus(){
+			FB.getLoginStatus(function(response) {
+				// console.log(response);
+				if (response.status === 'connected') {
+					access_token = FB.getAuthResponse()['accessToken'];
+					fbInfo();
+				} else {
+					fbLogin();
+				}
+			});
 		}
+
+		function fbLogin(){
+
+			FB.login(function(response) {
+
+				if (response.authResponse) {
+					console.log('Welcome!  Fetching your information.... ');
+					access_token =  FB.getAuthResponse()['accessToken'];
+					fbInfo();
+				} else {
+					console.log('User cancelled login or did not fully authorize.');
+				}
+
+			}, {
+				scope: 'email',
+				auth_type: 'rerequest',
+				return_scopes: true
+			});
+		}
+
+		function fbInfo(){
+			FB.api(
+				"/me",
+				"POST",
+				{"fields": "id, first_name, last_name, email"},
+				function(response) {
+				
+					// console.log(response);
+
+					var id_facebook =  response.id;
+					var nome = response.first_name;
+					var sobrenome = response.last_name;
+					var email = response.email;
+
+					$.ajax({
+						type: 'POST',
+						url: 'controler/businesCliente.php',
+						data: {
+							id_facebook: id_facebook,
+							nome: nome,
+							sobrenome: sobrenome,
+							email: email
+						},
+						success:function(res){
+							// console.log(res);
+							if (res == -1){
+								swal("Não foi possível efetuar login!", "erro!", "error").then((value) => {window.location="/home/login.php"});
+							}else{
+								swal("Login efetuado com sucesso!", "Bem vindo!", "success").then((value) => {window.location="/home/cardapio.php"});
+							}
+						}
+					});
+				});
+		}
+
 
 	</script>
 

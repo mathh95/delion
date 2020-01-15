@@ -31,13 +31,13 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 			//itens por categoria ordenados
 			$itens_categoria[$key] = $controle_cardapio->selectByCategoriaByPos(
-				$categoria->getCod_categoria()
+				$categoria->getPkId()
 			);
 
 			$qtd_itens[$key] = sizeof($itens_categoria[$key]);
 
 			if ($key == 0){
-				echo '<div data-id="'.$categoria->getCod_categoria().'" class="list-group-item categoria active">
+				echo '<div data-id="'.$categoria->getPkId().'" class="list-group-item categoria active">
 					<span
 						style="cursor:move;"
 						class="glyphicon glyphicon-menu-hamburger" aria-hidden="true">
@@ -46,7 +46,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 					<span class="badge">'.$qtd_itens[$key].'</span>
 					</div>';
 			}else{
-				echo '<div data-id="'.$categoria->getCod_categoria().'" class="list-group-item categoria">
+				echo '<div data-id="'.$categoria->getPkId().'" class="list-group-item categoria">
 					<span
 						style="cursor:move;"
 						class="glyphicon glyphicon-menu-hamburger" aria-hidden="true">
@@ -66,15 +66,15 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 		foreach ($categorias as $key_cat => $categoria) {
 
 			$itens = $controle_cardapio->selectByCategoriaByPos(
-				$categoria->getCod_categoria()
+				$categoria->getPkId()
 			);
 
 			foreach ($itens as $key_item => $item){
 				
 				if($key_cat == 0){//primeira categoria
 					echo '<div
-						data-id="'.$item->getCod_cardapio().'"
-						data-cod_categoria='.$categoria->getCod_categoria().'
+						data-id="'.$item->getPkId().'"
+						data-cod_categoria='.$categoria->getPkId().'
 						class="list-group-item item">
 						<span
 							style="cursor:move;"
@@ -87,8 +87,8 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 				}else{//hide
 					echo '<div
 						style="display:none;"
-						data-id="'.$item->getCod_cardapio().'"
-						data-cod_categoria='.$categoria->getCod_categoria().'
+						data-id="'.$item->getPkId().'"
+						data-cod_categoria='.$categoria->getPkId().'
 						class="list-group-item item">
 						<span
 							style="cursor:move;"

@@ -16,9 +16,12 @@ include_once MODELPATH."/produto.php";
             $array = array();
 
             $sql = 
-                "SELECT *, FAHO.faho_inicio, FAHO.faho_final FROM tb_produto AS PRO 
-                INNER JOIN tb_faixa_horario AS FAHO ON PRO.pro_fk_faixa_horario = FAHO.faho_pk_id 
+                "SELECT *, FAHO.faho_inicio, FAHO.faho_final
+                FROM tb_produto AS PRO 
+                INNER JOIN tb_faixa_horario AS FAHO
+                ON PRO.pro_fk_faixa_horario = FAHO.faho_pk_id 
                 WHERE pro_pk_id IN (".implode(',', $itens).")";
+
             $sql = $this->pdo->query($sql);
 
             if($sql -> rowCount() > 0){
@@ -75,7 +78,6 @@ include_once MODELPATH."/produto.php";
                     $stmte = $this->pdo->prepare("SELECT * FROM tb_produto WHERE pro_pk_id = :parametro");
 
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
-
                 }
 
                 if($stmte->execute()){
@@ -85,35 +87,21 @@ include_once MODELPATH."/produto.php";
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
 
                             $produto->setPkId($result->pro_pk_id);
-
                             $produto->setNome($result->pro_nome);
-
                             $produto->setPreco($result->pro_preco);
-
                             $produto->setDescricao($result->pro_descricao);
-
                             $produto->setFoto($result->pro_foto);
-
                             $produto->setCategoria($result->pro_fk_categoria);
-
                             $produto->setFlag_ativo($result->pro_flag_ativo);
-
                             $produto->setDesconto($result->pro_desconto);
-
                             $produto->setAdicional($result->pro_arr_adicional);
-
                             $produto->setDelivery($result->pro_flag_delivery);
 
                         }
-
                     }
-
                 }
-
                 return $produto;
-
             }
-
             catch(PDOException $e){
 
                 echo $e->getMessage();
@@ -121,7 +109,6 @@ include_once MODELPATH."/produto.php";
         }
 
         // modo  1 = busca / 2 = categoria
-
         function select($parametro,$modo){
 
             try{
@@ -141,29 +128,19 @@ include_once MODELPATH."/produto.php";
                             while($result = $stmte->fetch(PDO::FETCH_OBJ)){
 
                                 $produto= new produto();
-
                                 $produto->setPkId($result->pro_pk_id);
-
                                 $produto->setNome($result->pro_nome);
-
                                 $produto->setPreco($result->pro_preco);
-
                                 $produto->setDescricao($result->pro_descricao);
-
                                 $produto->setFoto($result->pro_foto);
-
                                 $produto->setCategoria($result->cat_nome);
-
                                 $produto->setFlag_ativo($result->pro_flag_ativo);
-
                                 $produto->setAdicional($result->pro_arr_adicional);
 
                                 array_push($produtos, $produto);
 
                             }
-
                         }
-
                     }
 
                     return $produtos;
@@ -184,43 +161,28 @@ include_once MODELPATH."/produto.php";
                             while($result = $stmte->fetch(PDO::FETCH_OBJ)){
 
                                 $produto= new produto();
-
                                 $produto->setPkId($result->pro_pk_id);
-
                                 $produto->setNome($result->pro_nome);
-
                                 $produto->setPreco($result->pro_preco);
-
                                 $produto->setDescricao($result->pro_descricao);
-
                                 $produto->setFoto($result->pro_foto);
-
                                 $produto->setFlag_ativo($result->pro_flag_ativo);
-
                                 $produto->setCategoria($result->cat_nome);
-
                                 $produto->setAdicional($result->pro_arr_adicional);
 
                                 array_push($produtos, $produto);
 
                             }
-
                         }
-
                     }
 
                     return $produtos;
-
                 }
-
             }
 
             catch(PDOException $e){
-
                 echo $e->getMessage();
-
             }
-
         }
 
         function selectDelivery($parametro,$modo){
@@ -244,21 +206,13 @@ include_once MODELPATH."/produto.php";
                                 $produto= new produto();
 
                                 $produto->setPkId($result->pro_pk_id);
-
                                 $produto->setNome($result->pro_nome);
-
                                 $produto->setPreco($result->pro_preco);
-
                                 $produto->setDescricao($result->pro_descricao);
-
                                 $produto->setFoto($result->pro_foto);
-
                                 $produto->setCategoria($result->cat_nome);
-
                                 $produto->setFlag_ativo($result->pro_flag_ativo);
-
                                 $produto->setDelivery($result->pro_flag_delivery);
-
                                 $produto->setAdicional($result->pro_arr_adicional);
 
                                 array_push($produtos, $produto);
@@ -287,31 +241,21 @@ include_once MODELPATH."/produto.php";
                                 $produto= new produto();
 
                                 $produto->setPkId($result->pro_pk_id);
-
                                 $produto->setNome($result->pro_nome);
-
                                 $produto->setPreco($result->pro_preco);
-
                                 $produto->setDescricao($result->pro_descricao);
-
                                 $produto->setFoto($result->pro_foto);
-
                                 $produto->setFlag_ativo($result->pro_flag_ativo);
-
                                 $produto->setCategoria($result->cat_nome);
-
                                 $produto->setAdicional($result->pro_arr_adicional);
 
                                 array_push($produtos, $produto);
 
                             }
-
                         }
-
                     }
 
                     return $produtos;
-
                 }
             }
             catch(PDOException $e){
@@ -331,18 +275,16 @@ include_once MODELPATH."/produto.php";
                     $stmte = $this->pdo->prepare("SELECT PRO.pro_pk_id, PRO.pro_nome, PRO.pro_preco PRO.pro_descricao, PRO.pro_foto, PRO.pro_flag_ativo, PRO.pro_delivery, PRO.pro_adicional, PRO.pro_fk_categoria FROM tb_produto AS PRO inner join tb_categoria AS CA ON PRO.pro_fk_categoria = CA.cod_categoria WHERE PRO.pro_nome LIKE :parametro AND PRO.pro_flag_ativo = 1 AND PRO.pro_flag_delivery = 1 ORDER BY prioridade DESC, nome ASC LIMIT :offset, :por_pagina");
     
                     $stmte->bindValue(":parametro","%". $parametro . "%" , PDO::PARAM_STR);
-    
                     $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
-    
                     $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
+
                 }else{
                     $stmte = $this->pdo->prepare("SELECT PRO.pro_pk_id, PRO.pro_nome, PRO.pro_preco, PRO.pro_descricao, PRO.pro_foto, PRO.pro_flag_ativo, PRO.pro_delivery, PRO.pro_adicional, PRO.pro_fk_categoria FROM tb_produto AS PRO inner join tb_categoria AS CA ON PRO.pro_fk_categoria = CA.cod_categoria WHERE PRO.pro_nome LIKE :parametro AND PRO.pro_flag_ativo = 1 ORDER BY prioridade DESC, nome ASC LIMIT :offset, :por_pagina");
     
                     $stmte->bindValue(":parametro","%". $parametro . "%" , PDO::PARAM_STR);
-    
                     $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
-    
                     $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
+
                 }
 
                 if($stmte->execute()){
@@ -354,21 +296,13 @@ include_once MODELPATH."/produto.php";
                             $produto= new produto();
 
                             $produto->setPkId($result->pro_pk_id);
-
                             $produto->setNome($result->pro_nome);
-
                             $produto->setPreco($result->pro_preco);
-
                             $produto->setDescricao($result->pro_descricao);
-
                             $produto->setFoto($result->pro_foto);
-
                             $produto->setCategoria($result->cat_nome);
-
                             $produto->setFlag_ativo($result->pro_flag_ativo);
-
                             $produto->setDelivery($result->pro_flag_delivery);
-
                             $produto->setAdicional($result->pro_arr_adicional);
 
                             array_push($produtos, $produto);
@@ -432,20 +366,21 @@ include_once MODELPATH."/produto.php";
             $produtos = array();
             try{
                 if ($delivery == true){
-                    $stmte = $this->pdo->prepare("SELECT * FROM tb_produto WHERE pro_fk_categoria = :parametro AND pro_flag_ativo = 1 AND pro_flag_delivery = 1 ORDER BY pro_flag_prioridade DESC, nome ASC LIMIT :offset, :por_pagina");
+                    $stmte = $this->pdo->prepare("SELECT *
+                    FROM tb_produto
+                    WHERE pro_fk_categoria = :parametro AND pro_flag_ativo = 1 AND pro_flag_delivery = 1 ORDER BY pro_flag_prioridade DESC, nome ASC LIMIT :offset, :por_pagina");
     
                     $stmte->bindValue(":parametro", $parametro , PDO::PARAM_INT);
-    
                     $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
-    
                     $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
+
                 }else{
-                    $stmte = $this->pdo->prepare("SELECT * FROM tb_produto WHERE pro_fk_categoria = :parametro AND pro_flag_ativo = 1 ORDER BY pro_flag_prioridade DESC, pro_nome ASC LIMIT :offset, :por_pagina");
+                    $stmte = $this->pdo->prepare("SELECT *
+                    FROM tb_produto
+                    WHERE pro_fk_categoria = :parametro AND pro_flag_ativo = 1 ORDER BY pro_flag_prioridade DESC, pro_nome ASC LIMIT :offset, :por_pagina");
     
                     $stmte->bindValue(":parametro", $parametro , PDO::PARAM_INT);
-    
                     $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
-    
                     $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
                 }
 
@@ -458,82 +393,23 @@ include_once MODELPATH."/produto.php";
                             $produto= new produto();
 
                             $produto->setPkId($result->pro_pk_id);
-
                             $produto->setNome($result->pro_nome);
-
                             $produto->setPreco($result->pro_preco);
-
                             $produto->setDescricao($result->pro_descricao);
-
                             $produto->setFoto($result->pro_foto);
-
                             $produto->setCategoria($result->pro_fk_categoria);
-
                             $produto->setFlag_ativo($result->pro_flag_ativo);
-
                             $produto->setDelivery($result->pro_flag_delivery);
-
                             $produto->setAdicional($result->pro_arr_adicional);
 
                             array_push($produtos, $produto);
 
                         }
-
                     }
-
                 }
 
                 return $produtos;
-
             }
-
-            catch(PDOException $e){
-
-                echo $e->getMessage();
-            }
-        }
-
-
-
-        function selectAllSemCategoria(){
-
-            $produtos = array();
-
-            try{
-
-                $stmte = $this->pdo->prepare("SELECT * FROM tb_produto");
-
-                if($stmte->execute()){
-
-                    if($stmte->rowCount() > 0){
-
-                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-
-                            $produto= new produto();
-
-                            $produto->setPkId($result->pro_pk_id);
-
-                            $produto->setNome($result->pro_nome);
-
-                            $produto->setPreco($result->pro_preco);
-
-                            $produto->setDescricao($result->pro_descricao);
-
-                            $produto->setFoto($result->pro_foto);
-
-                            $produto->setCategoria($result->pro_fk_categoria);
-
-                            $produto->setFlag_ativo($result->pro_flag_ativo);
-
-                            $produto->setAdicional($result->pro_arr_adicional);
-
-                            array_push($produtos, $produto);
-                        }
-                    }
-                }
-                return $produtos;
-            }
-
             catch(PDOException $e){
                 echo $e->getMessage();
             }
@@ -556,6 +432,7 @@ include_once MODELPATH."/produto.php";
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+
                             $produto= new produto();
                             $produto->setPkId($result->pro_pk_id);
                             $produto->setNome($result->pro_nome);
@@ -601,19 +478,12 @@ include_once MODELPATH."/produto.php";
                             $produto= new produto();
 
                             $produto->setPkId($result->pro_pk_id);
-
                             $produto->setNome($result->pro_nome);
-
                             $produto->setPreco($result->pro_preco);
-
                             $produto->setDescricao($result->pro_descricao);
-
                             $produto->setFoto($result->pro_foto);
-
                             $produto->setCategoria($result->cat_nome);
-
                             $produto->setFlag_ativo($result->pro_flag_ativo);
-
                             $produto->setAdicional($result->pro_arr_adicional);
 
                             array_push($produtos, $produto);
@@ -644,9 +514,7 @@ include_once MODELPATH."/produto.php";
             }
 
             catch(PDOException $e){
-
                 echo $e->getMessage();
-
                 return -1;
             }
         }

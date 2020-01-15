@@ -17,7 +17,7 @@ session_start();
 	$empresa = $controleEmpresa->select(1,2);
 
 	//configuração de acesso ao WhatsApp 
-	include "./whats-config.php";
+	//include "./whats-config.php";
 
 ?>
 
@@ -67,12 +67,12 @@ session_start();
             </thead>
             <tbody>
                 <?php 
-                    $itens=$controleCarrinho->selectItens($_GET['cod']);
+                    $itens = $controleCarrinho->selectItens($_GET['cod']);
                     foreach ($itens as &$item) { 
                             echo "<tr name='resultado' id='status".$item->getPkId()."'>
                                 <td style='text-align: center;' name='produto'>".$item->nome."</td>
 								<td style='text-align: center;' name='quantidade'>".$item->getQuantidade()."</td>
-                                <td style='text-align: center;' name='valor'>$item->preco</td>
+                                <td style='text-align: center;' name='valor'>".$item->getPreco()."</td>
                             </tr>";  
                     }                  
                 ?>
@@ -88,30 +88,6 @@ session_start();
 	<script type="text/javascript" src="js/maskedinput.js"></script>
 
 	<script>
-
-		$(document).ready(function () {
-
-			$('.banner-superior').slick({
-
-				slidesToShow: 1,
-
-				slidesToScroll: 1,
-
-				autoplay: true,
-
-				autoplaySpeed: 3000,
-
-				arrows: false,
-
-				speed: 800,
-
-				fade: true,
-
-				dots: true
-
-			});
-
-		});
 	</script>
 
 </body>

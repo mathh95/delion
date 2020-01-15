@@ -6,7 +6,7 @@
 	// date_default_timezone_set('America/Sao_Paulo');
 
 	include_once "controlProduto.php";
-	include_once "../model/cardapio.php";
+	include_once "../model/produto.php";
 	include_once "../lib/alert.php";
 	include_once "upload.php";
 
@@ -15,7 +15,7 @@
 			echo 'Nada foi postado.';
 		}
 
-		$cod_cardapio = addslashes(htmlspecialchars($_POST['cod']));
+		$pk_id = addslashes(htmlspecialchars($_POST['cod']));
 		$nome = addslashes(htmlspecialchars($_POST['nome']));
 		$preco = addslashes(htmlspecialchars($_POST['preco']));
 		$desconto = addslashes(htmlspecialchars($_POST['desconto']));
@@ -32,7 +32,8 @@
 		}else{
 			$foto = addslashes(htmlspecialchars($_POST['imagem']));
 		}
-		$categoria= addslashes(htmlspecialchars($_POST['categoria']));
+		
+		$fk_categoria = addslashes(htmlspecialchars($_POST['categoria']));
 
 		$adicional = array();
 		for ($i=1; $i <= $_POST['quantidadeAdicionais']; $i++){
@@ -45,16 +46,13 @@
 
 		if(isset($_POST['dias'])){
 			$arr_dias = $_POST['dias'];
-			$dias_semana = json_encode($arr_dias);
+			$arr_dias_semana = json_encode($arr_dias);
 		}else{
-			$dias_semana = NULL;
+			$arr_dias_semana = NULL;
 		}
 
-		$cardapio_turno = addslashes(htmlspecialchars($_POST['turnos']));
+		$fk_faixa_horario = addslashes(htmlspecialchars($_POST['faixa_horario']));
 
-		$cardapio_horas_inicio = addslashes(htmlspecialchars($_POST['horario1']));
-
-		$cardapio_horas_final = addslashes(htmlspecialchars($_POST['horario2']));
 
 		$flag_ativo = (isset($_POST['flag_ativo'])||!empty($_POST['flag_ativo'])) && $_POST['flag_ativo'] == 1 ? 1 : 0 ;
 
@@ -64,16 +62,20 @@
 
 		$flag_servindo = (isset($_POST['servindo'])||!empty($_POST['servindo'])) && $_POST['servindo'] == 1 ? 1 : 0 ;
 		
-		$cardapio= new cardapio();
-		$cardapio->construct($nome, $preco, $desconto, $descricao, $foto, $categoria, $flag_ativo,$flag_servindo, $prioridade,$delivery,$adicional, $dias_semana, $cardapio_turno, $cardapio_horas_inicio, $cardapio_horas_final);
+		$produto = new produto();
+		$produto->constructFkFaixa($nome, $preco, $desconto, $descricao, $foto, $fk_categoria, $flag_ativo, $flag_servindo, $prioridade, $delivery, $adicional, $arr_dias_semana, $fk_faixa_horario);
 
-		$cardapio->setCod_cardapio($cod_cardapio);
-		$controle=new controlerProduto($_SG['link']);
-		if($controle->update($cardapio)> -1 && $cardapio_horas_inicio != $cardapio_horas_final && $cardapio_horas_inicio != 0 && $cardapio_horas_final != 0 ){
-			msgRedireciona('Alteração Realizada!','Item do cardápio alterado com sucesso!',1,'../view/admin/cardapioLista.php');
+
+		$produto->setPkId($pk_id);
+		$controle = new controlerProduto($_SG['link']);
+
+
+		$resutlt = $controle->update($produto);
+		if($resutlt > -1 ){
+			msgRedireciona('Alteração Realizada!','Produto alterado com sucesso!',1,'../view/admin/cardapioLista.php');
 		}else{
-			alertJSVoltarPagina('Erro!','Erro ao alterar item do cardápio!',2);
-			$cardapio->show();
+			alertJSVoltarPagina('Erro!','Erro ao alterar Produto!',2);
+			$produto->show();
 		}
 	}else{
 		expulsaVisitante();

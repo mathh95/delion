@@ -293,7 +293,7 @@
 
                                 <ul class="dropdown-menu">
 
-                                    <li><a href="cardapio.php">Cadastro</a></li>
+                                    <li><a href="produto.php">Cadastro</a></li>
 
                                     <li><a href="cardapioLista.php">Listar</a></li>
 

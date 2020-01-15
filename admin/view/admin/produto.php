@@ -10,6 +10,8 @@
 
     include_once CONTROLLERPATH."/controlProduto.php";
 
+    include_once CONTROLLERPATH."/controlFaixaHorario.php";
+
     include_once MODELPATH."/produto.php";
 
     include_once CONTROLLERPATH."/controlCategoria.php";
@@ -20,13 +22,6 @@
 
     include_once MODELPATH."/adicional.php";
 
-    include_once CONTROLLERPATH."/controlCardapioHoras.php";
-
-    include_once CONTROLLERPATH."/controlCardapioTurno.php";
-
-    include_once MODELPATH."/cardapio_horas.php";
-
-    include_once MODELPATH."/cardapio_turno.php";
 
 
     $_SESSION['permissaoPagina']=0;
@@ -38,21 +33,15 @@
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
     $controleAdicional = new controlerAdicional($_SG['link']);
-
     $adicionais = $controleAdicional->selectAll();
 
     $controleCategoria = new controlerCategoria($_SG['link']);
-
     $categorias = $controleCategoria->selectAll();
 
-    $controleTurnos = new controlerProdutoTurno($_SG['link']);
+    $controleFaixaHorario = new controlerFaixaHorario($_SG['link']);
+    $faixas_horario = $controleFaixaHorario->selectAll();
 
-    $turnos = $controleTurnos->selectAll();
-
-    $controleHoras = new controlerProdutoHoras($_SG['link']);
-
-    $horas = $controleHoras->selectAll();
-
+    
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
     
@@ -70,20 +59,12 @@
 
     <body>
 
-        <!--[if lt IE 8]>
-
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-
-        <![endif]-->
-
-        <!-- Add your site or application content here -->
-
         <?php include_once "./header.php" ?>
 
 
         <div class="container-fluid">
 
-            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/businesCardapio.php">
+            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/businesProduto.php">
 
                 <div class="col-md-12">
 
@@ -91,7 +72,7 @@
 
                         <div class="col-md-5">
 
-                            <h3>Dados do item do cardápio</h3>
+                            <h3>Cadastrar Produto</h3>
 
                             <br>
 
@@ -99,7 +80,7 @@
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fas fa-utensils"></i></span>
 
                                 <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text">
 
@@ -111,21 +92,21 @@
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
 
-                                <input class="form-control" placeholder="Preço" name="preco" required autofocus id="preco" type="number" step="0.01" min="1" max="99">
+                                <input class="form-control" placeholder="Preço" name="preco" required autofocus id="preco" type="number" step="1" min="1" max="999">
 
                             </div>
 
                             <br>
 
-                             <small>Desconto: </small>
+                            <small>Desconto: </small>
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fas fa-percentage"></i></span>
 
-                                <input class="form-control" placeholder="Desconto" name="desconto" required autofocus id="desconto" type="number" step="0.01" min="1" max="99">
+                                <input class="form-control" placeholder="Desconto" name="desconto" autofocus id="desconto" type="number" step="1" min="1" max="99">
 
                             </div>
 
@@ -133,9 +114,9 @@
 
                             <small>Categoria: </small>
 
-                            <select class="form-control" name="categoria" id="categoria" >
+                            <select class="form-control" name="categoria" id="categoria" required>
 
-                                <option value="0">Não informado</option>
+                                <option value="">Selecionar Categoria</option>
 
                                 <?php
 
@@ -235,45 +216,27 @@
 
                                 </div>
                             
-                                <small>Turno(s) que o item estará disponível:</small>
+                                
+                                <small>Faixa de Horário em que item estará disponível:</small>
                                 
                                 <div class="checkbox">
-                                        <!-- Primeiro Turno -->
-                                                <select name="turnos" id="turnos">
-                                                    <option value="0">Selecione o turno</option>
-                                                    <?php
-                                                        foreach ($turnos as $turno) {
-                                                            echo "<option value='".$turno->getCod_cardapio_turno()."'>".$turno->getNome()."</option>";
-                                                        }  
-                                                    ?>
-                                                </select>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <select name="horario1" id="horario1">
-                                                        <option value="0">Início</option>
+                                    <select class="form-control" name="faixa_horario" id="faixa_horario">
 
-                                                        <?php
-                                                        foreach ($horas as $hora) {
-                                                            $horaform = date_create($hora->getHorario());
-                                                            $horaform1 = date_format($horaform, 'H:i');
-                                                            echo "<option value='".$hora->getCod_cardapio_horas()."'>".$horaform1."</option>";
-                                                        }  
-                                                    ?>
-                                            </select>&nbsp;
-
-
-                                            <select name="horario2" id="horario2">
-                                                        <option value="">Fim</option>
-
-                                                    <?php
-                                                        foreach ($horas as $hora) {
-                                                            $horaform = date_create($hora->getHorario());
-                                                            $horaform2 = date_format($horaform, 'H:i');
-                                                            echo "<option value='".$hora->getCod_cardapio_horas()."'>".$horaform2."</option>";
-                                                        }  
-                                                    ?>
-                                            </select>
-                                            <br><br>
-                            </div>
+                                        <option value="">Faixa de Horário</option>
+                                        <?php
+                                            $faixas_horario = $controleFaixaHorario->selectAll();
+                                            foreach ($faixas_horario as $faixa) {
+                                                $ini = date("H:i", strtotime($faixa->getInicio()));
+                                                $final = date("H:i", strtotime($faixa->getFinal()));
+                                                $txt = $ini."h - ".$final."h";
+                                                echo "<option value='".$faixa->getPkId()."'>".$txt."</option>";
+                                            }  
+                                        ?>
+                                    </select>
+                                    
+                                    <br><br>
+                                </div>
+                            <br>
                             <br>
                             
                             <small>Quais adicionais estarão disponiveis para esse produto:</small>

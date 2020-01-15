@@ -1,6 +1,7 @@
 <?php
 
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
+include_once HELPERPATH."/mask.php";
 
 //session_start();
 include_once "../../admin/controler/conexao.php";
@@ -10,6 +11,7 @@ require_once "../controler/controlCarrinho.php";
 require_once "../controler/controlProduto.php";
 
 include_once "../lib/alert.php";
+
 
 require_once "../controler/controlCarrinho.php";
 require_once "../controler/controlEndereco.php";
@@ -23,11 +25,22 @@ use PHPMailer\PHPMailer\PHPMailer;
 $pedido = new controlerCarrinho(conecta());
 $cardapio = new controlerProduto(conecta());
 $mail = new PHPMailer();
-$itens = $_SESSION['carrinho'];
 
+
+$itens = $_SESSION['carrinho'];
 if ($itens > 0) {
+
     $itens = $cardapio->buscarVariosId($itens);
+
+}else{
+    //redireciona cliente
+    if(isset($_SESSION['cod_cliente'])){
+        header("Location: /home/listarPedidos.php");
+    }else{
+        header("Location: /home/cardapio.php");
+    }
 }
+
 
 $fk_endereco = null;
 //endereco cadastrado previamente
@@ -47,97 +60,120 @@ if (isset($_POST['endereco']) and !empty($_POST['endereco'])) {
     }
 }
 
-$html = "<head>
-            <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
-             <style>
-             .swal-overlay {
-                 background-color: black;
-               }
-             </style>
-         </head>
-         <body></body>";
+
+//Server Settings
+$mail->CharSet = 'UTF-8';
+$mail->isSMTP();
+$mail->SMTPDebug = 0;
+$mail->Host = MAIL_HOST;
+$mail->SMTPSecure = 'tls';
+$mail->SMTPAuth  =  true;
+$mail->Username = MAIL_SERVER;
+$mail->Password = MAIL_SERVER_PASS;
+$mail->Port = 587;
+$mail->SMTPOptions = array(
+    'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+    )
+);
+//Recipients
+$mail->setFrom(MAIL_SERVER, "Site - Delion Café");
+$mail->addAddress(MAIL_SERVER, "Delion Café");
+
+//content
+$html = 
+    "<head>
+        <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
+        <style>
+            .swal-overlay {
+                background-color: black;
+            }
+        </style>
+    </head><body></body>";
+
+$nome = $_SESSION['nome']." ".$_SESSION['sobrenome'];
+
+$mask = new Mask;
+$masked_phone = $mask->addMaskPhone($_SESSION['telefone']);
+$subject = $nome." | ".$masked_phone;
+
+$date = new DateTime();
+$date = $date->format('d-m-Y H:i');
+
+$body_pedido = 
+    "<h2>Produtos</h2>
+    <table width='100%' border='1px' style='text-align:center;'>
+        <thead>
+            <tr>
+                <th width='15%' height='20%'>Nº Item</th>
+                <th width='15%'>Produto</th>
+                <th width='15%'>Quantidade</th>
+                <th width='15%'>Unidade</th>
+                <th width='15%'>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>";
+    foreach ($_SESSION['carrinho'] as $key => $value) {
+        $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['pro_preco'];
+        
+        $body_pedido .= "<tr>
+            <td height='15%'>" . $_SESSION['carrinho'][$key] . "</td>
+            <td height='15%'>" . $itens[$key]['pro_nome'] . "</td>
+            <td height='15%'>" . $_SESSION['qtd'][$key] . "</td> 
+            <td height='15%'>R$ " . number_format($itens[$key]['pro_preco'], 2) . "</td>
+            <td height='15%'>R$ " . number_format($subtotal, 2) . "</td>
+        </tr>";
+    }
+    $body_pedido .= "</tbody>
+    </table>
+    <p>Subtotal: R$ " . number_format($_SESSION['totalCarrinho'], 2) . "</p>
+    <p>Taxa de Entrega: R$ " . number_format($_SESSION['delivery_price'], 2) . "</p>
+    <p>Desconto do Cupom: R$ " . number_format($_SESSION['valorcupom'], 2) . "</p>
+    <p><b>Total: R$ " . number_format($_SESSION['totalCorrigido'], 2) . "</b></p>";
+
+
 
 //Balcao
 if ($fk_endereco == null) {
+
     try {
-        //Server Settings
-        $mail->CharSet = 'UTF-8';
-        $mail->isSMTP();
-        $mail->SMTPDebug = 0;
-        $mail->Host = 'smtp.compubras.com.br';
-        $mail->SMTPSecure = 'tls';
-        $mail->SMTPAuth  =  true;
-        $mail->Username = 'sitefacil@compubras.com.br';
-        $mail->Password = 'http#2017';
-        $mail->Port = 587;
-
-        $mail->SMTPOptions = array(
-            'ssl' => array(
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-            )
-        );
-
-        //Recipients
-        $mail->setFrom(MAIL_SENDER, $_SESSION['nome']);
-        $mail->addAddress(MAIL_RECEIVER, 'Delion Café');
-
         //Content
         $mail->isHTML(true);
-        $mail->Subject = 'Pedido Delion Café!';
-        $mail->Body = "<h1>Lista de produtos</h1>
-                    <table width='100%' border='1px'>
-                        <thead>
-                            <tr>
-                                <th width='15%' height='20%'>Item</th>
-                                <th width='15%'>Data</th>
-                                <th width='15%'>Cliente</th>
-                                <th width='15%'>Produto</th>
-                                <th width='15%'>Quantidade</th>
-                                <th width='15%'>Unidade</th>
-                                <th width='15%'>Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody>";
-        foreach ($_SESSION['carrinho'] as $key => $value) {
-            $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['pro_preco'];
-            $mail->Body .= "<tr>
-                        <td height='15%'>" . $_SESSION['carrinho'][$key] . "</td>
-                        <td height='15%'>" . date("r") . "</td>
-                        <td height='15%'>" . $_SESSION['nome'] . "</td>
-                        <td height='15%'>" . $itens[$key]['pro_nome'] . "</td>
-                        <td height='15%'>" . $_SESSION['qtd'][$key] . "</td> 
-                        <td height='15%'>R$ " . number_format($itens[$key]['pro_preco'], 2) . "</td>
-                        <td height='15%'>R$ " . number_format($subtotal, 2) . "</td>
-                </tr>";
-        }
-        $mail->Body .= "</tbody>
-            </table>
-            <p>Subtotal: R$ " . number_format($_SESSION['totalCarrinho'], 2) . "</p>
-            <p>Taxa de Entrega: R$ " . number_format($_SESSION['delivery_price'], 2) . "</p>
-            <p>Desconto do Cupom: R$ " . number_format($_SESSION['valorcupom'], 2) . "</p>
-            <p><b>Total: R$ " . number_format($_SESSION['totalCorrigido'], 2) . "</b></p>";
+        $mail->Subject = "[Pedido - Retirada] ".$subject;
+
+        $mail->Body = "Data: <b>". $date . "</b><br>";
+        $mail->Body .= "Cliente: <b>".$_SESSION['nome']." ".$_SESSION['sobrenome']. "</b>";
+
+        $mail->Body .= $body_pedido;
+
         $mail->AltBody = '';
+        
+
+        $fk_origem_pedido = 1;
+        $produtos = $itens;
+        
+        $salvo = $pedido->setPedido(null, $fk_origem_pedido, $produtos);
+            
+
+        if ($salvo){
+            $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
+        }else{
+            $mail->Body .= "<p>*Erro ao salvar pedido na base de dados.</p>";
+            
+            $html .= "<script>swal('Tivemos um problema aqui :/', 'tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+        }
+        
+        
         $mail->send();
-
+        
     } catch (Exception $e) {
-        echo $mail->ErrorInfo;
+        $html .= "<script>swal('Tivemos um problema aqui :/', 'tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+        // echo $mail->ErrorInfo;
     }
-
-    $produtos = $itens;
-    $pedido->setPedido(null, null, $produtos);
-
-    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
+    
     echo $html;
-
-
-    //reset vars
-    unset($_SESSION['cod_endereco']);
-    $_SESSION['delivery'] = -1;
-    $_SESSION['flag_combo'] = "";
-    $_SESSION['valorcupom'] = 0.00;
-
 
 
 //***************delivery**************   
@@ -147,87 +183,54 @@ if ($fk_endereco == null) {
     $endereco_cliente = $control_endereco->selectById($fk_endereco);
 
     try {
-        //Server Settings
-        $mail->CharSet = 'UTF-8';
-        $mail->isSMTP();
-        $mail->SMTPDebug = 0;
-        $mail->Host = 'smtp.compubras.com.br';
-        $mail->SMTPSecure = 'tls';
-        $mail->SMTPAuth  =  true;
-        $mail->Username = 'sitefacil@compubras.com.br';
-        $mail->Password = 'http#2017';
-        $mail->Port = 587;
-
-        $mail->SMTPOptions = array(
-            'ssl' => array(
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-            )
-        );
-
-        //Recipients
-        $mail->setFrom(MAIL_SENDER, $_SESSION['nome']);
-        $mail->addAddress(MAIL_RECEIVER, 'Delion Café');
 
         //Content
         $mail->isHTML(true);
-        $mail->Subject = 'Pedido Delion Café!';
-        $mail->Body = "<h1>Lista de produtos</h1>
-                        <table width='100%' border='1px'>
-                            <thead>
-                                <tr>
-                                    <th width='10%' height='20%'>Item</th>
-                                    <th width='10%'>Data</th>
-                                    <th width='10%'>Cliente</th>
-                                    <th width='10%'>Rua</th>
-                                    <th width='10%'>Produto</th>
-                                    <th width='10%'>Quantidade</th>
-                                    <th width='10%'>Unidade</th>
-                                    <th width='10%'>Subtotal</th>
-                                </tr>
-                            </thead>
-                            <tbody>";
-        foreach ($_SESSION['carrinho'] as $key => $value) {
-            $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['pro_preco'];
-            $mail->Body .= "<tr>
-                            <td height='10%'>" . $_SESSION['carrinho'][$key] . "</td>
-                            <td height='10%'>" . date("r") . "</td>
-                            <td height='10%'>" . $_SESSION['nome'] . "</td>
-                            <td height='10%'>" . $endereco_cliente->logradouro . "<br>" . $endereco_cliente->getNumero() . "</td>
-                            <td height='10%'>" . $itens[$key]['pro_nome'] . "</td>
-                            <td height='10%'>" . $_SESSION['qtd'][$key] . "</td> 
-                            <td height='10%'>R$ " . number_format($itens[$key]['pro_preco'], 2) . "</td>
-                            <td height='10%'>R$ " . number_format($subtotal, 2) . "</td>
-                    </tr>";
-        }
-        $mail->Body .= "</tbody>
-                </table>
-                <p>Subtotal: R$ " . number_format($_SESSION['totalCarrinho'], 2) . "</p>
-                <p>Taxa de Entrega: R$ " . number_format($_SESSION['delivery_price'], 2) . "</p>
-                <p>Desconto do Cupom: R$ " . number_format($_SESSION['valorcupom'], 2) . "</p>
-                <p><b>Total: R$ " . number_format($_SESSION['totalCorrigido'], 2) . "</b></p>";
+        $mail->Subject = "[Pedido - Delivery] ".$subject;
+
+        $num = $endereco_cliente->getNumero();
+        $rua = $endereco_cliente->logradouro;
+        $bairro = $endereco_cliente->bairro;
+
+        $mail->Body = "Data: <b>". $date . "</b><br>";
+        $mail->Body .= "Cliente: <b>".$_SESSION['nome']." ".$_SESSION['sobrenome']. "</b><br>";
+        $mail->Body .= "Endereço: <b>".$rua.", ".$num." - ".$bairro."</b>";
+
+        $mail->Body .= $body_pedido;
+
         $mail->AltBody = '';
+
+
+        $fk_origem_pedido = 1;
+        $produtos = $itens;
+        $salvo = $pedido->setPedido($fk_endereco, $fk_origem_pedido, $produtos);
+
+
+        if ($salvo){
+            $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
+        }else{
+            $mail->Body .= "<p>*Erro ao salvar pedido na base de dados.</p>";
+            
+            $html .= "<script>swal('Tivemos um problema aqui :/', 'tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+        }
+        
+
         $mail->send();
 
     } catch (Exception $e) {
-        echo $mail->ErrorInfo;
+        $html .= "<script>swal('Tivemos um problema aqui :/', 'tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+
+        // echo $mail->ErrorInfo;
     }
 
-    $fk_origem_pedido = 1;
-    $produtos = $itens;
-    $pedido->setPedido($fk_endereco, $fk_origem_pedido, $produtos);
-
-    $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
     echo $html;
-
-    //reset vars
-    unset($_SESSION['cod_endereco']);
-    $_SESSION['delivery'] = -1;
-    $_SESSION['flag_combo'] = "";
-    $_SESSION['valorcupom'] = 0.00;
-
 }
+
+//reset vars
+unset($_SESSION['cod_endereco']);
+$_SESSION['delivery'] = -1;
+$_SESSION['flag_combo'] = "";
+$_SESSION['valorcupom'] = 0.00;
 
 unset($_SESSION['carrinho']);
 unset($_SESSION['qtd']);

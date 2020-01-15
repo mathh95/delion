@@ -41,17 +41,17 @@ class controlerCarrinho{
             $sql=$this->pdo->prepare("INSERT INTO rl_cliente_cupom SET clcu_fk_cliente = :clcu_fk_cliente, clcu_fk_cupom = :clcu_fk_cupom, clcu_ultimo_uso = NOW()");
             $sql->bindValue(":clcu_fk_cliente", $clcu_fk_cliente);
             $sql->bindValue(":clcu_fk_cupom", $clcu_fk_cupom);
-            $sql->execute();
+            if(!$sql->execute()) return false;
 
             $parametro = $codigocupom;
-            $sql=$this->pdo->prepare("UPDATE tb_cupom SET cup_qtde_atual = qtde_atual - 1 WHERE cup_codigo=:parametro");
+            $sql=$this->pdo->prepare("UPDATE tb_cupom SET cup_qtde_atual = cup_qtde_atual - 1 WHERE cup_codigo=:parametro");
             $sql->bindValue(":parametro",$parametro);
-            $sql->execute();
+            if(!$sql->execute()) return false;
 
             $status = 1;//recebido, pronto, saiu
             //balcao
             if ($fk_endereco == null){
-                $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_valor = :valor, ped_desconto = :desconto , ped_taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt ,status = :status, ped_fk_origem_pedido = :origem");
+                $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_valor = :valor, ped_desconto = :desconto , ped_taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt , ped_status = :status, ped_fk_origem_pedido = :origem");
             //delivery
             }else{
                 $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_valor = :valor, ped_desconto = :desconto , taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt , ped_status = :status, ped_fk_origem_pedido = :origem, ped_fk_endereco_cliente = :endereco, ped_tempo_entrega = :tempo_entrega");
@@ -70,7 +70,7 @@ class controlerCarrinho{
             $sql->bindValue(":status", $status);
             $sql->bindValue(":origem", $fk_origem_pedido);
 
-            $sql->execute();
+            if(!$sql->execute()) return false;
 
             $idPedido = $this->pdo->lastInsertId();
 
@@ -84,7 +84,7 @@ class controlerCarrinho{
                 $sql->bindValue(":observacao", $_SESSION['observacao'][$key]);
                 $sql->bindValue(":pepr_preco", $produtos[$key]['pro_preco']);
 
-                $sql->execute();
+                if(!$sql->execute()) return false;
             }
 
         }else {
@@ -120,7 +120,7 @@ class controlerCarrinho{
             $sql->bindValue(":status", $status);
             $sql->bindValue(":origem", $fk_origem_pedido);
     
-            $sql->execute();
+            if(!$sql->execute()) return false;
     
             $idPedido = $this->pdo->lastInsertId();
             
@@ -134,9 +134,11 @@ class controlerCarrinho{
                 $sql->bindValue(":observacao", $_SESSION['observacao'][$key]);
                 $sql->bindValue(":pepr_preco", $produtos[$key]['pro_preco']);
 
-                $sql->execute();
+                if(!$sql->execute()) return false;
             }
         }
+
+        return true;
     }
 
     function selectPedido($fk_cliente){
@@ -188,12 +190,15 @@ class controlerCarrinho{
                 INNER JOIN
                 tb_cliente AS CLI ON
                 PED.ped_fk_cliente = CLI.cli_pk_id
-                INNER JOIN
+                LEFT JOIN
                 rl_endereco_cliente AS ENCL ON
                 PED.ped_fk_endereco_cliente = ENCL.encl_pk_id
-                INNER JOIN
+                LEFT JOIN
                 tb_endereco AS ENCO ON
                 ENCL.encl_fk_endereco = ENCO.end_pk_id
+                LEFT JOIN
+                tb_origem_pedido AS ORPE ON
+                PED.ped_fk_origem_pedido = ORPE.orpe_pk_id
                 ORDER BY PED.ped_data DESC, cli_nome ASC LIMIT :offset, :por_pagina");
 
                 $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
@@ -207,12 +212,15 @@ class controlerCarrinho{
                 INNER JOIN
                 tb_cliente AS CLI ON
                 PED.ped_fk_cliente = CLI.cli_pk_id
-                INNER JOIN
+                LEFT JOIN
                 rl_endereco_cliente AS ENCL ON
                 PED.ped_fk_endereco_cliente = ENCL.encl_pk_id
-                INNER JOIN
+                LEFT JOIN
                 tb_endereco AS ENCO ON
                 ENCO.end_pk_id = ENCL.encl_pk_id
+                LEFT JOIN
+                tb_origem_pedido AS ORPE ON
+                PED.ped_fk_origem_pedido = ORPE.orpe_pk_id
                 ORDER BY PED.ped_data DESC, cli_nome ASC LIMIT :offset, :por_pagina");
                 $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
                 $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
@@ -244,6 +252,7 @@ class controlerCarrinho{
                         $pedido->bairro=($result->end_bairro);
                         $pedido->rua=($result->end_logradouro);
                         $pedido->cep=($result->end_cep);
+                        $pedido->origem_pedido=($result->orpe_origem);
 
                         array_push($pedidos,$pedido);
                     }
@@ -257,31 +266,32 @@ class controlerCarrinho{
     }
 
 
-    function selectItens($cod_pedido){
-        $parametro = $cod_pedido;
-        $produtos=array();
+    function selectItens($pk_id){
+    
+        $produtos = array();
+
         $stmt=$this->pdo->prepare("SELECT * 
         FROM rl_pedido_produto AS PEPR
         INNER JOIN tb_produto AS PRO
         ON PRO.pro_pk_id = PEPR.pepr_fk_produto
-        WHERE PEPR.pepr_fk_pedido = :parametro");
+        WHERE PEPR.pepr_fk_pedido = :pk_id");
         
-        $stmt->bindParam(":parametro", $parametro, PDO::PARAM_INT);
+        $stmt->bindParam(":pk_id", $pk_id, PDO::PARAM_INT);
         $executa=$stmt->execute();
         if ($executa) {
             if ($stmt->rowCount() > 0 ){
-                while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                while($result = $stmt->fetch(PDO::FETCH_OBJ)){
                     $pedido_produto = new pedido_produto();
                     $pedido_produto->setFkProduto($result->pepr_fk_produto);
                     $pedido_produto->setQuantidade($result->pepr_quantidade);
                     $pedido_produto->setObservacao($result->pepr_observacao);
-                    $pedido_produto->preco=($result->pepr_preco);
+                    $pedido_produto->setPreco($result->pepr_preco);
                     $pedido_produto->nome=($result->pro_nome);
 
                     array_push($produtos,$pedido_produto);  
                 }
             }else{
-                echo "Sem resultados";
+                echo "Sem itens para o Pedido...contate o Suporte!";
                 return -1;
             }
             return $produtos;
@@ -301,12 +311,15 @@ class controlerCarrinho{
         INNER JOIN
         tb_cliente AS CLI ON
         PED.ped_fk_cliente = CLI.cli_pk_id
-        INNER JOIN
+        LEFT JOIN
         rl_endereco_cliente AS ENCL ON
         PED.ped_fk_endereco_cliente = ENCL.encl_pk_id
-        INNER JOIN
+        LEFT JOIN
         tb_endereco AS ENCO ON
         ENCL.encl_fk_endereco = ENCO.end_pk_id
+        LEFT JOIN
+        tb_origem_pedido AS ORPE ON
+        PED.ped_fk_origem_pedido = ORPE.orpe_pk_id
         WHERE CLI.cli_nome like :parametro AND PED.ped_valor > :valormenor AND PED.ped_valor < :valormaior
         ORDER BY PED.ped_data DESC");
 
@@ -340,6 +353,7 @@ class controlerCarrinho{
                     $pedido->bairro=($result->end_bairro);
                     $pedido->rua=($result->end_logradouro);
                     $pedido->cep=($result->end_cep);
+                    $pedido->origem_pedido=($result->orpe_origem);
 
                     array_push($pedidos,$pedido);
                 }
@@ -363,14 +377,14 @@ class controlerCarrinho{
         FROM tb_pedido as PED
         INNER JOIN
         tb_cliente AS CLI ON
-        PED.cliente = CLI.cod_cliente
-        INNER JOIN
+        PED.ped_fk_cliente = CLI.cli_pk_id
+        LEFT JOIN
         rl_endereco_cliente AS ENCL ON
         PED.ped_fk_endereco_cliente = ENCL.encl_pk_id
-        INNER JOIN
+        LEFT JOIN
         tb_endereco AS ENCO ON
         ENCL.encl_fk_endereco = ENCO.end_pk_id
-        ORDER BY PED.data DESC"); //Ordenação por cod do pedido
+        ORDER BY PED.ped_data DESC"); //Ordenação por cod do pedido
 
         $stmt->bindValue(":nome", $parametro);
         $stmt->bindParam(":menor", $valormenor, PDO::PARAM_INT);
@@ -416,10 +430,10 @@ class controlerCarrinho{
 
     }
 
-    function filterEndereco($parametro, $valormenor, $valormaior, $endereco){
+    function filterEndereco($nome_cliente, $valormenor, $valormaior, $endereco){
 
         $pedidos=array();
-        $parametro = "%".$parametro."%";
+        $nome_cliente = "%".$nome_cliente."%";
         $endereco = "%" . $endereco . "%";
 
         $stmt=$this->pdo->prepare("SELECT *
@@ -427,16 +441,19 @@ class controlerCarrinho{
         INNER JOIN
         tb_cliente AS CLI ON
         PED.ped_fk_cliente = CLI.cli_pk_id
-        INNER JOIN
+        LEFT JOIN
         rl_endereco_cliente AS ENCL ON
         PED.ped_fk_endereco_cliente = ENCL.encl_pk_id
-        INNER JOIN
+        LEFT JOIN
         tb_endereco AS ENCO ON
         ENCL.encl_fk_endereco = ENCO.end_pk_id
-        WHERE c.nome like :nome AND p.valor > :menor AND p.valor < :maior
-        AND e.rua LIKE :rua OR e.numero LIKE :numero OR e.cep LIKE :cep");
+        LEFT JOIN
+        tb_origem_pedido AS ORPE ON
+        PED.ped_fk_origem_pedido = ORPE.orpe_pk_id
+        WHERE CLI.cli_nome like :nome AND PED.ped_valor > :menor AND PED.ped_valor < :maior
+        AND ENCO.end_logradouro LIKE :rua OR ENCL.encl_numero LIKE :numero OR ENCO.end_cep LIKE :cep");
 
-        $stmt->bindValue(":nome", $parametro);
+        $stmt->bindValue(":nome", $nome_cliente);
         $stmt->bindValue(":rua", $endereco);
         $stmt->bindValue(":numero", $endereco);
         $stmt->bindValue(":cep", $endereco);
@@ -465,6 +482,7 @@ class controlerCarrinho{
                     $pedido->bairro=($result->end_bairro);
                     $pedido->rua=($result->end_logradouro);
                     $pedido->cep=($result->end_cep);
+                    $pedido->origem_pedido=($result->orpe_origem);
 
                     array_push($pedidos,$pedido);
                 }

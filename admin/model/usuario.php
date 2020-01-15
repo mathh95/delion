@@ -64,6 +64,8 @@
         }
         function __construct(){
         }
+
+        
         function construct($usu_nome,$usu_login,$usu_senha,$usu_email,$usu_flag_bloqueado,$usu_cod_perfil, $usu_permissao){
             $this->usu_nome=$usu_nome;
             $this->usu_login=$usu_login;

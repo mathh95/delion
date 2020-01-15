@@ -50,7 +50,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 			) {
 
 				$itens = $controle_cardapio->selectByCategoriaFilterPos(
-					$categoria->getCod_categoria(),
+					$categoria->getPkId(),
 					$filtro,
 					$flag_servindo
 				);
@@ -58,7 +58,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 			//todos os itens ordenados
 			}else{
 				$itens = $controle_cardapio->selectByCategoriaByPos(
-					$categoria->getCod_categoria()
+					$categoria->getPkId()
 				);
 			}	
 			
@@ -67,7 +67,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 				$mensagem='Cardápio excluído com sucesso!';
 				$titulo='Excluir';
 			
-				echo "<tr name='resutaldo' id='status".$item->getCod_cardapio()."'>
+				echo "<tr name='resutaldo' id='status".$item->getPkId()."'>
 					<td style='text-align: left;' name='nome'>"
 						.$item->getNome()."&nbsp;	
                     </td>

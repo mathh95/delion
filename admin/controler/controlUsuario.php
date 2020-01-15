@@ -36,6 +36,8 @@
                 return -1;
            }
         }
+
+
         function update($usuario){
             try{
                 $stmte =$this->pdo->prepare("UPDATE tb_usuario SET usu_nome=:usu_nome, usu_login=:usu_login, usu_email=:usu_email, usu_cod_perfil=:usu_cod_perfil, usu_permissao=:usu_permissao WHERE usu_pk_id=:usu_pk_id");
@@ -114,6 +116,37 @@
             }
         }
 
+        function selectById($pk_id){
+            $usuario = new usuario();
+            try{
+                $stmte = $this->pdo->prepare("SELECT *
+                FROM tb_usuario
+                WHERE usu_pk_id=:pk_id");
+                $stmte->bindParam(":pk_id", $pk_id, PDO::PARAM_INT);
+
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        $result = $stmte->fetch(PDO::FETCH_OBJ);
+
+                        $usuario->setCod_usuario($result->usu_pk_id);
+                        $usuario->setNome($result->usu_nome);
+                        $usuario->setLogin($result->usu_login);
+                        $usuario->setEmail($result->usu_email);
+                        $usuario->setSenha($result->usu_senha);
+                        $usuario->setFlag_bloqueado($result->usu_flag_bloqueado);
+                        $usuario->setCod_perfil($result->usu_cod_perfil);
+                        $usuario->setPermissao($result->usu_permissao);
+                    }else{
+                        return false;
+                    }
+                }
+                return $usuario;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
         function selectAll(){
             $usuarios = array();
             try{
@@ -125,8 +158,8 @@
                           	$usuario->setCod_usuario($result->usu_pk_id);
                             $usuario->setNome($result->usu_nome);
                             $usuario->setLogin($result->usu_login);
-                            $usuario->setEmail($result->usu_senha);
-                            $usuario->setSenha($result->usu_email);
+                            $usuario->setEmail($result->usu_email);
+                            $usuario->setSenha($result->usu_senha);
                             $usuario->setFlag_bloqueado($result->usu_flag_bloqueado);
                             $usuario->setCod_perfil($result->usu_cod_perfil);
                             $usuario->setPermissao($result->usu_permissao);
@@ -167,23 +200,24 @@
             }
         }
 
-        function updatePassword($usuario){
+        function updatePassword($pk_id, $senha_nova){
             try{
-                 $stmte =$this->pdo->prepare("UPDATE tb_usuario SET usu_senha=:usu_senha WHERE usu_pk_id= :cod_usuario");
-                  $vazio="";
-                  $stmte->bindParam(":senha", md5($usuario->getSenha()) , PDO::PARAM_STR);
-                  $stmte->bindParam(":cod_usuario", $usuario->getCod_Usuario() , PDO::PARAM_STR);
-                 if($stmte->execute()){
-                     return 1;
-                 }
-                 else{
-                     return -1;
-                 }
+                $stmte =$this->pdo->prepare("UPDATE tb_usuario SET usu_senha=:senha WHERE usu_pk_id= :pk_id");
+
+                $stmte->bindParam(":senha", md5($senha_nova), PDO::PARAM_STR);
+                $stmte->bindParam(":pk_id", $pk_id, PDO::PARAM_STR);
+                
+                if($stmte->execute()){
+                    return 1;
+                }else{
+                    return -1;
+                }
              }
              catch(PDOException $e){
                 return $e->getMessage();
              }
         }
+
 
         function validaEmail($parametro){
           try{
@@ -202,9 +236,11 @@
         }
 
         function recuperaPassword($email){
+
             try{
                 $stmte =$this->pdo->prepare("UPDATE tb_usuario SET usu_senha=:usu_senha WHERE usu_pk_id = :cod_usuario");
-                $token= password_hash($email);
+                $token = password_hash($email);
+
                 if($executa){
                     return $token;
                 }

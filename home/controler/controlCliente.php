@@ -7,19 +7,21 @@
 
             function insert($cliente){
                 try{
-                    $nome=$cliente->getNome();
-                    $sobrenome=$cliente->getSobrenome();
-                    $cpf=$cliente->getCpf();
-                    $data_nasc=$cliente->getData_nasc();
-                    $login=$cliente->getLogin();
-                    $senha=hash_hmac("md5",$cliente->getSenha(), "senha");
-                    $telefone=$cliente->getTelefone();
-                    $status=$cliente->getStatus();
+                    $nome = $cliente->getNome();
+                    $sobrenome = $cliente->getSobrenome();
+                    $cpf = $cliente->getCpf();
+                    $data_nasc = $cliente->getData_nasc();
+                    $login = $cliente->getLogin();
+                    $senha = hash_hmac("md5" , $cliente->getSenha(), "senha");
+                    $telefone = $cliente->getTelefone();
+                    $status = $cliente->getStatus();
+
                     $stmt=$this->pdo->prepare("INSERT INTO tb_cliente(cli_nome, cli_sobrenome, cli_cpf, cli_data_nasc, cli_login_email, cli_senha, cli_telefone, cli_status)
                     VALUES (:nome, :sobrenome, :cpf, :data_nasc, :login, :senha, :telefone, :status) ");
+                    
                     $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
                     $stmt->bindParam(":sobrenome", $sobrenome, PDO::PARAM_STR);
-                    $stmt->bindParam(":cpf", $cpf, PDO::PARAM_STR);
+                    $stmt->bindParam(":cpf", $cpf, PDO::PARAM_INT);
                     $stmt->bindParam(":data_nasc", $data_nasc, PDO::PARAM_STR);
                     $stmt->bindParam(":login", $login, PDO::PARAM_STR);
                     $stmt->bindParam(":senha", $senha, PDO::PARAM_STR);
@@ -49,15 +51,17 @@
             function insertGoogle($cliente){
                 try{
                     $nome = $cliente->getNome();
+                    $sobrenome = $cliente->getSobrenome();
                     $login = $cliente->getLogin();
-                    $idGoogle = $cliente->getIdGoogle();
+                    $id_google = $cliente->getIdGoogle();
                     $status = $cliente->getStatus();
 
-                    $stmt = $this->pdo->prepare("INSERT INTO tb_cliente(cli_nome, cli_login_email, cli_status, cli_id_google) VALUES (:nome, :login, :status, :idGoogle)");
+                    $stmt = $this->pdo->prepare("INSERT INTO tb_cliente(cli_nome, cli_sobrenome, cli_login_email, cli_status, cli_id_google) VALUES (:nome, :login, :status, :id_google)");
                     $stmt->bindValue(":nome", $nome);
+                    $stmt->bindValue(":sobrenome", $sobrenome);
                     $stmt->bindValue(":login", $login);
                     $stmt->bindValue(":status", $status);
-                    $stmt->bindValue(":idGoogle", $idGoogle);
+                    $stmt->bindValue(":id_google", $id_google);
 
                     $executa = $stmt->execute();
 
@@ -75,15 +79,18 @@
             function insertFacebook($cliente){
                 try{
                     $nome = $cliente->getNome();
-                    $login = $cliente->getLogin();
-                    $idFacebook = $cliente->getIdFacebook();
+                    $sobrenome = $cliente->getSobrenome();
+                    $login_email = $cliente->getLogin();
+                    $id_facebook = $cliente->getIdFacebook();
                     $status = $cliente->getStatus();
 
-                    $stmt = $this->pdo->prepare("INSERT INTO tb_cliente (cli_nome, cli_login_email, cli_status, cli_id_facebook) VALUES (:nome, :login, :status, :idFacebook)");
+                    $stmt = $this->pdo->prepare("INSERT INTO tb_cliente (cli_nome, cli_sobrenome, cli_login_email, cli_status, cli_id_facebook) VALUES (:nome, :sobrenome, :login, :status, :idFacebook)");
+
                     $stmt->bindParam("nome", $nome, PDO::PARAM_STR);
-                    $stmt->bindParam("login", $login, PDO::PARAM_STR);
+                    $stmt->bindParam("sobrenome", $sobrenome, PDO::PARAM_STR);
+                    $stmt->bindParam("login", $login_email, PDO::PARAM_STR);
                     $stmt->bindParam("status", $status, PDO::PARAM_INT);
-                    $stmt->bindParam("idFacebook", $idFacebook, PDO::PARAM_STR);
+                    $stmt->bindParam("idFacebook", $id_facebook, PDO::PARAM_STR);
 
                     $executa = $stmt->execute();
 
@@ -253,12 +260,50 @@
                 }
             }
 
-            function updateFacebook($cli_pk_id,$idFacebook){
+            function updateEmail($cli_pk_id, $login_email){
                 try{
-                    $stmt=$this->pdo->prepare("UPDATE tb_cliente SET cli_id_facebook=:idFacebook WHERE cli_pk_id=:cli_pk_id");
-                    $stmt->bindParam(":idFacebook", $idFacebook, PDO::PARAM_STR);
+                    $stmt = $this->pdo->prepare("UPDATE tb_cliente SET cli_login_email=:login_email WHERE cli_pk_id=:cli_pk_id");
+                    $stmt->bindParam(":login_email", $login_email, PDO::PARAM_STR);
                     $stmt->bindParam(":cli_pk_id", $cli_pk_id, PDO::PARAM_INT);
                     $executa=$stmt->execute();
+
+                    if ($executa){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function updateIdFacebook($cli_pk_id, $id_facebook){
+                try{
+                    $stmt=$this->pdo->prepare("UPDATE tb_cliente SET cli_id_facebook=:id_facebook WHERE cli_pk_id=:cli_pk_id");
+                    $stmt->bindParam(":id_facebook", $id_facebook, PDO::PARAM_STR);
+                    $stmt->bindParam(":cli_pk_id", $cli_pk_id, PDO::PARAM_INT);
+                    $executa=$stmt->execute();
+
+                    if ($executa){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function updateIdGoogle($cli_pk_id, $id_google){
+                try{
+                    $stmt=$this->pdo->prepare("UPDATE tb_cliente SET cli_id_google=:id_google WHERE cli_pk_id=:cli_pk_id");
+                    $stmt->bindParam(":id_google", $id_google, PDO::PARAM_STR);
+                    $stmt->bindParam(":cli_pk_id", $cli_pk_id, PDO::PARAM_INT);
+                    $executa = $stmt->execute();
 
                     if ($executa){
                         return 1;
@@ -342,27 +387,31 @@
                 }
             }
 
-            function select($parametro,$modo){
+            function select($parametro, $modo){
 
-                $cliente= new cliente;
+                $cliente = new cliente;
                 try{
                     if($modo==1){
                         $nome= "%" . $parametro;
                         $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_nome LIKE :parametro");
                         $stmt->bindParam(":parametro", $nome, PDO::PARAM_STR);
+
                     }elseif($modo==2){
                         $cli_pk_id=$parametro;
                         $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_pk_id=:parametro");
                         $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
+
                     }elseif ($modo == 3) {
                         $login = $parametro;
                         $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_login_email = :login");
                         $stmt->bindParam(":login", $login, PDO::PARAM_STR);
+
                     }elseif ($modo == 4) {
                         $idFacebook= $parametro;
                         $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_id_facebook=:parametro");
                         $stmt->bindParam(":parametro", $idFacebook, PDO::PARAM_INT);
                     }
+                    
                     $executa=$stmt->execute();
                     if ($executa){
                         if($stmt->rowCount() > 0){
@@ -376,6 +425,113 @@
                                 $cliente->setTelefone($result->cli_telefone);
                                 $cliente->setStatus($result->cli_status);
                                 $cliente->setIdFacebook($result->cli_id_facebook);
+                                $cliente->setIdGoogle($result->cli_id_facebook);
+                            }
+                        }
+                        return $cliente;
+                    }else{
+                        return -1;
+                    }
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }  
+
+            function selectByEmail($login_email){
+
+                $cliente = new cliente;
+                try{                    
+                    $stmt=$this->pdo->prepare("SELECT *
+                    FROM tb_cliente
+                    WHERE cli_login_email=:parametro");
+                    $stmt->bindParam(":parametro", $login_email, PDO::PARAM_STR);
+                    
+                    $executa=$stmt->execute();
+                    if ($executa){
+                        if($stmt->rowCount() > 0){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                                $cliente->setPkId($result->cli_pk_id);
+                                $cliente->setLogin($result->cli_login_email);
+                                $cliente->setNome($result->cli_nome);
+                                $cliente->setSobrenome($result->cli_sobrenome);
+                                $cliente->setCpf($result->cli_cpf);
+                                $cliente->setData_nasc($result->cli_data_nasc);
+                                $cliente->setTelefone($result->cli_telefone);
+                                $cliente->setStatus($result->cli_status);
+                                $cliente->setIdFacebook($result->cli_id_facebook);
+                                $cliente->setIdGoogle($result->cli_id_facebook);
+                            }
+                        }
+                        return $cliente;
+                    }else{
+                        return -1;
+                    }
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function selectByIdFacebook($id_facebook){
+
+                $cliente = new cliente;
+                try{                    
+                    $stmt=$this->pdo->prepare("SELECT *
+                    FROM tb_cliente
+                    WHERE cli_id_facebook=:parametro");
+                    $stmt->bindParam(":parametro", $id_facebook, PDO::PARAM_INT);
+                    
+                    $executa=$stmt->execute();
+                    if ($executa){
+                        if($stmt->rowCount() > 0){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                                $cliente->setPkId($result->cli_pk_id);
+                                $cliente->setLogin($result->cli_login_email);
+                                $cliente->setNome($result->cli_nome);
+                                $cliente->setSobrenome($result->cli_sobrenome);
+                                $cliente->setCpf($result->cli_cpf);
+                                $cliente->setData_nasc($result->cli_data_nasc);
+                                $cliente->setTelefone($result->cli_telefone);
+                                $cliente->setStatus($result->cli_status);
+                                $cliente->setIdFacebook($result->cli_id_facebook);
+                            }
+                        }
+                        return $cliente;
+                    }else{
+                        return -1;
+                    }
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function selectByIdGoogle($id_google){
+
+                $cliente = new cliente;
+                try{                    
+                    $stmt=$this->pdo->prepare("SELECT *
+                    FROM tb_cliente
+                    WHERE cli_id_google=:parametro");
+                    $stmt->bindParam(":parametro", $id_google, PDO::PARAM_INT);
+                    
+                    $executa=$stmt->execute();
+                    if ($executa){
+                        if($stmt->rowCount() > 0){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                                $cliente->setPkId($result->cli_pk_id);
+                                $cliente->setLogin($result->cli_login_email);
+                                $cliente->setNome($result->cli_nome);
+                                $cliente->setSobrenome($result->cli_sobrenome);
+                                $cliente->setCpf($result->cli_cpf);
+                                $cliente->setData_nasc($result->cli_data_nasc);
+                                $cliente->setTelefone($result->cli_telefone);
+                                $cliente->setStatus($result->cli_status);
+                                $cliente->setIdFacebook($result->cli_id_google);
                             }
                         }
                         return $cliente;
@@ -438,7 +594,7 @@
                 }
             }
             
-            function validaCliente($login,$senha){
+            function validaCliente($login, $senha){
                 try{
                     $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_login_email=:login");
                     $stmt->bindParam(":login", $login, PDO::PARAM_STR);
@@ -475,16 +631,16 @@
             //valida cliente pelas redes sociais
             //MODO 0 = FACEBOOK
             //MODO 1 = GOOGLE
-            function validaRedeSocial($login,$parametro,$modo){
+            function validaRedeSocial($login, $parametro, $modo){
                 try{
                     $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_login_email=:login");
                     $stmt->bindParam(":login", $login, PDO::PARAM_STR);
                     $executa=$stmt->execute();
                     if ($executa){
-                        if($stmt->rowCount()>0){
+                        if($stmt->rowCount() > 0){
                             $result=$stmt->fetch(PDO::FETCH_OBJ);
                             if($modo == 0){
-                                $idFacebook=$result->cli_id_facebook;
+                                $idFacebook = $result->cli_id_facebook;
                                 if ($parametro == $idFacebook){
                                     $_SESSION['cod_cliente']=$result->cli_pk_id;
                                     $_SESSION['nome']=$result->cli_nome;
@@ -496,7 +652,7 @@
                                     return 1;
                                 }
                             }elseif ($modo == 1) {
-                                $idGoogle=$result->cli_id_google;
+                                $idGoogle = $result->cli_id_google;
                                 if ($parametro == $idGoogle){
                                     $_SESSION['cod_cliente']=$result->cli_pk_id;
                                     $_SESSION['nome']=$result->cli_nome;

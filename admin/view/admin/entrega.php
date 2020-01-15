@@ -131,7 +131,7 @@ $arquivo_pai = basename(__FILE__, '.php');
 
                                     <td style="text-align:center; vertical-align: middle;">
                                         
-                                        <input class="form-check-input" type="checkbox" name="flag_ativo[]" value="1" <?php echo ($entrega->getFlag_ativo() ? "checked" : ""); ?>>
+                                        <input class="form-check-input" type="checkbox" name="flag_ativo[]" value="<?=$entrega->getPkId()?>" <?php echo ($entrega->getFlag_ativo() ? "checked" : ""); ?>>
 
                                         <button style="margin-left:20px;" type="button" class="btn btn-kionux" onclick="excluirRaio(<?= $entrega->getPkId(); ?>)"><i class="fa fa-remove"></i>&nbsp;Excluir</button>
                                     </td>

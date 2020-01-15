@@ -33,7 +33,7 @@
 	$imagens = $controleImagem->selectAll();
 
 	//configuração de acesso ao WhatsApp 
-	include "./whats-config.php";
+	//include "./whats-config.php";
 
 ?>
 
@@ -135,7 +135,7 @@
 		$(document).ready(function(){
 		
 
-			$("input.telefone").mask("(99) 9999-9999?9").focusout(function (event) {  
+			$("input.telefone").mask("(99) ?9 9999-9999").focusout(function (event) {  
 
 				var target, phone, element;  
 
@@ -149,11 +149,11 @@
 
 				if(phone.length > 10) {  
 
-					element.mask("(99) 99999-999?9");  
+					element.mask("(99) ?9 9999-9999");  
 
 				} else {  
 
-					element.mask("(99) 9999-9999?9");  
+					element.mask("(99) ?9 9999-99999");  
 
 				}  
 

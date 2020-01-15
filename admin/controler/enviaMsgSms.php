@@ -12,9 +12,10 @@
 	include_once MODELPATH."/sms_mensagem.php";
 	include_once CONTROLLERPATH."/controlSmsMensagem.php";
 
-
 	include_once HOMEPATH."home/utils/InfoBip.php";
+	include_once HELPERPATH."/mask.php";
 
+	$mask = new Mask;
 
 	if (in_array('enviar_sms', json_decode($_SESSION['permissao']))) {
 		if (!isset($_POST)||empty($_POST)){
@@ -36,15 +37,21 @@
 		
 		$control_sms = new controlerSmsMensagem($_SG['link']);
 		//salva SMS que será enviado
-		$sms_mensagem = new smsMensagem;
-		$sms_mensagem->construct($msg, $descricao);
-		$cod_sms_mensagem = $control_sms->insert($sms_mensagem);
 
+		$sms_mensagem = new smsMensagem;
+		
+		$msg_cleaned = $mask->sanitizeString($msg);
+		$sms_mensagem->construct($msg_cleaned, $descricao);
+		$cod_sms_mensagem = $control_sms->insert($sms_mensagem);
+		
 		$enviados = 0;
 
 		$info_bip = new InfoBip();
 		foreach ($arr_key_cli as $key){
-			$res_envio = $info_bip->enviaMsgSMS($arr_telefones_cli[$key], $msg);
+			
+			$telefone_int = $mask->rmMaskPhone($arr_telefones_cli[$key]);
+
+			$res_envio = $info_bip->enviaMsgSMS($telefone_int, $msg_cleaned);
 			
 			// var_dump($res_envio);
 
@@ -58,7 +65,9 @@
 		
 		if($enviados == $qtd_clientes){
 			//sms s enviados set to 1
-			msgRedireciona('SMS enviado!','Mensagens enviadas!',1,'../view/admin/enviarSms.php');
+			msgRedireciona('SMS enviado!', 'Todas Mensagens enviadas!', 1, '../view/admin/enviarSms.php');
+		}else if($enviados){
+
 		}else{
 			header('Location: ' . $_SERVER['HTTP_REFERER']);			
 		}
