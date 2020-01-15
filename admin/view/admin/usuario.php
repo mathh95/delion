@@ -164,16 +164,6 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="banners" name="permissoes[]" value="banner">Banners
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
                                             <input type="checkbox" id="imagem" name="permissoes[]" value="imagem">Imagens
 
                                         </label>

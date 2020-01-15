@@ -8,26 +8,31 @@
 	include_once "controlImagem.php";
 	include_once "../lib/alert.php";
 	include_once "upload.php";
+
+
 	if (in_array('imagem', json_decode($_SESSION['permissao']))) {
 		if (!isset($_POST)||empty($_POST)){
 			echo 'Nada foi postado.';
 		}
+
 		$nome= addslashes(htmlspecialchars($_POST['nome']));
-		$pagina = array();
-		for ($i=1; $i <= 13; $i++) { 
-			if (!empty($_POST[$i."pagina"])) {
-				array_push($pagina, addslashes(htmlspecialchars($_POST[$i."pagina"])));
-			}
+
+		if(isset($_POST['paginas']) && !empty($_POST['paginas'])){
+			$arr_paginas = json_encode($_POST['paginas']);
+		}else{
+			$arr_paginas = "";
 		}
-		$pagina = json_encode($pagina);
+
 		if (!empty($_FILES['arquivo']['name'])) {
 	   		$foto = upload("arquivo");
 		}else{
 			$foto = "";
 		}
+
 		$imagem= new imagem();
-		$imagem->construct($nome, $foto, $pagina);
+		$imagem->construct($nome, $foto, $arr_paginas);
 		$controle=new controlerImagem($_SG['link']);
+		
 		if($controle->insert($imagem)> -1){
 			msgRedireciona('Cadastro Realizado!','Imagem cadastrada com sucesso!',1,'../view/admin/imagem.php');
 		}else{
