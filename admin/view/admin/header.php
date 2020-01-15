@@ -304,35 +304,6 @@
 
                             </li>   
 
-                           <li class="dropdown
-
-                                <?php
-                                    //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                    if(strpos($arquivo_pai, 'miniB') !== false){
-                                        echo 'active';
-                                    }
-                                ?>
-                            ">
-                            <?php } ?>
-                                
-                            <?php
-                            
-                            $permissao = json_decode($usuarioPermissao->getPermissao());
-                            
-                            if(in_array('banner', $permissao)){ ?>
-
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mini banner <span class="caret"></span></a>
-
-                                <ul class="dropdown-menu">
-
-                                    <li><a href="miniBanner.php">Cadastro</a></li>
-
-                                    <li><a href="miniBannerLista.php">Listar</a></li>
-
-                                </ul>
-
-                            </li>
-
                        <li class="dropdown
 
                                 <?php
