@@ -21,7 +21,7 @@ body, html{
     overflow-x: hidden;
 
 
-    > div.container.no-padding{
+    > div.container-fluid.no-padding{
         position: absolute;
         padding: 0;
         width: 100%;
@@ -32,6 +32,9 @@ body, html{
             background-position: 0 0;
             background-repeat: no-repeat;
                     >img.img-responsive.imagem-topo{
+                        width: 100%;
+                        height: auto;
+                        max-height: 500px;
                         position: absolute;
                         @include img-responsive();
                         @include center-block();

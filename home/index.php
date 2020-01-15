@@ -59,7 +59,7 @@
 
 <body>
 
-<div class="container no-padding">
+<div class="container-fluid no-padding">
 	<div class="imagens-topo">
 
 				<?php
@@ -87,7 +87,7 @@
 </div>
 	
 
-    <div class="form-cep-completo">
+    <div class="container-fluid form-cep-completo">
 		<div class="tabs">
 			<ul class="nav nav-tabs navbar-collapse" >
 				<li class="delivery" >
