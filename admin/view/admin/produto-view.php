@@ -21,8 +21,7 @@
     include_once CONTROLLERPATH."/controlFaixaHorario.php";
 
 
-
-    $_SESSION['permissaoPagina']=0;
+    $_SESSION['permissaoPagina'] = 0;
 
     protegePagina();
 
@@ -86,7 +85,7 @@
 
                             <br>
 
-                            <small>Nome: </small>
+                            <small>Nome *: </small>
 
                             <div class="input-group">
 
@@ -102,13 +101,13 @@
 
                             <br>
 
-                            <small>Preço: </small>
+                            <small>Preço *: </small>
 
                             <div class="input-group">
 
                                 <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
 
-                                <input class="form-control" placeholder="Preço" name="preco" required id="preco" type="number" step="1" min="1" max="99" value="<?=$produto->getPreco(); ?>">
+                                <input class="form-control" placeholder="Preço" name="preco" required id="preco" type="number" step="0.01" min="1" max="99" value="<?=$produto->getPreco(); ?>">
 
                             </div>
 
@@ -126,9 +125,9 @@
 
                             <br>
 
-                            <small>Categoria</small>
+                            <small>Categoria *:</small>
 
-                            <select class="form-control" name="categoria" id="categoria" >
+                            <select class="form-control" name="categoria" id="categoria" required>
 
                                 <option value="">Selecionar Categoria</option>
 
@@ -274,13 +273,13 @@
                                             
                                             <?php 
                                                 if(!empty($adicionalObj)){
-                                                    if(in_array($adicional->getCod_adicional(), $adicionalObj)){
-                                                        echo "<input checked type='checkbox' name='".$i."adicional' value='".$adicional->getCod_adicional()."'>".$adicional->getNome();
+                                                    if(in_array($adicional->getPkId(), $adicionalObj)){
+                                                        echo "<input checked type='checkbox' name='".$i."adicional' value='".$adicional->getPkId()."'>".$adicional->getNome();
                                                     }else{
-                                                        echo "<input type='checkbox' name='".$i."adicional' value='".$adicional->getCod_adicional()."'>".$adicional->getNome();
+                                                        echo "<input type='checkbox' name='".$i."adicional' value='".$adicional->getPkId()."'>".$adicional->getNome();
                                                     }
                                                 }else{
-                                                    echo "<input type='checkbox' name='".$i."adicional' value='".$adicional->getCod_adicional()."'>".$adicional->getNome();
+                                                    echo "<input type='checkbox' name='".$i."adicional' value='".$adicional->getPkId()."'>".$adicional->getNome();
                                                 }
                                             ?>
 
@@ -386,9 +385,12 @@
 
                 var categoria = '<?= $produto->getCategoria() ?>';
                 var faixa_horario = '<?=$produto->getFkFaixaHorario()?>';
-                var dias = JSON.parse('<?= $produto->getDias_semana() ?>');
+                var dias = '<?= $produto->getDias_semana() ?>';
                 var ativo = '<?= $produto->getFlag_ativo() ?>';
                 
+                if(dias) dias = JSON.parse(dias);
+                console.log(categoria);
+
 
                 //dia -> 1 == domingo...7 == sábado
                 for(let dia of dias){
@@ -399,8 +401,8 @@
                     $('#ativo').attr('checked', true);
                 }
 
-                $('#' + categoria).attr('selected', true);
-                $('#' + faixa_horario).attr('selected', true);
+                if(categoria) $('#' + categoria).attr('selected', true);
+                if(faixa_horario) $('#' + faixa_horario).attr('selected', true);
             });      
             
 

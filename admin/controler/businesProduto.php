@@ -13,15 +13,20 @@
 		if (!isset($_POST)||empty($_POST)){
 			echo 'Nada foi postado.';
 		}
+
 		$nome= addslashes(htmlspecialchars($_POST['nome']));
 		$preco = addslashes(htmlspecialchars($_POST['preco']));
 		$desconto = addslashes(htmlspecialchars($_POST['desconto']));
+		if($desconto == "") $desconto = null;
+
 		$descricao= addslashes(htmlspecialchars($_POST['descricao']));
+
 		if (!empty($_FILES['arquivo']['name'])) {
 			$foto = upload("arquivo");
 		}else{
 			$foto = "";
 		}
+
 		$fk_categoria= addslashes(htmlspecialchars($_POST['categoria']));
 
 		$adicional = array();
@@ -30,6 +35,7 @@
 				array_push($adicional, addslashes(htmlspecialchars($_POST[$i."adicional"])));
 			}
 		}
+
 		$adicional = json_encode($adicional);
 
 		if(isset($_POST['dias'])){
@@ -40,7 +46,7 @@
 		}
 		
 		$fk_faixa_horario = addslashes(htmlspecialchars($_POST['faixa_horario']));
-				
+		if($fk_faixa_horario == "") $fk_faixa_horario = null;
 
 		$flag_ativo = (isset($_POST['flag_ativo'])||!empty($_POST['flag_ativo'])) && $_POST['flag_ativo'] == 1 ? 1 : 0 ;
 
@@ -53,11 +59,11 @@
 		$produto = new produto();
 		$produto->constructFkFaixa($nome, $preco, $desconto, $descricao, $foto, $fk_categoria, $flag_ativo, $flag_servindo, $prioridade, $delivery, $adicional, $arr_dias_semana, $fk_faixa_horario);
 
-		
+				
 		$controle = new controlerProduto($_SG['link']);
-
+		
 		$result = $controle->insert($produto);
-		if( $result > -1){
+		if( $result == 1){
 
 			msgRedireciona('Cadastro Realizado!','Produto cadastrado com sucesso!',1,'../view/admin/produto.php');
 

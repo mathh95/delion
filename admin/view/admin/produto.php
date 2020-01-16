@@ -76,7 +76,7 @@
 
                             <br>
 
-                            <small>Nome: </small>
+                            <small>Nome *: </small>
 
                             <div class="input-group">
 
@@ -88,13 +88,13 @@
 
                             <br>
                             
-                            <small>Preço: </small>
+                            <small>Preço *: </small>
 
                             <div class="input-group">
 
                                 <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
 
-                                <input class="form-control" placeholder="Preço" name="preco" required autofocus id="preco" type="number" step="1" min="1" max="999">
+                                <input class="form-control" placeholder="Preço" name="preco" required id="preco" type="number" step="0.01" min="1" max="999">
 
                             </div>
 
@@ -106,13 +106,13 @@
 
                                 <span class="input-group-addon"><i class="fas fa-percentage"></i></span>
 
-                                <input class="form-control" placeholder="Desconto" name="desconto" autofocus id="desconto" type="number" step="1" min="1" max="99">
+                                <input class="form-control" placeholder="Desconto" name="desconto" id="desconto" type="number" step="1" min="1" max="99">
 
                             </div>
 
                             <br>
 
-                            <small>Categoria: </small>
+                            <small>Categoria *: </small>
 
                             <select class="form-control" name="categoria" id="categoria" required>
 
@@ -247,7 +247,7 @@
 
                             <?php $i = 1; foreach($adicionais as $adicional){ ?>
 
-                                <input type="checkbox" name="<?=$i?>adicional" value="<?=$adicional->getCod_adicional()?>"><?=$adicional->getNome()?>
+                                <input type="checkbox" name="<?=$i?>adicional" value="<?=$adicional->getPkId()?>"><?=$adicional->getNome()?>
                                 <br>
 
                             <?php $i++; } ?>

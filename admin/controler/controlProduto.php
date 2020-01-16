@@ -14,14 +14,14 @@
                 VALUES (:nome, :preco, :flag_ativo, :flag_servindo, :foto, :descricao, :flag_prioridade, :flag_delivery, :desconto, :arr_adicional, :arr_dias_semana, :fk_categoria, :fk_faixa_horario)" );
 
                 $stmte->bindParam(":nome", $produto->getNome(), PDO::PARAM_STR);
-                $stmte->bindParam(":preco", $produto->getPreco());
+                $stmte->bindParam(":preco", $produto->getPreco(), PDO::PARAM_STR);
                 $stmte->bindParam(":flag_ativo", $produto->getFlag_ativo(), PDO::PARAM_INT);
                 $stmte->bindParam(":flag_servindo", $produto->getFlag_servindo(), PDO::PARAM_INT);
                 $stmte->bindParam(":foto", $produto->getFoto(), PDO::PARAM_STR);
                 $stmte->bindParam(":descricao", $produto->getDescricao(), PDO::PARAM_STR);
                 $stmte->bindParam(":flag_prioridade", $produto->getPrioridade(),PDO::PARAM_INT);
                 $stmte->bindParam(":flag_delivery", $produto->getDelivery(),PDO::PARAM_INT);
-                $stmte->bindParam(":desconto", $produto->getDesconto());
+                $stmte->bindParam(":desconto", $produto->getDesconto(), PDO::PARAM_INT);
                 $stmte->bindParam(":arr_adicional", $produto->getAdicional(), PDO::PARAM_STR);
                 $stmte->bindParam(":arr_dias_semana", $produto->getDias_semana(), PDO::PARAM_STR);
                 $stmte->bindParam(":fk_categoria", $produto->getCategoria(), PDO::PARAM_INT);
@@ -48,14 +48,14 @@
                 $stmte = $this->pdo->prepare("UPDATE tb_produto SET pro_nome=:nome, pro_preco=:preco, pro_flag_ativo=:flag_ativo, pro_flag_servindo=:flag_servindo, pro_foto=:foto, pro_descricao=:descricao, pro_flag_prioridade=:flag_prioridade, pro_flag_delivery=:flag_delivery, pro_desconto=:desconto, pro_arr_adicional=:arr_adicional, pro_arr_dias_semana=:arr_dias_semana, pro_fk_categoria=:fk_categoria, pro_fk_faixa_horario=:fk_faixa_horario WHERE pro_pk_id=:pk_id");
 
                 $stmte->bindParam(":nome", $produto->getNome(), PDO::PARAM_STR);
-                $stmte->bindParam(":preco", $produto->getPreco());
+                $stmte->bindParam(":preco", $produto->getPreco(), PDO::PARAM_STR);
                 $stmte->bindParam(":flag_ativo", $produto->getFlag_ativo(), PDO::PARAM_INT);
                 $stmte->bindParam(":flag_servindo", $produto->getFlag_servindo(), PDO::PARAM_INT);
                 $stmte->bindParam(":foto", $produto->getFoto(), PDO::PARAM_STR);
                 $stmte->bindParam(":descricao", $produto->getDescricao(), PDO::PARAM_STR);
                 $stmte->bindParam(":flag_prioridade", $produto->getPrioridade(),PDO::PARAM_INT);
                 $stmte->bindParam(":flag_delivery", $produto->getDelivery(),PDO::PARAM_INT);
-                $stmte->bindParam(":desconto", $produto->getDesconto());
+                $stmte->bindParam(":desconto", $produto->getDesconto(), PDO::PARAM_INT);
                 $stmte->bindParam(":arr_adicional", $produto->getAdicional(), PDO::PARAM_STR);
                 $stmte->bindParam(":arr_dias_semana", $produto->getDias_semana(), PDO::PARAM_STR);
                 $stmte->bindParam(":fk_categoria", $produto->getCategoria(), PDO::PARAM_INT);
@@ -120,9 +120,9 @@
 
                 $stmte = $this->pdo->prepare("SELECT *
                 FROM tb_produto AS PRO
-                INNER JOIN tb_faixa_horario AS FAHO
+                LEFT JOIN tb_faixa_horario AS FAHO
                 ON PRO.pro_fk_faixa_horario = FAHO.faho_pk_id
-                WHERE pro_pk_id=:pk_id");
+                WHERE pro_pk_id = :pk_id");
 
                 $stmte->bindParam(":pk_id", $pk_id , PDO::PARAM_INT);
 
@@ -226,7 +226,7 @@
 
                     $stmte = $this->pdo->prepare("SELECT *
                     FROM tb_produto AS PRO
-                    INNER JOIN tb_categoria AS CA
+                    LEFT JOIN tb_categoria AS CA
                     ON PRO.pro_fk_categoria = CA.cat_pk_id WHERE PRO.pro_nome LIKE :parametro AND PRO.pro_flag_ativo = 1 ORDER BY nome ASC");
 
                     $stmte->bindValue(":parametro", $parametro . "%" , PDO::PARAM_STR);
@@ -260,7 +260,9 @@
                 //by categoria id
                 }elseif ($modo==2) {
 
-                    $stmte = $this->pdo->prepare("SELECT PRO.pro_pk_id, PRO.pro_nome, PRO.pro_preco, PRO.pro_descricao, PRO.pro_foto, PRO.pro_flag_ativo, PRO.pro_arr_adicional, CA.cat_nome FROM tb_produto AS PRO inner join tb_categoria AS CA ON PRO.pro_fk_categoria = CA.cat_pk_id WHERE CA.cat_pk_id = :parametro AND PRO.pro_flag_ativo = 1 ORDER BY nome ASC");
+                    $stmte = $this->pdo->prepare("SELECT PRO.pro_pk_id, PRO.pro_nome, PRO.pro_preco, PRO.pro_descricao, PRO.pro_foto, PRO.pro_flag_ativo, PRO.pro_arr_adicional, CA.cat_nome FROM tb_produto AS PRO
+                    LEFT JOIN tb_categoria AS CA
+                    ON PRO.pro_fk_categoria = CA.cat_pk_id WHERE CA.cat_pk_id = :parametro AND PRO.pro_flag_ativo = 1 ORDER BY nome ASC");
 
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
 
@@ -374,7 +376,8 @@
         function filter($parametro, $flag_ativo, $flag_servindo , $delivery, $prioridade, $categoria){
             try{
                 $stmte = $this->pdo->prepare("SELECT *
-                FROM tb_produto AS PRO INNER JOIN
+                FROM tb_produto AS PRO
+                LEFT JOIN
                 tb_categoria AS CAT
                 ON PRO.pro_fk_categoria = CAT.cat_pk_id
                 WHERE PRO.pro_nome LIKE :parametro AND PRO.pro_flag_ativo LIKE :flag_ativo AND PRO.pro_flag_servindo LIKE :flag_servindo AND PRO.pro_flag_delivery LIKE :delivery AND PRO.pro_flag_prioridade LIKE :prioridade AND CAT.cat_nome LIKE :categoria");
@@ -423,7 +426,8 @@
             try{
                 $stmte = $this->pdo->prepare("SELECT *
                 FROM tb_produto
-                AS PRO INNER JOIN tb_categoria AS CAT
+                AS PRO
+                LEFT JOIN tb_categoria AS CAT
                 ON PRO.pro_fk_categoria = CAT.cat_pk_id
                 WHERE PRO.pro_descricao LIKE :parametro
                 AND PRO.pro_flag_servindo LIKE :flag_servindo");
@@ -468,7 +472,7 @@
             try{
                 $stmte = $this->pdo->prepare("SELECT *
                 FROM tb_produto AS PRO
-                INNER JOIN tb_categoria AS CAT
+                LEFT JOIN tb_categoria AS CAT
                 ON A.categoria = B.cod_categoria WHERE A.descricao LIKE :parametro AND A.flag_servindo LIKE :flag_servindo");
 
                 $stmte->bindValue(":parametro", "%".$parametro."%");
@@ -510,7 +514,7 @@
             try{
                 $stmte = $this->pdo->prepare("SELECT *
                 FROM tb_produto AS PRO
-                INNER JOIN tb_categoria AS CAT
+                LEFT JOIN tb_categoria AS CAT
                 ON PRO.pro_fk_categoria = CAT.cat_pk_id
                 WHERE PRO.pro_nome LIKE :parametro AND PRO.pro_flag_ativo LIKE :flag_ativo AND PRO.pro_delivery = 1 AND PRO.pro_prioridade LIKE :prioridade AND CAT.cat_nome LIKE :categoria");
 
@@ -658,7 +662,9 @@
             $produtos = array();
             try{
                 $stmte = $this->pdo->prepare("SELECT *
-                FROM tb_produto AS A inner join tb_categoria AS B ON A.pro_fk_categoria = B.cat_pk_id");
+                FROM tb_produto AS A
+                LEFT JOIN tb_categoria AS B
+                ON A.pro_fk_categoria = B.cat_pk_id");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
@@ -694,7 +700,7 @@
             try{
                 $stmte = $this->pdo->prepare("SELECT *
                 FROM tb_produto AS PRO
-                INNER JOIN tb_categoria AS CAT
+                LEFT JOIN tb_categoria AS CAT
                 ON PRO.pro_fk_categoria = CAT.cat_pk_id
                 ORDER BY CAT.posicao ASC, PRO.posicao ASC");
                 if($stmte->execute()){
@@ -731,7 +737,7 @@
             try{
                 $stmte = $this->pdo->prepare("SELECT *
                 FROM tb_produto AS PRO
-                INNER JOIN tb_categoria AS CAT
+                LEFT JOIN tb_categoria AS CAT
                 ON PRO.pro_fk_categoria = CAT.cat_pk_id
                 WHERE PRO.pro_fk_categoria = :fk_categoria AND PRO.pro_flag_ativo = 1
                 ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
@@ -773,12 +779,12 @@
                 if($flag_servindo == null){
                     $stmte = $this->pdo->prepare("SELECT *
                     FROM tb_produto AS PRO
-                    INNER JOIN tb_categoria AS CAT
+                    LEFT JOIN tb_categoria AS CAT
                     ON PRO.pro_fk_categoria = CAT.cat_pk_id WHERE PRO.pro_fk_categoria = :fk_categoria AND PRO.pro_descricao LIKE :filtro ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
                 }else{
                     $stmte = $this->pdo->prepare("SELECT *
                     FROM tb_produto AS PRO
-                    INNER JOIN tb_categoria AS CAT
+                    LEFT JOIN tb_categoria AS CAT
                     ON PRO.pro_fk_categoria = CAT.cat_pk_id
                     WHERE PRO.pro_fk_categoria = :fk_categoria AND PRO.pro_descricao LIKE :filtro AND PRO.pro_flag_servindo = :flag_servindo ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
                     $stmte->bindValue(":flag_servindo", $flag_servindo , PDO::PARAM_INT);
@@ -822,7 +828,7 @@
             try{
                 $stmte = $this->pdo->prepare("SELECT *
                 FROM tb_produto AS PRO
-                INNER JOIN tb_categoria AS CAT
+                LEFT JOIN tb_categoria AS CAT
                 ON PRO.pro_fk_categoria = CAT.cat_pk_id WHERE pro_flag_delivery = 1");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){

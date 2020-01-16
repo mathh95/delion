@@ -19,6 +19,8 @@
 		$nome = addslashes(htmlspecialchars($_POST['nome']));
 		$preco = addslashes(htmlspecialchars($_POST['preco']));
 		$desconto = addslashes(htmlspecialchars($_POST['desconto']));
+		if($desconto == "") $desconto = null;
+
 		$descricao= addslashes(htmlspecialchars($_POST['descricao']));
 
 		if (!empty($_FILES['arquivo']['name'])) {
@@ -52,6 +54,7 @@
 		}
 
 		$fk_faixa_horario = addslashes(htmlspecialchars($_POST['faixa_horario']));
+		if($fk_faixa_horario == "") $fk_faixa_horario = null;
 
 
 		$flag_ativo = (isset($_POST['flag_ativo'])||!empty($_POST['flag_ativo'])) && $_POST['flag_ativo'] == 1 ? 1 : 0 ;
