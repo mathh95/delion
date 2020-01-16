@@ -64,7 +64,7 @@
 
                             <small>Icone: <span style="color:red">(Utilizar uma imagem no tamanho 43[largura] x 43[altura]. Formato (.png) ou (.jpg).)</span></small>
 
-                            <input type="file" name="arquivo" id ="arquivo" required="">
+                            <input type="file" name="arquivo" id ="arquivo">
 
                             <br>
 
