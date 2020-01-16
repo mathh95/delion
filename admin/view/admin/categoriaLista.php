@@ -31,13 +31,17 @@ $arquivo_pai = basename(__FILE__, '.php');
             </div>
         </div>
     </div>
+
     <?php include VIEWPATH . "/rodape.html" ?>
+
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
         function removeCategoria(categoria, icone) {
             msgConfirmacao('Confirmação', 'Deseja Realmente remover o categoria?',
                 function(linha) {
+                    
                     var url = '../../ajax/excluir-categoria.php?categoria=' + categoria + '&icone=' + icone;
+                    
                     $.get(url, function(dataReturn) {
                         if (dataReturn > 0) {
                             msgGenerico("Excluir!", "Categoria excluído com sucesso!", 1, function() {});
