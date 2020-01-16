@@ -5,12 +5,14 @@
     include_once MODELPATH."/usuario.php";
     $_SESSION['permissaoPagina']=0;
     protegePagina();
+
     $controleUsuario = new controlerUsuario($_SG['link']);
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
