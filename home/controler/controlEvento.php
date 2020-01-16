@@ -73,7 +73,7 @@
                 $stmte = $this->pdo->prepare("SELECT *
                 FROM tb_evento
                 WHERE eve_flag_antigo = 0
-                ORDER BY eve_pk_id ASC LIMIT 1");
+                ORDER BY eve_pk_id DESC LIMIT 1");
 
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){

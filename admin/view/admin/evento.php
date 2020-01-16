@@ -91,10 +91,14 @@
                             </div>
 
                             <br>
+                                   
+                            <small style="display: grid">Foto:
+                                
+                                <span style="color:red">Proporção sugerida 635[largura] x 391[altura]</span>
+                                
+                                <span style="color:red">(Utilizar uma imagem no formato (.png) ou (.jpg).)</span></small>
 
-                            <small>Foto: <span style="color:red">(Utilizar uma imagem no formato (.png) ou (.jpg).)</span></small>
-
-                            <input type="file" name="arquivo" id ="arquivo" required="">
+                                <input type="file" name="arquivo" id ="arquivo" required="">
 
                             <br>
 
