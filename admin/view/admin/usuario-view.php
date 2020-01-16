@@ -150,7 +150,7 @@
 
                                 <select class="form-control" name="perfil" required>
 
-                                    <option value='<?=$usuario->getNome(); ?>'>Administrador</option>
+                                    <option value='<?=$usuario->getCod_perfil(); ?>'>Administrador</option>
 
                                 </select>
 
