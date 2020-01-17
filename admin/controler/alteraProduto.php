@@ -21,20 +21,19 @@
 		$desconto = addslashes(htmlspecialchars($_POST['desconto']));
 		if($desconto == "") $desconto = null;
 
-		$descricao= addslashes(htmlspecialchars($_POST['descricao']));
+		$descricao = addslashes(htmlspecialchars($_POST['descricao']));
 
 		if (!empty($_FILES['arquivo']['name'])) {
-			   $anexo = addslashes(htmlspecialchars($_POST['imagem']));
-			   echo '<pre>';
-			   print_r($anexo);
-			   echo '</pre>';
-			   //exit;
-	   		unlink($anexo);
-	   		$foto = upload("arquivo");
+
+			$anexo = ADMINPATH."/".addslashes(htmlspecialchars($_POST['imagem']));
+
+			if(file_exists($anexo)) unlink($anexo);
+
+			$foto = upload("arquivo");
 		}else{
 			$foto = addslashes(htmlspecialchars($_POST['imagem']));
 		}
-		
+
 		$fk_categoria = addslashes(htmlspecialchars($_POST['categoria']));
 
 		$adicional = array();
@@ -72,9 +71,9 @@
 		$produto->setPkId($pk_id);
 		$controle = new controlerProduto($_SG['link']);
 
+		$result = $controle->update($produto);
 
-		$resutlt = $controle->update($produto);
-		if($resutlt > -1 ){
+		if($result > -1 ){
 			msgRedireciona('Alteração Realizada!','Produto alterado com sucesso!',1,'../view/admin/cardapioLista.php');
 		}else{
 			alertJSVoltarPagina('Erro!','Erro ao alterar Produto!',2);
