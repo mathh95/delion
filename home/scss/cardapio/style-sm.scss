@@ -27,26 +27,27 @@ body{
             height: auto;
             
             > .menu-lateral {
-                @include make-sm-column(12);
-                
+                // @include make-sm-column(12);
+                width: 100%;
+                justify-content: center;
+                text-align: center;
                 ul.nav.nav-pills{
                     background-color: #ffffff;
                     height: auto;
-                    margin-left: 10px;
-                    margin-right: 10px;
                     padding-top: 5px;
-                    display: flex;
+                    display: inline-flex;
                     flex-direction: row;
                     li{
                         a.nav-link {
                             // width: 100%;
                             display: block;
-                            height: 80px;
+                            height: 47px;
                             // padding-bottom: 10px;
-                            padding-top: 10px;
+                            // padding-top: 10px;
                             border-bottom: 2px solid #D7CEC7;
                             text-align: center;
-                            padding-right: 10px;
+                            // padding-right: 10px;
+                            padding: 5px;
                             justify-content: center;
                             > img {
                                 width: 38px;
@@ -58,8 +59,8 @@ body{
                             > div {
                                 display: inline-flex;
                                 color: $vermelho_forte;
-                                padding-left: 10px;
                                 font-size: 12px;
+                                text-align: center;
                             }
                         }
                     }
