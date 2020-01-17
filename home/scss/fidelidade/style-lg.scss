@@ -118,6 +118,7 @@ body{
                 }
                 .descricao{
                     font-size: 20px;
+                    font-weight: bold;
                 }
             }
         }
@@ -169,13 +170,15 @@ body{
             display: inline-flex;
             margin: 0 auto;
             padding: 20px;
+            width: 100%;
 
-            button{
+            >button{
                 background-color:#feaf0a;
                 border: 2px solid #cd760e;
-                border-radius: 20px;
+                border-radius: 10px;
                 color: #ffffff;
                 margin: 10px;
+                width: 120px;
                 span{
                     font-weight: bold;
                     font-size: 38px;

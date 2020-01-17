@@ -152,43 +152,43 @@
             </div>
 
             <div class="btn-wrapper btn-toolbar">
-                <button class="30pts" type="button" class="btn btn-warning">
-                    <span>30</span>
+                <button type="button" class="30pts btn btn-warning">
+                    <span>30</span><br>
                     pontos
                 </button>
 
-                <button class="50pts" type="button" class="btn btn-warning">
-                    <span>50</span>
+                <button  type="button" class="50pts btn btn-warning">
+                    <span>50</span><br>
                     pontos
                 </button>
 
-                <button class="80pts" type="button" class="btn btn-warning">
-                    <span>80</span>
+                <button type="button" class="80pts btn btn-warning">
+                    <span>80</span><br>
                     pontos
                 </button >
 
-                <button class="90pts" type="button" class="btn btn-warning">
-                    <span>90</span>
+                <button type="button" class="90pts btn btn-warning">
+                    <span>90</span><br>
                     pontos
                 </button>
 
-                <button class="120pts" type="button" class="btn btn-warning">
-                    <span>120</span>
+                <button type="button" class="120pts btn btn-warning">
+                    <span>120</span><br>
                     pontos
                 </button>
 
-                <button class="200pts" type="button" class="btn btn-warning">
-                    <span>200</span>
+                <button type="button" class="200pts btn btn-warning">
+                    <span>200</span><br>
                     pontos
                 </button>
 
-                <button class="220pts" type="button" class="btn btn-warning">
-                    <span>220</span>
+                <button type="button" class="220pts btn btn-warning">
+                    <span>220</span><br>
                     pontos
                 </button>
 
                 <button class="250pts" type="button" class="btn btn-warning">
-                    <span>250</span>
+                    <span>250</span><br>
                     pontos
                 </button>
             </div>
@@ -481,7 +481,7 @@
                     && $('.produto-90pts').is(":hidden") && $('.produto-120pts').is(":hidden") 
                     && $('.produto-200pts').is(":hidden") && $('.produto-220pts').is(":hidden") 
                     && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-30pts').slideToggle("slow");
+                        $('.produto-30pts').slideToggle();
                 } 
             });
 
@@ -490,7 +490,7 @@
                     && $('.produto-90pts').is(":hidden") && $('.produto-120pts').is(":hidden") 
                     && $('.produto-200pts').is(":hidden") && $('.produto-220pts').is(":hidden") 
                     && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-50pts').slideToggle("slow");
+                        $('.produto-50pts').slideToggle();
                 } 
             });
 
@@ -499,7 +499,7 @@
                     && $('.produto-90pts').is(":hidden") && $('.produto-120pts').is(":hidden") 
                     && $('.produto-200pts').is(":hidden") && $('.produto-220pts').is(":hidden") 
                     && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-80pts').slideToggle("slow");
+                        $('.produto-80pts').slideToggle();
                 } 
             });
 
@@ -508,7 +508,7 @@
                     && $('.produto-80pts').is(":hidden") && $('.produto-120pts').is(":hidden") 
                     && $('.produto-200pts').is(":hidden") && $('.produto-220pts').is(":hidden") 
                     && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-90pts').slideToggle("slow");
+                        $('.produto-90pts').slideToggle();
                 } 
             });
 
@@ -517,7 +517,7 @@
                     && $('.produto-80pts').is(":hidden") && $('.produto-90pts').is(":hidden") 
                     && $('.produto-200pts').is(":hidden") && $('.produto-220pts').is(":hidden") 
                     && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-120pts').slideToggle("slow");
+                        $('.produto-120pts').slideToggle();
                 } 
             });
 
@@ -526,7 +526,7 @@
                     && $('.produto-80pts').is(":hidden") && $('.produto-90pts').is(":hidden") 
                     && $('.produto-120pts').is(":hidden") && $('.produto-220pts').is(":hidden") 
                     && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-200pts').slideToggle("slow");
+                        $('.produto-200pts').slideToggle();
                 } 
             });
 
@@ -535,7 +535,7 @@
                     && $('.produto-80pts').is(":hidden") && $('.produto-90pts').is(":hidden") 
                     && $('.produto-120pts').is(":hidden") && $('.produto-200pts').is(":hidden") 
                     && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-220pts').slideToggle("slow");
+                        $('.produto-220pts').slideToggle();
                 } 
             });
 
@@ -544,7 +544,7 @@
                     && $('.produto-80pts').is(":hidden") && $('.produto-90pts').is(":hidden") 
                     && $('.produto-120pts').is(":hidden") && $('.produto-200pts').is(":hidden") 
                     && $('.produto-220pts').is(":hidden") ){
-                        $('.produto-250pts').slideToggle("slow");
+                        $('.produto-250pts').slideToggle();
                 } 
             });
     });
