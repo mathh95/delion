@@ -54,8 +54,8 @@ foreach ($categorias as $key_cat => $categoria) {
 
     echo 
         "<div class='categoria' id='categoria".$categoria->getPkId()."' >
-                <img src='../admin/".$categoria->getIcone()."'/>
-                ".$categoria->getNome()."
+                <img src='../admin/".$categoria->getIcone()."' onerror='this.style.display=\"none\"'/>
+                <b>".$categoria->getNome()."</b>
         </div>";
     
 
@@ -81,20 +81,24 @@ foreach ($categorias as $key_cat => $categoria) {
 
             echo
             "<div class='produto'>
+
                 <div class='imagem'>
                     
                     <img class='img-responsive' title='".$item->getNome()."' alt='".$item->getNome()."' src='../admin/".$item->getFoto()."'>
                 </div>
+
                 <div class='descricao'>
 
                     <div class='tituloNome' id='tituloNome".$item->getPkId()."'>".$item->getNome()."</div>
-                    <div class='textoDescricao'>".html_entity_decode($item->getDescricao())."</div>
+                    
+                    <div class='textoDescricao'>Muito queijo muito chocolate muita massa bão".html_entity_decode($item->getDescricao())."</div>
                     <div class='textoDelivery'> Delivery: ". $item->getDsDelivery()."</div>
                     
                     <div class='preco'><strong>R$ ".$item->getPreco()."</strong></div>
                     
-                    <button  id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getPkId()."' class='btn btn-default'>Adicionar</button><br>
-                    <button id='addCombo' data-cod='".$item->getPkId()."' class='btn btn-default'>Adicionar ao Combo</button>
+                    <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getPkId()."' class='btn btn-default'>Adicionar</button><br>
+                    
+                    <button id='addCombo' data-cod='".$item->getPkId()."' class='btn btn-default'>Adicionar ao Combo</button>                
                 </div>
             </div>";
         }

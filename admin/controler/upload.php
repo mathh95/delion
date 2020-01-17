@@ -43,7 +43,8 @@ function upload($input) {
     }
     // Caso script chegue a esse ponto, não houve erro com o upload e o PHP pode continuar
     // Faz a verificação da extensão do arquivo
-    $extensao = strtolower(end(explode('.', $_FILES[$input]['name'])));
+    $filename = $_FILES[$input]['name'];
+    $extensao = strtolower(end(explode('.', $filename)));
     if (array_search($extensao, $_UP['extensoes']) === false) {
         echo "Por favor, envie arquivos com as seguintes extensões: jpg, png, pdf ou txt";
         exit;
@@ -57,14 +58,15 @@ function upload($input) {
     // Primeiro verifica se deve trocar o nome do arquivo
     if ($_UP['renomeia'] == true) {
         // Cria um nome baseado no UNIX TIMESTAMP atual e com extensão .jpg
-        $nome_final = md5(time().$_FILES[$input]['name']).'.'.$extensao;
+        $nome_final = md5(time().$filename).'.'.$extensao;
     } else {
         // Mantém o nome original do arquivo
         $nome_final = $_FILES[$input]['name'];
     }
 
     // Depois verifica se é possível mover o arquivo para a pasta escolhida
-    if (move_uploaded_file($_FILES[$input]['tmp_name'], $_UP['pasta'] . $nome_final)) {
+    $enviado = move_uploaded_file($_FILES[$input]['tmp_name'], $_UP['pasta'] . $nome_final);
+    if ($enviado) {
         // Upload efetuado com sucesso, exibe uma mensagem e um link para o arquivo
         //echo "Upload efetuado com sucesso!";
         return $_UP['pasta'] . $nome_final;

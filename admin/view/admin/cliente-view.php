@@ -3,13 +3,9 @@
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 
     include_once CONTROLLERPATH."/seguranca.php";
-
     include_once CONTROLLERPATH."/controlUsuario.php";
-
     include_once HOMEPATH."home/controler/controlCliente.php";
-
     include_once MODELPATH."/usuario.php";
-
     include_once MODELPATH."/cliente.php";
 
     $_SESSION['permissaoPagina']=0;
