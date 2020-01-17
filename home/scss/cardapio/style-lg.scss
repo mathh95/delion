@@ -204,7 +204,7 @@ body,html{
                     border-left: 0px;
                     border-bottom: 0px;
                     padding-left: 0px;
-                    padding-right: 16px
+                    padding-right: 16px;
                 }
             }
             > .descricao {
@@ -231,20 +231,23 @@ body,html{
                     padding-top: 10px;
                     font-weight: bold;
                 }
-                >.preco{
-                    @include make-lg-column(2);
+                >#preco-add{
+                    @include make-lg-column(6);
+                }
+                >#preco-add>.preco{
+                    @include make-lg-column(6);
+                    width: 100%;
                     font-size: 20px;
                     padding-top: 10px;
                     position: relative;
-                    
                 }  
                 #addCarrinho{
+                    @include make-lg-column(6);
                     background-color: $vermelho_fraco;
                     border: 1px solid $vermelho_forte;
                     color:#fff;
                     margin-top: 1%;
                     margin-bottom: 10px;
-                    width: 110px;
                     height: 40px;
                     float: right;
                 }

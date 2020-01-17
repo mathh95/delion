@@ -15,13 +15,9 @@ $controleAdicional = new controlerAdicional(conecta());
 
 
 if(isset($_GET['search']) && !empty($_GET['search'])){
-
     $busca = addslashes(htmlspecialchars($_GET['search']));
-
 }else{
-
     $busca = "";
-
 }
 
 $controle_categoria = new controlerCategoria(conecta());
@@ -29,13 +25,9 @@ $controle_produto = new controlerProduto(conecta());
 
 // ============================================
 // Monta outra consulta MySQL para a busca
-
 if (isset($_GET['delivery']) && !empty($_GET['delivery'])) {
-
     $delivery = $_GET['delivery'];
-
 } else {
-
     $delivery = false;
 }
 
@@ -84,7 +76,7 @@ foreach ($categorias as $key_cat => $categoria) {
 
                 <div class='imagem'>
                     
-                    <img class='img-responsive' title='".$item->getNome()."' alt='".$item->getNome()."' src='../admin/".$item->getFoto()."'>
+                    <img class='img-responsive' title='".$item->getNome()."' alt='".$item->getNome()."' src='../admin/".$item->getFoto()."' onerror='this.src=\"/home/img/default_produto.jpg\"'>
                 </div>
 
                 <div class='descricao'>
@@ -93,12 +85,13 @@ foreach ($categorias as $key_cat => $categoria) {
                     
                     <div class='textoDescricao'>Muito queijo muito chocolate muita massa bão".html_entity_decode($item->getDescricao())."</div>
                     <div class='textoDelivery'> Delivery: ". $item->getDsDelivery()."</div>
+                
+                    <div id='preco-add' class='pull-right'>
+                        <strong  class='preco'>R$ ".$item->getPreco()."</strong>
+                        <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getPkId()."' class='btn btn-default'>Adicionar</button>
+                    </div>
+                    <br>
                     
-                    <div class='preco'><strong>R$ ".$item->getPreco()."</strong></div>
-                    
-                    <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getPkId()."' class='btn btn-default'>Adicionar</button><br>
-                    
-                    <button id='addCombo' data-cod='".$item->getPkId()."' class='btn btn-default'>Adicionar ao Combo</button>                
                 </div>
             </div>";
         }
