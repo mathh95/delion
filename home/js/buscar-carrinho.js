@@ -171,7 +171,7 @@ $(document).on("click", "#removeItem", function(){
     var acao = "rem";
     var linha = $(this).data('linha');
     var id = $("#idLinha"+linha).data('id');
-    var qtdAtual = $("#qtdUnidade"+linha).val();
+    var qtdAtual = $("#qtdUnidade"+linha).data("qtd");
     var preco = $("#preco"+linha).data('preco');
 
     $.ajax({
@@ -215,7 +215,7 @@ $(document).on("click", "#adicionarUnidade", function(){
 
     var acao = "+";
     var linha = $(this).data('linha');
-    var qtdAtual = $("#qtdUnidade"+linha).val();
+    var qtdAtual = $("#qtdUnidade"+linha).data("qtd");
     var preco = $("#preco"+linha).data('preco');
     var qtdInt = parseInt(qtdAtual);
     var subtotal = preco * (qtdInt+1);
@@ -237,7 +237,12 @@ $(document).on("click", "#adicionarUnidade", function(){
             var totalCorrigido = res.totalCorrigido;
             var taxaEntrega = res.taxaEntrega;
             
-            $("#qtdUnidade"+linha).val(qtdInt+= 1);
+            qtdInt += 1;
+            $("#qtdUnidade"+linha).data("qtd", qtdInt);
+            $("#qtdUnidade"+linha).attr("data-qtd", qtdInt);
+            $("#qtde-text").text(qtdInt);
+
+
             $("#subtotal"+linha).html("<strong>R$ "+subtotal.toFixed(2)+"</strong>");   
             
             $("#valor_subTotal").html(totalCarr.toFixed(2));
@@ -260,7 +265,7 @@ $(document).on("click", "#removerUnidade", function(){
     var acao = "-";
     var linha = $(this).data('linha');
     var id = $("#idLinha"+linha).data('id');
-    var qtdAtual = $("#qtdUnidade"+linha).val();
+    var qtdAtual = $("#qtdUnidade"+linha).data("qtd");
     var preco = $("#preco"+linha).data('preco');
     var qtdTotal = parseInt(qtdAtual); 
     qtdTotal-= 1;
@@ -284,7 +289,10 @@ $(document).on("click", "#removerUnidade", function(){
                 var totalCorrigido = res.totalCorrigido;
                 var taxaEntrega = res.taxaEntrega;
 
-                $("#qtdUnidade"+linha).val(qtdTotal);
+                $("#qtdUnidade"+linha).data("qtd", qtdTotal);
+                $("#qtdUnidade"+linha).attr("data-qtd", qtdTotal);
+                $("#qtde-text").text(qtdTotal);
+                
                 $("#subtotal"+linha).html("<strong>R$ "+subtotal.toFixed(2)+"</strong>");
                 
                 $("#valor_subTotal").html(totalCarr.toFixed(2));
