@@ -50,9 +50,6 @@
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js" integrity="sha256-goy7ystDD5xbXSf+kwL4eV6zOPJCEBD1FBiCElIm+U8=" crossorigin="anonymous"></script> -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
-
 
 </head>
 
@@ -142,24 +139,54 @@
 
 	<script>
 
+		$(document).ready(function(){
+    		doRefresh();
+		});
+
+		function doRefresh(){
+			<?php 
+				$search = (isset($_GET['search'])) ? $_GET['search'] : NULL ;
+				$page = (isset($_GET['page'])) ? $_GET['page'] : 1 ;
+    		?>
+
+			$.ajax({
+				type: 'GET',
+				url: 'ajax/buscar-cardapio.php',
+				data: {
+					page: "<?= $page ?>",
+					search: "<?= $search ?>",
+					tipo: 'busca'
+				},
+				success:function(resultado){
+					$('#container-produtos').html(resultado);
+				}
+			});
+		}
+
+		//Auto Reload cardapio
+		window.setInterval(function(){
+			doRefresh();
+        }, 60000);//1 minuto
+
 
 		//Scrollspy para deixar active a categoria atual.
-		$('body').scrollspy({ target: '#navbar-cardapio' })
+		$('body').scrollspy({ target: '#navbar-cardapio' });
 		$('[data-spy="scroll"]').each(function () {
 			var $spy = $(this).scrollspy('refresh')
 		});
 
-		//Funções responsá veis por dar reload no cardapio
-		function doRefresh(){
-                $("#container-produtos").load('../home/ajax/buscar-cardapio.php');
-        }
+		// Scroll p/ Categoria selecionada
+		$(document).ready(function() {
+			$('a[href^="#"]').click(function() {
+				var target = $(this.hash);
+				if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
+				if (target.length == 0) target = $('html');
+				$('html, body').animate({ scrollTop: target.offset().top }, 600);
+				
+				return false;
+			});
+		});
 
-		window.setInterval(function(){
-                var verifica = $('body').hasClass('modal-open'); //Verifica se a modal está aberta
-                if(verifica == false){ 
-                    doRefresh();
-            }
-        }, 10000);
 
 		// var categorias = $('.categoria')
 		// , menu_lateral = $('.menu-lateral')
@@ -184,17 +211,6 @@
 		// 	});
 		// });
 
-		// Scroll p/ Categoria selecionada
-		$(document).ready(function() {
-			$('a[href^="#"]').click(function() {
-				var target = $(this.hash);
-				if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
-				if (target.length == 0) target = $('html');
-				$('html, body').animate({ scrollTop: target.offset().top-100 }, 600);
-				return false;
-			});
-		});
-		
 
 		// $(document).ready(function(){
 		// 	$(".menu").animate({scrollCenter: "li.active"}, 400);
@@ -228,22 +244,23 @@
 		// 	$(".menu").scrollCenter("li.active", 400);
 		// });
 					
+					
 
-		jQuery.fn.scrollCenter = function(elem, speed) {
+		// jQuery.fn.scrollCenter = function(elem, speed) {
 
-			var active = jQuery(this).find(elem); // find the active element
-			var activeWidth = active.width() / 2; // get active width center
+		// 	var active = jQuery(this).find(elem); // find the active element
+		// 	var activeWidth = active.width() / 2; // get active width center
 
-			var pos = active.position().left + activeWidth; //get left position of active li + center position
-			var elpos = jQuery(this).scrollLeft(); // get current scroll position
-			var elW = jQuery(this).width(); //get div width
-			pos = pos + elpos - elW / 2; // for center position if you want adjust then change this
+		// 	var pos = active.position().left + activeWidth; //get left position of active li + center position
+		// 	var elpos = jQuery(this).scrollLeft(); // get current scroll position
+		// 	var elW = jQuery(this).width(); //get div width
+		// 	pos = pos + elpos - elW / 2; // for center position if you want adjust then change this
 
-		jQuery(this).animate({
-			scrollLeft: pos
-		}, speed == undefined ? 1000 : speed);
-		return this;
-		};
+		// jQuery(this).animate({
+		// 	scrollLeft: pos
+		// }, speed == undefined ? 1000 : speed);
+		// return this;
+		// };
 
 		// jQuery.fn.scrollCenterORI = function(elem, speed) {
 		// jQuery(this).animate({
@@ -253,35 +270,7 @@
 		// };
 
 
-		
 
-
-    	$(document).ready(function(){
-    		<?php 
-
-    		$search = (isset($_GET['search'])) ? $_GET['search'] : NULL ;
-
-    		$page = (isset($_GET['page'])) ? $_GET['page'] : 1 ;
-
-    		?>
-
-			$.ajax({
-
-				type:'GET',
-
-				url: 'ajax/buscar-cardapio.php',
-
-				data: {page: "<?= $page ?>", search: "<?= $search ?>", tipo: 'busca'},
-
-				success:function(resultado){
-
-					$('.produtos').html(resultado);
-
-				}
-
-			});
-
-		});
 		var qtd_carrinho = "<?= isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : ''?>";
 		function displayBarraCarrinho(){
 			
@@ -293,8 +282,8 @@
 		}
 		$(document).ready(function() {
 			displayBarraCarrinho();
-			
 		});
+
 
 		$(document).on("click", "#addCarrinho", function(){
 			var url = $(this).data('url');
@@ -304,9 +293,9 @@
 			const nomeItem = $('#tituloNome'+id).text();
 			swal({
 				title: "Alguma Observação?",
-				text: `Para: ${nomeItem}`,
+				text: `${nomeItem}`,
 				content: "input",
-				icon: "warning",
+				icon: "info",
 				button: 'Prosseguir'
 			})
 			.then((observacaoItem) => {
@@ -317,19 +306,28 @@
 						$("#spanCarrinho-barra").html(resObs);
 						
 						if(qtd == resObs){
-							swal('Este item já está no seu carrinho!', 'Consulte o carrinho', 'warning');
+							swal({
+								title: "Item já Adicionado!",
+								text: "Consulte o carrinho...",
+								icon: "warning",
+								timer: 1500
+							});
 						}else{
-							swal('Produto Adicionado ao carrinho!', 'Consulte o carrinho para alterar a quantidade', 'success');
+							swal({
+								title: "Item Adicionado!",
+								text: "Consulte o carrinho...",
+								icon: "success",
+								timer: 1000
+							});
 							//Exibe caso tenha mais de 0 itens no carrinho.
 							qtd_carrinho++; 
 							displayBarraCarrinho();
-							
 						}
-						
 					}
 				});
 			});
-			
+
+			$(".swal-content__input").attr("placeholder", "Exemplo: Sem queijo...");
 		});
 
 		function buscar (pagina, busca, tipo){
@@ -337,20 +335,12 @@
 			$.ajax({
 
 				type:'GET',
-
 				url: 'ajax/buscar-cardapio.php',
-
 				data: {page: pagina , search: busca, tipo: tipo },
-
 				success:function(resultado){
-
 					$('.produtos').html(resultado);
-					
-
 				}
-
 			});
-
 		}
 
 		function adicionaCombo(item){
@@ -363,11 +353,8 @@
 
 			$.ajax({
 				type:'POST',
-
 				url:'ajax/add-combo.php',
-
 				data:{item:item, adicionais:adicionais},
-
 				success:function(res){
 					$("#spanCombo").html(res);
 					if(largura <= 767){
@@ -375,7 +362,6 @@
 					}else{
 						$("#myModal"+item).modal('hide');
 					}
-					
 				}
 			});
 		}
@@ -390,7 +376,6 @@
 			}
 		}
 
-		
 	</script>
 
 </body>
