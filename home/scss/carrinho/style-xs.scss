@@ -57,6 +57,7 @@ body{
             } */
             > a:hover{
                 text-decoration: none;
+                background-color: #FFFFFF;
                 > div {
                     font-family: $font_main_bold;
                     color: #000;
@@ -64,6 +65,7 @@ body{
             }
             > a:focus{
                 text-decoration: none;
+                background-color: #FFFFFF;
                 > div {
                     color: #000;
                     font-family: $font_main_bold;
@@ -121,10 +123,14 @@ body{
                     border-bottom-color: $vermelho_forte;
                     font-family: "Century Gothic Bold";
                     font-size: 12px;
+                    text-align: center;
                 }
                 .nomeProdutoTabela{
                     vertical-align: middle;
                     font-size: 9px;
+                    span{
+                        font-weight: bold;
+                    }
                 }
                 .precoProdutoTabela{
                     vertical-align: middle;
@@ -152,6 +158,10 @@ body{
                     border-bottom-color: $vermelho_forte;
                     font-family: "Century Gothic Bold";
                     font-size: 13px;
+
+                    >th{
+                        text-align: center;
+                    }
                     #precoUnitario{
                         display: none;
                     }
@@ -161,13 +171,10 @@ body{
                     
                 }
                 
-                .iconeRemoverProdutoTabela{
-                    vertical-align: middle;
-                    font-size: 15px;
-                }
+                
                 .nomeProdutoTabela{
                     vertical-align: middle;
-                    font-size: 13px;
+                    font-weight: bold;
                 }
                 .precoProdutoTabela{
                     vertical-align: middle;
@@ -177,25 +184,47 @@ body{
                 .subtotalProdutoTabela{
                     vertical-align: middle;
                     font-size: 13px;
+                    width: 75px;
+                }
+                .quantidadeItemTabela{
+                    border:none;
+                    background-color:transparent;
+                    width:20px;
+                    font-size: 18px;
+                    font-weight: bold;
+                    
+                    
+                    // float: left;
+                }
+                #qtde-x{
+                    font-size: 10px;
                 }
                 .quantidadeProdutoTabela{
                     vertical-align: middle;
-                    .quantidadeItemTabela{
-                        border:none;
-                        background-color:transparent;
-                        width:10px;
-                        // float: left;
-                    } 
+                    display: inline-flex;
+                    padding-left: 0;
+                    padding: 20px;
+                    
                     .iconeAdicionarProdutoTabela{
-                        font-size: 15px;
-                        width: 20px;
+                        font-size: 20px;
+                        width: 30px;
+                        padding-right: 8px;
                         // float: left;
                     }
                     .iconeExcluirProdutoTabela{
-                        width: 20px;
-                        font-size: 15px;
+                        width: 30px;
+                        font-size: 20px;
+                        margin-right: 10px; 
                         // float: right;
                     }
+                    .iconeRemoverProdutoTabela{
+                        vertical-align: middle;
+                        font-size: 20px;
+                        padding: 0;
+                        padding-top: 5px;
+                        margin-right: 10px;
+                    }
+                    
                 }
                 .nomeProdutoDisponivel{
                     display: none;
@@ -208,6 +237,7 @@ body{
         }
         .legenda-carrinho{
             padding: 20px;
+            font-size: 18px;
         }
         .shadow-textarea{
             padding-left: 30px;
@@ -220,11 +250,14 @@ body{
             >.ladoEsquerdo{
                 padding-bottom: 10px;
                 text-align: center;
+                font-size: 18px;
                 p{
                     @include make-xs-column(12);
                     text-align: center;
                     font-size: 18px;
                     font-family: "Century Gothic Bold";
+                    margin-top: 10px;
+                    margin-bottom: 0;
                 }
                 div.botaoCupom{
 
@@ -232,6 +265,8 @@ body{
                         background-color: $vermelho_fraco;
                         border-color: $vermelho_forte;
                         color: #ffffff;
+                        margin-top: 10px;
+                        width: 100%;
                     }
                     div.form-inline{
                         padding-left: 40px !important;
@@ -290,6 +325,7 @@ body{
                 }
                 #infoBalcao{
                     margin-top: 5px;
+                    font-size: 25px !important;
                 }
                 p{
                     @include make-xs-column(12);

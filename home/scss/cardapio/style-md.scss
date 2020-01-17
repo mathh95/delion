@@ -87,6 +87,7 @@ body{
                     }
                 }
                 >li a:focus{
+                    background-color: #fff;
                     text-decoration: none;
                     > div {
                         color: $vermelho_forte;

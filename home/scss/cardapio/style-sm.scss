@@ -18,7 +18,7 @@ body{
     #navbar-cardapio{
         position: sticky;
         z-index: 9999;
-        top: 35px;
+        top: 20px;
         > .menu {
             padding-bottom: 15px;
             padding-top: 15px;
@@ -34,7 +34,6 @@ body{
                 ul.nav.nav-pills{
                     background-color: #ffffff;
                     height: auto;
-                    padding-top: 5px;
                     display: inline-flex;
                     flex-direction: row;
                     li{
@@ -86,6 +85,7 @@ body{
                     }
                 }
                 >li a:focus{
+                    background-color: #fff;
                     text-decoration: none;
                     > div {
                         color: $vermelho_forte;

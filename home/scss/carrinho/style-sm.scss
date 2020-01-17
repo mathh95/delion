@@ -136,6 +136,16 @@ body{
                         // float: right;
                     }
                 }
+                #qtde-x{
+                    font-size: 10px;
+                    font-weight: bold;
+                }
+                .quantidadeItemTabela{
+                    border:none;
+                    background-color:transparent;
+                    width:30px;
+                    font-weight: bold;
+                }
                 
             }
             textarea:focus {
@@ -165,6 +175,7 @@ body{
                     border: none;
                     background-color: transparent;
                     width: 30px;
+                    font-weight: bold;
                 }
             }
         }

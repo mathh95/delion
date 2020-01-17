@@ -111,7 +111,7 @@ if (count($itens) > 0) {
     ?>
     <script type="text/javascript" src="js/buscar-delivery.js"></script>
     <script type="text/javascript" src="js/buscar-carrinho.js"></script>
-    <h1 class="text-center">Pedido</h1>
+    <h1 class="text-center">Carrinho</h1>
     <?php //print_r($_SESSION['qtd']); 
         ?>
     <?php //print_r($_SESSION['carrinho']); 
@@ -120,10 +120,10 @@ if (count($itens) > 0) {
         <table class="tabela_itens table ">
             <thead>
                 <tr id="cabecalhoTabela">
-                    <th>Excluir</th>
                     <th>Produto</th>
                     <th id="precoUnitario">Preço Unitário</th>
                     <th>Subtotal</th>
+
                     <th>Quantidade</th>
                     <th id="deliveryTabela">Delivery</th>
                 </tr>
@@ -154,15 +154,17 @@ if (count($itens) > 0) {
                     ?>
                     
                     <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
-                        <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
-                        <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['pro_nome'] ?></strong></td>
+                        <td class="text-uppercase nomeProdutoTabela">
+                        <span class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" data-qtd="<?= $_SESSION['qtd'][$key] ?>"><?= $_SESSION['qtd'][$key] ?></span><span id="qtde-x">x</span> &nbsp;  
+                            <strong><?= $item['pro_nome'] ?></strong>
+                        </td>
                         <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
                         <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?=  number_format(($item['pro_preco'] * $_SESSION['qtd'][$key]), 2); ?></strong></td>
-                        <td class="quantidadeProdutoTabela">
-                            <input class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" value=<?= $_SESSION['qtd'][$key] ?> readonly="true">
-                            <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?= $i ?>" class="fas fa-cart-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
-                            <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?= $i ?>" class="fas fa-cart-arrow-down fa-lg btn iconeExcluirProdutoTabela"></i>
-                        </td>
+                            <td class="quantidadeProdutoTabela">
+                                <i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt fa-lg btn iconeRemoverProdutoTabela"></i>
+                                <i id="removerUnidade" data-toggle="tooltip" title="Remove 1." data-linha="<?= $i ?>" class="fas fa-minus fa-lg btn iconeExcluirProdutoTabela"></i>
+                                <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1." data-linha="<?= $i ?>" class="fas fa-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
+                            </td>
                         <td class="nomeProdutoDisponivel">
                         <strong>
                         <?php

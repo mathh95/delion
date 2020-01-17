@@ -79,6 +79,7 @@ body{
                 }
                 
                     >li a:hover{
+                        background-color: #fff;
                         text-decoration: none;
                         // border-bottom: 2px solid $vermelho_forte;
                         padding-bottom: 5px;
@@ -88,6 +89,7 @@ body{
                         }
                     }
                     >li a:focus{
+                        background-color: #fff;
                         text-decoration: none;
                         > div {
                             color: $vermelho_forte;

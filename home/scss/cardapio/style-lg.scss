@@ -70,30 +70,33 @@ body,html{
                     a.nav-link.active{
                         background-color: #FFFFFF;
                     }
+                    a.nav-link:focus{
+                        background-color: #fff;
+                    }
                 } 
-                    >li.nav-item.active a{ 
-                        background-color: #D7CEC7;
+                >li.nav-item.active a{ 
+                    background-color: #D7CEC7;
                         text-decoration: none;
                             
-                            border-bottom: 2px solid $vermelho_forte;
-                            padding-bottom: 5px;
-                            > div {
-                                font-family: $font_main_bold;
-                                color: $vermelho_fraco;
-                            }
-                    }
-                    >li a:hover{
-                        text-decoration: none;
-                        
                         border-bottom: 2px solid $vermelho_forte;
-                        // margin-bottom: -4px;
                         padding-bottom: 5px;
-
                         > div {
                             font-family: $font_main_bold;
                             color: $vermelho_fraco;
                         }
+                }
+                >li a:hover{
+                    text-decoration: none;
+                    background-color: #fff;
+                    border-bottom: 2px solid $vermelho_forte;
+                    // margin-bottom: -4px;
+                    padding-bottom: 5px;
+
+                    > div {
+                        font-family: $font_main_bold;
+                        color: $vermelho_fraco;
                     }
+                }
                     // >li a:focus{
                     //     background-color: #D7CEC7;
                     //     text-decoration: none;
