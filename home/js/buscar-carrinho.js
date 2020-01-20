@@ -80,17 +80,16 @@ $(document).on('click', '.active', function(){
 });
 
 function esvaziar(){
+
     var acao = "esv";
 
     $.ajax({
         type: 'GET',
-
         url: 'ajax/quantidade-carrinho.php',
-
         data: {acao: acao},
         
         success:function(resultado){
-            window.location='/home/cardapio.php';
+            window.location = '/home/cardapio.php';
         }
     });
 }
@@ -176,9 +175,7 @@ $(document).on("click", "#removeItem", function(){
 
     $.ajax({
         type: 'GET',
-
         url: 'ajax/quantidade-carrinho.php',
-
         data: {acao: acao, preco: preco, qtdAtual: qtdAtual, id: id},
 
         success:function(resultado){

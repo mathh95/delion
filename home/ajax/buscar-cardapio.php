@@ -46,7 +46,7 @@ foreach ($categorias as $key_cat => $categoria) {
 
     echo 
         "<div class='categoria' id='categoria".$categoria->getPkId()."' >
-                <img src='../admin/".$categoria->getIcone()."' onerror='this.style.display=\"none\"'/>
+                <img style='display:none;' src='../admin/".$categoria->getIcone()."' onload='this.style.display=\"inline\"'/>
                 <b>".$categoria->getNome()."</b>
         </div>";
     
@@ -83,7 +83,7 @@ foreach ($categorias as $key_cat => $categoria) {
 
                     <div class='tituloNome' id='tituloNome".$item->getPkId()."'>".$item->getNome()."</div>
                     
-                    <div class='textoDescricao'>Muito queijo muito chocolate muita massa bão".html_entity_decode($item->getDescricao())."</div>
+                    <div class='textoDescricao'>".html_entity_decode($item->getDescricao())."</div>
                     <div class='textoDelivery'> Delivery: ". $item->getDsDelivery()."</div>
                 
                     <div id='preco-add' class='pull-right'>

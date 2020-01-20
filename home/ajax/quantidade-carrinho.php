@@ -87,7 +87,7 @@ if($acao == "+"){
                 if(count($_SESSION['carrinho']) < 1){
                     $_SESSION['valorcupom'] = 0.00;
                     
-                    echo "<script>swal('Carrinho vazio!!').then((value) => {window.location='/home/cardapio.php'});</script> ";
+                    //echo "<script>swal('Carrinho vazio!!').then((value) => {window.location='/home/cardapio.php'});</script> ";
                 }
             }
         }
@@ -208,7 +208,7 @@ elseif($acao == "rem"){
 
                 if(count($_SESSION['carrinho']) < 1){
                     $_SESSION['valorcupom'] = 0.00;
-                    echo "<script>swal('Carrinho vazio!!').then((value) => {window.location='/home/cardapio.php'});</script> ";
+                    // echo "<script>swal('Carrinho vazio!!').then((value) => {window.location='/home/cardapio.php'});</script> ";
                 }
             }
         }
