@@ -77,7 +77,6 @@
 			<?php 
 
 				$search = (isset($_GET['search'])) ? $_GET['search'] : NULL ;
-
 				$page = (isset($_GET['page'])) ? $_GET['page'] : 1 ;
 
     		?>
@@ -85,15 +84,12 @@
 			$.ajax({
 
 				type: 'GET',
-
 				url: 'ajax/buscar-cardapio.php',
-
 				data: {
 					page: "<?= $page ?>",
 					search: "<?= $search ?>",
 					tipo: 'busca'
 				},
-
 				success: function (resultado) {
 
 					$('.produtos').html(resultado);
@@ -108,9 +104,7 @@
 
 			$.ajax({
 				type: 'GET',
-
 				url: 'ajax/buscar-carrinho.php',
-
 				success: function (resultado) {
 					$(".itens").html(resultado);
 				},
@@ -127,15 +121,12 @@
 
 			$.ajax({
 				type: 'POST',
-
 				url: 'ajax/pag-carrinho.php',
-
 				data: {pag:pag},
 
 				success: function (resultado) {}
 			});
 		});
-
 
 	</script>
 

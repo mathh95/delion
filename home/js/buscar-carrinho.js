@@ -1,25 +1,3 @@
-// $(document).on("click", "#finalizar", function(){
-        
-//     $.ajax({
-//         type: 'POST',
-
-//         url: 'ajax/enviarEmailPedido.php',
-
-//         success:function(resultado){
-//             alert("EU VO MATA O JAVA SCRIPTOKKKKK");
-//         },
-//         error: function (request, status, error) {
-//             alert(request.responseText);
-//         }
-//     }); 
-// });
-
-// function atualizaValores(delivery, totalCorrigido){
-//     $('#valor_taxa_entrega').html(delivery.toFixed(2));
-//     $('#valor_total').html(totalCorrigido.toFixes(2));
-//     return;
-// }
-
 $(document).on('click', '.active', function(){
 
     $(this).removeClass('active');
@@ -308,11 +286,8 @@ $(document).on("click", "#removerUnidade", function(){
         $.ajax({
         
             type: 'GET',
-
             url: 'ajax/quantidade-carrinho.php',
-
             data: {acao: acao, preco: preco, id: id},
-
             success:function(resultado){
                 $("#valor_subTotal").html(resultado.totalCarrinho);
                 $("#valor_total").html(resultado.totalComDesconto);

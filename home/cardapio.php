@@ -310,14 +310,16 @@
 								title: "Item já Adicionado!",
 								text: "Consulte o carrinho...",
 								icon: "warning",
-								timer: 1500
+								timer: 1300,
+								buttons: false
 							});
 						}else{
 							swal({
 								title: "Item Adicionado!",
 								text: "Consulte o carrinho...",
 								icon: "success",
-								timer: 1000
+								timer: 1200,
+								buttons: false
 							});
 							//Exibe caso tenha mais de 0 itens no carrinho.
 							qtd_carrinho++; 
