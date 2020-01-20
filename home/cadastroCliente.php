@@ -305,7 +305,7 @@
 		// $(".telefone").mask("(45) 99999-9999)");
 	});
 
-	$("input.telefone").mask("(99) 9999-9999?9").focusout(function (event) {  
+	$("input.telefone").mask("(99) ?9 9999-9999").focusout(function (event) {  
 
 		var target, phone, element;  
 

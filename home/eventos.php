@@ -2,19 +2,14 @@
 session_start();
 
 	include_once "../admin/controler/conexao.php";
-
 	include_once "controler/controlEmpresa.php";
-
 	include_once "controler/controlEvento.php";
 
-	$controleEmpresa=new controlerEmpresa(conecta());
-
+	$controleEmpresa = new controlerEmpresa(conecta());
 	$empresa = $controleEmpresa->select(1,2);
 
-	$controleEvento=new controlerEvento(conecta());
-
+	$controleEvento = new controlerEvento(conecta());
 	$antigoEventos = $controleEvento->selectAllAntigo();
-
 	$novoEventos = $controleEvento->selectAllNovo();
 
 	setlocale (LC_TIME, 'ptb');
@@ -59,9 +54,7 @@ session_start();
 		<div class="solicitacao hidden-xs visible-sm-* visible-md-* visible-lg-* visible-xl-*">
 
 			<div>
-
 				<h2>Solicitação de Evento</h2>
-
 			</div>
 
 			<div>
@@ -71,33 +64,24 @@ session_start();
 					<div>
 
 						<div>
-
 							<input name="nome" type="text" required placeholder="Nome">
-
 						</div>
 
 						<div>
-
 							<input name="telefone" type="text" required placeholder="Fone" class="telefone">
-
 						</div>
 
 					</div>
 
 					<div>
-
 						<div>
 
 							<div>
-
 								<input type="email" required name="email" placeholder="E-mail">
-
 							</div>
 
 							<div>
-
 								<input type="date" min="<?= date('Y-m-d');?>" name="data" class="calendario" value="<?= date('Y-m-d');?>">
-
 							</div>
 
 						</div>
@@ -105,19 +89,13 @@ session_start();
 						<div>
 
 							<div>
-
 								<div>Início</div>
-
 								<input type="text" class="timepicker-inicio" name="horaInicio"/>
-
 							</div>
 
 							<div>
-
 								<div>Término</div>
-
 								<input type="text" class="timepicker-termino" name="horaFim"/>
-
 							</div>
 
 						</div>
@@ -125,37 +103,26 @@ session_start();
 					</div>
 
 					<div>
-
 						<div>
-
 							<textarea rows="3" name="descricao" placeholder="Descrição" maxlength="300"></textarea>
-
 						</div>
 
 						<div>
-
 							<div>
-
 								<div>Convidados</div>
 
-								<input name="convidados" type="number" required value="0" min="0" max="999">
+								<input name="convidados" type="number" required value="1" min="1" max="99">
 
 							</div>
 
 							<img src="img/evento_logo.png" alt="" class="hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
 
 							<button>ENVIAR</button>
-
 						</div>
-
 					</div>
-
-					<input type="hidden" value="Solicitação de evento" name="assunto">
-
+					<input type="hidden" value="[Evento] - Solicitação de Evento" name="assunto">
 				</form>
-
 			</div>
-
 		</div>
 
 		<div class="imagem">
@@ -211,30 +178,6 @@ session_start();
 
 	<script>
 
-		$(document).ready(function(){
-
-      		$('.banner-superior').slick({
-
-        		slidesToShow: 1,
-
-				slidesToScroll: 1,
-
-				autoplay: true,
-
-				autoplaySpeed: 3000,
-
-				arrows: false,
-
-			 	speed: 800,
-
-				fade: true,
-
-				dots: true
-
-      		});
-
-    	});
-
     	$(document).ready(function(){
 
       		$('.imagem-cardapio-evento').slick({
@@ -252,39 +195,27 @@ session_start();
     	});
 
     	$('.timepicker-inicio').wickedpicker({
-
     		twentyFour: true
-
     	});
 
     	$('.timepicker-termino').wickedpicker({
-
     		twentyFour: true
-
     	});
 
-    	$("input.telefone").mask("(99) 9999-9999?9").focusout(function (event) {  
+    	$("input.telefone").mask("(99) ?9 9999-9999").focusout(function (event) {  
 
             var target, phone, element;  
 
-            target = (event.currentTarget) ? event.currentTarget : event.srcElement;  
-
+            target = (event.currentTarget) ? event.currentTarget : event.srcElement;
             phone = target.value.replace(/\D/g, '');
-
             element = $(target);  
-
-            element.unmask();  
-
+			element.unmask();  
+			
             if(phone.length > 10) {  
-
                 element.mask("(99) 99999-999?9");  
-
             } else {  
-
                 element.mask("(99) 9999-9999?9");  
-
             }  
-
         });
 
 	</script>
