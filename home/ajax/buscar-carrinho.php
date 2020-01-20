@@ -7,26 +7,16 @@ date_default_timezone_set('America/Sao_Paulo');
 
 
 include_once "../../admin/controler/conexao.php";
-
-require_once "../controler/controlProduto.php";
-
 include_once "../lib/alert.php";
-
+require_once "../controler/controlProduto.php";
 require_once "../controler/controlCarrinho.php";
-
 include_once "../../admin/controler/controlFormaPgt.php";
-
 include_once "../../admin/model/forma_pgto.php";
-
-include_once "../utils/GoogleServices.php";
-
 include_once "../controler/controlEmpresa.php";
-
 include_once "../../admin/model/entrega.php";
-
 include_once "../../admin/controler/controlEntrega.php";
-
 include_once "../controler/controlEndereco.php";
+include_once "../utils/GoogleServices.php";
 
 
 $itens = array();

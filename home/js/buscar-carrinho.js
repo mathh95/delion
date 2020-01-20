@@ -11,8 +11,8 @@ $(document).on('click', '.active', function(){
             url: 'ajax/entrega-carrinho.php',
             data: {acao: "balcao"},
             success:function(result){
+                
                 var res = JSON.parse(result);
-                // console.log(res);
                 var delivery_price = res.delivery_price;
                 var totalCorrigido = res.totalCorrigido;
                 
@@ -84,7 +84,7 @@ function removerCupom(){
         data: {acao:acao},
 
         success:function(resultado){
-            window.location='/home/carrinho.php';
+            loadItens();
         }
     });
 }
@@ -106,15 +106,13 @@ function adicionarCupom(){
             if(resultado.valido){
                 swal('Sucesso!', 'Aproveite o desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
                 .then(function(){
-                    //mudar -> reload apenas carrinho!
-                    window.location.reload();
+                    loadItens();
                 });
             }
             else if(resultado.validoErro){
                 swal('Sucesso!', 'O cupom de R$ '+resultado.valorcupom + ' é maior do que o valor total da compra, a diferença será perdida!', 'success')
                 .then(function(){
-                    //mudar -> reload apenas carrinho!
-                    window.location.reload();
+                    loadItens();
                 });
             }
             

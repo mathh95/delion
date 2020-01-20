@@ -73,35 +73,10 @@
 	<script>
 
 		$(document).ready(function () {
-
-			<?php 
-
-				$search = (isset($_GET['search'])) ? $_GET['search'] : NULL ;
-				$page = (isset($_GET['page'])) ? $_GET['page'] : 1 ;
-
-    		?>
-
-			$.ajax({
-
-				type: 'GET',
-				url: 'ajax/buscar-cardapio.php',
-				data: {
-					page: "<?= $page ?>",
-					search: "<?= $search ?>",
-					tipo: 'busca'
-				},
-				success: function (resultado) {
-
-					$('.produtos').html(resultado);
-
-				}
-
-			});
-
+			loadItens();
 		});
 
-		$(document).ready(function () {
-
+		function loadItens(){
 			$.ajax({
 				type: 'GET',
 				url: 'ajax/buscar-carrinho.php',
@@ -112,7 +87,7 @@
 					console.log(err);
 				}
 			});
-		});
+		}
 		
 
 		$(document).on("change", "#formaPagamento", function(){

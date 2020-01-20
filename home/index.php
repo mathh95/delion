@@ -36,14 +36,6 @@
     <title>Delion Café</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta name="format-detection" content="telephone=no">
-	
-
-
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
-
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/index/style-xs.css"/>
 
@@ -52,8 +44,11 @@
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/index/style-md.css"/>
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/index/style-lg.css"/>
-	
 
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	
 </head>
 
@@ -91,17 +86,17 @@
 		<div class="tabs">
 			<ul class="nav nav-tabs navbar-collapse" >
 				<li class="delivery" >
-					<a href="#">Delivery</a>
+					<a href="#">Delivery <i class="fas fa-shipping-fast"></i></a>
 				</li>
 				<li class="retirada">
-					<a href="/../../home/cardapio.php">Ir para loja</a>
+					<a href="/../../home/cardapio.php">Ir para loja <i class='fas fa-external-link-alt'></i></a>
 				</li>
 			</ul>
 		</div>
 		<div class="form-group form-cep-campos">
 			<div class="locationField">
 				<span class="fas fa-map-marker-alt"></span>
-				<input type="text" class="form-control input-cep" id="autocomplete" placeholder="Digite seu endereço ou CEP" type="text" autofocus>
+				<input type="text" class="form-control input-cep" id="autocomplete" placeholder="Digite seu CEP ou Endereço" type="text" autofocus>
 				</input>
 			</div>
 				<div class="buttonField">
@@ -345,14 +340,17 @@
 		
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script
+src="https://maps.googleapis.com/maps/api/js?key=<?=APIKEY_GOOGLE_SERVICES?>&libraries=places&language=pt-BR&region=BR&callback=initAutocomplete"
+async defer></script>
+
 <script src="./js/google-autocomplete.js"></script>
 <script src="./js/google-geolocation.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrg0iCBCR-W5NNqL6IirOTXZ9XcrIH3N0&libraries=places&language=pt-BR&region=BR&callback=initAutocomplete"
-async defer></script>
 
 <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
 
