@@ -215,7 +215,7 @@ $(document).on("click", "#adicionarUnidade", function(){
             qtdInt += 1;
             $("#qtdUnidade"+linha).data("qtd", qtdInt);
             $("#qtdUnidade"+linha).attr("data-qtd", qtdInt);
-            $("#qtde-text").text(qtdInt);
+            $("#qtde-text"+linha).text(qtdInt);
 
 
             $("#subtotal"+linha).html("<strong>R$ "+subtotal.toFixed(2)+"</strong>");   
@@ -266,7 +266,7 @@ $(document).on("click", "#removerUnidade", function(){
 
                 $("#qtdUnidade"+linha).data("qtd", qtdTotal);
                 $("#qtdUnidade"+linha).attr("data-qtd", qtdTotal);
-                $("#qtde-text").text(qtdTotal);
+                $("#qtde-text"+linha).text(qtdTotal);
                 
                 $("#subtotal"+linha).html("<strong>R$ "+subtotal.toFixed(2)+"</strong>");
                 
@@ -291,10 +291,12 @@ $(document).on("click", "#removerUnidade", function(){
             success:function(resultado){
                 $("#valor_subTotal").html(resultado.totalCarrinho);
                 $("#valor_total").html(resultado.totalComDesconto);
+
                 var tr = $("#idLinha"+linha).fadeOut(100, function(){
                     tr.remove();
                     window.location.reload();
                 });
+                
                 $("#spanCarrinho").html(parseInt($("#spanCarrinho").text()) - 1);
             }
         });

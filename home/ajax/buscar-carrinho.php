@@ -157,9 +157,9 @@ if (count($itens) > 0) {
 
                         <td class="text-uppercase nomeProdutoTabela">
                         <span class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" data-qtd="<?= $_SESSION['qtd'][$key] ?>">
-                            <span id="qtde-text"><?= $_SESSION['qtd'][$key] ?></span>
+                            <span id="qtde-text<?= $i ?>"><?= $_SESSION['qtd'][$key] ?></span>
                         </span>
-                            <span id="qtde-x">x</span> &nbsp;  
+                            <span class="qtde-x">x</span> &nbsp;  
                             <strong><?= $item['pro_nome'] ?></strong>
                         </td>
                         <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
