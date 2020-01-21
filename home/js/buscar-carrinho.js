@@ -1,17 +1,21 @@
-$(document).on('click', '.active', function(){
+$(document).on('click', '.tipo-entrega', function(){
 
-    $(this).removeClass('active');
+    $('.tipo-entrega').removeClass('active');
+
     if(this.id == 'balcao'){
+        
+        $("#balcao").addClass('active');
+
         $('#infoDelivery').hide();
-        $('#infoEntrega').hide();
+        $('#infoPercurso').hide();
         $('#infoBalcao').show();
+
         
         $.ajax({
             type: 'POST',
             url: 'ajax/entrega-carrinho.php',
             data: {acao: "balcao"},
             success:function(result){
-                
                 var res = JSON.parse(result);
                 var delivery_price = res.delivery_price;
                 var totalCorrigido = res.totalCorrigido;
@@ -29,10 +33,13 @@ $(document).on('click', '.active', function(){
         });
         
     }else if(this.id == 'delivery'){
-        $('#infoDelivery').show();
-        $('#infoEntrega').show();
-        $('#infoBalcao').hide();
+
+        $("#delivery").addClass('active');
         
+        $('#infoDelivery').show();
+        $('#infoPercurso').show();
+        $('#infoBalcao').hide();
+
         $.ajax({
             type: 'POST',
             url: 'ajax/entrega-carrinho.php',
@@ -78,9 +85,7 @@ function removerCupom(){
     
     $.ajax({
         type: 'GET',
-
         url: 'ajax/quantidade-carrinho.php',
-
         data: {acao:acao},
 
         success:function(resultado){
@@ -104,13 +109,13 @@ function adicionarCupom(){
             // alert(resultado);
 
             if(resultado.valido){
-                swal('Sucesso!', 'Aproveite o desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
+                swal('Cupom Adicionado!', 'Desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
                 .then(function(){
                     loadItens();
                 });
             }
             else if(resultado.validoErro){
-                swal('Sucesso!', 'O cupom de R$ '+resultado.valorcupom + ' é maior do que o valor total da compra, a diferença será perdida!', 'success')
+                swal('Cupom Adicionado!', 'O cupom de R$ '+resultado.valorcupom + ' é maior do que o valor total da compra, a diferença será perdida!', 'success')
                 .then(function(){
                     loadItens();
                 });

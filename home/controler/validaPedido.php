@@ -29,7 +29,6 @@ $checkpedido=-1;
 $checkdelivery=-1;
 $checkcliente=-1;
 
-
 /**
  *  VERIFICA SE TEM O CARRINHO FOI ATIVADO
  */
@@ -42,19 +41,19 @@ if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
 /**
  * VERIFICA SE O CLIENTE SELECIONOU A OPÇÃO DELIVERY/BALCÃO
  */
-if(isset($_SESSION['delivery']) && !empty($_SESSION['delivery'])){
-    $checkopcao =1;
+if(isset($_SESSION['delivery'])){
+    $checkopcao = 1;
 }else {
-    $checkopcao=-1;
+    $checkopcao = -1;
 }
 
 /**
  * VERIFICA SE O CLIENTE POSSUI ALGUM PEDIDO QUE NÃO POSSA SER DELIVERY
  */
-if (isset($_SESSION['pedidoBalcao'])) {
-    $checkbalcao=1;
+if (isset($_SESSION['delivery_indisponivel'])) {
+    $checkbalcao = 1;
 }else{
-    $checkbalcao=-1;
+    $checkbalcao = -1;
 }
 
 /**
@@ -77,7 +76,7 @@ if (isset($_SESSION['pedidoBalcao'])) {
  * - PEDIDO FOR DELIVERY, NÃO POSSUI PEDIDOS
  * - PEDIDO FOR BALCÃO
  */
-if (($_SESSION['delivery'] < 0) || ($_SESSION['pedidoBalcao'] == 0) && ($_SESSION['delivery'] > 0)){
+if (($_SESSION['delivery'] < 0) || ($_SESSION['delivery_indisponivel'] == 0) && ($_SESSION['delivery'] > 0)){
     $checkpedido=1;
 
     if (($_SESSION['delivery'] > 0) || ($_SESSION['is_delivery_home'] == 1)) {
@@ -114,7 +113,7 @@ $html.= "<script type='text/javascript' src='../js/jquery-3.4.1.min.js'></script
 include_once "./FuncionamentoEmpresa.php";
 $funcionamentoEmpresa = new FuncionamentoEmpresa();
 
-$controleEmpresa=new controlerEmpresa(conecta());
+$controleEmpresa = new controlerEmpresa(conecta());
 $empresa = $controleEmpresa->select(1,2);
 
 if(!$funcionamentoEmpresa->aberto()){
@@ -131,7 +130,7 @@ if(!$funcionamentoEmpresa->aberto()){
 
 if($checkcarrinho > 0){
     if($checkopcao > 0){
-        if($checkbalcao>0){
+        if($checkbalcao > 0){
             if($checkpedido > 0){
                 //is delivery?
                 if($checkdelivery > 0){
@@ -184,8 +183,15 @@ if($checkcarrinho > 0){
                                             data: {endereco: '".$cod_endereco."'},
                                             success: function (res) {
                                                 //console.log(res);
-
-                                                swal('Pedido realizado com sucesso!', 'Tempo estimado de entrega: ".$_SESSION['delivery_time']." mins  | Total: R$ ".number_format($_SESSION['totalCorrigido'], 2)."', 'success').then((value) => {
+                                                
+                                                var content_enviado = document.createElement('div');
+                                                content_enviado.innerHTML = 'Tempo estimado de entrega: <b>".$_SESSION['delivery_time']." mins </b> <br> Total: <b>R$ ".number_format($_SESSION['valor_total'], 2)."</b>';
+                                                
+                                                swal({
+                                                    title: 'Pedido realizado com sucesso!',
+                                                    content: content_enviado,
+                                                    icon: 'success'}
+                                                    ).then((value) => {
                                                     window.location = '/home/listarPedidos.php';
                                                 });
                                             },
@@ -195,9 +201,13 @@ if($checkcarrinho > 0){
                                         });
                                     }
 
+                                    var content_enviar = document.createElement('div');
+                                    content_enviar.innerHTML = 'Entrega em: <b>".$rua.", ".$numero."</b> <br> Total: <b>R$ ".number_format($_SESSION['valor_total'], 2)."</b>';
+
+
                                     swal({
                                         title: 'Confirmar Pedido',
-                                        text: 'Entrega em: ".$rua.", ".$numero." | Total: R$ ".number_format($_SESSION['totalCorrigido'], 2)."',
+                                        content: content_enviar,
                                         icon: 'success',
                                         buttons: ['Cancelar', true],
                                     })
@@ -232,9 +242,13 @@ if($checkcarrinho > 0){
                         /*  'termina pedido e envia email'; */
                         $html.= "
                         <script>
+
+                            var content = document.createElement('div');
+                            content.innerHTML = 'Retirar em: <b>".$empresa->getEndereco()."</b> <br> Total: <b>R$ ".number_format($_SESSION['valor_total'], 2)."</b>';
+
                             swal({
                                 title: 'Confirmar Pedido',
-                                text: 'Retirar em: Rua Jorge Sanwais, 1137 | Total: R$ ".number_format($_SESSION['totalCorrigido'], 2)."',
+                                content: content,
                                 icon: 'success',
                                 buttons: ['Cancelar', true],
                             })
@@ -260,7 +274,7 @@ if($checkcarrinho > 0){
             }
         }
     }else{
-        $html.= "<script>swal('Erro!!', 'É preciso selecionar um tipo de pedido!', 'error').then((value) => {window.location='/home/carrinho.php'});</script></body>";
+        $html.= "<script>swal('Erro!!', 'Pedido para Entrega ou Retirada?!', 'error').then((value) => {window.location='/home/carrinho.php'});</script></body>";
         echo $html;
     }
 }else{

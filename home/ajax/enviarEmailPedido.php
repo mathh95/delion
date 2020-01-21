@@ -128,10 +128,10 @@ $body_pedido =
     }
     $body_pedido .= "</tbody>
     </table>
-    <p>Subtotal: R$ " . number_format($_SESSION['totalCarrinho'], 2) . "</p>
+    <p>Subtotal: R$ " . number_format($_SESSION['valor_subtotal'], 2) . "</p>
     <p>Taxa de Entrega: R$ " . number_format($_SESSION['delivery_price'], 2) . "</p>
-    <p>Desconto do Cupom: R$ " . number_format($_SESSION['valorcupom'], 2) . "</p>
-    <p><b>Total: R$ " . number_format($_SESSION['totalCorrigido'], 2) . "</b></p>";
+    <p>Desconto do Cupom: R$ " . number_format($_SESSION['valor_cupom'], 2) . "</p>
+    <p><b>Total: R$ " . number_format($_SESSION['valor_total'], 2) . "</b></p>";
 
 
 
@@ -230,12 +230,12 @@ if ($fk_endereco == null) {
 unset($_SESSION['cod_endereco']);
 $_SESSION['delivery'] = -1;
 $_SESSION['flag_combo'] = "";
-$_SESSION['valorcupom'] = 0.00;
+$_SESSION['valor_cupom'] = 0.00;
 
 unset($_SESSION['carrinho']);
 unset($_SESSION['qtd']);
 unset($_SESSION['observacao']);
-unset($_SESSION['totalCarrinho']);
+unset($_SESSION['valor_subtotal']);
 
 $_SESSION['delivery'] == -1;
-unset($_SESSION['pedidoBalcao']);
+unset($_SESSION['delivery_indisponivel']);

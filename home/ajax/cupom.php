@@ -43,7 +43,7 @@ if($clcu_ultima_data->getFkCliente() == -1){
     $cod_cliente_uso = $clcu_ultima_data->getFkCliente();
 }
 
-$_SESSION['valorcupom'] = 0.00;
+$_SESSION['valor_cupom'] = 0.00;
 $_SESSION['totalComDesconto'] = 0.00;
 $data = date('Y-m-d');
 
@@ -82,42 +82,42 @@ function verificarCupom($fk_cliente, $cupom, $codigo_inserido, $data, $clcu_fk_c
         echo json_encode(array("mensagem" => "Quantidade insuficiente ou cupons esgotados!")); return;
     }else if($fk_cliente == $cod_cliente_uso){
         echo json_encode(array("mensagem" => "Não é possivel usar mais de 1 cupom por dia !")); return;
-    }else if($_SESSION['totalCarrinho'] < $cupom->getValor_minimo()){ 
+    }else if($_SESSION['valor_subtotal'] < $cupom->getValor_minimo()){ 
         //Verificação para o valor minimo
         $txtSemVariavel = "O valor minimo para esse cupom é de";
         $txtWarning = $txtSemVariavel." R$".$cupom->getValor_minimo();
         echo json_encode(array("mensagem" => $txtWarning)); return;
-    }else if($_SESSION['totalCarrinho'] < $valor_cupom){
+    }else if($_SESSION['valor_subtotal'] < $valor_cupom){
         // echo json_encode(array("mensagem" => "O valor do cupom é maior do que o valor total da compra, a diferença será perdida!")); return;
-        $_SESSION['valorcupom'] = $valor_cupom;
+        $_SESSION['valor_cupom'] = $valor_cupom;
         $_SESSION['codigocupom'] = $codigo_inserido;
         $_SESSION['codcupom'] = $pk_cupom_inserido;
-        if($_SESSION['valorcupom'] > $_SESSION['totalCarrinho']){
+        if($_SESSION['valor_cupom'] > $_SESSION['valor_subtotal']){
             $_SESSION['totalComDesconto'] = 0.00;
         }else{
-            $_SESSION['totalComDesconto'] = ($_SESSION['totalCarrinho'] - $_SESSION['valorcupom']);
+            $_SESSION['totalComDesconto'] = ($_SESSION['valor_subtotal'] - $_SESSION['valor_cupom']);
         }
 
         echo json_encode(
             array("validoErro" => true, 
-            "valorcupom" => $_SESSION['valorcupom'],
-            "totalCarrinho" => $_SESSION['totalCarrinho'],
+            "valorcupom" => $_SESSION['valor_cupom'],
+            "totalCarrinho" => $_SESSION['valor_subtotal'],
             "totalComDesconto" => $_SESSION['totalComDesconto'])); return;
     
     }else{ // caso passe pelas verificacoes, atribui os valores e retorna 
-        $_SESSION['valorcupom'] = $valor_cupom;
+        $_SESSION['valor_cupom'] = $valor_cupom;
         $_SESSION['codigocupom'] = $codigo_inserido;
         $_SESSION['codcupom'] = $pk_cupom_inserido;
-        if($_SESSION['valorcupom'] > $_SESSION['totalCarrinho']){
+        if($_SESSION['valor_cupom'] > $_SESSION['valor_subtotal']){
             $_SESSION['totalComDesconto'] = 0.00;
         }else{
-            $_SESSION['totalComDesconto'] = ($_SESSION['totalCarrinho'] - $_SESSION['valorcupom']);
+            $_SESSION['totalComDesconto'] = ($_SESSION['valor_subtotal'] - $_SESSION['valor_cupom']);
         }
         
         echo json_encode(
             array("valido" => true, 
-            "valorcupom" => $_SESSION['valorcupom'],
-            "totalCarrinho" => $_SESSION['totalCarrinho'],
+            "valorcupom" => $_SESSION['valor_cupom'],
+            "totalCarrinho" => $_SESSION['valor_subtotal'],
             "totalComDesconto" => $_SESSION['totalComDesconto'])); return;
     }
 }

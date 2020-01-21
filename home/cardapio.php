@@ -15,14 +15,14 @@
 
 	include_once MODELPATH."/adicional.php";
 
-	$controleEmpresa=new controlerEmpresa(conecta());
+	$controleEmpresa = new controlerEmpresa(conecta());
 
-	$controleCategoria=new controlerCategoria(conecta());
+	$controleCategoria = new controlerCategoria(conecta());
 
 	$empresa = $controleEmpresa->select(1,2);
 
 
-	$controleImagem=new controlerImagem(conecta());
+	$controleImagem = new controlerImagem(conecta());
 
 	$imagens = $controleImagem->selectAll();
 

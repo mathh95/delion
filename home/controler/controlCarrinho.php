@@ -21,8 +21,8 @@ class controlerCarrinho{
 
         if(isset($_SESSION['codigocupom']) && !empty($_SESSION['codigocupom']) && isset($_SESSION['codcupom']) && !empty($_SESSION['codcupom'])){
             $idCliente = $_SESSION['cod_cliente'];
-            $valor = $_SESSION['totalCorrigido'];
-            $desconto = $_SESSION['valorcupom_var'];
+            $valor = $_SESSION['valor_total'];
+            $desconto = $_SESSION['valor_cupom_var'];
             $taxa_entrega = $_SESSION['delivery_price_var'];
 
             // $secs = ($_SESSION['delivery_time_var']*60);
@@ -30,7 +30,7 @@ class controlerCarrinho{
             // $tempo_entrega = date('H:i:s',$tempo_formated);
             $tempo_entrega = $_SESSION['delivery_time_var'];
 
-            $subtotal = $_SESSION['totalCarrinho'];
+            $subtotal = $_SESSION['valor_subtotal'];
             $formaPgt = $_SESSION['formaPagamento'];
             $codigocupom = $_SESSION['codigocupom'];
             $codcupom = $_SESSION['codcupom'];
@@ -90,11 +90,11 @@ class controlerCarrinho{
         }else {
 
             $idCliente = $_SESSION['cod_cliente'];
-            $valor = $_SESSION['totalCorrigido'];       //valor com a correção do cupom
-            $desconto = $_SESSION['valorcupom_var'];
+            $valor = $_SESSION['valor_total'];       //valor com a correção do cupom
+            $desconto = $_SESSION['valor_cupom_var'];
             $taxa_entrega = $_SESSION['delivery_price_var'];
             $tempo_entrega = $_SESSION['delivery_time_var'];
-            $subtotal = $_SESSION['totalCarrinho'];
+            $subtotal = $_SESSION['valor_subtotal'];
             $formaPgt = $_SESSION['formaPagamento'];
             $status = 1;
 
@@ -291,7 +291,7 @@ class controlerCarrinho{
                     array_push($produtos,$pedido_produto);  
                 }
             }else{
-                echo "Sem itens para o Pedido...contate o Suporte!";
+                // echo "Pedido inconsistente...contate o Suporte!";
                 return -1;
             }
             return $produtos;
