@@ -64,7 +64,7 @@ if (isset($_SESSION['delivery_indisponivel'])) {
 /**
  * VERIFICA SE FOI UTILIZADO ALGUM CUPOM
  **/
-// if(isset($_SESSION['codigocupom']) && !empty($_SESSION['codigocupom'])){
+// if(isset($_SESSION['codigo_cupom']) && !empty($_SESSION['codigo_cupom'])){
 //     $checkcupom =1;
 // }else {
 //     $checkocupom=-1;
@@ -101,13 +101,7 @@ if(isset($_SESSION['cod_cliente']) && !empty($_SESSION['cod_cliente'])){
  * VERIFICA SE O CLIENTE ESTÁ COM CADASTRO ATIVO
  */
 
-/**
- * Seta Finalizar Pedido para Endereco
- */
-$_SESSION['finalizar_pedido'] = 1;
-
 $html.= "<script type='text/javascript' src='../js/jquery-3.4.1.min.js'></script>";
-
 
 //Verifica se o estabelecimento está aberto
 include_once "./FuncionamentoEmpresa.php";
@@ -143,7 +137,6 @@ if($checkcarrinho > 0){
 
                             echo $html;
                         }else{
-
                             //endereço inserido?
                             if(
                                 ($_SESSION['is_delivery_home'] == 1
@@ -227,7 +220,7 @@ if($checkcarrinho > 0){
                                 }
                             }else{
                                 // 'termina pedido vai pra area de endereço';
-                                $html.= "<script>swal('Selecione um endereço!', 'Estamos te mandando para tela endereços, escolha um endereço...', 'info').then((value) => {window.location='/home/endereco.php'});</script></body>";
+                                $html.= "<script>swal('Selecione um endereço!', 'Estamos te mandando para tela endereços, escolha um endereço...', 'info').then((value) => {window.location='/home/endereco.php?is_selecao_end=true'});</script></body>";
                                 echo $html;
                             }
                         }

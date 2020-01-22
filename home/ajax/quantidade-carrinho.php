@@ -11,7 +11,7 @@ if($acao == "+"){
     $linha = $_GET['linha'];
     $_SESSION['qtd'][$linha] = $qtdAtual+1;    
     $_SESSION['valor_subtotal'] += $preco;
-    $_SESSION['totalComDesconto'] = ((float)$_SESSION['valor_subtotal'] - (float)$_SESSION['valor_cupom']);
+    $_SESSION['total_com_desconto'] = ((float)$_SESSION['valor_subtotal'] - (float)$_SESSION['valor_cupom']);
     
     $_SESSION['valor_total'] += $preco;
 
@@ -40,7 +40,7 @@ if($acao == "+"){
         array(
             "valorcupom" => $_SESSION['valor_cupom'],
             "totalCarrinho" => $_SESSION['valor_subtotal'],
-            "totalComDesconto" => $_SESSION['totalComDesconto'],
+            "totalComDesconto" => $_SESSION['total_com_desconto'],
             "totalCorrigido" => $_SESSION['valor_total'],
             "taxaEntrega" => $_SESSION['delivery_price']
             )
@@ -73,7 +73,7 @@ if($acao == "+"){
             }
         }
         $_SESSION['valor_subtotal'] -= (float)$preco;
-        $_SESSION['totalComDesconto'] = ((float)$_SESSION['valor_subtotal'] - (float)$_SESSION['valor_cupom']);
+        $_SESSION['total_com_desconto'] = ((float)$_SESSION['valor_subtotal'] - (float)$_SESSION['valor_cupom']);
         
         $_SESSION['valor_total'] -= (float)$preco;
 
@@ -106,7 +106,7 @@ if($acao == "+"){
             array(
                 "valorcupom" => $_SESSION['valor_cupom'],
                 "totalCarrinho" => $_SESSION['valor_subtotal'],
-                "totalComDesconto" => $_SESSION['totalComDesconto'],
+                "totalComDesconto" => $_SESSION['total_com_desconto'],
                 "totalCorrigido" => $_SESSION['valor_total'],
                 "taxaEntrega" => $_SESSION['delivery_price']
                 )
@@ -122,7 +122,7 @@ if($acao == "+"){
         $linha = $_GET['linha'];
         $_SESSION['qtd'][$linha] = $qtdAtual-1;
         $_SESSION['valor_subtotal'] -= $preco;
-        $_SESSION['totalComDesconto'] = ((float)$_SESSION['valor_subtotal'] - (float)$_SESSION['valor_cupom']);
+        $_SESSION['total_com_desconto'] = ((float)$_SESSION['valor_subtotal'] - (float)$_SESSION['valor_cupom']);
         
         $_SESSION['valor_total'] -= (float) $preco;
 
@@ -159,7 +159,7 @@ if($acao == "+"){
             array(
             "valorcupom" => $_SESSION['valor_cupom'],
             "totalCarrinho" => $_SESSION['valor_subtotal'],
-            "totalComDesconto" => $_SESSION['totalComDesconto'],
+            "totalComDesconto" => $_SESSION['total_com_desconto'],
             "totalCorrigido" => $_SESSION['valor_total'],
             "taxaEntrega" => $_SESSION['delivery_price']
             )
@@ -196,7 +196,7 @@ elseif($acao == "rem"){
 
         $aux = $qtd * $preco;
         $_SESSION['valor_subtotal']-= $aux;
-        $_SESSION['totalComDesconto'] = ($_SESSION['valor_subtotal'] - $_SESSION['valor_cupom']);
+        $_SESSION['total_com_desconto'] = ($_SESSION['valor_subtotal'] - $_SESSION['valor_cupom']);
 
 
 
@@ -227,7 +227,7 @@ elseif($acao == "rem"){
         echo json_encode(
             array(
                 "totalCarrinho" => $_SESSION['valor_subtotal'],
-                "totalComDesconto" => $_SESSION['totalComDesconto'],
+                "totalComDesconto" => $_SESSION['total_com_desconto'],
                 "totalCorrigido" => $_SESSION['valor_total'],
                 "taxaEntrega" => $_SESSION['delivery_price']
             )
@@ -239,7 +239,7 @@ elseif($acao == "rem"){
 // função para esvaziar o carrinho
 elseif($acao == "esv"){
     $_SESSION['valor_subtotal'] = 0;
-    $_SESSION['totalComDesconto'] = 0;
+    $_SESSION['total_com_desconto'] = 0;
     $_SESSION['valor_cupom'] = 0;
     $_SESSION['valor_total'] = 0;
     unset($_SESSION['carrinho']);

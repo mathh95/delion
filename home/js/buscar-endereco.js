@@ -1,28 +1,25 @@
 $(document).ready(function () {
+    //
+});
 
+function loadEnderecos(flag_selecionar_end){
     $.ajax({
         type: 'GET',
-
         url: 'ajax/buscar-endereco.php',
-
-        data: { tipo: 'ativo' },
-
+        data: { tipo: 'ativo', is_selecao_end: flag_selecionar_end },
         success: function (resultado) {
             $(".lista").html(resultado);
             html = "<button onclick='listarInativos()'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
             $('.listar').html(html);
         }
     });
-});
+}
 
 function listarAtivos() {
     $.ajax({
         type: 'GET',
-
         url: 'ajax/buscar-endereco.php',
-
         data: { tipo: 'ativo' },
-
         success: function (resultado) {
             $(".lista").html(resultado);
             html = "<button onclick='listarInativos()'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
@@ -34,11 +31,8 @@ function listarAtivos() {
 function listarInativos() {
     $.ajax({
         type: 'GET',
-
         url: 'ajax/buscar-endereco.php',
-
         data: { tipo: 'inativo' },
-
         success: function (resultado) {
             $(".lista").html(resultado);
             html = "<button  onclick='listarAtivos()'>LISTAR ENDEREÇOS ATIVOS</button>"
@@ -63,11 +57,8 @@ function cadastrarEndereco() {
 function alterarEndereco(endereco) {
     $.ajax({
         type: 'GET',
-
         url: 'ajax/salvar-endereco.php',
-
         data: { endereco: endereco },
-
         success: function (resultado) {
             $(".opcoes").html(resultado);
             html = "<button onclick='listarInativos()'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
@@ -80,11 +71,8 @@ function excluirEndereco(endereco) {
     $.ajax({
 
         type: 'GET',
-
         url: 'ajax/excluir-endereco.php',
-
-        data: { endereco: endereco }
-        ,
+        data: { endereco: endereco },
         success: function (resultado) {
             if (resultado < 0) {
                 swal("Não foi possível excluir endereço", "erro!", "error");
@@ -94,7 +82,6 @@ function excluirEndereco(endereco) {
                 reloadEnderecosAtivos();
             }
         }
-
     });
 }
 
@@ -102,11 +89,8 @@ function ativarEndereco(endereco) {
     $.ajax({
 
         type: 'GET',
-
         url: 'ajax/restaurar-endereco.php',
-
-        data: { endereco: endereco }
-        ,
+        data: { endereco: endereco },
         success: function (resultado) {
             if (resultado < 0) {
                 swal("Não foi possível ativar endereço", "erro!", "error");

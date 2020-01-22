@@ -64,6 +64,22 @@ $(document).on('click', '.tipo-entrega', function(){
     }
 });
 
+
+function removerEndereco(){
+    $.ajax({
+        type: 'POST',
+        url: 'ajax/entrega-carrinho.php',
+        data: {acao: "rem_endereco"},
+        success:function(result){
+            location.reload();
+        },
+        error: function(err){
+            location.reload();
+            console.log(err);
+        }
+    });
+}
+
 function esvaziar(){
 
     var acao = "esv";

@@ -7,7 +7,7 @@
 
     $pag = $_POST['pag'];
 
-    $_SESSION['formaPagamento'] = $pag;
+    $_SESSION['forma_pagamento'] = $pag;
 
 
 ?>

@@ -154,7 +154,7 @@ if ($fk_endereco == null) {
         $fk_origem_pedido = 1;
         $produtos = $itens;
         
-        $salvo = $pedido->setPedido(null, $fk_origem_pedido, $produtos);
+        $salvo = $pedido->setPedido(null, $fk_origem_pedido, $produtos, TRUE);
             
 
         if ($salvo){
@@ -162,15 +162,15 @@ if ($fk_endereco == null) {
         }else{
             $mail->Body .= "<p>*Erro ao salvar pedido na base de dados.</p>";
             
-            $html .= "<script>swal('Tivemos um problema aqui :/', 'tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+            $html .= "<script>swal('Tivemos um problema aqui :/', 'Tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
         }
         
         
         $mail->send();
         
     } catch (Exception $e) {
-        $html .= "<script>swal('Tivemos um problema aqui :/', 'tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
-        // echo $mail->ErrorInfo;
+        $html .= "<script>swal('Tivemos um erro aqui :/', 'Tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+        echo $e;
     }
     
     echo $html;
@@ -203,7 +203,7 @@ if ($fk_endereco == null) {
 
         $fk_origem_pedido = 1;
         $produtos = $itens;
-        $salvo = $pedido->setPedido($fk_endereco, $fk_origem_pedido, $produtos);
+        $salvo = $pedido->setPedido($fk_endereco, $fk_origem_pedido, $produtos, TRUE);
 
 
         if ($salvo){
@@ -227,8 +227,6 @@ if ($fk_endereco == null) {
 }
 
 //reset vars
-unset($_SESSION['cod_endereco']);
-$_SESSION['delivery'] = -1;
 $_SESSION['flag_combo'] = "";
 $_SESSION['valor_cupom'] = 0.00;
 
@@ -237,5 +235,7 @@ unset($_SESSION['qtd']);
 unset($_SESSION['observacao']);
 unset($_SESSION['valor_subtotal']);
 
-$_SESSION['delivery'] == -1;
+unset($_SESSION['cod_endereco']);
+unset($_SESSION['endereco']);
+$_SESSION['delivery'] = -1;
 unset($_SESSION['delivery_indisponivel']);

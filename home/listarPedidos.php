@@ -78,7 +78,7 @@
 										echo "<tr name='resultado' id='status".$pedido->getPkId()."'>
 											<td style='text-align: center;' name='data'>".$pedido->getData()->format('d/m/Y')."</td>
 											<td style='text-align: center;' name='data'>".$pedido->getData()->format('H:i')."h</td>
-											<td style='text-align: center;' name='valor'>R$ ".$pedido->getValor()."</td>";
+											<td style='text-align: center;' name='valor'>R$ ".$pedido->getTotal()."</td>";
 											if($pedido->getStatus() == 1){
 												echo "<td style='text-align: center;' name='status'>Recebido</td>";
 											}

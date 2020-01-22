@@ -20,19 +20,19 @@ if (isset($_SESSION['flag_combo']) && !empty($_SESSION['flag_combo'])) {
 $_SESSION['tipoEndereco'] = $_GET['tipo'];
 $cod_cliente = $_SESSION['cod_cliente'];
 $tipo = $_GET['tipo'];
+
+if(isset($_GET['is_selecao_end'])){
+    $flag_selecionar_end = $_GET['is_selecao_end'];
+}else{
+    $flag_selecionar_end = false;
+}
+
 if ($tipo == 'ativo') {
     $enderecos = $controleEndereco->selectByCliente($cod_cliente, 1);
     if ($enderecos < 1) {
         echo "<p> Não existem endereços registrados</p>";
     } else {
-        // if (
-        //     (isset($_SESSION['delivery']) and $_SESSION['delivery'] > 0) || 
-        //     (isset($_SESSION['is_delivery_home']) and $_SESSION['is_delivery_home'] > 0)
-        // ) {
-        if(
-            (isset($_SESSION['finalizar_pedido']) and $_SESSION['finalizar_pedido'] > 0) and
-            (isset($_SESSION['is_delivery_home']) and $_SESSION['is_delivery_home'] > 0)
-        ){
+        if($flag_selecionar_end){
             echo "<p> Endereços Cadastrados </p>";
             foreach ($enderecos as $endereco) {
                 echo "<div class='item'>
@@ -65,7 +65,9 @@ if ($tipo == 'ativo') {
             }
         }
     }
+
 } else {
+
     $enderecos = $controleEndereco->selectByCliente($cod_cliente, 2);
     if ($enderecos < 1) {
         echo "<p> Não existem endereços excluidos</p>";

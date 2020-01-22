@@ -23,19 +23,17 @@ $itens = array();
 $cardapio = new controlerProduto(conecta());
 $controlEndereco = new controlEndereco(conecta());
 
-$_SESSION['delivery'] = -1;
 $controlFormaPgt = new controlerFormaPgt($_SG['link']);
 $formasPgt = $controlFormaPgt->selectAll();
-$_SESSION['formaPagamento'] = $formasPgt[0]->getPkId();
+
+$_SESSION['delivery'] = -1;
+$_SESSION['forma_pagamento'] = $formasPgt[0]->getPkId();
 $_SESSION['delivery_price'] = 0;
 $_SESSION['delivery_time'] = 0;
 $_SESSION['delivery_free'] = 0;
 $_SESSION['valor_entrega_valido'] = 0;
 $_SESSION['delivery_price_calculado'] = 0;
 $_SESSION['minimo_taxa_gratis'] = 99999;
-
-//zera flag Finalizar pedido
-$_SESSION['finalizar_pedido'] = 0;
 
 if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     //ordenados com base na inserção/add carrinho
@@ -255,17 +253,18 @@ if (count($itens) > 0) {
                 <div class="rodapeCarrinho row">
                     <div class='ladoEsquerdo'>
                         
-                        <?php
+                <?php
+
                 if (!isset($_SESSION['valor_cupom'])) {
                     $_SESSION['valor_cupom'] = 0.00;
-                    $_SESSION['totalComDesconto'] = 0.00;
+                    $_SESSION['total_com_desconto'] = 0.00;
                 }
 
                 $totalDesc = $_SESSION['valor_subtotal'] - $_SESSION['valor_cupom'];
                 $totalDesc = $totalDesc <= 0 ? number_format(0, 2) : number_format($totalDesc, 2);
 
                 $_SESSION['valor_total'] = $totalDesc;
-                $_SESSION['totalComDesconto'] = $totalDesc;
+                $_SESSION['total_com_desconto'] = $totalDesc;
 
                 /*Endereço inserido na Página Inicial*/
                 if(isset($_SESSION['endereco']['postal_code'])){
@@ -289,10 +288,9 @@ if (count($itens) > 0) {
                     $endereco_cadastrado = 0;
                 }
 
-
                 $_SESSION['entrega_valida'] = 0;
 
-                if (($_SESSION['is_delivery_home'] == 1)) {
+                if ($_SESSION['is_delivery_home'] == 1 || $_SESSION['delivery'] == 1) {
                     //taxa de entrega calculada?
                     if (($_SESSION['delivery_price'] > 0) && ($_SESSION['is_delivery_home'])) {
                         $_SESSION['valor_total'] += $_SESSION['delivery_price'];
@@ -407,7 +405,7 @@ if (count($itens) > 0) {
 
                             //Display info de entrega
                             echo "<div style='margin-top:10px;' id='infoDelivery'>";
-                            echo "<span style='font-weight:bold;'>Endereço para Entrega: </span> <span onclick='location=\"/home\"' style='cursor:pointer;'><i class='fas fa-edit'></i>&nbsp;Alterar</span><br>";
+                            echo "<span style='font-weight:bold;'>Endereço para Entrega: </span> <span onclick='removerEndereco()' style='cursor:pointer;'><i class='fas fa-eraser'></i>&nbsp;Remover</span><br>";
                             echo "CEP: " . $cep . "<br>";
                             echo "End.: " . $rua . "<br>";
                             echo "Número: " . $numero . "<br>";
@@ -431,7 +429,7 @@ if (count($itens) > 0) {
                             echo "<div style='margin-top:10px;' id='infoDelivery'>";
                             echo "<span style='font-weight:bold;'> <i class='fas fa-frown-open'></i>&nbsp;Ops...Ainda não fazemos entrega nesta região: </span><br><br>";
 
-                            echo " <span onclick='location=\"/home\"' style='cursor:pointer;'><i class='fas fa-edit'></i>&nbsp;Alterar</span><br>";
+                            echo " <span onclick='removerEndereco()' style='cursor:pointer;'><i class='fas fa-eraser'></i>&nbsp;Remover</span><br>";
                             echo "End.: " . $rua . "<br>";
                             echo "Número: " . $numero . "<br>";
                             echo "Cidade: " . $cidade . "<br>";
@@ -442,8 +440,7 @@ if (count($itens) > 0) {
                         //info de entrega
                         echo "<div style='margin-top:10px;' id='infoDelivery'>";
                         echo "<br>";
-                        echo "<span style='font-weight:bold;'></span> <span onclick='location=\"/home\"' style='cursor:pointer;'>&nbsp;Inserir Endereço de Entrega&nbsp;<i class='fas fa-external-link-alt'></i></span><br>";
-                        echo "<br><span id='infoDeliverySemEndereco'><i class='fas fa-info-circle'></i>&nbsp;Ou selecione um Endereço cadastrado, ao Finalizar o Pedido.</span>";
+                        echo "<br><span id='infoDeliverySemEndereco'><i class='fas fa-info-circle'></i>&nbsp;Selecione um Endereço cadastrado, ao Finalizar o Pedido.</span>";
                         echo "</div>";
                     }
 
@@ -476,8 +473,7 @@ if (count($itens) > 0) {
                     //info de entrega
                     echo "<div style='display:none;' style='margin-top:10px;' id='infoDelivery'>";
                     echo "<br>";
-                    echo "<span style='font-weight:bold;'></span> <span onclick='location=\"/home\"' style='cursor:pointer;'>&nbsp;Inserir Endereço de Entrega&nbsp;<i class='fas fa-external-link-alt'></i></span><br>";
-                    echo "<br><span><i class='fas fa-info-circle'></i>&nbsp;Ou selecione um Endereço cadastrado ao Finalizar o Pedido.</span>";
+                    echo "<br><span><i class='fas fa-info-circle'></i>&nbsp;Selecione um Endereço cadastrado ao Finalizar o Pedido.</span>";
                     echo "</div>";
 
 
@@ -513,6 +509,7 @@ if (count($itens) > 0) {
                         </div>  
                     </div>";
                 }
+
                 ?>
                 
                 <div class="forma-pgt row">
@@ -552,9 +549,9 @@ if (count($itens) > 0) {
                 //Lado direito
                 echo "
                     <div class='ladoDireito row'>
-                    <p id='subTotal' class='' >Subtotal: R$ <span id='valor_subTotal'>" . number_format($_SESSION['valor_subtotal'], 2) . " </span></p>
-                    <p id='entrega'>Taxa de Entrega: R$ <span id='valor_taxa_entrega'>" . number_format($_SESSION['delivery_price'], 2) . "</span></p>
-                    <p id='desconto'>Desconto: R$ <span id='valor_desconto'> " . number_format($_SESSION['valor_cupom'], 2) . "</span></p> 
+                    <p id='subTotal' class='' >Subtotal: + R$ <span id='valor_subTotal'>" . number_format($_SESSION['valor_subtotal'], 2) . " </span></p>
+                    <p id='entrega'>Taxa de Entrega: + R$ <span id='valor_taxa_entrega'>" . number_format($_SESSION['delivery_price'], 2) . "</span></p>
+                    <p id='desconto'>Desconto: - R$ <span id='valor_desconto'> " . number_format($_SESSION['valor_cupom'], 2) . "</span></p> 
                     <strong><p id='total'> Total: R$ <span id='valor_total'>" . number_format($_SESSION['valor_total'], 2) . "</span></p></strong>
                     
                     <div class='linhaBotao'>

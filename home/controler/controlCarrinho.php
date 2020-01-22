@@ -17,129 +17,104 @@ class controlerCarrinho{
         $this->pdo=$pdo;
     }
 
-    public function setPedido($fk_endereco, $fk_origem_pedido, $produtos){
+    public function setPedido(
+        $fk_endereco = NULL, $fk_origem_pedido, $produtos, $fidelidade_valida = TRUE
+    ){
 
-        if(isset($_SESSION['codigocupom']) && !empty($_SESSION['codigocupom']) && isset($_SESSION['codcupom']) && !empty($_SESSION['codcupom'])){
-            $idCliente = $_SESSION['cod_cliente'];
-            $valor = $_SESSION['valor_total'];
-            $desconto = $_SESSION['valor_cupom_var'];
-            $taxa_entrega = $_SESSION['delivery_price_var'];
+        $cli_pk_id = $_SESSION['cod_cliente'];
+        $subtotal = $_SESSION['valor_subtotal'];
+        $desconto = $_SESSION['valor_cupom_var'];
+        $total = $_SESSION['valor_total'];
+        
+        //valor sem frete
+        $operacao_fidelidade = $_SESSION['total_com_desconto'];
 
-            // $secs = ($_SESSION['delivery_time_var']*60);
-            // $tempo_formated = gmdate("H:i:s", $secs);
-            // $tempo_entrega = date('H:i:s',$tempo_formated);
+        if(isset($_SESSION['delivery_time_var'])){
             $tempo_entrega = $_SESSION['delivery_time_var'];
-
-            $subtotal = $_SESSION['valor_subtotal'];
-            $formaPgt = $_SESSION['formaPagamento'];
-            $codigocupom = $_SESSION['codigocupom'];
-            $codcupom = $_SESSION['codcupom'];
-
-            $clcu_fk_cliente = $idCliente;
-            $clcu_fk_cupom = $codcupom;
-
-            $sql=$this->pdo->prepare("INSERT INTO rl_cliente_cupom SET clcu_fk_cliente = :clcu_fk_cliente, clcu_fk_cupom = :clcu_fk_cupom, clcu_ultimo_uso = NOW()");
-            $sql->bindValue(":clcu_fk_cliente", $clcu_fk_cliente);
-            $sql->bindValue(":clcu_fk_cupom", $clcu_fk_cupom);
-            if(!$sql->execute()) return false;
-
-            $parametro = $codigocupom;
-            $sql=$this->pdo->prepare("UPDATE tb_cupom SET cup_qtde_atual = cup_qtde_atual - 1 WHERE cup_codigo=:parametro");
-            $sql->bindValue(":parametro",$parametro);
-            if(!$sql->execute()) return false;
-
-            $status = 1;//recebido, pronto, saiu
-            //balcao
-            if ($fk_endereco == null){
-                $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_valor = :valor, ped_desconto = :desconto , ped_taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt , ped_status = :status, ped_fk_origem_pedido = :origem");
-            //delivery
-            }else{
-                $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_valor = :valor, ped_desconto = :desconto , taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt , ped_status = :status, ped_fk_origem_pedido = :origem, ped_fk_endereco_cliente = :endereco, ped_tempo_entrega = :tempo_entrega");
-
-                $sql->bindValue(":endereco", $fk_endereco);
-                $sql->bindValue(":tempo_entrega", $tempo_entrega);
-            }
-
-            $sql->bindValue(":idCliente", $idCliente);
-            // $sql->bindValue(":data", $data);
-            $sql->bindValue(":valor", $valor);
-            $sql->bindValue(":desconto", $desconto);
-            $sql->bindValue(":taxa_entrega", $taxa_entrega);
-            $sql->bindValue(":subtotal", $subtotal);
-            $sql->bindValue(":formaPgt", $formaPgt);
-            $sql->bindValue(":status", $status);
-            $sql->bindValue(":origem", $fk_origem_pedido);
-
-            if(!$sql->execute()) return false;
-
-            $idPedido = $this->pdo->lastInsertId();
-
-
-            foreach($_SESSION['carrinho'] as $key => $value){
-                $sql = $this->pdo->prepare("INSERT INTO rl_pedido_produto SET pepr_fk_produto = :cod_produto, pepr_fk_pedido = :cod_pedido, pepr_quantidade = :quantidade, pepr_observacao = :observacao, pepr_preco = :pepr_preco");
-
-                $sql->bindValue(":cod_produto", $_SESSION['carrinho'][$key]);
-                $sql->bindValue(":cod_pedido", $idPedido);
-                $sql->bindValue(":quantidade", $_SESSION['qtd'][$key]);
-                $sql->bindValue(":observacao", $_SESSION['observacao'][$key]);
-                $sql->bindValue(":pepr_preco", $produtos[$key]['pro_preco']);
-
-                if(!$sql->execute()) return false;
-            }
-
-        }else {
-
-            $idCliente = $_SESSION['cod_cliente'];
-            $valor = $_SESSION['valor_total'];       //valor com a correção do cupom
-            $desconto = $_SESSION['valor_cupom_var'];
-            $taxa_entrega = $_SESSION['delivery_price_var'];
-            $tempo_entrega = $_SESSION['delivery_time_var'];
-            $subtotal = $_SESSION['valor_subtotal'];
-            $formaPgt = $_SESSION['formaPagamento'];
-            $status = 1;
-
-
-            if ($fk_endereco == null){
-                $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente,  ped_data = NOW(),  ped_valor = :valor,  ped_desconto = :desconto, ped_taxa_entrega = :taxa_entrega,  ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt,  ped_status = :status,  ped_fk_origem_pedido = :origem");
-            
-            }else{
-            
-                $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_valor = :valor, ped_desconto = :desconto, ped_taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_fk_forma_pgto = :formaPgt, ped_status = :status, ped_fk_origem_pedido = :origem, ped_fk_endereco_cliente = :endereco, ped_tempo_entrega = :tempo_entrega");
-
-                $sql->bindValue(":endereco", $fk_endereco);
-                $sql->bindValue(":tempo_entrega", $tempo_entrega);
-            }
-    
-            $sql->bindValue(":idCliente", $idCliente);
-            // $sql->bindValue(":data", $data);
-            $sql->bindValue(":valor", $valor);
-            $sql->bindValue(":desconto",$desconto);
-            $sql->bindValue(":taxa_entrega", $taxa_entrega);
-            $sql->bindValue(":subtotal", $subtotal);
-            $sql->bindValue(":formaPgt", $formaPgt);
-            $sql->bindValue(":status", $status);
-            $sql->bindValue(":origem", $fk_origem_pedido);
-    
-            if(!$sql->execute()) return false;
-    
-            $idPedido = $this->pdo->lastInsertId();
-            
-            foreach($_SESSION['carrinho'] as $key => $value){
-    
-                $sql = $this->pdo->prepare("INSERT INTO  rl_pedido_produto SET pepr_fk_produto = :cod_produto, pepr_fk_pedido = :cod_pedido, pepr_quantidade = :quantidade, pepr_observacao = :observacao, pepr_preco = :pepr_preco");
-    
-                $sql->bindValue(":cod_produto", $_SESSION['carrinho'][$key]);
-                $sql->bindValue(":cod_pedido", $idPedido);
-                $sql->bindValue(":quantidade", $_SESSION['qtd'][$key]);
-                $sql->bindValue(":observacao", $_SESSION['observacao'][$key]);
-                $sql->bindValue(":pepr_preco", $produtos[$key]['pro_preco']);
-
-                if(!$sql->execute()) return false;
-            }
+        }else{
+            $tempo_entrega = NULL;
         }
 
-        return true;
+        if(isset($_SESSION['delivery_time_var'])){
+            $taxa_entrega = $_SESSION['delivery_price_var'];
+        }else{
+            $taxa_entrega = NULL;
+        }
+
+        $formaPgt = $_SESSION['forma_pagamento'];
+        $status = 1;//pedido recebido
+
+        //Cupom settado
+        if(
+            isset($_SESSION['codigo_cupom']) && !empty($_SESSION['codigo_cupom'])
+            && isset($_SESSION['pk_cupom']) && !empty($_SESSION['pk_cupom'])
+        ){
+            $pk_cupom = $_SESSION['pk_cupom'];
+            $clcu_fk_cliente = $cli_pk_id;
+            $clcu_fk_cupom = $pk_cupom;
+
+            $sql = $this->pdo->prepare("INSERT INTO rl_cliente_cupom SET clcu_fk_cliente = :clcu_fk_cliente, clcu_fk_cupom = :clcu_fk_cupom, clcu_ultimo_uso = NOW()");
+            $sql->bindValue(":clcu_fk_cliente", $clcu_fk_cliente);
+            $sql->bindValue(":clcu_fk_cupom", $clcu_fk_cupom);
+            if(!$sql->execute()) return FALSE;
+
+            $sql=$this->pdo->prepare("UPDATE tb_cupom SET cup_qtde_atual = cup_qtde_atual - 1 WHERE cup_pk_id=:cup_pk_id");
+            $sql->bindValue(":cup_pk_id",$pk_cupom);
+            if(!$sql->execute()) return FALSE;
+
+        }else{
+            $pk_cupom = NULL;
+        }
+
+        //delivery / balcao (fk_endereco == null)
+        $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_total = :total, ped_desconto = :desconto , ped_taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_operacao_fidelidade = :operacao_fidelidade, ped_fk_forma_pgto = :formaPgt , ped_status = :status, ped_fk_origem_pedido = :origem, ped_fk_endereco_cliente = :endereco, ped_tempo_entrega = :tempo_entrega, ped_fk_cupom = :fk_cupom");
+
+        $sql->bindValue(":idCliente", $cli_pk_id);
+        $sql->bindValue(":subtotal", $subtotal);
+        $sql->bindValue(":desconto",$desconto);
+        $sql->bindValue(":total", $total);
+        $sql->bindValue(":operacao_fidelidade", $operacao_fidelidade);
+        $sql->bindValue(":formaPgt", $formaPgt);
+        $sql->bindValue(":status", $status);
+        $sql->bindValue(":origem", $fk_origem_pedido);
+        
+        $sql->bindValue(":endereco", $fk_endereco);
+        $sql->bindValue(":tempo_entrega", $tempo_entrega);
+        $sql->bindValue(":taxa_entrega", $taxa_entrega);
+        $sql->bindValue(":fk_cupom", $pk_cupom);
+
+        if(!$sql->execute()) return FALSE;
+        $idPedido = $this->pdo->lastInsertId();
+
+
+        foreach($_SESSION['carrinho'] as $key => $value){
+            $sql = $this->pdo->prepare("INSERT INTO rl_pedido_produto SET pepr_fk_produto = :cod_produto, pepr_fk_pedido = :cod_pedido, pepr_quantidade = :quantidade, pepr_observacao = :observacao, pepr_preco = :pepr_preco");
+
+            $sql->bindValue(":cod_produto", $_SESSION['carrinho'][$key]);
+            $sql->bindValue(":cod_pedido", $idPedido);
+            $sql->bindValue(":quantidade", $_SESSION['qtd'][$key]);
+            $sql->bindValue(":observacao", $_SESSION['observacao'][$key]);
+            $sql->bindValue(":pepr_preco", $produtos[$key]['pro_preco']);
+
+            if(!$sql->execute()) return FALSE;
+        }
+
+        //++ pontos de fidelidade
+        if($fidelidade_valida){
+            $sql = $this->pdo->prepare("UPDATE tb_cliente
+            SET cli_pontos_fidelidade = IFNULL(cli_pontos_fidelidade, 0) + :operacao_fidelidade
+            WHERE cli_pk_id = :cli_pk_id");
+
+            $sql->bindValue(":cli_pk_id", $cli_pk_id);
+            $sql->bindValue(":operacao_fidelidade", $operacao_fidelidade);
+
+            if(!$sql->execute()) return FALSE;
+        }
+
+        return TRUE;
     }
+
+
 
     function selectPedido($fk_cliente){
         $parametro = $fk_cliente;
@@ -157,7 +132,7 @@ class controlerCarrinho{
                     $pedido = new pedido();
                     $pedido->setPkId($result->ped_pk_id);
                     $pedido->setData(new DateTime($result->ped_data));
-                    $pedido->setValor($result->ped_valor);
+                    $pedido->setTotal($result->ped_total);
                     $pedido->setDesconto($result->ped_desconto);
                     $pedido->setTaxa_entrega($result->ped_taxa_entrega);
                     $pedido->setTempo_entrega($result->ped_tempo_entrega);
@@ -233,7 +208,7 @@ class controlerCarrinho{
                         $pedido = new pedido();
                         $pedido->setPkId($result->ped_pk_id);
                         $pedido->setData(new DateTime($result->ped_data));
-                        $pedido->setValor($result->ped_valor);
+                        $pedido->setTotal($result->ped_total);
                         $pedido->setDesconto($result->ped_desconto);
                         $pedido->setTaxa_entrega($result->ped_taxa_entrega);
                         $pedido->setTempo_entrega($result->ped_tempo_entrega);
@@ -272,7 +247,7 @@ class controlerCarrinho{
 
         $stmt=$this->pdo->prepare("SELECT * 
         FROM rl_pedido_produto AS PEPR
-        INNER JOIN tb_produto AS PRO
+        LEFT JOIN tb_produto AS PRO
         ON PRO.pro_pk_id = PEPR.pepr_fk_produto
         WHERE PEPR.pepr_fk_pedido = :pk_id");
         
@@ -301,7 +276,7 @@ class controlerCarrinho{
     }
 
     //Filtro para nome, valormenor e valormaior
-    function filter($parametro,$valormenor, $valormaior){
+    function filter($parametro,$totalmenor, $totalmaior){
 
         $pedidos=array();
         $parametro = "%".$parametro."%";
@@ -320,12 +295,12 @@ class controlerCarrinho{
         LEFT JOIN
         tb_origem_pedido AS ORPE ON
         PED.ped_fk_origem_pedido = ORPE.orpe_pk_id
-        WHERE CLI.cli_nome like :parametro AND PED.ped_valor > :valormenor AND PED.ped_valor < :valormaior
+        WHERE CLI.cli_nome like :parametro AND PED.ped_total > :totalmenor AND PED.ped_total < :totalmaior
         ORDER BY PED.ped_data DESC");
 
         $stmt->bindValue(":parametro", $parametro, PDO::PARAM_STR);
-        $stmt->bindParam(":valormenor", $valormenor, PDO::PARAM_INT);
-        $stmt->bindParam(":valormaior", $valormaior, PDO::PARAM_INT);
+        $stmt->bindParam(":totalmenor", $totalmenor, PDO::PARAM_INT);
+        $stmt->bindParam(":totalmaior", $totalmaior, PDO::PARAM_INT);
         $executa=$stmt->execute();
 
         if ($executa) {
@@ -334,7 +309,7 @@ class controlerCarrinho{
                     $pedido = new pedido();
                     $pedido->setPkId($result->ped_pk_id);
                     $pedido->setData(new DateTime($result->ped_data));
-                    $pedido->setValor($result->ped_valor);
+                    $pedido->setTotal($result->ped_total);
                     $pedido->setDesconto($result->ped_desconto);
                     $pedido->setTaxa_entrega($result->ped_taxa_entrega);
                     $pedido->setTempo_entrega($result->ped_tempo_entrega);
@@ -368,7 +343,7 @@ class controlerCarrinho{
     }
 
 
-    function selectAllPedido($parametro, $valormenor, $valormaior){
+    function selectAllPedido($parametro, $totalmenor, $totalmaior){
 
         $pedidos=array();
         $parametro = "%".$parametro."%";
@@ -387,8 +362,8 @@ class controlerCarrinho{
         ORDER BY PED.ped_data DESC"); //Ordenação por cod do pedido
 
         $stmt->bindValue(":nome", $parametro);
-        $stmt->bindParam(":menor", $valormenor, PDO::PARAM_INT);
-        $stmt->bindParam(":maior", $valormaior, PDO::PARAM_INT);
+        $stmt->bindParam(":menor", $totalmenor, PDO::PARAM_INT);
+        $stmt->bindParam(":maior", $totalmaior, PDO::PARAM_INT);
         $executa=$stmt->execute();
 
         if ($executa) {
@@ -397,7 +372,7 @@ class controlerCarrinho{
                     $pedido = new pedido();
                     $pedido->setPkId($result->ped_pk_id);
                     $pedido->setData(new DateTime($result->ped_data));
-                    $pedido->setValor($result->ped_valor);
+                    $pedido->setTotal($result->ped_total);
                     $pedido->setDesconto($result->ped_desconto);
                     $pedido->setTaxa_entrega($result->ped_taxa_entrega);
                     $pedido->setTempo_entrega($result->ped_tempo_entrega);
@@ -430,7 +405,7 @@ class controlerCarrinho{
 
     }
 
-    function filterEndereco($nome_cliente, $valormenor, $valormaior, $endereco){
+    function filterEndereco($nome_cliente, $totalmenor, $totalmaior, $endereco){
 
         $pedidos=array();
         $nome_cliente = "%".$nome_cliente."%";
@@ -450,15 +425,15 @@ class controlerCarrinho{
         LEFT JOIN
         tb_origem_pedido AS ORPE ON
         PED.ped_fk_origem_pedido = ORPE.orpe_pk_id
-        WHERE CLI.cli_nome like :nome AND PED.ped_valor > :menor AND PED.ped_valor < :maior
+        WHERE CLI.cli_nome like :nome AND PED.ped_total > :menor AND PED.ped_total < :maior
         AND ENCO.end_logradouro LIKE :rua OR ENCL.encl_numero LIKE :numero OR ENCO.end_cep LIKE :cep");
 
         $stmt->bindValue(":nome", $nome_cliente);
         $stmt->bindValue(":rua", $endereco);
         $stmt->bindValue(":numero", $endereco);
         $stmt->bindValue(":cep", $endereco);
-        $stmt->bindParam(":menor", $valormenor, PDO::PARAM_INT);
-        $stmt->bindParam(":maior", $valormaior, PDO::PARAM_INT);
+        $stmt->bindParam(":menor", $totalmenor, PDO::PARAM_INT);
+        $stmt->bindParam(":maior", $totalmaior, PDO::PARAM_INT);
         $executa=$stmt->execute();
 
         if ($executa) {
@@ -467,7 +442,7 @@ class controlerCarrinho{
                     $pedido = new pedido();
                     $pedido->setPkId($result->ped_pk_id);
                     $pedido->setData(new DateTime($result->ped_data));
-                    $pedido->setValor($result->ped_valor);
+                    $pedido->setTotal($result->ped_total);
                     $pedido->setDesconto($result->ped_desconto);
                     $pedido->setTaxa_entrega($result->ped_taxa_entrega);
                     $pedido->setTempo_entrega($result->ped_tempo_entrega);
