@@ -30,7 +30,7 @@ function selectByFkCod($fk_cliente, $codigo_cupom){
                     $cliente_cupom = new cliente_cupom();
                     $cliente_cupom->setFkCliente($result->clcu_fk_cliente);
                     $cliente_cupom->setFkCupom($result->clcu_fk_cupom);
-                    $cliente_cupom->setUltimo_uso($result->clcu_fk_ultimo_uso);
+                    $cliente_cupom->setUltimo_uso($result->clcu_ultimo_uso);
                 }
             }
             return $cliente_cupom;

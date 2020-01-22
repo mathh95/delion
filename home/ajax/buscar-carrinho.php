@@ -99,10 +99,7 @@ if (count($itens) > 0) {
     ?>
     <script type="text/javascript" src="js/buscar-carrinho.js"></script>
     <h1 class="text-center">Carrinho</h1>
-    <?php //print_r($_SESSION['qtd']); 
-        ?>
-    <?php //print_r($_SESSION['carrinho']); 
-        ?>
+    
     <div class="container-fluid row carrinho  ">
         <table class="tabela_itens table ">
             <thead>
@@ -292,7 +289,10 @@ if (count($itens) > 0) {
 
                 if ($_SESSION['is_delivery_home'] == 1 || $_SESSION['delivery'] == 1) {
                     //taxa de entrega calculada?
-                    if (($_SESSION['delivery_price'] > 0) && ($_SESSION['is_delivery_home'])) {
+                    if (
+                        ($_SESSION['delivery_price'] > 0) &&
+                        ($_SESSION['is_delivery_home'] || $_SESSION['delivery'] == 1)
+                    ) {
                         $_SESSION['valor_total'] += $_SESSION['delivery_price'];
                     }
                     
@@ -439,8 +439,7 @@ if (count($itens) > 0) {
                     }else{
                         //info de entrega
                         echo "<div style='margin-top:10px;' id='infoDelivery'>";
-                        echo "<br>";
-                        echo "<br><span id='infoDeliverySemEndereco'><i class='fas fa-info-circle'></i>&nbsp;Selecione um Endereço cadastrado, ao Finalizar o Pedido.</span>";
+                        echo "<span id='infoDeliverySemEndereco'><i class='fas fa-info-circle'></i>&nbsp;Selecione um Endereço cadastrado, ao Finalizar o Pedido.</span>";
                         echo "</div>";
                     }
 
@@ -472,8 +471,7 @@ if (count($itens) > 0) {
 
                     //info de entrega
                     echo "<div style='display:none;' style='margin-top:10px;' id='infoDelivery'>";
-                    echo "<br>";
-                    echo "<br><span><i class='fas fa-info-circle'></i>&nbsp;Selecione um Endereço cadastrado ao Finalizar o Pedido.</span>";
+                    echo "<span><i class='fas fa-info-circle'></i>&nbsp;Selecione um Endereço cadastrado ao Finalizar o Pedido.</span>";
                     echo "</div>";
 
 
