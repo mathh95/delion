@@ -205,6 +205,7 @@ body, html{
         align-items: center; text-align: center;
         position: relative;
         font-size: 15px;
+        font-family: $font_main;
 
             >div.navbar-social.navbar-collapse{
                 display: flex;
@@ -276,6 +277,7 @@ body, html{
         height: 35px;
         background-color: #D7CEC7;
         padding-top: 0px;
+        font-family: $font_main;
         > div {
             font-size: 12px;
             padding-top: 7px;
