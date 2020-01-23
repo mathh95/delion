@@ -375,7 +375,7 @@ async defer></script>
 
 	$('.main-carousel').flickity({
 		fade: true,
-		autoPlay: 3000,
+		autoPlay: 5000,
 		cellAlign: 'left',
 		contain: true,
 		prevNextButtons: false,
