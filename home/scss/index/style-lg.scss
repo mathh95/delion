@@ -213,6 +213,7 @@ body, html{
         position: relative;
         color: #ffffff;
         padding: 0;
+        font-family: $font_main;
         
         >div.navbar-social.navbar-collapse{
             width: 100%;
@@ -295,6 +296,7 @@ body, html{
 		height: 35px;
 		background-color: #D7CEC7;
         padding-top: 0px;
+        font-family: $font_main;
 		> div {
 			padding-top: 7px;
 			color: #000000;
