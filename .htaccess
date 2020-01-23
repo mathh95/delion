@@ -1,7 +1,4 @@
-AddDefaultCharset UTF-8
-
-
-Header set Cache-Control "max-age=86400, public"
+# HTTPS
 Header add Strict-Transport-Security "max-age=31536000;includeSubDomains;"
 
 # X-Frame-Options
@@ -20,7 +17,12 @@ Header set X-XSS-Protection "1; mode=block"
 </IfModule>
 
 
-# Remove Extensions from pages
+# Cache
+Header set Cache-Control "max-age=86400, public"
+
+AddDefaultCharset UTF-8
+
+# Remove Extensions from pages / Friendly URLs
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule (.*) $1.php [L]
