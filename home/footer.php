@@ -89,21 +89,23 @@ $empresa = $controle->selectAll();
 		</div>
 
 </footer>
+
 <div class="container-fluid rodape">
 
-        <div class="container">
+    <div class="container">
 
-            <div>Todos os direitos reservados a Delion Café</div>
+        <div>Todos os direitos reservados a Delion Café</div>
 
-            <div>
+        <div>
 
-                <div>Desenvolvido por Kionux Soluções em Internet <a href="http://www.kionux.com.br"><img src="img/kionuxsite.png" alt=""></a></div>
-
-            </div>
+            <div><a style="text-decoration:none; color:black;" href="http://www.kionux.com.br">Desenvolvido por Kionux Soluções em Internet <img src="img/kionuxsite.png" alt="Rodapé"></a></div>
 
         </div>
 
     </div>
+
+</div>
+
 <!-- <div class="whatsapp">
 
     <a href="">
@@ -113,6 +115,9 @@ $empresa = $controle->selectAll();
     </a>
 
 </div> -->
+
+
+
 
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

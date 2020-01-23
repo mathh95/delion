@@ -1,0 +1,36 @@
+body>.rodape {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    margin-top: 10px;
+    height: 35px;
+    background-color: #D7CEC7;
+    padding-top: 0px;
+    font-family: "Century Gothic Regular";
+}
+
+body>.rodape>div {
+    padding-top: 7px;
+    color: #000000;
+    text-align: center;
+}
+
+body>.rodape>div>div {
+    display: inline-block;
+}
+
+body>.rodape>div>div:nth-child(2) {
+    float: right;
+    width: 50%;
+}
+
+
+
+body>.rodape>div>div:nth-child(2)>div>a>img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    vertical-align: text-top;
+    display: inline;
+    max-width: 4%;
+}
