@@ -544,12 +544,14 @@ if (count($itens) > 0) {
                 echo "</div>";
 
                 
+                $val_desconto = number_format($_SESSION['valor_cupom'], 2);
+                if(!is_numeric($val_desconto)) $val_desconto = number_format(0, 2);
                 //Lado direito
                 echo "
                     <div class='ladoDireito row'>
                     <p id='subTotal' class='' >Subtotal: + R$ <span id='valor_subTotal'>" . number_format($_SESSION['valor_subtotal'], 2) . " </span></p>
                     <p id='entrega'>Taxa de Entrega: + R$ <span id='valor_taxa_entrega'>" . number_format($_SESSION['delivery_price'], 2) . "</span></p>
-                    <p id='desconto'>Desconto: - R$ <span id='valor_desconto'> " . number_format($_SESSION['valor_cupom'], 2) . "</span></p> 
+                    <p id='desconto'>Desconto: - R$ <span id='valor_desconto'> " . $val_desconto . "</span></p> 
                     <strong><p id='total'> Total: R$ <span id='valor_total'>" . number_format($_SESSION['valor_total'], 2) . "</span></p></strong>
                     
                     <div class='linhaBotao'>

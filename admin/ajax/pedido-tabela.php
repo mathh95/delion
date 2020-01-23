@@ -88,7 +88,7 @@ if ($pedidos == -1){
 	echo "<h1> SEM RESULTADOS</h1>";
 }else{
 	if(in_array('pedido', $permissao)){
-		echo "<table class='table' id='tbUsuarios' style='text-align = center;'>";
+		echo "<table class='table table-hover' id='tbUsuarios' style='text-align = center;'>";
 			if($pagina > 1){
 				echo "
 				<nav arial-label='' style='text-align:center!important;' >
@@ -148,11 +148,11 @@ if ($pedidos == -1){
 		<tr>
     		<th width='5%' style='text-align: center;'>Código Pedido</th>
 			<th width='10%' style='text-align: center;'>Data</th>
-			<th width='10%' style='text-align: center;'>Hora Pedido</th>
-			<th width='15%' style='text-align: center;'>Nome Cliente</th>
+			<th width='5%' style='text-align: center;'>Hora Pedido</th'>
+			<th width='10%' style='text-align: center;'>Nome Cliente</th>
 			<th width='7%' style='text-align: center;'>Valor Total</th>
-			<th width='15%' style='text-align: center;'>Local Entrega</th>
-			<th style='text-align: center;' colspan='3'>Operações</th>
+			<th width='20%' style='text-align: center;'>Local Entrega</th>
+			<th width='15%' style='text-align: center;' colspan='3'>Operações</th>
 			</tr>
 		<tbody>";
 		// <th width='8%' style='text-align: center;'>Origem do Pedido</th>
@@ -177,7 +177,7 @@ if ($pedidos == -1){
 				if($pedido->rua == NULL){
 					echo "<td style='text-align: center;' name='rua'>Balcão</td>";
 				}else{
-					echo "<td style='text-align: center;' name='rua'>".$pedido->rua." - ".$pedido->numero."</td>";
+					echo "<td style='text-align: center;' name='rua'>".$pedido->rua.", ".$pedido->numero." - ".$pedido->bairro."</td>";
 				}
 				
 				echo "<div id='buttonbar'>
@@ -216,6 +216,11 @@ if ($pedidos == -1){
 		}
 	}
 
+
+
+
+
+
 	//Pedido com status = 2, pedido impresso mas não saiu para entrega
 	foreach ($pedidos as &$pedido) {
 
@@ -236,7 +241,7 @@ if ($pedidos == -1){
 				if($pedido->rua == NULL){
 					echo "<td style='text-align: center;' name='rua'>Balcão</td>";
 				}else{
-					echo "<td style='text-align: center;' name='rua'>".$pedido->rua." - ".$pedido->numero."</td>";
+					echo "<td style='text-align: center;' name='rua'>".$pedido->rua.", ".$pedido->numero." - ".$pedido->bairro."</td>";
 				}
 
 				echo "<div id='buttonbar'>
@@ -275,6 +280,12 @@ if ($pedidos == -1){
 		}
 	}
 
+
+
+
+
+
+
 	//Pedido com status = 3, pedido impresso e saiu para entrega
 	foreach ($pedidos as &$pedido) {
 
@@ -294,7 +305,7 @@ if ($pedidos == -1){
 				if($pedido->rua == NULL){
 					echo "<td style='text-align: center;' name='rua'>Balcão</td>";
 				}else{
-					echo "<td style='text-align: center;' name='rua'>".$pedido->rua." - ".$pedido->numero."</td>";
+					echo "<td style='text-align: center;' name='rua'>".$pedido->rua.", ".$pedido->numero." - ".$pedido->bairro."</td>";
 				}
 
 				echo "<div id='buttonbar'>
@@ -333,8 +344,15 @@ if ($pedidos == -1){
 	}
 	
 
+
+
+
 } else{
-		echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
+
+
+
+
+		echo "<table class='table table-hover' id='tbUsuarios' style='text-align = center;'>
 	<thead>
 		<h1 class=\"page-header\">Lista de Pedidos</h1>
 		<tr>
@@ -359,6 +377,8 @@ if ($pedidos == -1){
 }
 
 }
+
+
 
 if($pedidos == -1) return;
 foreach ($pedidos as $pedido) {
@@ -399,12 +419,14 @@ foreach ($pedidos as $pedido) {
 							<br><label for=\"recipient-name\" class=\"control-label\">"." Dados do Cliente </label>
 							<br><label for=\"recipient-name\" class=\"control-label\">"."Nome: <b>".$pedido->getCliente()."</b></label>
 							<br><label for=\"recipient-name\" class=\"control-label\">"."Telefone: ".$mask->addMaskPhone($pedido->telefone)."</label>";
+							
 							if($pedido->rua == NULL){
 
 							echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Local Entrega: Balcão</label>";
 
 							}else{
-							echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Endereço: ".$pedido->rua.", ".$pedido->numero."</label>
+
+							echo "<br><label for=\"recipient-name\" class=\"control-label\">"." Endereço: ".$pedido->rua.", ".$pedido->numero."- ".$pedido->bairro."</label>
 							<br><label for=\"recipient-name\" class=\"control-label\">"." Bairro: ".$pedido->bairro."</label>
 							<br><label for=\"recipient-name\" class=\"control-label\">"." Comp: ".$pedido->complemento."</label>
 							<br><label for=\"recipient-name\" class=\"control-label\">"." Cidade: Foz do Iguaçu - PR</label>
