@@ -23,7 +23,7 @@
     $imagens = $controleImagem->selectAll();
 
     //configuração de acesso ao WhatsApp 
-    include "./whats-config.php";
+    // include "./whats-config.php";
 ?>
 
 <!DOCTYPE html>
@@ -79,7 +79,7 @@
                     <p style="font-size:24px;">Aqui suas compras viram pontos, e seus pontos viram brindes deliciosos.</p>
                     <img class="ponto_fidelidade" src="/home/img/fidelidade_pontos.png">
                     <p>A cada R$1,00 em compras você acumula 1 ponto.</p>
-                    <button type="button" class="btn btn-success">FAÇA PARTE</button>
+                    <button type="button" class="btn btn-success" onclick="location = '/home/login.php'">FAÇA PARTE</button>
                 </div>
                 
 
