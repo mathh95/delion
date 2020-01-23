@@ -3,8 +3,7 @@
 
 
 
-$controle=new controlerEmpresa(conecta());
-
+$controle = new controlerEmpresa(conecta());
 $empresa = $controle->selectAll();
 
 ?>
@@ -189,96 +188,6 @@ $empresa = $controle->selectAll();
 
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
-    });
-
-    $("#social-buttons1").jsSocials({
-
-        showCount: false,
-
-        showLabel: true,
-
-        shares: [
-
-            {share: "facebook", label: "Facebook", logo: "fa fa-facebook-official"},
-
-            {share: "twitter", label: "Twitter", logo: "fa fa-twitter-square"},
-
-            {share: "pinterest", label: "Pin this", logo: "fa fa-pinterest" }
-
-        ]
-
-    });
-
-    $("#social-buttons2").jsSocials({
-
-        showCount: false,
-
-        showLabel: true,
-
-        shares: [
-
-            {share: "facebook", label: "Facebook", logo: "fa fa-facebook-official"},
-
-            {share: "twitter", label: "Twitter", logo: "fa fa-twitter-square"},
-
-            {share: "pinterest", label: "Pin this", logo: "fa fa-pinterest" }
-
-        ]
-
-    });
-
-    $("#social-buttons3").jsSocials({
-
-        showCount: false,
-
-        showLabel: true,
-
-        shares: [
-
-            {share: "facebook", label: "Facebook", logo: "fa fa-facebook-official"},
-
-            {share: "twitter", label: "Twitter", logo: "fa fa-twitter-square"},
-
-            {share: "pinterest", label: "Pin this", logo: "fa fa-pinterest" }
-
-        ]
-
-    });
-
-    $("#social-buttons4").jsSocials({
-
-        showCount: false,
-
-        showLabel: true,
-
-        shares: [
-
-            {share: "facebook", label: "Facebook", logo: "fa fa-facebook-official"},
-
-            {share: "twitter", label: "Twitter", logo: "fa fa-twitter-square"},
-
-            {share: "pinterest", label: "Pin this", logo: "fa fa-pinterest" }
-
-        ]
-
-    });
-
-    $("#social-buttons5").jsSocials({
-
-        showCount: false,
-
-        showLabel: true,
-
-        shares: [
-
-            {share: "facebook", label: "Facebook", logo: "fa fa-facebook-official"},
-
-            {share: "twitter", label: "Twitter", logo: "fa fa-twitter-square"},
-
-            {share: "pinterest", label: "Pin this", logo: "fa fa-pinterest" }
-
-        ]
-
     });
 
 </script>

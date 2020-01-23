@@ -56,19 +56,19 @@
 
                             <h3>Dados do Cupom</h3>
 
-                            <small>Código do Cupom:</small>
+                            <small>*Código do Cupom:</small>
 
                             <div id="test">
                                     <input required id="codigo" class="form-control" type="text" name="codigo" placeholder="Código do Cupom" readonly/>
                                     
                                     <br>
 
-                                    <button type="button" class="btn btn-kionux" id="run">Gerar Cupom</button>
+                                    <button type="button" class="btn btn-kionux" id="gera_cod">Gerar Cupom</button>
                             </div>
 
                             <br>
 
-                            <small>Valor de Desconto:</small>
+                            <small>*Valor de Desconto:</small>
 
                             <br>
 
@@ -82,7 +82,7 @@
 
                             <br>
 
-                            <small>Valor Minimo:</small>
+                            <small>*Valor Minimo:</small>
 
                             <br>
 
@@ -90,13 +90,13 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
 
-                                <input required  class="form-control" placeholder="Valor minimo para uso do Cupom" id="valorMinimo" name="valorMinimo" value="" type="number" step="0.01" min="1" max="99">
+                                <input required  class="form-control" placeholder="Valor minimo para uso do Cupom" id="valorMinimo" name="valorMinimo" value="12.00" type="number" step="0.01" min="1" max="99">
 
                             </div>     
 
                             <br>
 
-                            <small>Quantidade de Usos do Cupom</small>
+                            <small>*Quantidade de Usos do Cupom</small>
 
                             <br>
 
@@ -104,13 +104,13 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
 
-                                <input required class="form-control" placeholder="Número de cupons" id="qtdcupom" name="qtdcupom" value="" type="number">
+                                <input required class="form-control" placeholder="Número de cupons" id="qtdcupom" name="qtdcupom" value="1" type="number">
 
                             </div> 
 
                             <br>
 
-                            <small>Data de Vencimento do Cupom</small>
+                            <small>*Data de Vencimento do Cupom</small>
 
                             <br>
 
@@ -118,13 +118,13 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
 
-                                <input required class="form-control" placeholder="" name="vencimento_data" value="" type="date">
+                                <input required class="form-control" placeholder="" name="vencimento_data" value="<?=date('Y-m-d')?>" type="date">
 
                             </div> 
 
                             <br>
 
-                            <small>Hora de Vencimento do Cupom</small>
+                            <small>*Hora de Vencimento do Cupom</small>
 
                             <br>
 
@@ -132,7 +132,7 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
 
-                                <input required class="form-control" placeholder="" name="vencimento_hora" value="" type="time">
+                                <input required class="form-control" placeholder="" name="vencimento_hora" value="00:00" type="time">
 
                             </div> 
 
@@ -208,7 +208,7 @@
 
             }
             
-            function uniqid() {
+            function uniqId() {
                     var ts=String(new Date().getTime()), i = 0, out = '';
                         for(i=0;i<ts.length;i+=4) {        
                         out+=Number(ts.substr(i, 2)).toString(36);    
@@ -218,9 +218,9 @@
             }
 
             $(function () {
-                    $('#run').on('click', function () {
+                    $('#gera_cod').on('click', function () {
                         var text = $('#codigo');
-                        text.val(uniqid());    
+                        text.val(uniqId());    
                 });
             });
 

@@ -1,5 +1,6 @@
 AddDefaultCharset UTF-8
 
+
 Header set Cache-Control "max-age=86400, public"
 Header add Strict-Transport-Security "max-age=31536000;includeSubDomains;"
 
@@ -13,7 +14,15 @@ Header always append X-Frame-Options SAMEORIGIN
 Header set X-XSS-Protection "1; mode=block"
 </IfModule>
 
-#X-Content-Type-Options
+# X-Content-Type-Options
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options nosniff
 </IfModule>
+
+
+# Remove Extensions from pages
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule (.*) $1.php [L]
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule (.*) $1.html [L]

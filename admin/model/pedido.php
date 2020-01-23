@@ -8,7 +8,7 @@
 
             private $ped_data;
 
-            private $ped_valor;
+            private $ped_total;
 
             private $ped_taxa_entrega;
             
@@ -52,8 +52,8 @@
                 return $this->ped_data;
             }
 
-            function getValor(){
-                return $this->ped_valor;
+            function getTotal(){
+                return $this->ped_total;
             }
 
             function getDesconto(){
@@ -123,8 +123,8 @@
                 $this->ped_data=$ped_data;
             }
             
-            function setValor($ped_valor){
-                $this->ped_valor=$ped_valor;
+            function setTotal($ped_total){
+                $this->ped_total=$ped_total;
             }
 
             function setDesconto($ped_desconto){
@@ -190,11 +190,11 @@
 
             }
 
-            function construct($ped_pk_id,$ped_fk_cliente,$ped_data,$ped_valor,$ped_desconto,$ped_taxa_entrega,$ped_subtotal,$ped_status,$ped_forma_pgto,$ped_fk_origem,$ped_tempo_entrega){
+            function construct($ped_pk_id,$ped_fk_cliente,$ped_data,$ped_total,$ped_desconto,$ped_taxa_entrega,$ped_subtotal,$ped_status,$ped_forma_pgto,$ped_fk_origem,$ped_tempo_entrega){
                 $this->ped_pk_id=$ped_pk_id;
                 $this->ped_fk_cliente=$ped_fk_cliente;
                 $this->ped_data=$ped_data;
-                $this->ped_valor=$ped_valor;
+                $this->ped_total=$ped_total;
                 $this->ped_desconto=$ped_desconto;
                 $this->ped_taxa_entrega=$ped_taxa_entrega;
                 $this->ped_tempo_entrega=$ped_tempo_entrega;
@@ -208,7 +208,7 @@
                 echo "Código do Pedido: ".$this->ped_pk_id."<br>";
                 echo "Cliente: ".$this->ped_cliente."<br>";
                 echo "Data: ".$this->ped_data."<br>";
-                echo "Valor: ".$this->ped_valor."<br>";
+                echo "Valor: ".$this->ped_total."<br>";
                 echo "Desconto".$this->ped_desconto."<br>";
                 echo "Taxa de Entrega".$this->ped_taxa_entrega."<br>";
                 echo "Tempo de Entrega".$this->ped_tempo_entrega."<br>";

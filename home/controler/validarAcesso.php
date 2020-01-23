@@ -52,7 +52,7 @@
 
                 if (isset($_SESSION['carrinho']) and !empty($_SESSION['carrinho'])){
                     if (isset($_SESSION['delivery']) and $_SESSION['delivery'] > 0){
-                        header("Location:../endereco.php"); 
+                        header("Location:../endereco.php?is_selecao_end=true"); 
                     }else{
                         header("Location:../carrinho.php"); 
                     }

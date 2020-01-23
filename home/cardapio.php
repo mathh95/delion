@@ -15,14 +15,14 @@
 
 	include_once MODELPATH."/adicional.php";
 
-	$controleEmpresa=new controlerEmpresa(conecta());
+	$controleEmpresa = new controlerEmpresa(conecta());
 
-	$controleCategoria=new controlerCategoria(conecta());
+	$controleCategoria = new controlerCategoria(conecta());
 
 	$empresa = $controleEmpresa->select(1,2);
 
 
-	$controleImagem=new controlerImagem(conecta());
+	$controleImagem = new controlerImagem(conecta());
 
 	$imagens = $controleImagem->selectAll();
 
@@ -310,14 +310,16 @@
 								title: "Item já Adicionado!",
 								text: "Consulte o carrinho...",
 								icon: "warning",
-								timer: 1500
+								timer: 1100,
+								buttons: false
 							});
 						}else{
 							swal({
 								title: "Item Adicionado!",
 								text: "Consulte o carrinho...",
 								icon: "success",
-								timer: 1000
+								timer: 1000,
+								buttons: false
 							});
 							//Exibe caso tenha mais de 0 itens no carrinho.
 							qtd_carrinho++; 

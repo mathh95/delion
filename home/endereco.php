@@ -76,6 +76,10 @@
 	<script type="text/javascript" src="js/maskedinput.js"></script>
 
 	<script type="text/javascript" src="js/buscar-endereco.js"></script>
+	<script> 
+		var flag_selecionar = '<?=isset($_GET['is_selecao_end']) ? $_GET['is_selecao_end'] : 0 ?>';
+		loadEnderecos(flag_selecionar);
+	</script>
 
 	<script>
 

@@ -1,32 +1,15 @@
-// $(document).on("click", "#finalizar", function(){
-        
-//     $.ajax({
-//         type: 'POST',
+$(document).on('click', '.tipo-entrega', function(){
 
-//         url: 'ajax/enviarEmailPedido.php',
+    $('.tipo-entrega').removeClass('active');
 
-//         success:function(resultado){
-//             alert("EU VO MATA O JAVA SCRIPTOKKKKK");
-//         },
-//         error: function (request, status, error) {
-//             alert(request.responseText);
-//         }
-//     }); 
-// });
-
-// function atualizaValores(delivery, totalCorrigido){
-//     $('#valor_taxa_entrega').html(delivery.toFixed(2));
-//     $('#valor_total').html(totalCorrigido.toFixes(2));
-//     return;
-// }
-
-$(document).on('click', '.active', function(){
-
-    $(this).removeClass('active');
     if(this.id == 'balcao'){
+        
+        $("#balcao").addClass('active');
+
         $('#infoDelivery').hide();
-        $('#infoEntrega').hide();
+        $('#infoPercurso').hide();
         $('#infoBalcao').show();
+
         
         $.ajax({
             type: 'POST',
@@ -34,7 +17,6 @@ $(document).on('click', '.active', function(){
             data: {acao: "balcao"},
             success:function(result){
                 var res = JSON.parse(result);
-                // console.log(res);
                 var delivery_price = res.delivery_price;
                 var totalCorrigido = res.totalCorrigido;
                 
@@ -51,10 +33,13 @@ $(document).on('click', '.active', function(){
         });
         
     }else if(this.id == 'delivery'){
-        $('#infoDelivery').show();
-        $('#infoEntrega').show();
-        $('#infoBalcao').hide();
+
+        $("#delivery").addClass('active');
         
+        $('#infoDelivery').show();
+        $('#infoPercurso').show();
+        $('#infoBalcao').hide();
+
         $.ajax({
             type: 'POST',
             url: 'ajax/entrega-carrinho.php',
@@ -79,18 +64,33 @@ $(document).on('click', '.active', function(){
     }
 });
 
+
+function removerEndereco(){
+    $.ajax({
+        type: 'POST',
+        url: 'ajax/entrega-carrinho.php',
+        data: {acao: "rem_endereco"},
+        success:function(result){
+            location.reload();
+        },
+        error: function(err){
+            location.reload();
+            console.log(err);
+        }
+    });
+}
+
 function esvaziar(){
+
     var acao = "esv";
 
     $.ajax({
         type: 'GET',
-
         url: 'ajax/quantidade-carrinho.php',
-
         data: {acao: acao},
         
         success:function(resultado){
-            window.location='/home/cardapio.php';
+            window.location = '/home/cardapio.php';
         }
     });
 }
@@ -101,13 +101,11 @@ function removerCupom(){
     
     $.ajax({
         type: 'GET',
-
         url: 'ajax/quantidade-carrinho.php',
-
         data: {acao:acao},
 
         success:function(resultado){
-            window.location='/home/carrinho.php';
+            loadItens();
         }
     });
 }
@@ -127,17 +125,15 @@ function adicionarCupom(){
             // alert(resultado);
 
             if(resultado.valido){
-                swal('Sucesso!', 'Aproveite o desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
+                swal('Cupom Adicionado!', 'Desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
                 .then(function(){
-                    //mudar -> reload apenas carrinho!
-                    window.location.reload();
+                    loadItens();
                 });
             }
             else if(resultado.validoErro){
-                swal('Sucesso!', 'O cupom de R$ '+resultado.valorcupom + ' é maior do que o valor total da compra, a diferença será perdida!', 'success')
+                swal('Cupom Adicionado!', 'O cupom de R$ '+resultado.valorcupom + ' é maior do que o valor total da compra, a diferença será perdida!', 'success')
                 .then(function(){
-                    //mudar -> reload apenas carrinho!
-                    window.location.reload();
+                    loadItens();
                 });
             }
             
@@ -176,9 +172,7 @@ $(document).on("click", "#removeItem", function(){
 
     $.ajax({
         type: 'GET',
-
         url: 'ajax/quantidade-carrinho.php',
-
         data: {acao: acao, preco: preco, qtdAtual: qtdAtual, id: id},
 
         success:function(resultado){
@@ -240,7 +234,7 @@ $(document).on("click", "#adicionarUnidade", function(){
             qtdInt += 1;
             $("#qtdUnidade"+linha).data("qtd", qtdInt);
             $("#qtdUnidade"+linha).attr("data-qtd", qtdInt);
-            $("#qtde-text").text(qtdInt);
+            $("#qtde-text"+linha).text(qtdInt);
 
 
             $("#subtotal"+linha).html("<strong>R$ "+subtotal.toFixed(2)+"</strong>");   
@@ -291,7 +285,7 @@ $(document).on("click", "#removerUnidade", function(){
 
                 $("#qtdUnidade"+linha).data("qtd", qtdTotal);
                 $("#qtdUnidade"+linha).attr("data-qtd", qtdTotal);
-                $("#qtde-text").text(qtdTotal);
+                $("#qtde-text"+linha).text(qtdTotal);
                 
                 $("#subtotal"+linha).html("<strong>R$ "+subtotal.toFixed(2)+"</strong>");
                 
@@ -311,18 +305,17 @@ $(document).on("click", "#removerUnidade", function(){
         $.ajax({
         
             type: 'GET',
-
             url: 'ajax/quantidade-carrinho.php',
-
             data: {acao: acao, preco: preco, id: id},
-
             success:function(resultado){
                 $("#valor_subTotal").html(resultado.totalCarrinho);
                 $("#valor_total").html(resultado.totalComDesconto);
+
                 var tr = $("#idLinha"+linha).fadeOut(100, function(){
                     tr.remove();
                     window.location.reload();
                 });
+                
                 $("#spanCarrinho").html(parseInt($("#spanCarrinho").text()) - 1);
             }
         });

@@ -1,4 +1,6 @@
 <head>
+    <meta charset="utf-8">
+
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/header/style-xs.css"/>
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 991px)" href="css/header/style-sm.css"/>

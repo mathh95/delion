@@ -112,7 +112,7 @@
 
         <audio id="notificacao">
             <source src="../../js/notification2.mp3" type="audio/mpeg">
-            Sem supp para audio.
+            Sem suporte para audio.
         </audio>
 
         <script type="text/javascript">
