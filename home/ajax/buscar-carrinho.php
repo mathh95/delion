@@ -208,9 +208,13 @@ if (count($itens) > 0) {
                     ?>
             </tbody>
         </table>
-                <div class="legenda-carrinho">
-                <br><p id="texto-legenda" class="danger"><i class="fas fa-exclamation-circle"></i> Delivery não disponível para itens em <b>Vermelho!</b></p>
-                </div>
+                <!-- Verificação para mostrar a mensagem se o delivery não está disponivel -->
+                <?php
+                if($delivery_indisponivel > 0){?>
+                    <div class="legenda-carrinho">
+                    <br><p id="texto-legenda" class="danger"><i class="fas fa-exclamation-circle"></i> Delivery não disponível para itens em <b>Vermelho!</b></p>
+                    </div>
+                <?php } ?>
                 
                 <!-- Observações -->                  
                 <div class="ladoDireito row" style="padding-left: 10px">
