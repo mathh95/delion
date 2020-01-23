@@ -25,7 +25,7 @@ body, html{
         position: relative;
         padding: 0;
         height: auto;
-        >div.imagens-topo {
+        >div.imagens-topo.main-carousel {
             padding: 0;
             
                     >img.img-responsive.imagem-topo{
@@ -33,13 +33,19 @@ body, html{
                         @include img-responsive();
                         @include center-block();
                     }
-                    >img.imagem-logo{
-                        width: 20%;
-                        position: relative;
-                        padding-top: 10px;
-                        @include img-responsive();
-                        @include center-block();
-                    }
+                    
+        }
+        >div.imagens-logo{
+            width: 100%;
+            position: absolute;
+            top: 0;
+            >img.imagem-logo{
+                width: 20%;
+                position: relative;
+                padding-top: 10px;
+                @include img-responsive();
+                @include center-block();
+            }
         }
     }
     
@@ -49,11 +55,10 @@ body, html{
         text-align: center;
         width: 100%;
         height: auto;
-        padding-top: 10px;
-        
         >div.tabs{
             position: relative;
             text-align:center;
+            margin-top: -50px;
             >ul.nav.nav-tabs{
                 font-size: 14px;
                 float:none;

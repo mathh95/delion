@@ -13,13 +13,16 @@
     font-family: "Century Gothic Bold";
     src: url("../fonts/gothicb.ttf");
 }
-
+*{
+    box-sizing: border-box;
+}
 body{
     font-family: $font_main;
     height: auto;
     width: 100%;
     padding: 0;
     header{
+        vertical-align: middle;
         background-color: $vermelho_forte;
         .container{
             margin: 0;
@@ -29,14 +32,15 @@ body{
             >.logo{
                 padding: 10px;
                 width: 100%;
-                a img{
+                img{
                     width: 6%;
                 }
             }
             >.voltar{
-                width: 10%;
+                // width: 10%;
                 padding-top: 30px;
                 font-weight: bold;
+                text-align: center;
                 
                 
                 a{
@@ -44,6 +48,10 @@ body{
                     color: #FFF;
                     font-size: 18px;
                     vertical-align: middle;
+
+                    i{
+                        font-size: 28px;
+                    }
                 }
             }
         }    
@@ -58,6 +66,8 @@ body{
             font-weight: bold;
            .container-title-logo{
                text-align: center;
+               display: inline-flex;
+               flex-direction: row;
 
                h1{
                     padding-top: 30px;
@@ -65,9 +75,14 @@ body{
                     font-weight: bold;
                 }
 
-                #logo{
-                    width: 100%;
-                    
+                .logo-wrapper{
+                    height: auto;
+                    width: 20%;
+                    margin-left: -20px;
+                    #logo{
+                        width: 55%;
+                        
+                    }
                 }
            }
             
@@ -211,6 +226,7 @@ body{
                 }
             }
         }
+        
     }
 
     .funcionamento-programa{

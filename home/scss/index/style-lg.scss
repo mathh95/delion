@@ -26,25 +26,36 @@ body, html{
         padding: 0;
         width: 100%;
         height: auto;
-        >div.imagens-topo {
+        text-align: center;
+        >div.imagens-topo.main-carousel {
             width: 100%;
             height: auto;
             background-position: 0 0;
             background-repeat: no-repeat;
-                    >img.img-responsive.imagem-topo{
-                        width: 100%;
+            position: relative;
+                    >img.img-responsive.imagem-topo.carousel-cell{
+                        width: 100% !important;
                         height: auto;
                         max-height: 500px;
                         position: absolute;
                         @include img-responsive();
                         @include center-block();
                     }
-                    >img.imagem-logo{
-                        position: relative;
-                        padding-top: 40px;
-                        @include img-responsive();
-                        @include center-block();
+                    .carousel-cell{
+                        width: 100%;
+                        max-height: 500px;
                     }
+        }
+        >div.imagens-logo{
+            width: 100%;
+            position: absolute;
+            top:0;
+            >img.imagem-logo{
+                position: relative;
+                padding-top: 40px;
+                @include img-responsive();
+                @include center-block();
+            }
         }
     }
     
@@ -226,6 +237,7 @@ body, html{
                 margin: 0 !important;
                 text-decoration: none;
                 ul {
+                    font-size: 12px;
                     list-style-type: none;
                     a{
                         color: #ffffff;
@@ -242,6 +254,7 @@ body, html{
                 @include make-xs-column(3);
 				@include make-xs-column-offset(1);
                 ul {
+                    font-size: 12px;
                     list-style-type: none;
                     a{
                         color: #ffffff;

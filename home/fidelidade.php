@@ -54,10 +54,10 @@
     <header class="container-fluid">
         <div class="container">
             <div class="logo">
-                <a href="index.php"><img src="/home/img/Logo.png"></a>
+                <img src="/home/img/Logo.png">
             </div>
             <div class="voltar">
-                <a href="#">< Voltar</a>
+                <a href="index.php"><i class="fas fa-home"></i></a>
             </div>
         </div>
     </header>
@@ -70,12 +70,12 @@
                     <div class="col-sm-7">
                         <h1>Programa fidelidade</h1>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="logo-wrapper">
                         <img id="logo" src="/home/img/Logo.png">
                     </div>
                     
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-12 container-footer">
                     <p style="font-size:24px;">Aqui suas compras viram pontos, e seus pontos viram brindes deliciosos.</p>
                     <img class="ponto_fidelidade" src="/home/img/fidelidade_pontos.png">
                     <p>A cada R$1,00 em compras você acumula 1 ponto.</p>
@@ -187,7 +187,7 @@
                     pontos
                 </button>
 
-                <button class="250pts" type="button" class="btn btn-warning">
+                <button type="button" class="250pts btn btn-warning">
                     <span>250</span><br>
                     pontos
                 </button>
@@ -220,9 +220,9 @@
             
             <div class="produtos-pontos produto-50pts" style="display: none;">
 
-                 <!-- Produtos botao 50 pontos -->
+                <!-- Produtos botao 50 pontos -->
 
-                 <div class="produto">
+                <div class="produto">
                     <img src="/home/img/torta.png" alt="torta">
                     <h2>TORTA TESTE 2</h2>
                 </div>
@@ -246,9 +246,9 @@
 
             <div class="produtos-pontos produto-80pts" style="display: none;">
 
-                 <!-- Produtos botao 80 pontos -->
+                <!-- Produtos botao 80 pontos -->
 
-                 <div class="produto">
+                <div class="produto">
                     <img src="/home/img/torta.png" alt="torta">
                     <h2>TORTA TESTE 80</h2>
                 </div>
@@ -441,7 +441,7 @@
                                 3º Passo:
                             </div>
                             A cada R$ 1,00<br>
-                            em compas<br>
+                            em compras<br>
                             você ganha 1<br>
                             ponto.
                         </div>
@@ -473,81 +473,54 @@
 ?>
 
 <script>
-        $(document).ready(function() {
 
-    
-            $('.30pts').click(function() {
-                if($('.produto-50pts').is(":hidden") && $('.produto-80pts').is(":hidden") 
-                    && $('.produto-90pts').is(":hidden") && $('.produto-120pts').is(":hidden") 
-                    && $('.produto-200pts').is(":hidden") && $('.produto-220pts').is(":hidden") 
-                    && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-30pts').slideToggle();
-                } 
+            $( ".30pts" ).click(function() {
+                $( ".produtos-pontos" ).hide();
+                $( ".produto-30pts" ).slideToggle();
+                
+            });
+            
+            $( ".50pts" ).click(function() {
+                $( ".produtos-pontos" ).hide();
+                $( ".produto-50pts" ).slideToggle();
+                
+            });
+            $( ".80pts" ).click(function() {
+                $( ".produtos-pontos" ).hide();
+                $( ".produto-80pts" ).slideToggle();
+                
             });
 
-            $('.50pts').click(function() {
-                if($('.produto-30pts').is(":hidden") && $('.produto-80pts').is(":hidden") 
-                    && $('.produto-90pts').is(":hidden") && $('.produto-120pts').is(":hidden") 
-                    && $('.produto-200pts').is(":hidden") && $('.produto-220pts').is(":hidden") 
-                    && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-50pts').slideToggle();
-                } 
+            $( ".90pts" ).click(function() {
+                $( ".produtos-pontos" ).hide();
+                $( ".produto-90pts" ).slideToggle();
             });
 
-            $('.80pts').click(function() {
-                if($('.produto-30pts').is(":hidden") && $('.produto-50pts').is(":hidden") 
-                    && $('.produto-90pts').is(":hidden") && $('.produto-120pts').is(":hidden") 
-                    && $('.produto-200pts').is(":hidden") && $('.produto-220pts').is(":hidden") 
-                    && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-80pts').slideToggle();
-                } 
+            $( ".120pts" ).click(function() {
+                $( ".produtos-pontos" ).hide();
+                $( ".produto-120pts" ).slideToggle();
             });
 
-            $('.90pts').click(function() {
-                if($('.produto-30pts').is(":hidden") && $('.produto-50pts').is(":hidden") 
-                    && $('.produto-80pts').is(":hidden") && $('.produto-120pts').is(":hidden") 
-                    && $('.produto-200pts').is(":hidden") && $('.produto-220pts').is(":hidden") 
-                    && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-90pts').slideToggle();
-                } 
+            $( ".200pts" ).click(function() {
+                $( ".produtos-pontos" ).hide();
+                $( ".produto-200pts" ).slideToggle();
+
             });
 
-            $('.120pts').click(function() {
-                if($('.produto-30pts').is(":hidden") && $('.produto-50pts').is(":hidden") 
-                    && $('.produto-80pts').is(":hidden") && $('.produto-90pts').is(":hidden") 
-                    && $('.produto-200pts').is(":hidden") && $('.produto-220pts').is(":hidden") 
-                    && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-120pts').slideToggle();
-                } 
+            $( ".220pts" ).click(function() {
+                $( ".produtos-pontos" ).hide();
+                $( ".produto-220pts" ).slideToggle();
+
             });
 
-            $('.200pts').click(function() {
-                if($('.produto-30pts').is(":hidden") && $('.produto-50pts').is(":hidden") 
-                    && $('.produto-80pts').is(":hidden") && $('.produto-90pts').is(":hidden") 
-                    && $('.produto-120pts').is(":hidden") && $('.produto-220pts').is(":hidden") 
-                    && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-200pts').slideToggle();
-                } 
+            $( ".250pts" ).click(function() {
+                $( ".produtos-pontos" ).hide();
+                $( ".produto-250pts" ).slideToggle();
             });
 
-            $('.220pts').click(function() {
-                if($('.produto-30pts').is(":hidden") && $('.produto-50pts').is(":hidden") 
-                    && $('.produto-80pts').is(":hidden") && $('.produto-90pts').is(":hidden") 
-                    && $('.produto-120pts').is(":hidden") && $('.produto-200pts').is(":hidden") 
-                    && $('.produto-250pts').is(":hidden") ){
-                        $('.produto-220pts').slideToggle();
-                } 
-            });
 
-            $('.250pts').click(function() {
-                if($('.produto-30pts').is(":hidden") && $('.produto-50pts').is(":hidden") 
-                    && $('.produto-80pts').is(":hidden") && $('.produto-90pts').is(":hidden") 
-                    && $('.produto-120pts').is(":hidden") && $('.produto-200pts').is(":hidden") 
-                    && $('.produto-220pts').is(":hidden") ){
-                        $('.produto-250pts').slideToggle();
-                } 
-            });
-    });
+
+
     </script>
 </body>
 </html>

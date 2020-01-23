@@ -30,6 +30,10 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
+<?php
+	include_once "./head.php";
+?>
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -52,6 +56,12 @@
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/index/style-md.css"/>
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/index/style-lg.css"/>
+
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+	<link rel="stylesheet" href="https://unpkg.com/flickity-fade@1/flickity-fade.css">
+
+
 	
 
 	
@@ -60,19 +70,20 @@
 <body>
 
 <div class="container-fluid no-padding">
-	<div class="imagens-topo">
+	<div class="imagens-topo main-carousel">
 
 				<?php
 				foreach ($imagens as $imagem){
 					$pagina = json_decode($imagem->getPagina());
 
 					if (in_array('homeTopo', $pagina)) {
-						echo "<img class='img-responsive imagem-topo' src='/admin/".$imagem->getFoto()."' alt='imagem topo principal'>";
+						echo "<img class='img-responsive imagem-topo carousel-cell' src='/admin/".$imagem->getFoto()."' alt='imagem topo principal'>";
 					}
 				}
 				?>
 			<!-- <img class="img-responsive imagem-topo" src="/home/img/topo.png" alt="imagem topo principal"> -->
-
+	</div>
+	<div class="imagens-logo">
 			<?php
 			foreach ($imagens as $imagem){
 				$pagina = json_decode($imagem->getPagina());
@@ -356,8 +367,21 @@ async defer></script>
 
 <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
 
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+<script src="https://unpkg.com/flickity-fade@1/flickity-fade.js"></script>
+
 
 <script>
+
+	$('.main-carousel').flickity({
+		fade: true,
+		autoPlay: 3000,
+		cellAlign: 'left',
+		contain: true,
+		prevNextButtons: false,
+		pageDots: false
+	});
 
 	$("#cepModal").on("shown.bs.modal", function () {
 		$("#street_number").focus();

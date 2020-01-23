@@ -27,23 +27,32 @@ body, html{
         position: relative;
         padding: 0;
         height: auto;
-        >div.imagens-topo {
+        >div.imagens-topo.main-carousel {
             width: 100%;
             height: auto;
             background-position: 0 0;
             background-repeat: no-repeat;
-                    >img.img-responsive.imagem-topo{
+                    >img.img-responsive.imagem-topo.carousel-cell{
                         position: absolute;
                         @include img-responsive();
                         @include center-block();
                     }
-                    >img.imagem-logo{
-                        position: relative;
-                        padding-top: 25px;
-                        width: 20%;
-                        @include img-responsive();
-                        @include center-block();
+                    .carousel-cell{
+                        width: 100%;
                     }
+                    
+        }
+        >div.imagens-logo{
+            width: 100%;
+            position: absolute;
+            top: 0;
+            >img.imagem-logo{
+                position: relative;
+                padding-top: 25px;
+                width: 20%;
+                @include img-responsive();
+                @include center-block();
+            }
         }
     }
     
@@ -53,10 +62,10 @@ body, html{
         text-align: center;
         max-width: 100%;
         height: auto;
-        padding-top: 60px;
         >div.tabs{
             position: relative;
             text-align:center;
+            margin-top: -60px;
             >ul.nav.nav-tabs{
                 font-size: 14px;
                 float:none;
