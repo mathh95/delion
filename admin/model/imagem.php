@@ -59,6 +59,8 @@
                     $tela .= "[Sobre] Imagem Sobre</br>";
                 }elseif ($pagina == "historia") {
                     $tela .= "[História] Imagem História</br>";
+                }else if ($pagina == ""){
+                    $tela .= "Imagem não vinculada</br>";
                 }else {
                     $tela .= ucfirst($pagina)."</br>";
                 }
