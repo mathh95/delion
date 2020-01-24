@@ -61,7 +61,7 @@ if(in_array('adicional', $permissao)){
 	    <td style='text-align: center;' name='desconto'>".$adicional->getDesconto()."</td>
 	    <td style='text-align: center;' name='flag_ativo'>".($adicional->getFlag_ativo() == 1)?"Ativo":"Inativo"."</td> 	
         </tr>";
+	}
 }
 echo "</tbody></table>";
-}
 ?>

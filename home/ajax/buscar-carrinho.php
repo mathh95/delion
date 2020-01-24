@@ -107,9 +107,8 @@ if (count($itens) > 0) {
                     <th>Produto</th>
                     <th id="precoUnitario">Preço Unitário</th>
                     <th>Subtotal</th>
-
-                    <th>Quantidade</th>
                     <th id="deliveryTabela">Delivery</th>
+                    <th>Quantidade</th>
                 </tr>
             </thead>
             <tbody>
@@ -146,25 +145,29 @@ if (count($itens) > 0) {
                             <span class="qtde-x">x</span> &nbsp;  
                             <strong><?= $item['pro_nome'] ?></strong>
                         </td>
+
                         <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
                         <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?=  number_format(($item['pro_preco'] * $_SESSION['qtd'][$key]), 2); ?></strong></td>
-                            <td class="quantidadeProdutoTabela">
-                                <i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt fa-lg btn iconeRemoverProdutoTabela"></i>
-                                <i id="removerUnidade" data-toggle="tooltip" title="Remove 1!" data-linha="<?= $i ?>" class="fas fa-minus fa-lg btn iconeExcluirProdutoTabela"></i>
-                                <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1!" data-linha="<?= $i ?>" class="fas fa-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
-                            </td>
+
                         <td class="nomeProdutoDisponivel">
-                        <strong>
-                        <?php
-                            if ($item['pro_flag_delivery'] == 1) {
-                                echo "Disponível";
-                            } else {
-                                echo "Não disponível";
-                                $delivery_indisponivel = $delivery_indisponivel + 1;
-                            }
-                        ?>
-                        </strong>
+                            <strong>
+                            <?php
+                                if ($item['pro_flag_delivery'] == 1) {
+                                    echo "Disponível";
+                                } else {
+                                    echo "Não disponível";
+                                    $delivery_indisponivel = $delivery_indisponivel + 1;
+                                }
+                            ?>
+                            </strong>
                         </td>
+
+                        <td class="quantidadeProdutoTabela">
+                            <i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt fa-lg btn iconeRemoverProdutoTabela"></i>
+                            <i id="removerUnidade" data-toggle="tooltip" title="Remove 1!" data-linha="<?= $i ?>" class="fas fa-minus fa-lg btn iconeExcluirProdutoTabela"></i>
+                            <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1!" data-linha="<?= $i ?>" class="fas fa-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
+                        </td>
+                        
                     </tr>
                     
                     <?php
