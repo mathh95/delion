@@ -256,27 +256,10 @@
 		</div>
 
 </footer>
-<div class="container-fluid rodape">
 
-    <div class="container">
-
-        <div>Todos os direitos reservados a Delion Café</div>
-
-        <div>
-
-            <div>Desenvolvido por Kionux Soluções em Internet <a href="http://www.kionux.com.br"><img src="img/kionuxsite.png" alt=""></a></div>
-
-        </div>
-
-    </div>
-
-</div>
-			
-	<?php
-		// include_once "./whats-config.php";
-		// include_once "./footer.php";
-	?>
-
+<?php
+	include_once "./rodapeKionux.php";
+?>
 
 	<!-- Modal -->
 	<div class="modal fade" id="cepModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

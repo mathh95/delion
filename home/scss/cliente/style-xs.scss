@@ -56,9 +56,9 @@ body{
     }
     > .cliente {
         padding-top: 25px;
-        padding-bottom: 5px;
+        padding-bottom: 10px;
         height: auto;
-        min-height: 620px;
+        // min-height: 620px;
         position: relative;
         > .solicitacao {
             @include make-sm-column(12);
