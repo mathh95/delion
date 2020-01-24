@@ -220,7 +220,7 @@ if($checkcarrinho > 0){
                                 }
                             }else{
                                 // 'termina pedido vai pra area de endereço';
-                                $html.= "<script>swal('Selecione um endereço!', 'Estamos te mandando para tela endereços, escolha um endereço...', 'info').then((value) => {window.location='/home/endereco.php?is_selecao_end=true'});</script></body>";
+                                $html.= "<script>swal('Selecione um endereço!', 'Estamos te direcionando para tela endereços...', 'info').then((value) => {window.location='/home/endereco.php?is_selecao_end=true'});</script></body>";
                                 echo $html;
                             }
                         }

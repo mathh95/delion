@@ -29,14 +29,13 @@ body{
                 margin-bottom: 10px;
             }
             > .item{
-                padding-right:0px;
-                height: 120px;
+                padding: 10px;
                 margin: 15px;
                 border-width: 3px;
                 border-color: $vermelho_fraco;
                 border-style: solid;
                 border-radius:10px;
-                font-family: $font_main_bold;
+
                 p{
                     font-family: $font_main;
                     font-size: 15px;

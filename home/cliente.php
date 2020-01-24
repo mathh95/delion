@@ -2,33 +2,19 @@
 session_start();
 
 	include_once "../admin/controler/conexao.php";
-
 	include_once "controler/controlEmpresa.php";
-
 	include_once "controler/controlBanner.php";
-
     include_once "controler/controlImagem.php";
-    
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
-
 	include_once MODELPATH."/cliente.php";
-	
 	include_once "controler/segurancaCliente.php";
 
 	protegeCliente();
 
-	$controleEmpresa=new controlerEmpresa(conecta());
-
+	$controleEmpresa = new controlerEmpresa(conecta());
 	$empresa = $controleEmpresa->select(1,2);
 
-	$controleBanner=new controlerBanner(conecta());
-
-	$miniBanners = $controleBanner->selectAllMini();
-
-	$banners = $controleBanner->selectAll();
-
-	$controleImagem=new controlerImagem(conecta());
-
+	$controleImagem = new controlerImagem(conecta());
 	$imagens = $controleImagem->selectAll();
 
 	//configuração de acesso ao WhatsApp 
@@ -70,23 +56,28 @@ session_start();
 		<div class="area">
 
 			<p>Área do cliente</p>	
-			<div>
-				<a href="alterarCliente.php"><button class="botao-esquerda">ALTERAR DADOS</button></a>
+
+			<div >
+				<a href="endereco.php"><button class="botao-esquerda"  type="submit">ENDEREÇOS CADASTRADOS</button></a>
 			</div>
-			<div>
-				<a href="alterarSenha.php"><button class="botao-esquerda" type="submit">ALTERAR SENHA</button></a>
-			</div>
+
 			<div>
 				<a href="listarPedidos.php"><button class="botao-esquerda" type="submit">LISTAR PEDIDOS</button></a>
 			</div>
+
+			<div>
+				<a href="alterarCliente.php"><button class="botao-esquerda">ALTERAR DADOS</button></a>
+			</div>
+
+			<div>
+				<a href="alterarSenha.php"><button class="botao-esquerda" type="submit">ALTERAR SENHA</button></a>
+			</div>
+
 
 			<!-- <div>
 				<a href="listarCombos.php"><button class="botao-esquerda" type="submit">LISTAR COMBOS</button></a>
 			</div> -->
 
-			<div >
-				<a href="endereco.php"><button class="botao-esquerda"  type="submit">LISTAR ENDEREÇOS CADASTRADOS</button></a>
-			</div>
 
 		</div>
 

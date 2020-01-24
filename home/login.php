@@ -193,7 +193,13 @@
 					if (res == -1){
 						swal("Não foi possível efetuar login!", "erro!", "error").then((value) => {window.location="/home/login.php"});
 					}else{
-						swal("Login efetuado com sucesso!", "Bem vindo!", "success").then((value) => {window.location="/home/cardapio.php"});
+						swal({
+							title: "Bem vindo!",
+							text: "Bom proveito :)...",
+							icon: "success",
+							timer: 1000,
+							buttons: false
+						}).then((value) => {window.location="/home/cardapio.php"});
 					}
 				}
 			});
@@ -280,7 +286,13 @@
 							if (res == -1){
 								swal("Não foi possível efetuar login!", "erro!", "error").then((value) => {window.location="/home/login.php"});
 							}else{
-								swal("Login efetuado com sucesso!", "Bem vindo!", "success").then((value) => {window.location="/home/cardapio.php"});
+								swal({
+									title: "Bem vindo!",
+									text: "Bom proveito :)...",
+									icon: "success",
+									timer: 1000,
+									buttons: false
+								}).then((value) => {window.location="/home/cardapio.php"});
 							}
 						}
 					});

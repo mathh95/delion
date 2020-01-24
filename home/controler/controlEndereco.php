@@ -201,6 +201,9 @@
                     INNER JOIN
                     tb_endereco AS ENCO ON
                     ENCO.end_pk_id = ENCL.encl_fk_endereco
+                    INNER JOIN
+                    tb_cidade ON
+                    ENCO.end_fk_cidade = ci_pk_id
                     WHERE encl_fk_cliente=:encl_fk_cliente AND encl_flag_ativo=1");
 
                 }elseif ($modo==2) {
@@ -209,6 +212,9 @@
                     INNER JOIN
                     tb_endereco AS ENCO ON
                     ENCO.end_pk_id = ENCL.encl_fk_endereco
+                    INNER JOIN
+                    tb_cidade ON
+                    ENCO.end_fk_cidade = ci_pk_id
                     WHERE encl_fk_cliente=:encl_fk_cliente AND encl_flag_ativo=0");
                 }
                 
@@ -231,6 +237,7 @@
                             $endereco_cliente->logradouro= $result->end_logradouro;
                             $endereco_cliente->bairro =$result->end_bairro;
                             $endereco_cliente->fkCidade = $result->end_fk_cidade;
+                            $endereco_cliente->cidade = $result->ci_cidade;
 
                             array_push($enderecos_cliente, $endereco_cliente);
                         }

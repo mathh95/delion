@@ -446,7 +446,7 @@ if (count($itens) > 0) {
                     }else{
                         //info de entrega
                         echo "<div style='margin-top:10px;' id='infoDelivery'>";
-                        echo "<span id='infoDeliverySemEndereco'><i class='fas fa-info-circle'></i>&nbsp;Selecione um Endereço cadastrado, ao Finalizar o Pedido.</span>";
+                        echo "<span id='infoDeliverySemEndereco'><i class='fas fa-info-circle'></i>&nbsp;Selecione o Endereço ao Finalizar o Pedido.</span>";
                         echo "</div>";
                     }
 
@@ -478,7 +478,7 @@ if (count($itens) > 0) {
 
                     //info de entrega
                     echo "<div style='display:none;' style='margin-top:10px;' id='infoDelivery'>";
-                    echo "<span><i class='fas fa-info-circle'></i>&nbsp;Selecione um Endereço cadastrado ao Finalizar o Pedido.</span>";
+                    echo "<span><i class='fas fa-info-circle'></i>&nbsp;Selecione o Endereço ao Finalizar o Pedido.</span>";
                     echo "</div>";
 
 
