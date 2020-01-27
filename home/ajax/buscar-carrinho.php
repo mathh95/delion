@@ -540,7 +540,7 @@ if (count($itens) > 0) {
                 if($_SESSION['entrega_valida'] && $_SESSION['is_delivery_home']){
                     echo "<div id='infoPercurso'>";
                     echo "<br><i class='fas fa-road'></i>&nbsp;Distância da entrega: " . $dist_km . " km <br>";
-                    echo "<i class='far fa-clock'></i>&nbsp;Estimativa de preparo/entrega: " . $_SESSION['delivery_time']." mins</div>";
+                    echo "<i class='far fa-clock'></i>&nbsp;Estimativa p/ entrega: " . $_SESSION['delivery_time']." mins</div>";
                 }
 
                 //Variaveis passadas pra control do carrinho

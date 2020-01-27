@@ -27,51 +27,41 @@ if ($tipo == 'ativo') {
     if ($enderecos < 1) {
         echo "<p> Não existem endereços registrados</p>";
     } else {
+
         if($flag_selecionar_end){
-
             echo "<p> Endereço para Entrega </p>";
-            foreach ($enderecos as $endereco) {
-                
-                echo "<div class='item'>
-                    <span>CEP: <b>".mask_cep($endereco->cep)."</b> </span>
-
-                    <button class='btn btn-lg btn-success pull-right' onclick='selecionarEndereco(". $endereco->getPkId() .")'> SELECIONAR </button>
-                    <br>
-                    <span>End.: <b>". $endereco->logradouro.", ".$endereco->getNumero()."</b> </span>
-                    <br>
-                    <span>Bairro: <b>".$endereco->bairro."</b> </span>
-                    <br>
-                    <span>Cidade: <b>".$endereco->cidade."</b> </span>
-                    <br>
-                    <span>Complemento: <b>".$endereco->getComplemento()."</b></span>
-                    <br>
-                    <span>Ponto de Referência: <b>".$endereco->getReferencia()."</b></span>
-                    <br>
-                    </div>";
-            }
-        } else {
-            
+        }else{
             echo "<p> Endereços Cadastrados </p>";
-            foreach ($enderecos as $endereco) {
+        }
+
+        
+        foreach ($enderecos as $endereco) {
+            
+            if($flag_selecionar_end){
 
                 echo "<div class='item'>
-                    <span>CEP: <b>".mask_cep($endereco->cep)."</b> </span>
-
+                    <button class='btn btn-lg btn-success pull-right' onclick='selecionarEndereco(". $endereco->getPkId() .")'> SELECIONAR </button>";
+            
+            }else{
+                echo "<div class='item'>
                     <button class='btn btn-danger pull-right' title='Excluir!' onclick='excluirEndereco(" . $endereco->getPkId() . ")' > X </button>
-                    <button class='btn btn-warning pull-right' onclick='alterarEndereco(" . $endereco->getPkId() . ")' > ALTERAR </button>
-                    <br>
-                    <span>End.: <b>". $endereco->logradouro.", ".$endereco->getNumero()."</b> </span>
-                    <br>
-                    <span>Bairro: <b>".$endereco->bairro."</b> </span>
-                    <br>
-                    <span>Cidade: <b>".$endereco->cidade."</b> </span>
-                    <br>
-                    <span>Complemento: <b>".$endereco->getComplemento()."</b></span>
-                    <br>
-                    <span>Ponto de Referência: <b>".$endereco->getReferencia()."</b></span>
-                    <br>
-                    </div>";
+                    <button class='btn btn-warning pull-right' onclick='alterarEndereco(" . $endereco->getPkId() . ")' > ALTERAR </button>";
             }
+
+            echo 
+                "<span><b>CEP: </b>".mask_cep($endereco->cep)." </span>
+                <br>
+                <span><b>End.: </b>". $endereco->logradouro.", ".$endereco->getNumero()." </span>
+                <br>
+                <span><b>Bairro: </b>".$endereco->bairro." </span>
+                <br>
+                <span><b>Cidade: </b>".$endereco->cidade." </span>
+                <br>
+                <span><b>Complemento: </b>".$endereco->getComplemento()."</span>
+                <br>
+                <span><b>Ponto de Referência: </b>".$endereco->getReferencia()."</span>
+                <br>
+                </div>";
         }
     }
 

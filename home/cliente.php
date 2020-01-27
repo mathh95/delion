@@ -55,7 +55,7 @@ session_start();
 
 		<div class="area">
 
-			<p>Área do cliente</p>	
+			<p><i class="fas fa-crown"></i> Sua Área</p>	
 
 			<div >
 				<a href="endereco.php"><button class="botao-esquerda"  type="submit">ENDEREÇOS CADASTRADOS</button></a>
