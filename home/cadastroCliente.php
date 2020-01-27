@@ -1,30 +1,13 @@
 <?php 
 	
-	include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
-
 	session_start();
 
+	include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
 	include_once "../admin/controler/conexao.php";
-
 	include_once "controler/controlEmpresa.php";
 
-	include_once "controler/controlBanner.php";
-
-	include_once "controler/controlImagem.php";
-
-	$controleEmpresa=new controlerEmpresa(conecta());
-
+	$controleEmpresa = new controlerEmpresa(conecta());
 	$empresa = $controleEmpresa->select(1,2);
-
-	$controleBanner=new controlerBanner(conecta());
-
-	$miniBanners = $controleBanner->selectAllMini();
-
-	$banners = $controleBanner->selectAll();
-
-	$controleImagem=new controlerImagem(conecta());
-
-	$imagens = $controleImagem->selectAll();
 
 	//configuração de acesso ao WhatsApp
 	//include "./whats-config.php";
@@ -98,7 +81,7 @@
 
 					<?php
 						$current = date("Y-m-d");
-						$min = date('Y-m-d', strtotime($current.'-90 year'));
+						$min = date('Y-m-d', strtotime($current.'-100 year'));
 						$max = date('Y-m-d', strtotime($current.'-12 year'));
 
 						echo '
@@ -200,10 +183,10 @@
 				grecaptcha.execute('<?=GOOGLE_reCAPTCHA?>',
 				{action: 'verificar_cliente'})
 				.then(function(token)
-				{	
+				{
 					//adiciona token ao array POST
 					data.push({name: "grecaptcha_token_verificar", value: token});
-					//depois! add flag de verificacao
+					//empilha! flag de verificacao
 					data.push({name: "is_verificacao_cadastro", value: "1"});
 
 					verificaCliente(data);
@@ -308,25 +291,16 @@
 	$("input.telefone").mask("(99) ?9 9999-9999").focusout(function (event) {  
 
 		var target, phone, element;  
-
 		target = (event.currentTarget) ? event.currentTarget : event.srcElement;  
-
 		phone = target.value.replace(/\D/g, '');
-
 		element = $(target);  
-
 		element.unmask();  
 
 		if(phone.length > 10) {  
-
 			element.mask("(99) 99999-999?9");  
-
 		} else {  
-
 			element.mask("(99) 9999-9999?9");  
-
 		}  
-
 	});
 
 	</script>

@@ -12,8 +12,6 @@
     include_once "../utils/GoogleRecaptcha.php";
     include_once HELPERPATH."/mask.php";
 
-    $mask = new Mask;
-
     if (isset($_POST) and !empty($_POST)){
 
         //Cadastro/Login Google
@@ -200,6 +198,7 @@
                 $_POST['is_verificacao_cadastro'] == 1)
             {
                 
+                $mask = new Mask;
                 $telefone_int = $mask->rmMaskPhone($telefone);
                 $cod_sms = rand(1112, 9998);
                 
@@ -225,6 +224,8 @@
                     echo "Erro ao enviar SMS :/...contate o suporte.";
                 }
             
+
+                
             //Cadastro do Cliente
             } else if(isset($_POST['is_cadastro']) && $_POST['is_cadastro'] == 1){
                 
@@ -236,6 +237,7 @@
                     return;
                 }
                 
+                $mask = new Mask;
                 $telefone_int = $mask->rmMaskPhone($telefone);
                 
                 //verifica código SMS
@@ -280,6 +282,10 @@
     }else{
         echo -1;
     }
+
+
+
+
 
     function verificaCadastro($erros, $nome, $sobrenome, $cpf, $data_nasc, $telefone, $login, $senha, $senha2){
 
@@ -363,16 +369,17 @@
         }
 
         //valida telefone
+        $mask = new Mask;
         $telefone_int = $mask->rmMaskPhone($telefone);
 
         if(strlen($telefone_int) == 0){
             echo "O Campo Telefone precisa ser preenchido.\n";                
             $erros ++;
         }else if(strlen($telefone_int) < 11){
-            echo "O Telefone precisa ter 11 números, código de área seguido número.\n";
+            echo "O Telefone precisa ter 11 números, código de área seguido do número.\n";
             $erros ++;
         }else if(strlen($telefone_int) > 11){
-            echo "O Telefone precisa ter 11 números, código de área seguido número.\n";
+            echo "O Telefone precisa ter 11 números, código de área seguido do número.\n";
             $erros ++;
         }
 

@@ -104,7 +104,7 @@
 
 					<p>Celular:</p>
 
-					<input class="telefone" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999" value="<?php echo $_SESSION['telefone'];?>">
+					<input class="form-control telefone" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999" value="<?php echo $_SESSION['telefone'];?>">
 
 				</div>
 				<div class="col-md-12 col-sm-12 col-xs-12">
@@ -138,25 +138,16 @@
 			$("input.telefone").mask("(99) ?9 9999-9999").focusout(function (event) {  
 
 				var target, phone, element;  
-
 				target = (event.currentTarget) ? event.currentTarget : event.srcElement;  
-
 				phone = target.value.replace(/\D/g, '');
-
 				element = $(target);  
-
 				element.unmask();  
-
+				
 				if(phone.length > 10) {  
-
 					element.mask("(99) ?9 9999-9999");  
-
 				} else {  
-
 					element.mask("(99) ?9 9999-99999");  
-
 				}  
-
 			});
 		});
 

@@ -136,6 +136,36 @@
                 }
             }
 
+            function completarCadastro($cliente){
+                try{
+                    $cli_pk_id = $cliente->getPkId();
+                    $cpf = $cliente->getCpf();
+                    $data_nasc = $cliente->getData_nasc();
+                    $telefone = $cliente->getTelefone();
+                    
+                    $stmt=$this->pdo->prepare("UPDATE tb_cliente
+                    SET cli_cpf=:cpf, cli_data_nasc=:data_nasc, cli_telefone=:telefone
+                    WHERE cli_pk_id=:pk_id");
+
+                    $stmt->bindParam(":pk_id", $cli_pk_id, PDO::PARAM_INT);
+                    $stmt->bindParam(":cpf", $cpf, PDO::PARAM_INT);
+                    $stmt->bindParam(":data_nasc", $data_nasc, PDO::PARAM_STR);
+                    $stmt->bindParam(":telefone", $telefone, PDO::PARAM_STR);
+
+                    $executa = $stmt->execute();
+
+                    if ($executa){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
             function updateDate($cliente){
                 try{
                     $cli_pk_id=$cliente->getPkId();
@@ -611,6 +641,7 @@
                                 $_SESSION['sobrenome']=$result->cli_sobrenome;
                                 $_SESSION['login']=$result->cli_login_email;
                                 $_SESSION['telefone']=$result->cli_telefone;
+                                $_SESSION['data_nasc']=$result->cli_data_nasc;
                                 $_SESSION['cod_status_cliente']=$result->cli_status;
                                 
                                 return 2;
@@ -647,6 +678,8 @@
                                     $_SESSION['sobrenome']=$result->cli_sobrenome;
                                     $_SESSION['login']=$result->cli_login_email;
                                     $_SESSION['telefone']=$result->cli_telefone;
+                                    $_SESSION['data_nasc']=$result->cli_data_nasc;
+                                    $_SESSION['cod_status_cliente']=$result->cli_status;
                                     return 2;
                                 }else{
                                     return 1;
@@ -659,6 +692,8 @@
                                     $_SESSION['sobrenome']=$result->cli_sobrenome;
                                     $_SESSION['login']=$result->cli_login_email;
                                     $_SESSION['telefone']=$result->cli_telefone;
+                                    $_SESSION['data_nasc']=$result->cli_data_nasc;
+                                    $_SESSION['cod_status_cliente']=$result->cli_status;
                                     return 2;
                                 }else{
                                     return 1;
