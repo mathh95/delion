@@ -12,7 +12,7 @@
                     $cpf = $cliente->getCpf();
                     $data_nasc = $cliente->getData_nasc();
                     $login = $cliente->getLogin();
-                    $senha = hash_hmac("md5" , $cliente->getSenha(), "senha");
+                    $senha = hash_hmac("sha256" , $cliente->getSenha(), HASHKEY);
                     $telefone = $cliente->getTelefone();
                     $status = $cliente->getStatus();
 
@@ -634,7 +634,7 @@
                             $result=$stmt->fetch(PDO::FETCH_OBJ);
                             $senhah=$result->cli_senha;
                             $status = $result->cli_status;
-                            $senha=hash_hmac("md5",$senha, "senha");                            
+                            $senha=hash_hmac("sha256",$senha, HASHKEY);                            
                             if(hash_equals($senha,$senhah) && $status == 1){
                                 $_SESSION['cod_cliente']=$result->cli_pk_id;
                                 $_SESSION['nome']=$result->cli_nome;
@@ -711,8 +711,8 @@
             function updateSenha($cli_pk_id, $senha, $novaSenha){
                 try{       
                     $cliente=new cliente;
-                    $senha = hash_hmac("md5", $senha, "senha");
-                    $novaSenha = hash_hmac("md5", $novaSenha, "senha");         
+                    $senha = hash_hmac("sha256", $senha, HASHKEY);
+                    $novaSenha = hash_hmac("sha256", $novaSenha, HASHKEY);         
                     $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_pk_id=:parametro");
                     $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
                     $executa=$stmt->execute();
@@ -755,7 +755,7 @@
 
             function updateSenhaEsquecida($cli_pk_id, $novaSenha){
                 try{       
-                    $novaSenha = hash_hmac("md5", $novaSenha, "senha");
+                    $novaSenha = hash_hmac("sha256", $novaSenha, HASHKEY);
 
                     $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_pk_id=:parametro");
                     $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
