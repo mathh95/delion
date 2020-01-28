@@ -385,7 +385,9 @@
             function selectAllAtivos(){
                 try{
                     $clientes = array();
-                    $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_status = 1 ORDER by cli_nome");
+                    $stmt=$this->pdo->prepare("SELECT *
+                    FROM tb_cliente
+                    WHERE cli_status = 1 ORDER by cli_nome");
                     $executa= $stmt->execute();
                     if ($executa){
                         if ($stmt->rowCount() > 0 ){
@@ -399,7 +401,56 @@
                                 $cliente->setData_nasc($result->cli_data_nasc);
                                 $cliente->setTelefone($result->cli_telefone);
                                 $cliente->setStatus($result->cli_status);
-                                array_push($clientes,$cliente);
+                                $cliente->setPontosFidelidade($result->cli_pontos_fidelidade);
+                                array_push($clientes, $cliente);
+                            }
+                        }else{
+                            echo "Sem resultados";
+                            return -1;
+                        }
+                        return $clientes;
+                    }else{
+                        return -1;
+                    }
+
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+
+            function selectAllAtivosCountPedidos(){
+                try{
+
+                    $clientes = array();
+                    $stmt = $this->pdo->prepare("SELECT *, MAX(ped_data) AS ultimo_pedido, COUNT(ped_fk_cliente) AS n_pedidos
+                    FROM tb_cliente
+                    INNER JOIN tb_pedido
+                    WHERE cli_status = 1 AND cli_pk_id = ped_fk_cliente
+                    GROUP BY cli_pk_id");
+
+                    $executa = $stmt->execute();
+                    if ($executa){
+                        if ($stmt->rowCount() > 0 ){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+
+                                $cliente = new cliente();
+                                $cliente->setPkId($result->cli_pk_id);
+                                $cliente->setLogin($result->cli_login_email);
+                                $cliente->setNome($result->cli_nome);
+                                $cliente->setSobrenome($result->cli_sobrenome);
+                                $cliente->setCpf($result->cli_cpf);
+                                $cliente->setData_nasc($result->cli_data_nasc);
+                                $cliente->setTelefone($result->cli_telefone);
+                                $cliente->setStatus($result->cli_status);
+                                $cliente->setPontosFidelidade($result->cli_pontos_fidelidade);
+
+                                $cliente->n_pedidos = $result->n_pedidos;
+                                $cliente->ultimo_pedido = $result->ultimo_pedido;
+
+                                array_push($clientes, $cliente);
                             }
                         }else{
                             echo "Sem resultados";

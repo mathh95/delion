@@ -497,6 +497,7 @@
 
 
                         <?php
+                        //SMS
                             
                         $permissao = json_decode($usuarioPermissao->getPermissao());
                                  
@@ -518,6 +519,38 @@
 
                                 <li><a href="enviarSms.php">Enviar SMS</a></li>
                                 <li><a href="listarSms.php">Listar Envios</a></li>
+
+                            </ul>
+
+                        </li>
+                        <?php } ?>
+
+
+
+
+                        <?php
+                        //Gerenciar Fidelidade
+                        $permissao = json_decode($usuarioPermissao->getPermissao());
+                                 
+                        if(in_array('gerenciar_fidelidade', $permissao)){ ?>
+
+                        <li class="dropdown
+
+                            <?php
+                                //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
+                                if(strpos($arquivo_pai, 'Fidelidade') !== false){
+                                    echo 'active';
+                                }
+                            ?>  
+                        ">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Fidelidade <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+
+                                <li><a href="fidelidade.php">Gerenciar Programa</a></li>
+                                <li><a href="cadastrarFidelidade.php">Cadastrar Produto</a></li>
+                                <li><a href="listarFidelidade.php">Listar Produtos</a></li>
 
                             </ul>
 

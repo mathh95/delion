@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 $controle = new controlerEmpresa(conecta());
 $empresa = $controle->selectAll();
 
@@ -47,10 +44,9 @@ $empresa = $controle->selectAll();
 				</li>
 			</ul>
 			
-			
-			
-			
 		</div>
+
+		
 		<div class="row center">
 
 			<ul>
@@ -103,7 +99,6 @@ $empresa = $controle->selectAll();
     </a>
 
 </div> -->
-
 
 
 

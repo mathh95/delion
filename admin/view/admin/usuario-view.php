@@ -317,6 +317,14 @@
                                         </label>
                                     </li>
 
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="gerenciar_fidelidade" name="permissoes[]" value="gerenciar_fidelidade"> Gerenciar Fidelidade
+
+                                        </label>
+                                    </li>
+
                                 </ul>
 
                             </div>
