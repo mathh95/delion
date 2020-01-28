@@ -32,6 +32,8 @@ body{
                 width: 100%;
                 img{
                     width: 26%;
+                    max-width: 65px;
+                    max-height: 65px;
                 }
             }
             >.voltar{
@@ -79,8 +81,11 @@ body{
                     height: 72px;
                     margin-top: 55px;
                     width: 100%;
+                    max-width: 72px;
+                    max-height: 72px;
                     #logo{
                         width: 100%;
+                        
                         
                     }
                 }    
@@ -90,6 +95,8 @@ body{
                justify-content: center;
                .ponto_fidelidade{
                 width: 100%;
+                max-width: 190px;
+                max-height: 40px;
                }
            }
             
@@ -181,6 +188,7 @@ body{
         background-color: #feaf0a;
         text-align: center;
         height: auto;
+        padding: 0;
         .titulo-pontos{
             font-weight: bold;
             color: #8f4b00;
@@ -189,12 +197,13 @@ body{
         }
 
         .btn-wrapper{
-            text-align: center;
+            justify-content: center;
             height: auto;
             display: flex;
+            flex-wrap: wrap;
             margin: 0 auto;
-            padding: 20px;
             width: 100%;
+            height: auto;
 
             >button{
                 background-color:#feaf0a;
@@ -218,20 +227,25 @@ body{
             }
         }
         .produtos-pontos{
-            display: inline-flex;
-            justify-content: space-evenly;
-            flex-direction: row;
+            display: flex;
+            justify-content: center;
+            // flex-wrap: wrap;
+            flex-direction: column;
+            padding: 20px;
             .produto{
                 height: auto;
                 border-radius: 20px;
                 img{
-                    width: 90%;
+                    width: 60%;
                     padding: 10px;
                     border-radius: 15px;
                 }
                 h2{
                     font-weight: bold;
                     color: #FFFFFF;
+                    margin-top: -20px;
+                    padding-bottom: 20px;
+                    font-size: 15px;
                 }
             }
         }

@@ -372,7 +372,7 @@ async defer></script>
 
 
 <script>
-
+	//flickity.js para slider da home page na imagem do topo
 	$('.main-carousel').flickity({
 		fade: true,
 		autoPlay: 3000,
@@ -381,7 +381,7 @@ async defer></script>
 		prevNextButtons: false,
 		pageDots: false
 	});
-
+	//modal cep
 	$("#cepModal").on("shown.bs.modal", function () {
 		$("#street_number").focus();
 	});
