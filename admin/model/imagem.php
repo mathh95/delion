@@ -43,28 +43,24 @@
             $paginas=json_decode($this->ima_pagina);
             $tela = "";
             foreach ($paginas as $pagina) {
-                if ($pagina == "inicialInferior") {
-                    $tela .= "Inicial Inferior</br>";
-                } elseif ($pagina == "inicialSuperior") {
-                    $tela .= "Inicial Superior</br>";
-                } elseif ($pagina == "inicialEvento") {
-                    $tela .= "Inicial Evento</br>";
-                } elseif ($pagina == "localizacao") {
-                    $tela .= "Localização</br>";
-                }elseif ($pagina == "cardapio") {
-                    $tela .= "Cardápio</br>";
-                }elseif ($pagina == "historia") {
-                    $tela .= "História</br>";
-                }elseif ($pagina == "homeQuemSomos") {
-                    $tela .= "Quem Somos</br>";
+                if ($pagina == "homeTopo") {
+                    $tela .= "[Homepage] Imagem Topo</br>";
+                } elseif ($pagina == "homeLogo") {
+                    $tela .= "[Homepage] Imagem Logo</br>";
+                } elseif ($pagina == "homeQuemSomos") {
+                    $tela .= "[Homepage] Imagem Quem Somos</br>";
+                } elseif ($pagina == "homeFidelidade") {
+                    $tela .= "[Homepage] Imagem Fidelidade</br>";
                 }elseif ($pagina == "homeEventos") {
-                    $tela .= "Eventos</br>";
-                }elseif ($pagina == "homeFidelidade") {
-                $tela .= "Fidelidade</br>";
-                }elseif ($pagina == "homeTopo") {
-                $tela .= "Topo</br>";
-                }elseif ($pagina == "homeLogo") {
-                $tela .= "Logo</br>";
+                    $tela .= "[Homepage] Imagem Eventos</br>";
+                }elseif ($pagina == "contato") {
+                    $tela .= "[Contato] Imagem Contato</br>";
+                }elseif ($pagina == "sobre") {
+                    $tela .= "[Sobre] Imagem Sobre</br>";
+                }elseif ($pagina == "historia") {
+                    $tela .= "[História] Imagem História</br>";
+                }else if ($pagina == ""){
+                    $tela .= "Imagem não vinculada</br>";
                 }else {
                     $tela .= ucfirst($pagina)."</br>";
                 }

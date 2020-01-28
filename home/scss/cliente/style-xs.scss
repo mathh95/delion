@@ -56,11 +56,17 @@ body{
     }
     > .cliente {
         padding-top: 25px;
-        padding-bottom: 5px;
+        padding-bottom: 10px;
         height: auto;
-        min-height: 620px;
+        // min-height: 620px;
         position: relative;
         > .solicitacao {
+            #cadastro-fidelidade-form{
+
+                h4{
+                    text-align:center;
+                }
+            }
             @include make-sm-column(12);
             padding-right: 10px;
             padding-left: 10px;

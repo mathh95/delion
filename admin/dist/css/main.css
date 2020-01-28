@@ -504,3 +504,12 @@ Pagination
         page-break-after: avoid;
     }
 }
+
+body{
+  position: relative;
+  min-height: 100vh;
+}
+
+body>.container-fluid{
+  padding-bottom: 2.5rem;
+}

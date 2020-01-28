@@ -76,8 +76,8 @@ if(in_array('cliente', $permissao)){
 			</tr>";
 		}
 }
-echo "</tbody></table>";
 }
+echo "</tbody></table>";
 
 
 ?>

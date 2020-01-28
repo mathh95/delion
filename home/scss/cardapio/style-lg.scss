@@ -215,7 +215,7 @@ body,html{
             > .descricao {
                 @include make-lg-column(12);
                 // padding-left: 0px;
-                // padding-right: 0px;
+                padding-right: 0px;
                 display: flex;
                 justify-content: space-between;
                 > .titulo {
@@ -238,6 +238,7 @@ body,html{
                 }
                 >#preco-add{
                     @include make-lg-column(6);
+                    padding-right: 0px;
                 }
                 >#preco-add>.preco{
                     @include make-lg-column(6);

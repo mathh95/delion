@@ -9,18 +9,10 @@
 
 	include_once "controler/controlImagem.php";
 
-	$controleEmpresa=new controlerEmpresa(conecta());
-
+	$controleEmpresa = new controlerEmpresa(conecta());
 	$empresa = $controleEmpresa->select(1,2);
-
-	$controleBanner=new controlerBanner(conecta());
-
-	$miniBanners = $controleBanner->selectAllMini();
-
-	$banners = $controleBanner->selectAll();
-
-	$controleImagem=new controlerImagem(conecta());
-
+	
+	$controleImagem = new controlerImagem(conecta());
 	$imagens = $controleImagem->selectAll();
 
 	//configuração de acesso ao WhatsApp 
@@ -60,64 +52,6 @@
 	<div class="container mapa">
 
 		<iframe src="https://maps.google.com/maps?q=delion%20caf%C3%A9%20jorge%20sanwais&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" style="border:0" allowfullscreen></iframe>
-
-	</div>
-
-	<div class="container imagens">
-
-	<?php
-
-	$j = 0;
-
-	foreach ($miniBanners as $miniBanner) {
-
-		$pagina = json_decode($miniBanner->getPagina());
-
-		if (in_array('localizacao', $pagina) && ($j < 3) ) {
-
-		echo"
-
-		<div>
-
-			<div class='imagem'>
-
-				<img src='../admin/".$miniBanner->getFoto()."'>
-
-			</div>
-
-		</div>
-
-		";
-
-		$j++;
-
-		}
-
-	}
-
-	?>
-
-	</div>
-
-	<div class="container banner hidden-xs visible-sm-* visible-md-* visible-lg-* visible-xl-*">
-
-	<?php 
-
-		foreach ($banners as $banner) {
-
-			$pagina = json_decode($banner->getPagina());
-
-			if (in_array('localizacao', $pagina)) {
-
-				echo "<img src='../admin/".$banner->getFoto()."'>";
-
-				break;
-
-			}
-
-		}
-
-	?>
 
 	</div>
 

@@ -27,7 +27,8 @@
             </div>
         </div>
     </div>
-    <?php include VIEWPATH."/rodape.html" ?>
+
+
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
         function removeFormaPgt(formaPgt){
@@ -47,5 +48,10 @@
             );
         }
     </script>
+
+
 </body>
+
+<?php include VIEWPATH."/rodape.html" ?>
+
 </html>

@@ -5,5 +5,5 @@
         $_SESSION['cod_endereco'] = $_GET['endereco'];
     }else{
         $_SESSION['cod_endereco'] = '';
-    }
+    }   
 ?>

@@ -4,6 +4,7 @@ include_once CONTROLLERPATH."/seguranca.php";
 include_once CONTROLLERPATH."/controlUsuario.php";
 include_once CONTROLLERPATH."/controlFormaPgt.php";
 include_once MODELPATH."/usuario.php";
+
 protegePagina();
 
 $controle=new controlerFormaPgt($_SG['link']);
@@ -68,7 +69,8 @@ if(in_array('forma_pgto', $permissao)){
             <td style='text-align: center;' name='nome'>".$formaPgt->getNome()."</td>
 	    <td style='text-align: center;' name='flag_ativo'>".($formaPgt->getFlag_ativo() == 1)?"Ativo":"Inativo"."</td> 	
         </tr>";
+	}
 }
 echo "</tbody></table>";
-}
+
 ?>

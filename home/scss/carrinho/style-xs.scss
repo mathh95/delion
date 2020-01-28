@@ -82,7 +82,7 @@ body{
     > .itens {
         padding-left: 0 !important;
         padding-right: 0 !important;
-        min-height: 620px;
+        // min-height: 620px;
         >.carrinhoVazio{
             > .imagemCarrinhoVazio{
                 // text-align: center;
@@ -315,13 +315,6 @@ body{
                 text-align: center;
                 #infoDelivery{
                     margin-top: 5px;
-                    
-                }
-                #infoDeliverySemEndereco{
-                    display: block;
-                    width: 60%;
-                    padding-right: 10px !important;
-                    padding-left: 10px !important;
                 }
                 #infoBalcao{
                     margin-top: 5px;
@@ -359,6 +352,9 @@ body{
                         }
                     }
                 }
+            }
+            #infoDeliverySemEndereco{
+                margin-left: 10px;
             }
         } 
     }

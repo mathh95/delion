@@ -9,26 +9,10 @@
 	}
 
 	include_once "../admin/controler/conexao.php";
-
 	include_once "controler/controlEmpresa.php";
 
-	include_once "controler/controlBanner.php";
-
-	include_once "controler/controlImagem.php";
-
-	$controleEmpresa=new controlerEmpresa(conecta());
-
+	$controleEmpresa = new controlerEmpresa(conecta());
 	$empresa = $controleEmpresa->select(1,2);
-
-	$controleBanner=new controlerBanner(conecta());
-
-	$miniBanners = $controleBanner->selectAllMini();
-
-	$banners = $controleBanner->selectAll();
-
-	$controleImagem=new controlerImagem(conecta());
-
-	$imagens = $controleImagem->selectAll();
 
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
@@ -193,7 +177,13 @@
 					if (res == -1){
 						swal("Não foi possível efetuar login!", "erro!", "error").then((value) => {window.location="/home/login.php"});
 					}else{
-						swal("Login efetuado com sucesso!", "Bem vindo!", "success").then((value) => {window.location="/home/cardapio.php"});
+						swal({
+							title: "Bem vindo!",
+							text: "Bom proveito :)...",
+							icon: "success",
+							timer: 1000,
+							buttons: false
+						}).then((value) => {window.location="/home/cardapio.php"});
 					}
 				}
 			});
@@ -280,7 +270,13 @@
 							if (res == -1){
 								swal("Não foi possível efetuar login!", "erro!", "error").then((value) => {window.location="/home/login.php"});
 							}else{
-								swal("Login efetuado com sucesso!", "Bem vindo!", "success").then((value) => {window.location="/home/cardapio.php"});
+								swal({
+									title: "Bem vindo!",
+									text: "Bom proveito :)...",
+									icon: "success",
+									timer: 1000,
+									buttons: false
+								}).then((value) => {window.location="/home/cardapio.php"});
 							}
 						}
 					});

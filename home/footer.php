@@ -89,21 +89,11 @@ $empresa = $controle->selectAll();
 		</div>
 
 </footer>
-<div class="container-fluid rodape">
 
-        <div class="container">
+<?php
+	include_once "./rodapeKionux.php";
+?>
 
-            <div>Todos os direitos reservados a Delion Café</div>
-
-            <div>
-
-                <div>Desenvolvido por Kionux Soluções em Internet <a href="http://www.kionux.com.br"><img src="img/kionuxsite.png" alt=""></a></div>
-
-            </div>
-
-        </div>
-
-    </div>
 <!-- <div class="whatsapp">
 
     <a href="">
@@ -113,6 +103,9 @@ $empresa = $controle->selectAll();
     </a>
 
 </div> -->
+
+
+
 
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -174,16 +167,24 @@ $empresa = $controle->selectAll();
         });
     }
 
-    function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-            swal("Deslogado!", "Obrigado pela visita!!", "error").then((value) => {window.location="/home/logout.php"});
-        });
-    }
-
 
     function deslogar(){
-        swal("Deslogado!", "Obrigado pela visita!!", "error").then((value) => {window.location="/home/logout.php"});
+
+		swal({
+			title: "Deslogado!",
+			text: "Obrigado pela visita :)...",
+			icon: "info",
+			timer: 1100,
+			buttons: false
+		}).then((value) => {
+			//Google sign out
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function () {
+				// console.log('Google signed out.');
+			});
+
+			window.location = "/home/logout.php";
+		});
     }
 
     $(document).ready(function(){

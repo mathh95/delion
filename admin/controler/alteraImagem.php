@@ -16,15 +16,10 @@
 		}
 		$cod_imagem= addslashes(htmlspecialchars($_POST['cod']));
 		$nome= addslashes(htmlspecialchars($_POST['nome']));
-		$pagina = array();
-		for ($i=1; $i <= 14; $i++) { 
-			if (!empty($_POST[$i."pagina"])) {
-				array_push($pagina, addslashes(htmlspecialchars($_POST[$i."pagina"])));
-			}
-		}
-		$pagina = json_encode($pagina);
-		if (isset($_POST['pagina'])) {
-	    	$pagina= $_POST['pagina'];
+		if(isset($_POST['paginas']) && !empty($_POST['paginas'])){
+			$arr_paginas = json_encode($_POST['paginas']);
+		}else{
+			$arr_paginas = "";
 		}
 		if (!empty($_FILES['arquivo']['name'])) {
 	   		$anexo = addslashes(htmlspecialchars($_POST['imagem']));
@@ -34,7 +29,7 @@
 			$foto = addslashes(htmlspecialchars($_POST['imagem']));
 		}
 		$imagem= new imagem();
-		$imagem->construct($nome, $foto, $pagina);
+		$imagem->construct($nome, $foto, $arr_paginas);
 		$imagem->setPkId($cod_imagem);
 		$controle=new controlerImagem($_SG['link']);
 		if($controle->update($imagem)> -1){

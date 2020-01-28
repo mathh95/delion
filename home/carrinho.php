@@ -3,16 +3,13 @@
 	session_start();
 
 	include_once "../admin/controler/conexao.php";
-
 	include_once "controler/controlEmpresa.php";
-
 	include_once "controler/controlCategoria.php";
-
 	include_once "controler/controlImagem.php";
 
-	$controleEmpresa=new controlerEmpresa(conecta());
+	$controleEmpresa = new controlerEmpresa(conecta());
 
-	$controleCategoria=new controlerCategoria(conecta());
+	$controleCategoria = new controlerCategoria(conecta());
 
 	$empresa = $controleEmpresa->select(1,2);
 

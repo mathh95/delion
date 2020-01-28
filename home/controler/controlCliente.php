@@ -12,7 +12,7 @@
                     $cpf = $cliente->getCpf();
                     $data_nasc = $cliente->getData_nasc();
                     $login = $cliente->getLogin();
-                    $senha = hash_hmac("md5" , $cliente->getSenha(), "senha");
+                    $senha = hash_hmac("sha256" , $cliente->getSenha(), HASHKEY);
                     $telefone = $cliente->getTelefone();
                     $status = $cliente->getStatus();
 
@@ -129,6 +129,36 @@
                         return -1;
                     }
 
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function completarCadastro($cliente){
+                try{
+                    $cli_pk_id = $cliente->getPkId();
+                    $cpf = $cliente->getCpf();
+                    $data_nasc = $cliente->getData_nasc();
+                    $telefone = $cliente->getTelefone();
+                    
+                    $stmt=$this->pdo->prepare("UPDATE tb_cliente
+                    SET cli_cpf=:cpf, cli_data_nasc=:data_nasc, cli_telefone=:telefone
+                    WHERE cli_pk_id=:pk_id");
+
+                    $stmt->bindParam(":pk_id", $cli_pk_id, PDO::PARAM_INT);
+                    $stmt->bindParam(":cpf", $cpf, PDO::PARAM_INT);
+                    $stmt->bindParam(":data_nasc", $data_nasc, PDO::PARAM_STR);
+                    $stmt->bindParam(":telefone", $telefone, PDO::PARAM_STR);
+
+                    $executa = $stmt->execute();
+
+                    if ($executa){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
                 }
                 catch(PDOException $e){
                     echo $e->getMessage();
@@ -604,13 +634,14 @@
                             $result=$stmt->fetch(PDO::FETCH_OBJ);
                             $senhah=$result->cli_senha;
                             $status = $result->cli_status;
-                            $senha=hash_hmac("md5",$senha, "senha");                            
+                            $senha=hash_hmac("sha256",$senha, HASHKEY);                            
                             if(hash_equals($senha,$senhah) && $status == 1){
                                 $_SESSION['cod_cliente']=$result->cli_pk_id;
                                 $_SESSION['nome']=$result->cli_nome;
                                 $_SESSION['sobrenome']=$result->cli_sobrenome;
                                 $_SESSION['login']=$result->cli_login_email;
                                 $_SESSION['telefone']=$result->cli_telefone;
+                                $_SESSION['data_nasc']=$result->cli_data_nasc;
                                 $_SESSION['cod_status_cliente']=$result->cli_status;
                                 
                                 return 2;
@@ -647,6 +678,8 @@
                                     $_SESSION['sobrenome']=$result->cli_sobrenome;
                                     $_SESSION['login']=$result->cli_login_email;
                                     $_SESSION['telefone']=$result->cli_telefone;
+                                    $_SESSION['data_nasc']=$result->cli_data_nasc;
+                                    $_SESSION['cod_status_cliente']=$result->cli_status;
                                     return 2;
                                 }else{
                                     return 1;
@@ -659,6 +692,8 @@
                                     $_SESSION['sobrenome']=$result->cli_sobrenome;
                                     $_SESSION['login']=$result->cli_login_email;
                                     $_SESSION['telefone']=$result->cli_telefone;
+                                    $_SESSION['data_nasc']=$result->cli_data_nasc;
+                                    $_SESSION['cod_status_cliente']=$result->cli_status;
                                     return 2;
                                 }else{
                                     return 1;
@@ -676,8 +711,8 @@
             function updateSenha($cli_pk_id, $senha, $novaSenha){
                 try{       
                     $cliente=new cliente;
-                    $senha = hash_hmac("md5", $senha, "senha");
-                    $novaSenha = hash_hmac("md5", $novaSenha, "senha");         
+                    $senha = hash_hmac("sha256", $senha, HASHKEY);
+                    $novaSenha = hash_hmac("sha256", $novaSenha, HASHKEY);         
                     $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_pk_id=:parametro");
                     $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);
                     $executa=$stmt->execute();
@@ -720,7 +755,7 @@
 
             function updateSenhaEsquecida($cli_pk_id, $novaSenha){
                 try{       
-                    $novaSenha = hash_hmac("md5", $novaSenha, "senha");
+                    $novaSenha = hash_hmac("sha256", $novaSenha, HASHKEY);
 
                     $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_pk_id=:parametro");
                     $stmt->bindParam(":parametro", $cli_pk_id, PDO::PARAM_INT);

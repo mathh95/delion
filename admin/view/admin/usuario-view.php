@@ -361,19 +361,7 @@
 
         </div>
 
-        <footer>
-
-            <div class="col-md-12">
-
-                <div class="row">
-
-                    <img src="../../img/Kionux_1.jpg" class="img-responsive" alt="" />
-
-                </div>
-
-            </div>
-
-        </footer>
+        
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 

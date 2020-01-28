@@ -35,7 +35,6 @@
             </div>
         </div>
     </div>
-    <?php include VIEWPATH."/rodape.html" ?>
 
     <script src="../../js/alert.js"></script>
     
@@ -74,4 +73,7 @@
         });
     </script>
 </body>
+
+<?php include VIEWPATH."/rodape.html" ?>
+
 </html>

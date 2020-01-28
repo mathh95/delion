@@ -100,23 +100,16 @@
 
                             <small>Foto:<br/> 
 
-                                <span style="color:red">(Tamanho 898[largura] x 505[altura] para imagens da página História e Contato.) </span><br/>
-
-                                <span style="color:red">(Tamanho 1058[largura] x 455[altura] para imagens da página Sobre.) </span><br/>
-
-                                <span style="color:red">(Tamanho 855[largura] x 453[altura] para imagens da página Inicial.) </span><br/>
-
-                                <span style="color:red">(Utilizar uma imagem no formato (.png) ou (.jpg). ) </span>
+                               <span style="color:red">(Utilizar uma imagem no formato (.png) ou (.jpg). ) </span>
 
                             </small>
-
-                            <input type="file" name="arquivo" id ="arquivo">
+                            <input type="file" name="arquivo" id ="arquivo" required="">
 
                             <br>
 
-                            <small>Página (Página onde a imagem será utilizada)</small>
+                            <small>[Página] - Posição</small>
 
-                            <div class="checkbox">
+                            <div class="checkbox" style="font-size: 14px">
 
                                 <ul>
 
@@ -124,7 +117,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="inicialCardapio" name="1pagina" value="inicialCardapio">Página inicial Cardápio
+                                            <input type="checkbox" id="homeTopo" name="paginas[]" value="homeTopo">[Homepage] - (Imagem) Topo <small><span style="color:red">*Proporção sugerida 1410[largura] x 500[altura] </span><br/></small>
 
                                         </label>
 
@@ -134,7 +127,18 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="inicialEvento" name="2pagina" value="inicialEvento">Página inicial Eventos
+                                            <input type="checkbox" id="homeLogo" name="paginas[]" value="homeLogo">[Homepage] - (Imagem) Logo Topo <small><span style="color:red">*Proporção sugerida 230[largura] x 230[altura] </span><br/></small>
+
+                                        </label>
+
+                                    </li>
+
+                                    <li style="white-space: nowrap">
+
+                                        <label>
+
+                                            <!-- <input type="checkbox" id="contato" name="paginas[]" value="contato">Contato -->
+                                            <input type="checkbox" id="homeQuemSomos" name="paginas[]" value="homeQuemSomos">[Homepage] - (Imagem) Quem Somos <small><span style="color:red">*Proporção sugerida 460[largura] x 460[altura] </span><br/></small>
 
                                         </label>
 
@@ -144,7 +148,8 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="inicialPedido" name="3pagina" value="inicialPedido">Página inicial Pedido
+                                            <!-- <input type="checkbox" id="popUp" name="paginas[]" value="popUp">Pop Up inicial -->
+                                            <input type="checkbox" id="homeEventos" name="paginas[]" value="homeEventos">[Homepage] - (Imagem) Eventos <small><span style="color:red">*Proporção sugerida 460[largura] x 460[altura] </span><br/></small>
 
                                         </label>
 
@@ -154,7 +159,8 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="inicialCartaoFidelidade" name="4pagina" value="inicialCartaoFidelidade">Página inicial Cartão Fidelidade
+                                            <!-- <input type="checkbox" id="homeQuemSomos" name="paginas[]" value="homeQuemSomos">Quem Somos -->
+                                            <input type="checkbox" id="homeFidelidade" name="paginas[]" value="homeFidelidade">[Homepage] - (Imagem) Fidelidade <small><span style="color:red">*Proporção sugerida 460[largura] x 460[altura] </span><br/></small>
 
                                         </label>
 
@@ -164,97 +170,28 @@
 
                                         <label>
 
-                                            <input type="checkbox" id="sobre" name="5pagina" value="sobre">Sobre
+                                        <input type="checkbox" id="contato" name="paginas[]" value="contato">[Contato] - (Imagem) Contato <small><span style="color:red">*Proporção sugerida 567[largura] x 319[altura] </span><br/></small> 
 
                                         </label>
 
                                     </li>
 
+
                                     <li>
 
                                         <label>
 
-                                            <input type="checkbox" id="historia" name="6pagina" value="historia">História
+                                            <input type="checkbox" id="sobre" name="paginas[]" value="sobre">[Sobre] - (Imagem) Sobre <small><span style="color:red">*Proporção sugerida 668[largura] x 287[altura] </span><br/></small>
 
                                         </label>
 
                                     </li>
 
-                                    <li>
+                                        <li>
 
                                         <label>
 
-                                            <input type="checkbox" id="contato" name="7pagina" value="contato">Contato
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="cardapio" name="8pagina" value="cardapio">Página do cardápio
-
-                                        </label>    
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="popUp" name="9pagina" value="popUp">Pop Up inicial
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="homeQuemSomos" name="10pagina" value="homeQuemSomos">Quem Somos
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="homeEventos" name="11pagina" value="homeEventos">Eventos
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="homeFidelidade" name="12pagina" value="homeFidelidade">Fidelidade
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="homeTopo" name="13pagina" value="homeTopo">Topo Home
-
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-
-                                        <label>
-
-                                            <input type="checkbox" id="homeLogo" name="14pagina" value="homeLogo">Logo Home
+                                            <input type="checkbox" id="historia" name="paginas[]" value="historia">[História] - (Imagem) História <small><span style="color:red">*Proporção sugerida 567[largura] x 319[altura] </span><br/></small>
 
                                         </label>
 
@@ -300,37 +237,10 @@
 
         </div>
 
-        <footer>
-
-            <div class="col-md-12">
-
-                <div class="row">
-
-                    <img src="../../img/Kionux_1.jpg" class="img-responsive" alt="" />
-
-                </div>
-
-            </div>
-
-        </footer>
+        
 
         <?php include VIEWPATH."/rodape.html" ?>
 
-        <script>
-
-            var pagina =   <?=$p?>;
-
-            $( document ).ready(function() {
-
-                for(let value of pagina){
-
-                    $('#' + value).attr('checked', true);
-
-                }
-
-            })
-
-        </script>
 
     </body>
 

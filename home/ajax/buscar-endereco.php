@@ -11,11 +11,6 @@ include_once "../controler/controlEndereco.php";
 
 $controleEndereco = new controlEndereco(conecta());
 
-if (isset($_SESSION['flag_combo']) && !empty($_SESSION['flag_combo'])) {
-    $flag = $_SESSION['flag_combo'];
-} else {
-    $flag = 0;
-}
 
 $_SESSION['tipoEndereco'] = $_GET['tipo'];
 $cod_cliente = $_SESSION['cod_cliente'];
@@ -32,37 +27,41 @@ if ($tipo == 'ativo') {
     if ($enderecos < 1) {
         echo "<p> Não existem endereços registrados</p>";
     } else {
+
         if($flag_selecionar_end){
+            echo "<p> Endereço para Entrega </p>";
+        }else{
             echo "<p> Endereços Cadastrados </p>";
-            foreach ($enderecos as $endereco) {
+        }
+
+        
+        foreach ($enderecos as $endereco) {
+            
+            if($flag_selecionar_end){
+
                 echo "<div class='item'>
-                        <label> Rua: <strong>" . $endereco->logradouro . "</strong></label>
-                        <button class='btn btn-success pull-right' onclick='selecionarEndereco(" . $endereco->getPkId() . "," . $flag . ")' > SELECIONAR </button>
-                        <div>
-                        <label> Cep: " .  mask_cep($endereco->cep) . "</label>
-                        <label> Número: " . $endereco->getNumero() . "</label>
-                        <label> Bairro: " . $endereco->bairro . "</label>
-                        </div>
-                        <label> Complemento: " . $endereco->getComplemento() . "</label>
-                    </div>
-                ";
-            }
-        } else {
-            echo "<p> Endereços Cadastrados </p>";
-            foreach ($enderecos as $endereco) {
+                    <button class='btn btn-lg btn-success pull-right' onclick='selecionarEndereco(". $endereco->getPkId() .")'> SELECIONAR </button>";
+            
+            }else{
                 echo "<div class='item'>
-                        <label> Rua: <strong>" . $endereco->logradouro . "</strong></label>
-                        <button class='btn btn-danger pull-right' onclick='excluirEndereco(" . $endereco->getPkId() . ")' > X </button>
-                        <button class='btn btn-warning pull-right' onclick='alterarEndereco(" . $endereco->getPkId() . ")' > ALTERAR </button>
-                        <div>
-                        <label> Cep: " . mask_cep($endereco->cep) . "</label>
-                        <label> Número: " . $endereco->getNumero() . "</label>
-                        <label> Bairro: " . $endereco->bairro . "</label>
-                        </div>
-                        <label> Complemento: " . $endereco->getComplemento() . "</label>
-                    </div>
-                ";
+                    <button class='btn btn-danger pull-right' title='Excluir!' onclick='excluirEndereco(" . $endereco->getPkId() . ")' > X </button>
+                    <button class='btn btn-warning pull-right' onclick='alterarEndereco(" . $endereco->getPkId() . ")' > ALTERAR </button>";
             }
+
+            echo 
+                "<span><b>CEP: </b>".mask_cep($endereco->cep)." </span>
+                <br>
+                <span><b>End.: </b>". $endereco->logradouro.", ".$endereco->getNumero()." </span>
+                <br>
+                <span><b>Bairro: </b>".$endereco->bairro." </span>
+                <br>
+                <span><b>Cidade: </b>".$endereco->cidade." </span>
+                <br>
+                <span><b>Complemento: </b>".$endereco->getComplemento()."</span>
+                <br>
+                <span><b>Ponto de Referência: </b>".$endereco->getReferencia()."</span>
+                <br>
+                </div>";
         }
     }
 

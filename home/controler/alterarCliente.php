@@ -29,7 +29,7 @@
     //-1 -> Telefones Diferentes
     if($resultFone < 0){                            
         if($resultDt >= 30){
-            $result=$control->updateDate($cliente);
+            $result = $control->updateDate($cliente);
             alertJSVoltarPagina("Sucesso!","Os dados foram alterados!",1);
         }else{
             alertJSVoltarPagina("Erro!","Não é possível alterar todos os dados, o telefone foi alterado nos últimos trinta dias!",1);
