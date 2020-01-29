@@ -5,8 +5,8 @@
     include_once CONTROLLERPATH."/seguranca.php";
     include_once "../admin/controler/conexao.php";
     include_once "controler/controlEmpresa.php";
-    include_once "controler/controlBanner.php";
-    include_once "controler/controlImagem.php";
+    include_once CONTROLLERPATH."/controlProduto.php";
+    include_once MODELPATH."/produto.php";
 
     $_SESSION['permissaoPagina']=0;
 
@@ -15,12 +15,8 @@
     $controleEmpresa=new controlerEmpresa(conecta());
     $empresa = $controleEmpresa->select(1,2);
 
-    $controleBanner=new controlerBanner(conecta());
-    $miniBanners = $controleBanner->selectAllMini();
-    $banners = $controleBanner->selectAll();
+    $controle = new controlerProduto($_SG['link']);
 
-    $controleImagem=new controlerImagem(conecta());
-    $imagens = $controleImagem->selectAll();
 
     //configuração de acesso ao WhatsApp 
     // include "./whats-config.php";
@@ -193,213 +189,176 @@
                 </button>
             </div>
 
+
+
+
             <div class="produtos-pontos produto-30pts" style="display: none;">
 
                 <!-- Produtos botao 30 pontos -->
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE AAA123123</h2>
-                </div>
+                <?php
+                
+                $produtos = $controle->selectAllByPtsResgate(30);
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE AAA123123</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE AAA123123</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE AAA123123</h2>
-                </div>
+                ?>
 
             </div>
             
             <div class="produtos-pontos produto-50pts" style="display: none;">
 
                 <!-- Produtos botao 50 pontos -->
+                <?php
+                
+                $produtos = $controle->selectAllByPtsResgate(50);
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 2</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 2</h2>
-                </div>
+                ?>
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 2</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 2</h2>
-                </div>
 
             </div>
 
             <div class="produtos-pontos produto-80pts" style="display: none;">
 
                 <!-- Produtos botao 80 pontos -->
+                <?php
+                
+                $produtos = $controle->selectAllByPtsResgate(80);
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 80</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 80</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 80</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 80</h2>
-                </div>
+                ?>
 
             </div>
 
             <div class="produtos-pontos produto-90pts" style="display: none;">
 
                 <!-- Produtos botao 90 pontos -->
+                <?php
+                
+                $produtos = $controle->selectAllByPtsResgate(90);
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 90</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 90</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 90</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 90</h2>
-                </div>
+                ?>
 
             </div>
 
             <div class="produtos-pontos produto-120pts" style="display: none;">
 
                 <!-- Produtos botao 120 pontos -->
+                <?php
+                
+                $produtos = $controle->selectAllByPtsResgate(120);
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 120</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 120</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 120</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 120</h2>
-                </div>
+                ?>
 
             </div>
 
             <div class="produtos-pontos produto-200pts" style="display: none;">
 
                 <!-- Produtos botao 200 pontos -->
+                <?php
+                
+                $produtos = $controle->selectAllByPtsResgate(200);
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 200</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 200</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 200</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 200</h2>
-                </div>
+                ?>
 
             </div>
             
             <div class="produtos-pontos produto-220pts" style="display:none;">
                 <!-- Produtos botao 220 pontos -->
+                <?php
+                
+                $produtos = $controle->selectAllByPtsResgate(220);
 
-                <div class="produto" >
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 220</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 220</h2>
-                </div>
+                ?>
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 220</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 220</h2>
-                </div>
 
             </div>
 
             <div class="produtos-pontos produto-250pts" style="display:none;">
                 <!-- Produtos botao 250 pontos -->
+                <?php
+                
+                $produtos = $controle->selectAllByPtsResgate(250);
 
-                <div class="produto ">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 250</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto " >
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 250</h2>
-                </div>
-
-                <div class="produto" >
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 250</h2>
-                </div>
-
-                <div class="produto " >
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 250</h2>
-                </div>
+                ?>
 
             </div>
 
         </div>
     </div>
+
+
+
+
+
 
     <div class="container-fluid funcionamento-programa">
         <div class="container">

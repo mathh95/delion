@@ -548,8 +548,8 @@
 
                             <ul class="dropdown-menu">
 
-                                <li><a href="fidelidade.php">Gerenciar Programa</a></li>
-                                <li><a href="cadastrarFidelidade.php">Cadastrar Produto</a></li>
+                                <li><a href="gerenciarFidelidade.php">Gerenciar Programa</a></li>
+                                <li><a href="cadastrarFidelidade.php">Adicionar Produto</a></li>
                                 <li><a href="listarFidelidade.php">Listar Produtos</a></li>
 
                             </ul>
