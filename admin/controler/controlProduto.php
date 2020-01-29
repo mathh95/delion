@@ -7,6 +7,7 @@
 
     class controlerProduto {
         private $pdo;
+
         function insert($produto){
 
             try{
@@ -131,6 +132,52 @@
                         $result = $stmte->fetch(PDO::FETCH_OBJ);
 
                         $produto= new produto();
+                        $produto->setPkId($result->pro_pk_id);
+                        $produto->setNome($result->pro_nome);
+                        $produto->setPreco($result->pro_preco);
+                        $produto->setDesconto($result->pro_desconto);
+                        $produto->setDescricao($result->pro_descricao);
+                        $produto->setFoto($result->pro_foto);
+                        $produto->setFlag_ativo($result->pro_flag_ativo);
+                        $produto->setFlag_servindo($result->pro_flag_servindo);
+                        $produto->setPrioridade($result->pro_flag_prioridade);
+                        $produto->setDelivery($result->pro_flag_delivery);
+                        $produto->setPosicao($result->pro_posicao);
+                        $produto->setDias_semana($result->pro_arr_dias_semana);
+
+                        $produto->setCategoria($result->pro_fk_categoria);
+
+                        $produto->setFkFaixaHorario($result->pro_fk_faixa_horario);
+                        $produto->setProduto_horas_inicio($result->faho_inicio);
+                        $produto->setProduto_horas_final($result->faho_final);
+                    }
+                }
+
+                return $produto;
+            }
+            catch(PDOException $e){
+
+                echo $e->getMessage();
+            }
+        }
+
+        function selectAllByFidelidade($fk_fidelidade=1){
+
+            try{
+
+                $stmte = $this->pdo->prepare("SELECT *
+                FROM tb_produto AS PRO
+                INNER JOIN tb_fidelidade AS FID
+                ON PRO.pro_fk_fidelidade = FID.fid_pk_id
+                WHERE pro_pk_id = :pk_id");
+
+                $stmte->bindParam(":fk_fidelidade", $fk_fidelidade , PDO::PARAM_INT);
+
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        $result = $stmte->fetch(PDO::FETCH_OBJ);
+
+                        $produto = new produto();
                         $produto->setPkId($result->pro_pk_id);
                         $produto->setNome($result->pro_nome);
                         $produto->setPreco($result->pro_preco);
