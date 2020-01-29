@@ -91,20 +91,12 @@
 
 			</div>
 			
-		</div>		
-
-	
-
-	</div>
+		</div>
 
 	</div>
 
 	<!-- <div class="login_google container-fluid row">
-
 		<h1>Você pode logar pelo Google se preferir!</h1>
-
-		
-
 	</div> -->
 
 	<?php

@@ -138,8 +138,8 @@
                         <div class="col-md-9" style="max-height:400px; overflow-y:auto;">
                                                     
                             <?php
-                                $controle=new controlCliente($_SG['link']);
-                                $clientes = $controle->selectAllAtivos();
+                                $controle = new controlCliente($_SG['link']);
+                                $clientes = $controle->selectAllAtivosCountPedidos();
                             ?>
 
                             <table class="table table-hover">
@@ -151,6 +151,7 @@
                                     <th style='text-align: center;'>Sobrenome</th>
                                     <th style='text-align: center;'>Data Nasc.</th>
                                     <th style='text-align: center;'>Nº Pedidos</th>
+                                    <th style='text-align: center;'>Ultimo Pedido</th>
                                     <th style='text-align: center;'>Fidelidade</th>
                                     <th style='text-align: center;'>Enviar</th>
                                 </tr>
@@ -175,13 +176,14 @@
                                 
                                 <tr
                                     data-aniversario="<?=$aniversario?>"
-                                    data_ultimo_pedido=""
+                                    data_ultimo_pedido="<?=$cliente->ultimo_pedido?>"
                                 >       
                                 <td><?=$cliente->getNome()?></td>
                                 <td><?=$cliente->getSobrenome()?></td>
                                 <td><?=$nasc?></td>
-                                <td><?=1?></td>
-                                <td><?=99?></td>
+                                <td><?=$cliente->n_pedidos?></td>
+                                <td><?=$cliente->ultimo_pedido?></td>
+                                <td><?=floor($cliente->getPontosFidelidade())?></td>
                                 
                                 <td>
                                     <input type="hidden" name="cod_cli[]" value="<?=$cliente->getPkId()?>">
@@ -190,8 +192,8 @@
                                     type="hidden"
                                     name="telefone_cli[]"
                                     data-nasc="<?=$cliente->getData_nasc()?>"
-                                    data-numero_pedidos=""
-                                    data-fidelidade=""
+                                    data-numero_pedidos="<?=$cliente->n_pedidos?>"
+                                    data-fidelidade="<?=floor($cliente->getPontosFidelidade())?>"
                                     value="<?=$cliente->getTelefone()?>">
                                     
                                     <!-- passa keys por array para associação futura de -->

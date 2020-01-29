@@ -12,7 +12,7 @@
 	//include "./whats-config.php";
 
 	//Verifica se usuário já habilidato para o Programa
-	if($_SESSION['data_nasc'] == "") header("Location: /home/cadastroFidelidade.php");
+	if(!isset($_SESSION['data_nasc']) ||  $_SESSION['data_nasc'] == "") header("Location: /home/cadastroFidelidade.php");
 	//var_dump($_SESSION);
 ?>
 
