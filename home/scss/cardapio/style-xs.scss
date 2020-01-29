@@ -29,9 +29,9 @@ body{
             padding-left: 0;
             padding-right: 0;
             width: 100%;
-            height: 60px;
-            overflow-x: auto;
-            overflow-y: hidden;
+            height: auto;
+            overflow-x: visible;
+            overflow-y: visible;
             transition: all ease 750ms;
             // padding-top: 15px;
             > .menu-lateral {

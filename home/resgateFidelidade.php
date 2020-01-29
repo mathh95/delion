@@ -43,8 +43,36 @@
 	<?php
 		include_once "./navbar.php";
 	?>
-
 	
+	<div class="container-fluid main">
+		<div class="container">
+			<div class="resgate-main">
+				<h2>Programa de Fidelidade</h2>
+				<div class="pontos-info">
+					<p>
+						Produtos que você pode resgatar
+					</p>
+
+					<div class="pontos-wrapper">
+						<p>Você possui: <span>1044 pontos</span></p>
+						<p>Pontuação mínima: <span>30 pontos</span></p>
+					</div>
+
+				</div>
+
+				<div class="tabela-produtos">
+					<div class="produtos-titulo">
+						Produtos para resgate
+					</div>
+
+					<div class="btn-wrapper-resgate">
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
 
 	
 

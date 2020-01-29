@@ -25,19 +25,25 @@ body,html{
             // padding-bottom: 20px;
             // padding-top: 15px;
             width: 100%;
-            // @include make-lg-column(12);
+            overflow-x: auto;
+            overflow-y: auto;
+            transition: all ease 750ms;
             > .menu-lateral {
-                
                 // @include make-lg-column(12);
                 background-color: #ffffff;
                 width: 100%;
                 height: auto;
                 display: inline-flex;
                 flex-direction: row;
-                justify-content: center;
+                position: sticky;
+                z-index: 9999;
                 >ul.nav.nav-pills{
                         padding-left: 40px;
-                    >li{ 
+                        white-space: nowrap;
+                        transition: all ease 750ms;
+                        display: inline-flex;
+                    >li{
+                        display: inline-block; 
                         a.nav-link {
                             cursor: pointer; 
                             width: 100%;
