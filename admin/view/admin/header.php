@@ -558,6 +558,38 @@
                         <?php } ?>
 
 
+                        <?php
+                        //Gerenciar Fornecedores
+                        $permissao = json_decode($usuarioPermissao->getPermissao());
+                                 
+                        if(in_array('gerenciar_fornecedor', $permissao)){ ?>
+
+                        <li class="dropdown
+
+                            <?php
+                                //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
+                                if(strpos($arquivo_pai, 'Fornecedor') !== false || strpos($arquivo_pai, 'fornecedores') !== false){
+                                    echo 'active';
+                                }
+                            ?>  
+                        ">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Fornecedores <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+                                <li><a href="cadastrarFornecedor.php">Cadastrar Fornecedor</a></li>
+                                <li><a href="fornecedoresLista.php">Listar Fornecedores</a></li>
+                                <li><a href="cadastrarTipoFornecedor.php">Cadastrar Tipo de Fornecedor</a></li>
+                                <li><a href="tipoFornecedoresLista.php">Listar Tipos de Fornecedores</a></li>
+                                <li><a href="cadastrarPedidoFornecedor.php">Cadastrar Pedido p/ Fornecedor</a></li>
+                                <li><a href="pedidosFornecedoresLista.php">Listar Pedidos p/ Fornecedores</a></li>
+
+                            </ul>
+
+                        </li>
+                        <?php } ?>
+
+
 
 
                         </ul>

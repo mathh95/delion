@@ -325,6 +325,14 @@
                                         </label>
                                     </li>
 
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="gerenciar_fornecedor" name="permissoes[]" value="gerenciar_fornecedor"> Gerenciar Fornecedor
+
+                                        </label>
+                                    </li>
+
                                 </ul>
 
                             </div>

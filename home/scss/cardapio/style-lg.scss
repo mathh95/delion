@@ -25,8 +25,8 @@ body,html{
             // padding-bottom: 20px;
             // padding-top: 15px;
             width: 100%;
-            overflow-x: auto;
-            overflow-y: auto;
+            // overflow-x: auto;
+            // overflow-y: auto;
             transition: all ease 750ms;
             > .menu-lateral {
                 // @include make-lg-column(12);
@@ -35,15 +35,16 @@ body,html{
                 height: auto;
                 display: inline-flex;
                 flex-direction: row;
-                position: sticky;
-                z-index: 9999;
+                // position: sticky;
+                // z-index: 9999;
+                justify-content: center;
                 >ul.nav.nav-pills{
                         padding-left: 40px;
-                        white-space: nowrap;
-                        transition: all ease 750ms;
-                        display: inline-flex;
+                        // white-space: nowrap;
+                        // transition: all ease 750ms;
+                        // display: inline-flex;
                     >li{
-                        display: inline-block; 
+                        // display: inline-block; 
                         a.nav-link {
                             cursor: pointer; 
                             width: 100%;
