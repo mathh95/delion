@@ -1,3 +1,12 @@
+<?php
+
+include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+
+include_once MODELPATH."/gerencia_site.php";
+
+
+?>
+
 <head>
     <meta charset="utf-8">
 
@@ -15,10 +24,20 @@
     <div class="container">
 
         <div class="logo">
-        
+            
+        <?php
+            $controle=new controlerGerenciarSite($_SG['link']);
+
+            // Mudar questão do select mais tarde
+            $config = $controle->select(1,2);
+
+            $imagemLink = $config->getFoto();
+
+        ?>
+
 
             <!-- <a href="index.php"><img src="/home/img/Logo.png"></a> -->
-            <a href="index.php"><img src="/home/img/logo_branca.png"></a>
+            <a href="index.php"><img src=/admin/<?= $imagemLink ?>></a>
 
 
         </div>

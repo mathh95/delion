@@ -525,6 +525,33 @@
                         <?php } ?>
 
 
+                        <?php
+                            
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+                                     
+                            if(in_array('enviar_sms', $permissao)){ ?>
+    
+                            <li class="dropdown
+    
+                                <?php
+                                    //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
+                                    if(strpos($arquivo_pai, 'gerenciarSite') !== false){
+                                        echo 'active';
+                                    }
+                                ?>
+                            ">
+    
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gerenciar Site <span class="caret"></span></a>
+    
+                                <ul class="dropdown-menu">
+    
+                                    <li><a href="gerenciarSite.php">Gerenciar</a></li>
+                                    <li><a href="gerenciarSiteLista.php">Listar Configurações</a></li>
+    
+                                </ul>
+    
+                            </li>
+                            <?php } ?>
 
 
                         </ul>
