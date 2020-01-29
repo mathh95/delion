@@ -277,4 +277,40 @@ body{
             }
         }
     }
+
+
+    //SASS da pagina de resgate da fidelidade!!!
+
+    .main{
+        background-color: rgb(236, 230, 230);
+        .resgate-main{
+            width: 100%;
+            height: auto;
+
+            h2{
+                font-weight: bold;
+            }
+
+            >.pontos-info{
+                >.pontos-wrapper{
+                    padding-top: 20px;
+
+                    p{
+                        >span{
+                            color: red;
+                        }
+                    }
+                }
+            }
+
+            .tabela-produtos{
+                background-color: #ffffff;
+                border-radius: 5px;
+                padding: 30px;
+                .produtos-titulo{
+                    font-weight: bold;
+                }
+            }
+        }
+    }
 }
