@@ -48,13 +48,14 @@ $arquivo_pai = basename(__FILE__, '.php');
 
                 function(linha) {
                     
-                    var url = '../../ajax/excluir-produto_fidelidade.php?produto_fidelidade='+produto_fidelidade;
+                    var url = '../../ajax/excluir-produto_fidelidade.php?cod_produto_fidelidade='+produto_fidelidade;
                     
                     $.get(url, function(dataReturn) {
                         if (dataReturn > 0) {
                             msgGenerico("Excluir!", "Produto removido com sucesso!", 1, function() {});
                             $("#status" + produto_fidelidade).remove();
                         } else {
+                            console.log(dataReturn);
                             msgGenerico("Erro!", "Não foi possível remover o Produto!", 2, function() {});
                         }
                     });

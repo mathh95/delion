@@ -6,7 +6,9 @@
     include_once MODELPATH."/usuario.php";
     include_once CONTROLLERPATH."/seguranca.php";
     include_once CONTROLLERPATH."/controlEmpresa.php";
+    include_once CONTROLLERPATH."/controlFidelidade.php";
     include_once MODELPATH."/empresa.php";
+    include_once MODELPATH."/fidelidade.php";
 
     $_SESSION['permissaoPagina']=0;
 
@@ -18,6 +20,9 @@
     $controle = new controlerEmpresa($_SG['link']);
     $empresa = $controle->selectAll();
 
+    $controle = new controlerFidelidade($_SG['link']);
+    $fidelidade = $controle->selectByFkEmpresa($empresa->getPkId());
+    
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 
@@ -47,9 +52,7 @@
                     <h3>Gerenciar Programa de Fidelidade</h3>
                     <div class="row">
 
-                        <input class="form-control" style="display: none;" placeholder="" name="cod_empresa" value="<?=  $empresa->getPkId(); ?>"  type="hidden">
-
-                        <input class="form-control" style="display: none;" placeholder="" name="cod_gerenciar_fidelidade" value=""  type="hidden">
+                        <input class="form-control" style="display: none;" placeholder="" name="cod_fidelidade" value="<?=$fidelidade->getPkId();?>"  type="hidden">
                         
                         
                         <div class="col-md-6">
@@ -57,7 +60,7 @@
 
                             <div class="col-md-3 input-group">
                                 <span class="input-group-addon">R$ 1 <i class="fas fa-equals"></i></i></span>
-                                <input required class="form-control" placeholder="1" id="taxa_conversao" name="taxa_conversao" value="" type="number" step="0.1">
+                                <input required class="form-control" placeholder="1" id="taxa_conversao_pts" name="taxa_conversao_pts" value="<?=$fidelidade->getTaxaConversaoPts()?>" type="number" step="0.1">
                             </div>
                         </div>
                     </div>

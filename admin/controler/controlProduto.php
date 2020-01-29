@@ -99,6 +99,30 @@
             }
         }
 
+        function updateFidelidade($pk_id, $pts_resgate_fidelidade, $fk_fidelidade){
+
+            try{
+                $stmte =$this->pdo->prepare("UPDATE tb_produto SET pro_pts_resgate_fidelidade=:pts_resgate_fidelidade, pro_fk_fidelidade=:fk_fidelidade
+                WHERE pro_pk_id=:pk_id");
+
+                $stmte->bindParam(":pk_id", $pk_id, PDO::PARAM_INT);
+                $stmte->bindParam(":pts_resgate_fidelidade", $pts_resgate_fidelidade, PDO::PARAM_STR);
+                $stmte->bindParam(":fk_fidelidade", $fk_fidelidade, PDO::PARAM_INT);
+                $executa = $stmte->execute();
+                
+                if($executa){
+                    return 1;
+                }
+                else{
+                    return -1;
+                }
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
 
         function buscarVariosId($itens){
             $array = array();
@@ -161,45 +185,47 @@
             }
         }
 
-        function selectAllByFidelidade($fk_fidelidade=1){
-
+        function selectAllByFidelidade($fk_fidelidade = 1){
+            $produtos = array();
             try{
 
                 $stmte = $this->pdo->prepare("SELECT *
                 FROM tb_produto AS PRO
                 INNER JOIN tb_fidelidade AS FID
-                ON PRO.pro_fk_fidelidade = FID.fid_pk_id
-                WHERE pro_pk_id = :pk_id");
+                ON PRO.pro_fk_fidelidade = :fk_fidelidade
+                ORDER BY pro_pts_resgate_fidelidade ASC");
 
                 $stmte->bindParam(":fk_fidelidade", $fk_fidelidade , PDO::PARAM_INT);
 
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
-                        $result = $stmte->fetch(PDO::FETCH_OBJ);
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                        
+                            $produto = new produto();
 
-                        $produto = new produto();
-                        $produto->setPkId($result->pro_pk_id);
-                        $produto->setNome($result->pro_nome);
-                        $produto->setPreco($result->pro_preco);
-                        $produto->setDesconto($result->pro_desconto);
-                        $produto->setDescricao($result->pro_descricao);
-                        $produto->setFoto($result->pro_foto);
-                        $produto->setFlag_ativo($result->pro_flag_ativo);
-                        $produto->setFlag_servindo($result->pro_flag_servindo);
-                        $produto->setPrioridade($result->pro_flag_prioridade);
-                        $produto->setDelivery($result->pro_flag_delivery);
-                        $produto->setPosicao($result->pro_posicao);
-                        $produto->setDias_semana($result->pro_arr_dias_semana);
+                            $produto->setPkId($result->pro_pk_id);
+                            $produto->setNome($result->pro_nome);
+                            $produto->setPreco($result->pro_preco);
+                            $produto->setDesconto($result->pro_desconto);
+                            $produto->setDescricao($result->pro_descricao);
+                            $produto->setFoto($result->pro_foto);
+                            $produto->setFlag_ativo($result->pro_flag_ativo);
+                            $produto->setFlag_servindo($result->pro_flag_servindo);
+                            $produto->setPrioridade($result->pro_flag_prioridade);
+                            $produto->setDelivery($result->pro_flag_delivery);
+                            $produto->setPosicao($result->pro_posicao);
+                            $produto->setDias_semana($result->pro_arr_dias_semana);
+                            $produto->setPtsResgateFidelidade($result->pro_pts_resgate_fidelidade);
 
-                        $produto->setCategoria($result->pro_fk_categoria);
+                            $produto->setCategoria($result->pro_fk_categoria);
 
-                        $produto->setFkFaixaHorario($result->pro_fk_faixa_horario);
-                        $produto->setProduto_horas_inicio($result->faho_inicio);
-                        $produto->setProduto_horas_final($result->faho_final);
+                            array_push($produtos, $produto);
+
+                        }
                     }
                 }
 
-                return $produto;
+                return $produtos;
             }
             catch(PDOException $e){
 
@@ -349,6 +375,22 @@
         function delete($pk_id){
             try{
                 $stmt = $this->pdo->prepare("DELETE FROM tb_produto WHERE $pk_id = :pk_id");
+                $stmt->bindParam(":pk_id", $pk_id , PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
+        function deleteFidelidade($pk_id){
+            try{
+                $stmt = $this->pdo->prepare("UPDATE tb_produto
+                SET pro_fk_fidelidade = null, pro_pts_resgate_fidelidade = null
+                WHERE pro_pk_id = :pk_id");
+
                 $stmt->bindParam(":pk_id", $pk_id , PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;
@@ -711,7 +753,9 @@
                 $stmte = $this->pdo->prepare("SELECT *
                 FROM tb_produto AS A
                 LEFT JOIN tb_categoria AS B
-                ON A.pro_fk_categoria = B.cat_pk_id");
+                ON A.pro_fk_categoria = B.cat_pk_id
+                ORDER BY pro_nome ASC");
+
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
