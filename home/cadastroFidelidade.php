@@ -137,7 +137,7 @@
 				if(res.includes("atualizado")){
 					swal({
 						title: 'Cadastrado!',
-						text: 'Aproveite! :).',
+						text: 'Aproveite! 😄.',
 						icon: "success",
 						timer: 1000
 					})
@@ -146,12 +146,12 @@
 					});
 
 				}else{
-					swal("Erro :/", res , "error");
+					swal("Erro 😕", res , "error");
 				}
 			},
 			error: function(res){
 				console.log(res);
-				swal("Erro :/", "Entre em contato com o suporte." , "error");
+				swal("Erro 😕", "Entre em contato com o suporte." , "error");
 			}
 		});
 	}

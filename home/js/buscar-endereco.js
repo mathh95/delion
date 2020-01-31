@@ -171,7 +171,7 @@ function selecionarEndereco(endereco) {
 
             swal({
                 title: "Endereco selecionado!",
-                text: "Confirme seu pedido :)",
+                text: "Confirme seu pedido 🙂",
                 icon: "success",
                 timer: 1100,
                 buttons: false

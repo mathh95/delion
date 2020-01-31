@@ -306,7 +306,7 @@
 						
 						if(qtd == resObs){
 							swal({
-								title: "Item já Adicionado!",
+								title: "Item já Adicionado! 😋",
 								text: "Consulte o carrinho...",
 								icon: "warning",
 								timer: 1100,
@@ -314,7 +314,7 @@
 							});
 						}else{
 							swal({
-								title: "Item Adicionado!",
+								title: "Item Adicionado! 😋",
 								text: "Consulte o carrinho...",
 								icon: "success",
 								timer: 1000,

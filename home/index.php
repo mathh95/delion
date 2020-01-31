@@ -402,7 +402,7 @@ async defer></script>
 				},
 				error: function(err){
 					console.log(err);
-					//swal("Erro :/", "Entre em contato com o suporte." , "error");
+					//swal("Erro 😕", "Entre em contato com o suporte." , "error");
 				}
 			});
 		}

@@ -26,7 +26,6 @@ $pedido = new controlerCarrinho(conecta());
 $cardapio = new controlerProduto(conecta());
 $mail = new PHPMailer();
 
-
 $itens = $_SESSION['carrinho'];
 if ($itens > 0) {
 
@@ -43,10 +42,10 @@ if ($itens > 0) {
 
 
 $fk_endereco = null;
-//endereco cadastrado previamente
+//endereco cadastrado previamente POST
 if (isset($_POST['endereco']) and !empty($_POST['endereco'])) {
     $fk_endereco = $_POST['endereco'];
- 
+
 //endereco homepage
 }else if(($_SESSION['is_delivery_home'])){
     
@@ -158,18 +157,18 @@ if ($fk_endereco == null) {
             
 
         if ($salvo){
-            $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
+            $html .= "<script>swal('Pedido efetuado com sucesso! 😄', 'Obrigado!', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
         }else{
             $mail->Body .= "<p>*Erro ao salvar pedido na base de dados.</p>";
             
-            $html .= "<script>swal('Tivemos um problema aqui :/', 'Tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+            $html .= "<script>swal('Tivemos um problema aqui...😕', 'Tente novamente.', 'info').then((value) => {window.location='/home/carrinho.php'});</script>";
         }
         
         
         $mail->send();
         
     } catch (Exception $e) {
-        $html .= "<script>swal('Tivemos um erro aqui :/', 'Tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+        $html .= "<script>swal('Tivemos um problema aqui...😕', 'Tente novamente.', 'info').then((value) => {window.location='/home/carrinho.php'});</script>";
         echo $e;
     }
     
@@ -207,18 +206,18 @@ if ($fk_endereco == null) {
 
 
         if ($salvo){
-            $html .= "<script>swal('Pedido efetuado com sucesso!!', 'Obrigado :)', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
+            $html .= "<script>swal('Pedido efetuado com sucesso! 😄', 'Obrigado!', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
         }else{
             $mail->Body .= "<p>*Erro ao salvar pedido na base de dados.</p>";
             
-            $html .= "<script>swal('Tivemos um problema aqui :/', 'tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+            $html .= "<script>swal('Tivemos um problema aqui...😕', 'Tente novamente.', 'info').then((value) => {window.location='/home/carrinho.php'});</script>";
         }
         
 
         $mail->send();
 
     } catch (Exception $e) {
-        $html .= "<script>swal('Tivemos um problema aqui :/', 'tente novamente :)', 'success').then((value) => {window.location='/home/carrinho.php'});</script>";
+        $html .= "<script>swal('Tivemos um problema aqui...😕', 'Tente novamente.', 'info').then((value) => {window.location='/home/carrinho.php'});</script>";
 
         // echo $mail->ErrorInfo;
     }

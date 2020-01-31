@@ -208,7 +208,7 @@
                 
                 $result = $control_sms->insert($sms);
                 if($result < 0){
-                    echo "Erro ao salvar SMS :/";
+                    echo "Erro ao salvar SMS 😕";
                     return;
                 }
                 
@@ -221,7 +221,7 @@
                 if($res_envio){
                     echo "verificado";
                 }else{
-                    echo "Erro ao enviar SMS :/...contate o suporte.";
+                    echo "Erro ao enviar SMS 😕...contate o suporte.";
                 }
             
 
@@ -267,16 +267,16 @@
                     echo "inserido";
                 }else if($result == -2){
                     //login duplicado
-                    echo "Erro no cadastro :/";
+                    echo "Erro no cadastro 😕";
                 }else{
-                    echo "Erro no cadastro :/...entre em contato com o suporte.";
+                    echo "Erro no cadastro 😕...entre em contato com o suporte.";
                 }
             }
 
             return;
 
         }else{
-            echo "Erro :/ Ação não definida!";
+            echo "Erro 😕, Ação não definida!";
         }
 
     }else{

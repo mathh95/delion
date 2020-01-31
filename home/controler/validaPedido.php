@@ -112,12 +112,12 @@ $empresa = $controleEmpresa->select(1,2);
 
 if(!$funcionamentoEmpresa->aberto()){
     
-    $html.= "<script>swal('Estamos Fechados! :/', 'Aguarde :)...os nossos Fornos estão Aquecendo', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";
+    $html.= "<script>swal('Estamos Fechados 😮', 'Aquecendo os Fornos 👩‍🍳🔥', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";
     echo $html;
 
 }else if(isset($_SESSION['item_indisponivel']) && $_SESSION['item_indisponivel']){
 
-    $html.= "<script>swal('Item indisponível! :/', 'Algum item do carrinho não está disponível no momento :/', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";
+    $html.= "<script>swal('Item indisponível! 😕', 'Algum item do carrinho não está disponível no momento ', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";
     echo $html;
 
 }else{
@@ -133,7 +133,7 @@ if($checkcarrinho > 0){
                         //Verifica se o estabelecimento está entregando
                         if(!$empresa->getEntregando()){
 
-                            $html.= "<script>swal('Infelizmente não estamos Entregando! :/', 'Você pode retirar na nossa loja :)', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";
+                            $html.= "<script>swal('Infelizmente não estamos Entregando! 😕', 'Você pode retirar na nossa loja 😄', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";
 
                             echo $html;
                         }else{
@@ -148,7 +148,7 @@ if($checkcarrinho > 0){
                                 
                                 // valor mínimo para delivery não atingido
                                 if($_SESSION['valor_entrega_valido'] < 1){
-                                    $html.= "<script>swal('Valor Mínimo não Atingido para Delivery :/', 'Valor Mínimo: R$ ".$_SESSION['valor_entrega_minimo']."', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";
+                                    $html.= "<script>swal('Valor Mínimo não Atingido para Delivery 😕', 'Valor Mínimo: R$ ".$_SESSION['valor_entrega_minimo']."', 'warning').then((value) => {window.location='/home/carrinho.php'});</script></body>";
                                     echo $html;
                                     
                                 }else{
@@ -169,48 +169,70 @@ if($checkcarrinho > 0){
                                     $html.= "
                                     <script>
 
-                                    function enviaPedido(){
-                                        $.ajax({
-                                            type: 'POST',
-                                            url: '../ajax/enviarEmailPedido.php',
-                                            data: {endereco: '".$cod_endereco."'},
-                                            success: function (res) {
-                                                //console.log(res);
-                                                
-                                                var content_enviado = document.createElement('div');
-                                                content_enviado.innerHTML = 'Tempo estimado de entrega: <b>".$_SESSION['delivery_time']." mins </b> <br> Total: <b>R$ ".number_format($_SESSION['valor_total'], 2)."</b>';
-                                                
-                                                swal({
-                                                    title: 'Pedido realizado com sucesso!',
-                                                    content: content_enviado,
-                                                    icon: 'success'}
-                                                    ).then((value) => {
-                                                    window.location = '/home/listarPedidos.php';
-                                                });
-                                            },
-                                            error: function(err){
-                                                console.log(err);
-                                            }
-                                        });
-                                    }
-
                                     var content_enviar = document.createElement('div');
                                     content_enviar.innerHTML = 'Entrega em: <b>".$rua.", ".$numero."</b> <br> Total: <b>R$ ".number_format($_SESSION['valor_total'], 2)."</b>';
 
 
                                     swal({
-                                        title: 'Confirmar Pedido',
-                                        content: content_enviar,
+                                        text: 'Confirmar Pedido',
                                         icon: 'success',
-                                        buttons: ['Cancelar', true],
+                                        content: content_enviar,
+                                        buttons: {
+                                            cancel: {
+                                                text: 'Voltar',
+                                                visible: true,
+                                                value: false,
+                                            },
+                                            confirm: {
+                                                text: 'Pedir',
+                                                value: true,
+                                                closeModal: false
+                                            }
+                                        }
                                     })
-                                    .then((enviar) => {
-                                        if (enviar) {
-                                            
-                                            enviaPedido();
+                                    .then(pedir => {
+                                        
+                                        if(pedir){
 
-                                        } else {
+                                            return fetch('../ajax/enviarEmailPedido.php',
+                                                {
+                                                method: 'POST',
+                                                headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                                                body: 'endereco=".$cod_endereco."'
+                                            });
+
+                                        }else{
                                             window.location = '/home/carrinho.php';
+                                        }
+
+                                    })
+                                    .then(res => {
+                                        // console.log(res.text());
+                                        if(!res) throw res;
+
+                                        var content_enviado = document.createElement('div');
+
+                                        content_enviado.innerHTML = 'Tempo estimado de entrega: <b>".$_SESSION['delivery_time']." mins </b> <br> Total: <b>R$ ".number_format($_SESSION['valor_total'], 2)."</b>';
+                                                
+                                        swal({
+                                            title: 'Pedido realizado com sucesso! 😄',
+                                            content: content_enviado,
+                                            icon: 'success'}
+                                            ).then((value) => {
+                                            window.location = '/home/listarPedidos.php';
+                                        });
+                                    })
+                                    .catch(err => {
+                                        if (err) {
+                                            console.log(err);
+                                            swal('Eita!', 'Tivemos um problema aqui...😕, tente novamente.', 'error').then((value) => {
+                                            window.location = '/home/carrinho.php'});
+            
+                                        } else {
+                                            // swal.stopLoading();
+                                            // swal.close();
+                                            swal('Eita!', 'Tivemos um problema aqui...😕, tente novamente.', 'error').then((value) => {
+                                                window.location = '/home/carrinho.php'});
                                         }
                                     });
                                     
@@ -230,30 +252,65 @@ if($checkcarrinho > 0){
                         $html.= "<script>swal('É preciso estar logado para efetuar um pedido!', 'Estamos te mandando para tela de login, após disso, mandaremos para a tela de endereço.', 'error').then((value) => {window.location='/home/login.php'});</script></body>";
                         echo $html;
                     }
+
+                //Balcão
                 }else {
                     if ($checkcliente > 0){
                         /*  'termina pedido e envia email'; */
                         $html.= "
                         <script>
 
-                            var content = document.createElement('div');
-                            content.innerHTML = 'Retirar em: <b>".$empresa->getEndereco()."</b> <br> Total: <b>R$ ".number_format($_SESSION['valor_total'], 2)."</b>';
+                        var content = document.createElement('div');
+                        content.innerHTML = 'Retirar em: <b>".$empresa->getEndereco()."</b> <br> Total: <b>R$ ".number_format($_SESSION['valor_total'], 2)."</b>';
 
-                            swal({
-                                title: 'Confirmar Pedido',
-                                content: content,
-                                icon: 'success',
-                                buttons: ['Cancelar', true],
-                            })
-                            .then((enviar) => {
-                                if (enviar) {
-                                    window.location = '../ajax/enviarEmailPedido.php';
-                                }else{
-                                    window.location= '../carrinho.php';
+                        swal({
+                            text: 'Confirmar Pedido',
+                            icon: 'success',
+                            content: content,
+                            buttons: {
+                                cancel: {
+                                    text: 'Voltar',
+                                    visible: true,
+                                    value: false,
+                                },
+                                confirm: {
+                                    text: 'Pedir',
+                                    value: true,
+                                    closeModal: false
                                 }
-                            });
+                            }
+                        })
+                        .then(enviar => {
+
+                            if (enviar) {
+                                return fetch('../ajax/enviarEmailPedido.php');
+                            }else{
+                                window.location= '../carrinho.php';
+                            }  
+                        })
+                        .then(result => {
+                            // console.log(result);
+                            return result.text();
+                        })
+                        .then(res => {
+                            $('body').html(res);
+                        })
+                        .catch(err => {
+                            if (err) {
+
+                                swal('Eita!', 'Tivemos um problema aqui...😕, tente novamente.', 'error').then((value) => {
+                                    window.location = '/home/carrinho.php'});
+
+                            } else {
+                                swal.stopLoading();
+                                swal.close();
+                            }
+                        });
+
+
                         </script></body>
                         ";
+
                         echo $html;
                     }else {
                         /* 'pede pra logar e termina pedido'; */

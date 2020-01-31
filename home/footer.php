@@ -1,5 +1,7 @@
 <?php
 
+include_once "controler/controlEmpresa.php";
+	
 $controle = new controlerEmpresa(conecta());
 $empresa = $controle->selectAll();
 
@@ -167,7 +169,7 @@ $empresa = $controle->selectAll();
 
 		swal({
 			title: "Deslogado!",
-			text: "Obrigado pela visita :)...",
+			text: "Obrigado pela visita 😕...",
 			icon: "info",
 			timer: 1100,
 			buttons: false

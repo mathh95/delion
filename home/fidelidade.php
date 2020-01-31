@@ -1,22 +1,13 @@
 <?php
-    session_start();
+    //session_start();
 
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
-    include_once CONTROLLERPATH."/seguranca.php";
-    include_once "../admin/controler/conexao.php";
-    include_once "controler/controlEmpresa.php";
-    include_once CONTROLLERPATH."/controlProduto.php";
+    include_once CONTROLLERPATH."/conexao.php";
+    include_once "./controler/controlProduto.php";
     include_once MODELPATH."/produto.php";
 
-    $_SESSION['permissaoPagina']=0;
 
-    protegePagina("cross_call");
-
-    $controleEmpresa=new controlerEmpresa(conecta());
-    $empresa = $controleEmpresa->select(1,2);
-
-    $controle = new controlerProduto($_SG['link']);
-
+    $controle_produto = new controlerProduto(conecta());
 
     //configuração de acesso ao WhatsApp 
     // include "./whats-config.php";
@@ -32,8 +23,6 @@
 
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -148,42 +137,50 @@
             </div>
 
             <div class="btn-wrapper btn-toolbar">
-                <button type="button" class="30pts btn btn-warning">
+                <button type="button" class="30pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-30pts">
                     <span>30</span><br>
                     pontos
                 </button>
 
-                <button  type="button" class="50pts btn btn-warning">
+                <button type="button" class="50pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-50pts">
                     <span>50</span><br>
                     pontos
                 </button>
 
-                <button type="button" class="80pts btn btn-warning">
+                <button type="button" class="80pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-80pts">
                     <span>80</span><br>
                     pontos
                 </button >
 
-                <button type="button" class="90pts btn btn-warning">
+                <button type="button" class="90pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-90pts">
                     <span>90</span><br>
                     pontos
                 </button>
 
-                <button type="button" class="120pts btn btn-warning">
+                <button type="button" class="120pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-120pts">
                     <span>120</span><br>
                     pontos
                 </button>
 
-                <button type="button" class="200pts btn btn-warning">
+                <button type="button" class="200pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-200pts">
                     <span>200</span><br>
                     pontos
                 </button>
 
-                <button type="button" class="220pts btn btn-warning">
+                <button type="button" class="220pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-220pts">
                     <span>220</span><br>
                     pontos
                 </button>
 
-                <button type="button" class="250pts btn btn-warning">
+                <button type="button" class="250pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-250pts">
                     <span>250</span><br>
                     pontos
                 </button>
@@ -197,7 +194,7 @@
                 <!-- Produtos botao 30 pontos -->
                 <?php
                 
-                $produtos = $controle->selectAllByPtsResgate(30);
+                $produtos = $controle_produto->selectAllByPtsResgate(30);
 
                 foreach($produtos as $produto){
                     echo "
@@ -217,7 +214,7 @@
                 <!-- Produtos botao 50 pontos -->
                 <?php
                 
-                $produtos = $controle->selectAllByPtsResgate(50);
+                $produtos = $controle_produto->selectAllByPtsResgate(50);
 
                 foreach($produtos as $produto){
                     echo "
@@ -238,7 +235,7 @@
                 <!-- Produtos botao 80 pontos -->
                 <?php
                 
-                $produtos = $controle->selectAllByPtsResgate(80);
+                $produtos = $controle_produto->selectAllByPtsResgate(80);
 
                 foreach($produtos as $produto){
                     echo "
@@ -258,7 +255,7 @@
                 <!-- Produtos botao 90 pontos -->
                 <?php
                 
-                $produtos = $controle->selectAllByPtsResgate(90);
+                $produtos = $controle_produto->selectAllByPtsResgate(90);
 
                 foreach($produtos as $produto){
                     echo "
@@ -278,7 +275,7 @@
                 <!-- Produtos botao 120 pontos -->
                 <?php
                 
-                $produtos = $controle->selectAllByPtsResgate(120);
+                $produtos = $controle_produto->selectAllByPtsResgate(120);
 
                 foreach($produtos as $produto){
                     echo "
@@ -298,7 +295,7 @@
                 <!-- Produtos botao 200 pontos -->
                 <?php
                 
-                $produtos = $controle->selectAllByPtsResgate(200);
+                $produtos = $controle_produto->selectAllByPtsResgate(200);
 
                 foreach($produtos as $produto){
                     echo "
@@ -317,7 +314,7 @@
                 <!-- Produtos botao 220 pontos -->
                 <?php
                 
-                $produtos = $controle->selectAllByPtsResgate(220);
+                $produtos = $controle_produto->selectAllByPtsResgate(220);
 
                 foreach($produtos as $produto){
                     echo "
@@ -337,7 +334,7 @@
                 <!-- Produtos botao 250 pontos -->
                 <?php
                 
-                $produtos = $controle->selectAllByPtsResgate(250);
+                $produtos = $controle_produto->selectAllByPtsResgate(250);
 
                 foreach($produtos as $produto){
                     echo "
@@ -433,53 +430,13 @@
 
 <script>
 
-            $( ".30pts" ).click(function() {
+            $( ".btn-pts" ).click(function() {
+                link_class_produtos = $(this).data("link_class_produtos");
                 $( ".produtos-pontos" ).hide();
-                $( ".produto-30pts" ).slideToggle();
+                $('.'+link_class_produtos).slideToggle();
                 
             });
             
-            $( ".50pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-50pts" ).slideToggle();
-                
-            });
-            $( ".80pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-80pts" ).slideToggle();
-                
-            });
-
-            $( ".90pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-90pts" ).slideToggle();
-            });
-
-            $( ".120pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-120pts" ).slideToggle();
-            });
-
-            $( ".200pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-200pts" ).slideToggle();
-
-            });
-
-            $( ".220pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-220pts" ).slideToggle();
-
-            });
-
-            $( ".250pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-250pts" ).slideToggle();
-            });
-
-
-
-
     </script>
 </body>
 </html>

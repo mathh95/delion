@@ -208,12 +208,12 @@
 					getCodigoSms();
 
 				}else{
-					swal("Erro :/", resultado , "error");
+					swal("Erro 😕", resultado , "error");
 				}
 			},
 			error: function(resultado){
 				console.log(resultado);
-				swal("Erro :/", "Entre em contato com o suporte." , "error");
+				swal("Erro 😕", "Entre em contato com o suporte." , "error");
 			}
 		});
 	}
@@ -253,7 +253,7 @@
 		})
 		.catch(err => {
 			if (err) {
-				swal("Erro :/", err , "error");
+				swal("Erro 😕", err , "error");
 			} else {
 				swal.stopLoading();
 				swal.close();
@@ -273,12 +273,12 @@
 					//redireciona para boas vindas
 					window.location = "/home?bem_vindo=true";
 				}else{
-					swal("Erro :/", resultado , "error");
+					swal("Erro 😕", resultado , "error");
 				}
 			},
 			error: function(resultado){
 				console.log(resultado);
-				swal("Erro :/", "Entre em contato com o suporte." , "error");
+				swal("Erro 😕", "Entre em contato com o suporte." , "error");
 			}
 		});
 	}

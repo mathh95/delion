@@ -40,7 +40,7 @@
 
                 echo "atualizado";
             }else{
-                echo "Erro no cadastro :/";
+                echo "Erro no cadastro 😕";
             }
         }
     }

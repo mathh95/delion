@@ -170,8 +170,8 @@
 						swal("Não foi possível efetuar login!", "erro!", "error").then((value) => {window.location="/home/login.php"});
 					}else{
 						swal({
-							title: "Bem vindo!",
-							text: "Bom proveito :)...",
+							title: "Bem vindo! 😄",
+							text: "Bom proveito...",
 							icon: "success",
 							timer: 1000,
 							buttons: false
@@ -264,7 +264,7 @@
 							}else{
 								swal({
 									title: "Bem vindo!",
-									text: "Bom proveito :)...",
+									text: "Bom proveito 😄",
 									icon: "success",
 									timer: 1000,
 									buttons: false

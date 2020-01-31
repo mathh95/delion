@@ -125,13 +125,13 @@ function adicionarCupom(){
             // alert(resultado);
 
             if(resultado.valido){
-                swal('Cupom Adicionado!', 'Desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
+                swal('Cupom Adicionado! 😉', 'Desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
                 .then(function(){
                     loadItens();
                 });
             }
             else if(resultado.validoErro){
-                swal('Cupom Adicionado!', 'O cupom de R$ '+resultado.valorcupom + ' é maior do que o valor total da compra, a diferença será perdida!', 'success')
+                swal('Cupom Adicionado! 😉', 'O cupom de R$ '+resultado.valorcupom + ' é maior do que o valor total da compra, a diferença será perdida!', 'success')
                 .then(function(){
                     loadItens();
                 });
