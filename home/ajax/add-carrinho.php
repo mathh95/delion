@@ -1,24 +1,15 @@
 <?php
 session_start();
-// session_destroy();
-// exit;
-
-// print_r($_SESSION);
-// exit;
 
 // ini_set('display_errors', true);
 
 // date_default_timezone_set('America/Sao_Paulo');
 
-
-
 // include_once "../../admin/controler/conexao.php";
-
 // require_once "../controler/controlCarrinho.php";
-
 // require_once "../controler/controlProduto.php";
-
 // include_once "../lib/alert.php";
+
 $id = 0;
 $obs = '';
 
