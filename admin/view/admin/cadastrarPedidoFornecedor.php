@@ -46,7 +46,7 @@
 
         <div class="container-fluid">
             <!-- Alterar aqui, criar uma classe businesCupom -->
-            <form class="form-horizontal" id="form-cadastro-cupom" method="POST" action="../../controler/businesCupom.php">
+            <form class="form-horizontal" id="form-cadastro-cupom" method="POST" action="#">
             <!-- <form class="form-horizontal"> -->
                 <div class="col-md-12">
 
@@ -54,35 +54,24 @@
 
                         <div class="col-md-5">
 
-                            <h3>Dados do Cupom</h3>
+                            <h3>Cadastro de Pedido p/ Fornecedor</h3>
 
-                            <small>*Código do Cupom:</small>
 
-                            <div id="test">
-                                    <input required id="codigo" class="form-control" type="text" name="codigo" placeholder="Código do Cupom" readonly/>
+                            <br>
+                                <small>*Selecione o tipo de serviço do fornecedor.</small>
+                                <select class="form-control" name="tipoFornecedor" id="tipoFornecedor">
+                                    <option value="carnes">Carnes</option>
+                                    <option value="frios">Frios</option>
+                                    <option value="trigo">Trigo e Derivados</option>
+                                    <option value="frutas">Frutas e Legumes</option>
                                     
-                                    <br>
-
-                                    <button type="button" class="btn btn-kionux" id="gera_cod">Gerar Cupom</button>
-                            </div>
+                                </select>
 
                             <br>
 
-                            <small>*Valor de Desconto:</small>
 
-                            <br>
 
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-
-                                <input required class="form-control" placeholder="Valor do desconto" id="valor" name="valor" value="" type="number" step="0,01" min="1" max="99">
-
-                            </div>     
-
-                            <br>
-
-                            <small>*Valor Minimo:</small>
+                            <small>*Valor:</small>
 
                             <br>
 
@@ -90,41 +79,25 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
 
-                                <input required  class="form-control" placeholder="Valor minimo para uso do Cupom" id="valorMinimo" name="valorMinimo" value="12.00" type="number" step="0.01" min="1" max="99">
+                                <input required class="form-control" placeholder="Valor do pedido" id="valor" name="valor" value="1.00" type="number" step="0.01" min="1" max="9999">
 
                             </div>     
 
-                            <br>
-
-                            <small>*Quantidade de Usos do Cupom</small>
 
                             <br>
-
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
-
-                                <input required class="form-control" placeholder="Número de cupons" id="qtdcupom" name="qtdcupom" value="1" type="number">
-
-                            </div> 
-
-                            <br>
-
-                            <small>*Data de Vencimento do Cupom</small>
+                                <small>*Selecione a forma de pagamento.</small>
+                                <select class="form-control" name="tipoPagamento" id="tipoPagamento">
+                                    <option value="dinheiro">Dinheiro</option>
+                                    <option value="deposito">Depósito</option>
+                                    <option value="debito">Débito</option>
+                                    <option value="credito">Crédito</option>
+                                    <option value="boleto">Boleto</option>
+                                    
+                                </select>
 
                             <br>
 
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
-
-                                <input required class="form-control" placeholder="" name="vencimento_data" value="<?=date('Y-m-d')?>" type="date">
-
-                            </div> 
-
-                            <br>
-
-                            <small>*Hora de Vencimento do Cupom</small>
+                            <small>*Data do Pedido:</small>
 
                             <br>
 
@@ -132,11 +105,20 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
 
-                                <input required class="form-control" placeholder="" name="vencimento_hora" value="00:00" type="time">
+                                <input required class="form-control" placeholder="" name="data_pedido_fornecedor" value="<?=date('Y-m-d')?>" type="date">
 
                             </div> 
 
                             <br>
+
+                            <small>*Descrição (Opcional): </small>
+
+                            <textarea name="descricao" rows="12"></textarea>
+
+                            <br>
+
+                            
+
 
                         </div>
 
@@ -154,7 +136,7 @@
 
                         $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                        if (in_array('cupom', $permissao)){ ?>
+                        if (in_array('gerenciar_fornecedor', $permissao)){ ?>
 
                             <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Salvar</button>
 
@@ -167,6 +149,7 @@
                             <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
 
                         </div>
+                        
 
                     </div>
 
@@ -180,7 +163,50 @@
 
         <?php include VIEWPATH."/rodape.html" ?>
 
+
+        <script type="text/javascript" src="../../js/maskedinput.js"></script>
+        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
+
         <script>
+
+
+            tinymce.init({selector: 'textarea', plugins: [
+
+            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+
+            'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc help'
+
+            ],
+
+            toolbar1: 'undo redo | insert | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link |  forecolor backcolor '
+
+            });
+
+
+
+            $(document).ready(function(){
+                $("#cnpj").mask("99.999.999/9999-99");
+                });
+
+                $("input.telefone").mask("(99) ?9 9999-9999").focusout(function (event) {  
+
+                    var target, phone, element;  
+                    target = (event.currentTarget) ? event.currentTarget : event.srcElement;  
+                    phone = target.value.replace(/\D/g, '');
+                    element = $(target);  
+                    element.unmask();  
+
+                    if(phone.length > 10) {  
+                        element.mask("(99) 99999-999?9");  
+                    } else {  
+                        element.mask("(99) 9999-9999?9");  
+                    }  
+                });
 
             function confereSenha() {
 
