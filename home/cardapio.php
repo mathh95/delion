@@ -285,11 +285,12 @@
 
 
 		$(document).on("click", "#addCarrinho", function(){
-			var url = $(this).data('url');
+
 			var qtd = $('#spanCarrinho').text();
 			var id = $(this).data('cod');
 			
 			const nomeItem = $('#tituloNome'+id).text();
+
 			swal({
 				title: "Alguma Observação?",
 				text: `${nomeItem}`,
@@ -298,7 +299,10 @@
 				button: 'Prosseguir'
 			})
 			.then((observacaoItem) => {
-				$.ajax({type: 'GET', url: url, data: {observacaoItem: observacaoItem, id: id},
+				$.ajax({
+					type: 'GET',
+					url: 'ajax/add-carrinho.php',
+					data: {observacaoItem: observacaoItem, id: id},
 					success:function(resObs){
 						$("#spanCarrinho").html(resObs);
 						$("#spanCarrinho-navbar").html(resObs);

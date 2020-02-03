@@ -76,44 +76,43 @@ error_reporting(E_ALL);
     
     <?php include_once "./header.php" ?>
 
-            <div class="row">
-                <div class="col-lg-12" id="tabela-cupom">
-                    <?php include "../../ajax/cupom-tabela.php"; ?>
-                </div>
-            </div>
-        </div>
+    <div class="col-lg-12" id="tabela-cupom">
+        <?php include "../../ajax/cupom-tabela.php"; ?>
+    </div>
 
-        <?php include VIEWPATH."/rodape.html" ?>
-        <script src="../../js/alert.js"></script>
-        <script type="text/javascript">
+    <?php include VIEWPATH."/rodape.html" ?>
 
-            function alterarStatusCupom(codigo,status){
-                    if(status == 1){
-                    msgConfirmacao('Confirmação','Deseja Realmente cancelar o cupom?',
-                        function(linha){
-                            var url ='../../ajax/alterar-cupom.php?codigo='+codigo+'&status='+status;
-                            $.get(url, function(dataReturn) {
-                                if (dataReturn == 1) {
-                                    msgRedireciona("Sucesso!","Cupom cancelado com sucesso!",1,"../../view/admin/cupomLista.php" );
-                                }else{
-                                    msgGenerico("Erro!",dataReturn,2,function(){});
-                                }
-                            });  
-                        },
-                        function(){}
-                    );
-                }
-            } 
-          
+    
+    <script src="../../js/alert.js"></script>
+    <script type="text/javascript">
 
-            function erroCancel(status){
-                if(status == 4) {
-                    msgRedireciona("Erro!","O cupom já foi cancelado!",1,"../../view/admin/cupomLista.php" );
-                }else{
-                    msgGenerico("Erro!","O cupom não foi cancelado!",2,function(){});
-                }
+        function alterarStatusCupom(codigo,status){
+                if(status == 1){
+                msgConfirmacao('Confirmação','Deseja Realmente cancelar o cupom?',
+                    function(linha){
+                        var url ='../../ajax/alterar-cupom.php?codigo='+codigo+'&status='+status;
+                        $.get(url, function(dataReturn) {
+                            if (dataReturn == 1) {
+                                msgRedireciona("Sucesso!","Cupom cancelado com sucesso!",1,"../../view/admin/cupomLista.php" );
+                            }else{
+                                msgGenerico("Erro!",dataReturn,2,function(){});
+                            }
+                        });  
+                    },
+                    function(){}
+                );
             }
+        } 
+        
 
-        </script>
-    </body>
-    </html>
+        function erroCancel(status){
+            if(status == 4) {
+                msgRedireciona("Erro!","O cupom já foi cancelado!",1,"../../view/admin/cupomLista.php" );
+            }else{
+                msgGenerico("Erro!","O cupom não foi cancelado!",2,function(){});
+            }
+        }
+
+    </script>
+</body>
+</html>

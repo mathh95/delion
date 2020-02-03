@@ -27,14 +27,14 @@ if(in_array('cupom', $permissao)){
 	<thead>
 		<h1 class=\"page-header\">Lista de Cupons</h1>
 		<tr>
-        <th width='10%' style='text-align: center;'>#Cod_Cupom</th>
-        <th width='8%' style='text-align: center;'>Código</th>
+        <th width='' style='text-align: center;'>#Cod_Cupom</th>
+        <th width='' style='text-align: center;'>Código</th>
         <th width='8%' style='text-align: center;'>Qntd Inicial</th>
-        <th width='10%' style='text-align: center;'>Qntd Atual</th>
-		<th width='10%' style='text-align: center;'>Valor</th>
+        <th width='8%' style='text-align: center;'>Qntd Atual</th>
+		<th width='8%' style='text-align: center;'>Valor</th>
 		<th width='10%' style='text-align: center;'>Valor Minimo</th>
         <th width='8%' style='text-align: center;'>Vencimento</th>
-        <th width='15%' style='text-align: center;'>Status</th>
+        <th width='10%' style='text-align: center;'>Status</th>
         <th width='15%' style='text-align: center;'>Editar</th>
         <th width='15%' style='text-align: center;'>Cancelar</th>
         </tr>

@@ -88,7 +88,7 @@ foreach ($categorias as $key_cat => $categoria) {
                 
                     <div id='preco-add' class='pull-right'>
                         <strong  class='preco'>R$ ".$item->getPreco()."</strong>
-                        <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getPkId()."' class='btn btn-default'>Adicionar</button>
+                        <button id='addCarrinho' data-cod='".$item->getPkId()."' class='btn btn-default'>Adicionar</button>
                     </div>
                     <br>
                     
