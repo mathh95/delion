@@ -1,3 +1,6 @@
+<?php
+    include_once "./controler/controlEmpresa.php";
+?>
 <head>
     <meta charset="utf-8">
 

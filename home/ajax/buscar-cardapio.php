@@ -100,5 +100,4 @@ foreach ($categorias as $key_cat => $categoria) {
     if($categoria_com_itens == 0){
         echo '<div style="text-align:center; padding-bottom:10px;">Itens indisponíveis no momento! <i class="far fa-surprise"></i></div>';
     }
-
 }

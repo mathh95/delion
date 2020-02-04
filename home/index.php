@@ -173,7 +173,7 @@
 
 					if (in_array('homeFidelidade', $pagina) && ($i < 2)) {
 						echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-14  thumb-home'>
-						<a class='thumbnail' href='fidelidade.php'>
+						<a class='thumbnail' href='promocaoFidelidade.php'>
 							<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='eventos'>
 						</a>
 					</div>";
@@ -210,7 +210,7 @@
 				</li>
 
 				<li>
-					<a href="/home/fidelidade.php">Programa de Fidelidade</a>
+					<a href="/home/promocaoFidelidade.php">Programa de Fidelidade</a>
 				</li>
 			</ul>
 			
