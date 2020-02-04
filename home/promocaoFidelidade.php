@@ -38,7 +38,7 @@
 <body>
     <header class="container-fluid">
         <div class="container">
-            <div class="logo">
+            <div class="logo-delion">
                 <img src="/home/img/Logo.png">
             </div>
             <div class="voltar">

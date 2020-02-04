@@ -8,6 +8,10 @@
 
     include_once CONTROLLERPATH."/seguranca.php";
 
+    include_once CONTROLLERPATH."/controlTipoFornecedor.php";
+    
+    include_once MODELPATH."/tipo_fornecedor.php";
+
     $_SESSION['permissaoPagina']=0;
 
     protegePagina();
@@ -15,6 +19,9 @@
     $controleUsuario = new controlerUsuario($_SG['link']);
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
+
+    $controltipoFornecedor = new controlerTipoFornecedor($_SG['link']);
+    $tipo_fornecedores = $controltipoFornecedor->selectAll();
 
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
@@ -46,7 +53,7 @@
 
         <div class="container-fluid">
             <!-- Alterar aqui, criar uma classe businesCupom -->
-            <form class="form-horizontal" id="form-cadastro-cupom" method="POST" action="#">
+            <form class="form-horizontal" id="form-cadastro-cupom" method="POST" action="../../controler/businesFornecedor.php">
             <!-- <form class="form-horizontal"> -->
                 <div class="col-md-12">
 
@@ -78,6 +85,18 @@
                                 <span class="input-group-addon"><i class="fas fa-home"></i></span>
 
                                 <input class="form-control" placeholder="Endereço" name="endereco" required autofocus id ="endereco" type="text">
+
+                            </div>
+
+                            <br>
+
+                            <small>Referência *: </small>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="fas fa-home"></i></span>
+
+                                <input class="form-control" placeholder="Referência" name="referencia" type="text">
 
                             </div>
 
@@ -127,11 +146,12 @@
                             <br>
                                 <small>*Selecione o tipo de serviço do fornecedor.</small>
                                 <select class="form-control" name="tipoFornecedor" id="tipoFornecedor">
-                                    <option value="carnes">Carnes</option>
-                                    <option value="frios">Frios</option>
-                                    <option value="trigo">Trigo e Derivados</option>
-                                    <option value="frutas">Frutas e Legumes</option>
-                                    
+                                    <?php
+                                        foreach($tipo_fornecedores as $tipo_fornecedor){
+                                            if($tipo_fornecedor->getFlag_ativo() == 1) { ?>
+                                                <option value="<?= $tipo_fornecedor->getPkId(); ?>" > <?= $tipo_fornecedor->getNome() ?> </option>
+                                        <?php }
+                                        }?>
                                 </select>
 
                             <br>
@@ -153,7 +173,7 @@
 
                         $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                        if (in_array('cupom', $permissao)){ ?>
+                        if (in_array('gerenciar_fornecedor', $permissao)){ ?>
 
                             <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Salvar</button>
 

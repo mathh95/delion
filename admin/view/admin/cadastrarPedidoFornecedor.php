@@ -8,6 +8,10 @@
 
     include_once CONTROLLERPATH."/seguranca.php";
 
+    include_once CONTROLLERPATH."/controlFornecedor.php";
+    
+    include_once MODELPATH."/fornecedor.php";
+
     $_SESSION['permissaoPagina']=0;
 
     protegePagina();
@@ -15,6 +19,10 @@
     $controleUsuario = new controlerUsuario($_SG['link']);
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
+
+    $controltipoFornecedor = new controlerFornecedor($_SG['link']);
+
+    $fornecedores = $controltipoFornecedor->selectAll();
 
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
@@ -46,7 +54,7 @@
 
         <div class="container-fluid">
             <!-- Alterar aqui, criar uma classe businesCupom -->
-            <form class="form-horizontal" id="form-cadastro-cupom" method="POST" action="#">
+            <form class="form-horizontal" id="form-cadastro-cupom" method="POST" action="../../controler/businesPedidoFornecedor.php">
             <!-- <form class="form-horizontal"> -->
                 <div class="col-md-12">
 
@@ -58,13 +66,13 @@
 
 
                             <br>
-                                <small>*Selecione o tipo de serviço do fornecedor.</small>
+                                <small>*Selecione o fornecedor.</small>
                                 <select class="form-control" name="tipoFornecedor" id="tipoFornecedor">
-                                    <option value="carnes">Carnes</option>
-                                    <option value="frios">Frios</option>
-                                    <option value="trigo">Trigo e Derivados</option>
-                                    <option value="frutas">Frutas e Legumes</option>
-                                    
+                                    <?php
+                                        foreach($fornecedores as $fornecedor){ ?>
+                                                <option value="<?= $fornecedor->getPkId(); ?>" > <?= $fornecedor->getNome() ?> (<?= ($fornecedor->tipo_fornecedor) ?>) </option>
+                                        <?php
+                                        }?>
                                 </select>
 
                             <br>

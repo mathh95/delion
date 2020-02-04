@@ -30,7 +30,7 @@ body{
             display: flex;
             justify-content: space-evenly;
             width: 100%;
-            >.logo{
+            >.logo-delion{
                 padding: 10px;
                 width: 100%;
                 img{
@@ -354,14 +354,16 @@ body{
                         width: 20%;
                         height: auto;
                         padding: 20px;
-                        
+                        text-align: center;
                         img{
                             width: 100%;
                             height: auto;
                             border-radius: 20px;
                         }
                         h4{
+                            text-align: center;
                             font-weight: bold;
+                            min-height: 57px;
                         }
                         p{
                             color: $vermelho_forte;

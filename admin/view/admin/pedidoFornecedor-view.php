@@ -6,6 +6,14 @@
 
     include_once MODELPATH."/usuario.php";
 
+    include_once CONTROLLERPATH."/controlPedidoFornecedor.php";
+
+    include_once MODELPATH."/pedido_fornecedor.php";
+
+    include_once CONTROLLERPATH."/controlFornecedor.php";
+    
+    include_once MODELPATH."/fornecedor.php";
+
     include_once CONTROLLERPATH."/seguranca.php";
 
     $_SESSION['permissaoPagina']=0;
@@ -17,7 +25,12 @@
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
     $controle = new controlerPedidoFornecedor($_SG['link']);
-    $pedidoFornecedor = $controle->selectById($_GET['cod']);
+
+    $pedidoFornecedor = $controle->select($_GET['cod'], 2);
+
+    $controltipoFornecedor = new controlerFornecedor($_SG['link']);
+
+    $fornecedores = $controltipoFornecedor->selectAll();
 
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
@@ -49,7 +62,7 @@
 
         <div class="container-fluid">
             <!-- Alterar aqui, criar uma classe businesCupom -->
-            <form class="form-horizontal" id="form-cadastro-cupom" method="POST" action="#">
+            <form class="form-horizontal" id="form-cadastro-cupom" method="POST" action="../../controler/alteraPedidoFornecedor.php">
             <!-- <form class="form-horizontal"> -->
                 <div class="col-md-12">
 
@@ -63,11 +76,11 @@
                             <br>
                                 <small>*Selecione o tipo de serviço do fornecedor.</small>
                                 <select class="form-control" name="tipoFornecedor" id="tipoFornecedor">
-                                    <option value="carnes">Carnes</option>
-                                    <option value="frios">Frios</option>
-                                    <option value="trigo">Trigo e Derivados</option>
-                                    <option value="frutas">Frutas e Legumes</option>
-                                    
+                                    <?php
+                                        foreach($fornecedores as $fornecedor){ ?>
+                                                <option value="<?= $fornecedor->getPkId(); ?>" > <?= $fornecedor->getNome() ?> (<?= ($fornecedor->tipo_fornecedor) ?>) </option>
+                                        <?php
+                                        }?>
                                 </select>
 
                             <br>
@@ -81,6 +94,8 @@
                             <div class="input-group">
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+
+                                <input class="form-control" name="cod" style="display: none;" id ="cod" type="hidden" value="<?=  $pedidoFornecedor->getPkId(); ?>"/>
 
                                 <input required class="form-control" placeholder="Valor do pedido" id="valor" name="valor" value="<?= $pedidoFornecedor->getValor();?>" type="number" step="0.01" min="1" max="9999">
 
@@ -108,7 +123,7 @@
 
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
 
-                                <input required class="form-control" placeholder="" name="data_pedido_fornecedor" value="<?= $pedidoFornecedor->getDataPedido();?>" type="date">
+                                <input required class="form-control" placeholder="" name="data_pedido_fornecedor" value="<?= $pedidoFornecedor->getDtPedido();?>" type="date">
 
                             </div> 
 
@@ -116,7 +131,7 @@
 
                             <small>*Descrição (Opcional): </small>
 
-                            <textarea name="descricao" rows="12"><?= html_entity_decode($pedidoFornecedor->getDescricao()); ?></textarea>
+                            <textarea name="descricao" rows="12"><?= html_entity_decode($pedidoFornecedor->getDesc()); ?></textarea>
 
                             <br>
 
@@ -141,7 +156,7 @@
 
                         if (in_array('gerenciar_fornecedor', $permissao)){ ?>
 
-                            <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Salvar</button>
+                            <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o" onclick="confereSenha();"></i> Alterar</button>
 
                         <?php } ?>
 
