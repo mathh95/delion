@@ -26,7 +26,7 @@ body{
             display: flex;
             justify-content: space-evenly;
             width: 100%;
-            >.logo{
+            >.logo-delion{
                 padding: 10px;
                 width: 100%;
                 img{
@@ -292,6 +292,143 @@ body{
                        
                     }
                 }
+            }
+        }
+    }
+}
+
+//SASS da tela de resgate fidelidade !!!!!
+.main{
+    background-color: rgb(236, 230, 230);
+    height: auto;
+    width: 100%;
+    .resgate-main{
+        width: 100%;
+        height: auto;
+        padding-bottom: 40px;
+
+        h2{
+            font-weight: bold;
+        }
+
+        >.pontos-info{
+            >.pontos-wrapper{
+                padding-top: 20px;
+
+                p{
+                    >span{
+                        color: red;
+                    }
+                }
+            }
+        }
+
+        .tabela-produtos{
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 30px;
+            .produtos-titulo{
+                padding-bottom: 20px;
+                font-weight: bold;
+            }
+            .btn-wrapper-resgate{
+                .btn-light{
+                    margin: 5px;
+                    margin-right: 5px;
+                    outline: none;
+                    border-radius: 50px;
+                    background-color: #fff;
+                    border: 2px solid #aeaeae;
+                    >span{
+                        font-weight: bold;
+                        color: #aeaeae;
+                    }
+                }
+
+                .btn-light.active{
+                    border-radius: 50px;
+                    background-color: #fff;
+                    border: 2px solid $vermelho_forte;
+                    >span{
+                        font-weight: bold;
+                        color: $vermelho_forte;
+                    }
+                }
+
+                .btn-light:focus{
+                    border-radius: 50px;
+                    background-color: #fff;
+                    border: 2px solid $vermelho_forte;
+                    >span{
+                        font-weight: bold;
+                        color: $vermelho_forte;
+                    }
+                }
+            }
+
+            .produtos-resgate-wrapper{
+                width: 100%;
+                flex-wrap: wrap;
+                display: inline-flex;
+                .produto-resgate{
+                    width: 25%;
+                    height: auto;
+                    padding: 20px;
+                    text-align: center;
+                    img{
+                        width: 100%;
+                        height: auto;
+                        border-radius: 20px;
+                    }
+                    h4{
+                        text-align: center;
+                        font-weight: bold;
+                        min-height: 57px;
+                    }
+                    p{
+                        color: $vermelho_forte;
+                    }
+
+                    .botoes-qtd{
+                        button{
+                            background-color: #000000;
+                            color: #ffffff;
+                            font-weight: bold;
+                            font-size: 17px;
+                            border: 0;
+                            border-radius: 5px;
+                            width: 25px;
+                            outline: 0;
+                        }
+                        input{
+                            width: 20px;
+                            border-radius: 5px;
+                            color: $vermelho_forte;
+                            text-align: center;
+                            font-weight: bold;
+                            font-size: 18px;
+                            border: 0;
+                        }
+                    }
+                }
+            }
+            .botoes-resgate{
+                text-align: right;
+                padding-top: 20px;
+                
+
+                button{
+                    font-weight: bold;
+                    font-size: 17px;
+                    padding: 10px;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                }
+                .btn-secondary{
+                    background-color: #9c9b9b;
+                    color: #ffffff;
+                }
+                
             }
         }
     }
