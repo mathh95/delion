@@ -112,7 +112,10 @@
         function selectAll(){
             $fornecedores = array();
             try{   
-                $stmte= $this->pdo->prepare("SELECT * FROM tb_fornecedor");
+                $stmte= $this->pdo->prepare("SELECT * 
+                FROM tb_fornecedor AS FO
+                INNER JOIN tb_tipo_fornecedor AS TIP
+                ON FO.for_fk_tipo_fornecedor = TIP.tifo_pk_id");
                 $executa= $stmte->execute();
                 if($executa){
                     if($stmte->rowCount() > 0){
@@ -126,6 +129,7 @@
                             $fornecedor->setTxtEndereco($result->for_endereco);
                             $fornecedor->setEndRef($result->for_referencia);
                             $fornecedor->setPkTipoFornecedor($result->for_fk_tipo_fornecedor);
+                            $fornecedor->tipo_fornecedor=$result->tifo_nome;
 
                             array_push($fornecedores, $fornecedor);
                         }

@@ -10,9 +10,9 @@
 
     include_once MODELPATH."/pedido_fornecedor.php";
 
-    include_once CONTROLLERPATH."/controlTipoFornecedor.php";
+    include_once CONTROLLERPATH."/controlFornecedor.php";
     
-    include_once MODELPATH."/tipo_fornecedor.php";
+    include_once MODELPATH."/fornecedor.php";
 
     include_once CONTROLLERPATH."/seguranca.php";
 
@@ -28,9 +28,9 @@
 
     $pedidoFornecedor = $controle->select($_GET['cod'], 2);
 
-    $controltipoFornecedor = new controlerTipoFornecedor($_SG['link']);
+    $controltipoFornecedor = new controlerFornecedor($_SG['link']);
 
-    $tipo_fornecedores = $controltipoFornecedor->selectAll();
+    $fornecedores = $controltipoFornecedor->selectAll();
 
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
@@ -77,10 +77,9 @@
                                 <small>*Selecione o tipo de serviço do fornecedor.</small>
                                 <select class="form-control" name="tipoFornecedor" id="tipoFornecedor">
                                     <?php
-                                        foreach($tipo_fornecedores as $tipo_fornecedor){
-                                            if($tipo_fornecedor->getFlag_ativo() == 1) { ?>
-                                                <option value="<?= $tipo_fornecedor->getPkId(); ?>" > <?= $tipo_fornecedor->getNome() ?> </option>
-                                        <?php }
+                                        foreach($fornecedores as $fornecedor){ ?>
+                                                <option value="<?= $fornecedor->getPkId(); ?>" > <?= $fornecedor->getNome() ?> (<?= ($fornecedor->tipo_fornecedor) ?>) </option>
+                                        <?php
                                         }?>
                                 </select>
 

@@ -59,7 +59,7 @@ $pedidoFornecedores = $controle->selectAll();
 	
 		foreach ($pedidoFornecedores as &$pedidoFornecedor) {
 			echo "<tr name='resutaldo' id='status".$pedidoFornecedor->getPkId()."'>
-            <td style='text-align: center;' name='tipo'>".$pedidoFornecedor->getFkFornecedor()."</td>
+            <td style='text-align: center;' name='tipo'>".$pedidoFornecedor->tipo_fornecedor."</td>
             <td style='text-align: center;' name='valor'>".$pedidoFornecedor->getValor()."</td>
             <td style='text-align: center;' name='formaPgt'>".$pedidoFornecedor->getFormaPgt()."</td>
             <td style='text-align: center;' name='descricao'>".substr(html_entity_decode($pedidoFornecedor->getDesc()), 0, 200)."</td>

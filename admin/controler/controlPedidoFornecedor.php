@@ -74,7 +74,12 @@
         function selectAll(){
             $pedido_fornecedores = array();
             try{   
-                $stmte= $this->pdo->prepare("SELECT * FROM tb_pedido_fornecedor ");
+                $stmte= $this->pdo->prepare("SELECT * 
+                FROM tb_pedido_fornecedor AS PED
+                INNER JOIN tb_fornecedor AS FO
+                ON PED.pefo_fk_fornecedor = FO.for_pk_id
+                INNER JOIN tb_tipo_fornecedor AS TIP
+                ON TIP.tifo_pk_id = FO.for_fk_tipo_fornecedor");
                 $executa= $stmte->execute();
                 if($executa){
                     if($stmte->rowCount() > 0){
@@ -86,6 +91,7 @@
                             $pedido_fornecedor->setDesc($result->pefo_desc);
                             $pedido_fornecedor->setDtPedido($result->pefo_dt_pedido);
                             $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
+                            $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
 
                             array_push($pedido_fornecedores, $pedido_fornecedor);
                         }
