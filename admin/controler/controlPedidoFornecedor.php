@@ -91,6 +91,7 @@
                             $pedido_fornecedor->setDesc($result->pefo_desc);
                             $pedido_fornecedor->setDtPedido($result->pefo_dt_pedido);
                             $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
+                            $pedido_fornecedor->fornecedorNome=$result->for_nome;
                             $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
 
                             array_push($pedido_fornecedores, $pedido_fornecedor);
