@@ -580,9 +580,9 @@
                                 <li><a href="cadastrarFornecedor.php">Cadastrar Fornecedor</a></li>
                                 <li><a href="fornecedoresLista.php">Listar Fornecedores</a></li>
                                 <li><a href="cadastrarTipoFornecedor.php">Cadastrar Tipo de Fornecedor</a></li>
-                                <li><a href="tipoFornecedoresLista.php">Listar Tipos de Fornecedores</a></li>
+                                <li><a href="tipoFornecedorLista.php">Listar Tipos de Fornecedores</a></li>
                                 <li><a href="cadastrarPedidoFornecedor.php">Cadastrar Pedido p/ Fornecedor</a></li>
-                                <li><a href="pedidosFornecedoresLista.php">Listar Pedidos p/ Fornecedores</a></li>
+                                <li><a href="pedidoFornecedorLista.php">Listar Pedidos p/ Fornecedores</a></li>
 
                             </ul>
 

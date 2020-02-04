@@ -7,7 +7,7 @@
 	if (in_array('gerenciar_fornecedor', json_decode($_SESSION['permissao']))) {
 		$cod_tipo_fornecedor = $_GET['cod'];
 		$controle=new controlerTipoFornecedor($_SG['link']);
-		$result=$controle->desativaTipoFornecedor($cod_tipo_fornecedor);
+		$result=$controle->ativaTipoFornecedor($cod_tipo_fornecedor);
 		
 		if($result == 1){
             header("Location: /admin/view/admin/tipoFornecedorLista.php");

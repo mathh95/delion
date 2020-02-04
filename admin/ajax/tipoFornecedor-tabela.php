@@ -11,7 +11,7 @@ $controle=new controlerTipoFornecedor($_SG['link']);
 $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-$tipoFornecedor = $controle->selectAll();
+$tipo_fornecedores = $controle->selectAll();
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
 if(in_array('gerenciar_fornecedor', $permissao)){
@@ -25,26 +25,26 @@ if(in_array('gerenciar_fornecedor', $permissao)){
 			<th width='15%' style='text-align: center;'>Ação</th>
         </tr>
 	<tbody>";
-	foreach ($tipoForncedores as &$tipoFornecedor) {
+	foreach ($tipo_fornecedores as &$tipo_fornecedor) {
         $mensagem='Tipo fornecedor excluído com sucesso!';
 	$titulo='Excluir';
-	if($tipoFornecedor->getFlag_ativo() == 1){
+	if($tipo_fornecedor->getFlag_ativo() == 1){
 		$flag = "Ativo";
 	}else{
 		$flag = "Inativo";
 	}
-        echo "<tr name='resultado' id='status".$tipoFornecedor->getPkId()."'>
-            <td style='text-align: center;' name='nome'>".$tipoFornecedor->getNome()."</td>
+        echo "<tr name='resultado' id='status".$tipo_fornecedor->getPkId()."'>
+            <td style='text-align: center;' name='nome'>".$tipo_fornecedor->getNome()."</td>
 	    <td style='text-align: center;' name='flag_ativo'>".$flag."</td>
-			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='formaPgt-view.php?cod=".$tipoFornecedor->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
+			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='tipoFornecedor-view.php?cod=".$tipo_fornecedor->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
 			
-			if($tipoFornecedor->getFlag_ativo() == 1){
+			if($tipo_fornecedor->getFlag_ativo() == 1){
 
-				echo "<td style='text-align: center;' name='status'><a href='../../ajax/excluir-formaPgt.php?cod=".$tipoFornecedor->getPkId()."'><button type='button' class='btn btn-kionux'><i class='fa fa-remove'></i> Desativar</button></a></td>";
+				echo "<td style='text-align: center;' name='status'><a href='../../ajax/excluir-tipoFornecedor.php?cod=".$tipo_fornecedor->getPkId()."'><button type='button' class='btn btn-kionux'><i class='fa fa-remove'></i> Desativar</button></a></td>";
 			
 			}else{
 			
-				echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-formaPgt.php?cod=".$tipoFornecedor->getPkId()."'><button type='button' class='btn btn-kionux' style='width: 107px'><i class='fa fa-check'></i> Ativar</button></a></td>";
+				echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-tipoFornecedor.php?cod=".$tipo_fornecedor->getPkId()."'><button type='button' class='btn btn-kionux' style='width: 107px'><i class='fa fa-check'></i> Ativar</button></a></td>";
 
 			}
 
@@ -62,12 +62,12 @@ if(in_array('gerenciar_fornecedor', $permissao)){
             <th width='15%' style='text-align: center;'>Apagar</th>
         </tr>
 	<tbody>";
-	foreach ($tipoForncedores as &$tipoFornecedor) {
+	foreach ($tipo_fornecedores as &$tipo_fornecedor) {
         $mensagem='Adicional excluído com sucesso!';
         $titulo='Excluir';
-        echo "<tr name='resultado' id='status".$tipoFornecedor->getPkId()."'>
-            <td style='text-align: center;' name='nome'>".$tipoFornecedor->getNome()."</td>
-	    <td style='text-align: center;' name='flag_ativo'>".($tipoFornecedor->getFlag_ativo() == 1)?"Ativo":"Inativo"."</td> 	
+        echo "<tr name='resultado' id='status".$tipo_fornecedor->getPkId()."'>
+            <td style='text-align: center;' name='nome'>".$tipo_fornecedor->getNome()."</td>
+	    <td style='text-align: center;' name='flag_ativo'>".($tipo_fornecedor->getFlag_ativo() == 1)?"Ativo":"Inativo"."</td> 	
         </tr>";
 	}
 }

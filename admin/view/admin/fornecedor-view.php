@@ -12,6 +12,10 @@
 
     include_once MODELPATH."/fornecedor.php";
 
+    include_once CONTROLLERPATH."/controlTipoFornecedor.php";
+    
+    include_once MODELPATH."/tipo_fornecedor.php";
+
     $_SESSION['permissaoPagina']=0;
 
     protegePagina();
@@ -23,6 +27,9 @@
     $controle=new controlerFornecedor($_SG['link']);
 
     $fornecedor = $controle->select($_GET['cod'], 2);
+
+    $controltipoFornecedor = new controlerTipoFornecedor($_SG['link']);
+    $tipo_fornecedores = $controltipoFornecedor->selectAll();
 
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
@@ -70,18 +77,32 @@
 
                             </div>
 
+                            <br>
+
                             <small>Endereço *: </small>
 
                             <div class="input-group">
 
                                 <span class="input-group-addon"><i class="fas fa-home"></i></span>
 
-                                <input class="form-control" placeholder="Endereço" name="endereco" required autofocus id ="endereco" type="text" value="<?= $fornecedor->getEndereco(); ?>">
+                                <input class="form-control" placeholder="Endereço" name="endereco" required autofocus id ="endereco" type="text" value="<?= $fornecedor->getTxtEndereco(); ?>">
 
                             </div>
 
                             <br>
 
+                            <small>Referência *: </small>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="fas fa-home"></i></span>
+
+                                <input class="form-control" placeholder="Referência" name="referencia" id ="referencia" type="text" value="<?= $fornecedor->getEndRef(); ?>">
+
+                            </div>
+
+                            <br>
+                            
                             <small>*CNPJ</small>
 
                             <br>
@@ -106,7 +127,7 @@
 
                                 <span class="input-group-addon"><i class="fas fa-phone"></i></span>
 
-                                <input class="form-control telefone" name="telefone" type="text" minlength="15" maxlength="15" required placeholder="(45) 9999-9999" value="<?= $fornecedor->getTelefone();?>">
+                                <input class="form-control telefone" name="telefone" type="text" minlength="15" maxlength="15" required placeholder="(45) 9999-9999" value="<?= $fornecedor->getFone();?>">
                             </div> 
 
                             <br>
@@ -124,13 +145,12 @@
                             </div> 
 
                             <br>
-                                <small>*Selecione o tipo de serviço do fornecedor.</small>
+                            <small>*Selecione o tipo de serviço do fornecedor.</small>
                                 <select class="form-control" name="tipoFornecedor" id="tipoFornecedor">
-                                    <option value="carnes">Carnes</option>
-                                    <option value="frios">Frios</option>
-                                    <option value="trigo">Trigo e Derivados</option>
-                                    <option value="frutas">Frutas e Legumes</option>
-                                    
+                                    <?php
+                                        foreach($tipo_fornecedores as $tipo_fornecedor){ ?>
+                                                <option value="<?= $tipo_fornecedor->getPkId(); ?>" > <?= $tipo_fornecedor->getNome() ?> </option>
+                                        <?php } ?>
                                 </select>
 
                             <br>
@@ -149,7 +169,7 @@
 
                     $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                    if (in_array('categoria', $permissao)){ ?>
+                    if (in_array('gerenciar_fornecedor', $permissao)){ ?>
 
                         <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Alterar</button>
 
@@ -159,7 +179,7 @@
 
                     <div class="pull-right">
 
-                        <a href="categoriaLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Voltar</a>
+                        <a href="fornecedoresLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Voltar</a>
 
                     </div>
 
@@ -172,6 +192,20 @@
         
 
         <?php include VIEWPATH."/rodape.html" ?>
+        
+        <script>
+        
+        $(document).ready(function() {
+        
+        var tipoFornecedor = '<?= $fornecedor->getPkTipoFornecedor() ?>';
+
+        if(tipoFornecedor) $('#' +tipoFornecedor).attr('selected', true);
+        
+        });
+        
+        
+        </script>
+
 
     </body>
 
