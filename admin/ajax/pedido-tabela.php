@@ -55,7 +55,7 @@ if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || 
 //Sem Filtro
 }else{
 
-	if (!isset($_POST['nome'])){
+	if ($_POST['nome'] == ''){
 		$nome ='';
 	}
 	if (!isset($_POST['menor'])){

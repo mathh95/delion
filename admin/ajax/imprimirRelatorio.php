@@ -17,6 +17,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 $controltipoFornecedor = new controlerTipoFornecedor($_SG['link']);
 $tipo_fornecedores = $controltipoFornecedor->selectAll();
 $controle=new controlerPedidoFornecedor($_SG['link']);
+$total = 0;
 
 if(isset($_POST['nome']) || isset($_POST['tipoFornecedor']) || isset($_POST['dt_inicio']) || isset($_POST['dt_fim'])){
 	$nome_fornecedor = $_POST['nome'];
@@ -92,23 +93,29 @@ if(isset($_POST['nome']) || isset($_POST['tipoFornecedor']) || isset($_POST['dt_
 					<th width='17%' style='text-align: center;'>Fornecedor</th>
 					<th width='10%' style='text-align: center;'>Valor</th>
 					<th width='17%' style='text-align: center;'>Forma de Pagamento</th>
-					<th width='25%' style='text-align: center;'>Descrição (Opcional)</th>
-					<th width='15%' style='text-align: center;'>Data do Pedido</th>
-					<th width='10%' style='text-align: center;'>Editar</th>
+                    <th width='15%' style='text-align: center;'>Data do Pedido</th>
 				</tr>
-			<tbody>";
+            <tbody>";
+            
 		
 			foreach ($pedidoFornecedores as &$pedidoFornecedor) {
+                $total += $pedidoFornecedor->getValor();
+                $total = number_format($total,2,'.', '.');
 				echo "<tr name='resutaldo' id='status".$pedidoFornecedor->getPkId()."'>
 				<td style='text-align: center;' name='tipo'>".$pedidoFornecedor->tipo_fornecedor."</td>
 				<td style='text-align: center;' name='fornecedor'>".$pedidoFornecedor->fornecedorNome."</td>
 				<td style='text-align: center;' name='valor'>".$pedidoFornecedor->getValor()."</td>
 				<td style='text-align: center;' name='formaPgt'>".$pedidoFornecedor->getFormaPgt()."</td>
-				<td style='text-align: center;' name='descricao'>".substr(html_entity_decode($pedidoFornecedor->getDesc()), 0, 200)."</td>
-				<td style='text-align: center;' name='qtddias'>".date('d/m/Y', strtotime($pedidoFornecedor->getDtPedido()))."</td>
-				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='pedidoFornecedor-view.php?cod=".$pedidoFornecedor->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
+                <td style='text-align: center;' name='qtddias'>".date('d/m/Y', strtotime($pedidoFornecedor->getDtPedido()))."</td>
 			</tr>";
-			}
+            }
+            echo "<table class='table table-responsive' id='tbPedidoFornecedor style='text-align = center;'>
+			<thead>
+				<tr>
+                    <th width='10%' style='text-align: center;'>Total</th>
+                    <th width='10%' style='text-align: center;'>R$ ".number_format($total,2,'.', '.')."</th>
+				</tr>
+            <tbody>";
 		}
 	}
 
