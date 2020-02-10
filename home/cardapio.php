@@ -348,29 +348,6 @@
 			});
 		}
 
-		function adicionaCombo(item){
-
-			adicionais = new Array();
-			var largura = $(window).width();
-			$("input[type=checkbox][name='adicional']:checked").each(function(){
-    			adicionais.push($(this).val());
-			});
-
-			$.ajax({
-				type:'POST',
-				url:'ajax/add-combo.php',
-				data:{item:item, adicionais:adicionais},
-				success:function(res){
-					$("#spanCombo").html(res);
-					if(largura <= 767){
-						$("#myModalC"+item).modal('hide');
-					}else{
-						$("#myModal"+item).modal('hide');
-					}
-				}
-			});
-		}
-
 		
 		function fecharModal(idCardapio){
 			var largura = $(window).width();

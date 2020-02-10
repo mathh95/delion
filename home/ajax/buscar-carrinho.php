@@ -38,6 +38,8 @@ $_SESSION['minimo_taxa_gratis'] = 99999;
 if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     //ordenados com base na inserção/add carrinho
     $itens = $_SESSION['carrinho'];
+    var_dump($itens);
+    exit;
     $itensObservacao = $_SESSION['observacao'];
     $itensQtd = $_SESSION['qtd'];
 
@@ -174,32 +176,37 @@ if (count($itens) > 0) {
                     
                     }else{//else do if disponivel
                     
-                    ?>
+                        ?>
 
                         <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
-                            <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
+                            
+                        
                             <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['pro_nome'] ?></strong></td>
-                            <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
 
+                            <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
+                        
                             <td style="text-align: center;" colspan="3">
                                 Item indisponível no momento! <i class="far fa-surprise"></i>
                             </td>
+                        
+                            <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
                             
                             <!-- valor utilizado ao remover item -->
                             <input style="display:none;" id="qtdUnidade<?= $i ?>" type="text" value=<?= $_SESSION['qtd'][$key] ?> readonly="true">
                             
                         </tr>
-                    <?php
 
+                        <?php
 
-                    if ($item['pro_flag_delivery'] != 1) {
-                        $delivery_indisponivel = $delivery_indisponivel + 1;
-                    }
+                        if ($item['pro_flag_delivery'] != 1) {
+                            $delivery_indisponivel = $delivery_indisponivel + 1;
+                        }
 
-                    //Item indisponível presente no carrinho
-                    $_SESSION['item_indisponivel'] = 1;
+                        //Item indisponível presente no carrinho
+                        $_SESSION['item_indisponivel'] = 1;
                         
                     }//end else
+
 
                     $i++;
                     $totalCarrinho += $item['pro_preco'] * $_SESSION['qtd'][$key];

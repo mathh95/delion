@@ -578,6 +578,7 @@
                                 $cliente->setTelefone($result->cli_telefone);
                                 $cliente->setStatus($result->cli_status);
                                 $cliente->setIdFacebook($result->cli_id_facebook);
+                                $cliente->setPontosFidelidade($result->cli_pontos_fidelidade);
                             }
                         }
                         return $cliente;
@@ -613,6 +614,44 @@
                                 $cliente->setTelefone($result->cli_telefone);
                                 $cliente->setStatus($result->cli_status);
                                 $cliente->setIdFacebook($result->cli_id_google);
+                                $cliente->setPontosFidelidade($result->cli_pontos_fidelidade);
+                            }
+                        }
+                        return $cliente;
+                    }else{
+                        return -1;
+                    }
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return -1;
+                }
+            }
+
+            function selectById($pk_id){
+
+                $cliente = new cliente;
+                try{                    
+                    $stmt=$this->pdo->prepare("SELECT *
+                    FROM tb_cliente
+                    WHERE cli_pk_id=:pk_id");
+
+                    $stmt->bindParam(":pk_id", $pk_id, PDO::PARAM_INT);
+                    
+                    $executa=$stmt->execute();
+                    if ($executa){
+                        if($stmt->rowCount() > 0){
+                            while($result=$stmt->fetch(PDO::FETCH_OBJ)){
+                                $cliente->setPkId($result->cli_pk_id);
+                                $cliente->setLogin($result->cli_login_email);
+                                $cliente->setNome($result->cli_nome);
+                                $cliente->setSobrenome($result->cli_sobrenome);
+                                $cliente->setCpf($result->cli_cpf);
+                                $cliente->setData_nasc($result->cli_data_nasc);
+                                $cliente->setTelefone($result->cli_telefone);
+                                $cliente->setStatus($result->cli_status);
+                                $cliente->setIdFacebook($result->cli_id_google);
+                                $cliente->setPontosFidelidade($result->cli_pontos_fidelidade);
                             }
                         }
                         return $cliente;

@@ -1,19 +1,30 @@
 <?php 
 	
-	include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
-
 	session_start();
+	
+	include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
+	
+    include_once CONTROLLERPATH."/conexao.php";
+    include_once "./controler/controlCliente.php";
+    include_once "./controler/controlProduto.php";
+	include_once MODELPATH."/produto.php";
+	include_once MODELPATH."/cliente.php";
 
-	include_once "../admin/controler/conexao.php";
-	include_once "controler/controlEmpresa.php";
-	include_once "controler/controlImagem.php";
-
+	$control_cliente = new controlCliente(conecta());
+	$controle_produto = new controlerProduto(conecta());
+	
 	//configuração de acesso ao WhatsApp
 	//include "./whats-config.php";
 
 	//Verifica se usuário já habilidato para o Programa
 	if(!isset($_SESSION['data_nasc']) ||  $_SESSION['data_nasc'] == "") header("Location: /home/cadastroFidelidade.php");
 	//var_dump($_SESSION);
+
+	$cliente = $control_cliente->selectById($_SESSION['cod_cliente']);
+
+	//pontos da promocao
+	$array_pontos = array(30, 50, 80, 90, 120, 200, 220, 250);
+
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +65,7 @@
 					</p>
 
 					<div class="pontos-wrapper">
-						<p>Você possui: <span>1044 pontos</span></p>
+						<p>Você possui: <span><?=floor($cliente->getPontosFidelidade())?> pontos</span></p>
 						<p>Pontuação mínima: <span>30 pontos</span></p>
 					</div>
 
@@ -67,286 +78,96 @@
 					<!--  Botoes do sistema de resgate por pontos -->
 					<div class="btn-group btn-wrapper-resgate" data-toggle="buttons">
 
-						<label class="btn btn-light active btn-30pts" data-link_class_produtos_resgate="resgate-30pts">
-							<input type="radio" name="options" id="btn-30pts" checked>
-							<span>30 pontos</span>
-						</label>
+						<?php
 
-						<label class="btn btn-light btn-50pts" data-link_class_produtos_resgate="resgate-50pts">
-							<input type="radio" name="options" id="btn-50pts">
-							<span>50 pontos</span>
-						</label>
+						$is_active = "active";
+						foreach($array_pontos as $pontos){
 
-						<label class="btn btn-light btn-80pts" data-link_class_produtos_resgate="resgate-80pts">
-							<input type="radio" name="options" id="btn-80pts">
-							<span>80 pontos</span>
-						</label>
+							if($pontos != 30) $is_active = "";
 
-						<label class="btn btn-light btn-90pts" data-link_class_produtos_resgate="resgate-90pts">
-							<input type="radio" name="options" id="btn-90pts">
-							<span>90 pontos</span>
-						</label>
-
-						<label class="btn btn-light btn-120pts" data-link_class_produtos_resgate="resgate-120pts">
-							<input type="radio" name="options" id="btn-120pts">
-							<span>120 pontos</span>
-						</label>
-
-						<label class="btn btn-light btn-200pts" data-link_class_produtos_resgate="resgate-200pts">
-							<input type="radio" name="options" id="btn-200pts">
-							<span>200 pontos</span>
-						</label>
-
-						<label class="btn btn-light btn-220pts" data-link_class_produtos_resgate="resgate-220pts">
-							<input type="radio" name="options" id="btn-220pts">
-							<span>220 pontos</span>
-						</label>
-
-						<label class="btn btn-light btn-250pts" data-link_class_produtos_resgate="resgate-250pts">
-							<input type="radio" name="options" id="btn-250pts">
-							<span>250 pontos</span>
-						</label>
+							echo "
+								<label class='btn btn-light {$is_active} btn-{$pontos}pts' data-link_class_produtos_resgate='resgate-{$pontos}pts'>
+								<input type='radio' name='options' id='btn-{$pontos}pts' checked>
+								<span>{$pontos} pontos</span>
+							</label>
+							";
+						}
+						?>
 
 					</div>
 
-					<!-- Produtos do resgate com 30 pontos -->
-					<div class="produtos-resgate-wrapper resgate-30pts">
-						<div class="produto-resgate">
-							<img src="/home/img/torta.png" alt="torta">
-							<h4>CHEESECAKE 30 PONTOS - 01 UNIDADE </h4>
-							<p>30 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-						<div class="produto-resgate">
-							<img src="/home/img/torta.png" alt="torta">
-							<h4>CHEESECAKE 30 PONTOS - 01 UNIDADE </h4>
-							<p>30 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-						<div class="produto-resgate">
-							<img src="/home/img/torta.png" alt="torta">
-							<h4>CHEESECAKE 30 PONTOS - 01 UNIDADE </h4>
-							<p>30 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-						<div class="produto-resgate">
-							<img src="/home/img/torta.png" alt="torta">
-							<h4>CHEESECAKE 30 PONTOS - 01 UNIDADE </h4>
-							<p>30 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text"  value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>	
-						<div class="produto-resgate">
-							<img src="/home/img/torta.png" alt="torta">
-							<h4>CHEESECAKE 30 PONTOS - 01 UNIDADE </h4>
-							<p>30 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>			                
-					</div>
+					<?php
 
+					// $hora_atual = date('H:i:s', time() - 3600);// horário de verão extinto
+					$hora_atual = date('H:i:s', time());// servidor possui hora correta
+					$hoje = (date('w')+1); // 1 == domingo, 7 == sábado
 
-					<!-- Produtos do resgate com 50 pontos -->
-					<div class="produtos-resgate-wrapper resgate-50pts" style="display: none;">
-						<div class="produto-resgate">
-							<img src="/home/img/torta.png" alt="torta">
-							<h4>CHEESECAKE 50 PONTOS - 01 UNIDADE </h4>
-							<p>50 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-						<div class="produto-resgate">
-							<img src="/home/img/torta.png" alt="torta">
-							<h4>CHEESECAKE 50 PONTOS - 01 UNIDADE </h4>
-							<p>50 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-						<div class="produto-resgate">
-							<img src="/home/img/torta.png" alt="torta">
-							<h4>CHEESECAKE 50 PONTOS - 01 UNIDADE </h4>
-							<p>50 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-						<div class="produto-resgate">
-							<img src="/home/img/torta.png" alt="torta">
-							<h4>CHEESECAKE 50 PONTOS - 01 UNIDADE </h4>
-							<p>50 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text"  value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>	
-						<div class="produto-resgate">
-							<img src="/home/img/torta.png" alt="torta">
-							<h4>CHEESECAKE 50 PONTOS - 01 UNIDADE </h4>
-							<p>50 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>			                
-					</div>
+					$is_hide = "";
+					foreach($array_pontos as $pontos){
+						
+						$produtos = $controle_produto->selectAllByPtsResgate($pontos);
+						
+						
+						if($pontos != 30) $is_hide = 'style="display:none;"';
+						echo "
+						<div {$is_hide} class='produtos-resgate-wrapper resgate-{$pontos}pts'>
+						";
 
-					<!-- Produtos do resgate com 80 pontos -->
-					<div class="produtos-resgate-wrapper resgate-80pts" style="display: none;">
-						<div class="produto-resgate">
-							<img src="/home/img/img-cardapio.png" alt="cafe">
-							<h4>CAFÉ DELION 80 PONTOS - 01 UNIDADE </h4>
-							<p>80 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-						<div class="produto-resgate">
-							<img src="/home/img/img-cardapio.png" alt="cafe">
-							<h4>CAFÉ DELION 80 PONTOS - 01 UNIDADE </h4>
-							<p>80 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-						<div class="produto-resgate">
-							<img src="/home/img/img-cardapio.png" alt="cafe">
-							<h4>CAFÉ DELION 80 PONTOS - 01 UNIDADE </h4>
-							<p>80 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-						<div class="produto-resgate">
-							<img src="/home/img/img-cardapio.png" alt="cafe">
-							<h4>CAFÉ DELION 80 PONTOS - 01 UNIDADE </h4>
-							<p>80 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-						<div class="produto-resgate">
-							<img src="/home/img/img-cardapio.png" alt="cafe">
-							<h4>CAFÉ DELION 80 PONTOS - 01 UNIDADE </h4>
-							<p>80 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-					</div>
+						$flag_displayed = false;
 
+						foreach($produtos as $produto){
+							
+							// verifica se item disponível hoje e agora
+							if(
+								$produto->getDias_semana() &&
+								in_array($hoje, json_decode($produto->getDias_semana())) &&
+								($hora_atual >= $produto->getProduto_horas_inicio() && $hora_atual < $produto->getProduto_horas_final())
+							){
 
-					<!-- Produtos do resgate com 90 pontos -->
-					<div class="produtos-resgate-wrapper resgate-90pts" style="display: none;">
-						<div class="produto-resgate">
-							<img src="/home/img/mini_cake.png" alt="cake">
-							<h4>MINI CAKE DELION 90 PONTOS - 01 UNIDADE </h4>
-							<p>90 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-					</div>
+								echo "
+								<div class='produto-resgate'>
+									<img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}' onerror='this.src=\"/home/img/default_produto.jpg\"'>
+									<h4>{$produto->getNome()} </h4>
+									<p>{$pontos} pontos</p>
+									<div class='botoes-qtd'>
 
-					<!-- Produtos do resgate com 120 pontos -->
-					<div class="produtos-resgate-wrapper resgate-120pts" style="display: none;">
-						<div class="produto-resgate">
-							<img src="/home/img/mini_cake.png" alt="cake">
-							<h4>MINI CAKE DELION 120 PONTOS - 01 UNIDADE </h4>
-							<p>120 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-					</div>
+										<button
+											type='button' id='sub'
+											data-cod_produto='{$produto->getPkId()}'
+											data-pontos='{$produto->getPtsResgateFidelidade()}'
+											class='sub'>-
+										</button>
+										
+										<input id='qtd-{$produto->getPkId()}' type='text' value='0' class='field' disabled />
+										
+										<button
+											type='button' id='add'
+											data-cod_produto='{$produto->getPkId()}'
+											data-pontos='{$produto->getPtsResgateFidelidade()}'
+											data-nome_produto='{$produto->getNome()}' class='add'>+
+										</button>
 
-					<!-- Produtos do resgate com 200 pontos -->
-					<div class="produtos-resgate-wrapper resgate-200pts" style="display: none;">
-						<div class="produto-resgate">
-							<img src="/home/img/img-cardapio.png" alt="cafe">
-							<h4>CAFÉ DELION 200 PONTOS - 01 UNIDADE </h4>
-							<p>200 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-					</div>
+									</div>
+								</div>";
 
-					<!-- Produtos do resgate com 220 pontos -->
-					<div class="produtos-resgate-wrapper resgate-220pts" style="display: none;">
-						<div class="produto-resgate">
-							<img src="/home/img/torta.png" alt="torta">
-							<h4>CHEESECAKE DELION 220 PONTOS - 01 UNIDADE </h4>
-							<p>220 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-					</div>
+							}else{
+								
+								if($flag_displayed != true){
+									echo '<div style="text-align:center; padding-bottom:10px;">Itens indisponíveis no momento! <i class="far fa-surprise"></i></div>';
 
+									$flag_displayed = true;
+								}
+							}	
+						}
 
-					<!-- Produtos do resgate com 250 pontos -->
-					<div class="produtos-resgate-wrapper resgate-250pts" style="display: none;">
-						<div class="produto-resgate">
-							<img src="/home/img/mini_cake.png" alt="cake">
-							<h4>MINI CAKE MASTER ULTRA DELION 250 PONTOS - 01 UNIDADE </h4>
-							<p>250 pontos</p>
-							<div class="botoes-qtd">
-								<button type="button" id="sub" class="sub">-</button>
-								<input type="text" value="0" class="field" disabled />
-								<button type="button" id="add" class="add">+</button>
-							</div>
-						</div>
-					</div>
+						echo "</div>";
+					}
+
+					?>
 
 					<div class="botoes-resgate">
 						<button type="button" class="btn btn-secondary" onclick="location = '/home/cardapio.php'">Cancelar resgate</button>
-						<button type="button" class="btn btn-success" onclick="location = '/home/cardapio.php'">Finalizar resgate</button>
+						<button type="button" class="btn btn-success" id="finalizar_resgate">Finalizar resgate</button>
 					</div>
 					
 				</div>
@@ -354,30 +175,154 @@
 		</div>
 	</div>
 
-	
-
 	<?php
 		include_once "./footer.php";
 	?>
+
+
+
+
 
 	<script type="text/javascript" src="js/wickedpicker.js"></script>
 	<script type="text/javascript" src="js/maskedinput.js"></script>
 
 	<script>
+
+		var pontos_disponiveis = <?=floor($cliente->getPontosFidelidade())?>;
+		var pontos_usados = 0;
+		
+		var itens_resgate = {};
+		
+
+		$(document).on("click","#finalizar_resgate", function(){
+			
+			return;
+			
+			var qtd_carrinho = $('#spanCarrinho').text();
+
+			// console.log(itens_resgate);
+			if(itens_resgate.length == 0){
+				swal({
+					title: "Nenhum item selecionado 😮",
+					icon: "info",
+					button: 'Voltar'
+				});
+				return;
+			}
+
+			swal({
+				title: "Finalizar resgate!? 😋",
+				text: "Indo para o carrinho...",
+				icon: "info",
+				buttons: {
+					cancel: {
+						text: 'Voltar',
+						visible: true,
+						value: false,
+					},
+					confirm: {
+						text: 'Prosseguir',
+						value: true,
+					}
+				}
+			})
+			.then((val) => {
+				if(val){
+					$.ajax({
+						type: 'GET',
+						url: 'ajax/add-carrinho.php',
+						data: {is_array: true, itens_resgate: itens_resgate},
+						success: function(res){
+							console.log(res);
+							return;
+							$("#spanCarrinho").html(res);
+							$("#spanCarrinho-navbar").html(res);
+
+							window.location = 'carrinho.php';
+						},
+						error: function(err){
+							console.log(err);
+						}
+					});
+				}
+			});
+
+		});
+
+
+
+
 		$('.add').click(function () {
-    		$(this).prev().val(+$(this).prev().val() + 1);
+
+			pts = $(this).data('pontos');
+
+			aux = pontos_usados + pts;
+			if(aux > pontos_disponiveis){
+				displayPtsInsuficientes();
+				return;
+			}else{
+
+				var id = $(this).data('cod_produto');
+				var qtd_item = parseInt($("#qtd-"+id).val());
+
+				//set
+				if(qtd_item == 0 ) itens_resgate[id] = 0;
+				$(this).prev().val(+$(this).prev().val() + 1);
+
+				//inc
+				itens_resgate[id] += 1;
+
+				pontos_usados += pts;
+				// console.log(pontos_usados);
+			}
+			// console.log(itens_resgate);
 		});
+
+
 		$('.sub').click(function () {
+
+			var id = $(this).data('cod_produto');
+			var qtd_item = parseInt($("#qtd-"+id).val());
+
+			if(qtd_item > 0){
+				pts = $(this).data('pontos');
+				pontos_usados -= pts;
+			}
+			// console.log(pontos_usados);
+
+			//atualiza txt/val
 			if ($(this).next().val() > 0) $(this).next().val(+$(this).next().val() - 1);
+
+			//remove id do array de itens para resgate
+			qtd_item = parseInt($("#qtd-"+id).val());
+			if(qtd_item == 0 ){				
+				delete itens_resgate[id];
+			}else{
+				itens_resgate[id] -= 1;
+			}
+			// console.log(itens_resgate);
+
 		});
+
+		function displayPtsInsuficientes(){
+			swal({
+				title: "Pontos insuficiente! 😕",
+				text: "Tente outro produto...",
+				icon: "warning",
+				timer: 1100,
+				buttons: false
+			});
+		}
+
 
 
 		$(".btn-light").click(function() {
-                link_class_produtos_resgate = $(this).data("link_class_produtos_resgate");
-                $( ".produtos-resgate-wrapper" ).hide();
-                $('.'+link_class_produtos_resgate).slideToggle();
+			link_class_produtos_resgate = $(this).data("link_class_produtos_resgate");
+			$( ".produtos-resgate-wrapper" ).hide();
+			$('.'+link_class_produtos_resgate).slideToggle();
                 
         });
+		
 	</script>
 
 </body>

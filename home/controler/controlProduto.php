@@ -507,6 +507,8 @@ include_once MODELPATH."/produto.php";
                 FROM tb_produto AS PRO
                 INNER JOIN tb_fidelidade AS FID
                 ON PRO.pro_pts_resgate_fidelidade = :pts_resgate_fidelidade
+                INNER JOIN tb_faixa_horario AS FAHO
+                ON PRO.pro_fk_faixa_horario = FAHO.faho_pk_id
                 ORDER BY pro_pts_resgate_fidelidade ASC");
 
                 $stmte->bindParam(":pts_resgate_fidelidade", $pts_resgate_fidelidade , PDO::PARAM_INT);
@@ -529,6 +531,8 @@ include_once MODELPATH."/produto.php";
                             $produto->setDelivery($result->pro_flag_delivery);
                             $produto->setPosicao($result->pro_posicao);
                             $produto->setDias_semana($result->pro_arr_dias_semana);
+                            $produto->setProduto_horas_inicio($result->faho_inicio);
+                            $produto->setProduto_horas_final($result->faho_final);
                             $produto->setPtsResgateFidelidade($result->pro_pts_resgate_fidelidade);
 
                             $produto->setCategoria($result->pro_fk_categoria);

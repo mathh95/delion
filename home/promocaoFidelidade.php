@@ -8,7 +8,7 @@
 
 
     $controle_produto = new controlerProduto(conecta());
-
+    
     //configuração de acesso ao WhatsApp 
     // include "./whats-config.php";
 ?>

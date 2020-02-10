@@ -9,6 +9,8 @@
 	$controleEmpresa = new controlerEmpresa(conecta());
 	$empresa = $controleEmpresa->select(1,2);
 
+	if(isset($_SESSION['cod_cliente']) && $_SESSION['cod_cliente'] != "") header("Location: /home/resgateFidelidade.php");
+
 	//configuração de acesso ao WhatsApp
 	//include "./whats-config.php";
 ?>
