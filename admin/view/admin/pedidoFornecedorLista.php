@@ -58,7 +58,7 @@ $arquivo_pai = basename(__FILE__, '.php');
                     </div>
                     <div class="mini-divs">
                         <button id="printCardapio" style="margin-top:25px" type="button" class="btn btn-kionux" data-toggle="modal" data-target="#printMenuModal">
-                            <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Imprimir
+                            <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Geração de Relatório
                         </button>
                     </div>
             </div>

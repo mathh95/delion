@@ -33,6 +33,7 @@ if(isset($_POST['nome']) || isset($_POST['tipoFornecedor']) || isset($_POST['dt_
 		else if(empty($_POST['nome']) && !empty($_POST['tipoFornecedor']) && empty($_POST['dt_inicio']) && empty($_POST['dt_fim'])){
 			$pedidoFornecedores = $controle->filtroTipo($tipo);
 		}
+
 		//Filtro para o tipo "TODOS"
 		else if($tipo == 0){
 			$pedidoFornecedores = $controle->selectAll();
@@ -44,7 +45,7 @@ if(isset($_POST['nome']) || isset($_POST['tipoFornecedor']) || isset($_POST['dt_
 		}
 
 		//Filtro apenas para a data
-		else if(empty($_POST['nome']) && empty($_POST['tipoFornecedor'] && !empty($_POST['dt_inicio']) && !empty($_POST['dt_fim']))){
+		else if(empty($_POST['nome']) && empty($_POST['tipoFornecedor']) && !empty($_POST['dt_inicio']) && !empty($_POST['dt_fim'])){
 			$pedidoFornecedores = $controle->filtroData($dt_inicio, $dt_fim);
 		}
 
