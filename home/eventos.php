@@ -87,6 +87,7 @@ session_start();
 					<li>Palestras.</li>
 					<li>Vernissages.</li>
 				</ul>
+				<p>Preencha o formulário ao lado para pedir seu evento.</p>
 			</div>
 			<div class="col-sm slider main-carousel">
 				<img src="img/Evento_img2.jpg" alt="torta" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
