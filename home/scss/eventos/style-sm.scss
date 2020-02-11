@@ -109,7 +109,13 @@ body{
                     }
                     
                 }
-            } 
+            }
+            >div.texto-eventos{
+                font-weight: bold;
+                h5{
+                    font-weight: bold;
+                }
+            }  
         }
         > .imagem{
             @include make-sm-column(5);

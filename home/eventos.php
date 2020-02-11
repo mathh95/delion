@@ -77,11 +77,29 @@ session_start();
 				</form>
 				
 			</div>
+			<div class="col-sm texto-eventos">
+				<h5>Salão Climatizado para 80 pessoas</h5>
+				<ul>
+					<li>Reuniões Familiares.</li>
+					<li>Confraternizações.</li>
+					<li>Aniversários.</li>
+					<li>Coquetéis.</li>
+					<li>Palestras.</li>
+					<li>Vernissages.</li>
+				</ul>
+			</div>
 			<div class="col-sm slider main-carousel">
-				<img src="img/img1.png" alt="imagem-evento" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
-				<img src="img/img2.png" alt="torta" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
-				<img src="img/img-evento.png" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
-
+				<img src="img/Evento_img2.jpg" alt="torta" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img3.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img4.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img5.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img6.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img7.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img8.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img9.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img10.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img11.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img12.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
 			</div>
 		</div>
 

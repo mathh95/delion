@@ -305,6 +305,14 @@
 
                                         </label>
                                     </li>
+
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="gerenciar_composicao" name="permissoes[]" value="gerenciar_composicao"> Gerenciar Composição
+
+                                        </label>
+                                    </li>
                                 
                                 </ul>
 

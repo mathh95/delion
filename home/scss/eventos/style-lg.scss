@@ -64,10 +64,10 @@ body{
                 }
             }
             > div.col-sm{
-                @include make-lg-column(7);
+                @include make-lg-column(4);
             
                 > form {
-                    @include make-lg-column(10);
+                    @include make-lg-column(12);
                     display: flex;
                     flex-wrap: wrap;
                     flex-direction: column;
@@ -91,7 +91,7 @@ body{
                         outline: none;
                         border: 2px solid $vermelho_forte;
                         margin-bottom: 20px;
-                        margin-left: auto;
+                        // margin-left: auto;
                         margin-right: auto;
                     }
                     textarea{
@@ -99,7 +99,7 @@ body{
                         max-height: 200px;
                         border: 2px solid $vermelho_forte;
                         @include make-lg-column(12);
-                        margin-left: auto;
+                        // margin-left: auto;
                         margin-right: auto;
                         margin-bottom: 38px;
                     }
@@ -109,24 +109,33 @@ body{
                         background-color: $vermelho_forte;
                         font-weight: bold;
                         color: #ffffff;
-                        margin-left: auto;
+                        // margin-left: auto;
                         margin-right: auto;
                     }
                     
                 }
+            }
+            >div.texto-eventos{
+                @include make-lg-column(3.2);
+                justify-content: center;
+                font-weight: bold;
+                h5{
+                    font-weight: bold;
+                }
             } 
             div.slider{
-                width: 41%;
-                height: auto;
-                float: right;
+                @include make-lg-column(4);
                 text-align: center;
                 padding: 0;
                 img.carousel-cell {
                     
                     @include img-responsive();
                     width: 100%;
-                    @include center-block();
+                    // @include center-block();
                     border-radius: 10px;
+                    height: auto;
+                    // transform: rotate(90deg);
+                    object-fit: contain;
                     // margin-left: auto;
                     // margin-right: auto;
     

@@ -589,6 +589,34 @@
                         </li>
                         <?php } ?>
 
+                        <?php
+                        //Gerenciar Composicao
+                        $permissao = json_decode($usuarioPermissao->getPermissao());
+                                 
+                        if(in_array('gerenciar_composicao', $permissao)){ ?>
+
+                        <li class="dropdown
+
+                            <?php
+                                //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
+                                if(strpos($arquivo_pai, 'Composicao') !== false){
+                                    echo 'active';
+                                }
+                            ?>  
+                        ">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Composição <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+
+                                <li><a href="cadastrarItemComposicao.php">Cadastrar Item de Composição</a></li>
+                                <li><a href="itemComposicaoLista.php">Listar itens de Composição</a></li>
+
+                            </ul>
+
+                        </li>
+                        <?php } ?>
+
 
 
 

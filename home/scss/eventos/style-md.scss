@@ -113,7 +113,13 @@ body{
                     }
                     
                 }
-            } 
+            }
+            >div.texto-eventos{
+                font-weight: bold;
+                h5{
+                    font-weight: bold;
+                }
+            }   
         }
         > .imagem{
             @include make-md-column(5);
