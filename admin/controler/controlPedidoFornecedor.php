@@ -280,7 +280,7 @@
             ON PED.pefo_fk_fornecedor = FO.for_pk_id
             INNER JOIN tb_tipo_fornecedor AS TIP
             ON TIP.tifo_pk_id = FO.for_fk_tipo_fornecedor
-            WHERE PED.pefo_dt_pedido between :dt_inicio AND :dt_fim");
+            WHERE pefo_dt_pedido between :dt_inicio AND :dt_fim");
 
             $stmte->bindParam(":dt_inicio", $dt_inicio);
             $stmte->bindParam(":dt_fim", $dt_fim);
