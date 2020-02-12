@@ -42,9 +42,10 @@ body{
       color: #000000;
     }
     > .solicitar-evento {
-        padding-top: 25px;
+        padding-top: 30px;
         height: auto;
         align-items: center;
+        min-height: 435px;
         > .solicitacao {
             @include make-lg-column(12);
             height: auto;
