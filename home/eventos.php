@@ -170,8 +170,8 @@ session_start();
 				contain: true,
 				prevNextButtons: false,
 				pageDots: false,
-				imagesLoaded: false,
-				lazyLoad: true
+				imagesLoaded: true,
+				lazyLoad: false
 			});
 
     	$(document).ready(function(){
