@@ -36,16 +36,13 @@
 
 </head>
 <body>
-    <header class="container-fluid">
-        <div class="container">
-            <div class="logo-delion">
-                <img src="/home/img/Logo.png">
-            </div>
-            <div class="voltar">
-                <a href="index.php"><i class="fas fa-home"></i></a>
-            </div>
-        </div>
-    </header>
+<?php
+		include_once "./header.php";
+	?>
+
+	<?php
+		include_once "./navbar.php";
+	?>
 
 
     <div class="container-fluid banner-red">
