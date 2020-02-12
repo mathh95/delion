@@ -169,7 +169,9 @@ session_start();
 				cellAlign: 'left',
 				contain: true,
 				prevNextButtons: false,
-				pageDots: false
+				pageDots: false,
+				imagesLoaded: false,
+				lazyLoad: true
 			});
 
     	$(document).ready(function(){
