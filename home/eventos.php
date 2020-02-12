@@ -54,7 +54,7 @@ session_start();
 		<div class="row solicitacao visible-xs-* visible-sm-* visible-md-* visible-lg-* visible-xl-* form-group">
 
 			<div class="titulo-eventos">
-				<h2><i class="fas fa-bookmark"></i> Solicitações de orçamento </h2>
+				<h2><i class="fas fa-bookmark"></i> Solicitação de orçamento </h2>
 			</div>
 
 			<div class="col-sm campos-evento">
