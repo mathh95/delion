@@ -49,9 +49,6 @@
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/index/style-lg.css"/>
 
-	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-
-	<link rel="stylesheet" href="https://unpkg.com/flickity-fade@1/flickity-fade.css">
 
 
 	
@@ -61,6 +58,10 @@
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+
+
 </head>
 
 <body>
@@ -345,25 +346,50 @@ async defer></script>
 <script src="./js/google-autocomplete.js"></script>
 <script src="./js/google-geolocation.js"></script>
 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 
 <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
 
-<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-
-<script src="https://unpkg.com/flickity-fade@1/flickity-fade.js"></script>
 
 
 <script>
-	//flickity.js para slider da home page na imagem do topo
-	$('.main-carousel').flickity({
+
+
+$(document).ready(function(){
+
+	$('.main-carousel').slick({
+
+		slidesToShow: 1,
+
+		slidesToScroll: 1,
+
+		autoplay: true,
+
+		autoplaySpeed: 5000,
+
+		arrows: false,
+
+		speed: 800,
+
 		fade: true,
-		autoPlay: 5000,
-		cellAlign: 'left',
-		contain: true,
-		prevNextButtons: false,
-		pageDots: false
+
+		dots: false
+
 	});
+
+});
+	//flickity.js para slider da home page na imagem do topo
+	// $('.main-carousel').flickity({
+	// 	fade: true,
+	// 	autoPlay: 5000,
+	// 	cellAlign: 'left',
+	// 	contain: true,
+	// 	prevNextButtons: false,
+	// 	pageDots: false
+	// });
 	//modal cep
 	$("#cepModal").on("shown.bs.modal", function () {
 		$("#street_number").focus();
