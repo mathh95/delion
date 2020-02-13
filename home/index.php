@@ -346,7 +346,6 @@ async defer></script>
 <script src="./js/google-autocomplete.js"></script>
 <script src="./js/google-geolocation.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
