@@ -633,12 +633,12 @@
                             ?>  
                         ">
 
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Preço de custo <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Produtos a Preço de custo <span class="caret"></span></a>
 
                             <ul class="dropdown-menu">
 
                                 <li><a href="cadastrarPrecoDeCusto.php">Cadastrar Ingredientes</a></li>
-                                <li><a href="itemComposicaoLista.php">Listar itens a preço de custo</a></li>
+                                <li><a href="precoDeCustoLista.php">Listar produtos a preço de custo</a></li>
 
                             </ul>
 
