@@ -38,8 +38,8 @@ $_SESSION['minimo_taxa_gratis'] = 99999;
 if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     //ordenados com base na inserção/add carrinho
     $itens = $_SESSION['carrinho'];
-    var_dump($itens);
-    exit;
+    // var_dump($itens);
+    // exit;
     $itensObservacao = $_SESSION['observacao'];
     $itensQtd = $_SESSION['qtd'];
 
