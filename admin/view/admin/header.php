@@ -617,6 +617,34 @@
                         </li>
                         <?php } ?>
 
+                        <?php
+                        //Gerenciar Composicao
+                        $permissao = json_decode($usuarioPermissao->getPermissao());
+                                 
+                        if(in_array('gerenciar_precodecusto', $permissao)){ ?>
+
+                        <li class="dropdown
+
+                            <?php
+                                //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
+                                if(strpos($arquivo_pai, 'Precodecusto') !== false){
+                                    echo 'active';
+                                }
+                            ?>  
+                        ">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Produtos a Preço de custo <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+
+                                <li><a href="cadastrarPrecoDeCusto.php">Cadastrar Ingredientes</a></li>
+                                <li><a href="precoDeCustoLista.php">Listar produtos a preço de custo</a></li>
+
+                            </ul>
+
+                        </li>
+                        <?php } ?>
+
 
 
 

@@ -341,6 +341,14 @@
                                         </label>
                                     </li>
 
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="gerenciar_precodecusto" name="permissoes[]" value="gerenciar_precodecusto"> Gerenciar Preço de Custo
+
+                                        </label>
+                                    </li>
+
                                 </ul>
 
                             </div>
