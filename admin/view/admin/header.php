@@ -35,6 +35,7 @@
                     </h3>
 
                 </div>
+                
 
             </div>
 
@@ -645,6 +646,8 @@
                         </li>
                         <?php } ?>
 
+                        
+
 
 
 
@@ -656,7 +659,7 @@
 
                     </div>
 
-                    <div class="pull-right">
+                    <div class="pull-right" style="margin-top: -40px;">
 
                         <h2>
                             <a href="alteraSenha.php"><i class="fa fa-cog"></i>&nbsp;ALTERAR SENHA&nbsp;|</a>
