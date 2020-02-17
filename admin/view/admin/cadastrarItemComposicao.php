@@ -49,7 +49,7 @@
 
         <div class="container-fluid">
 
-            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/businesTipoFornecedor.php">
+            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/businesItemComposicao.php">
 
                 <div class="col-md-12">
 
@@ -86,8 +86,7 @@
 
                             <br>
 
-                            <br>
-                            <h5>Valor (por unidade):</h5>
+                            <h5>Valor:</h5>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
                                 <input required class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="1.00" type="number" step="0.01" min="1" max="9999">
