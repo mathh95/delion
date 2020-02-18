@@ -35,14 +35,15 @@
        function removeItemComposicao(cod){
             msgConfirmacao('Confirmação','Deseja Realmente remover o item de composicao ?',
                 function(linha){
-                    alert(cod);
+                    // alert(cod);
                     var url ="../../ajax/excluir-item-composicao.php?cod="+cod;
                     $.get(url, function(dataReturn) {
-                        if (dataReturn > 0) {
+                        if (dataReturn == 1) {
+                            msgGenerico("Erro!","Não foi possível excluir o item da composição!",2,function(){});
+                        }else{
                             msgGenerico("Excluir!","Item da composição excluido com sucesso!",1,function(){});
                             $("#status"+cod).remove();
-                        }else{
-                            msgGenerico("Erro!","Não foi possível excluir o item da composição!",2,function(){});
+                            
                         }
                     });  
                 },

@@ -71,9 +71,9 @@
 
                             <h5>Unidade de medida utilizada no ingrediente:</h5>
                             <select name="medidaItem" id="medidaItem" class="form-control">
-                                <option value="quilograma">Quilos</option>
-                                <option value="grama">Gramas</option>
-                                <option value="unidades">Unidades</option>
+                                <option value="Quilograma">Quilos</option>
+                                <option value="Grama">Gramas</option>
+                                <option value="Unidade">Unidade</option>
                             </select>
 
                             <br>
