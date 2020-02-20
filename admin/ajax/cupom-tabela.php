@@ -25,7 +25,7 @@ if(in_array('cupom', $permissao)){
 
 	echo "<table class='table' id='tbCupom' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Cupons</h1>
+		<h1 >Lista de Cupons</h1>
 		<tr>
         <th width='' style='text-align: center;'>#Cod_Cupom</th>
         <th width='' style='text-align: center;'>Código</th>
@@ -78,7 +78,7 @@ if(in_array('cupom', $permissao)){
 } else{
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Cupons</h1>
+		<h1 >Lista de Cupons</h1>
 		<tr>
 			<th width='10%' style='text-align: center;'>Código Cupom</th>
 			<th width='8%' style='text-align: center;'>Código</th>

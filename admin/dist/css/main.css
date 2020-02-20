@@ -107,6 +107,12 @@ textarea {
 */
 header {
   font-family: 'Roboto', sans-serif;
+  background-color: #ee6917;
+}
+.header-topo{
+  background-color: #ee6917;
+  color: #fff;
+
 }
 
 header h2 {
@@ -120,23 +126,39 @@ header h2 {
 header h1 {
 
   font-weight: 300 !important;
-  font-size: 34px;
-  color: black;
+  font-size: 24px;
+  color: #fff;
   text-align: center;
+  height: auto;
+  margin-top: 10px;
+}
+header h1 a {
+  color: inherit;
+}
+header h1 a:hover {
+  color: inherit;
+}
+header h1 >i.fa-coffee{
+
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+  width: auto;
+  height: auto;
 }
 
 header h3 {
-  margin-top: 25px;
+  margin-top: 15px;
 }
 
 header h3 span {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 300 !important;
   color: #777;
 }
 
 header img {
-  height: 25px;
+  height: 15px;
 }
 
 
@@ -152,11 +174,16 @@ header .navbar-default {
   border-radius: 0px !important;
   border-left: 0px !important;
   border-right: 0px !important;
+  margin: 0;
 }
 
 header .navbar-default ul li {
   font-size: 17px;
 }
+
+header .navbar-default ul li a{
+  padding: 10px;
+} 
 
 header .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
 	color: #ee6917 !important;

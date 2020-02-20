@@ -354,7 +354,7 @@ if ($pedidos == -1){
 
 		echo "<table class='table table-hover' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Pedidos</h1>
+		<h1 >Lista de Pedidos</h1>
 		<tr>
     		<th width='10%' style='text-align: center;'>Data</th>
 			<th width='20%' style='text-align: center;'>Nome do cliente</th>

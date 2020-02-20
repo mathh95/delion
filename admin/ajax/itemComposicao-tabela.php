@@ -13,7 +13,7 @@ if(in_array('gerenciar_composicao', $permissao)){
 
     echo "<table class='table table-responsive' id='tbCardapio' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Lista de itens de composição:</h1>
+			<h1 >Lista de itens de composição:</h1>
             <tr>
                 <th width='12%' style='text-align: center;'>Id</th>
 	    		<th width='20%' style='text-align: center;'>Nome</th>

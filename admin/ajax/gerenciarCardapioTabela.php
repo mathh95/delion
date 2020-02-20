@@ -30,7 +30,7 @@ if(in_array('cardapio', $permissao)){
 
 	echo "<table class='table table-responsive table-striped table-hover' id='tbCardapio' 			style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Gerenciar Cardapio</h1>
+			<h1 >Gerenciar Cardapio</h1>
 			<tr>
 				<th width='30%' style='text-align: left;'>Item</th>
 				<th width='10%' style='text-align: center;'>Preço</th>

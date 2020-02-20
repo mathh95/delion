@@ -88,7 +88,7 @@ if(isset($_POST['nome']) || isset($_POST['tipoFornecedor']) || isset($_POST['dt_
 		}else{
 			echo "<table class='table table-responsive' id='tbPedidoFornecedor style='text-align = center;'>
 			<thead>
-				<h1 class=\"page-header\">Lista de pedidos p/ fornecedor</h1>
+				<h1 >Lista de pedidos p/ fornecedor</h1>
 				<tr>
 					<th width='10%' style='text-align: center;'>Tipo</th>
 					<th width='17%' style='text-align: center;'>Fornecedor</th>

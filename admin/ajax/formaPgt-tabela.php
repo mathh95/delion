@@ -17,7 +17,7 @@ $permissao =  json_decode($usuarioPermissao->getPermissao());
 if(in_array('forma_pgto', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Formas de Pagamento</h1>
+		<h1 >Lista de Formas de Pagamento</h1>
 		<tr>
     		<th width='20%' style='text-align: center;'>Tipo Forma de Pagamento</th>
 			<th width='15%' style='text-align: center;'>Status</th>
@@ -54,7 +54,7 @@ if(in_array('forma_pgto', $permissao)){
 }else{
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Adicionais</h1>
+		<h1 >Lista de Adicionais</h1>
 		<tr>
 			<th width='20%' style='text-align: center;'>Tipo Forma de Pagamento</th>
 			<th width='15%' style='text-align: center;'>Status</th>

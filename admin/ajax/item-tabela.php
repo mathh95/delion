@@ -11,7 +11,7 @@ $permissao =  json_decode($usuarioPermissao->getPermissao());
 if(in_array('pedido', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Itens</h1>
+		<h1 >Lista de Itens</h1>
 		<div class=\"pull-right\">
 			<a href=\"pedidoLista.php\" class=\"btn btn-kionux\"><i class=\"fa fa-arrow-left\"></i> Voltar</a>
 		</div class=\"pull-right\">
@@ -33,7 +33,7 @@ if(in_array('pedido', $permissao)){
 }else if (in_array('pedidoWpp', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Itens</h1>
+		<h1 >Lista de Itens</h1>
 		<div class=\"pull-right\">
 			<a href=\"pedidoWppLista.php\" class=\"btn btn-kionux\"><i class=\"fa fa-arrow-left\"></i> Voltar</a>
 		</div class=\"pull-right\">

@@ -12,7 +12,7 @@ $categorias = $controle->selectAllByPos();
 	
 		echo "<table class='table table-responsive' id='tbCategoria' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Lista de categoria</h1>
+			<h1 >Lista de categoria</h1>
 			<tr>
 	    		<th width='25%' style='text-align: center;'>Nome</th>
 	    		<th width='25%' style='text-align: center;'>Icone</th>
@@ -35,7 +35,7 @@ $categorias = $controle->selectAllByPos();
 	}else{
 		echo "<table class='table table-responsive' id='tbCategoria' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Lista de categoria</h1>
+			<h1 >Lista de categoria</h1>
 			<tr>
 	    		<th width='33%' style='text-align: center;'>Nome</th>
 	    		<th width='33%' style='text-align: center;'>Icone</th>
