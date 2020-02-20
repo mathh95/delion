@@ -12,6 +12,14 @@
 
     include_once MODELPATH."/adicional.php";
 
+    include_once CONTROLLERPATH. "/controlProduto.php";
+
+    include_once MODELPATH. "/produto.php";
+
+    include_once CONTROLLERPATH. "/controlItemComposicao.php";
+
+    include_once MODELPATH. "/item_composicao.php";
+
     $_SESSION['permissaoPagina']=0;
 
     protegePagina();
@@ -20,8 +28,15 @@
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
+    $controle_cardapio=new controlerProduto($_SG['link']);
+    $itens = $controle_cardapio->selectAll();
+
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
+
+    $controle_ingrediente=new controlerItemComposicao($_SG['link']);
+    $ingredientes = $controle_ingrediente->selectAll();
+
 
 ?>
 
@@ -63,9 +78,10 @@
 
                             <h5>Selecione o item do Cardápio :</h5>
                             <select name="itemCardapio" id="itemCardapio" class="form-control">
-                                <option value="produto1">Produto 1</option>
-                                <option value="produto2">Produto 2</option>
-                                <option value="produto3">Produto 3</option>
+                            <?php
+                                foreach($itens as $item){ ?>
+                                        <option value="<?= $item->getPkId(); ?>" > <?= $item->getNome() ?> </option>
+                                <?php } ?>
                             </select>
 
                             <br>
@@ -81,23 +97,18 @@
                                     <div style="display: inline-block; margin-right:10px;">
                                         <small>Nome do Ingrediente:</small>
                                         <select name="ingredienteLista" id="ingredienteLista" class="form-control">
-                                            <option value=""></option>
-                                            <option value="pao">Pão</option>
-                                            <option value="presunto">Presunto</option>
-                                            <option value="queijo">Queijo</option>
+                                            <?php
+                                                foreach($ingredientes as $ingrediente){ ?>
+                                                        <option value="<?= $ingrediente->getPkId(); ?>" > <?= $ingrediente->getNome() ?> </option>
+                                                <?php } ?>
                                         </select>
                                     </div>
-
+                                    
+                                    <!-- Vincular o select com o nome do ingrediente -->
                                     <div style="display: inline-block; margin-right:10px;">
                                         <small>Unidade de medida:</small>
-                                        <select name="medidaItem" id="medidaItem" class="form-control">
-                                            <option value=""></option>
-                                            <option value="quilograma">Quilos</option>
-                                            <option value="grama">Gramas</option>
-                                            <option value="unidades">Unidades</option>
-                                        </select>
+                                            <input class="form-control" name="medidaItem" required autofocus id ="medidaItem" value="<?= $ingrediente->getUnidade();?>">
                                     </div>
-                                    <br>
                                     <br>
 
                                     <div style="display: inline-block;margin-right:10px;">

@@ -93,6 +93,7 @@
                             $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
                             $pedido_fornecedor->fornecedorNome=$result->for_nome;
                             $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
+                            $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
 
                             array_push($pedido_fornecedores, $pedido_fornecedor);
                         }
@@ -171,6 +172,7 @@
                         $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
                         $pedido_fornecedor->fornecedorNome=$result->for_nome;
                         $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
+                        $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
                         array_push($pedido_fornecedores, $pedido_fornecedor);
                     }
 
@@ -213,6 +215,7 @@
                         $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
                         $pedido_fornecedor->fornecedorNome=$result->for_nome;
                         $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
+                        $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
                         array_push($pedido_fornecedores, $pedido_fornecedor);
                     }
 
@@ -255,6 +258,7 @@
                         $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
                         $pedido_fornecedor->fornecedorNome=$result->for_nome;
                         $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
+                        $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
                         array_push($pedido_fornecedores, $pedido_fornecedor);
                     }
 
@@ -299,6 +303,7 @@
                         $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
                         $pedido_fornecedor->fornecedorNome=$result->for_nome;
                         $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
+                        $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
                         array_push($pedido_fornecedores, $pedido_fornecedor);
                     }
 
@@ -445,6 +450,7 @@
                             $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
                             $pedido_fornecedor->fornecedorNome=$result->for_nome;
                             $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
+                            $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
                             array_push($pedido_fornecedores, $pedido_fornecedor);
                         }
     
@@ -496,6 +502,8 @@
                             $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
                             $pedido_fornecedor->fornecedorNome=$result->for_nome;
                             $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
+                            $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
+                            $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
                             array_push($pedido_fornecedores, $pedido_fornecedor);
                         }
     

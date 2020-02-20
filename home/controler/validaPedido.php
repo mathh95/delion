@@ -1,8 +1,11 @@
 <?php
 session_start();
 
+
 include_once "../../admin/controler/conexao.php";
 include_once "./controlEmpresa.php";
+require_once "../controler/controlProduto.php";
+
 
 $html = "<head>
             <meta name='viewport' content='width=device-width, initial-scale=1.0'>  
@@ -30,10 +33,35 @@ $checkdelivery=-1;
 $checkcliente=-1;
 
 /**
- *  VERIFICA SE TEM O CARRINHO FOI ATIVADO
+ *  VERIFICA SE TEM ITEM NO CARRINHO
  */
 if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
     $checkcarrinho=1;
+
+} else if(
+    isset($_SESSION['carrinho_resgate'])
+    && !empty($_SESSION['carrinho_resgate'])
+){
+    
+    // VERIFICA SE Resgate de pontos é Suficiente para efetuar resgate sem Compra
+    $itens_id_resgate = array_keys($_SESSION['carrinho_resgate']);
+
+    $cardapio = new controlerProduto(conecta());
+    $itens_resgate = $cardapio->buscarVariosId($itens_id_resgate);
+
+    $pts_utilizados = 0;
+    foreach ($itens_resgate as $key => $item) {
+        $qtd_aux = $_SESSION['carrinho_resgate'][$item['pro_pk_id']]['qtd'];
+        $pts_utilizados += $qtd_aux * $item['pro_pts_resgate_fidelidade'];
+    }
+
+    //PARAMETRIZE Value !
+    if($pts_utilizados >= 120){
+        $check_resgate=1;
+    }else{
+        $check_resgate=-1;
+    }
+
 }else{
     $checkcarrinho=-1;
 }
@@ -122,7 +150,8 @@ if(!$funcionamentoEmpresa->aberto()){
 
 }else{
 
-if($checkcarrinho > 0){
+
+if($checkcarrinho > 0 || $check_resgate > 0){
     if($checkopcao > 0){
         if($checkbalcao > 0){
             if($checkpedido > 0){
@@ -253,6 +282,7 @@ if($checkcarrinho > 0){
                         echo $html;
                     }
 
+                
                 //Balcão
                 }else {
                     if ($checkcliente > 0){
@@ -327,6 +357,10 @@ if($checkcarrinho > 0){
         $html.= "<script>swal('Erro!!', 'Pedido para Entrega ou Retirada?!', 'error').then((value) => {window.location='/home/carrinho.php'});</script></body>";
         echo $html;
     }
+
+}else if(isset($check_resgate) && $check_resgate < 0){
+    $html.= "<script>swal('Resgate Insuficiente! 😕', 'Apenas Resgate!?...é preciso ser maior do que 120 pontos', 'info').then((value) => {window.location='/home/cardapio.php'});</script></body>";
+    echo $html;
 }else{
     $html.= "<script>swal('Acesso negado!!', 'É preciso ter itens no carrinho!', 'error').then((value) => {window.location='/home/cardapio.php'});</script></body>";
     echo $html;

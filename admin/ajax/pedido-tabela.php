@@ -55,15 +55,17 @@ if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || 
 //Sem Filtro
 }else{
 
-	if ($_POST['nome'] == ''){
-		$nome ='';
+	if (!isset($_POST['nome'])){
+		$nome = '';
 	}
+
 	if (!isset($_POST['menor'])){
 		$menor =0;
 	}
 	if (!isset($_POST['maior'])){
 		$maior = 999999;
 	}
+
 	$pedidosCount = $control_carrinho->selectAllPedido($nome, $menor, $maior);
 	//numero de pedidos por página
 	$por_pagina = 15;
@@ -454,12 +456,19 @@ foreach ($pedidos as $pedido) {
 						<div class=\"form-group\" style='display: inline-block; text-align: left;'>
 							<label for=\"recipient-name\" class=\"control-label\">Itens do pedido:</label><br>
 							<label for=\"recipient-name\" class=\"control-label\">Qtd &nbsp&nbsp  Item &nbsp&nbsp&nbsp&nbsp&nbsp  Preço</label><br>";
-						foreach($itens as &$item){
+
+						foreach($itens as $item){
 							
+							if($item->getPreco() == 0){
+								$valor = "Resgate Fidelidade";
+							}else{
+								$valor = "R$ ".$item->getPreco();
+							}
+
 							echo "
 								<label for=\"recipient-name\" class=\"control-label\">"." ".$item->getQuantidade()."</label>
 								<label for=\"recipient-name\" class=\"control-label\">"." - ".$item->nome."</label>
-								<label for=\"recipient-name\" class=\"control-label\">"." -         R$ ".$item->getPreco()."</label>
+								<label for=\"recipient-name\" class=\"control-label\">"." -         ".$valor."</label>
 								<br>";
 							}
 						

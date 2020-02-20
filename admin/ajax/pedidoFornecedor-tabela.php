@@ -93,13 +93,16 @@ if(isset($_POST['nome']) || isset($_POST['tipoFornecedor']) || isset($_POST['dt_
 					<th width='17%' style='text-align: center;'>Fornecedor</th>
 					<th width='10%' style='text-align: center;'>Valor</th>
 					<th width='17%' style='text-align: center;'>Forma de Pagamento</th>
-					<th width='25%' style='text-align: center;'>Descrição (Opcional)</th>
+					<th width='20%' style='text-align: center;'>Descrição (Opcional)</th>
 					<th width='15%' style='text-align: center;'>Data do Pedido</th>
+					<th width='15%' style='text-align: center;'>Data Vencimento</th>
 					<th width='10%' style='text-align: center;'>Editar</th>
 				</tr>
 			<tbody>";
 		
 			foreach ($pedidoFornecedores as &$pedidoFornecedor) {
+				$diasVencimento = $pedidoFornecedor->dtVencimento;
+				$dtVenc = $date = strtotime("+{$diasVencimento} day", strtotime($pedidoFornecedor->getDtPedido()));
 				echo "<tr name='resutaldo' id='status".$pedidoFornecedor->getPkId()."'>
 				<td style='text-align: center;' name='tipo'>".$pedidoFornecedor->tipo_fornecedor."</td>
 				<td style='text-align: center;' name='fornecedor'>".$pedidoFornecedor->fornecedorNome."</td>
@@ -107,6 +110,7 @@ if(isset($_POST['nome']) || isset($_POST['tipoFornecedor']) || isset($_POST['dt_
 				<td style='text-align: center;' name='formaPgt'>".$pedidoFornecedor->getFormaPgt()."</td>
 				<td style='text-align: center;' name='descricao'>".substr(html_entity_decode($pedidoFornecedor->getDesc()), 0, 200)."</td>
 				<td style='text-align: center;' name='qtddias'>".date('d/m/Y', strtotime($pedidoFornecedor->getDtPedido()))."</td>
+				<td style='text-align: center;' name='dtvenc'>".date("d/m/Y", $dtVenc)."</td>
 				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='pedidoFornecedor-view.php?cod=".$pedidoFornecedor->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
 			</tr>";
 			}

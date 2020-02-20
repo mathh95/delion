@@ -86,7 +86,6 @@ if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     $_SESSION['observacao'] = $itens_obs;
     $_SESSION['qtd'] = $itens_qtd;
 
-
 } else {
     $_SESSION['carrinho'] = array();
     $_SESSION['qtd'] = array();
@@ -95,9 +94,28 @@ if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     $itensObservacao = $_SESSION['observacao'];
 }
 
-if (count($itens) > 0) {
 
-    $itens = $cardapio->buscarVariosId($itens);
+if(isset($_SESSION['carrinho_resgate']) && !empty($_SESSION['carrinho_resgate'])) {
+    $itens_resgate = $_SESSION['carrinho_resgate'];
+}else{
+    $itens_resgate = array();
+}
+
+if (count($itens) > 0 || count($itens_resgate) > 0) {
+
+    if(count($itens)) $itens = $cardapio->buscarVariosId($itens);
+
+    
+    if(count($itens_resgate) > 0){
+        $itens_resgate = array_keys($itens_resgate);
+        $itens_resgate = $cardapio->buscarVariosId($itens_resgate);
+    }
+
+    // var_dump($itens);
+    // echo "<br>";
+    // var_dump($itens_resgate);
+
+    
     ?>
     <script type="text/javascript" src="js/buscar-carrinho.js"></script>
     <h1 class="text-center">Carrinho</h1>
@@ -126,9 +144,7 @@ if (count($itens) > 0) {
                     
                     $_SESSION['item_indisponivel'] = 0;
                     
-                    foreach ($itens as $key => $item) { ?>
-
-                    <?php
+                    foreach ($itens as $key => $item) {
 
                     // verifica se item adicionado está disponível
                     if(
@@ -136,7 +152,8 @@ if (count($itens) > 0) {
                         in_array($hoje, json_decode($item['pro_arr_dias_semana'])) &&
                         ($hora_atual >= $item['faho_inicio'] && $hora_atual < $item['faho_final'])
                     ){
-                    ?>
+
+                ?>
                     
                     <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
 
@@ -196,7 +213,7 @@ if (count($itens) > 0) {
                             
                         </tr>
 
-                        <?php
+                <?php
 
                         if ($item['pro_flag_delivery'] != 1) {
                             $delivery_indisponivel = $delivery_indisponivel + 1;
@@ -211,13 +228,111 @@ if (count($itens) > 0) {
                     $i++;
                     $totalCarrinho += $item['pro_preco'] * $_SESSION['qtd'][$key];
 
-                    }//foreach
+                    }//end foreach
+
+
+
+
+
+
+
+                    /************** Itens/Carrinho de Resgate ***********/
+                    foreach ($itens_resgate as $key => $item) {
+
+                    // verifica se item adicionado está disponível
+                    if(
+                        $item['pro_arr_dias_semana'] &&
+                        in_array($hoje, json_decode($item['pro_arr_dias_semana'])) &&
+                        ($hora_atual >= $item['faho_inicio'] && $hora_atual < $item['faho_final'])
+                    ){
+
+                    $qtd_aux = $_SESSION['carrinho_resgate'][$item['pro_pk_id']]['qtd'];
+
+                ?>
+                    
+                    <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
+
+                        <td class="text-uppercase nomeProdutoTabela">
+                        <span class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" data-qtd="<?= $qtd_aux ?>">
+                            <span id="qtde-text<?= $i ?>"><?= $qtd_aux ?></span>
+                        </span>
+                            <span class="qtde-x">x</span> &nbsp;  
+                            <strong><?= $item['pro_nome'] ?></strong>
+                        </td>
+
+                        <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong><i class="far fa-gem"></i> <?= $item['pro_pts_resgate_fidelidade']; ?></strong></td>
+
+                        <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong><i class="far fa-gem"></i> <?=  $item['pro_pts_resgate_fidelidade'] * $qtd_aux + 0 ?></strong></td>
+
+                        <td class="nomeProdutoDisponivel">
+                            <strong>
+                            <?php
+                                if ($item['pro_flag_delivery'] == 1) {
+                                    echo "Disponível";
+                                } else {
+                                    echo "Não disponível";
+                                    $delivery_indisponivel = $delivery_indisponivel + 1;
+                                }
+                            ?>
+                            </strong>
+                        </td>
+
+                        <td style="min-width:137px;" class="quantidadeProdutoTabela">
+                            <i style="padding-left: 0;" id="removeItemResgate" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt fa-lg btn iconeRemoverProdutoTabela"></i>
+                        </td>
+                        
+                    </tr>
+                    
+                    <?php
+                    
+                    }else{//else do if disponivel
+                    
+                        ?>
+
+                        <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
+                            
+                        
+                            <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['pro_nome'] ?></strong></td>
+
+                            <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong><i class="far fa-gem"></i> <?= $item['pro_pts_resgate_fidelidade']; ?></strong></td>
+                        
+                            <td style="text-align: center;" colspan="3">
+                                Item indisponível no momento! <i class="far fa-surprise"></i>
+                            </td>
+                        
+                            <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
+                            
+                            <!-- valor utilizado ao remover item -->
+                            <input style="display:none;" id="qtdUnidade<?= $i ?>" type="text" value=<?= $_SESSION['qtd'][$key] ?> readonly="true">
+                            
+                        </tr>
+
+                        <?php
+
+                        if ($item['pro_flag_delivery'] != 1) {
+                            $delivery_indisponivel = $delivery_indisponivel + 1;
+                        }
+
+                        //Item indisponível presente no carrinho
+                        $_SESSION['item_indisponivel'] = 1;
+                        
+                    }//end else
+
+                    }//end foreach
+
+
+
+
 
                     $_SESSION['valor_subtotal'] = $totalCarrinho;
                     $_SESSION['delivery_indisponivel'] = $delivery_indisponivel;
                     ?>
             </tbody>
+
         </table>
+
+
+
                 <!-- Verificação para mostrar a mensagem se o delivery não está disponivel -->
                 <?php
                 if($delivery_indisponivel > 0){?>
@@ -231,7 +346,11 @@ if (count($itens) > 0) {
                         <table class="tabela_itens table">
                             
                             <?php
-                            if($_SESSION['observacao'][$key] != ""){
+
+                            if(
+                                isset($_SESSION['observacao'][$key])
+                                && $_SESSION['observacao'][$key] != ""
+                            ){
                             // var_dump($_SESSION['observacao']);
                                echo "<strong><p style='padding-left:6px'>Observações</p></strong>";
                             }
@@ -242,6 +361,7 @@ if (count($itens) > 0) {
                                 foreach ($itens as $key => $item) :
 
                                     $obs = $itens_obs[$key];
+
                                 ?>               
                                 
                                 <div id="idLinhaObs<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class="ladoDireito row">    
@@ -580,6 +700,8 @@ if (count($itens) > 0) {
 
 
 <?php
+
+//Carrinho Vazio!
 } else {
     echo "<div class='container row carrinhoVazio' style='margin:20px;'>
     <div class='imagemCarrinhoVazio'>

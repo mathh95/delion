@@ -40,9 +40,9 @@
 
                 $stmte->bindParam(":cod_item_composicao",$itemComposicao->getPkId(), PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $itemComposicao->getNome(), PDO::PARAM_STR);
-                $stmte->bindParam(":unidade", $itemComposicao->getCnpj(), PDO::PARAM_STR);
-                $stmte->bindParam(":valor", $itemComposicao->getFone(), PDO::PARAM_INT);
-                $stmte->bindParam(":qtd", $itemComposicao->getQtdDias(), PDO::PARAM_INT);
+                $stmte->bindParam(":unidade", $itemComposicao->getUnidade(), PDO::PARAM_STR);
+                $stmte->bindParam(":valor", $itemComposicao->getValor(), PDO::PARAM_INT);
+                $stmte->bindParam(":qtd", $itemComposicao->getQtd(), PDO::PARAM_INT);
                 
 
                 $executa = $stmte->execute();
@@ -94,9 +94,8 @@
         function selectAll(){
             $itens_composicao = array();
             try{
-                $stmte= $this->pdo->prepare("SELECT * FROM tb_item_composicao");
-                $executa= $stmte->execute();
-                if($executa){
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_item_composicao");
+                if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
                             $item_composicao = new item_composicao();
@@ -105,18 +104,14 @@
                             $item_composicao->setUnidade($result->itco_unidade);
                             $item_composicao->setValor($result->itco_valor);
                             $item_composicao->setQtd($result->itco_qtd);
-
                             array_push($itens_composicao, $item_composicao);
                         }
-                    }else{
-                        return -1;
                     }
-                    return -1;
                 }
+                return $itens_composicao;
             }
             catch(PDOException $e){
                 echo $e->getMessage();
-                return -1;
             }
         }
 

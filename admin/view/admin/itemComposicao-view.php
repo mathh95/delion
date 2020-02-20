@@ -22,7 +22,7 @@
 
     $controle=new controlerItemComposicao($_SG['link']);
 
-    $item_composicao = $controle->selectId($_GET['cod']);     //alterar o modo
+    $item_composicao = $controle->select($_GET['cod'],2);     //alterar o modo
 
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
@@ -54,7 +54,7 @@
 
         <div class="container-fluid">
 
-            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/alterarTipoFornecedor.php">
+            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/alteraItemComposicao.php">
 
                 <div class="col-md-12">
 
@@ -69,7 +69,7 @@
                         <h5>Nome do Item de Composição: </h5>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fas fa-edit"></i></span>
-                            <input class="form-control" placeholder="Ex: Pão" name="itemComposicao" required autofocus id ="itemComposicao" type="text" value="<?$item_composicao->getNome();?>">
+                            <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text" value="<?= $item_composicao->getNome();?>">
                             <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $item_composicao->getPkId();?>">
 
                         </div>
@@ -78,9 +78,10 @@
 
                         <h5>Unidade de medida utilizada no ingrediente:</h5>
                         <select name="medidaItem" id="medidaItem" class="form-control">
-                            <option value="quilograma">Quilos</option>
-                            <option value="grama">Gramas</option>
-                            <option value="unidades">Unidades</option>
+                            <option selected value="<?= $item_composicao->getUnidade(); ?>"><?= $item_composicao->getUnidade(); ?></option>
+                            <option value="Quilograma">Quilos</option>
+                            <option value="Grama">Gramas</option>
+                            <option value="Unidade">Unidade</option>
                         </select>
 
                         <br>
@@ -88,16 +89,15 @@
                         <h5>Quantidade do produto(em medidas): </h5>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fas fa-edit"></i></span>
-                            <input class="form-control" placeholder="Ex: 100 (gramas) ou 2 (kg)" name="qtdComposicao" required autofocus id ="qtdComposicao" type="number" value="<?$item_composicao->getQtd();?>">
+                            <input class="form-control" placeholder="Ex: 100 (gramas) ou 2 (kg)" name="qtdComposicao" required autofocus id ="qtdComposicao" type="number" value="<?= $item_composicao->getQtd(); ?>">
                         </div>
 
                         <br>
 
-                        <br>
                         <h5>Valor (por unidade):</h5>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                            <input required class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="<?$item_composicao->getValor();?>" type="number" step="0.01" min="1" max="9999">
+                            <input required class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="<?= $item_composicao->getValor(); ?>" type="number" step="0.01" min="1" max="9999">
                         </div>     
                         <br>
 

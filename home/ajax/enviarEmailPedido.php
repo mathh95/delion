@@ -26,12 +26,35 @@ $pedido = new controlerCarrinho(conecta());
 $cardapio = new controlerProduto(conecta());
 $mail = new PHPMailer();
 
-$itens = $_SESSION['carrinho'];
-if ($itens > 0) {
 
-    $itens = $cardapio->buscarVariosId($itens);
+if(isset($_SESSION['carrinho'])){
+    $itens_id_carrinho = $_SESSION['carrinho'];
+}
+
+if(isset($_SESSION['carrinho_resgate'])){
+    $itens_id_resgate =  array_keys($_SESSION['carrinho_resgate']);
+}
+
+
+$empty = true;
+if (!empty($itens_id_carrinho)) {
+    $itens_carrinho = $cardapio->buscarVariosId($itens_id_carrinho);
+    $empty = false;
 
 }else{
+    $itens_carrinho = array();
+}
+
+if(!empty($itens_id_resgate)){
+    $itens_resgate = $cardapio->buscarVariosId($itens_id_resgate);
+    $empty = false;
+
+}else{
+    $itens_resgate = array();
+}
+
+
+if($empty){
     //redireciona cliente
     if(isset($_SESSION['cod_cliente'])){
         header("Location: /home/listarPedidos.php");
@@ -114,24 +137,43 @@ $body_pedido =
             </tr>
         </thead>
         <tbody>";
-    foreach ($_SESSION['carrinho'] as $key => $value) {
-        $subtotal = $_SESSION['qtd'][$key] * $itens[$key]['pro_preco'];
+    
+        
+    //itens Carrinho convencional
+    foreach ($itens_carrinho as $key => $item) {
+
+        $subtotal = $_SESSION['qtd'][$key] * $item['pro_preco'];
         
         $body_pedido .= "<tr>
-            <td height='15%'>" . $_SESSION['carrinho'][$key] . "</td>
-            <td height='15%'>" . $itens[$key]['pro_nome'] . "</td>
+            <td height='15%'>" . $item['pro_pk_id'] . "</td>
+            <td height='15%'>" . $item['pro_nome'] . "</td>
             <td height='15%'>" . $_SESSION['qtd'][$key] . "</td> 
-            <td height='15%'>R$ " . number_format($itens[$key]['pro_preco'], 2) . "</td>
+            <td height='15%'>R$ " . number_format($item['pro_preco'], 2) . "</td>
             <td height='15%'>R$ " . number_format($subtotal, 2) . "</td>
         </tr>";
     }
+    
+    //itens de Resgate
+    foreach ($itens_resgate as $key => $item) {
+
+        $qtd_aux = $_SESSION['carrinho_resgate'][$item['pro_pk_id']]['qtd'];
+        $subtotal = $qtd_aux * $item['pro_pts_resgate_fidelidade'];
+        
+        $body_pedido .= "<tr>
+            <td height='15%'>" . $item['pro_pk_id'] . "</td>
+            <td height='15%'>" . $item['pro_nome'] . "</td>
+            <td height='15%'>" . $qtd_aux . "</td>
+            <td height='15%'>" . $item['pro_pts_resgate_fidelidade']. " Pts Fidelidade</td>
+            <td height='15%'>" . $subtotal . " Pts Fidelidade</td>
+        </tr>";
+    }
+
     $body_pedido .= "</tbody>
     </table>
     <p>Subtotal: R$ " . number_format($_SESSION['valor_subtotal'], 2) . "</p>
     <p>Taxa de Entrega: R$ " . number_format($_SESSION['delivery_price'], 2) . "</p>
     <p>Desconto do Cupom: R$ " . number_format($_SESSION['valor_cupom'], 2) . "</p>
     <p><b>Total: R$ " . number_format($_SESSION['valor_total'], 2) . "</b></p>";
-
 
 
 //Balcao
@@ -151,11 +193,14 @@ if ($fk_endereco == null) {
         
 
         $fk_origem_pedido = 1;
-        $produtos = $itens;
+        $salvo = $pedido->setPedido(
+            null,
+            $fk_origem_pedido,
+            $itens_carrinho,
+            TRUE,
+            $itens_resgate
+        );
         
-        $salvo = $pedido->setPedido(null, $fk_origem_pedido, $produtos, TRUE);
-            
-
         if ($salvo){
             $html .= "<script>swal('Pedido efetuado com sucesso! 😄', 'Obrigado!', 'success').then((value) => {window.location='/home/listarPedidos.php'});</script>";
         }else{
@@ -201,8 +246,13 @@ if ($fk_endereco == null) {
 
 
         $fk_origem_pedido = 1;
-        $produtos = $itens;
-        $salvo = $pedido->setPedido($fk_endereco, $fk_origem_pedido, $produtos, TRUE);
+        $salvo = $pedido->setPedido(
+            $fk_endereco,
+            $fk_origem_pedido,
+            $itens_carrinho,
+            TRUE,
+            $itens_resgate
+        );
 
 
         if ($salvo){
@@ -233,6 +283,8 @@ unset($_SESSION['carrinho']);
 unset($_SESSION['qtd']);
 unset($_SESSION['observacao']);
 unset($_SESSION['valor_subtotal']);
+
+unset($_SESSION['carrinho_resgate']);
 
 unset($_SESSION['cod_endereco']);
 unset($_SESSION['endereco']);
