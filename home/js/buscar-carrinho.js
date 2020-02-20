@@ -163,6 +163,32 @@ function postObservacao(){
 }
 
 
+$(document).on("click", "#removeItemResgate", function(){
+    
+    var acao = "rem_resgate";
+    var linha = $(this).data('linha');
+    var id = $("#idLinha"+linha).data('id');
+
+    $.ajax({
+        type: 'GET',
+        url: 'ajax/quantidade-carrinho.php',
+        data: {acao: acao, id: id},
+
+        success: function(res){
+            // console.log(res);
+            
+            var tr = $("#idLinha"+linha).fadeOut(100, function(){
+                tr.remove();
+                window.location.reload();
+            });
+        },
+        error: function(res){
+            
+        }
+    });
+});
+
+
 $(document).on("click", "#removeItem", function(){
     var acao = "rem";
     var linha = $(this).data('linha');

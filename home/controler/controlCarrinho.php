@@ -18,7 +18,11 @@ class controlerCarrinho{
     }
 
     public function setPedido(
-        $fk_endereco = NULL, $fk_origem_pedido, $produtos, $fidelidade_valida = TRUE
+        $fk_endereco = NULL,
+        $fk_origem_pedido,
+        $itens_carrinho = array(),
+        $fidelidade_valida = TRUE,
+        $itens_resgate = array()
     ){
 
         $cli_pk_id = $_SESSION['cod_cliente'];
@@ -66,6 +70,15 @@ class controlerCarrinho{
             $pk_cupom = NULL;
         }
 
+        //Total de pontos utilizados
+        $pts_utilizados = 0;
+        foreach($itens_resgate as $key => $item){
+            $qtd_aux = $_SESSION['carrinho_resgate'][$item['pro_pk_id']]['qtd'];
+            $pts_utilizados +=  ($qtd_aux * $item['pro_pts_resgate_fidelidade']);
+        }
+        //desconta pontos de resgate
+        $operacao_fidelidade -= $pts_utilizados;
+
         //delivery / balcao (fk_endereco == null)
         $sql = $this->pdo->prepare("INSERT INTO tb_pedido SET ped_fk_cliente = :idCliente, ped_data = NOW(), ped_total = :total, ped_desconto = :desconto , ped_taxa_entrega = :taxa_entrega, ped_subtotal = :subtotal, ped_operacao_fidelidade = :operacao_fidelidade, ped_fk_forma_pgto = :formaPgt , ped_status = :status, ped_fk_origem_pedido = :origem, ped_fk_endereco_cliente = :endereco, ped_tempo_entrega = :tempo_entrega, ped_fk_cupom = :fk_cupom");
 
@@ -86,20 +99,38 @@ class controlerCarrinho{
         if(!$sql->execute()) return FALSE;
         $idPedido = $this->pdo->lastInsertId();
 
-
+        //set itens Carrinho Convencional
         foreach($_SESSION['carrinho'] as $key => $value){
             $sql = $this->pdo->prepare("INSERT INTO rl_pedido_produto SET pepr_fk_produto = :cod_produto, pepr_fk_pedido = :cod_pedido, pepr_quantidade = :quantidade, pepr_observacao = :observacao, pepr_preco = :pepr_preco");
-
+            
             $sql->bindValue(":cod_produto", $_SESSION['carrinho'][$key]);
             $sql->bindValue(":cod_pedido", $idPedido);
             $sql->bindValue(":quantidade", $_SESSION['qtd'][$key]);
             $sql->bindValue(":observacao", $_SESSION['observacao'][$key]);
-            $sql->bindValue(":pepr_preco", $produtos[$key]['pro_preco']);
-
+            $sql->bindValue(":pepr_preco", $itens_carrinho[$key]['pro_preco']);
+            
             if(!$sql->execute()) return FALSE;
         }
+        
+        
+        //set itens Resgate de Fidelidade
+        foreach($itens_resgate as $key => $item){
 
-        //++ pontos de fidelidade
+            $qtd_aux = $_SESSION['carrinho_resgate'][$item['pro_pk_id']]['qtd'];
+
+            $sql = $this->pdo->prepare("INSERT INTO rl_pedido_produto SET pepr_fk_produto = :cod_produto, pepr_fk_pedido = :cod_pedido, pepr_quantidade = :quantidade, pepr_pts_resgate_fidelidade = :pts_resgate");
+
+            $sql->bindValue(":cod_produto", $item['pro_pk_id']);
+            $sql->bindValue(":cod_pedido", $idPedido);
+            $sql->bindValue(":quantidade", $qtd_aux);
+            $sql->bindValue(":pts_resgate", $item['pro_pts_resgate_fidelidade']);
+            
+
+            if(!$sql->execute()) return FALSE;
+
+        }
+
+        //++ pontos de fidelidade em Cliente
         if($fidelidade_valida){
             $sql = $this->pdo->prepare("UPDATE tb_cliente
             SET cli_pontos_fidelidade = IFNULL(cli_pontos_fidelidade, 0) + :operacao_fidelidade

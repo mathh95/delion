@@ -12,10 +12,13 @@ if(!isset($_SESSION['carrinho']) || empty($_SESSION['carrinho'])){
     $_SESSION['observacao'] = array();
 }
 
+if(!isset($_SESSION['carrinho_resgate']) || empty($_SESSION['carrinho_resgate'])){
+    $_SESSION['carrinho_resgate'] = array();
+}
 
 if(isset($_GET['id']) && !empty($_GET['id'])){
 
-    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    $id = intval(filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT));
 
     if(isset($_GET['observacaoItem']) && !empty($_GET['observacaoItem'])){
         $obs = $_GET['observacaoItem'];
@@ -29,9 +32,9 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
         //seta unidade de itens p/ 1 unidade
         array_push($_SESSION['qtd'], 1);
 
-        echo count($_SESSION['carrinho']);
+        echo count($_SESSION['carrinho']) + count($_SESSION['carrinho_resgate']);
     }else{
-        echo count($_SESSION['carrinho']);
+        echo count($_SESSION['carrinho']) + count($_SESSION['carrinho_resgate']);
     }
 
 
@@ -40,22 +43,18 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
 
     if (isset($_GET['itens_resgate'])){
 
+        //zera caso haja resgate anterior
+        $_SESSION['carrinho_resgate'] = array();
+
         //$itens = {cod_produto: qtd}
         $itens = $_GET['itens_resgate'];
         foreach($itens as $cod_item => $qtd_item){
-            if(!in_array($cod_item, $_SESSION['carrinho'], true)){
 
-                array_push($_SESSION['carrinho'], $cod_item);
-                array_push($_SESSION['observacao'], "");
-                
-                //seta qtd de itens
-                array_push($_SESSION['qtd'], $qtd_item);
-        
-                echo count($_SESSION['carrinho']);
-            }else{
-                echo count($_SESSION['carrinho']);
-            }
+            $_SESSION['carrinho_resgate'][$cod_item]['qtd'] = $qtd_item;
         }
+
+        // var_dump($_SESSION['carrinho_resgate']);
+        echo count($_SESSION['carrinho_resgate']);
     }
 }
 

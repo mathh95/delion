@@ -1,8 +1,9 @@
 <?php
 session_start();
 
-$preco = $_GET['preco'];
 $acao = $_GET['acao'];
+
+if(isset($_GET['preco'])) $preco = $_GET['preco'];
 
 //função pra aumentar a quantidade de um item no carrinho
 if($acao == "+"){
@@ -167,9 +168,9 @@ if($acao == "+"){
             
         return;
     }
-//função para remover todas as unidades de um item do carrinho
-}
-elseif($acao == "rem"){
+
+    //função para remover todas as unidades de um item do carrinho
+}elseif($acao == "rem"){
     if(isset($_GET['id']) && !empty($_GET['id'])){
         
         $id = $_GET['id'];
@@ -235,9 +236,9 @@ elseif($acao == "rem"){
         
         return;        
     }
-}
+
 // função para esvaziar o carrinho
-elseif($acao == "esv"){
+}elseif($acao == "esv"){
     $_SESSION['valor_subtotal'] = 0;
     $_SESSION['total_com_desconto'] = 0;
     $_SESSION['valor_cupom'] = 0;
@@ -245,11 +246,30 @@ elseif($acao == "esv"){
     unset($_SESSION['carrinho']);
     unset($_SESSION['qtd']);
     unset($_SESSION['observacao']);
-}
+
 
 //função para remover o cupom
-elseif($acao == "removeCupom"){
+}elseif($acao == "removeCupom"){
     $_SESSION['valor_cupom'] = 0;
+
+
+//função para remover item de Resgate
+}elseif($acao == "rem_resgate"){
+
+    if(isset($_GET['id']) && !empty($_GET['id'])){
+        
+        $id = $_GET['id'];
+
+        $itens = $_SESSION['carrinho_resgate'];
+        foreach($itens as $cod_item => $qtd_item){
+
+            if($cod_item == $id){
+                unset($_SESSION['carrinho_resgate'][$cod_item]);
+            }
+        }
+
+        return;        
+    }
 }
 
 ?>
