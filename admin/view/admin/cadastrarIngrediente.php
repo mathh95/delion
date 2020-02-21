@@ -8,9 +8,6 @@
 
     include_once CONTROLLERPATH."/seguranca.php";
 
-    include_once CONTROLLERPATH."/controlAdicional.php";
-
-    include_once MODELPATH."/adicional.php";
 
     $_SESSION['permissaoPagina']=0;
 
@@ -49,7 +46,7 @@
 
         <div class="container-fluid">
 
-            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/businesItemComposicao.php">
+            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/businesIngrediente.php">
 
                 <div class="col-md-12">
 

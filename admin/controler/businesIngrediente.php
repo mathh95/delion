@@ -3,7 +3,7 @@
     include_once "seguranca.php";
     protegePagina();
 
-    include_once "controlItemComposicao.php";
+    include_once "controlIngrediente.php";
     include_once "../lib/alert.php";
     include_once "upload.php";
 
@@ -18,15 +18,15 @@
         $valor= addslashes(htmlspecialchars($_POST['valor']));
         
 
-        $itemComposicao = new item_composicao();
-        $itemComposicao->construct($nome,$unidade,$valor,$qtd);
+        $ingrediente = new ingrediente();
+        $ingrediente->construct($nome,$unidade,$valor,$qtd);
 
-        $controle= new controlerItemComposicao($_SG['link']);
-        if($controle->insert($itemComposicao)> -1){
-            msgRedireciona('Cadastro Realizado!','Item cadastrado!',1,'../view/admin/itemComposicaoLista.php');
+        $controle= new controlerIngrediente($_SG['link']);
+        if($controle->insert($ingrediente)> -1){
+            msgRedireciona('Cadastro Realizado!','Ingrediente cadastrado!',1,'../view/admin/ingredientesLista.php');
         }else{
-            alertJSVoltarPagina('Erro','Erro ao cadastrar item!',2);
-            $itemComposicao->show();
+            alertJSVoltarPagina('Erro','Erro ao cadastrar ingrediente!',2);
+            $ingrediente->show();
         }
     }else {
         expulsaVisitante();

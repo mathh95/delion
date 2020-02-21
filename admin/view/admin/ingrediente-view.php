@@ -8,9 +8,9 @@
 
     include_once CONTROLLERPATH."/seguranca.php";
 
-    include_once CONTROLLERPATH."/controlItemComposicao.php";
+    include_once CONTROLLERPATH."/controlIngrediente.php";
 
-    include_once MODELPATH."/item_composicao.php";
+    include_once MODELPATH."/ingrediente.php";
 
     $_SESSION['permissaoPagina']=0;
 
@@ -20,7 +20,7 @@
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-    $controle=new controlerItemComposicao($_SG['link']);
+    $controle=new controlerIngrediente($_SG['link']);
 
     $item_composicao = $controle->select($_GET['cod'],2);     //alterar o modo
 
@@ -54,7 +54,7 @@
 
         <div class="container-fluid">
 
-            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/alteraItemComposicao.php">
+            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/alteraIngrediente.php">
 
                 <div class="col-md-12">
 

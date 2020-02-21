@@ -3,8 +3,6 @@
     include_once CONTROLLERPATH."/controlUsuario.php";
     include_once MODELPATH."/usuario.php";
     include_once CONTROLLERPATH."/seguranca.php";
-    include_once CONTROLLERPATH."/controlTipoAvaliacao.php";
-    include_once MODELPATH."/tipo_avaliacao.php";
     $_SESSION['permissaoPagina']=0;
     protegePagina();
     $controleUsuario = new controlerUsuario($_SG['link']);
@@ -25,23 +23,23 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <?php include "../../ajax/itemComposicao-tabela.php";?>
+                <?php include "../../ajax/ingredientes-tabela.php";?>
             </div>
         </div>
     </div>
     <?php include VIEWPATH."/rodape.html" ?>
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
-       function removeItemComposicao(cod){
+       function removeIngrediente(cod){
             msgConfirmacao('Confirmação','Deseja Realmente remover o item de composicao ?',
                 function(linha){
                     // alert(cod);
-                    var url ="../../ajax/excluir-item-composicao.php?cod="+cod;
+                    var url ="../../ajax/excluir-ingrediente.php?cod="+cod;
                     $.get(url, function(dataReturn) {
                         if (dataReturn == 1) {
-                            msgGenerico("Erro!","Não foi possível excluir o item da composição!",2,function(){});
+                            msgGenerico("Erro!","Não foi possível excluir o ingrediente!",2,function(){});
                         }else{
-                            msgGenerico("Excluir!","Item da composição excluido com sucesso!",1,function(){});
+                            msgGenerico("Excluir!","Ingrediente excluido com sucesso!",1,function(){});
                             $("#status"+cod).remove();
                             
                         }
