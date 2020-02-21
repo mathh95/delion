@@ -612,8 +612,8 @@
 
                                 <li><a href="cadastrarIngrediente.php">Cadastrar Ingredientes</a></li>
                                 <li><a href="ingredientesLista.php">Listar Ingredientes</a></li>
-                                <li><a href="cadastrarPrecoDeCusto.php">Cadastrar Composição do Produto</a></li>
-                                <li><a href="precoDeCustoLista.php">Listar Composições</a></li>
+                                <li><a href="cadastrarComposicao.php">Cadastrar Composição do Produto</a></li>
+                                <li><a href="composicaoLista.php">Listar Composições</a></li>
 
                             </ul>
 
