@@ -14,7 +14,7 @@ $produtos = $controle->selectAllByFidelidade();
 	
 		echo "<table class='table table-responsive' id='tbProduto_fidelidade' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Produtos em Fidelidade</h1>
+			<h1 >Produtos em Fidelidade</h1>
 			<tr>
 	    		<th width='15%' style='text-align: center;'>Img</th>
 	    		<th width='10%' style='text-align: center;'>Pontos p/ Resgate</th>

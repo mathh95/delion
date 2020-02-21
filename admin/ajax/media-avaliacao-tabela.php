@@ -13,7 +13,7 @@ if(in_array('avaliacao', $permissao)){
 
     echo "<table class='table table-responsive' id='tbCardapio' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Lista de tipos de avaliações:</h1>
+			<h1 >Lista de tipos de avaliações:</h1>
             <tr>
                 <th width='20%' style='text-align: center;'>Id</th>
 	    		<th width='20%' style='text-align: center;'>Nome</th>

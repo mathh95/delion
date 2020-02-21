@@ -17,7 +17,7 @@ $permissao =  json_decode($usuarioPermissao->getPermissao());
 if(in_array('gerenciar_precodecusto', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Produtos a preço de custo</h1>
+		<h1 >Lista de Produtos a preço de custo</h1>
 		<tr>
     		<th width='20%' style='text-align: center;'>Nome do Produto</th>
 			<th width='15%' style='text-align: center;'>Ingredientes</th>
@@ -54,7 +54,7 @@ if(in_array('gerenciar_precodecusto', $permissao)){
 }else{
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Preço de custo</h1>
+		<h1 >Lista de Preço de custo</h1>
 		<tr>
 			<th width='20%' style='text-align: center;'>Nome do Produto</th>
 			<th width='15%' style='text-align: center;'>Ingredientes</th>

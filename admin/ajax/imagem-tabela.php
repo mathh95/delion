@@ -12,7 +12,7 @@ $imagens = $controle->selectAll();
 	
 		echo "<table class='table table-responsive' id='tbImagem' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Lista de imagens</h1>
+			<h1 >Lista de imagens</h1>
 			<tr>
 	    		<th width='20%' style='text-align: center;'>Imagem</th>
 	    		<th width='20%' style='text-align: center;'>Nome</th>
@@ -36,7 +36,7 @@ $imagens = $controle->selectAll();
 	}else{
 		echo "<table class='table table-responsive' id='tbImagem' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Lista de imagem</h1>
+			<h1 >Lista de imagem</h1>
 			<tr>
 	    		<th width='25%' style='text-align: center;'>Imagem</th>
 	    		<th width='25%' style='text-align: center;'>Nome</th>

@@ -17,7 +17,7 @@ $permissao =  json_decode($usuarioPermissao->getPermissao());
 if(in_array('gerenciar_fornecedor', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Tipos de Fornecedor</h1>
+		<h1 >Lista de Tipos de Fornecedor</h1>
 		<tr>
     		<th width='20%' style='text-align: center;'>Tipo de Fornecedor</th>
 			<th width='15%' style='text-align: center;'>Status</th>
@@ -54,7 +54,7 @@ if(in_array('gerenciar_fornecedor', $permissao)){
 }else{
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Tipo de Fornecedores</h1>
+		<h1 >Lista de Tipo de Fornecedores</h1>
 		<tr>
 			<th width='20%' style='text-align: center;'>Tipo de Fornecedor</th>
 			<th width='15%' style='text-align: center;'>Status</th>

@@ -16,7 +16,7 @@ $envios = $controle->selectAll();
 	
 		echo "<table class='table table-responsive' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Sms Enviados</h1>
+			<h1 >Sms Enviados</h1>
 			<tr>
 	    		<th width='25%' style='text-align: center;'>Código</th>
 	    		<th width='25%' style='text-align: center;'>Mensagem Enviada</th>

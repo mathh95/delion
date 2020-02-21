@@ -13,7 +13,7 @@ $fornecedores = $controle->selectAll();
 	}else{
 		echo "<table class='table table-responsive' id='tbFornecedor style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Lista de Fornecedores</h1>
+			<h1 >Lista de Fornecedores</h1>
 			<tr>
                 <th width='20%' style='text-align: center;'>Nome</th>
                 <th width='20%' style='text-align: center;'>Endereço</th>

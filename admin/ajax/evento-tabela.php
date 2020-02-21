@@ -30,7 +30,7 @@ $eventos = $controle->selectAll();
 
 		<thead>
 
-			<h1 class=\"page-header\">Lista de evento</h1>
+			<h1 >Lista de evento</h1>
 
 			<tr>
 
@@ -86,7 +86,7 @@ $eventos = $controle->selectAll();
 
 		<thead>
 
-			<h1 class=\"page-header\">Lista de evento</h1>
+			<h1 >Lista de evento</h1>
 
 			<tr>
 

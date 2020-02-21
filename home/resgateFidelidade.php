@@ -67,6 +67,7 @@
 					<div class="pontos-wrapper">
 						<p>Você possui: <span><?=floor($cliente->getPontosFidelidade())?> pontos</span></p>
 						<p>Pontuação mínima: <span>30 pontos</span></p>
+						<p>Pontuação utilizada: <span> <span id="pts-utlizados">0</span> pontos</span></p>
 					</div>
 
 				</div>
@@ -195,12 +196,10 @@
 		
 
 		$(document).on("click","#finalizar_resgate", function(){
-			
-			return;
-			
+						
 			var qtd_carrinho = $('#spanCarrinho').text();
 
-			// console.log(itens_resgate);
+			console.log(itens_resgate);
 			if(itens_resgate.length == 0){
 				swal({
 					title: "Nenhum item selecionado 😮",
@@ -234,7 +233,7 @@
 						data: {is_array: true, itens_resgate: itens_resgate},
 						success: function(res){
 							console.log(res);
-							return;
+							// return;
 							$("#spanCarrinho").html(res);
 							$("#spanCarrinho-navbar").html(res);
 
@@ -265,14 +264,15 @@
 				var id = $(this).data('cod_produto');
 				var qtd_item = parseInt($("#qtd-"+id).val());
 
-				//set
+				//set item p/ resgate
 				if(qtd_item == 0 ) itens_resgate[id] = 0;
 				$(this).prev().val(+$(this).prev().val() + 1);
 
-				//inc
+				//inc qtd de item
 				itens_resgate[id] += 1;
 
 				pontos_usados += pts;
+				$("#pts-utlizados").html(pontos_usados);
 				// console.log(pontos_usados);
 			}
 			// console.log(itens_resgate);
@@ -300,6 +300,8 @@
 			}else{
 				itens_resgate[id] -= 1;
 			}
+
+			$("#pts-utlizados").html(pontos_usados);
 			// console.log(itens_resgate);
 
 		});

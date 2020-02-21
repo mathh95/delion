@@ -12,13 +12,13 @@
 
 <header>
 
-    <div class="col-md-12">
+    <div class="col-md-12 header-topo" style="height: 45px;">
 
         <div class="row">
 
             <div class="col-md-8 col-md-offset-2">
 
-                <h1>Área Administrativa <?= EMPRESA ?></h1>
+                <h1><a style="text-decoration:none;" href="empresaHorarios.php">Área Administrativa | <?= EMPRESA ?> <i class="fa fa-coffee"></i></a></h1>
 
             </div>
 
@@ -28,9 +28,9 @@
 
                     <h3>
 
-                    <img src="../../img/person.png" alt="" />
 
-                    <span>Bom dia <?php echo  $_SESSION['usuarioNome'] ?></span>
+                    <span style="color: white;"><i class="fa fa-user"></i> <?php echo  $_SESSION['usuarioNome'] ?>
+                    </span>
 
                     </h3>
 
@@ -644,5 +644,6 @@
         </div>
 
     </div>
+    
 
 </header>

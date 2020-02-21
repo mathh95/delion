@@ -95,10 +95,6 @@ function alertJSVoltarPagina($titulo,$msg,$tipo) {
 	$html = $html."<body>";
     $html = $html."<script >
             msgVoltar('Informação','".$msg."',$tipo);
-            ";
-            $html = $html." setTimeout(function () {
-                window.location.href = '".$pagina."';
-             }, 1200);
              </script>";
     $html = $html."</body>";
     

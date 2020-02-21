@@ -45,7 +45,7 @@ if ($pedidos == -1){
 if(in_array('pedido', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Dados do Pedido</h1>
+		<h1 >Dados do Pedido</h1>
 		<div class=\"pull-right\">
 			<a href=\"pedidoLista.php\" class=\"btn btn-kionux\"><i class=\"fa fa-arrow-left\"></i> Voltar</a>
 		</div class=\"pull-right\">

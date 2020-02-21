@@ -35,7 +35,7 @@ isset($_POST['categoria'])){
 	
 		echo "<table class='table table-responsive' id='tbCardapio' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Lista de cardapio</h1>
+			<h1 >Lista de cardapio</h1>
 			<tr>
 	    		<th width='14%' style='text-align: center;'>Item</th>
 				<th width='14%' style='text-align: center;'>Nome</th>
@@ -71,7 +71,7 @@ isset($_POST['categoria'])){
 	}else{
 		echo "<table class='table table-responsive' id='tbCardapio' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Lista de cardapio</h1>
+			<h1 >Lista de cardapio</h1>
 			<tr>
 	    		<th width='14%' style='text-align: center;'>Item</th>
 				<th width='14%' style='text-align: center;'>Nome</th>

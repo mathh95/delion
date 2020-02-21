@@ -12,7 +12,7 @@ $permissao =  json_decode($usuarioPermissao->getPermissao());
 if(in_array('usuario', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Usuários</h1>
+		<h1>Lista de Usuários</h1>
 		<tr>
     		<th width='20%' style='text-align: center;'>Nome</th>
     		<th width='15%' style='text-align: center;'>Login</th>
@@ -37,7 +37,7 @@ if(in_array('usuario', $permissao)){
 }else{
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Usuários</h1>
+		<h1 >Lista de Usuários</h1>
 		<tr>
     		<th width='20%' style='text-align: center;'>Nome</th>
     		<th width='15%' style='text-align: center;'>Login</th>
