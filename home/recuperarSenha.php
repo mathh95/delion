@@ -17,12 +17,6 @@
 
 	$empresa = $controleEmpresa->select(1,2);
 
-	$controleBanner=new controlerBanner(conecta());
-
-	$miniBanners = $controleBanner->selectAllMini();
-
-	$banners = $controleBanner->selectAll();
-
 	$controleImagem=new controlerImagem(conecta());
 
 	$imagens = $controleImagem->selectAll();

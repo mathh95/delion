@@ -106,4 +106,5 @@ if(in_array('pedido', $permissao)){
 			}		
 		}
 	}
+	echo "</tbody></table>";
 ?>
