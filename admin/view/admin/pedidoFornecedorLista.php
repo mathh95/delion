@@ -28,7 +28,7 @@ $arquivo_pai = basename(__FILE__, '.php');
 <body>
 
     <?php include_once "./header.php" ?>
-
+    
     <div class="container-fluid">
             <div class="searchbar">
                     <div class="col-md-2"> 

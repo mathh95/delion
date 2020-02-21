@@ -336,15 +336,7 @@
                                     <li>
                                         <label>
 
-                                            <input type="checkbox" id="gerenciar_composicao" name="permissoes[]" value="gerenciar_composicao"> Gerenciar Composição
-
-                                        </label>
-                                    </li>
-
-                                    <li>
-                                        <label>
-
-                                            <input type="checkbox" id="gerenciar_precodecusto" name="permissoes[]" value="gerenciar_precodecusto"> Gerenciar Preço de Custo
+                                            <input type="checkbox" id="gerenciar_composicao" name="permissoes[]" value="gerenciar_composicao"> Gerenciar Composição do Produto
 
                                         </label>
                                     </li>

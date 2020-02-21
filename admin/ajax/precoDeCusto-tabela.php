@@ -14,7 +14,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 $preco_custo = $controle->selectAll();
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
-if(in_array('gerenciar_precodecusto', $permissao)){
+if(in_array('gerenciar_composicao', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
 		<h1 >Lista de Produtos a preço de custo</h1>
