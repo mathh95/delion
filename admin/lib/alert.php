@@ -126,7 +126,7 @@ function msgRedireciona($titulo,$msg,$tipo,$pagina) {
         ";
         $html = $html." setTimeout(function () {
             window.location.href = '".$pagina."';
-         }, 1200);
+         }, 700);
          </script>";
     $html = $html."</body>";
 

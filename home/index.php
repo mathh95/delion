@@ -5,19 +5,11 @@
 
 	include_once "controler/controlEmpresa.php";
 
-	include_once "controler/controlBanner.php";
-
 	include_once "controler/controlImagem.php";
 
 	$controleEmpresa=new controlerEmpresa(conecta());
 
 	$empresa = $controleEmpresa->select(1,2);
-
-	$controleBanner=new controlerBanner(conecta());
-
-	$miniBanners = $controleBanner->selectAllMini();
-
-	$banners = $controleBanner->selectAll();
 
 	$controleImagem=new controlerImagem(conecta());
 
