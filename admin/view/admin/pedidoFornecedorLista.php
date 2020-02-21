@@ -31,11 +31,11 @@ $arquivo_pai = basename(__FILE__, '.php');
 
     <div class="container-fluid">
             <div class="searchbar">
-                    <div class="medium-divs"> 
-                        <label>Filtro por nome do fornecedor: </label>
+                    <div class="col-md-2"> 
+                        <label>Fornecedor: </label>
                         <input id="pesquisa" class="form-control" type="text" placeholder="Nome para pesquisa">
                     </div>
-                    <div class="mini-divs"> 
+                    <div class="col-md-2"> 
                         <label>Tipo do fornecedor: </label>
                         <select class="form-control" name="tipoFornecedor" id="tipoFornecedor">
                             <option value="0">Todos</option>
@@ -48,15 +48,23 @@ $arquivo_pai = basename(__FILE__, '.php');
                                 </select>
                     </div>
                         
-                    <div class="mini-divs"> 
-                        <label>Data inicio: </label>
-                        <input id="dt_inicio" class="form-control" type="date" placeholder="01/01/2000">
+                    <div class="col-md-2"> 
+                        <label>Data do Pedido Inicio: </label>
+                        <input id="dt_ped_inicio" name="dt_ped_inicio" class="form-control" type="date" placeholder="01/01/2000">
                     </div>
-                    <div class="mini-divs"> 
-                        <label>Data fim: </label>
-                        <input id="dt_fim" class="form-control" type="date" placeholder="01/01/2000">
+                    <div class="col-md-2"> 
+                        <label>Data do Pedido Fim: </label>
+                        <input id="dt_ped_fim" name="dt_ped_fim" class="form-control" type="date" placeholder="01/01/2000">
                     </div>
-                    <div class="mini-divs">
+                    <div class="col-md-2"> 
+                        <label>Data Vencimento Inicio: </label>
+                        <input id="dt_venc_inicio" name="dt_venc_inicio" class="form-control" type="date" placeholder="01/01/2000">
+                    </div>
+                    <div class="col-md-2"> 
+                        <label>Data Vencimento Fim: </label>
+                        <input id="dt_venc_fim" name="dt_venc_fim" class="form-control" type="date" placeholder="01/01/2000">
+                    </div>
+                    <div class="col-md-2">
                         <button id="printCardapio" style="margin-top:25px" type="button" class="btn btn-kionux" data-toggle="modal" data-target="#printMenuModal">
                             <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Geração de Relatório
                         </button>
@@ -91,11 +99,11 @@ $arquivo_pai = basename(__FILE__, '.php');
                 </div>
                 <div class="container-fluid">
             <div class="searchbar">
-                    <div class="medium-divs"> 
+                    <div class="col-md-2"> 
                         <label>Filtro por nome do fornecedor: </label>
                         <input id="pesquisaModal" class="form-control" type="text" placeholder="Nome para pesquisa">
                     </div>
-                    <div class="mini-divs"> 
+                    <div class="col-md-2"> 
                         <label>Tipo do fornecedor: </label>
                         <select class="form-control" name="tipoFornecedorModal" id="tipoFornecedorModal">
                             <option value="0">Todos</option>
@@ -108,13 +116,21 @@ $arquivo_pai = basename(__FILE__, '.php');
                                 </select>
                     </div>
                         
-                    <div class="mini-divs"> 
-                        <label>Data inicio: </label>
+                    <div class="col-md-2"> 
+                        <label>Data do Pedido Inicio: </label>
                         <input id="dt_inicioModal" class="form-control" type="date" placeholder="01/01/2000">
                     </div>
-                    <div class="mini-divs"> 
-                        <label>Data fim: </label>
+                    <div class="col-md-2"> 
+                        <label>Data do Pedido Fim: </label>
                         <input id="dt_fimModal" class="form-control" type="date" placeholder="01/01/2000">
+                    </div>
+                    <div class="col-md-2"> 
+                        <label>Data Vencimento Inicio: </label>
+                        <input id="dt_modal_venc_inicio" name="dt_modal_venc_inicio" class="form-control" type="date" placeholder="01/01/2000">
+                    </div>
+                    <div class="col-md-2"> 
+                        <label>Data Vencimento Fim: </label>
+                        <input id="dt_modal_venc_fim" name="dt_modal_venc_fim" class="form-control" type="date" placeholder="01/01/2000">
                     </div>
             </div>
         <div class="row">
@@ -168,20 +184,23 @@ $arquivo_pai = basename(__FILE__, '.php');
                 };
             }
 
-        //Filtro Tudo
-        $('#pesquisa, #tipoFornecedor, #dt_inicio, #dt_fim').on('change paste keyup', function(){
+        //Filtro Tudo (Fora da modal)
+        $('#pesquisa, #tipoFornecedor, #dt_ped_inicio, #dt_ped_fim, #dt_venc_inicio, #dt_venc_fim').on('change paste keyup', function(){
             var nome = $("#pesquisa").val();
             var tipoFornecedor = $("#tipoFornecedor").val();
-            var dt_inicio = $("#dt_inicio").val();
-            var dt_fim = $("#dt_fim").val();
-
+            var dt_ped_inicio = $("#dt_ped_inicio").val();
+            var dt_ped_fim = $("#dt_ped_fim").val();
+            var dt_venc_ini = $("#dt_venc_inicio").val();
+            var dt_venc_fim = $("#dt_venc_fim").val();
+            
             var url = '../../ajax/pedidoFornecedor-tabela.php';
+            
             $.ajax({
                 type: 'POST',
 
                 url: url,
 
-                data: {nome:nome, tipoFornecedor:tipoFornecedor, dt_inicio:dt_inicio, dt_fim:dt_fim},
+                data: {nome:nome, tipoFornecedor:tipoFornecedor, dt_ped_inicio:dt_ped_inicio, dt_ped_fim:dt_ped_fim, dt_venc_ini:dt_venc_ini, dt_venc_fim:dt_venc_fim},
 
                 success:function(res){
                     $("#tabela-pedidoFornecedor").html(res);
@@ -190,19 +209,21 @@ $arquivo_pai = basename(__FILE__, '.php');
         });
         
         //Filtro do Modal
-        $('#pesquisaModal, #tipoFornecedorModal, #dt_inicioModal, #dt_fimModal').on('change paste keyup', function(){
+        $('#pesquisaModal, #tipoFornecedorModal, #dt_inicioModal, #dt_fimModal, #dt_modal_venc_inicio, #dt_modal_venc_fim').on('change paste keyup', function(){
                 var nome = $("#pesquisaModal").val();
                 var tipoFornecedor = $("#tipoFornecedorModal").val();
                 var dt_inicio = $("#dt_inicioModal").val();
                 var dt_fim = $("#dt_fimModal").val();
-
+                var dt_venc_ini = $("#dt_modal_venc_inicio").val();
+                var dt_venc_fim = $("#dt_modal_venc_fim").val();
+                
                 var url = '../../ajax/imprimirRelatorio.php';
             $.ajax({
                 type: 'POST',
 
                 url: url,
 
-                data: {nome:nome, tipoFornecedor:tipoFornecedor, dt_inicio:dt_inicio, dt_fim:dt_fim},
+                data: {nome:nome, tipoFornecedor:tipoFornecedor, dt_inicio:dt_inicio, dt_fim:dt_fim, dt_venc_ini:dt_venc_ini, dt_venc_fim:dt_venc_fim},
 
                 success:function(res){
                     $("#tabelaModal").html(res);

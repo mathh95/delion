@@ -73,13 +73,15 @@
 
         function selectAll(){
             $pedido_fornecedores = array();
-            try{   
-                $stmte= $this->pdo->prepare("SELECT * 
+            try{
+                $stmte= $this->pdo->prepare("SELECT *, 
+                DATE_ADD(pefo_dt_pedido, INTERVAL for_qtd_dias_pgto DAY) AS dt_venc 
                 FROM tb_pedido_fornecedor AS PED
                 INNER JOIN tb_fornecedor AS FO
                 ON PED.pefo_fk_fornecedor = FO.for_pk_id
                 INNER JOIN tb_tipo_fornecedor AS TIP
-                ON TIP.tifo_pk_id = FO.for_fk_tipo_fornecedor");
+                ON TIP.tifo_pk_id = FO.for_fk_tipo_fornecedor
+                ORDER BY dt_venc DESC");
                 $executa= $stmte->execute();
                 if($executa){
                     if($stmte->rowCount() > 0){
@@ -141,302 +143,52 @@
             }
         } 
 
-        function filtroTudo($parametro, $tipofornecedor){
-            $pedido_fornecedores = array();
-            $nome = "%".$parametro."%";
-            $tipo = $tipofornecedor;
+        //Filtro geral funciona em todos os casos
+        function filtro(
+            $nomeFornecedor=NULL, 
+            $tipofornecedor=NULL, 
+            $dt_inicio=NULL, 
+            $dt_fim=NULL, 
+            $dt_venc_ini=NULL, 
+            $dt_venc_fim=NULL
+        ){
 
-            $stmte=$this->pdo->prepare("SELECT *
-            FROM tb_pedido_fornecedor AS PED
-            INNER JOIN tb_fornecedor AS FO
-            ON PED.pefo_fk_fornecedor = FO.for_pk_id
-            INNER JOIN tb_tipo_fornecedor AS TIP
-            ON TIP.tifo_pk_id = FO.for_fk_tipo_fornecedor
-            WHERE FO.for_nome like :nome AND
-            FO.for_fk_tipo_fornecedor like :tipo");
-
-            $stmte->bindParam(":nome", $nome, PDO::PARAM_STR);
-            $stmte->bindParam(":tipo", $tipo, PDO::PARAM_STR);
-
-            $executa=$stmte->execute();
-
-            if($executa){
-                if($stmte->rowCount() > 0){
-                    while($result=$stmte->fetch(PDO::FETCH_OBJ)){
-                        $pedido_fornecedor = new pedido_fornecedor();
-                        $pedido_fornecedor->setPkId($result->pefo_pk_id);
-                        $pedido_fornecedor->setValor($result->pefo_valor);
-                        $pedido_fornecedor->setFormaPgt($result->pefo_forma_pgt);
-                        $pedido_fornecedor->setDesc($result->pefo_desc);
-                        $pedido_fornecedor->setDtPedido($result->pefo_dt_pedido);
-                        $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
-                        $pedido_fornecedor->fornecedorNome=$result->for_nome;
-                        $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
-                        $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
-                        array_push($pedido_fornecedores, $pedido_fornecedor);
-                    }
-
-                }
-                else{
-                    return -1;
-                }
-                return $pedido_fornecedores;
-            }
-            else{
-                return -1;
-            }
-        }
-
-        function filtroNome($parametro){
-            $pedido_fornecedores = array();
-            $nome = "%".$parametro."%";
-
-            $stmte=$this->pdo->prepare("SELECT *
-            FROM tb_pedido_fornecedor AS PED
-            INNER JOIN tb_fornecedor AS FO
-            ON PED.pefo_fk_fornecedor = FO.for_pk_id
-            INNER JOIN tb_tipo_fornecedor AS TIP
-            ON TIP.tifo_pk_id = FO.for_fk_tipo_fornecedor
-            WHERE FO.for_nome like :nome");
-
-            $stmte->bindParam(":nome", $nome, PDO::PARAM_STR);
-
-            $executa=$stmte->execute();
-
-            if($executa){
-                if($stmte->rowCount() > 0){
-                    while($result=$stmte->fetch(PDO::FETCH_OBJ)){
-                        $pedido_fornecedor = new pedido_fornecedor();
-                        $pedido_fornecedor->setPkId($result->pefo_pk_id);
-                        $pedido_fornecedor->setValor($result->pefo_valor);
-                        $pedido_fornecedor->setFormaPgt($result->pefo_forma_pgt);
-                        $pedido_fornecedor->setDesc($result->pefo_desc);
-                        $pedido_fornecedor->setDtPedido($result->pefo_dt_pedido);
-                        $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
-                        $pedido_fornecedor->fornecedorNome=$result->for_nome;
-                        $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
-                        $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
-                        array_push($pedido_fornecedores, $pedido_fornecedor);
-                    }
-
-                }
-                else{
-                    return -1;
-                }
-                return $pedido_fornecedores;
-            }
-            else{
-                return -1;
-            }
-        }
-
-        function filtroTipo($parametro){
-            
-            $pedido_fornecedores = array();
-            $parametro = $parametro;
-
-            $stmte=$this->pdo->prepare("SELECT *
-            FROM tb_pedido_fornecedor AS PED
-            INNER JOIN tb_fornecedor AS FO
-            ON PED.pefo_fk_fornecedor = FO.for_pk_id
-            INNER JOIN tb_tipo_fornecedor AS TIP
-            ON TIP.tifo_pk_id = FO.for_fk_tipo_fornecedor
-            WHERE FO.for_fk_tipo_fornecedor like :parametro");
-
-            $stmte->bindParam(":parametro", $parametro, PDO::PARAM_STR);
-            $executa=$stmte->execute();
-
-            if($executa){
-                if($stmte->rowCount() > 0){
-                    while($result=$stmte->fetch(PDO::FETCH_OBJ)){
-                        $pedido_fornecedor = new pedido_fornecedor();
-                        $pedido_fornecedor->setPkId($result->pefo_pk_id);
-                        $pedido_fornecedor->setValor($result->pefo_valor);
-                        $pedido_fornecedor->setFormaPgt($result->pefo_forma_pgt);
-                        $pedido_fornecedor->setDesc($result->pefo_desc);
-                        $pedido_fornecedor->setDtPedido($result->pefo_dt_pedido);
-                        $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
-                        $pedido_fornecedor->fornecedorNome=$result->for_nome;
-                        $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
-                        $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
-                        array_push($pedido_fornecedores, $pedido_fornecedor);
-                    }
-
-                }
-                else{
-                    return -1;
-                }
-                return $pedido_fornecedores;
-            }
-            else{
-                return -1;
-            }
-        }
-
-        function filtroData($dt_inicio, $dt_fim){
-            $pedido_fornecedores = array();
-            $dt_inicio = $dt_inicio;
-            $dt_fim = $dt_fim;
-
-            $stmte=$this->pdo->prepare("SELECT *
-            FROM tb_pedido_fornecedor AS PED
-            INNER JOIN tb_fornecedor AS FO
-            ON PED.pefo_fk_fornecedor = FO.for_pk_id
-            INNER JOIN tb_tipo_fornecedor AS TIP
-            ON TIP.tifo_pk_id = FO.for_fk_tipo_fornecedor
-            WHERE pefo_dt_pedido between :dt_inicio AND :dt_fim");
-
-            $stmte->bindParam(":dt_inicio", $dt_inicio);
-            $stmte->bindParam(":dt_fim", $dt_fim);
-
-            $executa=$stmte->execute();
-
-            if($executa){
-                if($stmte->rowCount() > 0){
-                    while($result=$stmte->fetch(PDO::FETCH_OBJ)){
-                        $pedido_fornecedor = new pedido_fornecedor();
-                        $pedido_fornecedor->setPkId($result->pefo_pk_id);
-                        $pedido_fornecedor->setValor($result->pefo_valor);
-                        $pedido_fornecedor->setFormaPgt($result->pefo_forma_pgt);
-                        $pedido_fornecedor->setDesc($result->pefo_desc);
-                        $pedido_fornecedor->setDtPedido($result->pefo_dt_pedido);
-                        $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
-                        $pedido_fornecedor->fornecedorNome=$result->for_nome;
-                        $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
-                        $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
-                        array_push($pedido_fornecedores, $pedido_fornecedor);
-                    }
-
-                }
-                else{
-                    return -1;
-                }
-                return $pedido_fornecedores;
-            }
-            else{
-                return -1;
-            }
-        }
-
-        function filtroTipoData($tipofornecedor,$dt_inicio, $dt_fim){
-            $pedido_fornecedores = array();
-            $tipo = $tipofornecedor;
-            $dt_inicio = $dt_inicio;
-            $dt_fim = $dt_fim;
-
-            $stmte=$this->pdo->prepare("SELECT *
-            FROM tb_pedido_fornecedor AS PED
-            INNER JOIN tb_fornecedor AS FO
-            ON PED.pefo_fk_fornecedor = FO.for_pk_id
-            INNER JOIN tb_tipo_fornecedor AS TIP
-            ON TIP.tifo_pk_id = FO.for_fk_tipo_fornecedor
-            WHERE FO.for_fk_tipo_fornecedor like :tipo
-            AND PED.pefo_dt_pedido between :dt_inicio AND :dt_fim");
-
-            $stmte->bindParam(":tipo", $tipo, PDO::PARAM_STR);
-            $stmte->bindParam(":dt_inicio", $dt_inicio);
-            $stmte->bindParam(":dt_fim", $dt_fim);
-
-            $executa=$stmte->execute();
-
-            if($executa){
-                if($stmte->rowCount() > 0){
-                    while($result=$stmte->fetch(PDO::FETCH_OBJ)){
-                        $pedido_fornecedor = new pedido_fornecedor();
-                        $pedido_fornecedor->setPkId($result->pefo_pk_id);
-                        $pedido_fornecedor->setValor($result->pefo_valor);
-                        $pedido_fornecedor->setFormaPgt($result->pefo_forma_pgt);
-                        $pedido_fornecedor->setDesc($result->pefo_desc);
-                        $pedido_fornecedor->setDtPedido($result->pefo_dt_pedido);
-                        $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
-                        $pedido_fornecedor->fornecedorNome=$result->for_nome;
-                        $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
-                        array_push($pedido_fornecedores, $pedido_fornecedor);
-                    }
-
-                }
-                else{
-                    return -1;
-                }
-                return $pedido_fornecedores;
-            }
-            else{
-                return -1;
-            }
-        }
-
-        function filtroNomeData($parametro,$dt_inicio, $dt_fim){
-            $pedido_fornecedores = array();
-            $nome = "%".$parametro."%";
-            $dt_inicio = $dt_inicio;
-            $dt_fim = $dt_fim;
-
-            $stmte=$this->pdo->prepare("SELECT *
-            FROM tb_pedido_fornecedor AS PED
-            INNER JOIN tb_fornecedor AS FO
-            ON PED.pefo_fk_fornecedor = FO.for_pk_id
-            INNER JOIN tb_tipo_fornecedor AS TIP
-            ON TIP.tifo_pk_id = FO.for_fk_tipo_fornecedor
-            WHERE FO.for_nome like :nome
-            AND PED.pefo_dt_pedido between :dt_inicio AND :dt_fim");
-
-            $stmte->bindParam(":nome", $nome, PDO::PARAM_STR);
-            $stmte->bindParam(":dt_inicio", $dt_inicio);
-            $stmte->bindParam(":dt_fim", $dt_fim);
-
-            $executa=$stmte->execute();
-
-            if($executa){
-                if($stmte->rowCount() > 0){
-                    while($result=$stmte->fetch(PDO::FETCH_OBJ)){
-                        $pedido_fornecedor = new pedido_fornecedor();
-                        $pedido_fornecedor->setPkId($result->pefo_pk_id);
-                        $pedido_fornecedor->setValor($result->pefo_valor);
-                        $pedido_fornecedor->setFormaPgt($result->pefo_forma_pgt);
-                        $pedido_fornecedor->setDesc($result->pefo_desc);
-                        $pedido_fornecedor->setDtPedido($result->pefo_dt_pedido);
-                        $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
-                        $pedido_fornecedor->fornecedorNome=$result->for_nome;
-                        $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
-                        array_push($pedido_fornecedores, $pedido_fornecedor);
-                    }
-
-                }
-                else{
-                    return -1;
-                }
-                return $pedido_fornecedores;
-            }
-            else{
-                return -1;
-            }
-        }
-
-
-        function filtro($nomeFornecedor, $tipofornecedor, $dt_inicio, $dt_fim){
             $pedido_fornecedores = array();
             $nome = "%".$nomeFornecedor."%";
             $tipo = $tipofornecedor;
-            $dt_inicio = $dt_inicio;
-            $dt_fim = $dt_fim;
+            $dt_ped_inicio = $dt_inicio;
+            $dt_ped_fim = $dt_fim;
+            $dt_vencimento_ini = $dt_venc_ini;
+            $dt_vencimento_fim = $dt_venc_fim;
 
+            $sql = "SELECT *, 
+            DATE_ADD(pefo_dt_pedido, INTERVAL for_qtd_dias_pgto DAY) AS dt_venc 
+            FROM tb_pedido_fornecedor AS PED
+            INNER JOIN tb_fornecedor AS FO
+            ON PED.pefo_fk_fornecedor = FO.for_pk_id
+            INNER JOIN tb_tipo_fornecedor AS TIP
+            ON TIP.tifo_pk_id = FO.for_fk_tipo_fornecedor
+            WHERE 1=1";
+
+            if(!empty($nome)) $sql .= " AND FO.for_nome like :nome";
+            if(!empty($tipo)) $sql .= " AND FO.for_fk_tipo_fornecedor like :tipo";
+            if(!empty($dt_ped_inicio) && !empty($dt_ped_fim)) $sql .= " AND PED.pefo_dt_pedido between :dt_inicio AND :dt_fim";
+            if(!empty($dt_vencimento_ini) && !empty($dt_vencimento_fim)) $sql .= " HAVING dt_venc BETWEEN :dt_venc_ini AND :dt_venc_fim ORDER BY dt_venc";
 
             try{
                 //Filtro para nome e tipos junto
-                    $stmte = $this->pdo->prepare("SELECT *
-                    FROM tb_pedido_fornecedor AS PED
-                    INNER JOIN tb_fornecedor AS FO
-                    ON PED.pefo_fk_fornecedor = FO.for_pk_id
-                    INNER JOIN tb_tipo_fornecedor AS TIP
-                    ON TIP.tifo_pk_id = FO.for_fk_tipo_fornecedor
-                    WHERE FO.for_nome like :nome AND
-                    FO.for_fk_tipo_fornecedor like :tipo AND
-                    pefo_dt_pedido between :dt_inicio AND :dt_fim");
+                    $stmte = $this->pdo->prepare($sql);
 
-                    $stmte->bindParam(":nome", $nome, PDO::PARAM_STR);
-                    $stmte->bindParam(":tipo", $tipo, PDO::PARAM_STR);
-                    $stmte->bindParam(":dt_inicio", $dt_inicio);
-                    $stmte->bindParam(":dt_fim", $dt_fim);
+                    if(!empty($nome)) $stmte->bindParam(":nome", $nome, PDO::PARAM_STR);
+                    if(!empty($tipo)) $stmte->bindParam(":tipo", $tipo, PDO::PARAM_STR);
+                    if(!empty($dt_ped_inicio) && !empty($dt_ped_fim)){
+                        $stmte->bindParam(":dt_inicio", $dt_inicio);
+                        $stmte->bindParam(":dt_fim", $dt_fim);
+                    }
+                    if(!empty($dt_vencimento_ini) && !empty($dt_vencimento_fim)){
+                        $stmte->bindParam(":dt_venc_ini", $dt_venc_ini);
+                        $stmte->bindParam(":dt_venc_fim", $dt_venc_fim);
+                    }
                 
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
@@ -450,59 +202,6 @@
                             $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
                             $pedido_fornecedor->fornecedorNome=$result->for_nome;
                             $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
-                            $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
-                            array_push($pedido_fornecedores, $pedido_fornecedor);
-                        }
-    
-                    }
-                    else{
-                        return -1;
-                    }
-                }
-            
-                return $pedido_fornecedores;
-            
-            }
-            catch(PDOException $e){
-                echo $e->getMessage();
-                return -1;
-            }
-
-        }
-        
-        //Faz um filtro apenas com nome e tipo do fornecedor
-        function filtroNomeTipo($nomeFornecedor, $tipofornecedor){
-            $pedido_fornecedores = array();
-            $nome = "%".$nomeFornecedor."%";
-            $tipo = $tipofornecedor;
-
-            try{
-                //Filtro para nome e tipos junto
-                    $stmte = $this->pdo->prepare("SELECT *
-                    FROM tb_pedido_fornecedor AS PED
-                    INNER JOIN tb_fornecedor AS FO
-                    ON PED.pefo_fk_fornecedor = FO.for_pk_id
-                    INNER JOIN tb_tipo_fornecedor AS TIP
-                    ON TIP.tifo_pk_id = FO.for_fk_tipo_fornecedor
-                    WHERE FO.for_nome like :nome AND
-                    FO.for_fk_tipo_fornecedor like :tipo");
-
-                    $stmte->bindParam(":nome", $nome, PDO::PARAM_STR);
-                    $stmte->bindParam(":tipo", $tipo, PDO::PARAM_STR);
-                
-                if($stmte->execute()){
-                    if($stmte->rowCount() > 0){
-                        while($result=$stmte->fetch(PDO::FETCH_OBJ)){
-                            $pedido_fornecedor = new pedido_fornecedor();
-                            $pedido_fornecedor->setPkId($result->pefo_pk_id);
-                            $pedido_fornecedor->setValor($result->pefo_valor);
-                            $pedido_fornecedor->setFormaPgt($result->pefo_forma_pgt);
-                            $pedido_fornecedor->setDesc($result->pefo_desc);
-                            $pedido_fornecedor->setDtPedido($result->pefo_dt_pedido);
-                            $pedido_fornecedor->setFkFornecedor($result->pefo_fk_fornecedor);
-                            $pedido_fornecedor->fornecedorNome=$result->for_nome;
-                            $pedido_fornecedor->tipo_fornecedor=$result->tifo_nome;
-                            $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
                             $pedido_fornecedor->dtVencimento=$result->for_qtd_dias_pgto;
                             array_push($pedido_fornecedores, $pedido_fornecedor);
                         }

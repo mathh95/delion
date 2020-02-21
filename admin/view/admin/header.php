@@ -606,7 +606,7 @@
                             ?>  
                         ">
 
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Composição <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Composição de Produto <span class="caret"></span></a>
 
                             <ul class="dropdown-menu">
 

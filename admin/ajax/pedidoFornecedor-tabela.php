@@ -18,47 +18,23 @@ $controltipoFornecedor = new controlerTipoFornecedor($_SG['link']);
 $tipo_fornecedores = $controltipoFornecedor->selectAll();
 $controle=new controlerPedidoFornecedor($_SG['link']);
 
-if(isset($_POST['nome']) || isset($_POST['tipoFornecedor']) || isset($_POST['dt_inicio']) || isset($_POST['dt_fim'])){
+if(isset($_POST['nome']) || isset($_POST['tipoFornecedor']) || isset($_POST['dt_ped_inicio']) || isset($_POST['dt_ped_fim']) || isset($_POST['dt_venc_ini']) || isset($_POST['dt_venc_fim'])){
 	$nome_fornecedor = $_POST['nome'];
 	$tipo = $_POST['tipoFornecedor'];
-	$dt_inicio = $_POST['dt_inicio'];
-	$dt_fim = $_POST['dt_fim'];
+	$dt_inicio = $_POST['dt_ped_inicio'];
+	$dt_fim = $_POST['dt_ped_fim'];
+	$dt_venc_ini = $_POST['dt_venc_ini'];
+	$dt_venc_fim = $_POST['dt_venc_fim'];
 
-		//Filtro apenas para o nome
-		if(!empty($_POST['nome']) && empty($_POST['tipoFornecedor']) && empty($_POST['dt_inicio']) && empty($_POST['dt_fim'])){
-			$pedidoFornecedores = $controle->filtroNome($nome_fornecedor);
-		}
-		
-		//Filtro apenas para o tipo
-		else if(empty($_POST['nome']) && !empty($_POST['tipoFornecedor']) && empty($_POST['dt_inicio']) && empty($_POST['dt_fim'])){
-			$pedidoFornecedores = $controle->filtroTipo($tipo);
-		}
 
-		//Filtro para o tipo "TODOS"
-		else if($tipo == 0){
-			$pedidoFornecedores = $controle->selectAll();
-		}
-
-		//Filtro para o nome e o tipo juntos
-		else if(!empty($_POST['nome']) && !empty($_POST['tipoFornecedor']) && empty($_POST['dt_inicio']) && empty($_POST['dt_fim'])){
-			$pedidoFornecedores = $controle->filtroNomeTipo($nome_fornecedor, $tipo);
-		}
-
-		//Filtro apenas para a data
-		else if(empty($_POST['nome']) && empty($_POST['tipoFornecedor']) && !empty($_POST['dt_inicio']) && !empty($_POST['dt_fim'])){
-			$pedidoFornecedores = $controle->filtroData($dt_inicio, $dt_fim);
-		}
-
-		else if( (empty($_POST['dt_inicio']) && !empty($_POST['dt_fim'])) || (!empty($_POST['dt_inicio']) && empty($_POST['dt_fim']))){
-			echo "<h1>PREENCHA AS DUAS DATAS PARA CONCLUIR A BUSCA</h1>";
-			$pedidoFornecedores = $controle->filtroNomeTipo($nome_fornecedor, $tipo);
-		}
-
-		//Filtro de todos os campos
-		else if(!empty($_POST['nome']) && !empty($_POST['tipoFornecedor']) && !empty($_POST['dt_inicio']) && !empty($_POST['dt_fim'])){
-			$pedidoFornecedores = $controle->filtro($nome_fornecedor, $tipo, $dt_inicio, $dt_fim);
-		}
-
+		$pedidoFornecedores = $controle->filtro(
+										$nome_fornecedor,
+										$tipo,
+										$dt_inicio,
+										$dt_fim,
+										$dt_venc_ini,
+										$dt_venc_fim
+										);
 
 //Sem Filtro
 }else{

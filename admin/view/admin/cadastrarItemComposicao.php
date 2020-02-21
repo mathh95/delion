@@ -61,7 +61,7 @@
 
                             <br>
 
-                            <h5>Nome do Ingrediente: </h5>
+                            <h5>Nome do Ingrediente:* </h5>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fas fa-edit"></i></span>
                                 <input class="form-control" placeholder="Ex: Pão" name="itemComposicao" required autofocus id ="itemComposicao" type="text">
@@ -71,6 +71,7 @@
 
                             <h5>Unidade de medida utilizada no ingrediente:</h5>
                             <select name="medidaItem" id="medidaItem" class="form-control">
+                                <option value="" selected>Selecione uma opção</option>
                                 <option value="Quilograma">Quilos</option>
                                 <option value="Grama">Gramas</option>
                                 <option value="Unidade">Unidade</option>
@@ -78,7 +79,7 @@
 
                             <br>
 
-                            <h5>Quantidade do produto(em medidas): </h5>
+                            <h5>Quantidade do produto(em medidas):* </h5>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fas fa-edit"></i></span>
                                 <input class="form-control" placeholder="Ex: 100 (gramas) ou 2 (kg)" name="qtdComposicao" required autofocus id ="qtdComposicao" type="number">
@@ -86,7 +87,7 @@
 
                             <br>
 
-                            <h5>Valor:</h5>
+                            <h5>Valor:*</h5>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
                                 <input required class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="1.00" type="number" step="0.01" min="1" max="9999">
