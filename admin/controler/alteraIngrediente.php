@@ -22,11 +22,13 @@
 
         
         $ingrediente = new ingrediente();
-        $ingrediente->construct($nome,$medida,$qtdComposicao,$valor);
+        $ingrediente->construct($nome,$medida,$valor,$qtdComposicao);
 
         $ingrediente->setPkId($cod_item);
         $controle = new controlerIngrediente($_SG['link']);
+
         if($controle->update($ingrediente) > -1){
+            $controle->insertHistorico($cod_item,$ingrediente);
             msgRedireciona('Alteração Realizada!','Ingrediente Alterado!',1,'../view/admin/ingredientesLista.php');
         }else{
             alertJSVoltarPagina('Erro!','Erro ao alterar ingrediente!',2);

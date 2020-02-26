@@ -18,8 +18,8 @@ if(in_array('gerenciar_composicao', $permissao)){
                 <th width='12%' style='text-align: center;'>Id</th>
 	    		<th width='20%' style='text-align: center;'>Nome</th>
                 <th width='20%' style='text-align: center;'>Unid. de Medida</th>
-                <th width='15%' style='text-align: center;'>Quantidade</th>
                 <th width='15%' style='text-align: center;'>Valor</th>
+                <th width='15%' style='text-align: center;'>Quantidade</th>
                 <th width='15%' style='text-align: center;'>Editar</th>
 	            <th width='15%' style='text-align: center;'>Apagar</th>
 	        </tr>

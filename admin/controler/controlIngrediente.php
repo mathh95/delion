@@ -11,16 +11,18 @@
         function insert($ingrediente){
             try{
                 $stmte =$this->pdo->prepare("INSERT INTO tb_ingrediente(igr_nome, igr_unidade, igr_quantidade, igr_valor)
-                VALUES (:nome, :unidade, :valor, :qtd)");
+                VALUES (:nome, :unidade, :qtd, :valor)");
 
                 $stmte->bindParam(":nome", $ingrediente->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":unidade", $ingrediente->getUnidade(), PDO::PARAM_STR);
-                $stmte->bindParam(":valor", $ingrediente->getValor(), PDO::PARAM_INT);
                 $stmte->bindParam(":qtd", $ingrediente->getQtd(), PDO::PARAM_INT);
+                $stmte->bindParam(":valor", $ingrediente->getValor(), PDO::PARAM_INT);
 
                 $executa = $stmte->execute();
+                $higr_fk_ingrediente = $this->pdo->lastInsertId();
+
                 if($executa){
-                    return 1;
+                    return $higr_fk_ingrediente;
                 }
                 else{
                     return -1;
@@ -33,17 +35,39 @@
             }
         }
 
+        function insertHistorico($cod_ingrediente, $ingrediente){
+            try{
+                $stmte =$this->pdo->prepare("INSERT INTO tb_historico_ingrediente SET higr_valor = :valor, higr_data = NOW(), higr_fk_ingrediente = :cod_ingrediente");
+
+                $stmte->bindValue(":valor", $ingrediente->getValor(), PDO::PARAM_INT);
+                $stmte->bindValue(":cod_ingrediente", $cod_ingrediente);
+
+                $executa = $stmte->execute();
+
+                if($executa){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
         //Altera os dados na tb_item_composicao
         function update($ingrediente){
             try{
-                $stmte = $this->pdo->prepare("UPDATE tb_ingrediente SET igr_nome=:nome, igr_unidade=:unidade, igr_valor=:valor, igr_quantidade=:qtd WHERE igr_pk_id=:cod_ingrediente");
+                $stmte = $this->pdo->prepare("UPDATE tb_ingrediente SET igr_nome=:nome, igr_unidade=:unidade, igr_quantidade=:qtd, igr_valor=:valor WHERE igr_pk_id=:cod_ingrediente");
 
                 $stmte->bindParam(":cod_ingrediente",$ingrediente->getPkId(), PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $ingrediente->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":unidade", $ingrediente->getUnidade(), PDO::PARAM_STR);
-                $stmte->bindParam(":valor", $ingrediente->getValor(), PDO::PARAM_INT);
                 $stmte->bindParam(":qtd", $ingrediente->getQtd(), PDO::PARAM_INT);
+                $stmte->bindParam(":valor", $ingrediente->getValor(), PDO::PARAM_INT);
                 
+                // $cod_ingrediente = $ingrediente->getPkId();
 
                 $executa = $stmte->execute();
                 if($executa){

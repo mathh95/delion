@@ -22,8 +22,11 @@
         $ingrediente->construct($nome,$unidade,$valor,$qtd);
 
         $controle= new controlerIngrediente($_SG['link']);
-        if($controle->insert($ingrediente)> -1){
+        $cod_ingrediente = $controle->insert($ingrediente);
+        $result = $controle->insertHistorico($cod_ingrediente, $ingrediente);
+        if($result> -1){
             msgRedireciona('Cadastro Realizado!','Ingrediente cadastrado!',1,'../view/admin/ingredientesLista.php');
+            // echo $cod_ingrediente;
         }else{
             alertJSVoltarPagina('Erro','Erro ao cadastrar ingrediente!',2);
             $ingrediente->show();
