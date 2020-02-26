@@ -29,11 +29,11 @@
 
 		$fk_categoria= addslashes(htmlspecialchars($_POST['categoria']));
 
-		$adicional = array();
-		for ($i=1; $i <= $_POST['quantidadeAdicionais']; $i++){
-			if(isset($_POST[$i."adicional"]) && !empty($_POST[$i."adicional"])){
-				array_push($adicional, addslashes(htmlspecialchars($_POST[$i."adicional"])));
-			}
+		if(isset($_POST['adicional'])){
+			$arr_adicional = $_POST['adicional'];
+			$arr_adicional = json_encode($arr_adicional);
+		}else{
+			$arr_adicional = NULL;
 		}
 
 		$adicional = json_encode($adicional);
@@ -57,7 +57,7 @@
 		$delivery = (isset($_POST['delivery'])||!empty($_POST['delivery'])) && $_POST['delivery'] == 1 ? 1 : 0 ;
 
 		$produto = new produto();
-		$produto->constructFkFaixa($nome, $preco, $desconto, $descricao, $foto, $fk_categoria, $flag_ativo, $flag_servindo, $prioridade, $delivery, $adicional, $arr_dias_semana, $fk_faixa_horario);
+		$produto->constructFkFaixa($nome, $preco, $desconto, $descricao, $foto, $fk_categoria, $flag_ativo, $flag_servindo, $prioridade, $delivery, $arr_adicional, $arr_dias_semana, $fk_faixa_horario);
 
 				
 		$controle = new controlerProduto($_SG['link']);

@@ -121,11 +121,8 @@
                                 <?php
 
                                     foreach ($categorias as $categoria) {
-
                                         echo "<option value='".$categoria->getPkId()."'>".$categoria->getNome()."</option>";
-
                                     }  
-
                                 ?>
 
                             </select>
@@ -137,9 +134,7 @@
                             <div class="checkbox">
 
                                 <label>
-
                                     <input type="checkbox" id="ativo" name="flag_ativo" value="1">Ativo
-
                                 </label>
 
                             </div>
@@ -149,108 +144,95 @@
                             <div class="checkbox">
 
                                 <label>
-
-                                        <input type="checkbox" id="prioridade" name="prioridade" value="1">Prioridade                               
-                                
+                                    <input type="checkbox" id="prioridade" name="prioridade" value="1">Prioridade                               
                                 </label>
 
                             </div>
 
                             <small>Informar se o item está disponível para delivery:</small>
-
                             <div class="checkbox">
 
                                 <label>
-
-                                        <input type="checkbox" id="delivery" name="delivery" value="1">Delivery                               
-                                
+                                    <input type="checkbox" id="delivery" name="delivery" value="1">Delivery                               
                                 </label>
 
                             </div>
                             
                             <small>Informar se após o cadastro o item estará disponivel para ser Servido:</small>
-
-                                <div class="checkbox">
-
-                                    <label>
-
-                                            <input type="checkbox" id="servindo" name="servindo" value="1">Servindo                               
-                                    
-                                    </label>
-
-                                </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="servindo" name="servindo" value="1">Servindo              
+                                </label>
+                            </div>
 
                             <small>Dias em que o Item Estará Disponível:</small>
 
-                                <div class="checkbox">
-                                    <!-- Não abre no domingo, logo não precisa aparecer na lista -->
+                            <div class="checkbox">
+                                <!-- Não abre no domingo, logo não precisa aparecer na lista -->
 
-                                    <!-- Domingo -->
-                                    <label>
-                                        <input type="checkbox" id="domingo" name="dias[]" value="1"/>Dom &nbsp;
-                                    </label>
-                                    <!-- Segunda -->
-                                    <label>
-                                        <input type="checkbox" id="segunda" name="dias[]" value="2"/>Seg &nbsp;
-                                    </label>
-                                    <!-- Terça -->
-                                    <label>
-                                        <input type="checkbox" id="terca" name="dias[]" value="3"/>Ter &nbsp;                             
-                                    </label>
-                                    <!-- Quarta -->
-                                    <label>
-                                        <input type="checkbox" id="quarta" name="dias[]" value="4"/>Qua &nbsp;
-                                    </label>
-                                    <!-- Quinta -->
-                                    <label>
-                                        <input type="checkbox" id="quinta" name="dias[]" value="5"/>Qui &nbsp;                              
-                                    </label>
-                                    <!-- Sexta -->
-                                    <label>
-                                        <input type="checkbox" id="sexta" name="dias[]" value="6"/>Sex &nbsp;
-                                    </label>
-                                    <!-- Sábado -->
-                                    <label>
-                                        <input type="checkbox" id="sabado" name="dias[]" value="7"/>Sáb  &nbsp;                             
-                                    </label>
+                                <!-- Domingo -->
+                                <label>
+                                    <input type="checkbox" id="domingo" name="dias[]" value="1"/>Dom &nbsp;
+                                </label>
+                                <!-- Segunda -->
+                                <label>
+                                    <input type="checkbox" id="segunda" name="dias[]" value="2"/>Seg &nbsp;
+                                </label>
+                                <!-- Terça -->
+                                <label>
+                                    <input type="checkbox" id="terca" name="dias[]" value="3"/>Ter &nbsp;                             
+                                </label>
+                                <!-- Quarta -->
+                                <label>
+                                    <input type="checkbox" id="quarta" name="dias[]" value="4"/>Qua &nbsp;
+                                </label>
+                                <!-- Quinta -->
+                                <label>
+                                    <input type="checkbox" id="quinta" name="dias[]" value="5"/>Qui &nbsp;                              
+                                </label>
+                                <!-- Sexta -->
+                                <label>
+                                    <input type="checkbox" id="sexta" name="dias[]" value="6"/>Sex &nbsp;
+                                </label>
+                                <!-- Sábado -->
+                                <label>
+                                    <input type="checkbox" id="sabado" name="dias[]" value="7"/>Sáb  &nbsp;                             
+                                </label>
 
-                                </div>
+                            </div>
                             
                                 
-                                <small>Faixa de Horário em que item estará disponível:</small>
-                                
-                                <div class="checkbox">
-                                    <select class="form-control" name="faixa_horario" id="faixa_horario">
+                            <small>Faixa de Horário em que item estará disponível:</small>
+                            
+                            <div class="checkbox">
+                                <select class="form-control" name="faixa_horario" id="faixa_horario">
 
-                                        <option value="">Faixa de Horário</option>
-                                        <?php
-                                            $faixas_horario = $controleFaixaHorario->selectAll();
-                                            foreach ($faixas_horario as $faixa) {
-                                                $ini = date("H:i", strtotime($faixa->getInicio()));
-                                                $final = date("H:i", strtotime($faixa->getFinal()));
-                                                $txt = $ini."h - ".$final."h";
-                                                echo "<option value='".$faixa->getPkId()."'>".$txt."</option>";
-                                            }  
-                                        ?>
-                                    </select>
-                                    
-                                    <br><br>
-                                </div>
-                            <br>
+                                    <option value="">Faixa de Horário</option>
+                                    <?php
+                                        $faixas_horario = $controleFaixaHorario->selectAll();
+                                        foreach ($faixas_horario as $faixa) {
+                                            $ini = date("H:i", strtotime($faixa->getInicio()));
+                                            $final = date("H:i", strtotime($faixa->getFinal()));
+                                            $txt = $ini."h - ".$final."h";
+                                            echo "<option value='".$faixa->getPkId()."'>".$txt."</option>";
+                                        }  
+                                    ?>
+                                </select>
+                                
+                            </div>
                             <br>
                             
                             <small>Quais adicionais estarão disponiveis para esse produto:</small>
-
-                            <input type="hidden" value="<?=count($adicionais)?>" name="quantidadeAdicionais">
-
                             <br>
 
-                            <?php $i = 1; foreach($adicionais as $adicional){ ?>
+                            <?php
+                            
+                            foreach($adicionais as $adicional){ ?>
 
-                                <input type="checkbox" name="<?=$i?>adicional" value="<?=$adicional->getPkId()?>"><?=$adicional->getNome()?>
+                                <input type="checkbox" name="adicional[]" value="<?=$adicional->getPkId()?>"> <?=$adicional->getNome()?>
                                 <br>
 
-                            <?php $i++; } ?>
+                            <?php } ?>
 
                             <br>
 

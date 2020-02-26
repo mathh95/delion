@@ -610,10 +610,11 @@
 
                             <ul class="dropdown-menu">
 
-                                <li><a href="cadastrarIngrediente.php">Cadastrar Ingredientes</a></li>
+                                <li><a href="cadastrarIngrediente.php">Cadastrar Ingrediente</a></li>
                                 <li><a href="ingredientesLista.php">Listar Ingredientes</a></li>
                                 <li><a href="cadastrarComposicao.php">Cadastrar Composição do Produto</a></li>
                                 <li><a href="composicaoLista.php">Listar Composições</a></li>
+                                <li><a href="historicoComposicao.php">Histórico de Preços</a></li>
 
                             </ul>
 
