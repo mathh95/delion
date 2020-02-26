@@ -55,8 +55,8 @@
 		include_once "./navbar.php";
 	?>
 
-
-	<div class="container itens">
+	</div>
+	<div class="container itens" id="container-itens">
 
 	<!-- Ajax -->
 
@@ -78,7 +78,7 @@
 				type: 'GET',
 				url: 'ajax/buscar-carrinho.php',
 				success: function (resultado) {
-					$(".itens").html(resultado);
+					$("#container-itens").html(resultado);
 				},
 				error: function(err){
 					console.log(err);
@@ -86,6 +86,10 @@
 			});
 		}
 		
+		//Auto Reload cardapio
+		window.setInterval(function(){
+			loadItens();
+        }, 60000);//1 minuto
 
 		$(document).on("change", "#formaPagamento", function(){
 
@@ -95,8 +99,9 @@
 				type: 'POST',
 				url: 'ajax/pag-carrinho.php',
 				data: {pag:pag},
-
-				success: function (resultado) {}
+				success: function (resultado) {
+					
+				}
 			});
 		});
 

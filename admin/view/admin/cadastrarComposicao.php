@@ -16,9 +16,9 @@
 
     include_once MODELPATH. "/produto.php";
 
-    include_once CONTROLLERPATH. "/controlItemComposicao.php";
+    include_once CONTROLLERPATH. "/controlIngrediente.php";
 
-    include_once MODELPATH. "/item_composicao.php";
+    include_once MODELPATH. "/ingrediente.php";
 
     $_SESSION['permissaoPagina']=0;
 
@@ -34,7 +34,7 @@
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 
-    $controle_ingrediente=new controlerItemComposicao($_SG['link']);
+    $controle_ingrediente=new controlerIngrediente($_SG['link']);
     $ingredientes = $controle_ingrediente->selectAll();
 
 

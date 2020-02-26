@@ -424,7 +424,7 @@ include_once MODELPATH."/produto.php";
                     FROM tb_produto AS PRO 
                     INNER JOIN tb_categoria AS CA ON PRO.pro_fk_categoria = CA.cat_pk_id
                     INNER JOIN tb_faixa_horario AS FAHO ON PRO.pro_fk_faixa_horario = FAHO.faho_pk_id
-                    WHERE PRO.pro_fk_categoria = :cat_pk_id AND PRO.pro_flag_ativo = 1 AND PRO.pro_flag_servindo = 1 
+                    WHERE PRO.pro_fk_categoria = :cat_pk_id AND PRO.pro_flag_ativo = 1
                     ORDER BY CA.cat_posicao ASC, PRO.pro_posicao ASC");
 
                 $stmte->bindValue(":cat_pk_id", $cat_pk_id , PDO::PARAM_INT);

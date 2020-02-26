@@ -5,8 +5,8 @@
     // mysql_set_charset('utf8');
     date_default_timezone_set('America/Sao_Paulo');
 
-    include_once "controlItemComposicao.php";
-    include_once "../model/item_composicao.php";
+    include_once "controlIngrediente.php";
+    include_once "../model/ingrediente.php";
     include_once "../lib/alert.php";
     include_once "upload.php";
     if (in_array('gerenciar_fornecedor', json_decode($_SESSION['permissao']))) {
@@ -21,16 +21,18 @@
         $valor= addslashes(htmlspecialchars($_POST['valor']));
 
         
-        $item_composicao = new item_composicao();
-        $item_composicao->construct($nome,$medida,$qtdComposicao,$valor);
+        $ingrediente = new ingrediente();
+        $ingrediente->construct($nome,$medida,$valor,$qtdComposicao);
 
-        $item_composicao->setPkId($cod_item);
-        $controle = new controlerItemComposicao($_SG['link']);
-        if($controle->update($item_composicao) > -1){
-            msgRedireciona('Alteração Realizada!','Composição do Item alterada!',1,'../view/admin/itemComposicaoLista.php');
+        $ingrediente->setPkId($cod_item);
+        $controle = new controlerIngrediente($_SG['link']);
+
+        if($controle->update($ingrediente) > -1){
+            $controle->insertHistorico($cod_item,$ingrediente);
+            msgRedireciona('Alteração Realizada!','Ingrediente Alterado!',1,'../view/admin/ingredientesLista.php');
         }else{
-            alertJSVoltarPagina('Erro!','Erro ao alterar composição do item!',2);
-            $tipo_fornecedor->show();
+            alertJSVoltarPagina('Erro!','Erro ao alterar ingrediente!',2);
+            $ingrediente->show();
         }
     }else{
         expulsaVisitante();
