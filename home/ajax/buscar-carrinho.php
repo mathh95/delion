@@ -150,7 +150,9 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                     if(
                         $item['pro_arr_dias_semana'] &&
                         in_array($hoje, json_decode($item['pro_arr_dias_semana'])) &&
-                        ($hora_atual >= $item['faho_inicio'] && $hora_atual < $item['faho_final'])
+                        ($hora_atual >= $item['faho_inicio'] &&
+                        $hora_atual < $item['faho_final']) &&
+                        $item['pro_flag_ativo']
                     ){
 
                 ?>
@@ -239,14 +241,16 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                     /************** Itens/Carrinho de Resgate ***********/
                     foreach ($itens_resgate as $key => $item) {
 
+                    $qtd_aux = $_SESSION['carrinho_resgate'][$item['pro_pk_id']]['qtd'];
+                    
                     // verifica se item adicionado está disponível
                     if(
                         $item['pro_arr_dias_semana'] &&
                         in_array($hoje, json_decode($item['pro_arr_dias_semana'])) &&
-                        ($hora_atual >= $item['faho_inicio'] && $hora_atual < $item['faho_final'])
+                        ($hora_atual >= $item['faho_inicio'] &&
+                        $hora_atual < $item['faho_final']) &&
+                        $item['pro_flag_ativo']
                     ){
-
-                    $qtd_aux = $_SESSION['carrinho_resgate'][$item['pro_pk_id']]['qtd'];
 
                 ?>
                     
@@ -291,19 +295,24 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
 
                         <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
                             
-                        
-                            <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['pro_nome'] ?></strong></td>
+                            <td class="text-uppercase nomeProdutoTabela">
+                            <span class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" data-qtd="<?= $qtd_aux ?>">
+                                <span id="qtde-text<?= $i ?>"><?= $qtd_aux ?></span>
+                            </span>
+                                <span class="qtde-x">x</span> &nbsp;  
+                                <strong><?= $item['pro_nome'] ?></strong>
+                            </td>
 
                             <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong><i class="far fa-gem"></i> <?= $item['pro_pts_resgate_fidelidade']; ?></strong></td>
                         
-                            <td style="text-align: center;" colspan="3">
+                            <td style="text-align: center;">
                                 Item indisponível no momento! <i class="far fa-surprise"></i>
                             </td>
-                        
-                            <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
+                            
+                            <td><i id="removeItemResgate" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
                             
                             <!-- valor utilizado ao remover item -->
-                            <input style="display:none;" id="qtdUnidade<?= $i ?>" type="text" value=<?= $_SESSION['qtd'][$key] ?> readonly="true">
+                            <input style="display:none;" id="qtdUnidade<?= $i ?>" type="text" value=<?= $qtd_aux ?> readonly="true">
                             
                         </tr>
 

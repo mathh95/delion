@@ -60,10 +60,6 @@
 			<div class="resgate-main">
 				<h2>Programa de Fidelidade</h2>
 				<div class="pontos-info">
-					<p>
-						Produtos que você pode resgatar
-					</p>
-
 					<div class="pontos-wrapper">
 						<p>Você possui: <span><?=floor($cliente->getPontosFidelidade())?> pontos</span></p>
 						<p>Pontuação mínima: <span>30 pontos</span></p>
@@ -74,7 +70,7 @@
 
 				<div class="tabela-produtos">
 					<div class="produtos-titulo">
-						Produtos para resgate
+						Produtos para Resgate
 					</div>
 					<!--  Botoes do sistema de resgate por pontos -->
 					<div class="btn-group btn-wrapper-resgate" data-toggle="buttons">
@@ -99,8 +95,8 @@
 
 					<?php
 
-					// $hora_atual = date('H:i:s', time() - 3600);// horário de verão extinto
-					$hora_atual = date('H:i:s', time());// servidor possui hora correta
+					// $hora_atual = date('H:i:s', time() - 3600); // horário de verão extinto
+					$hora_atual = date('H:i:s', time()); // servidor possui hora correta
 					$hoje = (date('w')+1); // 1 == domingo, 7 == sábado
 
 					$is_hide = "";
@@ -117,20 +113,27 @@
 						$flag_displayed = false;
 
 						foreach($produtos as $produto){
-							
-							// verifica se item disponível hoje e agora
+
 							if(
-								$produto->getDias_semana() &&
-								in_array($hoje, json_decode($produto->getDias_semana())) &&
-								($hora_atual >= $produto->getProduto_horas_inicio() && $hora_atual < $produto->getProduto_horas_final())
+								$produto->getFlag_ativo()
 							){
 
 								echo "
 								<div class='produto-resgate'>
 									<img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}' onerror='this.src=\"/home/img/default_produto.jpg\"'>
 									<h4>{$produto->getNome()} </h4>
-									<p>{$pontos} pontos</p>
-									<div class='botoes-qtd'>
+									<p>{$pontos} pontos</p>";
+
+									if(
+										$produto->getDias_semana() &&
+										in_array($hoje, json_decode($produto->getDias_semana())) &&
+										($hora_atual >= $produto->getProduto_horas_inicio() &&
+										$hora_atual < $produto->getProduto_horas_final()) &&
+										$produto->getFlag_servindo()
+									){
+
+									echo
+									"<div class='botoes-qtd'>
 
 										<button
 											type='button' id='sub'
@@ -148,13 +151,21 @@
 											data-nome_produto='{$produto->getNome()}' class='add'>+
 										</button>
 
-									</div>
-								</div>";
+									</div>";
+			
+									}else{
+										echo "Indiponível no Momento👩‍🍳";
+									}
+
+
+								echo "</div>";
+
+								$flag_displayed = true;
 
 							}else{
 								
-								if($flag_displayed != true){
-									echo '<div style="text-align:center; padding-bottom:10px;">Itens indisponíveis no momento! <i class="far fa-surprise"></i></div>';
+								if($flag_displayed == false){
+									echo '<div style="text-align:center; padding:10px;">Itens indisponíveis no momento! <i class="far fa-surprise"></i></div>';
 
 									$flag_displayed = true;
 								}
