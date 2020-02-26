@@ -76,7 +76,7 @@ foreach ($categorias as $key_cat => $categoria) {
 
                 <div class='imagem'>
                     
-                    <img class='img-responsive' title='".$item->getNome()."' alt='".$item->getNome()."' src='../admin/".$item->getFoto()."' onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                    <img class='img-responsive' title='".$item->getNome()." - Delivery Foz do Iguaçu' alt='".$item->getNome()."' src='../admin/".$item->getFoto()."' onerror='this.src=\"/home/img/default_produto.jpg\"'>
                 </div>
 
                 <div class='descricao'>

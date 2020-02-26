@@ -124,8 +124,8 @@
 
 				if (in_array('homeQuemSomos', $pagina) && ($i < 2)) {
 					echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-14  thumb-home'>
-					<a class='thumbnail' href='sobre.php'>
-						<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='quem somos'>
+					<a class='thumbnail' href='cardapio.php'>
+						<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='cardapio'>
 					</a>
 				</div>";
 				

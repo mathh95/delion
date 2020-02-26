@@ -1,1 +1,56 @@
+#Google Search Engine Robot
+User-agent: Googlebot
+Allow: /home
+Allow: /home/index.php
+Allow: /home/sobre.php
+
+Disallow: /admin/
+Disallow: /docs/
+Disallow: /phpmailer/
+Disallow: /stats/
+Disallow: /vendor/
+
+
+#Yahoo! Search Engine Robot
+User-Agent: Slurp
+Allow: /home
+Allow: /home/index.php
+Allow: /home/sobre.php
+
+Disallow: /admin/
+Disallow: /docs/
+Disallow: /phpmailer/
+Disallow: /stats/
+Disallow: /vendor/
+
+#Yandex Search Engine Robot
+User-agent: Yandex
+Allow: /home
+Allow: /home/index.php
+Allow: /home/sobre.php
+
+Disallow: /admin/
+Disallow: /docs/
+Disallow: /phpmailer/
+Disallow: /stats/
+Disallow: /vendor/
+
+#Microsoft Search Engine Robot
+User-Agent: msnbot
+Disallow: /
+
+#Bing Search Engine Robot
+User-Agent: bingbot
+Disallow: /
+
+#All robots (agents)
 User-agent: *
+Allow: /home
+Allow: /home/index.php
+Allow: /home/sobre.php
+
+Disallow: /admin/
+Disallow: /docs/
+Disallow: /phpmailer/
+Disallow: /stats/
+Disallow: /vendor/
