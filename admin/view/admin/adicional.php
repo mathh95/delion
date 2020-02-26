@@ -61,11 +61,11 @@
 
                             <br>
 
-                            <small>Nome: </small>
+                            <small>* Nome: </small>
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-pencil-alt"></i></span>
 
                                 <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text">
 
@@ -73,11 +73,11 @@
 
                             <br>
                             
-                            <small>Preço: </small>
+                            <small>* Preço : </small>
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-dollar-sign"></i></span>
 
                                 <input class="form-control" placeholder="Preço" name="preco" required autofocus id="preco" type="number" step="0.01">
 
@@ -85,17 +85,6 @@
 
                             <br>
 
-                            <small>Desconto: </small>
-
-                            <div class="input-group">
-
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-
-                                <input class="form-control" placeholder="Desconto" name="desconto" required autofocus id="desconto" type="number" step="0.01" min="1" max="99">
-
-                            </div>
-
-                            <br>
 
                             <small>Informar se o item está ativo:</small>
 

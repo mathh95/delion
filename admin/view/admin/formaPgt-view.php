@@ -68,7 +68,7 @@
 
                             <small>Tipo de Forma de Pagamento: </small>
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-pencil-alt"></i></span>
                                 <input class="form-control" placeholder="Tipo de forma de Pagamento" name="tipoFormaPgt" required autofocus id ="tipoForma" type="text" value="<?= $formaPgt->getNome();?>">
                                 <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $formaPgt->getPkId();?>">
                             </div>

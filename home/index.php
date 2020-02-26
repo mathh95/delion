@@ -122,7 +122,7 @@
 			foreach ($imagens as $imagem){
 				$pagina = json_decode($imagem->getPagina());
 
-				if (in_array('homeQuemSomos', $pagina) && ($i < 2)) {
+				if (in_array('homeCardapio', $pagina) && ($i < 2)) {
 					echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-14  thumb-home'>
 					<a class='thumbnail' href='cardapio.php'>
 						<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='cardapio'>

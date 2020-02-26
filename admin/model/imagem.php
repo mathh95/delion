@@ -47,8 +47,8 @@
                     $tela .= "[Homepage] Imagem Topo</br>";
                 } elseif ($pagina == "homeLogo") {
                     $tela .= "[Homepage] Imagem Logo</br>";
-                } elseif ($pagina == "homeQuemSomos") {
-                    $tela .= "[Homepage] Imagem Quem Somos</br>";
+                } elseif ($pagina == "homeCardapio") {
+                    $tela .= "[Homepage] Imagem Cardapio</br>";
                 } elseif ($pagina == "homeFidelidade") {
                     $tela .= "[Homepage] Imagem Fidelidade</br>";
                 }elseif ($pagina == "homeEventos") {
