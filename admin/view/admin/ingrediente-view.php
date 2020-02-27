@@ -86,14 +86,6 @@
 
                         <br>
 
-                        <h5>Quantidade do produto(em medidas): </h5>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fas fa-edit"></i></span>
-                            <input class="form-control" placeholder="Ex: 100 (gramas) ou 2 (kg)" name="qtdComposicao" required autofocus id ="qtdComposicao" type="number" value="<?= $item_composicao->getQtd(); ?>">
-                        </div>
-
-                        <br>
-
                         <h5>Valor (por unidade):</h5>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>

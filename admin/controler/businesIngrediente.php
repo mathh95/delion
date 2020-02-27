@@ -14,17 +14,17 @@
         
         $nome= addslashes(htmlspecialchars($_POST['itemComposicao']));
         $unidade= addslashes(htmlspecialchars($_POST['medidaItem']));
-        $qtd= addslashes(htmlspecialchars($_POST['qtdComposicao']));
         $valor= addslashes(htmlspecialchars($_POST['valor']));
         
 
         $ingrediente = new ingrediente();
-        $ingrediente->construct($nome,$unidade,$valor,$qtd);
+        $ingrediente->construct($nome,$unidade,$valor);
 
         $controle= new controlerIngrediente($_SG['link']);
         $cod_ingrediente = $controle->insert($ingrediente);
-        $result = $controle->insertHistorico($cod_ingrediente, $ingrediente);
-        if($result> -1){
+        // $result = $controle->insertHistorico($cod_ingrediente, $ingrediente);
+        if($cod_ingrediente> -1){
+            $controle->insertHistorico($cod_ingrediente, $ingrediente);
             msgRedireciona('Cadastro Realizado!','Ingrediente cadastrado!',1,'../view/admin/ingredientesLista.php');
             // echo $cod_ingrediente;
         }else{

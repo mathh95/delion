@@ -70,7 +70,7 @@
 
                     <div class="row">
 
-                        <div class="col-md-7">
+                        <div class="col-md-5">
 
                             <h3>Dados do Produto a Preço de Custo</h3>
 
@@ -87,11 +87,10 @@
                             <br>
 
                             
-
                             <div class="container campo-ingrediente" style="height:auto; padding-left: 0px; display:flex; flex-direction:column;flex-wrap: nowrap;">
                                 <div class="ingredientes-precodecusto" style="display: flex; padding: 10px;">
                                     <h6 style="width: 100px;">Selecione os ingredientes:</h6>
-
+                                    
                                     <br>
                                     
                                     <div style="display: inline-block; margin-right:10px;">
@@ -99,37 +98,58 @@
                                         <select name="ingredienteLista" id="ingredienteLista" class="form-control">
                                             <?php
                                                 foreach($ingredientes as $ingrediente){ ?>
-                                                        <option value="<?= $ingrediente->getPkId(); ?>" > <?= $ingrediente->getNome() ?> </option>
-                                                <?php } ?>
-                                        </select>
-                                    </div>
-                                    
-                                    <!-- Vincular o select com o nome do ingrediente -->
-                                    <div style="display: inline-block; margin-right:10px;">
-                                        <small>Unidade de medida:</small>
-                                            <input class="form-control" name="medidaItem" required autofocus id ="medidaItem" value="<?= $ingrediente->getUnidade();?>">
-                                    </div>
-                                    <br>
+                                                        <option value="<?= $ingrediente->getPkId(); ?>" > <?= $ingrediente->getNome();?> (<?= $ingrediente->getUnidade() ?>) </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                                
+                                                <br>
+                                                <div style="display: inline-block;  ">
+                                                    <small>Valor do ingrediente:</small>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                                                        <input required class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="1.00" type="number" step="0.01" min="1" max="9999" disabled>
+                                                    </div>   
+                                                </div>
+                                                <br>
+                                                
+                                                <div style="display: inline-block;margin-right:10px;">
+                                                    <small>Quantidade utilizada:</small>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fas fa-edit"></i></span>
+                                                        <input class="form-control" placeholder="Ex: 100 (gramas) ou 2 (kg)" name="qtdComposicao" required autofocus id ="qtdComposicao" type="number">
+                                                    </div>
+                                                </div>
+                                                <br>
 
-                                    <div style="display: inline-block;margin-right:10px;">
-                                        <small>Quantidade utilizada:</small>
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fas fa-edit"></i></span>
-                                                <input class="form-control" placeholder="Ex: 100 (gramas) ou 2 (kg)" name="qtdComposicao" required autofocus id ="qtdComposicao" type="number">
-                                            </div>
-                                    </div>
-                                    <br>
-                                    <div style="display: inline-block;  ">
-                                        <small>Valor do ingrediente:</small>
+                                                <div style="display: inline-block;  ">
+                                                    <small>Valor Calculado:</small>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                                                        <input required class="form-control" placeholder="Valor da unidade" id="valorCalc" name="valorCalc" value="0.00" type="number" step="0.01" min="1" max="9999" disabled>
+                                                    </div>   
+                                                </div>
+
+                                                <button class="remove-button btn btn-danger" type="button" class="btn btn-danger" id="deleteIngrediente" name="deleteIngrediente" style="display: inline-block; margin-top:20px; margin-left: 10px;"><i class="glyphicon glyphicon-trash"></i></button>
+
+                                </div>
+                            
+                                <div class="mini-divs">
+                                    <small>Valor Extra:</small>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                                                <input required class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="1.00" type="number" step="0.01" min="1" max="9999">
-                                            </div>   
-                                    </div>
-                                    <br>
-                                        <button class="remove-button btn btn-danger" type="button" class="btn btn-danger" id="deleteIngrediente" name="deleteIngrediente" style="display: inline-block; margin-top:20px; margin-left: 10px;"><i class="glyphicon glyphicon-trash"></i></button>
+                                                <input class="form-control" placeholder="Valor da unidade" id="valorExtra" name="valorExtra" value="0.00" type="number" step="0.01" min="0" max="9999">
+                                    </div>   
                                 </div>
-                               
+
+                                <div class="mini-divs">
+                                    <small>Valor Total:</small>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                                                <input class="form-control" placeholder="Valor da unidade" id="valorTotal" name="valorTotal" value="0.00" type="number" step="0.01" min="0" max="9999" disabled>
+                                    </div>   
+                                </div>
+
                             </div>
 
                             
@@ -196,23 +216,19 @@
                                         '<div style="display: inline-block; margin-right:10px;">' +
                                             '<small>Nome do Ingrediente:</small>'+
                                             '<select name="ingredienteLista" id="ingredienteLista" class="form-control">'+
-                                                '<option value=""></option>'+
-                                                '<option value="pao">Pão</option>'+
-                                                '<option value="presunto">Presunto</option>'+
-                                                '<option value="queijo">Queijo</option>'+
+                                                '<?php foreach($ingredientes as $ingrediente){?>'+
+                                                '<option value="<?=$ingrediente->getPkId();?>"> <?= $ingrediente->getNome();?> (<?= $ingrediente->getUnidade() ?>) </option>'+
+                                                '<?php } ?>'+
                                             '</select>'+
                                         '</div>'+
 
-                                        '<div style="display: inline-block; margin-right:10px;">'+
-                                            '<small>Unidade de medida:</small>'+
-                                            '<select name="medidaItem" id="medidaItem" class="form-control">'+
-                                                '<option value=""></option>'+
-                                                '<option value="quilograma">Quilos</option>'+
-                                                '<option value="grama">Gramas</option>'+
-                                                '<option value="unidades">Unidades</option>'+
-                                            '</select>'+
+                                        '<div style="display: inline-block;  ">'+
+                                            '<small>Valor do ingrediente:</small>'+
+                                                '<div class="input-group">'+
+                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>'+
+                                                    '<input class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="1.00" type="number" step="0.01" min="1" max="9999" disabled>'+
+                                                '</div>'+   
                                         '</div>'+
-
                                         '<div style="display: inline-block;margin-right:10px;">'+
                                             '<small>Quantidade utilizada:</small>'+
                                                 '<div class="input-group">'+
@@ -220,14 +236,15 @@
                                                     '<input class="form-control" placeholder="Ex: 100 (gramas) ou 2 (kg)" name="qtdComposicao" required autofocus id ="qtdComposicao" type="number">'+
                                                 '</div>'+
                                         '</div>'+
-
+                                        
                                         '<div style="display: inline-block;  ">'+
-                                            '<small>Valor do ingrediente:</small>'+
+                                            '<small>Valor Calculado:</small>'+
                                                 '<div class="input-group">'+
                                                     '<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>'+
-                                                    '<input required class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="1.00" type="number" step="0.01" min="1" max="9999">'+
+                                                    '<input class="form-control" placeholder="Valor da unidade" id="valorCalc" name="valorCalc" value="0.00" type="number" step="0.01" min="1" max="9999" disabled>'+
                                                 '</div>'+   
                                         '</div>'+
+
                                         '<button class="remove-button btn btn-danger" type="button" class="btn btn-danger" id="deleteIngrediente" name="deleteIngrediente" style="display: inline-block; margin-top:20px; margin-left: 10px;" onclick=console.log("a")><i class="glyphicon glyphicon-trash"></i></button>'+
 
                                     '</div>'+

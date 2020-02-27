@@ -10,12 +10,11 @@
         //Insere os dados na tb_item_composicao
         function insert($ingrediente){
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO tb_ingrediente(igr_nome, igr_unidade, igr_quantidade, igr_valor)
-                VALUES (:nome, :unidade, :qtd, :valor)");
+                $stmte =$this->pdo->prepare("INSERT INTO tb_ingrediente(igr_nome, igr_unidade, igr_valor)
+                VALUES (:nome, :unidade, :valor)");
 
                 $stmte->bindParam(":nome", $ingrediente->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":unidade", $ingrediente->getUnidade(), PDO::PARAM_STR);
-                $stmte->bindParam(":qtd", $ingrediente->getQtd(), PDO::PARAM_INT);
                 $stmte->bindParam(":valor", $ingrediente->getValor(), PDO::PARAM_INT);
 
                 $executa = $stmte->execute();
@@ -59,12 +58,11 @@
         //Altera os dados na tb_item_composicao
         function update($ingrediente){
             try{
-                $stmte = $this->pdo->prepare("UPDATE tb_ingrediente SET igr_nome=:nome, igr_unidade=:unidade, igr_quantidade=:qtd, igr_valor=:valor WHERE igr_pk_id=:cod_ingrediente");
+                $stmte = $this->pdo->prepare("UPDATE tb_ingrediente SET igr_nome=:nome, igr_unidade=:unidade, igr_valor=:valor WHERE igr_pk_id=:cod_ingrediente");
 
                 $stmte->bindParam(":cod_ingrediente",$ingrediente->getPkId(), PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $ingrediente->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":unidade", $ingrediente->getUnidade(), PDO::PARAM_STR);
-                $stmte->bindParam(":qtd", $ingrediente->getQtd(), PDO::PARAM_INT);
                 $stmte->bindParam(":valor", $ingrediente->getValor(), PDO::PARAM_INT);
                 
                 // $cod_ingrediente = $ingrediente->getPkId();
@@ -102,7 +100,6 @@
                             $ingrediente->setNome($result->igr_nome);
                             $ingrediente->setUnidade($result->igr_unidade);
                             $ingrediente->setValor($result->igr_valor);
-                            $ingrediente->setQtd($result->igr_quantidade);
                         }
                     }
                 }
@@ -126,7 +123,6 @@
                             $ingrediente->setPkId($result->igr_pk_id);
                             $ingrediente->setNome($result->igr_nome);
                             $ingrediente->setUnidade($result->igr_unidade);
-                            $ingrediente->setQtd($result->igr_quantidade);
                             $ingrediente->setValor($result->igr_valor);
                             array_push($ingredientes, $ingrediente);
                         }

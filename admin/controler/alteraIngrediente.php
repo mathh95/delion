@@ -17,12 +17,11 @@
         $cod_item = addslashes(htmlspecialchars($_POST['cod']));
         $nome= addslashes(htmlspecialchars($_POST['nome']));
         $medida= addslashes(htmlspecialchars($_POST['medidaItem']));
-        $qtdComposicao= addslashes(htmlspecialchars($_POST['qtdComposicao']));
         $valor= addslashes(htmlspecialchars($_POST['valor']));
 
         
         $ingrediente = new ingrediente();
-        $ingrediente->construct($nome,$medida,$valor,$qtdComposicao);
+        $ingrediente->construct($nome,$medida,$valor);
 
         $ingrediente->setPkId($cod_item);
         $controle = new controlerIngrediente($_SG['link']);

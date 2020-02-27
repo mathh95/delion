@@ -10,7 +10,6 @@
         private $igr_nome;
         private $igr_unidade;
         private $igr_valor;
-        private $igr_quantidade;
 
         function getPkId(){
             return $this->igr_pk_id;
@@ -28,11 +27,6 @@
             return $this->igr_valor;
         }
 
-        function getQtd(){
-            return $this->igr_quantidade;
-        }
-
-
         function setPkId($igr_pk_id){
             $this->igr_pk_id=$igr_pk_id;
         }
@@ -49,20 +43,15 @@
             $this->igr_valor=$igr_valor;
         }
 
-        function setQtd($igr_quantidade){
-            $this->igr_quantidade=$igr_quantidade;
-        }
-
 
         function __construct(){
             
         }
 
-        function construct($igr_nome, $igr_unidade, $igr_valor, $igr_quantidade){   
+        function construct($igr_nome, $igr_unidade, $igr_valor){   
             $this->igr_nome=$igr_nome;
             $this->igr_unidade=$igr_unidade;
             $this->igr_valor=$igr_valor;
-            $this->igr_quantidade=$igr_quantidade;
         }
 
         function show(){
@@ -70,7 +59,6 @@
             echo "Nome: ".$this->igr_nome."<br>";
             echo "Unidade: ".$this->igr_unidade."<br>";
             echo "Valor: ".$this->igr_valor."<br>";
-            echo "Quantidade: ".$this->igr_quantidade."<br>";
         }
 
 
