@@ -138,7 +138,7 @@
                                         <label>
 
                                             <!-- <input type="checkbox" id="contato" name="paginas[]" value="contato">Contato -->
-                                            <input type="checkbox" id="homeQuemSomos" name="paginas[]" value="homeQuemSomos">[Homepage] - (Imagem) Quem Somos <small><span style="color:red">*Proporção sugerida 460[largura] x 460[altura] </span><br/></small>
+                                            <input type="checkbox" id="homeCardapio" name="paginas[]" value="homeCardapio">[Homepage] - (Imagem) Cardápio <small><span style="color:red">*Proporção sugerida 460[largura] x 460[altura] </span><br/></small>
 
                                         </label>
 

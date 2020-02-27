@@ -62,7 +62,7 @@
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-pencil-alt"></i></span>
 
                                 <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text" value="<?=  $evento->getNome(); ?>">
 
@@ -94,7 +94,7 @@
 
                                 <div class="input-group">
 
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <span class="input-group-addon"><i class="fa fa-calendar-alt"></i></span>
 
                                     <input class="form-control" placeholder="dd/mm/aaaa" name="data" id ="data" type="date" max="<?= date('Y-m-d');?>"  min="<?= date('Y-m-d', strtotime('-3 years'))?>"  value="<?=  $evento->getData(); ?>">
 

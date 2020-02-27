@@ -600,20 +600,24 @@
 
                             <?php
                                 //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
-                                if(strpos($arquivo_pai, 'Composicao') !== false){
+                                if(
+                                    strpos($arquivo_pai, 'omposicao') !== false ||
+                                    strpos($arquivo_pai, 'ngrediente') !== false
+                                ){
                                     echo 'active';
                                 }
-                            ?>  
+                            ?>
                         ">
 
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Composição de Produto <span class="caret"></span></a>
 
                             <ul class="dropdown-menu">
 
-                                <li><a href="cadastrarIngrediente.php">Cadastrar Ingredientes</a></li>
+                                <li><a href="cadastrarIngrediente.php">Cadastrar Ingrediente</a></li>
                                 <li><a href="ingredientesLista.php">Listar Ingredientes</a></li>
                                 <li><a href="cadastrarComposicao.php">Cadastrar Composição do Produto</a></li>
                                 <li><a href="composicaoLista.php">Listar Composições</a></li>
+                                <li><a href="historicoComposicao.php">Histórico de Preços</a></li>
 
                             </ul>
 

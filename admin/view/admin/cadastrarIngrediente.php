@@ -54,7 +54,7 @@
 
                         <div class="col-md-5">
 
-                            <h3>Ingrediente</h3>
+                            <h3>Cadastrar Ingrediente</h3>
 
                             <br>
 
@@ -68,10 +68,11 @@
 
                             <h5>Unidade de medida utilizada no ingrediente:</h5>
                             <select name="medidaItem" id="medidaItem" class="form-control">
-                                <option value="" selected>Selecione uma opção</option>
-                                <option value="Quilograma">Quilos</option>
-                                <option value="Grama">Gramas</option>
-                                <option value="Unidade">Unidade</option>
+                                <option value="Unidade(s)" selected>Selecione uma opção (opcional)</option>
+                                <option value="Quilo(s)">Quilos</option>
+                                <option value="Grama(s)">Gramas</option>
+                                <option value="Litro(s)">Litros</option>
+                                <option value="Mililitro(s)">Mililitros</option>
                             </select>
 
                             <br>
