@@ -77,11 +77,8 @@
                         <br>
 
                         <h5>Unidade de medida utilizada no ingrediente:</h5>
-                        <select name="medidaItem" id="medidaItem" class="form-control">
+                        <select name="medidaItem" id="medidaItem" class="form-control" disabled>
                             <option selected value="<?= $item_composicao->getUnidade(); ?>"><?= $item_composicao->getUnidade(); ?></option>
-                            <option value="Quilograma">Quilos</option>
-                            <option value="Grama">Gramas</option>
-                            <option value="Unidade">Unidade</option>
                         </select>
 
                         <br>

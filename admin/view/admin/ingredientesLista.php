@@ -29,13 +29,15 @@
     </div>
     <?php include VIEWPATH."/rodape.html" ?>
     <script src="../../js/alert.js"></script>
+
     <script type="text/javascript">
+
        function removeIngrediente(cod){
-            msgConfirmacao('Confirmação','Deseja Realmente remover o item de composicao ?',
+            msgConfirmacao('Confirmação','Deseja Realmente remover o ingrediente?',
                 function(linha){
-                    // alert(cod);
                     var url ="../../ajax/excluir-ingrediente.php?cod="+cod;
                     $.get(url, function(dataReturn) {
+                        
                         if (dataReturn == 1) {
                             msgGenerico("Erro!","Não foi possível excluir o ingrediente!",2,function(){});
                         }else{
