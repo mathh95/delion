@@ -75,9 +75,6 @@
             function getDtAlteracaoFone(){
                 return $this->cli_dt_alteracao_fone;
             }
-
-
-
             
             function setPkId($cli_pk_id){
                 $this->cli_pk_id = $cli_pk_id;

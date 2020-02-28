@@ -23,7 +23,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12" id="tabela-cliente">
-                <?php include "../../ajax/precoDeCusto-tabela.php"; ?>
+                <?php include "../../ajax/composicao-tabela.php"; ?>
             </div>
         </div>
     </div>
