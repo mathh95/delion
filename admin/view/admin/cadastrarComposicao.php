@@ -28,7 +28,7 @@
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-    $controle_cardapio=new controlerProduto($_SG['link']);
+    $controle_cardapio = new controlerProduto($_SG['link']);
     $itens = $controle_cardapio->selectAll();
 
     //usado para coloração customizada da página seleciona na navbar
@@ -44,133 +44,134 @@
 
 <html class="no-js" lang="pt-br">
 
-    <head>
+<head>
 
-        <?php include VIEWPATH."/cabecalho.html" ?>
+    <?php include VIEWPATH."/cabecalho.html" ?>
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-        <!--[if lt IE 8]>
+    <?php include_once "./header.php" ?>
 
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <div class="container-fluid">
 
-        <![endif]-->
+        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/businesPrecoDeCusto.php">
 
-        <!-- Add your site or application content here -->
+            <div class="col-md-12">
 
-        <?php include_once "./header.php" ?>
+                <h3>Composição de Produto</h3>
+                
+                <div class="row">
 
-        <div class="container-fluid">
+                    <div class="col-md-5">
+                        <h5>Selecione o item do Cardápio:*</h5>
 
-            <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/businesPrecoDeCusto.php">
+                        <select name="item_cardapio" id="item_cardapio" class="form-control" required>
+                        <?php
+                            foreach($itens as $item){ ?>
+                                <option
+                                    value="<?= $item->getPkId(); ?>">
+                                    <?= $item->getNome() ?> </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                
+                <br>
 
-                <div class="col-md-12">
+                <div class="row">
+                    
+                    <div class="col-md-12 container conjunto-ingredientes">
+                    <h5>Selecione os ingredientes:*</h6>
 
-                    <div class="row">
-
-                        <div class="col-md-5">
-
-                            <h3>Dados do Produto a Preço de Custo</h3>
-
-                            <br>
-
-                            <h5>Selecione o item do Cardápio :</h5>
-                            <select name="itemCardapio" id="itemCardapio" class="form-control">
-                            <?php
-                                foreach($itens as $item){ ?>
-                                        <option value="<?= $item->getPkId(); ?>" > <?= $item->getNome() ?> </option>
-                                <?php } ?>
-                            </select>
-
-                            <br>
-
+                        <div class="col-md-12 ingrediente-adicionado" data-field_id="0">
                             
-                            <div class="container campo-ingrediente" style="height:auto; padding-left: 0px; display:flex; flex-direction:column;flex-wrap: nowrap;">
-                                <div class="ingredientes-precodecusto" style="display: flex; padding: 10px;">
-                                    <h6 style="width: 100px;">Selecione os ingredientes:</h6>
-                                    
-                                    <br>
-                                    
-                                    <div style="display: inline-block; margin-right:10px;">
-                                        <small>Nome do Ingrediente:</small>
-                                        <select name="ingredienteLista" id="ingredienteLista" class="form-control">
-                                            <?php
-                                                foreach($ingredientes as $ingrediente){ ?>
-                                                        <option value="<?= $ingrediente->getPkId(); ?>" > <?= $ingrediente->getNome();?> (<?= $ingrediente->getUnidade() ?>) </option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                                
-                                                <br>
-                                                <div style="display: inline-block;  ">
-                                                    <small>Valor do ingrediente:</small>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                                                        <input required class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="1.00" type="number" step="0.01" min="1" max="9999" disabled>
-                                                    </div>   
-                                                </div>
-                                                <br>
-                                                
-                                                <div style="display: inline-block;margin-right:10px;">
-                                                    <small>Quantidade utilizada:</small>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fas fa-edit"></i></span>
-                                                        <input class="form-control" placeholder="Ex: 100 (gramas) ou 2 (kg)" name="qtdComposicao" required autofocus id ="qtdComposicao" type="number">
-                                                    </div>
-                                                </div>
-                                                <br>
+                            <div class="col-md-4">
+                                <small>Ingrediente*</small>
+                                <select name="ingrediente[]" id="ingrediente0" data-field_id="0" class="form-control ingrediente" autofocus required>
+                                    <?php
+                                    foreach($ingredientes as $ingrediente){ ?>
 
-                                                <div style="display: inline-block;  ">
-                                                    <small>Valor Calculado:</small>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                                                        <input required class="form-control" placeholder="Valor da unidade" id="valorCalc" name="valorCalc" value="0.00" type="number" step="0.01" min="1" max="9999" disabled>
-                                                    </div>   
-                                                </div>
+                                        <option 
+                                            value="<?= $ingrediente->getPkId(); ?>"
+                                            data-valor="<?= $ingrediente->getValor(); ?>"
+                                        >
+                                            <?= $ingrediente->getNome();?> (<?= $ingrediente->getUnidade() ?>) </option>
 
-                                                <button class="remove-button btn btn-danger" type="button" class="btn btn-danger" id="deleteIngrediente" name="deleteIngrediente" style="display: inline-block; margin-top:20px; margin-left: 10px;"><i class="glyphicon glyphicon-trash"></i></button>
-
-                                </div>
-                            
-                                <div class="mini-divs">
-                                    <small>Valor Extra:</small>
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                                                <input class="form-control" placeholder="Valor da unidade" id="valorExtra" name="valorExtra" value="0.00" type="number" step="0.01" min="0" max="9999">
-                                    </div>   
-                                </div>
-
-                                <div class="mini-divs">
-                                    <small>Valor Total:</small>
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                                                <input class="form-control" placeholder="Valor da unidade" id="valorTotal" name="valorTotal" value="0.00" type="number" step="0.01" min="0" max="9999" disabled>
-                                    </div>   
-                                </div>
-
+                                    <?php } ?>
+                                </select>
                             </div>
 
+                            <div class="col-md-2">
+                                <small>Valor</small>
+                                <div class="input-group">
+                                    <span class="input-group-addon">R$</span>
+                                    <input required class="form-control valor" placeholder="0.00" name="valor[]" id="valor0" value="<?=$ingrediente->getValor()?>" type="number" max="9999" readonly>
+                                </div>
+                            </div>
+                                                                                
+                            <div class="col-md-3">
+                                <small>Quantidade Utilizada*</small>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fas fa-edit"></i></span>
+                                    <input class="qtd_utilizada form-control" name="qtd_utilizada[]" id="qtd_utilizada0" data-field_id="0" required value="1" min="0" type="number">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <small>Valor Calculado</small>
+                                <div class="input-group">
+                                    <span class="input-group-addon">R$</span>
+                                    <input required class="form-control valor_calc" name="valor_calc[]" value="<?=$ingrediente->getValor()?>" type="number" step="0.01" min="0.01" max="9999" data-valor_base="<?= $ingrediente->getValor(); ?>" id="valor_calc0" readonly>
+                                </div>
+                            </div>
                             
+                            <div class="col-md-1">
 
-                            <br>
+                                <button class="rem-ingrediente remove-button btn btn-danger" type="button" class="btn btn-danger" style="display: inline-block; margin-top:20px; margin-left: 10px;"><i class="glyphicon glyphicon-trash"></i></button>
+                            </div>
 
-                            <br>
-                            <button type="button" class="btn btn-success" id="addIngrediente" name="addIngrediente">Adicionar ingrediente</button>
-                            <br><br>
                         </div>
-                        <br>
-                       
+                        
+                    </div>
+                </div>
+                
+                <br>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-success" id="addIngrediente" name="addIngrediente">Adicionar Ingrediente</button>
+                    </div>
+                </div>
 
+                <hr>
+            
+                <div class="row">
+                        
+                    <div class="col-md-2">
+                        <small>Valor Extra:</small>
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            <input class="form-control" placeholder="Valor da unidade" id="valor_extra" name="valor_extra" value="0.00" type="number" step="0.01" min="0" max="999">
+                        </div>
+                    </div>
 
+                    <div class="col-md-2">
+                        <small>Valor Total:</small>
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            <input class="form-control" placeholder="Valor da unidade" id="valor_total" name="valor_total" value="0.00" type="number" step="0.01" min="0" max="9999" readonly>
+                        </div>   
                     </div>
 
                 </div>
+                            
+            <br>
+            <br>
 
-                <div class="col-md-5">
-
-                    <div class="pull-left">
+            <div class="row">
+                <div class="col-md-2">
 
                     <?php
 
@@ -182,100 +183,129 @@
 
                     <?php } ?>
 
-                    </div>
-
-                    <div class="pull-right">
-
-                    <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
-
-                    </div>
-
                 </div>
 
-            </form>
+                <div class="col-md-3">
+                    <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
+                </div>
+            </div> 
+        </form>
+    </div>
 
-        </div>
+    </div>
+                
+    <?php include VIEWPATH."/rodape.html" ?>
 
-        
+</body>
 
-        <?php include VIEWPATH."/rodape.html" ?>
 
-        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>
+    
+    //Add Ingrediente
+    $("#addIngrediente").click(function() {
 
-        <script>
+        //append novo
+        $(".ingrediente-adicionado:last").clone().appendTo(".conjunto-ingredientes").find(".qtd_utilizada").val("1");
 
-        // $(document).ready(function() {
+        //get id/posicao do ultimo ingrediente
+        $field_id = parseInt($(".ingrediente-adicionado:last").attr("data-field_id"));
+        $id_inc = 1 + $field_id;
 
-            
-            $("#addIngrediente").click(function() {
+        //reescreve identificadores do novo item
+        $(".ingrediente-adicionado:last").attr("data-field_id", $id_inc);
 
-                $('.campo-ingrediente:last').before('<div class="container campo-ingrediente" style="padding-left: 0px; display:flex; flex-direction:column;flex-wrap: nowrap;">'+
-                        '<div class="ingredientes-precodecusto" style="display: flex; padding: 10px;">'+
-                                        '<h6 style="width: 100px;">Selecione os ingredientes:</h6>' +
-                                        
-                                        '<div style="display: inline-block; margin-right:10px;">' +
-                                            '<small>Nome do Ingrediente:</small>'+
-                                            '<select name="ingredienteLista" id="ingredienteLista" class="form-control">'+
-                                                '<?php foreach($ingredientes as $ingrediente){?>'+
-                                                '<option value="<?=$ingrediente->getPkId();?>"> <?= $ingrediente->getNome();?> (<?= $ingrediente->getUnidade() ?>) </option>'+
-                                                '<?php } ?>'+
-                                            '</select>'+
-                                        '</div>'+
+        $(".ingrediente-adicionado:last").find("#ingrediente"+$field_id).attr(
+            "id",
+            "ingrediente"+$id_inc
+        );
+        $(".ingrediente-adicionado:last").find("#ingrediente"+$id_inc).attr(
+            "data-field_id",
+            $id_inc
+        );
 
-                                        '<div style="display: inline-block;  ">'+
-                                            '<small>Valor do ingrediente:</small>'+
-                                                '<div class="input-group">'+
-                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>'+
-                                                    '<input class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="1.00" type="number" step="0.01" min="1" max="9999" disabled>'+
-                                                '</div>'+   
-                                        '</div>'+
-                                        '<div style="display: inline-block;margin-right:10px;">'+
-                                            '<small>Quantidade utilizada:</small>'+
-                                                '<div class="input-group">'+
-                                                    '<span class="input-group-addon"><i class="fas fa-edit"></i></span>'+
-                                                    '<input class="form-control" placeholder="Ex: 100 (gramas) ou 2 (kg)" name="qtdComposicao" required autofocus id ="qtdComposicao" type="number">'+
-                                                '</div>'+
-                                        '</div>'+
-                                        
-                                        '<div style="display: inline-block;  ">'+
-                                            '<small>Valor Calculado:</small>'+
-                                                '<div class="input-group">'+
-                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>'+
-                                                    '<input class="form-control" placeholder="Valor da unidade" id="valorCalc" name="valorCalc" value="0.00" type="number" step="0.01" min="1" max="9999" disabled>'+
-                                                '</div>'+   
-                                        '</div>'+
+        $(".ingrediente-adicionado:last").find("#valor"+$field_id).attr(
+            "id",
+            "valor"+$id_inc
+        );
 
-                                        '<button class="remove-button btn btn-danger" type="button" class="btn btn-danger" id="deleteIngrediente" name="deleteIngrediente" style="display: inline-block; margin-top:20px; margin-left: 10px;" onclick=console.log("a")><i class="glyphicon glyphicon-trash"></i></button>'+
+        $(".ingrediente-adicionado:last").find("#qtd_utilizada"+$field_id).attr(
+            "id",
+            "qtd_utilizada"+$id_inc
+        );
+        $(".ingrediente-adicionado:last").find("#qtd_utilizada"+$id_inc).attr(
+            "data-field_id",
+            $id_inc
+        );
 
-                                    '</div>'+
-                                '</div>');
-                                
-                    
-            });
+        $(".ingrediente-adicionado:last").find("#valor_calc"+$field_id).attr(
+            "id",
+            "valor_calc"+$id_inc
+        );
 
-            $(document).on('click','#deleteIngrediente',function() {
-                $(this).parent('div').remove();
-            });
-            
+        atualizaTotal();
+    });
+    //Remove Ingrediente
+    $(document).on('click','.rem-ingrediente', function() {
+        $(this).parent('div').parent('div').remove();
 
-            tinymce.init({selector: 'textarea', plugins: [
+        atualizaTotal();
+    });
 
-                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+    //Atualiza ingrediente
+    $("body").on("input", ".ingrediente", function(){   
 
-                'searchreplace wordcount visualblocks visualchars code fullscreen',
+        $field_id = $(this).attr("data-field_id");
 
-                'insertdatetime media nonbreaking save table contextmenu directionality',
+        $id_ingrediente = $(this).val();
 
-                'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc help'
+        $valor_ingrediente = parseFloat($(this).find(':selected').attr("data-valor"));
+        $("#valor_calc"+$field_id).attr("data-valor_base", $valor_ingrediente);
 
-                ],
+        $qtd_utilizada = parseFloat($("#qtd_utilizada"+$field_id).val());
 
-                toolbar1: 'undo redo | insert | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link |  forecolor backcolor '
+        $valor_calc = $valor_ingrediente * $qtd_utilizada;
+        $("#valor_calc"+$field_id).val(parseFloat($valor_calc));
 
-            });
+        // console.log($valor_ingrediente);
+        // console.log($qtd_utilizada);
+        // console.log($valor_calc);
 
-        </script>
+        atualizaTotal();
+    });
 
-    </body>
+    //Atualiza valor calculado
+    $("body").on("input", ".qtd_utilizada", function(){   
+
+        $field_id = $(this).attr("data-field_id");
+
+        $qtd_utilizada = parseFloat($(this).val());
+        $valor_base = $("#valor_calc"+$field_id).attr("data-valor_base");
+
+        $valor_calc = $valor_base * $qtd_utilizada;
+
+        $("#valor"+$field_id).val(parseFloat($valor_calc));
+        $("#valor_calc"+$field_id).val(parseFloat($valor_calc));
+
+        atualizaTotal();
+    });
+
+
+    $("#valor_extra").on("input", function(){   
+        atualizaTotal();
+    });
+
+
+    function atualizaTotal(){
+        $total = 0; 
+        $total += parseFloat($("#valor_extra").val());
+
+        $(".ingrediente-adicionado .valor_calc").each(function() {
+            $total += parseFloat($(this).val());
+        });
+
+        $("#valor_total").val($total);
+    }
+
+</script>
 
 </html>
