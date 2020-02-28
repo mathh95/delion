@@ -35,7 +35,7 @@
         }
 
 
-        function contruct($com_fk_produto, $com_valor_extra){
+        function construct($com_fk_produto, $com_valor_extra){
             $this->com_fk_produto=$com_fk_produto;
             $this->com_valor_extra=$com_valor_extra;
         }
