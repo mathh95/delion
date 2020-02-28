@@ -13,6 +13,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 $composicoes = $controle->selectAll();
 
+
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
 if(in_array('gerenciar_composicao', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
@@ -27,7 +28,7 @@ if(in_array('gerenciar_composicao', $permissao)){
 			<th width='15%' style='text-align: center;'>Editar</th>
         </tr>
 	<tbody>";
-	foreach ($composicoes as &$composicao) {
+	foreach ($composicoes as $composicao) {
 		$soma_valores = $controle->sumValorTotal($composicao->getPkId());
 		$soma_valores_format =(number_format($soma_valores[0]["soma_valores"], 2, '.', ''));
 		

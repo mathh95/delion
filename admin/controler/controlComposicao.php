@@ -48,8 +48,6 @@ include_once CONTROLLERPATH."/seguranca.php";
             try{
                 $stmt=$this->pdo->prepare("SELECT * 
                 FROM tb_composicao AS COM
-                INNER JOIN rl_composicao_ingrediente AS COIN
-                ON COM.com_pk_id = COIN.coig_fk_composicao
                 INNER JOIN tb_produto AS PRO
                 ON COM.com_fk_produto = PRO.pro_pk_id");
 
@@ -61,8 +59,6 @@ include_once CONTROLLERPATH."/seguranca.php";
                             $composicao->setPkId($result->com_pk_id);
                             $composicao->setFkProduto($result->com_fk_produto);
                             $composicao->setValorExtra($result->com_valor_extra);
-                            $composicao->qtd_utilizada=$result->coig_qtde_utilizada;
-                            $composicao->valor_calculado=$result->coig_valor_calculado;
                             $composicao->nome_prod=$result->pro_nome;
 
                             array_push($composicoes, $composicao);
