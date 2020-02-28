@@ -66,13 +66,13 @@
 
                             <br>
 
-                            <h5>Unidade de medida utilizada no ingrediente:</h5>
-                            <select name="medidaItem" id="medidaItem" class="form-control">
-                                <option value="Unidade(s)" selected>Selecione uma opção (opcional)</option>
-                                <option value="Quilo(s)">Quilos</option>
-                                <option value="Grama(s)">Gramas</option>
-                                <option value="Litro(s)">Litros</option>
-                                <option value="Mililitro(s)">Mililitros</option>
+                            <h5>Unidade ou Medida utilizada no ingrediente:*</h5>
+                            <select name="medidaItem" id="medidaItem" class="form-control" required>
+                                <option value="Unidade(s)" selected>Unidade</option>
+                                <option value="Quilograma(s)">Quilograma</option>
+                                <option value="Grama(s)">Grama</option>
+                                <option value="Litro(s)">Litro</option>
+                                <option value="Mililitro(s)">Mililitro</option>
                             </select>
 
                             <br>
@@ -80,7 +80,7 @@
                             <h5>Valor:*</h5>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                                <input required class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="1.00" type="number" step="0.01" min="1" max="9999">
+                                <input required class="form-control" placeholder="10,00" id="valor" name="valor" value="" type="number" step="0.01" min="1" max="9999">
                             </div>     
                             <br>
 

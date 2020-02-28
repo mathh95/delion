@@ -88,7 +88,7 @@
 		
 		//Auto Reload cardapio
 		window.setInterval(function(){
-			loadItens();
+			location.reload();
         }, 60000);//1 minuto
 
 		$(document).on("change", "#formaPagamento", function(){
