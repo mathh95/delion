@@ -17,7 +17,7 @@
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-    //usado para coloração customizada da página seleciona na navbar
+    //usado para coloração customizada da página selecionada na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 
 ?>
@@ -80,7 +80,7 @@
                             <h5>Valor:*</h5>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                                <input required class="form-control" placeholder="10,00" id="valor" name="valor" value="" type="number" step="0.01" min="1" max="9999">
+                                <input required class="form-control" placeholder="10,00" id="valor" name="valor" value="" type="number" step="0.01" min="0.1" max="9999">
                             </div>     
                             <br>
 

@@ -3,21 +3,17 @@
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 
     include_once CONTROLLERPATH."/controlUsuario.php";
-
     include_once MODELPATH."/usuario.php";
 
     include_once CONTROLLERPATH."/seguranca.php";
 
     include_once CONTROLLERPATH."/controlAdicional.php";
-
     include_once MODELPATH."/adicional.php";
 
     include_once CONTROLLERPATH. "/controlProduto.php";
-
     include_once MODELPATH. "/produto.php";
 
     include_once CONTROLLERPATH. "/controlIngrediente.php";
-
     include_once MODELPATH. "/ingrediente.php";
 
     $_SESSION['permissaoPagina']=0;
@@ -31,12 +27,16 @@
     $controle_cardapio = new controlerProduto($_SG['link']);
     $itens = $controle_cardapio->selectAll();
 
-    //usado para coloração customizada da página seleciona na navbar
+    //usado para coloração customizada da página selecionada na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 
-    $controle_ingrediente=new controlerIngrediente($_SG['link']);
+    $controle_ingrediente = new controlerIngrediente($_SG['link']);
     $ingredientes = $controle_ingrediente->selectAll();
-
+    
+    if(isset($_GET['fk_produto'])){
+        $fk_produto = $_GET['fk_produto'];
+        //$ingredientes_produto = $controle_ingrediente->selectByFkComposicao($fk_produto);
+    }
 
 ?>
 
@@ -203,6 +203,21 @@
 
 <script>
     
+    //select by param
+    $(document).ready(function(){
+
+        var fk = '<?= $fk_produto ?>';
+        if(fk){
+            $('#item_cardapio').val(fk);
+        }
+    });
+
+    //Atualiza ingrediente
+    $("body").on("input", "#item_cardapio", function(){
+        console.log($(this).val());
+    });
+
+
     //Add Ingrediente
     $("#addIngrediente").click(function() {
 
@@ -256,7 +271,7 @@
     });
 
     //Atualiza ingrediente
-    $("body").on("input", ".ingrediente", function(){   
+    $("body").on("input", ".ingrediente", function(){
 
         $field_id = $(this).attr("data-field_id");
 

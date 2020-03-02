@@ -18,7 +18,7 @@ $permissao =  json_decode($usuarioPermissao->getPermissao());
 if(in_array('gerenciar_composicao', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 >Lista de Produtos</h1>
+		<h1>Lista de Produtos</h1>
 		<tr>
 		<th width='15%' style='text-align: center;'>#ID</th>
     		<th width='20%' style='text-align: center;'>Nome do Produto</th>
@@ -33,14 +33,13 @@ if(in_array('gerenciar_composicao', $permissao)){
 		$soma_valores_format =(number_format($soma_valores[0]["soma_valores"], 2, '.', ''));
 		
         $mensagem='Preço de custo excluído com sucesso!';
-	$titulo='Excluir';
         echo "<tr name='resultado' id='status".$composicao->getPkId()."'>
             <td style='text-align: center;' name='id'>".$composicao->getPkId()."</td>
 			<td style='text-align: center;' name='nome'>".$composicao->nome_prod."</td>
 			<td style='text-align: center;' name='valor'>R$ ".$soma_valores_format."</td>
 			<td style='text-align: center;' name='valorExtra'>R$ ".$composicao->getValorExtra()."</td>
 			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='composicaoDetalhes.php?cod=".$composicao->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Detalhes</button></a></td>
-			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='tipoFornecedor-view.php?cod=".$composicao->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
+			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='gerenciarComposicao.php?fk_produto=".$composicao->getFkProduto()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
 
 		echo "</tr>";
 	}
