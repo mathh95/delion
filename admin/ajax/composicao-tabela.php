@@ -19,31 +19,44 @@ if(in_array('gerenciar_composicao', $permissao)){
 	<thead>
 		<h1>Lista de Produtos</h1>
 		<tr>
-		<th width='15%' style='text-align: center;'>#ID</th>
+		<th width='5%' style='text-align: center;'>#ID</th>
     		<th width='20%' style='text-align: center;'>Nome do Produto</th>
-			<th width='15%' style='text-align: center;'>Preço de Custo Total</th>
-			<th width='15%' style='text-align: center;'>Valor Extra</th>
-			<th width='15%' style='text-align: center;'>Detalhes</th>
-			<th width='15%' style='text-align: center;'>Editar</th>
+			<th width='5%' style='text-align: center;'>Preço de Custo</th>
+			<th width='5%' style='text-align: center;'>Valor Extra</th>
+			<th width='5%' style='text-align: center;'>Total</th>
+			<th width='5%' style='text-align: center;'>Detalhes</th>
+			<th width='5%' style='text-align: center;'>Editar</th>
         </tr>
 	<tbody>";
-	var_dump($composicoes);
-	exit;
-	foreach ($composicoes as $composicao) {
-		$valor_ingrediente = $composicao->qtd_ing*$composicao->valor_ingrediente;
-		
-		
 
-        $mensagem='Preço de custo excluído com sucesso!';
-<<<<<<< HEAD
-		$titulo='Excluir';
-=======
->>>>>>> 6adf981b6ad2ac9015135e1a1bd3c8ac166552a5
-        echo "<tr name='resultado' id='status".$composicao->getPkId()."'>
+	// var_dump($composicoes);
+	// exit;
+
+	foreach ($composicoes as $composicao) {
+
+		$ingredientes_composicao = $controle->selectByFkComposicao($composicao->getPkId());
+		$valor_custo = 0;
+		foreach ($ingredientes_composicao as $key => $ingr){
+			$qtd_utilizada = $ingredientes_composicao[$key]["coig_qtde_utilizada"];
+			$valor_ingrediente = $ingredientes_composicao[$key]["igr_valor"];
+			$valor_calculado = $valor_ingrediente * $qtd_utilizada;
+
+			$valor_custo += $valor_calculado;
+		}
+
+		$valor_c = number_format($valor_custo, 2, ',', ' ');
+		$valor_e = number_format($composicao->getValorExtra(), 2, ',', ' ');
+		$valor_t = number_format($valor_custo + $composicao->getValorExtra(), 2, ',', ' ');
+		
+		
+		echo "<tr name='resultado' id='status".$composicao->getPkId()."'>
             <td style='text-align: center;' name='id'>".$composicao->getPkId()."</td>
 			<td style='text-align: center;' name='nome'>".$composicao->nome_prod."</td>
-			<td style='text-align: center;' name='valor'>R$ ".$valor_total."</td>
-			<td style='text-align: center;' name='valorExtra'>R$ ".$composicao->getValorExtra()."</td>
+
+			<td style='text-align: center;' name='valor_custo'>R$ ".$valor_c."</td>
+			<td style='text-align: center;' name='valor_extra'>R$ ".$valor_e."</td>
+			<td style='text-align: center;' name='valor_total'>R$ ".$valor_t."</td>
+
 			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='composicaoDetalhes.php?cod=".$composicao->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Detalhes</button></a></td>
 			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='gerenciarComposicao.php?fk_produto=".$composicao->getFkProduto()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
 

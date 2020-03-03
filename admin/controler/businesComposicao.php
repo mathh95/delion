@@ -30,16 +30,13 @@
 		if(isset($_POST['valor'])){
 			$arr_valores = $_POST['valor'];
 		}
-		if(isset($_POST['valor_calc'])){
-			$arr_valor_calcs = $_POST['valor_calc'];
-		}
+
 
 		$controle = new controlerComposicao($_SG['link']);
 		$result = $controle->insert(
 			$composicao,
 			$arr_ingredientes,
-			$arr_qtd_utilizada,
-			$arr_valor_calcs
+			$arr_qtd_utilizada
 		);
 
 		if($result){

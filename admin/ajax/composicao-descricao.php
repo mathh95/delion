@@ -49,7 +49,7 @@ if(in_array('gerenciar_composicao', $permissao)){
             echo "<tr name='resultado' id='cod".$cod_ingrediente."'>
                 <td style='text-align: center;' name='nomeIngrediente'>".$nome_ingrediente."</td>
                 <td style='text-align: center;' name='qtdUtilizada'>".($qtd_utilizada+0)." ".$unidade."</td>
-                <td style='text-align: center;' name='valorCalc'>R$ ".$valor_calculado."</td>";
+                <td style='text-align: center;' name='valorCalc'>R$ ".number_format($valor_calculado, 2, ',', ' ')."</td>";
             }	
 
         }

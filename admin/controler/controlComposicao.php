@@ -11,8 +11,7 @@ include_once CONTROLLERPATH."/seguranca.php";
         function insert(
             $composicao,
             $arr_ingredientes,
-            $arr_qtd_utilizada,
-            $arr_valor_calcs
+            $arr_qtd_utilizada
         ){
             try{
 
@@ -30,13 +29,11 @@ include_once CONTROLLERPATH."/seguranca.php";
                 //set ingredientes a Composição
                 foreach($arr_ingredientes as $key => $fk_ingrediente){
                     
-                    $sql = $this->pdo->prepare("INSERT INTO rl_composicao_ingrediente SET coig_fk_composicao = :fk_composicao, coig_fk_ingrediente = :fk_ingrediente, coig_qtde_utilizada = :qtde_utilizada, coig_valor_calculado = :valor_calc");
+                    $sql = $this->pdo->prepare("INSERT INTO rl_composicao_ingrediente SET coig_fk_composicao = :fk_composicao, coig_fk_ingrediente = :fk_ingrediente, coig_qtde_utilizada = :qtde_utilizada");
 
                     $sql->bindValue(":fk_composicao", $fk_composicao);
                     $sql->bindValue(":fk_ingrediente", $fk_ingrediente);
-                    $sql->bindValue(":qtde_utilizada", $arr_qtd_utilizada[$key]);
-                    $sql->bindValue(":valor_calc", $arr_valor_calcs[$key]);
-                    
+                    $sql->bindValue(":qtde_utilizada", $arr_qtd_utilizada[$key]);                    
 
                     if(!$sql->execute()) return FALSE;
                 }
@@ -80,11 +77,7 @@ include_once CONTROLLERPATH."/seguranca.php";
                 $stmt=$this->pdo->prepare("SELECT * 
                 FROM tb_composicao AS COM
                 INNER JOIN tb_produto AS PRO
-                ON COM.com_fk_produto = PRO.pro_pk_id
-                INNER JOIN rl_composicao_ingrediente AS COIN
-                ON COIN.coig_fk_composicao = COM.com_pk_id
-                INNER JOIN tb_ingrediente AS ING
-                ON ING.igr_pk_id = COIN.coig_fk_ingrediente");
+                ON COM.com_fk_produto = PRO.pro_pk_id");
                 if($stmt->execute()){
                     if($stmt->rowCount() > 0){
                         while($result = $stmt->fetch(PDO::FETCH_OBJ)){
@@ -93,8 +86,6 @@ include_once CONTROLLERPATH."/seguranca.php";
                             $composicao->setFkProduto($result->com_fk_produto);
                             $composicao->setValorExtra($result->com_valor_extra);
                             $composicao->nome_prod=$result->pro_nome;
-                            $composicao->qtd_ing=$result->coig_qtde_utilizada;
-                            $composicao->valor_ingrediente=$result->igr_valor;
                             array_push($composicoes, $composicao);
                         }
                     }else{

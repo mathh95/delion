@@ -36,6 +36,8 @@
     if(isset($_GET['fk_produto'])){
         $fk_produto = $_GET['fk_produto'];
         //$ingredientes_produto = $controle_ingrediente->selectByFkComposicao($fk_produto);
+    }else{
+        $fk_produto = "";
     }
 
 ?>
