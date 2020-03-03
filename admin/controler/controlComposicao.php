@@ -113,7 +113,7 @@ include_once CONTROLLERPATH."/seguranca.php";
                 ON COIN.coig_fk_ingrediente = ING.igr_pk_id
                 INNER JOIN tb_historico_ingrediente AS HIS
                 ON ING.igr_pk_id = HIS.higr_fk_ingrediente
-                ORDER BY HIS.higr_data DESC");
+                ORDER BY HIS.higr_pk_id ASC");
 
 
                 if($stmt->execute()){
@@ -230,6 +230,32 @@ include_once CONTROLLERPATH."/seguranca.php";
                 WHERE COM.com_pk_id = :cod_composicao");
 
                 $stmt->bindParam(":cod_composicao", $cod_composicao , PDO::PARAM_INT);
+
+                if($stmt->execute()){
+                    if($stmt->rowCount() > 0){
+                        $result = $stmt->fetchAll();
+                    }else{
+                        return -1;
+                    }
+                    return $result;
+                }
+
+
+            }
+            catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        function selectHistoryByFkIngrediente($cod_ingrediente){
+            try{
+                $stmt=$this->pdo->prepare("SELECT * 
+                FROM tb_historico_ingrediente AS HIS
+                INNER JOIN tb_ingrediente AS ING
+                ON HIS.higr_fk_ingrediente = ING.igr_pk_id
+                WHERE HIS.higr_fk_ingrediente = :cod_ingrediente");
+
+                $stmt->bindParam(":cod_ingrediente", $cod_ingrediente , PDO::PARAM_INT);
 
                 if($stmt->execute()){
                     if($stmt->rowCount() > 0){

@@ -11,7 +11,7 @@ $controle=new controlerComposicao($_SG['link']);
 $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-$composicoes = $controle->selectHistorico();
+$composicoes = $controle->selectAll();
 // $selectFkComposicao = $controle->selectByFkComposicao();
 
 
@@ -24,32 +24,48 @@ if(in_array('gerenciar_composicao', $permissao)){
 	<thead>
 		<h1>Historico de Produtos</h1>
 		<tr>
-		<th width='15%' style='text-align: center;'>#ID</th>
-            <th width='20%' style='text-align: center;'>Nome do Produto</th>
-			<th width='20%' style='text-align: center;'>Ingredientes</th>
-			<th width='15%' style='text-align: center;'>Valor</th>
-			<th width='15%' style='text-align: center;'>Data</th>
+		<th width='5%' style='text-align: center;'>#ID</th>
+            <th width='25%' style='text-align: center;'>Nome do Produto</th>
+			<th width='25%' style='text-align: center;'>Ingredientes</th>
+			<th width='5%' style='text-align: center;'>Preço de Custo</th>
+			<th width='5%' style='text-align: center;'>Valor Extra</th>
+			<th width='5%' style='text-align: center;'>Total</th>
+			<th width='15%' style='text-align: center;'>Data Alteração</th>
         </tr>
 	<tbody>";
-
+	
 	foreach ($composicoes as $key=>$composicao) {
-		$soma_valores = $controle->sumValorTotal($composicao->getPkId());
-		$soma_valores_format =(number_format($soma_valores[0]["soma_valores"], 2, '.', ''));
-		//Segundo select selectByFkComposicao
-		$selectHistory_var = $controle->selectHistory($composicao->getPkId());
-		// $selectFkComposicao_format = ($selectFkComposicao[0]["coig_fk_ingrediente"]);
-		var_dump($selectHistory_var[$key]);
-		// exit;
+		
+		echo "<tr name='resultado' id='status".$composicao->getPkId()."'>
+		<td style='text-align: center;' name='id'>".$composicao->getPkId()."</td>
+		<td style='text-align: center;' name='nome'>".$composicao->nome_prod."</td>";
+		
+		$ingredientes_composicao = $controle->selectByFkComposicao($composicao->getPkId());
+		$valor_custo = 0;
+		echo "<td style='text-align: center;' name='ingredientes'>";
+		foreach ($ingredientes_composicao as $key => $ingr){
+			$qtd_utilizada = $ingr["coig_qtde_utilizada"];
+			$valor_ingrediente = $ingr["igr_valor"];
+			$valor_calculado = $valor_ingrediente * $qtd_utilizada;
 
+			$valor_custo += $valor_calculado;
 
-        $mensagem='Preço de custo excluído com sucesso!';
-	$titulo='Excluir';
-        echo "<tr name='resultado' id='status".$composicao->getPkId()."'>
-            <td style='text-align: center;' name='id'>".$composicao->getPkId()."</td>
-			<td style='text-align: center;' name='nome'>".$composicao->nome_prod."</td>
-            <td style='text-align: center;' name='ingredientes'>".$selectHistory_var[$key]["igr_nome"]."</td>
-			<td style='text-align: center;' name='valor'>R$ ".$selectHistory_var[$key]["higr_valor"]."</td>
-			<td style='text-align: center;' name='valorExtra'>".$selectHistory_var[$key]["higr_data"]."</td>";
+			// var_dump($ingr);
+
+			$ingredientes_historico = $controle->selectHistoryByFkIngrediente($ingr["igr_pk_id"]);
+			foreach($ingredientes_historico as $key=>$ingr_his){
+				$data_alteracao_var = date_create($ingr_his["higr_data"]);
+				$data_alteracao = date_format($data_alteracao_var,"d/m/Y H:i:s");
+				echo $ingr_his["igr_nome"].' - R$ '.$ingr_his["igr_valor"].' - '.$data_alteracao;
+				echo "<br>";
+			}
+		}
+		echo "</td>";
+		
+			echo "<td style='text-align: center;' name='preco_custo'>R$ ".$ingr["igr_valor"]."</td>
+			<td style='text-align: center;' name='valor_extra'>R$ ".$ingr["com_valor_extra"]."</td>
+			<td style='text-align: center;' name='valor_total'>R$ ".$ingr["com_valor_extra"]."</td>
+			<td style='text-align: center;' name='data_alteracao'>".$ingr_his["higr_data"]."</td>";
 
 		echo "</tr>";
 	}
