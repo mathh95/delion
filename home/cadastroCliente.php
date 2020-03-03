@@ -155,6 +155,8 @@
 	<script src="https://www.google.com/recaptcha/api.js?render=<?=GOOGLE_reCAPTCHA?>"></script>
 
 	<script>
+	
+	var data;
 
 	//Cadastro Cliente
 	$("#cadastrar").on("click", function(){
@@ -207,7 +209,7 @@
 				
 				if(resultado.includes("verificado")){
 
-					getCodigoSms();
+					getCodigoSms(data);
 
 				}else{
 					swal("Erro 😕", resultado , "error");
@@ -220,7 +222,7 @@
 		});
 	}
 
-	function getCodigoSms(){
+	function getCodigoSms(data){
 
 		swal({
 			title: 'SMS Enviado!',
@@ -233,6 +235,7 @@
 			if (cod_sms.length < 4){
 				swal("Código inválido!", "warning");
 			}else{
+				//console.log(data);
 				//remove flag de verificacao
 				data.pop();
 
@@ -254,6 +257,7 @@
 			}
 		})
 		.catch(err => {
+			console.log(err);
 			if (err) {
 				swal("Erro 😕", err , "error");
 			} else {

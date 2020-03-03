@@ -1,6 +1,6 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
+include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 include_once MODELPATH."/composicao.php";
 include_once CONTROLLERPATH."/seguranca.php";
 
@@ -8,9 +8,50 @@ include_once CONTROLLERPATH."/seguranca.php";
 
         private $pdo;
 
-        function insert($composicao){
+        function insert(
+            $composicao,
+            $arr_ingredientes,
+            $arr_qtd_utilizada,
+            $arr_valor_calcs
+        ){
             try{
+
                 $stmt=$this->pdo->prepare("INSERT INTO tb_composicao (com_fk_produto, com_valor_extra)
+                VALUES (:fk_produto, :valor_extra)");
+
+                $stmt->bindParam(":fk_produto", $composicao->getFkProduto(), PDO::PARAM_INT);
+                $stmt->bindParam(":valor_extra", $composicao->getValorExtra());
+                
+                if(!$stmt->execute()) return FALSE;
+
+
+                $fk_composicao = $this->pdo->lastInsertId();
+
+                //set ingredientes a Composição
+                foreach($arr_ingredientes as $key => $fk_ingrediente){
+                    
+                    $sql = $this->pdo->prepare("INSERT INTO rl_composicao_ingrediente SET coig_fk_composicao = :fk_composicao, coig_fk_ingrediente = :fk_ingrediente, coig_qtde_utilizada = :qtde_utilizada, coig_valor_calculado = :valor_calc");
+
+                    $sql->bindValue(":fk_composicao", $fk_composicao);
+                    $sql->bindValue(":fk_ingrediente", $fk_ingrediente);
+                    $sql->bindValue(":qtde_utilizada", $arr_qtd_utilizada[$key]);
+                    $sql->bindValue(":valor_calc", $arr_valor_calcs[$key]);
+                    
+
+                    if(!$sql->execute()) return FALSE;
+                }
+            
+                return TRUE;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+
+        function update($composicao){
+            try{
+                $stmt=$this->pdo->prepare("UPDATE tb_composicao (com_fk_produto, com_valor_extra)
                 VALUES (:fk_produto, :valor_extra)");
 
                 $stmt->bindParam(":fk_produto", $composicao->getFkProduto(), PDO::PARAM_INT);
@@ -30,16 +71,6 @@ include_once CONTROLLERPATH."/seguranca.php";
             }
             catch(PDOException $e){
                 echo $e->getMessage();
-            }
-        }
-
-
-        function update(){
-            try{
-                $stmt=$this->pdo->prepare("UPDATE tb_composicao SET ");
-            }
-            catch(PDOException $e){
-                return $e->getMessage();
             }
         }
 
@@ -159,8 +190,6 @@ include_once CONTROLLERPATH."/seguranca.php";
                     }
                     return $result;
                 }
-
-
             }
             catch(PDOException $e){
                 return $e->getMessage();
@@ -196,6 +225,7 @@ include_once CONTROLLERPATH."/seguranca.php";
             }
         }
 
+<<<<<<< HEAD
         function selectHistory($cod_composicao){
             $cod_composicao = $cod_composicao;
             try{
@@ -257,11 +287,17 @@ include_once CONTROLLERPATH."/seguranca.php";
 
 
         function delete(){
+=======
+
+        function delete($composicao){
+
+>>>>>>> 6adf981b6ad2ac9015135e1a1bd3c8ac166552a5
             try{
 
             }
             catch(PDOException $e){
-                return $e->getMessage();
+                echo $e->getMessage();
+                return -1;
             }
         }
 

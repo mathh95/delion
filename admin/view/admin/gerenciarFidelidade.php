@@ -23,7 +23,7 @@
     $controle = new controlerFidelidade($_SG['link']);
     $fidelidade = $controle->selectByFkEmpresa($empresa->getPkId());
     
-    //usado para coloração customizada da página seleciona na navbar
+    //usado para coloração customizada da página selecionada na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 
 ?>

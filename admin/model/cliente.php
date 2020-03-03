@@ -137,7 +137,7 @@
                 $this->cli_sobrenome=$cli_sobrenome;
                 $this->cli_cpf=$cli_cpf;
                 $this->cli_data_nasc=$cli_data_nasc;
-                $this->cli_login=$cli_login;
+                $this->cli_login_email=$cli_login;
                 $this->cli_senha=$cli_senha;
                 $this->cli_telefone=$cli_telefone;
                 $this->cli_status=$cli_status;

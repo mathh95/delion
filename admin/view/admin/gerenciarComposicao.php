@@ -3,21 +3,17 @@
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 
     include_once CONTROLLERPATH."/controlUsuario.php";
-
     include_once MODELPATH."/usuario.php";
 
     include_once CONTROLLERPATH."/seguranca.php";
 
     include_once CONTROLLERPATH."/controlAdicional.php";
-
     include_once MODELPATH."/adicional.php";
 
     include_once CONTROLLERPATH. "/controlProduto.php";
-
     include_once MODELPATH. "/produto.php";
 
     include_once CONTROLLERPATH. "/controlIngrediente.php";
-
     include_once MODELPATH. "/ingrediente.php";
 
     $_SESSION['permissaoPagina']=0;
@@ -31,12 +27,16 @@
     $controle_cardapio = new controlerProduto($_SG['link']);
     $itens = $controle_cardapio->selectAll();
 
-    //usado para coloração customizada da página seleciona na navbar
+    //usado para coloração customizada da página selecionada na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 
-    $controle_ingrediente=new controlerIngrediente($_SG['link']);
+    $controle_ingrediente = new controlerIngrediente($_SG['link']);
     $ingredientes = $controle_ingrediente->selectAll();
-
+    
+    if(isset($_GET['fk_produto'])){
+        $fk_produto = $_GET['fk_produto'];
+        //$ingredientes_produto = $controle_ingrediente->selectByFkComposicao($fk_produto);
+    }
 
 ?>
 
@@ -56,7 +56,7 @@
 
     <div class="container-fluid">
 
-        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/businesPrecoDeCusto.php">
+        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="../../controler/businesComposicao.php">
 
             <div class="col-md-12">
 
@@ -107,7 +107,7 @@
                                 <small>Valor</small>
                                 <div class="input-group">
                                     <span class="input-group-addon">R$</span>
-                                    <input required class="form-control valor" placeholder="0.00" name="valor[]" id="valor0" value="<?=$ingrediente->getValor()?>" type="number" max="9999" readonly>
+                                    <input required class="form-control valor" placeholder="0.00" name="valor[]" id="valor0" value="<?=$ingredientes[0]->getValor()?>" type="number" step="0.01" max="9999" readonly>
                                 </div>
                             </div>
                                                                                 
@@ -115,7 +115,7 @@
                                 <small>Quantidade Utilizada*</small>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-edit"></i></span>
-                                    <input class="qtd_utilizada form-control" name="qtd_utilizada[]" id="qtd_utilizada0" data-field_id="0" required value="1" min="0" type="number">
+                                    <input class="qtd_utilizada form-control" name="qtd_utilizada[]" id="qtd_utilizada0" data-field_id="0" required value="1" min="0" type="number" step="0.01">
                                 </div>
                             </div>
 
@@ -123,7 +123,7 @@
                                 <small>Valor Calculado</small>
                                 <div class="input-group">
                                     <span class="input-group-addon">R$</span>
-                                    <input required class="form-control valor_calc" name="valor_calc[]" value="<?=$ingrediente->getValor()?>" type="number" step="0.01" min="0.01" max="9999" data-valor_base="<?= $ingrediente->getValor(); ?>" id="valor_calc0" readonly>
+                                    <input required class="form-control valor_calc" name="valor_calc[]" value="<?=$ingredientes[0]->getValor()?>" type="number" step="0.01" min="0.01" max="9999" data-valor_base="<?= $ingredientes[0]->getValor(); ?>" id="valor_calc0" readonly>
                                 </div>
                             </div>
                             
@@ -199,13 +199,32 @@
 </body>
 
 
+
+
 <script>
     
+    //select by param
+    $(document).ready(function(){
+
+        var fk = '<?= $fk_produto ?>';
+        if(fk){
+            $('#item_cardapio').val(fk);
+        }
+    });
+
+    //Atualiza ingrediente
+    $("body").on("input", "#item_cardapio", function(){
+        console.log($(this).val());
+    });
+
+
     //Add Ingrediente
     $("#addIngrediente").click(function() {
 
         //append novo
-        $(".ingrediente-adicionado:last").clone().appendTo(".conjunto-ingredientes").find(".qtd_utilizada").val("1");
+        $(".ingrediente-adicionado:last").clone().appendTo(".conjunto-ingredientes");
+        $(".ingrediente-adicionado:last").find("select").val("");
+        $(".ingrediente-adicionado:last").find("input").val("");
 
         //get id/posicao do ultimo ingrediente
         $field_id = parseInt($(".ingrediente-adicionado:last").attr("data-field_id"));
@@ -252,13 +271,14 @@
     });
 
     //Atualiza ingrediente
-    $("body").on("input", ".ingrediente", function(){   
+    $("body").on("input", ".ingrediente", function(){
 
         $field_id = $(this).attr("data-field_id");
 
         $id_ingrediente = $(this).val();
 
         $valor_ingrediente = parseFloat($(this).find(':selected').attr("data-valor"));
+        $("#valor"+$field_id).val(parseFloat($valor_ingrediente));
         $("#valor_calc"+$field_id).attr("data-valor_base", $valor_ingrediente);
 
         $qtd_utilizada = parseFloat($("#qtd_utilizada"+$field_id).val());
@@ -266,15 +286,11 @@
         $valor_calc = $valor_ingrediente * $qtd_utilizada;
         $("#valor_calc"+$field_id).val(parseFloat($valor_calc));
 
-        // console.log($valor_ingrediente);
-        // console.log($qtd_utilizada);
-        // console.log($valor_calc);
-
         atualizaTotal();
     });
 
     //Atualiza valor calculado
-    $("body").on("input", ".qtd_utilizada", function(){   
+    $("body").on("input", ".qtd_utilizada", function(){
 
         $field_id = $(this).attr("data-field_id");
 
@@ -283,7 +299,6 @@
 
         $valor_calc = $valor_base * $qtd_utilizada;
 
-        $("#valor"+$field_id).val(parseFloat($valor_calc));
         $("#valor_calc"+$field_id).val(parseFloat($valor_calc));
 
         atualizaTotal();
