@@ -225,7 +225,6 @@ include_once CONTROLLERPATH."/seguranca.php";
             }
         }
 
-<<<<<<< HEAD
         function selectHistory($cod_composicao){
             $cod_composicao = $cod_composicao;
             try{
@@ -287,11 +286,6 @@ include_once CONTROLLERPATH."/seguranca.php";
 
 
         function delete(){
-=======
-
-        function delete($composicao){
-
->>>>>>> 6adf981b6ad2ac9015135e1a1bd3c8ac166552a5
             try{
 
             }
