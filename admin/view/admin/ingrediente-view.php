@@ -77,7 +77,7 @@
                         <br>
 
                         <h5>Unidade de medida utilizada no ingrediente:</h5>
-                        <select name="medidaItem" id="medidaItem" class="form-control" disabled>
+                        <select name="medidaItem" id="medidaItem" class="form-control" readonly>
                             <option selected value="<?= $item_composicao->getUnidade(); ?>"><?= $item_composicao->getUnidade(); ?></option>
                         </select>
 

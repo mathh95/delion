@@ -16,6 +16,7 @@ $cod = $_GET['cod'];
 
 $ingredientes = $controle->selectByFkComposicao($cod);
 
+
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
 if ($ingredientes == -1){
 	echo "<h1> SEM RESULTADOS</h1>";
@@ -35,22 +36,20 @@ if(in_array('gerenciar_composicao', $permissao)){
         </tr>
     <tbody>";
     
-	// var_dump($ingredientes);
-	// exit;
             
         foreach($ingredientes as $key=>$ingrediente){
 
 			$cod_ingrediente = $ingredientes[$key]["coig_pk_id"];
 			$nome_ingrediente = $ingredientes[$key]["igr_nome"];
 			$qtd_utilizada = $ingredientes[$key]["coig_qtde_utilizada"];
-			$valorCalculado = $ingredientes[$key]["coig_valor_calculado"];
+			$valor_ingrediente = $ingredientes[$key]["igr_valor"];
 			$unidade = $ingredientes[$key]["igr_unidade"];
-
+			$valor_calculado = $valor_ingrediente*$qtd_utilizada;
 
             echo "<tr name='resultado' id='cod".$cod_ingrediente."'>
                 <td style='text-align: center;' name='nomeIngrediente'>".$nome_ingrediente."</td>
                 <td style='text-align: center;' name='qtdUtilizada'>".($qtd_utilizada+0)." ".$unidade."</td>
-                <td style='text-align: center;' name='valorCalc'>R$ ".$valorCalculado."</td>";
+                <td style='text-align: center;' name='valorCalc'>R$ ".$valor_calculado."</td>";
             }	
 
         }

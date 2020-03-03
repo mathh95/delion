@@ -1,68 +1,57 @@
 <?php
-
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
-
+    include_once CONTROLLERPATH."/seguranca.php";
     include_once CONTROLLERPATH."/controlUsuario.php";
     include_once MODELPATH."/usuario.php";
-    include_once CONTROLLERPATH."/seguranca.php";
-    include_once CONTROLLERPATH. "/controlIngrediente.php";
-    include_once MODELPATH. "/ingrediente.php";
-
     $_SESSION['permissaoPagina']=0;
-
     protegePagina();
-
     $controleUsuario = new controlerUsuario($_SG['link']);
-
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
     //usado para coloração customizada da página seleciona na navbar
     $arquivo_pai = basename(__FILE__, '.php');
-
-    $controle_ingrediente=new controlerIngrediente($_SG['link']);
-    $ingredientes = $controle_ingrediente->selectAll();
-
-
 ?>
-
 <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <?php include VIEWPATH."/cabecalho.html" ?>
+</head>
+<body>
+    
+    <?php include_once "./header.php" ?>
 
-<html class="no-js" lang="pt-br">
-
-    <head>
-
-        <?php include VIEWPATH."/cabecalho.html" ?>
-
-    </head>
-
-
-    <body>
-
-        <?php include_once "./header.php" ?>
-
-        <div class="container-fluid">
-
-
-            <div class="col-md-12">
-
-                <h3>Histórico de Preço de Custo</h3>
-
-                <div class="row">
-                </div>
-
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12" id="tabela-cliente">
+                <?php include "../../ajax/historico-composicao-tabela.php"; ?>
             </div>
         </div>
-
-        
-
-        <?php include VIEWPATH."/rodape.html" ?>
+    </div>
 
 
-        <script>
-            
+    <script src="../../js/alert.js"></script>
+    <script type="text/javascript">
+        function removePrecoDeCusto(precoDeCusto){
+            msgConfirmacao('Confirmação','Deseja Realmente remover o produto do preço de custo?',
+                function(linha){
+                    var url ='../../ajax/excluir-precoDeCusto.php?cod='+precoDeCusto;
+                    $.get(url, function(dataReturn) {
+                        if (dataReturn > 0) {
+                            msgGenerico("Excluir!","Preço de custo excluido com sucesso!",1,function(){});
+                            $("#status"+precoDeCusto).remove();
+                        }else{
+                            msgGenerico("Erro!","Não foi possível excluir o preço de custo!",2,function(){});
+                        }
+                    });  
+                },
+                function(){}
+            );
+        }
+    </script>
 
-        </script>
 
-    </body>
+</body>
+
+<?php include VIEWPATH."/rodape.html" ?>
 
 </html>

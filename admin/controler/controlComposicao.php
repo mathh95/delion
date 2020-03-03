@@ -49,7 +49,49 @@ include_once CONTROLLERPATH."/seguranca.php";
                 $stmt=$this->pdo->prepare("SELECT * 
                 FROM tb_composicao AS COM
                 INNER JOIN tb_produto AS PRO
-                ON COM.com_fk_produto = PRO.pro_pk_id");
+                ON COM.com_fk_produto = PRO.pro_pk_id
+                INNER JOIN rl_composicao_ingrediente AS COIN
+                ON COIN.coig_fk_composicao = COM.com_pk_id
+                INNER JOIN tb_ingrediente AS ING
+                ON ING.igr_pk_id = COIN.coig_fk_ingrediente");
+                if($stmt->execute()){
+                    if($stmt->rowCount() > 0){
+                        while($result = $stmt->fetch(PDO::FETCH_OBJ)){
+                            $composicao = new composicao();
+                            $composicao->setPkId($result->com_pk_id);
+                            $composicao->setFkProduto($result->com_fk_produto);
+                            $composicao->setValorExtra($result->com_valor_extra);
+                            $composicao->nome_prod=$result->pro_nome;
+                            $composicao->qtd_ing=$result->coig_qtde_utilizada;
+                            $composicao->valor_ingrediente=$result->igr_valor;
+                            array_push($composicoes, $composicao);
+                        }
+                    }else{
+                        return -1;
+                    }
+                    return $composicoes;
+                }
+            }
+            catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+
+        function selectHistorico(){
+            $composicoes = array();
+            try{
+                $stmt=$this->pdo->prepare("SELECT * 
+                FROM tb_composicao AS COM
+                INNER JOIN tb_produto AS PRO
+                ON COM.com_fk_produto = PRO.pro_pk_id
+                INNER JOIN rl_composicao_ingrediente AS COIN
+                ON COM.com_pk_id = COIN.coig_fk_composicao
+                INNER JOIN tb_ingrediente AS ING
+                ON COIN.coig_fk_ingrediente = ING.igr_pk_id
+                INNER JOIN tb_historico_ingrediente AS HIS
+                ON ING.igr_pk_id = HIS.higr_fk_ingrediente
+                ORDER BY HIS.higr_data DESC");
 
 
                 if($stmt->execute()){
@@ -59,7 +101,10 @@ include_once CONTROLLERPATH."/seguranca.php";
                             $composicao->setPkId($result->com_pk_id);
                             $composicao->setFkProduto($result->com_fk_produto);
                             $composicao->setValorExtra($result->com_valor_extra);
+                            $composicao->nome_ingrediente=$result->igr_nome;
                             $composicao->nome_prod=$result->pro_nome;
+                            $composicao->ingrediente_valor=$result->higr_valor;
+                            $composicao->ingrediente_data=$result->higr_data;
 
                             array_push($composicoes, $composicao);
                         }
@@ -69,12 +114,32 @@ include_once CONTROLLERPATH."/seguranca.php";
                     return $composicoes;
                 }
 
-
             }
             catch(PDOException $e){
                 return $e->getMessage();
             }
         }
+
+        function selectValores($cod_ingrediente){
+            $cod_ingrediente = $cod_ingrediente;
+            try{
+                $stmt=$this->pdo->prepare("SELECT *
+                FROM tb_ingrediente
+                WHERE igr_pk_id =:cod_ingrediente");
+                if($stmt->execute()){
+                    if($stmt->rowCount() > 0){
+                        $result = $stmt->fetchAll();
+                    }else{
+                        return -1;
+                    }
+                    return $result;
+                }
+            }
+            catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
 
         function sumValorTotal($cod_composicao){
             $cod_composicao = $cod_composicao;
@@ -130,6 +195,66 @@ include_once CONTROLLERPATH."/seguranca.php";
                 return $e->getMessage();
             }
         }
+
+        function selectHistory($cod_composicao){
+            $cod_composicao = $cod_composicao;
+            try{
+                $stmt=$this->pdo->prepare("SELECT * 
+                FROM tb_composicao AS COM
+                INNER JOIN rl_composicao_ingrediente AS COIN
+                ON COIN.coig_fk_composicao = COM.com_pk_id
+                INNER JOIN tb_ingrediente AS ING
+                ON ING.igr_pk_id = COIN.coig_fk_ingrediente
+                INNER JOIN tb_historico_ingrediente AS HIS
+                ON HIS.higr_fk_ingrediente = ING.igr_pk_id
+                WHERE COM.com_pk_id = :cod_composicao");
+
+                $stmt->bindParam(":cod_composicao", $cod_composicao , PDO::PARAM_INT);
+
+                if($stmt->execute()){
+                    if($stmt->rowCount() > 0){
+                        $result = $stmt->fetchAll();
+                    }else{
+                        return -1;
+                    }
+                    return $result;
+                }
+
+
+            }
+            catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+
+        function selectByPkIngrediente($cod_ingrediente){
+            $cod_ingrediente = $cod_ingrediente;
+            try{
+                $stmt=$this->pdo->prepare("SELECT * 
+                FROM tb_ingrediente AS ING
+                INNER JOIN tb_historico_ingrediente AS HIS
+                ON ING.igr_pk_id = HIS.higr_fk_ingrediente
+                WHERE HIS.higr_fk_ingrediente = :cod_ingrediente");
+
+                $stmt->bindParam(":cod_ingrediente", $cod_ingrediente , PDO::PARAM_INT);
+
+                if($stmt->execute()){
+                    if($stmt->rowCount() > 0){
+                        $result = $stmt->fetchAll();
+                    }else{
+                        return -1;
+                    }
+                    return $result;
+                }
+
+
+            }
+            catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
 
         function delete(){
             try{
