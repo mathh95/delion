@@ -42,6 +42,7 @@ if(in_array('gerenciar_composicao', $permissao)){
 		
 		$ingredientes_composicao = $controle->selectByFkComposicao($composicao->getPkId());
 		$valor_custo = 0;
+		$preco_custo = 0;
 		echo "<td style='text-align: center;' name='ingredientes'>";
 		foreach ($ingredientes_composicao as $key => $ingr){
 			$qtd_utilizada = $ingr["coig_qtde_utilizada"];
@@ -50,19 +51,23 @@ if(in_array('gerenciar_composicao', $permissao)){
 
 			$valor_custo += $valor_calculado;
 
-			// var_dump($ingr);
-
 			$ingredientes_historico = $controle->selectHistoryByFkIngrediente($ingr["igr_pk_id"]);
 			foreach($ingredientes_historico as $key=>$ingr_his){
 				$data_alteracao_var = date_create($ingr_his["higr_data"]);
 				$data_alteracao = date_format($data_alteracao_var,"d/m/Y H:i:s");
 				echo $ingr_his["igr_nome"].' - R$ '.$ingr_his["igr_valor"].' - '.$data_alteracao;
 				echo "<br>";
+				// $preco_custo = floatval($ingr_his["igr_valor"]);
 			}
+
+			var_dump($valor_ingrediente);
+			
 		}
+		// $preco_custo += ($valor_ingrediente);
+		// var_dump($preco_custo);
 		echo "</td>";
 		
-			echo "<td style='text-align: center;' name='preco_custo'>R$ ".$ingr["igr_valor"]."</td>
+			echo "<td style='text-align: center;' name='preco_custo'>R$ ".$preco_custo."</td>
 			<td style='text-align: center;' name='valor_extra'>R$ ".$ingr["com_valor_extra"]."</td>
 			<td style='text-align: center;' name='valor_total'>R$ ".$ingr["com_valor_extra"]."</td>
 			<td style='text-align: center;' name='data_alteracao'>".$ingr_his["higr_data"]."</td>";

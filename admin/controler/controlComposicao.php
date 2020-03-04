@@ -253,7 +253,8 @@ include_once CONTROLLERPATH."/seguranca.php";
                 FROM tb_historico_ingrediente AS HIS
                 INNER JOIN tb_ingrediente AS ING
                 ON HIS.higr_fk_ingrediente = ING.igr_pk_id
-                WHERE HIS.higr_fk_ingrediente = :cod_ingrediente");
+                WHERE HIS.higr_fk_ingrediente = :cod_ingrediente
+                ORDER BY higr_data DESC");
 
                 $stmt->bindParam(":cod_ingrediente", $cod_ingrediente , PDO::PARAM_INT);
 
