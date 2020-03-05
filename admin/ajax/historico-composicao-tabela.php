@@ -25,6 +25,7 @@ if(in_array('gerenciar_composicao', $permissao)){
 			<th width='5%' style='text-align: center;'>Custo Extra</th>
 			<th width='5%' style='text-align: center;'>Custo Total</th>
 			<th width='5%' style='text-align: center;'>Valor de Venda</th>
+			<th width='5%' style='text-align: center;'>Histórico</th>
 			</tr>
 	<tbody>";
 
@@ -47,9 +48,6 @@ if(in_array('gerenciar_composicao', $permissao)){
 		foreach ($ingredientes_his_composicao as $key_higr => $higr){
 			
 			$qtd_utilizada = $higr["coig_qtde_utilizada"];
-
-			$higr_data = date_create($higr["higr_data"]);
-			$higr_data = date_format($higr_data, "d/m/Y H:i:s");
 			
 			$pk_igr = $higr['higr_fk_ingrediente'];
 			
@@ -59,7 +57,7 @@ if(in_array('gerenciar_composicao', $permissao)){
 				[
 					"pk_igr" => $pk_igr,
 					"nome" => $higr['igr_nome'],
-					"data" => $higr_data,
+					"data" => $higr['higr_data'],
 					"valor_calc" => $higr["higr_valor"] * $qtd_utilizada
 				]
 			);				
@@ -101,9 +99,10 @@ if(in_array('gerenciar_composicao', $permissao)){
 				}
 
 				$historico_composicoes[$composicao->getPkId()][$i] = [$data_atual, $preco_custo];
+				$historico_datas[$composicao->getPkId()][$i] = $data_atual;
+				$historico_precos[$composicao->getPkId()][$i] = "R$ ".number_format($preco_custo, 2);
 				$i++;
 			}
-			
 		}
 
 		// var_dump($historico_composicoes);
@@ -112,7 +111,7 @@ if(in_array('gerenciar_composicao', $permissao)){
 		echo "<td style='text-align: center;' name='preco_custo'>";
 		
 		foreach($historico_composicoes[$composicao->getPkId()] as $his){
-			
+
 			$data = date_create($his[0]);
 			$data = date_format($data, "d/m/Y");
 			$preco_c = number_format($his[1], 2, ',', ' ');
@@ -131,12 +130,81 @@ if(in_array('gerenciar_composicao', $permissao)){
 		echo 
 			"<td style='text-align: center;' name='valor_extra'>R$ ".$valor_e."</td>
 			<td style='text-align: center;' name='valor_total'>R$ ".$valor_t."</td>
-			<td style='text-align: center;' name='valor_venda'>R$ ".$valor_v."</td>";
+			<td style='text-align: center;' name='valor_venda'>R$ ".$valor_v."</td>
+			<td style='text-align: center;' name='valor_venda'>
+				<button class='btn btn-default' data-toggle='modal' data-target='#modalHis".$composicao->getPkId()."' data-id='".$composicao->getPkId()."'><i class='far fa-chart-bar'></i> Histórico</button></a>
+			</td>";
 		echo "</tr>";
-	}
-}else{
 
+
+		criaModal($composicao->getPkId(), $composicao->nome_prod);
+	}
 }
+
 echo "</tbody></table>";
 
+
+function criaModal($com_pk_id, $nome_produto){
+	//Cria modal de Historico para Composição/Produto
+	echo
+	"<div class='modal fade' style='text-align: center' id='modalHis".$com_pk_id."' tabindex='-1' role='dialog' aria-labelledby='ModalLabel'>
+
+		<div class='modal-dialog modal-lg' role='document'>
+			<div class='modal-content'>
+				<div class'modal-header'>
+					<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+					<br>
+					<h4 class='modal-title' id='ModalLabel' style='text-align:center'><b>".$nome_produto."</b></h4>
+				</div>
+
+				<div class='modal-body' style='width:100%;'>
+
+					<div id='his".$com_pk_id."' style='width:800px; height:400px;'></div>
+
+				</div>
+
+				<div class='modal-footer'>
+					<button type='button' class='btn btn-default' data-dismiss='modal'>Fechar</button>
+				</div>
+
+			</div>
+		</div>
+	</div>";
+
+}
+
+
 ?>
+
+
+<script>
+
+	var data = [];
+	var historico = <?= json_encode($historico_composicoes) ?>;
+	var arr_datas = <?= json_encode($historico_datas) ?>;
+	var arr_precos = <?= json_encode($historico_precos) ?>;
+
+	// console.log(arr_datas);
+	// console.log(arr_precos);
+
+	//para cada produto
+	for (var k in historico){
+		// console.log(historico[k]);
+		let trace_preco_custo = 
+		{
+			name: "Preço de Custo",
+			x: arr_datas[k],
+			y: arr_precos[k],
+			type: 'scatter'
+		};
+		data[k] = (trace_preco_custo);
+	}
+	
+	//Gera gráficos por Composicao e associa as Modals
+	for (var i in data){
+		Plotly.newPlot('his'+i, [data[i]]);
+	}
+
+</script>
+
+
