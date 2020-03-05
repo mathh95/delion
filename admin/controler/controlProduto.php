@@ -28,10 +28,11 @@
                 $stmte->bindParam(":fk_categoria", $produto->getCategoria(), PDO::PARAM_INT);
                 $stmte->bindParam(":fk_faixa_horario", $produto->getFkFaixaHorario(), PDO::PARAM_INT);
 
-                
+                $hipr_fk_produto = $this->pdo->lastInsertId();
+
                 $executa = $stmte->execute();
                 if($executa){
-                    return 1;
+                    return $hipr_fk_produto;
                 }
                else{
                     return -1;
@@ -1014,6 +1015,27 @@
                 return $result->produtos;
             }
 
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
+        function insertHistoricoProduto($cod_produto, $produto){
+            try{
+                $stmte =$this->pdo->prepare("INSERT INTO tb_historico_produto SET hipr_valor = :valor, hipr_data = NOW(), hipr_fk_produto = :cod_ingrediente");
+
+                $stmte->bindValue(":valor", $produto->getPreco(), PDO::PARAM_INT);
+                $stmte->bindValue(":cod_produto", $cod_produto);
+
+                $executa = $stmte->execute();
+
+                if($executa){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }
             catch(PDOException $e){
                 echo $e->getMessage();
                 return -1;
