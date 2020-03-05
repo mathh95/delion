@@ -24,7 +24,7 @@
 
     $item_composicao = $controle->select($_GET['cod'],2);     //alterar o modo
 
-    //usado para coloração customizada da página seleciona na navbar
+    //usado para coloração customizada da página selecionada na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 
 ?>
@@ -77,7 +77,7 @@
                         <br>
 
                         <h5>Unidade de medida utilizada no ingrediente:</h5>
-                        <select name="medidaItem" id="medidaItem" class="form-control" disabled>
+                        <select name="medidaItem" id="medidaItem" class="form-control" readonly>
                             <option selected value="<?= $item_composicao->getUnidade(); ?>"><?= $item_composicao->getUnidade(); ?></option>
                         </select>
 
@@ -86,7 +86,7 @@
                         <h5>Valor (por unidade):</h5>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                            <input required class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="<?= $item_composicao->getValor(); ?>" type="number" step="0.01" min="1" max="9999">
+                            <input required class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="<?= $item_composicao->getValor(); ?>" type="number" step="0.01" min="0.01" max="9999">
                         </div>     
                         <br>
 

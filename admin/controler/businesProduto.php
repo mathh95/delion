@@ -62,9 +62,13 @@
 				
 		$controle = new controlerProduto($_SG['link']);
 		
-		$result = $controle->insert($produto);
-		if( $result == 1){
+		$cod_produto = $controle->insert($produto);
+		$controle->insertHistoricoProduto($cod_produto,$produto);
 
+		var_dump($cod_produto);
+		exit;
+
+		if( $cod_produto > -1){
 			msgRedireciona('Cadastro Realizado!','Produto cadastrado com sucesso!',1,'../view/admin/produto.php');
 
 		}else{

@@ -13,34 +13,55 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 $composicoes = $controle->selectAll();
 
-
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
 if(in_array('gerenciar_composicao', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 >Lista de Produtos</h1>
+		<h1>Lista de Produtos</h1>
 		<tr>
-		<th width='15%' style='text-align: center;'>#ID</th>
+		<th width='5%' style='text-align: center;'>#ID</th>
     		<th width='20%' style='text-align: center;'>Nome do Produto</th>
-			<th width='15%' style='text-align: center;'>Preço de Custo Total</th>
-			<th width='15%' style='text-align: center;'>Valor Extra</th>
-			<th width='15%' style='text-align: center;'>Detalhes</th>
-			<th width='15%' style='text-align: center;'>Editar</th>
+			<th width='7%' style='text-align: center;'>Preço de Custo</th>
+			<th width='7%' style='text-align: center;'>Custo Extra</th>
+			<th width='7%' style='text-align: center;'>Custo Total</th>
+			<th width='7%' style='text-align: center;'>Valor de Venda</th>
+			<th width='5%' style='text-align: center;'>Detalhes</th>
+			<th width='5%' style='text-align: center;'>Editar</th>
         </tr>
 	<tbody>";
+
+	// var_dump($composicoes);
+	// exit;
+
 	foreach ($composicoes as $composicao) {
-		$soma_valores = $controle->sumValorTotal($composicao->getPkId());
-		$soma_valores_format =(number_format($soma_valores[0]["soma_valores"], 2, '.', ''));
+
+		$ingredientes_composicao = $controle->selectByFkComposicao($composicao->getPkId());
+		$valor_custo = 0;
+		foreach ($ingredientes_composicao as $key => $ingr){
+			$qtd_utilizada = $ingr["coig_qtde_utilizada"];
+			$valor_ingrediente = $ingr["igr_valor"];
+			$valor_calculado = $valor_ingrediente * $qtd_utilizada;
+
+			$valor_custo += $valor_calculado;
+		}
+
+		$valor_c = number_format($valor_custo, 2, ',', ' ');
+		$valor_e = number_format($composicao->getValorExtra(), 2, ',', ' ');
+		$valor_t = number_format($valor_custo + $composicao->getValorExtra(), 2, ',', ' ');
+		$valor_v = number_format($composicao->pro_preco, 2, ',', ' ');
 		
-        $mensagem='Preço de custo excluído com sucesso!';
-	$titulo='Excluir';
-        echo "<tr name='resultado' id='status".$composicao->getPkId()."'>
+		
+		echo "<tr name='resultado' id='status".$composicao->getPkId()."'>
             <td style='text-align: center;' name='id'>".$composicao->getPkId()."</td>
 			<td style='text-align: center;' name='nome'>".$composicao->nome_prod."</td>
-			<td style='text-align: center;' name='valor'>R$ ".$soma_valores_format."</td>
-			<td style='text-align: center;' name='valorExtra'>R$ ".$composicao->getValorExtra()."</td>
+
+			<td style='text-align: center;' name='valor_custo'>R$ ".$valor_c."</td>
+			<td style='text-align: center;' name='valor_extra'>R$ ".$valor_e."</td>
+			<td style='text-align: center;' name='valor_total'>R$ ".$valor_t."</td>
+			<td style='text-align: center;' name='valor_venda'>R$ ".$valor_v."</td>
+
 			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='composicaoDetalhes.php?cod=".$composicao->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Detalhes</button></a></td>
-			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='tipoFornecedor-view.php?cod=".$composicao->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
+			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='gerenciarComposicao.php?fk_produto=".$composicao->getFkProduto()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
 
 		echo "</tr>";
 	}

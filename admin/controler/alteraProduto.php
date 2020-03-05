@@ -74,6 +74,7 @@
 		$result = $controle->update($produto);
 
 		if($result > -1 ){
+			$controle->insertHistoricoProduto($pk_id,$produto);
 			msgRedireciona('Alteração Realizada!','Produto alterado com sucesso!',1,'../view/admin/cardapioLista.php');
 		}else{
 			alertJSVoltarPagina('Erro!','Erro ao alterar Produto!',2);

@@ -11,7 +11,7 @@ class controlSmsVerificacao {
     function insert($sms){
 
         try{
-            $stmt=$this->pdo->prepare("INSERT INTO tb_sms_verificacao (smve_telefone, smve_codigo, smve_verificado) VALUES (:smve_telefone, :smve_codigo, 0) ");
+            $stmt=$this->pdo->prepare("INSERT INTO tb_sms_verificacao (smve_telefone, smve_codigo, smve_verificado) VALUES (:telefone, :codigo, 0) ");
             
             $telefone = $sms->getTelefone();
             $codigo = $sms->getCodigo();
