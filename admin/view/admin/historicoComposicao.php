@@ -15,6 +15,7 @@
 <html lang="pt-br">
 <head>
     <?php include VIEWPATH."/cabecalho.html" ?>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
     

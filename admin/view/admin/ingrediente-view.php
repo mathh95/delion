@@ -86,7 +86,7 @@
                         <h5>Valor (por unidade):</h5>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                            <input required class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="<?= $item_composicao->getValor(); ?>" type="number" step="0.01" min="1" max="9999">
+                            <input required class="form-control" placeholder="Valor da unidade" id="valor" name="valor" value="<?= $item_composicao->getValor(); ?>" type="number" step="0.01" min="0.01" max="9999">
                         </div>     
                         <br>
 

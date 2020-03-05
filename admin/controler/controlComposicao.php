@@ -86,6 +86,7 @@ include_once CONTROLLERPATH."/seguranca.php";
                             $composicao->setFkProduto($result->com_fk_produto);
                             $composicao->setValorExtra($result->com_valor_extra);
                             $composicao->nome_prod=$result->pro_nome;
+                            $composicao->pro_preco=$result->pro_preco;
                             array_push($composicoes, $composicao);
                         }
                     }else{
@@ -100,7 +101,7 @@ include_once CONTROLLERPATH."/seguranca.php";
         }
 
 
-        function selectHistorico(){
+        function selectHistorico($cod_composicao){
             $composicoes = array();
             try{
                 $stmt=$this->pdo->prepare("SELECT * 
@@ -113,8 +114,10 @@ include_once CONTROLLERPATH."/seguranca.php";
                 ON COIN.coig_fk_ingrediente = ING.igr_pk_id
                 INNER JOIN tb_historico_ingrediente AS HIS
                 ON ING.igr_pk_id = HIS.higr_fk_ingrediente
+                WHERE COM.com_pk_id = :cod_composicao
                 ORDER BY HIS.higr_pk_id ASC");
 
+                $stmt->bindParam(":cod_composicao", $cod_composicao , PDO::PARAM_INT);
 
                 if($stmt->execute()){
                     if($stmt->rowCount() > 0){
@@ -216,6 +219,35 @@ include_once CONTROLLERPATH."/seguranca.php";
             }
         }
 
+        function selectHisIngrByFkComposicao($cod_composicao){
+            $cod_composicao = $cod_composicao;
+            try{
+                $stmt=$this->pdo->prepare("SELECT * 
+                FROM rl_composicao_ingrediente AS COIN
+                INNER JOIN tb_ingrediente AS ING
+                ON ING.igr_pk_id = COIN.coig_fk_ingrediente
+                INNER JOIN tb_historico_ingrediente AS HIS
+                ON HIS.higr_fk_ingrediente = ING.igr_pk_id
+                WHERE COIN.coig_fk_composicao = :cod_composicao
+                ORDER BY HIS.higr_data ASC");
+
+                $stmt->bindParam(":cod_composicao", $cod_composicao , PDO::PARAM_INT);
+
+                if($stmt->execute()){
+                    if($stmt->rowCount() > 0){
+                        $result = $stmt->fetchAll();
+                    }else{
+                        return -1;
+                    }
+                    return $result;
+                }
+            }
+            catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+
         function selectHistory($cod_composicao){
             $cod_composicao = $cod_composicao;
             try{
@@ -254,7 +286,7 @@ include_once CONTROLLERPATH."/seguranca.php";
                 INNER JOIN tb_ingrediente AS ING
                 ON HIS.higr_fk_ingrediente = ING.igr_pk_id
                 WHERE HIS.higr_fk_ingrediente = :cod_ingrediente
-                ORDER BY higr_data DESC");
+                ORDER BY higr_data ASC");
 
                 $stmt->bindParam(":cod_ingrediente", $cod_ingrediente , PDO::PARAM_INT);
 
