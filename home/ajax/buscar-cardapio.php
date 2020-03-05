@@ -96,7 +96,7 @@ foreach ($categorias as $key_cat => $categoria) {
                             $item->getFlag_servindo()
                         ){
                             
-                            echo "<button id='addCarrinho' data-cod='".$item->getPkId()."' class='btn btn-default'>Adicionar</button>";
+                            echo "<button id='addCarrinho' data-cod='".$item->getPkId()."' class='btn btn-default' data-src_image='../admin/".$item->getFoto()."' data-arr_adicionais='".$item->getAdicional()."'>Adicionar</button>";
 
                         }else{
                             echo "<button id='addCarrinho' data-cod='".$item->getPkId()."' class='btn btn-default' disabled title='Indísponível 👩‍🍳'>Indisponível 👩‍🍳</button>";

@@ -35,6 +35,7 @@ $_SESSION['valor_entrega_valido'] = 0;
 $_SESSION['delivery_price_calculado'] = 0;
 $_SESSION['minimo_taxa_gratis'] = 99999;
 
+
 if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     //ordenados com base na inserção/add carrinho
     $itens = $_SESSION['carrinho'];
@@ -42,6 +43,10 @@ if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     // exit;
     $itensObservacao = $_SESSION['observacao'];
     $itensQtd = $_SESSION['qtd'];
+
+    if(isset($_SESSION['adicionais_selecionados']) && !empty($_SESSION['adicionais_selecionados'])){
+        $itensAdicional = $_SESSION['adicionais_selecionados'];
+    }
 
     $itens_fliped = array_flip($itens);
 
@@ -159,12 +164,25 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                     
                     <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
 
-                        <td class="text-uppercase nomeProdutoTabela">
+                        <td class="nomeProdutoTabela">
                         <span class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" data-qtd="<?= $_SESSION['qtd'][$key] ?>">
                             <span id="qtde-text<?= $i ?>"><?= $_SESSION['qtd'][$key] ?></span>
                         </span>
                             <span class="qtde-x">x</span> &nbsp;  
-                            <strong><?= $item['pro_nome'] ?></strong>
+                            <strong class="text-uppercase"><?= $item['pro_nome'] ?></strong>
+                            <?php   
+
+                            if(!empty($itensAdicional) && $itensAdicional !== ''){
+                                foreach($itensAdicional[$item['pro_pk_id']] as $item_adc){
+                                    $adc_precofinal = ($item_adc[3] * $item_adc[2]);
+                                    $adc_precofinal_format = number_format($adc_precofinal, 2, '.', ' ');
+                                    if(!empty($item_adc) && $item_adc !== ''){
+                                        echo "<p class='adicionais_subtitle text-lowecase'> + ".$item_adc[3]." x ".$item_adc[1]." - R$ ".$adc_precofinal_format." </p>";
+                                    }
+                                }
+                            }
+                            ?>
+                            
                         </td>
 
                         <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>

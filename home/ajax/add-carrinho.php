@@ -5,11 +5,11 @@ session_start();
 $id = 0;
 $obs = '';
 
-
 if(!isset($_SESSION['carrinho']) || empty($_SESSION['carrinho'])){
     $_SESSION['carrinho'] = array();
     $_SESSION['qtd'] = array();
     $_SESSION['observacao'] = array();
+    $_SESSION['adicionais_selecionados'] = array();
 }
 
 if(!isset($_SESSION['carrinho_resgate']) || empty($_SESSION['carrinho_resgate'])){
@@ -23,12 +23,19 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
     if(isset($_GET['observacaoItem']) && !empty($_GET['observacaoItem'])){
         $obs = $_GET['observacaoItem'];
     }
+    if(isset($_GET['adicionais_selecionados']) && !empty($_GET['adicionais_selecionados'])){
+        $adicionais = $_GET['adicionais_selecionados'];
+    }
 
     if(!in_array($id, $_SESSION['carrinho'], true)){
 
         array_push($_SESSION['carrinho'], $id);
         array_push($_SESSION['observacao'], $obs);
         
+        if(isset($adicionais) && !empty($adicionais)){
+            $_SESSION['adicionais_selecionados'][$id] = $adicionais;
+        }
+
         //seta unidade de itens p/ 1 unidade
         array_push($_SESSION['qtd'], 1);
 

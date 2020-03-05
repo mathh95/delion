@@ -167,6 +167,7 @@
                         $produto->setPrioridade($result->pro_flag_prioridade);
                         $produto->setDelivery($result->pro_flag_delivery);
                         $produto->setPosicao($result->pro_posicao);
+                        $produto->setAdicional($result->pro_arr_adicional);
                         $produto->setDias_semana($result->pro_arr_dias_semana);
 
                         $produto->setCategoria($result->pro_fk_categoria);
@@ -819,6 +820,7 @@
                             $produto->setPrioridade($result->pro_flag_prioridade);
                             $produto->setDelivery($result->pro_flag_delivery);
                             $produto->setPosicao($result->pro_posicao);
+                            $produto->setAdicional($result->pro_arr_adicional);
                             $produto->setDias_semana($result->pro_arr_dias_semana);
                             
                             //atribuição por referencia

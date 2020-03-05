@@ -3,17 +3,16 @@
     include_once MODELPATH."/adicional.php";
     include_once "seguranca.php";
 
-    protegePagina();
+    protegePagina("cross_call");
 
     class controlerAdicional {
         private $pdo;
         function insert($adicional){
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO tb_adicional(adi_nome, adi_preco, adi_ck_desconto, adi_flag_ativo)
-                VALUES (:nome, :preco, :desconto, :flag_ativo)");
+                $stmte =$this->pdo->prepare("INSERT INTO tb_adicional(adi_nome, adi_preco, adi_flag_ativo)
+                VALUES (:nome, :preco, :flag_ativo)");
                 $stmte->bindParam(":nome", $adicional->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $adicional->getPreco());
-                $stmte->bindParam(":desconto", $adicional->getDesconto());
                 $stmte->bindParam(":flag_ativo", $adicional->getFlag_ativo());
                 $executa = $stmte->execute();
                 if($executa){
@@ -31,11 +30,10 @@
 
         function update($adicional){
             try{
-                $stmte =$this->pdo->prepare("UPDATE tb_adicional SET adi_nome=:nome, adi_preco=:preco, adi_ck_desconto = :desconto, adi_flag_ativo = :flag_ativo WHERE adi_pk_id=:cod_adicional");
+                $stmte =$this->pdo->prepare("UPDATE tb_adicional SET adi_nome=:nome, adi_preco=:preco, adi_flag_ativo = :flag_ativo WHERE adi_pk_id=:cod_adicional");
                 $stmte->bindParam(":cod_adicional", $adicional->getPkId() , PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $adicional->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $adicional->getPreco());
-                $stmte->bindParam(":desconto", $adicional->getDesconto());
                 $stmte->bindParam(":flag_ativo", $adicional->getFlag_ativo());
                 $executa = $stmte->execute();
                 if($executa){
@@ -68,8 +66,7 @@
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
                             $adicional->setPkId($result->adi_pk_id);
                             $adicional->setNome($result->adi_nome);
-                            $adicional->setPreco($result->adi_preco);
-                            $adicional->setDesconto($result->adi_desconto);  
+                            $adicional->setPreco($result->adi_preco); 
                             $adicional->setFlag_ativo($result->adi_flag_ativo); 
                         }
                     }
@@ -150,7 +147,6 @@
                             $adicional->setPkId($result->adi_pk_id);
                             $adicional->setNome($result->adi_nome);
                             $adicional->setPreco($result->adi_preco);
-                            $adicional->setDesconto($result->adi_ck_desconto);
                             $adicional->setFlag_ativo($result->adi_flag_ativo);
                             array_push($adicionais, $adicional);
                         }
@@ -162,6 +158,7 @@
                 echo $e->getMessage();
             }
         }
+
 
         function buscarVariosId($itens){
             $array = array();

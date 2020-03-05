@@ -148,6 +148,10 @@ body{
                 }
                 
             }
+            .adicionais_subtitle{
+                font-size: 12px;
+                margin: 0;
+            }
             textarea:focus {
                 border-color: $vermelho_fraco;
                 box-shadow: 0 0 0 0.2rem rgba(210, 39, 48, 0.25);

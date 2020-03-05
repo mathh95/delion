@@ -282,6 +282,7 @@ $_SESSION['valor_cupom'] = 0.00;
 unset($_SESSION['carrinho']);
 unset($_SESSION['qtd']);
 unset($_SESSION['observacao']);
+unset($_SESSION['adicionais_selecionados']);
 unset($_SESSION['valor_subtotal']);
 
 unset($_SESSION['carrinho_resgate']);

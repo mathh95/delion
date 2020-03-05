@@ -98,7 +98,7 @@
 
                                     <label>
 
-                                        <input type="checkbox" id="ativo" name="flag_ativo" value="1">Ativo
+                                        <input type="checkbox" id="ativo" <?=($adicional->getFlag_ativo() == 1)?"checked":""?>name="flag_ativo" value="1">Ativo
 
                                     </label>
 
@@ -122,7 +122,7 @@
 
                     if (in_array('adicional', $permissao)){ ?>
 
-                        <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Alterar</button>
+                        <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp; Alterar</button>
 
                     <?php } ?>
 

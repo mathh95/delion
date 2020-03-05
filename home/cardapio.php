@@ -25,6 +25,10 @@
 	$controleImagem = new controlerImagem(conecta());
 
 	$imagens = $controleImagem->selectAll();
+	
+    $controleAdicional = new controlerAdicional(conecta());
+	$adicionais = $controleAdicional->selectAllF();
+	
 
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
@@ -49,6 +53,12 @@
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/cardapio/style-lg.css"/>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.8.2/dist/sweetalert2.all.min.js" integrity="sha256-VkcwHXtZS2ZHfHSFSP8r1AzueZi37jGMPeHv4OfV1Cg=" crossorigin="anonymous"></script>
+
 
 </head>
 
@@ -137,6 +147,11 @@
 	<script type="text/javascript" src="js/maskedinput.js"></script>
 
 	<script>
+
+	
+
+		var adicionais = JSON.parse('<?php echo json_encode($adicionais); ?>');
+		// console.log(adicionais);
 
 		$(document).ready(function(){
     		doRefresh();
@@ -284,32 +299,101 @@
 		});
 
 
+		$(document).on('click', '.add', function () {
+			$(this).prev().val(+$(this).prev().val() + 1);
+			
+		});
+		$(document).on('click', '.sub', function () {
+			if ($(this).next().val() > 0) $(this).next().val(+$(this).next().val() - 1);
+		});
+		
 		$(document).on("click", "#addCarrinho", function(){
 
 			var qtd = $('#spanCarrinho').text();
 			var id = $(this).data('cod');
-			
+			var src = $(this).data('src_image');
+
 			const nomeItem = $('#tituloNome'+id).text();
 
-			swal({
-				title: "Alguma Observação?",
-				text: `${nomeItem}`,
-				content: "input",
-				icon: "info",
-				button: 'Prosseguir'
+			//Todos os adicionais relacionados ao produto
+			var adicionais_produto = $(this).data('arr_adicionais');
+
+			var array_adicionais =[];
+			adicionais.forEach(function(value, key){
+				var id_aux = value['adi_pk_id'];
+				array_adicionais[id_aux] = [value['adi_nome'], value['adi_preco']];
+			})
+			
+			var adicionais_html = "";
+			adicionais_produto.forEach(function(pk_id, chave){
+				adicionais_html += `
+				<li>
+					<div class="qtd-adicionais">
+						<button type="button" id="sub" class="sub">-</button>
+						<input 
+							type="text" value="0" name='qtd-adic[]' class="field qtd-adic" readonly
+							data-id='${pk_id}' data-nome='${array_adicionais[pk_id][0]}' data-preco='${array_adicionais[pk_id][1]}'
+						/>
+						<button type="button" id="add" class="add">+</button>
+						${array_adicionais[pk_id][0]} - R$ ${array_adicionais[pk_id][1]}
+					</div>
+				</li>`
+			})
+			let html = `
+			<br>
+			<div class='imagem'>
+                    
+                    <img class='img-responsive'  src='${src}' onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                </div>
+			<div class='adicionais-wrapper'>
+				<h4 style='font-weight: bold;'>Algum complemento?</h4>
+				<ul style="list-style-type: none;">
+					${adicionais_html}
+				</ul> 
+				
+			</div>
+			<div>
+				<h4 style='font-weight: bold;padding-top:10px;'>Alguma observação?</h4>
+			</div>
+			`;
+			
+			
+
+			Swal.fire({
+				input: 'text',
+				inputPlaceholder: 'Exemplo: Sem queijo...',
+				html: html
+				
+				
 			})
 			.then((observacaoItem) => {
+
+				//Adicionais selecionados do Produto
+				var adicionais_selecionados = [];
+
+				$('.qtd-adic').each(function(){
+					if($(this).val() > 0){
+						adicionais_selecionados.push 
+							([
+								$(this).data('id'),
+								$(this).data('nome'),
+								$(this).data('preco'),
+								$(this).val()
+							]);
+					}
+				})
+
 				$.ajax({
 					type: 'GET',
 					url: 'ajax/add-carrinho.php',
-					data: {observacaoItem: observacaoItem, id: id},
+					data: {observacaoItem: observacaoItem['value'], id: id, adicionais_selecionados: adicionais_selecionados},
 					success:function(resObs){
 						$("#spanCarrinho").html(resObs);
 						$("#spanCarrinho-navbar").html(resObs);
 						$("#spanCarrinho-barra").html(resObs);
-						
+
 						if(qtd == resObs){
-							swal({
+							Swal.fire({
 								title: "Item já Adicionado! 😋",
 								text: "Consulte o carrinho...",
 								icon: "warning",
@@ -317,7 +401,7 @@
 								buttons: false
 							});
 						}else{
-							swal({
+							Swal.fire({
 								title: "Item Adicionado! 😋",
 								text: "Consulte o carrinho...",
 								icon: "success",
@@ -331,8 +415,6 @@
 					}
 				});
 			});
-
-			$(".swal-content__input").attr("placeholder", "Exemplo: Sem queijo...");
 		});
 
 		function buscar (pagina, busca, tipo){
@@ -357,6 +439,8 @@
 				$("#myModal"+idCardapio).modal('hide');
 			}
 		}
+
+		
 
 	</script>
 
