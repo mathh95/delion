@@ -881,11 +881,11 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_historico_produto` (
   `hipr_pk_id` INT NOT NULL AUTO_INCREMENT,
   `hipr_valor` DECIMAL(6,2) NOT NULL,
   `hipr_data` DATETIME NOT NULL,
-  `higr_fk_produto` INT NOT NULL,
+  `hipr_fk_produto` INT NOT NULL,
   PRIMARY KEY (`hipr_pk_id`),
-  INDEX `fk_tb_historico_produto_tb_produto1_idx` (`higr_fk_produto` ASC) ,
+  INDEX `fk_tb_historico_produto_tb_produto1_idx` (`hipr_fk_produto` ASC) ,
   CONSTRAINT `fk_tb_historico_produto_tb_produto1`
-    FOREIGN KEY (`higr_fk_produto`)
+    FOREIGN KEY (`hipr_fk_produto`)
     REFERENCES `delioncafe`.`tb_produto` (`pro_pk_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
