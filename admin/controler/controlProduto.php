@@ -28,9 +28,10 @@
                 $stmte->bindParam(":fk_categoria", $produto->getCategoria(), PDO::PARAM_INT);
                 $stmte->bindParam(":fk_faixa_horario", $produto->getFkFaixaHorario(), PDO::PARAM_INT);
 
+                
+                $executa = $stmte->execute();
                 $hipr_fk_produto = $this->pdo->lastInsertId();
 
-                $executa = $stmte->execute();
                 if($executa){
                     return $hipr_fk_produto;
                 }
