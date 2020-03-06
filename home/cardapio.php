@@ -317,12 +317,20 @@
 
 			//Todos os adicionais relacionados ao produto
 			var adicionais_produto = $(this).data('arr_adicionais');
-
+			console.log(adicionais_produto)
 			var array_adicionais =[];
 			adicionais.forEach(function(value, key){
 				var id_aux = value['adi_pk_id'];
 				array_adicionais[id_aux] = [value['adi_nome'], value['adi_preco']];
 			})
+
+			var div_complemento = "";
+
+			if(adicionais_produto != [] && adicionais_produto.length > 0 && adicionais_produto.length != null){
+				div_complemento += `<h4 style='font-weight: bold;'>Algum complemento?</h4>`;
+			}else{
+				div_complemento += `<h4 style='font-weight: bold;'></h4>`
+			}
 			
 			var adicionais_html = "";
 			adicionais_produto.forEach(function(pk_id, chave){
@@ -346,10 +354,10 @@
                     <img class='img-responsive'  src='${src}' onerror='this.src=\"/home/img/default_produto.jpg\"'>
                 </div>
 			<div class='adicionais-wrapper'>
-				<h4 style='font-weight: bold;'>Algum complemento?</h4>
-				<ul style="list-style-type: none;">
-					${adicionais_html}
-				</ul> 
+				${div_complemento}
+					<ul style="list-style-type: none;">
+						${adicionais_html}
+					</ul> 
 				
 			</div>
 			<div>
