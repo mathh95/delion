@@ -36,8 +36,6 @@
 			$arr_adicional = NULL;
 		}
 
-		$adicional = json_encode($adicional);
-
 		if(isset($_POST['dias'])){
 			$arr_dias = $_POST['dias'];
 			$arr_dias_semana = json_encode($arr_dias);
@@ -63,12 +61,9 @@
 		$controle = new controlerProduto($_SG['link']);
 		
 		$cod_produto = $controle->insert($produto);
-		$controle->insertHistoricoProduto($cod_produto,$produto);
-
-		var_dump($cod_produto);
-		exit;
 
 		if( $cod_produto > -1){
+			$controle->insertHistoricoProduto($cod_produto,$produto);
 			msgRedireciona('Cadastro Realizado!','Produto cadastrado com sucesso!',1,'../view/admin/produto.php');
 
 		}else{

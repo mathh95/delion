@@ -25,6 +25,7 @@
         // $result = $controle->insertHistorico($cod_ingrediente, $ingrediente);
         if($cod_ingrediente> -1){
             $controle->insertHistorico($cod_ingrediente, $ingrediente);
+            $controle->insertHistoricoProduto($cod_ingrediente, $ingrediente);
             msgRedireciona('Cadastro Realizado!','Ingrediente cadastrado!',1,'../view/admin/cadastrarIngrediente.php');
             // echo $cod_ingrediente;
         }else{
