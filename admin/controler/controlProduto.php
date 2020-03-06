@@ -1025,7 +1025,7 @@
 
         function insertHistoricoProduto($cod_produto, $produto){
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO tb_historico_produto SET hipr_valor = :valor, hipr_data = NOW(), hipr_fk_produto = :cod_ingrediente");
+                $stmte =$this->pdo->prepare("INSERT INTO tb_historico_produto SET hipr_valor = :valor, hipr_data = NOW(), hipr_fk_produto = :cod_produto");
 
                 $stmte->bindValue(":valor", $produto->getPreco(), PDO::PARAM_INT);
                 $stmte->bindValue(":cod_produto", $cod_produto);

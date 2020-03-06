@@ -55,6 +55,28 @@
             }
         }
 
+        function insertHistoricoProduto($cod_produto, $ingrediente){
+            try{
+                $stmte =$this->pdo->prepare("INSERT INTO tb_historico_produto SET hipr_valor = :valor, hipr_data = NOW(), hipr_fk_produto = :cod_produto");
+
+                $stmte->bindValue(":valor", $ingrediente->getValor(), PDO::PARAM_INT);
+                $stmte->bindValue(":cod_produto", $cod_produto);
+
+                $executa = $stmte->execute();
+
+                if($executa){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
+
         //Altera os dados na tb_item_composicao
         function update($ingrediente){
             try{
