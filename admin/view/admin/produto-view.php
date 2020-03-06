@@ -34,7 +34,7 @@
     $controle = new controlerProduto($_SG['link']);
     $produto = $controle->selectById($_GET['cod']);
 
-    $adicionais_associados = json_decode($produto->getAdicional());
+    // $adicionais_associados = json_decode($produto->getAdicional());
     $controleAdicional = new controlerAdicional($_SG['link']);
 
     $adicionais = $controleAdicional->selectAll();
@@ -260,29 +260,16 @@
                             <div>
                             
                                 <ul>
+                                    <div class="checkbox-adicionais">
                                     <?php 
-                                        $i = 1;
                                         foreach($adicionais as $adicional){
-                                    ?>
-                                        <li>
-                                            
-                                        <?php 
-                                            if(!empty($adicionais_associados)){
+                                            echo "
+                                                <li>
+                                                    <input type='checkbox' name='adicional[]' value='".$adicional->getPkId()."'>".$adicional->getNome().
+                                                "</li>";
+                                        }?>
 
-                                                if(in_array($adicional->getPkId(), $adicionais_associados)){
-                                                    echo "<input checked type='checkbox' name='".$i."adicional' value='".$adicional->getPkId()."'>".$adicional->getNome();
-                                                }else{
-                                                    echo "<input type='checkbox' name='".$i."adicional' value='".$adicional->getPkId()."'>".$adicional->getNome();
-                                                }
-                                            }else{
-                                                echo "<input type='checkbox' name='".$i."adicional' value='".$adicional->getPkId()."'>".$adicional->getNome();
-                                            }
-                                        ?>
-
-                                        </li>
-
-                                    <?php $i++; }?>
-
+                                    </div>
                                 </ul>
                             
                             </div>
@@ -370,16 +357,21 @@
                 var categoria = '<?= $produto->getCategoria() ?>';
                 var faixa_horario = '<?=$produto->getFkFaixaHorario()?>';
                 var dias = '<?= $produto->getDias_semana() ?>';
-                var ativo = '<?= $produto->getFlag_ativo() ?>';
+                var ativo = '<?= $produto->getFlag_ativo() ?>'
+                var adicionais = '<?= $produto->getAdicional()?>';
                 
                 if(dias) dias = JSON.parse(dias);
+
+                if(adicionais) adicionais = JSON.parse(adicionais);
 
 
                 //dia -> 1 == domingo...7 == sábado
                 for(let dia of dias){
                     $(".checkbox-dias :checkbox[value="+dia+"]").prop("checked", "true");
                 }
-
+                for(let adicional of adicionais){
+                    $(".checkbox-adicionais :checkbox[value="+adicional+"]").prop("checked", "true");
+                }
 
                 if (ativo == 1){
                     $('#ativo').attr('checked', true);

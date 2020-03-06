@@ -317,7 +317,7 @@
 
 			//Todos os adicionais relacionados ao produto
 			var adicionais_produto = $(this).data('arr_adicionais');
-			console.log(adicionais_produto)
+			
 			var array_adicionais =[];
 			adicionais.forEach(function(value, key){
 				var id_aux = value['adi_pk_id'];
