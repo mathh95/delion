@@ -10,7 +10,7 @@
     $_SG['caseSensitive'] = false;     // Usar case-sensitive? Onde 'thiago' é diferente de 'THIAGO'
     $_SG['validaSempre'] = true;       // Deseja validar o usuário e a senha a cada carregamento de página?
     // Evita que, ao mudar os dados do usuário no banco de dado o mesmo contiue logado.
-    $_SG['paginaLogin'] = '../login.html'; // Página de login
+    $_SG['paginaLogin'] = '../login.php'; // Página de login
     $_SG['tabela'] = 'usuario';       // Nome da tabela onde os usuários são salvos
 
 
@@ -118,6 +118,6 @@
         // Remove as variáveis da sessão (caso elas existam)
         unset($_SESSION['usuarioID'], $_SESSION['usuarioNome'], $_SESSION['usuarioLogin'], $_SESSION['usuarioSenha']);
         
-        header("Location: /admin/view/login.html");
+        header("Location: /admin/view/login.php");
     }
 ?>
