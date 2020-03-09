@@ -136,16 +136,33 @@
 
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
-        function removeCardapio(cardapio,foto){
-            msgConfirmacao('Confirmação','Deseja Realmente remover o item cardápio?',
+        //Pausa um item isoladamente
+        function pausarItem(produto,status){
+            msgConfirmacao('Confirmação','Deseja realmente pausar o item?',
                 function(linha){
-                    var url ='../../ajax/desativa-produto.php?pk_id='+cardapio+'&foto='+foto;
+                    var url ='../../ajax/desativa-servindo.php?produto='+produto;
                     $.get(url, function(dataReturn) {
                         if (dataReturn > 0) {
-                            msgGenerico("Excluir!","Item do cardápio excluido com sucesso!",1,function(){});
-                            $("#status"+cardapio).remove();
+                            msgGenerico("Pausar!","Item do cardápio pausado com sucesso!",1,function(){});
                         }else{
-                            msgGenerico("Erro!","Não foi possível excluir a cardapio!",2,function(){});
+                            msgGenerico("Erro!","Não foi possível pausar o item!",2,function(){});
+                        }
+                    });  
+                },
+                function(){}
+            );
+        }
+
+        //Ativa um item isoladamente
+        function ativarItem(produto,status){
+            msgConfirmacao('Confirmação','Deseja realmente ativar o item?',
+                function(linha){
+                    var url ='../../ajax/ativar-servindo.php?produto='+produto;
+                    $.get(url, function(dataReturn) {
+                        if (dataReturn > 0) {
+                            msgGenerico("Ativo!","Item do cardápio ativado com sucesso!",1,function(){});
+                        }else{
+                            msgGenerico("Erro!","Não foi possível ativar o item!",2,function(){});
                         }
                     });  
                 },
@@ -158,7 +175,7 @@
             var txtPesquisa = document.getElementById("pesquisa").value;
                 msgConfirmacao('Confirmação','Deseja realmente pausar os itens listados?',
                     function(linha){
-                        var url ='../../ajax/pausa-itens.php?nome='+txtPesquisa;
+                        var url ='../../ajax/desativar-servindo.php?nome='+txtPesquisa;
                         $.get(url, function(dataReturn) {
                             console.log(dataReturn);
                             if(dataReturn > 0) {
@@ -226,6 +243,21 @@
                 }
             });
         });
+
+        //Reload Page 
+        function doRefresh(){
+        //Verificacao se a pagina é nula,
+            $("#tabela-cardapio").load("../../ajax/gerenciarCardapioTabela.php");
+        }
+
+        //Da reload na tabela-cardapio
+        window.setInterval(function(){
+            var verifica = $('body').hasClass('modal-open'); //Verifica se a modal está aberta
+            if(verifica == false){ 
+                doRefresh();
+            }
+        }, 700);
+
 
     </script>
 
