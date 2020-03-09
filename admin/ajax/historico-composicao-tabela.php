@@ -3,15 +3,21 @@ include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 include_once CONTROLLERPATH."/seguranca.php";
 include_once CONTROLLERPATH."/controlUsuario.php";
 include_once CONTROLLERPATH."/controlComposicao.php";
+include_once CONTROLLERPATH."/controlProduto.php";
+
 include_once MODELPATH."/usuario.php";
 
 protegePagina();
 
-$controle=new controlerComposicao($_SG['link']);
+$controle = new controlerComposicao($_SG['link']);
+$controle_produto = new controlerProduto($_SG['link']);
 $controleUsuario = new controlerUsuario($_SG['link']);
+
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
+
 $composicoes = $controle->selectAll();
+	
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
 if(in_array('gerenciar_composicao', $permissao)){
@@ -98,19 +104,20 @@ if(in_array('gerenciar_composicao', $permissao)){
 					$preco_custo += $ingr_calc;
 				}
 
-				$historico_composicoes[$composicao->getPkId()][$i] = [$data_atual, $preco_custo];
-				$historico_datas[$composicao->getPkId()][$i] = $data_atual;
-				$historico_precos[$composicao->getPkId()][$i] = "R$ ".number_format($preco_custo, 2);
+				$historico_composicoes[$composicao->getFkProduto()][$i] = [$data_atual, $preco_custo];
+				$historico_custo_datas[$composicao->getFkProduto()][$i] = $data_atual;
+				$historico_custo_precos[$composicao->getFkProduto()][$i] = "R$ ".number_format($preco_custo, 2);
 				$i++;
 			}
 		}
 
 		// var_dump($historico_composicoes);
 		// exit;
+
 		
 		echo "<td style='text-align: center;' name='preco_custo'>";
 		
-		foreach($historico_composicoes[$composicao->getPkId()] as $his){
+		foreach($historico_composicoes[$composicao->getFkProduto()] as $his){
 
 			$data = date_create($his[0]);
 			$data = date_format($data, "d/m/Y");
@@ -132,22 +139,32 @@ if(in_array('gerenciar_composicao', $permissao)){
 			<td style='text-align: center;' name='valor_total'>R$ ".$valor_t."</td>
 			<td style='text-align: center;' name='valor_venda'>R$ ".$valor_v."</td>
 			<td style='text-align: center;' name='valor_venda'>
-				<button class='btn btn-default' data-toggle='modal' data-target='#modalHis".$composicao->getPkId()."' data-id='".$composicao->getPkId()."'><i class='far fa-chart-bar'></i> Histórico</button></a>
+				<button class='btn btn-default' data-toggle='modal' data-target='#modalHis".$composicao->getFkProduto()."' data-id='".$composicao->getFkProduto()."'><i class='far fa-chart-bar'></i> Histórico</button></a>
 			</td>";
 		echo "</tr>";
 
 
-		criaModal($composicao->getPkId(), $composicao->nome_prod);
+		//Monta array de histórico do Valor de Venda
+		$historico_produtos = $controle_produto->selectHistoricoByFkPro($composicao->getFkProduto());
+
+		foreach($historico_produtos as $key => $his_pro){
+			//Select histórico do Valor de Venda dos Produtos
+			$historico_venda_datas[$composicao->getFkProduto()][$key] = $his_pro['hipr_data'];
+			$historico_venda_precos[$composicao->getFkProduto()][$key] = "R$ ".number_format($his_pro['hipr_valor'], 2);
+
+		}
+
+		criaModal($composicao->getFkProduto(), $composicao->nome_prod);
 	}
 }
 
 echo "</tbody></table>";
 
 
-function criaModal($com_pk_id, $nome_produto){
+function criaModal($com_fk_produto, $nome_produto){
 	//Cria modal de Historico para Composição/Produto
 	echo
-	"<div class='modal fade' style='text-align: center' id='modalHis".$com_pk_id."' tabindex='-1' role='dialog' aria-labelledby='ModalLabel'>
+	"<div class='modal fade' style='text-align: center' id='modalHis".$com_fk_produto."' tabindex='-1' role='dialog' aria-labelledby='ModalLabel'>
 
 		<div class='modal-dialog modal-lg' role='document'>
 			<div class='modal-content'>
@@ -159,7 +176,7 @@ function criaModal($com_pk_id, $nome_produto){
 
 				<div class='modal-body' style='width:100%;'>
 
-					<div id='his".$com_pk_id."' style='width:800px; height:400px;'></div>
+					<div id='his".$com_fk_produto."' style='width:800px; height:400px;'></div>
 
 				</div>
 
@@ -176,13 +193,18 @@ function criaModal($com_pk_id, $nome_produto){
 
 ?>
 
-
 <script>
 
 	var data = [];
 	var historico = <?= json_encode($historico_composicoes) ?>;
-	var arr_datas = <?= json_encode($historico_datas) ?>;
-	var arr_precos = <?= json_encode($historico_precos) ?>;
+
+	//arrays referentes ao Preço Custo
+	var arr_custo_datas = <?= json_encode($historico_custo_datas) ?>;
+	var arr_custo_precos = <?= json_encode($historico_custo_precos) ?>;
+
+	//arrays referentes ao Valor de Venda
+	var arr_venda_datas = <?= json_encode($historico_venda_datas) ?>;
+	var arr_venda_precos = <?= json_encode($historico_venda_precos) ?>;
 
 	// console.log(arr_datas);
 	// console.log(arr_precos);
@@ -193,16 +215,25 @@ function criaModal($com_pk_id, $nome_produto){
 		let trace_preco_custo = 
 		{
 			name: "Preço de Custo",
-			x: arr_datas[k],
-			y: arr_precos[k],
+			x: arr_custo_datas[k],
+			y: arr_custo_precos[k],
 			type: 'scatter'
 		};
-		data[k] = (trace_preco_custo);
+
+		let trace_preco_venda = 
+		{
+			name: "Valor de Venda",
+			x: arr_venda_datas[k],
+			y: arr_venda_precos[k],
+			type: 'scatter'
+		};
+
+		data[k] = [trace_preco_custo, trace_preco_venda];
 	}
 	
 	//Gera gráficos por Composicao e associa as Modals
 	for (var i in data){
-		Plotly.newPlot('his'+i, [data[i]]);
+		Plotly.newPlot('his'+i, data[i]);
 	}
 
 </script>

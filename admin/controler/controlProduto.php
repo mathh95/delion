@@ -141,6 +141,41 @@
             return $array;
         }
 
+        function selectAllHistorico(){
+            $array = array();
+
+            $sql = "SELECT *
+            FROM tb_historico_produto
+            ORDER BY hipr_data ASC";
+            
+            $sql = $this->pdo->query($sql);
+
+            if($sql -> rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+
+            return $array;
+        }
+
+        function selectHistoricoByFkPro($fk_produto){
+            $array = array();
+
+            $stmte = $this->pdo->prepare("SELECT *
+            FROM tb_historico_produto
+            WHERE hipr_fk_produto =:fk_produto
+            ORDER BY hipr_data ASC");
+
+            $stmte->bindParam(":fk_produto", $fk_produto);
+
+            if($stmte->execute()){
+                if($stmte->rowCount() > 0){
+                    $array = $stmte->fetchAll();
+                }
+            }
+
+            return $array;
+        }
+
         function selectById($pk_id){
 
             try{
