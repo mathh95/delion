@@ -68,6 +68,53 @@
 	?>
 
 	<script>
+	
+
+	$(document).on("click", ".editar", function() {
+		var obs_id = $(this).data('obsid');
+		var obs_txt = $('.observ'+obs_id).data('observacao');
+
+		$('#editar'+obs_id).hide();
+		$('#salvar'+obs_id).show();
+		$('#obs_desc'+obs_id).hide();
+		$('#obs_input'+obs_id).show();
+		$('#obs_input'+obs_id).val(obs_txt);
+	});
+
+	$(document).on("click", ".salvar", function() {
+		var obs_id = $(this).data('obsid');
+		var obs_editado = $('#obs_input'+obs_id).val();
+		
+
+		$('#salvar'+obs_id).hide();
+		$('#editar'+obs_id).show();
+		$('#obs_input'+obs_id).hide();
+		$('#obs_desc'+obs_id).text(obs_editado);
+		$('#obs_desc'+obs_id).show();
+
+		$.ajax({
+
+			type: 'GET',
+			url: 'ajax/editar-carrinho.php',
+			data: {obs_editado : obs_editado, obs_id: obs_id},
+				success:function(resultado){
+
+				}
+			});
+		
+	});
+
+
+	
+
+	// $(document).ready(function(){
+	// 	if(('.obs-input').is(":focus")){
+	// 		window.setInterval(function(){
+	// 		location.reload();
+    //     }, 600000);
+	// 	}
+	// })
+
 
 		$(document).ready(function () {
 			loadItens();

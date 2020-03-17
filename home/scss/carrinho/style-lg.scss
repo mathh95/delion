@@ -146,6 +146,49 @@ body {
                     font-size: 25px;
                 }
             }
+            > .ladoDireito-wrapper{
+                width: 100%;
+                display: inline-block;
+                .direito-filho{
+                    width: 100%;
+                    display: flex;
+                    margin-left: 15px;
+                    
+                    >.obs_nome_produto{
+                        width: 30%;
+                        margin: 0;
+                    }
+                    
+                    >.obs_desc_produto{
+                        width: 40%;
+                        height: auto;
+                        margin-bottom: 10px;
+                    }
+
+                    >.obs_input{
+                        width: 37%;
+                        font-size: 16px;
+                        margin-bottom: 10px;
+                    }
+
+                    .editar{
+                        margin-bottom: 10px;
+                        .btn-primary{
+                            background-color: $vermelho_fraco;
+                            border-color: $vermelho_forte;
+
+                        }
+                    }
+
+                    .salvar{
+                        margin-left: 36px;
+                        .btn-success{
+                            background-color: $vermelho_fraco;
+                            border-color: $vermelho_forte;
+                        }
+                    }
+                }
+            }
             .adicionais_subtitle{
                 font-size: 14px;
                 margin: 0;

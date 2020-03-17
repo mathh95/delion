@@ -202,87 +202,6 @@
 		});
 
 
-		// var categorias = $('.categoria')
-		// , menu_lateral = $('.menu-lateral')
-		// , menu_lateral_height = menu_lateral.outerHeight();
-
-		// $(window).on('scroll', function () {
-		// 	var cur_pos = $(this).scrollTop();
-			
-		// 	categorias.each(function() {
-		// 		var top = $(this).offset().top - menu_lateral_height,
-		// 		bottom = top + $(this).outerHeight();
-				
-		// 		if (cur_pos >= top && cur_pos <= bottom) {
-
-		// 			menu_lateral.find('a').removeClass('active');
-		// 			// categorias.removeClass('active');
-		// 			$(this).addClass('active');
-		// 			console.log($(this).attr('id'));
-		// 			menu_lateral.find('a[href="#categoria'+$(this).attr('id')+'"]').addClass('active');
-		// 			// console.log('a[href="#'+$('categoria'+this).attr('id')+'"]');
-		// 		}
-		// 	});
-		// });
-
-
-		// $(document).ready(function(){
-		// 	$(".menu").animate({scrollCenter: "li.active"}, 400);
-		// });
-
-		// $(window).on('load', function() {
-		// 	$(".menu").scrollCenter("li.active", 400);
-		// });
-		
-
-		// setTimeout( function(){
-			 
-		// 	window.scrollTo( screen.width/2, screen.height/2 );
-  		// }  , 500 );
-
-		// $(window).scroll(function (event) {
-    	// 	var scroll = $(window).scrollTop();
-		// 	$(".menu").scrollCenter("li.active", 400);
-		// });
-		// $(".a").on('click', function(){
-		// 	$(".menu").scrollCenter("li.active", 400);
-		// });
-
-		// $(document).ready(function() { 
-		// 	$(window).load(function() { 
-		// 		$(".menu").scrollCenter("li.active", 400);
-		// 	});
-		// });
-
-		// window.addEventListener("DOMContentLoaded", function(){
-		// 	$(".menu").scrollCenter("li.active", 400);
-		// });
-					
-					
-
-		// jQuery.fn.scrollCenter = function(elem, speed) {
-
-		// 	var active = jQuery(this).find(elem); // find the active element
-		// 	var activeWidth = active.width() / 2; // get active width center
-
-		// 	var pos = active.position().left + activeWidth; //get left position of active li + center position
-		// 	var elpos = jQuery(this).scrollLeft(); // get current scroll position
-		// 	var elW = jQuery(this).width(); //get div width
-		// 	pos = pos + elpos - elW / 2; // for center position if you want adjust then change this
-
-		// jQuery(this).animate({
-		// 	scrollLeft: pos
-		// }, speed == undefined ? 1000 : speed);
-		// return this;
-		// };
-
-		// jQuery.fn.scrollCenterORI = function(elem, speed) {
-		// jQuery(this).animate({
-		// 	scrollLeft: jQuery(this).scrollLeft() - jQuery(this).offset().left + jQuery(elem).offset().left
-		// }, speed == undefined ? 1000 : speed);
-		// return this;
-		// };
-
 
 
 		var qtd_carrinho = "<?= isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : ''?>";
@@ -315,23 +234,30 @@
 
 			const nomeItem = $('#tituloNome'+id).text();
 
+			
 			//Todos os adicionais relacionados ao produto
 			var adicionais_produto = $(this).data('arr_adicionais');
+			if(!adicionais_produto){
+				var adicionais_produto = [];
+			}
 			
+			//Atribui os adicionais a um array.
 			var array_adicionais =[];
 			adicionais.forEach(function(value, key){
 				var id_aux = value['adi_pk_id'];
 				array_adicionais[id_aux] = [value['adi_nome'], value['adi_preco']];
 			})
 
+			//Verifica se existe adicionais, se não apenas exibe input de observação.
 			var div_complemento = "";
-
-			if(adicionais_produto != [] && adicionais_produto.length > 0 && adicionais_produto.length != null){
+			if(adicionais_produto !== [] && adicionais_produto.length > 0 
+			&& adicionais_produto.length !== null && adicionais_produto !== '' && adicionais_produto){
 				div_complemento += `<h4 style='font-weight: bold;'>Algum complemento?</h4>`;
 			}else{
 				div_complemento += `<h4 style='font-weight: bold;'></h4>`
 			}
 			
+			//Atribui o elemento com os adicionais na janela do sweetalert a variavel
 			var adicionais_html = "";
 			adicionais_produto.forEach(function(pk_id, chave){
 				adicionais_html += `
