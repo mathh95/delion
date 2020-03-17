@@ -185,6 +185,7 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
 
                                     if(!empty($item_adc) && $item_adc !== ''){
                                         echo "<p class='adicionais_subtitle text-lowecase'> + ".$item_adc[3]." x ".$item_adc[1]." - R$ ".$adc_precofinal_format." </p>";
+                                        
                                     }
                                 }
                             }
@@ -382,7 +383,7 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                 <?php } ?>
                 
                 <!-- Observações -->                  
-                <div class="ladoDireito row" style="padding-left: 10px">
+                <div class="ladoDireito row ladoDireito-wrapper" style=" margin: 0;">
                         <table class="tabela_itens table">
                             
                             <?php
@@ -397,17 +398,39 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                             ?>
                             <!-- <strong><p>Observações</p></strong> -->
                                 <?php
-                                $i = 0;
+                                
                                 foreach ($itens as $key => $item) :
 
                                     $obs = $itens_obs[$key];
 
                                 ?>               
                                 
-                                <div id="idLinhaObs<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class="ladoDireito row">    
+                                <div id="idLinhaObs<?= $key ?>" data-id="<?= $item['pro_pk_id'] ?>" class="direito-filho" >    
                                     <?php
                                     if(!empty($obs)){ ?>
-                                        <span data-linha="<?= $i ?>" style="padding-left: 22px; width: 200px; font-size: 13px; border:none !important"><b><?= $item['pro_nome'] ?></b> : <?= $obs?></span>
+                                        <div data-linha="<?= $key ?>" style=" font-size: 16px; border:none !important" 
+                                        class="observ<?= $key?> obs_nome_produto" data-observacao="<?= $obs?>">
+                                            <b>
+                                                <?= $item['pro_nome'] ?>
+                                            </b> : </div>
+                                            <div class="obs_desc_produto" id="obs_desc<?=$key?>" style="font-size:16px;"> <?= $obs?></div>
+                                            <input class="obs_input form-control" name="observacao" id="obs_input<?=$key?>" style=" outline: 0;display: none;">
+                                            <a class="editar" title="Editar Observação" id="editar<?=$key?>" data-obsid="<?=$key?>">
+                                                <button class="btn btn-primary">
+                                                    <i class="fas fa-edit" style="color: #FFFFFF;">
+                                                    </i>
+                                                </button>
+                                            </a>
+
+                                            <a class="salvar" title="Salvar Observação" id="salvar<?=$key?>" data-obsid="<?=$key?>" style="display: none;">
+                                                <button class="btn btn-success">
+                                                    <i class="fas fa-save" style="color: #FFFFFF;">
+                                                    </i>
+                                                </button>
+                                            </a>
+
+                                            
+                                        
                                     <?php 
                                     }?>
                                 </div>

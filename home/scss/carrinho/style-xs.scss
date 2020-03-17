@@ -82,7 +82,7 @@ body{
     > .itens {
         padding-left: 0 !important;
         padding-right: 0 !important;
-        // min-height: 620px;
+        min-height: 620px;
         >.carrinhoVazio{
             > .imagemCarrinhoVazio{
                 // text-align: center;
@@ -228,6 +228,48 @@ body{
                 }
                 .nomeProdutoDisponivel{
                     display: none;
+                }
+            }
+            > .ladoDireito-wrapper{
+                text-align: center;
+
+                .direito-filho{
+                    width: 100%;
+                    text-align: center;
+                    >.obs_nome_produto{
+                        width: 100%;
+                        margin: 0;
+                    }
+                    
+                    >.obs_desc_produto{
+                        width: 100%;
+                        height: auto;
+                    }
+
+                    >.obs_input{
+                        width: 80%;
+                        margin: auto;
+                        font-size: 16px;
+                    }
+
+                    .editar{
+                        margin-top: 10px;
+                        .btn-primary{
+                            background-color: $vermelho_fraco;
+                            border-color: $vermelho_forte;
+                            width: 80%;
+                            margin: auto;
+                        }
+                    }
+
+                    .salvar{
+                        .btn-success{
+                            background-color: $vermelho_fraco;
+                            border-color: $vermelho_forte;
+                            width: 80%;
+                            margin: auto;
+                        }
+                    }
                 }
             }
             .adicionais_subtitle{

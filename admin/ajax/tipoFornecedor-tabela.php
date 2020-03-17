@@ -25,8 +25,9 @@ if(in_array('gerenciar_fornecedor', $permissao)){
 			<th width='15%' style='text-align: center;'>Ação</th>
         </tr>
 	<tbody>";
+
 	foreach ($tipo_fornecedores as &$tipo_fornecedor) {
-        $mensagem='Tipo fornecedor excluído com sucesso!';
+    $mensagem='Tipo fornecedor excluído com sucesso!';
 	$titulo='Excluir';
 	if($tipo_fornecedor->getFlag_ativo() == 1){
 		$flag = "Ativo";

@@ -235,21 +235,27 @@
 
 			//Adicionais relacionados ao produto
 			var adicionais_produto = $(this).data('arr_adicionais');
+			if(!adicionais_produto){
+				var adicionais_produto = [];
+			}
 			
+			//Atribui os adicionais a um array.
 			var array_adicionais =[];
 			adicionais.forEach(function(value, key){
 				var id_aux = value['adi_pk_id'];
 				array_adicionais[id_aux] = [value['adi_nome'], value['adi_preco']];
 			});
 
+			//Verifica se existe adicionais, se não apenas exibe input de observação.
 			var div_complemento = "";
-
-			if(adicionais_produto != [] && adicionais_produto.length > 0 && adicionais_produto.length != null){
+			if(adicionais_produto !== [] && adicionais_produto.length > 0 
+			&& adicionais_produto.length !== null && adicionais_produto !== '' && adicionais_produto){
 				div_complemento += `<h4 style='font-weight: bold;'>Algum complemento?</h4>`;
 			}else{
 				div_complemento += `<h4 style='font-weight: bold;'></h4>`
 			}
 			
+			//Atribui o elemento com os adicionais na janela do sweetalert a variavel
 			var adicionais_html = "";
 			adicionais_produto.forEach(function(pk_id, chave){
 				adicionais_html += `

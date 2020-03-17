@@ -18,6 +18,7 @@ if(isset($_SESSION['usuarioID'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="robots" content="noindex" />
     <title>Área Administrativa</title>
     <link href="../vendor/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
