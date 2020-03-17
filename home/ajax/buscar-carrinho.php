@@ -170,12 +170,19 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                         </span>
                             <span class="qtde-x">x</span> &nbsp;  
                             <strong class="text-uppercase"><?= $item['pro_nome'] ?></strong>
+                            
                             <?php   
+                            $valor_adicional_item = 0;
+                            if(!empty($itensAdicional) && isset($itensAdicional[$item['pro_pk_id']])){
 
-                            if(!empty($itensAdicional) && $itensAdicional !== ''){
                                 foreach($itensAdicional[$item['pro_pk_id']] as $item_adc){
-                                    $adc_precofinal = ($item_adc[3] * $item_adc[2]);
-                                    $adc_precofinal_format = number_format($adc_precofinal, 2, '.', ' ');
+
+                                    //preço * qtd_adicional
+                                    $adc_precofinal = ($item_adc[2] * $item_adc[3]);
+                                    $adc_precofinal_format = number_format($adc_precofinal, 2, ',', ' ');
+
+                                    $valor_adicional_item += $adc_precofinal;
+
                                     if(!empty($item_adc) && $item_adc !== ''){
                                         echo "<p class='adicionais_subtitle text-lowecase'> + ".$item_adc[3]." x ".$item_adc[1]." - R$ ".$adc_precofinal_format." </p>";
                                     }
@@ -185,8 +192,14 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                             
                         </td>
 
-                        <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
-                        <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?=  number_format(($item['pro_preco'] * $_SESSION['qtd'][$key]), 2); ?></strong></td>
+
+                        <?php
+                            $subtotal_item = $item['pro_preco'] * $_SESSION['qtd'][$key];
+                            $subtotal_item += $valor_adicional_item;
+                            $subtotal_item_txt = number_format($subtotal_item, '2', ',', ' ');
+                        ?>
+                        <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2, ',', ' '); ?></strong></td>
+                        <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?= $subtotal_item_txt ?></strong></td>
 
                         <td class="nomeProdutoDisponivel">
                             <strong>
@@ -246,7 +259,7 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
 
 
                     $i++;
-                    $totalCarrinho += $item['pro_preco'] * $_SESSION['qtd'][$key];
+                    $totalCarrinho += $subtotal_item;
 
                     }//end foreach
 

@@ -148,10 +148,6 @@
 
 	<script>
 
-	
-
-		var adicionais = JSON.parse('<?php echo json_encode($adicionais); ?>');
-		// console.log(adicionais);
 
 		$(document).ready(function(){
     		doRefresh();
@@ -202,89 +198,6 @@
 		});
 
 
-		// var categorias = $('.categoria')
-		// , menu_lateral = $('.menu-lateral')
-		// , menu_lateral_height = menu_lateral.outerHeight();
-
-		// $(window).on('scroll', function () {
-		// 	var cur_pos = $(this).scrollTop();
-			
-		// 	categorias.each(function() {
-		// 		var top = $(this).offset().top - menu_lateral_height,
-		// 		bottom = top + $(this).outerHeight();
-				
-		// 		if (cur_pos >= top && cur_pos <= bottom) {
-
-		// 			menu_lateral.find('a').removeClass('active');
-		// 			// categorias.removeClass('active');
-		// 			$(this).addClass('active');
-		// 			console.log($(this).attr('id'));
-		// 			menu_lateral.find('a[href="#categoria'+$(this).attr('id')+'"]').addClass('active');
-		// 			// console.log('a[href="#'+$('categoria'+this).attr('id')+'"]');
-		// 		}
-		// 	});
-		// });
-
-
-		// $(document).ready(function(){
-		// 	$(".menu").animate({scrollCenter: "li.active"}, 400);
-		// });
-
-		// $(window).on('load', function() {
-		// 	$(".menu").scrollCenter("li.active", 400);
-		// });
-		
-
-		// setTimeout( function(){
-			 
-		// 	window.scrollTo( screen.width/2, screen.height/2 );
-  		// }  , 500 );
-
-		// $(window).scroll(function (event) {
-    	// 	var scroll = $(window).scrollTop();
-		// 	$(".menu").scrollCenter("li.active", 400);
-		// });
-		// $(".a").on('click', function(){
-		// 	$(".menu").scrollCenter("li.active", 400);
-		// });
-
-		// $(document).ready(function() { 
-		// 	$(window).load(function() { 
-		// 		$(".menu").scrollCenter("li.active", 400);
-		// 	});
-		// });
-
-		// window.addEventListener("DOMContentLoaded", function(){
-		// 	$(".menu").scrollCenter("li.active", 400);
-		// });
-					
-					
-
-		// jQuery.fn.scrollCenter = function(elem, speed) {
-
-		// 	var active = jQuery(this).find(elem); // find the active element
-		// 	var activeWidth = active.width() / 2; // get active width center
-
-		// 	var pos = active.position().left + activeWidth; //get left position of active li + center position
-		// 	var elpos = jQuery(this).scrollLeft(); // get current scroll position
-		// 	var elW = jQuery(this).width(); //get div width
-		// 	pos = pos + elpos - elW / 2; // for center position if you want adjust then change this
-
-		// jQuery(this).animate({
-		// 	scrollLeft: pos
-		// }, speed == undefined ? 1000 : speed);
-		// return this;
-		// };
-
-		// jQuery.fn.scrollCenterORI = function(elem, speed) {
-		// jQuery(this).animate({
-		// 	scrollLeft: jQuery(this).scrollLeft() - jQuery(this).offset().left + jQuery(elem).offset().left
-		// }, speed == undefined ? 1000 : speed);
-		// return this;
-		// };
-
-
-
 		var qtd_carrinho = "<?= isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : ''?>";
 		function displayBarraCarrinho(){
 			
@@ -299,12 +212,17 @@
 		});
 
 
+		//Todos adicionais
+		var adicionais = JSON.parse('<?php echo json_encode($adicionais); ?>');
+		// console.log(adicionais);
+
 		$(document).on('click', '.add', function () {
 			$(this).prev().val(+$(this).prev().val() + 1);
-			
 		});
 		$(document).on('click', '.sub', function () {
-			if ($(this).next().val() > 0) $(this).next().val(+$(this).next().val() - 1);
+			if ($(this).next().val() > 0){
+				$(this).next().val(+$(this).next().val() - 1);
+			}
 		});
 		
 		$(document).on("click", "#addCarrinho", function(){
@@ -315,14 +233,14 @@
 
 			const nomeItem = $('#tituloNome'+id).text();
 
-			//Todos os adicionais relacionados ao produto
+			//Adicionais relacionados ao produto
 			var adicionais_produto = $(this).data('arr_adicionais');
 			
 			var array_adicionais =[];
 			adicionais.forEach(function(value, key){
 				var id_aux = value['adi_pk_id'];
 				array_adicionais[id_aux] = [value['adi_nome'], value['adi_preco']];
-			})
+			});
 
 			var div_complemento = "";
 
