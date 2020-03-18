@@ -340,7 +340,7 @@ foreach ($pedidos as $pedido) {
 							echo "<br><label for='recipient-name' class='control-label'>"." Forma Pagamento: ".$formaPgt->getPkId()."</label>";
 						}
 						
-						echo "<br><label for='recipient-name' class='control-label'>"." Observações do Pedido </label>";
+						echo "<br><label for='recipient-name' class='control-label'>"." Observações do Pedido: </label>";
 						
 						if(!empty($item->getObservacao())){
 							echo "<br><label for='recipient-name' class='control-label'>"." Observações do Pedido </label>";
@@ -363,39 +363,49 @@ foreach ($pedidos as $pedido) {
 
 						foreach($itens as $item){
 
+							$subtotal_item = $item->getPreco();
+
 							//Incrementa custo de Adicionais
 							$txt_adc = "";
-							$custo_adc = 0;
+							$custo_adc_val = 0;
 							if($item->arr_adicionais){
 								$adicionais = json_decode($item->arr_adicionais);
 
 								foreach($adicionais as $a){
 									$txt_adc = "<br> + ".$a[3]."x ".$a[1];
-									$custo_adc += $a[3] * $a[2];
+									$custo_adc_val += $a[3] * $a[2];
 								}
+
+								$subtotal_item += $custo_adc_val;
 							}
+
 							$subtotal_item = number_format(
-								($item->getPreco() + $custo_adc),
+								$subtotal_item,
 								2,
 								",",
 								" "
 							);
-							$custo_adc = number_format($custo_adc, 2, ",", " ");
+
+							$custo_adc_txt = number_format($custo_adc_val, 2, ",", " ");
 							
 							$preco_item = number_format($item->getPreco(), 2, ",", " ");
 		
 							if($item->getPreco() == 0){
 								$valor = "Resgate Fidelidade";
 							}else{
-								$valor = "R$ ".$preco_item." (".$subtotal_item.")";
+								$valor = "R$ ".$preco_item;
 							}
 
-							echo "
-								<label for='recipient-name' class='control-label'>"." ".$item->getQuantidade()."</label>
+							echo 
+								"<label for='recipient-name' class='control-label'>"." ".$item->getQuantidade()."</label>
 								<label for='recipient-name' class='control-label'>"." - ".$item->nome."</label>
-								<label for='recipient-name' class='control-label'>"." -         ".$valor."</label>
-								".$txt_adc." - R$ ".$custo_adc."
-								<br><hr>";
+								<label for='recipient-name' class='control-label'>"." -         ".$valor."</label>";
+
+								if($custo_adc_val){
+									echo $txt_adc." - R$ ".$custo_adc_txt; 
+								}
+								
+								echo "<br><hr>";
 						}
 
 						echo

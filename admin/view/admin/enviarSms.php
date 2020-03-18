@@ -165,12 +165,15 @@
                                 foreach ($clientes as $key => $cliente) {
 
                                     $nasc = $cliente->getData_nasc();
-                                    if($nasc != "0000-00-00"){
+                                    if($nasc != ""){
                                         $nasc_date = new DateTime($nasc);
-                                        $nasc = date_format($nasc_date, 'd-m-Y');
+                                        $nasc = date_format($nasc_date, 'd/m/Y');
                                         $aniversario = date_format($nasc_date, 'd-m');
-                                    }else{
-                                        $nasc = "";
+                                    }
+                                    
+                                    if($cliente->ultimo_pedido){
+                                        $ultimo_pedido = new DateTime($cliente->ultimo_pedido);
+                                        $ultimo_pedido = date_format($ultimo_pedido, 'd/m/Y H:i');
                                     }
                                 ?>
                                 
@@ -182,7 +185,7 @@
                                 <td><?=$cliente->getSobrenome()?></td>
                                 <td><?=$nasc?></td>
                                 <td><?=$cliente->n_pedidos?></td>
-                                <td><?=$cliente->ultimo_pedido?></td>
+                                <td><?=$ultimo_pedido?></td>
                                 <td><?=floor($cliente->getPontosFidelidade())?></td>
                                 
                                 <td>
