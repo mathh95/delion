@@ -24,17 +24,19 @@ $permissao =  json_decode($usuarioPermissao->getPermissao());
 if(in_array('cliente', $permissao)){
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 >Lista de Clientes</h1>
-		<tr>
-    		<th width='20%' style='text-align: center;'>Nome</th>
-    		<th width='15%' style='text-align: center;'>Login</th>
-    		<th width='15%' style='text-align: center;'>Telefone</th>
-    		<th width='15%' style='text-align: center;'>Status</th>
-            <th width='15%' style='text-align: center;'>Editar</th>
-            <th width='15%' style='text-align: center;'>Apagar</th>
-        </tr>
-	<tbody>";
-	foreach ($clientes as &$cliente) {
+		<h1 >Lista de Clientes</h1>";
+
+		if($clientes != -1){
+			echo "<tr>
+					<th width='20%' style='text-align: center;'>Nome</th>
+					<th width='15%' style='text-align: center;'>Login</th>
+					<th width='15%' style='text-align: center;'>Telefone</th>
+					<th width='15%' style='text-align: center;'>Status</th>
+					<th width='15%' style='text-align: center;'>Editar</th>
+					<th width='15%' style='text-align: center;'>Apagar</th>
+				</tr>
+			<tbody>";
+		foreach ($clientes as &$cliente) {
 
 		$masked_phone = $mask->addMaskPhone($cliente->getTelefone());
 
@@ -44,8 +46,6 @@ if(in_array('cliente', $permissao)){
 			$status = "Desativado";
 		}
 
-		$mensagem='Cliente excluído com sucesso!';
-		$titulo='Excluir';
 		echo "<tr name='resultado' id='status".$cliente->getPkId()."'>
 			<td style='text-align: center;' name='nome'>".$cliente->getNome()."</td>
 			<td style='text-align: center;' name='login'>".$cliente->getLogin()."</td>
@@ -54,28 +54,12 @@ if(in_array('cliente', $permissao)){
 			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cliente-view.php?cod=".$cliente->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
 			<td style='text-align: center;' name='status' ><button type='button' onclick=\"removeCliente(".$cliente->getPkId().");\" class='btn btn-kionux'><i class='fa fa-remove'></i>&nbsp;Desativar</button></td>
 		</tr>";
+		}
+	}else{
+		echo "<h4>SEM RESULTADOS 😕</h4>";		
 	}
 }else{
-	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
-	<thead>
-		<h1 >Lista de Clientes</h1>
-		<tr>
-    		<th width='33%' style='text-align: center;'>Nome</th>
-    		<th width='33%' style='text-align: center;'>Login</th>
-    		<th width='33%' style='text-align: center;'>Telefone</th>
-        </tr>
-	<tbody>";
-	foreach ($clientes as &$cliente) {
-		if($cliente->getStatus()==1){
-			$mensagem='Cliente excluído com sucesso!';
-			$titulo='Excluir';
-			echo "<tr name='resultado' id='status".$cliente->getPkId()."'>
-			 	<td style='text-align: center;' name='nome'>".$cliente->getNome()."</td>
-			 	<td style='text-align: center;' name='login'>".$cliente->getLogin()."</td>
-			 	<td style='text-align: center;' name='perfil'>".$cliente->getTelefone()."</td> 	
-			</tr>";
-		}
-}
+	echo "<h3>SEM PERMISSÃO 😕</h3>";
 }
 echo "</tbody></table>";
 

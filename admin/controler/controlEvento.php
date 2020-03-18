@@ -112,9 +112,13 @@
                             $evento->setFoto($result->eve_foto);
                             array_push($eventos, $evento);
                         }
+                    }else{
+                        return NULL;
                     }
+                    return $eventos;
+                }else{
+                    return NULL;
                 }
-                return $eventos;
             }
             catch(PDOException $e){
                 echo $e->getMessage();

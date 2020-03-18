@@ -15,30 +15,27 @@ $cupons = $controle->selectAll();
 
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
-if ($cupons == -1){
-	echo "<h1> SEM RESULTADOS</h1>";
-}else{
-
-
 
 if(in_array('cupom', $permissao)){
 
 	echo "<table class='table' id='tbCupom' style='text-align = center;'>
 	<thead>
-		<h1 >Lista de Cupons</h1>
-		<tr>
-        <th width='' style='text-align: center;'>#Cod_Cupom</th>
-        <th width='' style='text-align: center;'>Código</th>
-        <th width='8%' style='text-align: center;'>Qntd Inicial</th>
-        <th width='8%' style='text-align: center;'>Qntd Atual</th>
-		<th width='8%' style='text-align: center;'>Valor</th>
-		<th width='10%' style='text-align: center;'>Valor Minimo</th>
-        <th width='8%' style='text-align: center;'>Vencimento</th>
-        <th width='10%' style='text-align: center;'>Status</th>
-        <th width='15%' style='text-align: center;'>Editar</th>
-        <th width='15%' style='text-align: center;'>Cancelar</th>
-        </tr>
-	<tbody>";
+		<h1 >Lista de Cupons</h1>";
+
+		if($cupons != -1){
+			echo "<tr>
+					<th width='' style='text-align: center;'>#Cod_Cupom</th>
+					<th width='' style='text-align: center;'>Código</th>
+					<th width='8%' style='text-align: center;'>Qntd Inicial</th>
+					<th width='8%' style='text-align: center;'>Qntd Atual</th>
+					<th width='8%' style='text-align: center;'>Valor</th>
+					<th width='10%' style='text-align: center;'>Valor Minimo</th>
+					<th width='8%' style='text-align: center;'>Vencimento</th>
+					<th width='10%' style='text-align: center;'>Status</th>
+					<th width='15%' style='text-align: center;'>Editar</th>
+					<th width='15%' style='text-align: center;'>Cancelar</th>
+				</tr>
+			<tbody>";
 	
 	$button = "";
 	foreach ($cupons as &$cupom) {
@@ -72,30 +69,14 @@ if(in_array('cupom', $permissao)){
 				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cupom-view.php?cod_cupom=".$cupom->getPkId()."'><button class='btn btn-kionux' $button><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
 				<td style='text-align: center;' name='cancelar' ><button type='button' class='btn btn-kionux' onclick='alterarStatusCupom(".$cupom->getPkId().",1)' $button><i class='fa fa-remove'></i>&nbsp;Cancelar</button></td>
 			</tr>";
-	
 		}
-
-} else{
-	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
-	<thead>
-		<h1 >Lista de Cupons</h1>
-		<tr>
-			<th width='10%' style='text-align: center;'>Código Cupom</th>
-			<th width='8%' style='text-align: center;'>Código</th>
-			<th width='8%' style='text-align: center;'>Quantidade Inicial</th>
-			<th width='10%' style='text-align: center;'>Quantidade Atual</th>
-			<th width='10%' style='text-align: center;'>Valor</th>
-			<th width='8%' style='text-align: center;'>Vencimento</th>
-            <th width='15%' style='text-align: center;'>Status</th>
-            <th width='15%' style='text-align: center;'>Editar</th>
-            <th width='15%' style='text-align: center;'>Cancelar</th>
-        </tr>
-	<tbody>";
-
-	
+	}else{
+		echo "<h4>SEM RESULTADOS 😕</h4>";	
 	}
 
-			}
+	}else{
+		echo "<h3>SEM PERMISSÃO 😕</h3>";	
+	}
 
 	echo "</tbody></table>";
 	

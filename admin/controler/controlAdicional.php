@@ -150,9 +150,14 @@
                             $adicional->setFlag_ativo($result->adi_flag_ativo);
                             array_push($adicionais, $adicional);
                         }
+                    }else{
+                        return NULL;
                     }
+                    return $adicionais;
                 }
-                return $adicionais;
+                else{
+                    return NULL;
+                }
             }
             catch(PDOException $e){
                 echo $e->getMessage();
