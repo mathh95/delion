@@ -19,7 +19,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Programa de Fidelidade - Delion Café</title>
+    <title>Delion Café - Delivery Foz do Iguaçu | Programa de Fidelidade</title>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<meta name="description" content="Participe do nosso programa de fidelidade. Suas compras valem pontos que podem ser trocados por delícias do nosso cardápio!">
+	<meta name="keywords" content="Salgados, Doces, Bolos, Lanches, Bebidas, Sobremesas, Fidelidade, Pontos, Prêmios">
+	<meta name="robots" content="">
+	<meta name="revisit-after" content="1 day">
+	<meta name="language" content="Portuguese">
+	<meta name="generator" content="N/A">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="format-detection" content="telephone=no">
+    
 
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -36,7 +47,12 @@
 
 </head>
 <body>
-<?php
+
+<head>
+	<title>Delion Café - Delivery Foz do Iguaçu | Fidelidade</title>
+	
+</head>
+    <?php
 		include_once "./header.php";
 	?>
 

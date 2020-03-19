@@ -42,7 +42,7 @@ $empresa = $controle->selectAll();
 				</li>
 
 				<li>
-					<a href="#">Programa de Fidelidade</a>
+					<a href="programaFidelidade.php">Programa de Fidelidade</a>
 				</li>
 			</ul>
 			
@@ -65,7 +65,7 @@ $empresa = $controle->selectAll();
 				</li>
 
 				<li>
-					<a href="#">Trabalhe Conosco</a>
+					<a href="contato.php">Trabalhe Conosco</a>
 				</li>
 			</ul>
 		</div>
