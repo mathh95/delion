@@ -23,13 +23,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<?php
-	include_once "./head.php";
-?>
 <head>
+	<title>Delion Café - Delivery Foz do Iguaçu | Restaurante e Cafeteria</title>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Delion Café</title>
+	<meta name="description" content="Espaço gastronômico casual com produtos seletos de confeitaria, salgados tradicionais e cafés especiais.">
+	<meta name="keywords" content="Salgados, Sonhos, Doces, Bolos, Buffet, Almoço, Lanches, Bebidas, Sobremesas, Jantar, Eventos, Fidelidade, Marmita, Aniversários, Palestras">
+	<meta name="robots" content="">
+	<meta name="revisit-after" content="1 day">
+	<meta name="language" content="Portuguese">
+	<meta name="generator" content="N/A">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta name="format-detection" content="telephone=no">
 
@@ -55,6 +59,13 @@
 
 
 </head>
+
+<?php
+	include_once "./head.php";
+?>
+
+
+
 
 <body>
 

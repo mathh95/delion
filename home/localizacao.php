@@ -24,6 +24,21 @@
 
 <html lang="pt-br">
 
+<head>
+	<title>Delion Café - Delivery Foz do Iguaçu | Localização</title>
+	<meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<meta name="description" content="Localizacao fornecida pelo Google Maps do nosso estabelecimento. Venha nos fazer uma visita!">
+	<meta name="keywords" content="Buffet, Almoço, Lanches, Bebidas, Sobremesas, Jantar, Eventos, Aniversários, Palestras">
+	<meta name="robots" content="">
+	<meta name="revisit-after" content="1 day">
+	<meta name="language" content="Portuguese">
+	<meta name="generator" content="N/A">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="format-detection" content="telephone=no">
+</head>
+
 <?php
 	include_once "./head.php";
 ?>
