@@ -267,11 +267,13 @@
 
                                 <ul class="dropdown-menu">
 
-                                    <li><a href="produto.php">Cadastro</a></li>
+                                    <li><a href="produto.php">Cadastrar Produto</a></li>
 
-                                    <li><a href="cardapioLista.php">Listar</a></li>
+                                    <li><a href="cardapioLista.php">Listar Produtos</a></li>
 
-                                    <li><a href="gerenciarCardapio.php">Gerenciar</a></li>
+                                    <li><a href="gerenciarCardapio.php">Gerenciar Cardápio</a></li>
+
+                                    <li><a href="gerenciarFaixaHorarios.php">Gerenciar Horários</a></li>
 
                                 </ul>
 
