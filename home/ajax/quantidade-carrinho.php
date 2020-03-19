@@ -246,6 +246,10 @@ if($acao == "+"){
     unset($_SESSION['carrinho']);
     unset($_SESSION['qtd']);
     unset($_SESSION['observacao']);
+    
+    if(isset($_SESSION['adicionais_selecionados'])){
+        unset($_SESSION['adicionais_selecionados']);
+    }
 
 
 //função para remover o cupom

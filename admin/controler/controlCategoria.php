@@ -149,9 +149,13 @@
                             $categoria->setPosicao($result->cat_posicao);
                             array_push($categorias, $categoria);
                         }
+                    }else{
+                        return NULL;
                     }
+                    return $categorias;
+                }else{
+                    return NULL;
                 }
-                return $categorias;
             }
             catch(PDOException $e){
                 echo $e->getMessage();

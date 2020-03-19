@@ -427,8 +427,9 @@
                     $clientes = array();
                     $stmt = $this->pdo->prepare("SELECT *, MAX(ped_data) AS ultimo_pedido, COUNT(ped_fk_cliente) AS n_pedidos
                     FROM tb_cliente
-                    INNER JOIN tb_pedido
-                    WHERE cli_status = 1 AND cli_pk_id = ped_fk_cliente
+                    LEFT JOIN tb_pedido
+                    ON cli_pk_id = ped_fk_cliente
+                    WHERE cli_status = 1
                     GROUP BY cli_pk_id");
 
                     $executa = $stmt->execute();

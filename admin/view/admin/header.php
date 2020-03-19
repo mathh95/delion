@@ -121,6 +121,8 @@
 
                                     <li><a href="empresa.php">Alterar</a></li>
                                     <li><a href="empresaHorarios.php">Gerenciar Funcionamento</a></li>
+                                    <!-- Mudar o arquivo .php-->
+                                    <li><a href="gestaoempresa.php">Gestão Empresarial</a></li>   
 
                                 </ul>
 

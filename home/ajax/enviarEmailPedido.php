@@ -35,6 +35,11 @@ if(isset($_SESSION['carrinho_resgate'])){
     $itens_id_resgate =  array_keys($_SESSION['carrinho_resgate']);
 }
 
+if(isset($_SESSION['adicionais_selecionados']) && !empty($_SESSION['adicionais_selecionados'])){
+    $adicionais_selecionados = $_SESSION['adicionais_selecionados'];
+}else{
+    $adicionais_selecionados = "";
+}
 
 $empty = true;
 if (!empty($itens_id_carrinho)) {
@@ -142,14 +147,36 @@ $body_pedido =
     //itens Carrinho convencional
     foreach ($itens_carrinho as $key => $item) {
 
-        $subtotal = $_SESSION['qtd'][$key] * $item['pro_preco'];
+        $subtotal_item = $_SESSION['qtd'][$key] * $item['pro_preco'];
         
+        $valor_adicional_item = 0;
+        $adicionais_txt = "";
+        if(!empty($adicionais_selecionados) && isset($adicionais_selecionados[$item['pro_pk_id']])){
+
+            foreach($adicionais_selecionados[$item['pro_pk_id']] as $item_adc){
+
+                //preço * qtd_adicional
+                $adc_precofinal = ($item_adc[2] * $item_adc[3]);
+                $adc_precofinal_format = number_format($adc_precofinal, 2, ',', ' ');
+
+                $valor_adicional_item += $adc_precofinal;
+
+                if(!empty($item_adc) && $item_adc !== ''){
+                    $adicionais_txt .= "<br> <span style='font-size:14px;'>+ ".$item_adc[3]." x ".$item_adc[1]." - R$ ".$adc_precofinal_format."</span>";
+                }
+            }
+        }
+
+        $subtotal_item += $valor_adicional_item;
+        $subtotal_item_txt = number_format($subtotal_item, '2', ',', ' ');
+        
+
         $body_pedido .= "<tr>
             <td height='15%'>" . $item['pro_pk_id'] . "</td>
-            <td height='15%'>" . $item['pro_nome'] . "</td>
+            <td height='15%'>" . $item['pro_nome'].$adicionais_txt . "</td>
             <td height='15%'>" . $_SESSION['qtd'][$key] . "</td> 
             <td height='15%'>R$ " . number_format($item['pro_preco'], 2) . "</td>
-            <td height='15%'>R$ " . number_format($subtotal, 2) . "</td>
+            <td height='15%'>R$ " . $subtotal_item_txt . "</td>
         </tr>";
     }
     
@@ -157,14 +184,14 @@ $body_pedido =
     foreach ($itens_resgate as $key => $item) {
 
         $qtd_aux = $_SESSION['carrinho_resgate'][$item['pro_pk_id']]['qtd'];
-        $subtotal = $qtd_aux * $item['pro_pts_resgate_fidelidade'];
+        $subtotal_item = $qtd_aux * $item['pro_pts_resgate_fidelidade'];
         
         $body_pedido .= "<tr>
             <td height='15%'>" . $item['pro_pk_id'] . "</td>
             <td height='15%'>" . $item['pro_nome'] . "</td>
             <td height='15%'>" . $qtd_aux . "</td>
             <td height='15%'>" . $item['pro_pts_resgate_fidelidade']. " Pts Fidelidade</td>
-            <td height='15%'>" . $subtotal . " Pts Fidelidade</td>
+            <td height='15%'>" . $subtotal_item . " Pts Fidelidade</td>
         </tr>";
     }
 
@@ -188,15 +215,14 @@ if ($fk_endereco == null) {
         $mail->Body .= "Cliente: <b>".$_SESSION['nome']." ".$_SESSION['sobrenome']. "</b>";
 
         $mail->Body .= $body_pedido;
-
         $mail->AltBody = '';
         
-
         $fk_origem_pedido = 1;
         $salvo = $pedido->setPedido(
             null,
             $fk_origem_pedido,
             $itens_carrinho,
+            $adicionais_selecionados,
             TRUE,
             $itens_resgate
         );
@@ -241,15 +267,14 @@ if ($fk_endereco == null) {
         $mail->Body .= "Endereço: <b>".$rua.", ".$num." - ".$bairro."</b>";
 
         $mail->Body .= $body_pedido;
-
         $mail->AltBody = '';
-
 
         $fk_origem_pedido = 1;
         $salvo = $pedido->setPedido(
             $fk_endereco,
             $fk_origem_pedido,
             $itens_carrinho,
+            $adicionais_selecionados,
             TRUE,
             $itens_resgate
         );

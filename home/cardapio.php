@@ -162,10 +162,6 @@
 
 	<script>
 
-	
-
-		var adicionais = JSON.parse('<?php echo json_encode($adicionais); ?>');
-		// console.log(adicionais);
 
 		$(document).ready(function(){
     		doRefresh();
@@ -216,8 +212,6 @@
 		});
 
 
-
-
 		var qtd_carrinho = "<?= isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : ''?>";
 		function displayBarraCarrinho(){
 			
@@ -232,12 +226,17 @@
 		});
 
 
+		//Todos adicionais
+		var adicionais = JSON.parse('<?php echo json_encode($adicionais); ?>');
+		// console.log(adicionais);
+
 		$(document).on('click', '.add', function () {
 			$(this).prev().val(+$(this).prev().val() + 1);
-			
 		});
 		$(document).on('click', '.sub', function () {
-			if ($(this).next().val() > 0) $(this).next().val(+$(this).next().val() - 1);
+			if ($(this).next().val() > 0){
+				$(this).next().val(+$(this).next().val() - 1);
+			}
 		});
 		
 		$(document).on("click", "#addCarrinho", function(){
@@ -248,8 +247,7 @@
 
 			const nomeItem = $('#tituloNome'+id).text();
 
-			
-			//Todos os adicionais relacionados ao produto
+			//Adicionais relacionados ao produto
 			var adicionais_produto = $(this).data('arr_adicionais');
 			if(!adicionais_produto){
 				var adicionais_produto = [];
@@ -260,7 +258,7 @@
 			adicionais.forEach(function(value, key){
 				var id_aux = value['adi_pk_id'];
 				array_adicionais[id_aux] = [value['adi_nome'], value['adi_preco']];
-			})
+			});
 
 			//Verifica se existe adicionais, se não apenas exibe input de observação.
 			var div_complemento = "";

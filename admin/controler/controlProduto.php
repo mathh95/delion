@@ -260,13 +260,16 @@
                             array_push($produtos, $produto);
 
                         }
+                    }else{
+                        return NULL;
                     }
+                    return $produtos;
+                }else{
+                    return NULL;
                 }
 
-                return $produtos;
             }
             catch(PDOException $e){
-
                 echo $e->getMessage();
             }
         }
@@ -864,9 +867,13 @@
                             $produto->setCategoria($result->cat_nome);
                             array_push($produtos, $produto);
                         }
+                    }else{
+                        return NULL;
                     }
+                    return $produtos;
+                }else{
+                    return NULL;
                 }
-                return $produtos;
             }
             catch(PDOException $e){
                 echo $e->getMessage();

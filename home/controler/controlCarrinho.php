@@ -21,6 +21,7 @@ class controlerCarrinho{
         $fk_endereco = NULL,
         $fk_origem_pedido,
         $itens_carrinho = array(),
+        $adicionais_selecionados = NULL,
         $fidelidade_valida = TRUE,
         $itens_resgate = array()
     ){
@@ -97,17 +98,21 @@ class controlerCarrinho{
         $sql->bindValue(":fk_cupom", $pk_cupom);
 
         if(!$sql->execute()) return FALSE;
-        $idPedido = $this->pdo->lastInsertId();
+        $id_pedido = $this->pdo->lastInsertId();
+
 
         //set itens Carrinho Convencional
         foreach($_SESSION['carrinho'] as $key => $value){
-            $sql = $this->pdo->prepare("INSERT INTO rl_pedido_produto SET pepr_fk_produto = :cod_produto, pepr_fk_pedido = :cod_pedido, pepr_quantidade = :quantidade, pepr_observacao = :observacao, pepr_preco = :pepr_preco");
+            $sql = $this->pdo->prepare("INSERT INTO rl_pedido_produto SET pepr_fk_produto = :cod_produto, pepr_fk_pedido = :cod_pedido, pepr_quantidade = :quantidade, pepr_preco = :pepr_preco, pepr_observacao = :observacao, pepr_arr_adicionais = :adicionais");
             
+            $pk_item = $itens_carrinho[$key]['pro_pk_id'];
+
+            $sql->bindValue(":cod_pedido", $id_pedido);
             $sql->bindValue(":cod_produto", $_SESSION['carrinho'][$key]);
-            $sql->bindValue(":cod_pedido", $idPedido);
             $sql->bindValue(":quantidade", $_SESSION['qtd'][$key]);
-            $sql->bindValue(":observacao", $_SESSION['observacao'][$key]);
             $sql->bindValue(":pepr_preco", $itens_carrinho[$key]['pro_preco']);
+            $sql->bindValue(":observacao", $_SESSION['observacao'][$key]);
+            $sql->bindValue(":adicionais", json_encode($adicionais_selecionados[$pk_item]));
             
             if(!$sql->execute()) return FALSE;
         }
@@ -121,7 +126,7 @@ class controlerCarrinho{
             $sql = $this->pdo->prepare("INSERT INTO rl_pedido_produto SET pepr_fk_produto = :cod_produto, pepr_fk_pedido = :cod_pedido, pepr_quantidade = :quantidade, pepr_pts_resgate_fidelidade = :pts_resgate");
 
             $sql->bindValue(":cod_produto", $item['pro_pk_id']);
-            $sql->bindValue(":cod_pedido", $idPedido);
+            $sql->bindValue(":cod_pedido", $id_pedido);
             $sql->bindValue(":quantidade", $qtd_aux);
             $sql->bindValue(":pts_resgate", $item['pro_pts_resgate_fidelidade']);
             
@@ -189,50 +194,28 @@ class controlerCarrinho{
         $delivery = true;
         $pedidos = array();
         try{
-            if ($delivery == true){
+         
 
-                $stmte = $this->pdo->prepare("SELECT *
-                FROM tb_pedido as PED
-                INNER JOIN
-                tb_cliente AS CLI ON
-                PED.ped_fk_cliente = CLI.cli_pk_id
-                LEFT JOIN
-                rl_endereco_cliente AS ENCL ON
-                PED.ped_fk_endereco_cliente = ENCL.encl_pk_id
-                LEFT JOIN
-                tb_endereco AS ENCO ON
-                ENCL.encl_fk_endereco = ENCO.end_pk_id
-                LEFT JOIN
-                tb_origem_pedido AS ORPE ON
-                PED.ped_fk_origem_pedido = ORPE.orpe_pk_id
-                ORDER BY PED.ped_data DESC, cli_nome ASC LIMIT :offset, :por_pagina");
+            $stmte = $this->pdo->prepare("SELECT *
+            FROM tb_pedido as PED
+            INNER JOIN
+            tb_cliente AS CLI ON
+            PED.ped_fk_cliente = CLI.cli_pk_id
+            LEFT JOIN
+            rl_endereco_cliente AS ENCL ON
+            PED.ped_fk_endereco_cliente = ENCL.encl_pk_id
+            LEFT JOIN
+            tb_endereco AS ENCO ON
+            ENCL.encl_fk_endereco = ENCO.end_pk_id
+            LEFT JOIN
+            tb_origem_pedido AS ORPE ON
+            PED.ped_fk_origem_pedido = ORPE.orpe_pk_id
+            ORDER BY PED.ped_data DESC, cli_nome ASC LIMIT :offset, :por_pagina");
 
-                $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
-                $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
-                $executa=$stmte->execute();
+            $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
+            $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
+            $executa=$stmte->execute();
 
-            }else{
-
-                $stmte = $this->pdo->prepare("SELECT *
-                FROM tb_pedido AS PED
-                INNER JOIN
-                tb_cliente AS CLI ON
-                PED.ped_fk_cliente = CLI.cli_pk_id
-                LEFT JOIN
-                rl_endereco_cliente AS ENCL ON
-                PED.ped_fk_endereco_cliente = ENCL.encl_pk_id
-                LEFT JOIN
-                tb_endereco AS ENCO ON
-                ENCO.end_pk_id = ENCL.encl_pk_id
-                LEFT JOIN
-                tb_origem_pedido AS ORPE ON
-                PED.ped_fk_origem_pedido = ORPE.orpe_pk_id
-                ORDER BY PED.ped_data DESC, cli_nome ASC LIMIT :offset, :por_pagina");
-                $stmte->bindParam(":offset", $offset, PDO::PARAM_INT);
-                $stmte->bindParam(":por_pagina", $por_pagina, PDO::PARAM_INT);
-                $executa=$stmte->execute();
-
-            }
             if ($executa) {
                 if ($stmte->rowCount() > 0) {
                     while ($result=$stmte->fetch(PDO::FETCH_OBJ)) {
@@ -293,8 +276,9 @@ class controlerCarrinho{
                     $pedido_produto->setObservacao($result->pepr_observacao);
                     $pedido_produto->setPreco($result->pepr_preco);
                     $pedido_produto->nome=($result->pro_nome);
+                    $pedido_produto->arr_adicionais=($result->pepr_arr_adicionais);
 
-                    array_push($produtos,$pedido_produto);  
+                    array_push($produtos,$pedido_produto);
                 }
             }else{
                 // echo "Pedido inconsistente...contate o Suporte!";
