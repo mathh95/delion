@@ -78,7 +78,7 @@
 
                                 <h5><i class="far fa-envelope-open"></i>&nbsp;Mensagem</h5>
 
-                                <textarea class="form-control" id="msgSms" name="msg" maxlength="150" rows="5">Delion Café - ...</textarea>
+                                <textarea class="form-control" id="msgSms" name="msg" maxlength="150" rows="5">Delion Café - </textarea>
 
                                 <p>*Caracteres: <span id="charsCount"></span></p>
                             </div>
