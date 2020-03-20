@@ -15,12 +15,6 @@
     include_once "seguranca.php";
     $retorno=validaUsuario($usuario,$password);
     if ($retorno==1) {
-        // $aux=insertLog($_SG['link'],1,2);
-        // if($aux==1){
-        //     echo "<h1>$aux</h1>";
-        // }else {
-        //     echo "<h1>$aux</h1>";
-        // }
        
         header("Location: ../sistema.php");
     } else {
