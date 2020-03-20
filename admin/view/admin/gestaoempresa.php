@@ -36,6 +36,7 @@
 
             $maior = 999999;
 
+            //Construção gráfico de Pedido por Dias
             $pedidos_data = $control_carrinho->selectAllPedido($nome, $menor, $maior);
             $data_pedidos = array();
 
@@ -55,6 +56,33 @@
                 array_push($x_data, $key);
                 array_push($y_num_pedidos, $dp);
             }
+            
+            //Contrução do Gráfico de Faturamento Liquido
+            $pedidos_valor_total = $control_carrinho->selectAllPedido($nome, $menor, $maior);
+            $array_vendas_diaria = array();
+
+            foreach($pedidos_valor_total as $pedido_valor_total){
+                $valor_pedidos_dia = floatval($pedido_valor_total->getTotal());
+                $data_pedido = $pedido_valor_total->getData()->format('d/m/Y');
+
+                if(!isset($array_vendas_diaria[$data_pedido])){
+                    $array_vendas_diaria[$data_pedido] = $valor_pedidos_dia;
+                }else{
+                    $array_vendas_diaria[$data_pedido] += $valor_pedidos_dia;
+                }
+
+            }
+
+            $x_data_venda = array();
+            $y_total_dia = array();
+            foreach($array_vendas_diaria as $key => $avd){
+                array_push($x_data_venda, $key);
+                array_push($y_total_dia, $avd);
+            }
+
+            //Construção do Gráfico de Faturamento Bruto
+            //Conta para o lucro Preço de custo - Valor Total 
+
 
         ?>
 
@@ -74,12 +102,12 @@
                                 <div id='num_pedidos' style='width:1100px;height:500px;'></div>
                             </div>
                             <div id='menu1' class='tab-pane fade'>
-                                <h3>Lucros</h3>
-                                <div id='lucros' style='width:1100px;height:500px;'></div>
+                                <h3>Faturamento Líquido por dia</h3>
+                                <div id='faturamento_liquido' style='width:1100px;height:500px;'></div>
                             </div>
                             <div id='menu2' class='tab-pane fade'>
-                                <h3>Preço de Venda</h3>
-                                <div id='preco_venda' style='width:1100px;height:500px;'></div>
+                                <h3>Faturamento Bruto por dia</h3>
+                                <div id='faturamento_bruto' style='width:1100px;height:500px;'></div>
                             </div>
                         </div>
                     </div>
@@ -91,27 +119,41 @@
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
 
+            //Responsive
+            var config = {  reponsive: true };
+
+            //Variaveis p/ numero de pedidos por dia
             var x_data = <?= json_encode($x_data)?>;
             var y_num_pedidos = <?= json_encode($y_num_pedidos)?>;
 
+            //Variaveis p/ faturamento liquido por dia
+            var x_data_venda = <?= json_encode($x_data_venda)?>;
+            var y_total_dia = <?= json_encode($y_total_dia)?>;
+
+            //Variaveis p/ faturamento bruto por dia
+
+            //
             grafico_num_pedi = document.getElementById('num_pedidos');
             Plotly.newPlot( grafico_num_pedi, [{
             x: x_data,
             y: y_num_pedidos }], {
-            margin: { t: 0 } } );
+            margin: { t: 0 } }, config );
 
+            //
+            grafico_faturamento_liquido = document.getElementById('faturamento_liquido');
+            Plotly.newPlot( grafico_faturamento_liquido, [{
+            x: x_data_venda,
+            y: y_total_dia }], {
+            margin: { t: 0 } }, config );
 
-            // GRAFICO2 = document.getElementById('lucros');
-            // Plotly.newPlot( GRAFICO2, [{
-            // x: [1, 2, 3, 4, 5],
-            // y: [1, 2, 7, 9, 15] }], {
-            // margin: { t: 0 } } );
-
-            // GRAFICO3 = document.getElementById('preco_venda');
-            // Plotly.newPlot( GRAFICO3, [{
+            //
+            // grafico_faturamento_bruto = document.getElementById('faturamento_bruto');
+            // Plotly.newPlot( grafico_faturamento_bruto, [{
+            // type: 'bar',
             // x: [1, 2, 3, 4, 5],
             // y: [1, 4, 8, 1, 10] }], {
-            // margin: { t: 0 } } );
+            // margin: { t: 0 } }, config );
+
 
     </script>
 
