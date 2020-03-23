@@ -15,8 +15,10 @@ $tipo_fornecedores = $controle->selectAll();
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
 if(in_array('gerenciar_fornecedor', $permissao)){
-	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
-	<thead>
+	echo "
+	<div class='table-responsive'>
+		<table class='table' id='tbUsuarios' style='text-align = center;'>
+		<thead>
 		<h1 >Lista de Tipos de Fornecedor</h1>
 		<tr>
     		<th width='20%' style='text-align: center;'>Tipo de Fornecedor</th>
@@ -72,6 +74,7 @@ if(in_array('gerenciar_fornecedor', $permissao)){
         </tr>";
 	}
 }
-echo "</tbody></table>";
+echo "</tbody></table>
+		</div>";
 
 ?>

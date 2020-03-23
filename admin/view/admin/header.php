@@ -8,6 +8,9 @@
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 ?>
+<head>
+    <?php include VIEWPATH."/cabecalho.html" ?>
+</head>
 
 
 <header>
@@ -634,7 +637,7 @@
 
                     </div>
 
-                    <div class="pull-right" style="margin-top: -40px;">
+                    <div class="pull-css">
 
                         <h2>
                             <a href="alteraSenha.php"><i class="fa fa-cog"></i>&nbsp;ALTERAR SENHA&nbsp;|</a>

@@ -61,7 +61,9 @@ if(isset($_POST['nome']) || isset($_POST['tipoFornecedor']) || isset($_POST['dt_
 		if(in_array('gerenciar_fornecededor', $permissao)){
 		
 		}else{
-			echo "<table class='table table-responsive' id='tbPedidoFornecedor style='text-align = center;'>
+			echo "
+			<div class='table-responsive'>
+			<table class='table' id='tbPedidoFornecedor style='text-align = center;'>
 			<thead>
 				<h1 >Lista de pedidos p/ fornecedor</h1>
 				<tr>
@@ -93,5 +95,6 @@ if(isset($_POST['nome']) || isset($_POST['tipoFornecedor']) || isset($_POST['dt_
 		}
 	}
 
-echo "</tbody></table>";
+echo "</tbody></table>
+</div>";
 ?>

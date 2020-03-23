@@ -33,9 +33,11 @@ isset($_POST['categoria'])){
 	$permissao =  json_decode($usuarioPermissao->getPermissao());
 	if(in_array('cardapio', $permissao)){ 
 	
-		echo "<table class='table table-responsive' id='tbCardapio' style='text-align = center;'>
-		<thead>
-			<h1 >Cardápio</h1>";
+		echo "
+			<div class='table-responsive'>
+				<table class='table' id='tbCardapio' style='text-align = center;'>
+				<thead>
+					<h1 >Cardápio</h1>";
 
 			if(isset($cardapios)){
 				echo "<tr>
@@ -75,5 +77,6 @@ isset($_POST['categoria'])){
 		echo "<h3>SEM PERMISSÃO 😕</h3>";
 	}
 
-echo "</tbody></table>";
+echo "</tbody></table>
+		</div>";
 ?>

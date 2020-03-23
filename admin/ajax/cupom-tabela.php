@@ -18,9 +18,11 @@ $permissao =  json_decode($usuarioPermissao->getPermissao());
 
 if(in_array('cupom', $permissao)){
 
-	echo "<table class='table' id='tbCupom' style='text-align = center;'>
-	<thead>
-		<h1 >Lista de Cupons</h1>";
+	echo "
+	<div class='table-responsive'>
+		<table class='table' id='tbCupom' style='text-align = center;'>
+		<thead>
+			<h1 >Lista de Cupons</h1>";
 
 		if($cupons != -1){
 			echo "<tr>
@@ -78,7 +80,8 @@ if(in_array('cupom', $permissao)){
 		echo "<h3>SEM PERMISSÃO 😕</h3>";	
 	}
 
-	echo "</tbody></table>";
+	echo "</tbody></table>
+			</div>";
 	
 
 ?>

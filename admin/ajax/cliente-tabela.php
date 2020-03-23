@@ -22,9 +22,11 @@ if(isset($_POST['nome'])){
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
 if(in_array('cliente', $permissao)){
-	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
-	<thead>
-		<h1 >Lista de Clientes</h1>";
+	echo "
+	<div class='table-responsive'>
+		<table class='table' id='tbUsuarios' style='text-align = center;'>
+		<thead>
+			<h1 >Lista de Clientes</h1>";
 
 		if($clientes != -1){
 			echo "<tr>
@@ -61,7 +63,8 @@ if(in_array('cliente', $permissao)){
 }else{
 	echo "<h3>SEM PERMISSÃO 😕</h3>";
 }
-echo "</tbody></table>";
+echo "</tbody></table>
+		</div>";
 
 
 ?>

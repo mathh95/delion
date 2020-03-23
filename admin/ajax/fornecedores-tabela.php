@@ -12,8 +12,10 @@ $fornecedores = $controle->selectAll();
 			if(in_array('gerenciar_fornecededor', $permissao)){
 
 			}else{
-				echo "<table class='table table-responsive' id='tbFornecedor style='text-align = center;'>
-				<thead>
+				echo "
+				<div class='table-responsive'>
+					<table class='table' id='tbFornecedor style='text-align = center;'>
+					<thead>
 					<h1 >Lista de Fornecedores</h1>
 					<tr>
 						<th width='20%' style='text-align: center;'>Nome</th>
@@ -43,5 +45,6 @@ $fornecedores = $controle->selectAll();
 					}
 			}
 
-		echo "</tbody></table>";
+		echo "</tbody></table>
+		</div>";
 ?>

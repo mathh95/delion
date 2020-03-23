@@ -11,7 +11,9 @@ $itens = $controle->selectAll();
 $permissao =  json_decode($usuarioPermissao->getPermissao());
 if(in_array('gerenciar_composicao', $permissao)){
 
-    echo "<table class='table table-responsive' id='tbCardapio' style='text-align = center;'>
+    echo "
+    <div class='table-responsive'>
+        <table class='table' id='tbCardapio' style='text-align = center;'>
 		<thead>
 			<h1>Ingredientes Cadastrados</h1>
             <tr>
@@ -42,6 +44,7 @@ if(in_array('gerenciar_composicao', $permissao)){
     }
 
 }
-echo "</tbody></table>";
+echo "</tbody></table>
+    </div>";
 
 ?>

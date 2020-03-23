@@ -10,9 +10,11 @@ $imagens = $controle->selectAll();
 	$permissao =  json_decode($usuarioPermissao->getPermissao());
 				if(in_array('imagem', $permissao)){ 
 				
-					echo "<table class='table table-responsive' id='tbImagem' style='text-align = center;'>
-					<thead>
-						<h1 >Lista de imagens</h1>";
+					echo "
+					<div class='table-responsive'>
+						<table class='table' id='tbImagem' style='text-align = center;'>
+						<thead>
+							<h1 >Lista de imagens</h1>";
 						
 					if(isset($imagens)){
 						echo "<tr>
@@ -41,5 +43,6 @@ $imagens = $controle->selectAll();
 		echo "<h3>SEM PERMISSÃO 😕</h3>";
 	}
 
-echo "</tbody></table>";
+echo "</tbody></table>
+		</div>";
 ?>

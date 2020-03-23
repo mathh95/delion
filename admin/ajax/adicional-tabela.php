@@ -14,9 +14,11 @@ $adicionais = $controle->selectAll();
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
 if(in_array('adicional', $permissao)){
-	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
-	<thead>
-		<h1 >Lista de Adicionais</h1>";
+	echo "
+	<div class='table-responsive'>
+			<table class='table' id='tbUsuarios' style='text-align = center;'>
+			<thead>
+				<h1 >Lista de Adicionais</h1>";
 		
 		if(isset($adicionais)){
 			echo "<tr>
@@ -45,5 +47,6 @@ if(in_array('adicional', $permissao)){
 }else{
 	echo "<h3>SEM PERMISSÃO 😕</h3>";
 }
-echo "</tbody></table>";
+echo "</tbody></table>
+		</div>";
 ?>

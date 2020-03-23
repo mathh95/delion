@@ -15,7 +15,9 @@ $composicoes = $controle->selectAll();
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
 if(in_array('gerenciar_composicao', $permissao)){
-	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
+	echo "
+	<div class='table-responsive'>
+	<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
 		<h1>Lista de Produtos</h1>
 		<tr>
@@ -73,6 +75,7 @@ if(in_array('gerenciar_composicao', $permissao)){
 		}else{
 
 		}
-		echo "</tbody></table>";
+		echo "</tbody></table>
+				</div>";
 
 		?>

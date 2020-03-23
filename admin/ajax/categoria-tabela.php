@@ -11,9 +11,11 @@ $categorias = $controle->selectAllByPos();
 	$permissao =  json_decode($usuarioPermissao->getPermissao());
 	if(in_array('categoria', $permissao)){
 	
-		echo "<table class='table table-responsive' id='tbCategoria' style='text-align = center;'>
-		<thead>
-			<h1 >Lista de categoria</h1>";
+		echo "
+		<div class='table-responsive'>
+			<table class='table' id='tbCategoria' style='text-align = center;'>
+			<thead>
+				<h1 >Lista de categoria</h1>";
 			if(isset($categorias)){
 				echo "<tr>
 						<th width='25%' style='text-align: center;'>Nome</th>
@@ -40,5 +42,6 @@ $categorias = $controle->selectAllByPos();
 		echo "<h3>SEM PERMISSÃO 😕</h3>";
 	}
 
-echo "</tbody></table>";
+echo 	 "</tbody></table>
+		</div>";
 ?>

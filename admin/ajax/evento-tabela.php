@@ -11,9 +11,11 @@ $eventos = $controle->selectAll();
 $permissao =  json_decode($usuarioPermissao->getPermissao());
 
 	if(in_array('evento', $permissao)){ 
-		echo "<table class='table table-responsive' id='tbEvento' style='text-align = center;'>
-		<thead>
-			<h1 >Lista de evento</h1>";
+		echo "
+		<div class='table-responsive'>
+			<table class='table' id='tbEvento' style='text-align = center;'>
+			<thead>
+				<h1 >Lista de evento</h1>";
 		
 		if(isset($eventos)){
 			echo 	"<tr>
@@ -46,6 +48,7 @@ $permissao =  json_decode($usuarioPermissao->getPermissao());
 		echo "<h3>SEM PERMISSÃO 😕</h3>";
 	}
 
-echo "</tbody></table>";
+echo "</tbody></table>
+</div>";
 
 ?>

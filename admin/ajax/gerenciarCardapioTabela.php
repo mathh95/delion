@@ -28,7 +28,9 @@ if(in_array('cardapio', $permissao)){
 		$flag_servindo = $_POST['producao'];
 	}
 
-	echo "<table class='table table-responsive table-striped table-hover' id='tbCardapio' 			style='text-align = center;'>
+	echo "
+		<div class='table-responsive'>
+		<table class='table table-striped table-hover' id='tbCardapio' 			style='text-align = center;'>
 		<thead>
 			<h1 >Gerenciar Cardapio</h1>
 			<tr>
@@ -111,7 +113,8 @@ if(in_array('cardapio', $permissao)){
 		/*Sem PERMISSÃO*/
 	}
 
-echo "</tbody></table>";
+echo "</tbody></table>
+</div>";
 
 //Modals fotos dos itens
 //itens por categoria ordenados

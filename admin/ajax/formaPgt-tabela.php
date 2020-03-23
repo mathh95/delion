@@ -15,9 +15,11 @@ $formaPgts = $controle->selectAll();
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
 if(in_array('forma_pgto', $permissao)){
-	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
-	<thead>
-		<h1 >Lista de Formas de Pagamento</h1>";
+	echo "
+	<div class='table-responsive'>
+		<table class='table' id='tbUsuarios' style='text-align = center;'>
+		<thead>
+			<h1 >Lista de Formas de Pagamento</h1>";
 			
 		if($formaPgts != -1){
 			echo "<tr>
@@ -57,6 +59,7 @@ if(in_array('forma_pgto', $permissao)){
 }else{
 	echo "<h3>SEM PERMISSÃO 😕</h3>";
 }
-echo "</tbody></table>";
+echo "</tbody></table>
+	</div>";
 
 ?>

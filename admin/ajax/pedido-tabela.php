@@ -153,8 +153,9 @@ if ($pedidos == -1){
 
 
 		echo
-		"<table class='table table-hover' id='tbUsuarios' style='text-align = center;'>
-		<thead>
+		"<div class='table-responsive'>
+			<table class='table table-hover' id='tbUsuarios' style='text-align = center;'>
+			<thead>
 			<th width='5%' style='text-align: center;'>Código Pedido</th>
 			<th width='10%' style='text-align: center;'>Data</th>
 			<th width='5%' style='text-align: center;'>Hora Pedido</th'>
@@ -436,6 +437,7 @@ foreach ($pedidos as $pedido) {
 
 }
 
-echo "</tbody></table>";
+echo "</tbody></table>
+	</div>";
 
 ?>
