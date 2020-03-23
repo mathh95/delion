@@ -26,8 +26,8 @@
                 else{
                     return -1;
                 }
-
             }
+            
             catch(PDOException $e){
                 echo $e->getMessage();
                 return -1;
@@ -155,6 +155,28 @@
             catch(PDOException $e){
                 echo $e->getMessage();
             }
+        }
+
+        function selectByFkComposicao($fk_composicao){
+            $array = array();
+
+            $stmte = $this->pdo->prepare("SELECT *
+            FROM tb_ingrediente
+            INNER JOIN rl_composicao_ingrediente
+            ON coig_fk_ingrediente = igr_pk_id
+            INNER JOIN tb_composicao
+            ON coig_fk_composicao = com_pk_id
+            WHERE coig_fk_composicao =:fk_composicao");
+
+            $stmte->bindParam(":fk_composicao", $fk_composicao);
+
+            if($stmte->execute()){
+                if($stmte->rowCount() > 0){
+                    $array = $stmte->fetchAll();
+                }
+            }
+
+            return $array;
         }
 
         //Deleta um determinado registro

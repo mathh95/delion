@@ -191,7 +191,7 @@ include_once CONTROLLERPATH."/seguranca.php";
         }
 
         function selectByFkComposicao($cod_composicao){
-            $cod_composicao = $cod_composicao;
+
             try{
                 $stmt=$this->pdo->prepare("SELECT * 
                 FROM tb_composicao AS COM
@@ -207,7 +207,7 @@ include_once CONTROLLERPATH."/seguranca.php";
                     if($stmt->rowCount() > 0){
                         $result = $stmt->fetchAll();
                     }else{
-                        return -1;
+                        return [];
                     }
                     return $result;
                 }

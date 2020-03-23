@@ -33,13 +33,21 @@
     $controle_ingrediente = new controlerIngrediente($_SG['link']);
     $ingredientes = $controle_ingrediente->selectAll();
     
-    if(isset($_GET['fk_produto'])){
+    $ingredientes_produto = NULL;
+    if(isset($_GET['fk_produto']) && isset($_GET['pk_composicao'])){
         $fk_produto = $_GET['fk_produto'];
-        //$ingredientes_produto = $controle_ingrediente->selectByFkComposicao($fk_produto);
+        $pk_composicao = $_GET['pk_composicao'];
+    
+        $ingredientes_produto = $controle_ingrediente->selectByFkComposicao($pk_composicao);
+
     }else{
         $fk_produto = "";
+        $pk_composicao = "";
     }
 
+    // echo "<pre>";   
+    // var_dump($ingredientes_produto);
+    // exit;
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +70,7 @@
 
             <div class="col-md-12">
 
-                <h3>Composição de Produto</h3>
+                <h3>Gerenciar Composição de Produtos</h3>
                 
                 <div class="row">
 
@@ -70,10 +78,13 @@
                         <h5>Selecione o item do Cardápio:*</h5>
 
                         <select name="item_cardapio" id="item_cardapio" class="form-control" required>
+                            <option value="">Selecione o Produto</option> 
                         <?php
                             foreach($itens as $item){ ?>
                                 <option
-                                    value="<?= $item->getPkId(); ?>">
+                                    value="<?= $item->getPkId(); ?>"
+                                    data-pk_composicao="<?=$item->pk_composicao?>"
+                                >
                                     <?= $item->getNome() ?> </option>
                             <?php } ?>
                         </select>
@@ -85,21 +96,24 @@
                 <div class="row">
                     
                     <div class="col-md-12 container conjunto-ingredientes">
-                    <h5>Selecione os ingredientes:*</h6>
-
-                        <div class="col-md-12 ingrediente-adicionado" data-field_id="0">
+                        <h5>Selecione os ingredientes:*</h6>
+                            
+                        <!-- Default field for clone Purpose -->
+                        <div style="display:none"; class="col-md-12 ingrediente-adicionado" id="igr_field_0" data-igr_field_id="0">
                             
                             <div class="col-md-4">
                                 <small>Ingrediente*</small>
-                                <select name="ingrediente[]" id="ingrediente0" data-field_id="0" class="form-control ingrediente" autofocus required>
+                                <select name="ingrediente[]" id="ingrediente0" data-field_id="0" class="form-control ingrediente" autofocus>
                                     <?php
+                                    
+                                    echo '<option value="">Selecione um Ingrediente</option>';
+
                                     foreach($ingredientes as $ingrediente){ ?>
 
-                                        <option 
-                                            value="<?= $ingrediente->getPkId(); ?>"
-                                            data-valor="<?= $ingrediente->getValor(); ?>"
+                                        <option value="<?= $ingrediente->getPkId(); ?>"data-valor="<?= $ingrediente->getValor(); ?>"
                                         >
-                                            <?= $ingrediente->getNome();?> (<?= $ingrediente->getUnidade() ?>) </option>
+                                            <?= $ingrediente->getNome();?> (<?= $ingrediente->getUnidade() ?>)
+                                        </option>
 
                                     <?php } ?>
                                 </select>
@@ -109,7 +123,7 @@
                                 <small>Valor</small>
                                 <div class="input-group">
                                     <span class="input-group-addon">R$</span>
-                                    <input required class="form-control valor" placeholder="0.00" name="valor[]" id="valor0" value="<?=$ingredientes[0]->getValor()?>" type="number" step="0.01" max="9999" readonly>
+                                    <input required class="form-control valor_base" placeholder="0.00" name="valor[]" value="0" type="number" step="0.01" max="9999" readonly>
                                 </div>
                             </div>
                                                                                 
@@ -117,7 +131,7 @@
                                 <small>Quantidade Utilizada*</small>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-edit"></i></span>
-                                    <input class="qtd_utilizada form-control" name="qtd_utilizada[]" id="qtd_utilizada0" data-field_id="0" required value="1" min="0" type="number" step="0.01">
+                                    <input class="form-control qtde_utilizada" name="qtde_utilizada[]" value="1" min="0" type="number" step="0.01" required>
                                 </div>
                             </div>
 
@@ -125,7 +139,7 @@
                                 <small>Valor Calculado</small>
                                 <div class="input-group">
                                     <span class="input-group-addon">R$</span>
-                                    <input required class="form-control valor_calc" name="valor_calc[]" value="<?=$ingredientes[0]->getValor()?>" type="number" step="0.01" min="0.01" max="9999" data-valor_base="<?= $ingredientes[0]->getValor(); ?>" id="valor_calc0" readonly>
+                                    <input required class="form-control valor_calc" name="valor_calc[]" value="0" type="number" step="0.01" min="0.01" max="9999" readonly>
                                 </div>
                             </div>
                             
@@ -135,7 +149,6 @@
                             </div>
 
                         </div>
-                        
                     </div>
                 </div>
                 
@@ -160,7 +173,7 @@
                     </div>
 
                     <div class="col-md-2">
-                        <small>Valor Total:</small>
+                        <small>Valor Total / Preço de Custo*:</small>
                         <div class="input-group">
                             <span class="input-group-addon">R$</span>
                             <input class="form-control" placeholder="Valor da unidade" id="valor_total" name="valor_total" value="0.00" type="number" step="0.01" min="0" max="9999" readonly>
@@ -205,63 +218,26 @@
 
 <script>
     
-    //select by param
+    //select Composição by param / edit call
     $(document).ready(function(){
-
-        var fk = '<?= $fk_produto ?>';
-        if(fk){
-            $('#item_cardapio').val(fk);
-        }
+        setComposicao();
     });
+    
 
-    //Atualiza ingrediente
+    //Atualiza Produto
     $("body").on("input", "#item_cardapio", function(){
-        console.log($(this).val());
-    });
+        fk_produto = $(this).val();
+        console.log(fk_produto);
+        //mantêm apenas div default
+        $('.conjunto-ingredientes').find("div").slice(1, 4).remove();
 
+        // setComposicao();
+    });
 
     //Add Ingrediente
     $("#addIngrediente").click(function() {
 
-        //append novo
-        $(".ingrediente-adicionado:last").clone().appendTo(".conjunto-ingredientes");
-        $(".ingrediente-adicionado:last").find("select").val("");
-        $(".ingrediente-adicionado:last").find("input").val("");
-
-        //get id/posicao do ultimo ingrediente
-        $field_id = parseInt($(".ingrediente-adicionado:last").attr("data-field_id"));
-        $id_inc = 1 + $field_id;
-
-        //reescreve identificadores do novo item
-        $(".ingrediente-adicionado:last").attr("data-field_id", $id_inc);
-
-        $(".ingrediente-adicionado:last").find("#ingrediente"+$field_id).attr(
-            "id",
-            "ingrediente"+$id_inc
-        );
-        $(".ingrediente-adicionado:last").find("#ingrediente"+$id_inc).attr(
-            "data-field_id",
-            $id_inc
-        );
-
-        $(".ingrediente-adicionado:last").find("#valor"+$field_id).attr(
-            "id",
-            "valor"+$id_inc
-        );
-
-        $(".ingrediente-adicionado:last").find("#qtd_utilizada"+$field_id).attr(
-            "id",
-            "qtd_utilizada"+$id_inc
-        );
-        $(".ingrediente-adicionado:last").find("#qtd_utilizada"+$id_inc).attr(
-            "data-field_id",
-            $id_inc
-        );
-
-        $(".ingrediente-adicionado:last").find("#valor_calc"+$field_id).attr(
-            "id",
-            "valor_calc"+$id_inc
-        );
+        novoIngrediente();
 
         atualizaTotal();
     });
@@ -275,33 +251,33 @@
     //Atualiza ingrediente
     $("body").on("input", ".ingrediente", function(){
 
-        $field_id = $(this).attr("data-field_id");
+        let igr_field = $(this).parent("div").parent("div");
+        let id = "#"+igr_field.attr("id");
+        let id_ingrediente = $(this).val();
 
-        $id_ingrediente = $(this).val();
-
-        $valor_ingrediente = parseFloat($(this).find(':selected').attr("data-valor"));
-        $("#valor"+$field_id).val(parseFloat($valor_ingrediente));
-        $("#valor_calc"+$field_id).attr("data-valor_base", $valor_ingrediente);
-
-        $qtd_utilizada = parseFloat($("#qtd_utilizada"+$field_id).val());
-
-        $valor_calc = $valor_ingrediente * $qtd_utilizada;
-        $("#valor_calc"+$field_id).val(parseFloat($valor_calc));
+        let valor_ingrediente = parseFloat($(this).find(':selected').attr("data-valor"));
+        $(id+" .valor_base").attr("value", parseFloat(valor_ingrediente));
+        
+        let qtde_utilizada = parseFloat($(id+" .qtde_utilizada").val());
+        
+        let valor_calc = valor_ingrediente * qtde_utilizada;
+        $(id+" .valor_calc").attr("value", parseFloat(valor_calc));
 
         atualizaTotal();
     });
 
     //Atualiza valor calculado
-    $("body").on("input", ".qtd_utilizada", function(){
+    $("body").on("input", ".qtde_utilizada", function(){
 
-        $field_id = $(this).attr("data-field_id");
+        let igr_field = $(this).parent("div").parent("div").parent("div");
+        let id = "#"+igr_field.attr("id");
 
-        $qtd_utilizada = parseFloat($(this).val());
-        $valor_base = $("#valor_calc"+$field_id).attr("data-valor_base");
+        let qtde_utilizada = parseFloat($(this).val());
+        let valor_base = parseFloat($(id+" .valor_base").val());
 
-        $valor_calc = $valor_base * $qtd_utilizada;
+        let valor_calc = valor_base * qtde_utilizada;
 
-        $("#valor_calc"+$field_id).val(parseFloat($valor_calc));
+        $(id+" .valor_calc").val(parseFloat(valor_calc));
 
         atualizaTotal();
     });
@@ -311,17 +287,77 @@
         atualizaTotal();
     });
 
+    function novoIngrediente(){
+        //append novo
+        $(".ingrediente-adicionado:last").clone().show( ).appendTo(".conjunto-ingredientes");
+
+        //get id/posicao do ultimo ingrediente
+        field_id = parseInt($(".ingrediente-adicionado:last").attr("data-igr_field_id"));
+        id_inc = 1 + field_id;
+        
+        //reescreve identificadores do novo item
+        $(".ingrediente-adicionado:last").attr("data-igr_field_id", id_inc);
+        $(".ingrediente-adicionado:last").attr("id", "igr_field_"+id_inc);
+    }
+
+    function setComposicao(){
+        let fk = '<?= $fk_produto ?>';
+        let ingredientes = '<?=json_encode($ingredientes_produto) ?>';
+
+        if(ingredientes) ingredientes = JSON.parse(ingredientes);
+
+        if(fk){
+            //set Produto
+            $('#item_cardapio').val(fk);
+            
+            //display ingredientes associados a Composição
+            for (var k in ingredientes){
+
+                novoIngrediente();
+
+                let valor_base = parseFloat(ingredientes[k]['igr_valor']);
+                let qtde_utilizada = parseFloat(ingredientes[k]['coig_qtde_utilizada']);
+                let valor_calc = qtde_utilizada * valor_base;
+                let valor_extra = parseFloat(ingredientes[k]['com_valor_extra']);
+
+                //set valores
+                $(".ingrediente-adicionado:last").find("select").val(
+                    ingredientes[k]['igr_pk_id']
+                );
+                $(".ingrediente-adicionado:last .valor_base").attr(
+                    "value", 
+                    valor_base
+                );
+                $(".ingrediente-adicionado:last .qtde_utilizada").attr(
+                    "value",
+                    qtde_utilizada
+                );
+                $(".ingrediente-adicionado:last .valor_calc").attr(
+                    "value",
+                    valor_calc
+                );
+                $("#valor_extra").attr(
+                    "value",
+                    valor_extra
+                );
+            }
+        }
+        atualizaTotal();
+    }
 
     function atualizaTotal(){
-        $total = 0; 
-        $total += parseFloat($("#valor_extra").val());
+        total = 0; 
+        total += parseFloat($("#valor_extra").val());
 
         $(".ingrediente-adicionado .valor_calc").each(function() {
-            $total += parseFloat($(this).val());
+            total += parseFloat($(this).val());
         });
 
-        $("#valor_total").val($total);
-    }
+        console.log(total);
+        if(total){
+            $("#valor_total").attr("value", parseFloat(total));
+        }
+    }   
 
 </script>
 

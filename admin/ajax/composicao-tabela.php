@@ -37,6 +37,7 @@ if(in_array('gerenciar_composicao', $permissao)){
 
 				$ingredientes_composicao = $controle->selectByFkComposicao($composicao->getPkId());
 				$valor_custo = 0;
+				
 				foreach ($ingredientes_composicao as $key => $ingr){
 					$qtd_utilizada = $ingr["coig_qtde_utilizada"];
 					$valor_ingrediente = $ingr["igr_valor"];
@@ -61,7 +62,7 @@ if(in_array('gerenciar_composicao', $permissao)){
 					<td style='text-align: center;' name='valor_venda'>R$ ".$valor_v."</td>
 
 					<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='composicaoDetalhes.php?cod=".$composicao->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Detalhes</button></a></td>
-					<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='gerenciarComposicao.php?fk_produto=".$composicao->getFkProduto()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
+					<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='gerenciarComposicao.php?fk_produto=".$composicao->getFkProduto()."&pk_composicao=".$composicao->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
 
 				echo "</tr>";
 			}
