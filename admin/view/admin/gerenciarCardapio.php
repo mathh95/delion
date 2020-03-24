@@ -256,7 +256,7 @@
             if(verifica == false){ 
                 doRefresh();
             }
-        }, 700);
+        }, 60000);
 
 
     </script>
