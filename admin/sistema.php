@@ -11,11 +11,11 @@
 	<?php
       	if ($_SESSION['usuarioNivel']==1) {
           	echo "<script language=\"javascript\">
-             window.location.href = \"view/user/home.php\"
+             window.location.href = \"view/admin/default.php\"
           	</script>";
         }else{
           	echo "<script language=\"javascript\">
-             window.location.href = \"view/admin/empresaHorarios.php\"
+             window.location.href = \"view/admin/default.php\"
           	</script>";
         }
 	 ?>

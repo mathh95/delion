@@ -204,7 +204,9 @@
                                 
                             <small>Faixa de Horário em que item estará disponível:</small>
                             
-                            <div class="checkbox">
+                            <div class="col-md-12">
+
+                                <div class="col-md-7">
                                 <select class="form-control" name="faixa_horario" id="faixa_horario">
 
                                     <option value="">Faixa de Horário</option>
@@ -218,8 +220,14 @@
                                         }  
                                     ?>
                                 </select>
+                                </div>
+                                
+                                <div class="col-md-5">
+                                    <button type="button" class="btn btn-info" onclick="window.location='gerenciarFaixaHorarios.php'">Gerenciar Horários&nbsp;<i class="far fa-clock"></i></button>
+                                </div>  
                                 
                             </div>
+                            <br>
                             <br>
                             
                             <small>Quais adicionais estarão disponiveis para esse produto:</small>

@@ -60,14 +60,6 @@
 
     <body>
 
-        <!--[if lt IE 8]>
-
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-
-        <![endif]-->
-
-        <!-- Add your site or application content here -->
-
         <?php include_once "./header.php" ?>
 
         
@@ -234,7 +226,9 @@
                             </div>           
                             <br>
 
-                            <div class="checkbox">
+                            <div>
+
+                                <div class="col-md-7">
                                 <select class="form-control" name="faixa_horario" id="faixa_horario">
 
                                     <option value="">Faixa de Horário</option>
@@ -248,6 +242,11 @@
                                         }  
                                     ?>
                                 </select>
+                                </div>
+                                        
+                                <div class="col-md-5">
+                                    <button type="button" class="btn btn-info" onclick="window.location='gerenciarFaixaHorarios.php'">Gerenciar Horários&nbsp;<i class="far fa-clock"></i></button>
+                                </div>  
                                 
                             </div>
                             <br>

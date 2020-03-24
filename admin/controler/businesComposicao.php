@@ -6,7 +6,9 @@
 	include_once "controlComposicao.php";
 	include_once MODELPATH."/composicao.php";
     include_once "../lib/alert.php";
-    include_once "upload.php";
+	include_once "upload.php";
+	
+	$controle_composicao = new controlerComposicao($_SG['link']);
 
     if(in_array('gerenciar_composicao', json_decode($_SESSION['permissao']))){
         if(!isset($_POST) || empty($_POST)){
@@ -15,28 +17,35 @@
 		
 
 		$cod_produto = addslashes(htmlspecialchars($_POST['item_cardapio']));
-
-
-		$composicao = new composicao();
 		$valor_extra = $_POST['valor_extra'];
-		$composicao->construct($cod_produto, $valor_extra);
 
 		if(isset($_POST['ingrediente'])){
 			$arr_ingredientes = $_POST['ingrediente'];
+
+			//remove id nulo do field default (para clone)
+			array_shift($arr_ingredientes);
 		}
-		if(isset($_POST['qtd_utilizada'])){
-			$arr_qtd_utilizada = $_POST['qtd_utilizada'];
+		if(isset($_POST['qtde_utilizada'])){
+			$arr_qtde_utilizada = $_POST['qtde_utilizada'];
+			array_shift($arr_qtde_utilizada);
 		}
 		if(isset($_POST['valor'])){
 			$arr_valores = $_POST['valor'];
+			array_shift($arr_valores);
 		}
 
+		$composicao = new composicao();
+		$composicao->construct($cod_produto, $valor_extra);
 
-		$controle = new controlerComposicao($_SG['link']);
-		$result = $controle->insert(
+		//verifica se composição já existe
+		if(1){
+			$result = $controle_composicao->delete();
+		}
+
+		$result = $controle_composicao->insert(
 			$composicao,
 			$arr_ingredientes,
-			$arr_qtd_utilizada
+			$arr_qtde_utilizada
 		);
 
 		if($result){

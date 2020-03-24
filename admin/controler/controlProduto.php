@@ -843,6 +843,8 @@
                 FROM tb_produto AS A
                 LEFT JOIN tb_categoria AS B
                 ON A.pro_fk_categoria = B.cat_pk_id
+                LEFT JOIN tb_composicao
+                ON pro_pk_id = com_fk_produto
                 ORDER BY pro_nome ASC");
 
                 if($stmte->execute()){
@@ -862,9 +864,11 @@
                             $produto->setPosicao($result->pro_posicao);
                             $produto->setAdicional($result->pro_arr_adicional);
                             $produto->setDias_semana($result->pro_arr_dias_semana);
+                            $produto->setCategoria($result->cat_nome);
                             
                             //atribuição por referencia
-                            $produto->setCategoria($result->cat_nome);
+                            $produto->pk_composicao = $result->com_pk_id;
+
                             array_push($produtos, $produto);
                         }
                     }else{

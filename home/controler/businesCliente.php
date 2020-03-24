@@ -1,16 +1,18 @@
 <?php 
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
     include_once MODELPATH."/cliente.php";
-    include_once MODELPATH."/sms_verificacao.php";
-    include_once "controlCliente.php";
-    include_once "controlSmsVerificacao.php";
     include_once CONTROLLERPATH."/seguranca.php";
-    include_once "../lib/alert.php";
+
+    include_once MODELPATH."/sms_verificacao.php";
+    include_once "controlSmsVerificacao.php";
+    include_once "controlCliente.php";
+    
     include_once "../utils/VerificaCpf.php";
     include_once "../utils/VerificaTelefone.php";
-    include_once "../utils/InfoBip.php";
+    include_once "../utils/IaGente.php";
     include_once "../utils/GoogleRecaptcha.php";
     include_once HELPERPATH."/mask.php";
+    include_once "../lib/alert.php";
 
     if (isset($_POST) and !empty($_POST)){
 
@@ -179,7 +181,7 @@
 
                 $erros = verificaCadastro($erros, $nome, $sobrenome, $cpf, $data_nasc, $telefone, $login, $senha, $senha2);
                 
-                $info_bip = new InfoBip();
+                $ia_gente = new IaGente();
                 $control_sms = new controlSmsVerificacao($_SG['link']);
                 
             }else{
@@ -216,9 +218,9 @@
                 $telefone_int = "55".$telefone_int;
 
                 //envia SMS
-                $res_envio = $info_bip->enviaVerificacaoSMS($telefone_int, $cod_sms);
+                $res_envio = $ia_gente->enviaVerificacaoSMS($telefone_int, $cod_sms);
                 
-                if($res_envio){
+                if($res_envio == "OK"){
                     echo "verificado";
                 }else{
                     echo "Erro ao enviar SMS 😕...contate o suporte.";
