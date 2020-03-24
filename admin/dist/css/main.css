@@ -544,7 +544,6 @@ Pagination
 body{
   position: relative;
   min-height: 140vh;
-  display: inline-block;
 }
 
 body>.container-fluid{

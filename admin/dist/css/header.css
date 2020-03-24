@@ -229,6 +229,9 @@ a:hover {
         margin-top:15px;
         padding-left: 15px;
       }
+      .pull-css{
+        float: right;
+      }
       body > header > div:nth-child(2) > div > nav > div > div.pull-css > h2 > a{
           background: none;
           border: none;

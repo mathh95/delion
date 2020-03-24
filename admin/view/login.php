@@ -27,7 +27,7 @@ if(isset($_SESSION['usuarioID'])){
     <link rel="stylesheet" href="../dist/css/main.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="center-block login-box">
             <img src="../img/Kionux_1.jpg" alt="" />
             <h1>Área Administrativa Delion Café</h1>
