@@ -5,8 +5,11 @@
     include_once MODELPATH."/usuario.php";
     include_once HOMEPATH."home/controler/controlCarrinho.php";
     include_once MODELPATH."/pedido.php";
+    include_once CONTROLLERPATH."/controlComposicao.php";
     $_SESSION['permissaoPagina']=0;
     protegePagina();
+
+    $controle = new controlerComposicao($_SG['link']);
     $controleUsuario = new controlerUsuario($_SG['link']);
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
     $control_carrinho = new controlerCarrinho($_SG['link']);
@@ -58,20 +61,20 @@
             }
             
             //Contrução do Gráfico de Faturamento Liquido
-            $pedidos_valor_total = $control_carrinho->selectAllPedido($nome, $menor, $maior);
+            $array_pedidos = $control_carrinho->selectAllPedido($nome, $menor, $maior);
             $array_vendas_diaria = array();
 
-            foreach($pedidos_valor_total as $pedido_valor_total){
-                $valor_pedidos_dia = floatval($pedido_valor_total->getTotal());
-                $data_pedido = $pedido_valor_total->getData()->format('d/m/Y');
+            foreach($array_pedidos as $array_pedido){
+                $valor_pedidos_dia = number_format($array_pedido->getTotal(),2);
+                $data_pedido = $array_pedido->getData()->format('d/m/Y');
 
                 if(!isset($array_vendas_diaria[$data_pedido])){
                     $array_vendas_diaria[$data_pedido] = $valor_pedidos_dia;
                 }else{
                     $array_vendas_diaria[$data_pedido] += $valor_pedidos_dia;
                 }
-
             }
+
 
             $x_data_venda = array();
             $y_total_dia = array();
@@ -80,11 +83,10 @@
                 array_push($y_total_dia, $avd);
             }
 
-            //Construção do Gráfico de Faturamento Bruto
-            //Conta para o lucro Preço de custo - Valor Total 
+        //Construção do Gráfico de Faturamento Bruto
+        //Conta para o lucro Preço de custo - Valor Total 
 
-
-        ?>
+    ?>
 
         <div class="row">
             <div class="col-lg-12" id="tabela-cliente">
@@ -93,21 +95,21 @@
                         <h2>Performance da Empresa</h2>
                         <ul class='nav nav-tabs'>
                             <li class='active'><a data-toggle='tab' href='#home'>Número de pedidos</a></li>
-                            <li><a data-toggle='tab' href='#menu1'>Lucros</a></li>
-                            <li><a data-toggle='tab' href='#menu2'>Preço de Venda</a></li>
+                            <li><a data-toggle='tab' href='#bruto'>Faturamento Bruto</a></li>
+                            <li><a data-toggle='tab' href='#liquido'>Faturamento Líquido</a></li>
                         </ul>
                         <div class='tab-content'>
                             <div id='home' class='tab-pane fade in active'>
-                                <h3>Número de pedidos</h3>
+                                <h3>Número de Pedidos por Dia</h3>
                                 <div id='num_pedidos' style='width:1100px;height:500px;'></div>
                             </div>
-                            <div id='menu1' class='tab-pane fade'>
-                                <h3>Faturamento Líquido por dia</h3>
-                                <div id='faturamento_liquido' style='width:1100px;height:500px;'></div>
-                            </div>
-                            <div id='menu2' class='tab-pane fade'>
-                                <h3>Faturamento Bruto por dia</h3>
+                            <div id='bruto' class='tab-pane fade'>
+                                <h3>Faturamento Bruto por Dia</h3>
                                 <div id='faturamento_bruto' style='width:1100px;height:500px;'></div>
+                            </div>
+                            <div id='liquido' class='tab-pane fade'>
+                                <h3>Faturamento Líquido por Dia</h3>
+                                <div id='faturamento_liquido' style='width:1100px;height:500px;'></div>
                             </div>
                         </div>
                     </div>
@@ -140,19 +142,18 @@
             margin: { t: 0 } }, config );
 
             //
-            grafico_faturamento_liquido = document.getElementById('faturamento_liquido');
+            grafico_faturamento_liquido = document.getElementById('faturamento_bruto');
             Plotly.newPlot( grafico_faturamento_liquido, [{
             x: x_data_venda,
             y: y_total_dia }], {
             margin: { t: 0 } }, config );
 
             //
-            // grafico_faturamento_bruto = document.getElementById('faturamento_bruto');
-            // Plotly.newPlot( grafico_faturamento_bruto, [{
-            // type: 'bar',
-            // x: [1, 2, 3, 4, 5],
-            // y: [1, 4, 8, 1, 10] }], {
-            // margin: { t: 0 } }, config );
+            grafico_faturamento_bruto = document.getElementById('faturamento_liquido');
+            Plotly.newPlot( grafico_faturamento_bruto, [{
+            x: [1, 2, 3, 4, 5],
+            y: [1, 4, 8, 1, 10] }], {
+            margin: { t: 0 } }, config );
 
 
     </script>
