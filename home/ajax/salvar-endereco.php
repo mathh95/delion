@@ -63,34 +63,34 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
             
             <div>
                 <div class='cadastro-form'>
-                    <label>Cep:</label>
+                    <label>Cep*</label>
                     <input class='inputs-pequenos' name='cep' type='text' id='cep' required placeholder='cep' autofocus  value='".$cep."'>
                 </div>
                 <div class='cadastro-form'>
-                    <label>Cidade:</label>
+                    <label>Cidade*</label>
                     <input class='inputs-pequenos' name='cidade' type='text' required placeholder='Cidade' value='".$cidade."' style='background-color:#ccc;' readonly>
                 </div>
             </div>
             <div>
-                <label>Rua:</label>
+                <label>Rua*</label>
                 <input name='rua' type='text' required placeholder='rua' value='".$rua."' style='background-color:#ccc;' readonly>
             </div>
             <div>
                 <div class='cadastro-form'>
-                    <label>Número:</label>
+                    <label>Número*</label>
                     <input class='inputs-pequenos' name='numero' type='text' required placeholder='numero' value='".$endereco_cliente->getNumero()."'>
                 </div>
                 <div class='cadastro-form'>
-                    <label>Bairro:</label>
+                    <label>Bairro*</label>
                     <input class='inputs-pequenos' name='bairro' type='text' required placeholder='bairro' value='".$bairro."' style='background-color:#ccc;' readonly>
                 </div>
             </div>
             <div>
-                <label>Complemento:</label>
+                <label>Complemento</label>
                 <input name='complemento' type='text' placeholder='complemento' value='".$endereco_cliente->getComplemento()."'>
             </div>
             <div>
-                <label>Referência:</label>
+                <label>Referência</label>
                 <input name='referencia' type='text' placeholder='Referência' value='".$endereco_cliente->getReferencia()."'>
             </div>
 
@@ -140,35 +140,35 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
     
     <div>
         <div class='cadastro-form'>
-            <label>Cep:</label>
+            <label>Cep*</label>
             <input class='inputs-pequenos cep' name='cep' type='text' id='cep' required placeholder='CEP' autofocus value='".$cep."'>
         </div>
         <div class='cadastro-form'>
-            <label>Cidade:</label>
+            <label>Cidade*</label>
             <input class='inputs-pequenos' name='cidade' type='text' required placeholder='Cidade' value='".$cidade."' style='background-color:#ccc;' readonly>
         </div>
     </div>
     <div>
-        <label>Logradouro:</label>
+        <label>Logradouro*</label>
         <input name='rua' type='text' required placeholder='Rua' value='".$rua."' style='background-color:#ccc;' readonly>
     </div>
     <div>
         <div class='cadastro-form'>
-            <label>Número:</label>
+            <label>Número*</label>
             <input class='inputs-pequenos' name='numero' type='text' required placeholder='Número' value=''>
         </div>
         <div class='cadastro-form'>
-            <label>Bairro:</label>
+            <label>Bairro*</label>
             <input class='inputs-pequenos' name='bairro' type='text' required placeholder='Bairro' value='".$bairro."' style='background-color:#ccc;' readonly>
         </div>
     </div>
     <div>
-        <label>Complemento:</label>
+        <label>Complemento</label>
         <input name='complemento' type='text' placeholder='Complemento' value=''>
     </div>
 
     <div>
-        <label>Referência:</label>
+        <label>Referência</label>
         <input name='referencia' type='text' placeholder='Referência' value=''>
     </div>
 

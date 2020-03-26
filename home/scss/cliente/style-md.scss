@@ -59,6 +59,12 @@ body{
         padding-bottom: 5px;
         justify-content: center;
         > .solicitacao {
+            #cadastro-fidelidade-form{
+
+                h4{
+                    text-align:center;
+                }
+            }
             @include make-md-column(6);
             height: auto;
             border: 1px solid #ccc !important;

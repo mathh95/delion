@@ -1,52 +1,67 @@
 <?php
+
 session_start();
-// session_destroy();
-// exit;
 
-// print_r($_SESSION);
-// exit;
-
-// ini_set('display_errors', true);
-
-// date_default_timezone_set('America/Sao_Paulo');
-
-
-
-// include_once "../../admin/controler/conexao.php";
-
-// require_once "../controler/controlCarrinho.php";
-
-// require_once "../controler/controlProduto.php";
-
-// include_once "../lib/alert.php";
 $id = 0;
 $obs = '';
 
+if(!isset($_SESSION['carrinho']) || empty($_SESSION['carrinho'])){
+    $_SESSION['carrinho'] = array();
+    $_SESSION['qtd'] = array();
+    $_SESSION['observacao'] = array();
+    $_SESSION['adicionais_selecionados'] = array();
+}
+
+if(!isset($_SESSION['carrinho_resgate']) || empty($_SESSION['carrinho_resgate'])){
+    $_SESSION['carrinho_resgate'] = array();
+}
+
 if(isset($_GET['id']) && !empty($_GET['id'])){
-    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+    $id = intval(filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT));
+
     if(isset($_GET['observacaoItem']) && !empty($_GET['observacaoItem'])){
         $obs = $_GET['observacaoItem'];
     }
-    if(!isset($_SESSION['carrinho']) || empty($_SESSION['carrinho'])){
-        $_SESSION['carrinho'] = array();
-        $_SESSION['qtd'] = array();
-        $_SESSION['observacao'] = array();
-
-        // print_r($_SESSION['carrinho']);
-        // exit;
+    if(isset($_GET['adicionais_selecionados']) && !empty($_GET['adicionais_selecionados'])){
+        $adicionais = $_GET['adicionais_selecionados'];
     }
 
     if(!in_array($id, $_SESSION['carrinho'], true)){
 
         array_push($_SESSION['carrinho'], $id);
         array_push($_SESSION['observacao'], $obs);
+        
+        if(isset($adicionais) && !empty($adicionais)){
+            $_SESSION['adicionais_selecionados'][$id] = $adicionais;
+        }
+
         //seta unidade de itens p/ 1 unidade
         array_push($_SESSION['qtd'], 1);
-        //essa sessão está sendo startada na index do projeto
 
-        echo count($_SESSION['carrinho']);
+        echo count($_SESSION['carrinho']) + count($_SESSION['carrinho_resgate']);
     }else{
-        echo count($_SESSION['carrinho']);
+        echo count($_SESSION['carrinho']) + count($_SESSION['carrinho_resgate']);
+    }
+
+
+//Resgate Fidelidade
+}else if(isset($_GET['is_array']) && $_GET['is_array'] == true){
+
+    if (isset($_GET['itens_resgate'])){
+
+        //zera caso haja resgate anterior
+        $_SESSION['carrinho_resgate'] = array();
+
+        //$itens = {cod_produto: qtd}
+        $itens = $_GET['itens_resgate'];
+        foreach($itens as $cod_item => $qtd_item){
+
+            $_SESSION['carrinho_resgate'][$cod_item]['qtd'] = $qtd_item;
+        }
+
+        // var_dump($_SESSION['carrinho_resgate']);
+        echo count($_SESSION['carrinho_resgate']);
     }
 }
 

@@ -8,17 +8,20 @@
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 ?>
+<head>
+    <?php include VIEWPATH."/cabecalho.html" ?>
+</head>
 
 
 <header>
 
-    <div class="col-md-12">
+    <div class="col-md-12 header-topo" style="height: 45px;">
 
         <div class="row">
 
             <div class="col-md-8 col-md-offset-2">
 
-                <h1>Área Administrativa <?= EMPRESA ?></h1>
+                <h1><a style="text-decoration:none;" href="empresaHorarios.php">Área Administrativa | <?= EMPRESA ?> <i class="fa fa-coffee"></i></a></h1>
 
             </div>
 
@@ -28,13 +31,14 @@
 
                     <h3>
 
-                    <img src="../../img/person.png" alt="" />
 
-                    <span>Bom dia <?php echo  $_SESSION['usuarioNome'] ?></span>
+                    <span style="color: white;"><i class="fa fa-user"></i> <?php echo  $_SESSION['usuarioNome'] ?>
+                    </span>
 
                     </h3>
 
                 </div>
+                
 
             </div>
 
@@ -120,6 +124,8 @@
 
                                     <li><a href="empresa.php">Alterar</a></li>
                                     <li><a href="empresaHorarios.php">Gerenciar Funcionamento</a></li>
+                                    <!-- Mudar o arquivo .php-->
+                                    <li><a href="gestaoempresa.php">Gestão Empresarial</a></li>   
 
                                 </ul>
 
@@ -264,11 +270,13 @@
 
                                 <ul class="dropdown-menu">
 
-                                    <li><a href="produto.php">Cadastro</a></li>
+                                    <li><a href="produto.php">Cadastrar Produto</a></li>
 
-                                    <li><a href="cardapioLista.php">Listar</a></li>
+                                    <li><a href="cardapioLista.php">Listar Produtos</a></li>
 
-                                    <li><a href="gerenciarCardapio.php">Gerenciar</a></li>
+                                    <li><a href="gerenciarCardapio.php">Gerenciar Cardápio</a></li>
+
+                                    <li><a href="gerenciarFaixaHorarios.php">Gerenciar Horários</a></li>
 
                                 </ul>
 
@@ -497,6 +505,7 @@
 
 
                         <?php
+                        //SMS
                             
                         $permissao = json_decode($usuarioPermissao->getPermissao());
                                  
@@ -554,6 +563,101 @@
                             <?php } ?>
 
 
+                        <?php
+                        //Gerenciar Fidelidade
+                        $permissao = json_decode($usuarioPermissao->getPermissao());
+                                 
+                        if(in_array('gerenciar_fidelidade', $permissao)){ ?>
+
+                        <li class="dropdown
+
+                            <?php
+                                //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
+                                if(strpos($arquivo_pai, 'Fidelidade') !== false){
+                                    echo 'active';
+                                }
+                            ?>  
+                        ">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Fidelidade <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+
+                                <li><a href="gerenciarFidelidade.php">Gerenciar Programa</a></li>
+                                <li><a href="cadastrarFidelidade.php">Adicionar Produto</a></li>
+                                <li><a href="listarFidelidade.php">Listar Produtos</a></li>
+
+                            </ul>
+
+                        </li>
+                        <?php } ?>
+
+
+                        <?php
+                        //Gerenciar Fornecedores
+                        $permissao = json_decode($usuarioPermissao->getPermissao());
+                                 
+                        if(in_array('gerenciar_fornecedor', $permissao)){ ?>
+
+                        <li class="dropdown
+
+                            <?php
+                                //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
+                                if(strpos($arquivo_pai, 'Fornecedor') !== false || strpos($arquivo_pai, 'fornecedores') !== false){
+                                    echo 'active';
+                                }
+                            ?>  
+                        ">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Fornecedores <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+                                <li><a href="cadastrarFornecedor.php">Cadastrar Fornecedor</a></li>
+                                <li><a href="fornecedoresLista.php">Listar Fornecedores</a></li>
+                                <li><a href="cadastrarTipoFornecedor.php">Cadastrar Tipo de Fornecedor</a></li>
+                                <li><a href="tipoFornecedorLista.php">Listar Tipos de Fornecedores</a></li>
+                                <li><a href="cadastrarPedidoFornecedor.php">Cadastrar Pedido p/ Fornecedor</a></li>
+                                <li><a href="pedidoFornecedorLista.php">Listar Pedidos p/ Fornecedores</a></li>
+
+                            </ul>
+
+                        </li>
+                        <?php } ?>
+
+                        <?php
+                        //Gerenciar Composicao
+                        $permissao = json_decode($usuarioPermissao->getPermissao());
+                                 
+                        if(in_array('gerenciar_composicao', $permissao)){ ?>
+
+                        <li class="dropdown
+
+                            <?php
+                                //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
+                                if(
+                                    strpos($arquivo_pai, 'omposicao') !== false ||
+                                    strpos($arquivo_pai, 'ngrediente') !== false
+                                ){
+                                    echo 'active';
+                                }
+                            ?>
+                        ">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Composição de Produto <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+
+                                <li><a href="cadastrarIngrediente.php">Cadastrar Ingrediente</a></li>
+                                <li><a href="ingredientesLista.php">Listar Ingredientes</a></li>
+                                <li><a href="gerenciarComposicao.php">Gerenciar Composição do Produto</a></li>
+                                <li><a href="composicaoLista.php">Listar Composições</a></li>
+                                <li><a href="historicoComposicao.php">Histórico de Preços</a></li>
+
+                            </ul>
+
+                        </li>
+                        <?php } ?>
+
                         </ul>
 
                     </div><!--/.nav-collapse -->
@@ -562,7 +666,7 @@
 
                     </div>
 
-                    <div class="pull-right">
+                    <div class="pull-css">
 
                         <h2>
                             <a href="alteraSenha.php"><i class="fa fa-cog"></i>&nbsp;ALTERAR SENHA&nbsp;|</a>
@@ -578,5 +682,6 @@
         </div>
 
     </div>
+    
 
 </header>

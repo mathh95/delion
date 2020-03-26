@@ -120,18 +120,18 @@ function adicionarCupom(){
     $.ajax({
         type: 'GET',
         url: 'ajax/cupom.php',
-        data :{acao: "checar", codigocupom:codigocupom},
+        data :{acao: "checar", codigocupom: codigocupom},
         success:function(resultado){
             // alert(resultado);
 
             if(resultado.valido){
-                swal('Cupom Adicionado!', 'Desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
+                swal('Cupom Adicionado! 😉', 'Desconto de R$ '+resultado.valorcupom + ' ! =)', 'success')
                 .then(function(){
                     loadItens();
                 });
             }
             else if(resultado.validoErro){
-                swal('Cupom Adicionado!', 'O cupom de R$ '+resultado.valorcupom + ' é maior do que o valor total da compra, a diferença será perdida!', 'success')
+                swal('Cupom Adicionado! 😉', 'O cupom de R$ '+resultado.valorcupom + ' é maior do que o valor total da compra, a diferença será perdida!', 'success')
                 .then(function(){
                     loadItens();
                 });
@@ -161,6 +161,32 @@ function postObservacao(){
         success: function (resultado) {}
     });
 }
+
+
+$(document).on("click", "#removeItemResgate", function(){
+    
+    var acao = "rem_resgate";
+    var linha = $(this).data('linha');
+    var id = $("#idLinha"+linha).data('id');
+
+    $.ajax({
+        type: 'GET',
+        url: 'ajax/quantidade-carrinho.php',
+        data: {acao: acao, id: id},
+
+        success: function(res){
+            // console.log(res);
+            
+            var tr = $("#idLinha"+linha).fadeOut(100, function(){
+                tr.remove();
+                window.location.reload();
+            });
+        },
+        error: function(res){
+            
+        }
+    });
+});
 
 
 $(document).on("click", "#removeItem", function(){
@@ -213,12 +239,13 @@ $(document).on("click", "#adicionarUnidade", function(){
     var preco = $("#preco"+linha).data('preco');
     var qtdInt = parseInt(qtdAtual);
     var subtotal = preco * (qtdInt+1);
+
+    //incremento antes do retorno, melhor fluidez p/ o cliente
+    $("#qtde-text"+linha).text(qtdInt+1);
    
     $.ajax({
         type: 'GET',
-
         url: 'ajax/quantidade-carrinho.php',
-
         data: {acao: acao, preco: preco, qtdAtual: qtdAtual, linha: linha},
 
         success:function(resultado){
@@ -249,6 +276,8 @@ $(document).on("click", "#adicionarUnidade", function(){
             }
         },
         error: function(err){
+            //desfaz o incremento
+            $("#qtde-text"+linha).text(qtdInt-1);
             console.log(err);
         }
     });
@@ -265,13 +294,14 @@ $(document).on("click", "#removerUnidade", function(){
     qtdTotal-= 1;
     var subtotal = preco * qtdTotal;
     
+    //decrementa antes do retorno, melhor fluidez p/ o cliente
+    $("#qtde-text"+linha).text(qtdTotal-1);
+
     if(qtdTotal > 0){
         $.ajax({
             
             type: 'GET',
-            
             url: 'ajax/quantidade-carrinho.php',
-            
             data: {acao: acao, preco: preco, qtdAtual: qtdAtual, linha: linha},
             
             success:function(resultado){
@@ -297,6 +327,11 @@ $(document).on("click", "#removerUnidade", function(){
                 }else{
                     $("#valor_total").html(totalCorrigido.toFixed(2));
                 }
+            },
+            error: function(err){
+                console.log(err);
+                //desfaz o decremento
+                $("#qtde-text"+linha).text(qtdTotal+1);
             }
         });
     

@@ -5,31 +5,18 @@
         class cliente{
 
             private $cli_pk_id;
-
             private $cli_cpf;
-                        
             private $cli_nome;
-            
             private $cli_sobrenome;
-
-            private $cli_login_email;
-            
-            private $cli_senha;
-            
-            private $cli_telefone;
-            
+            private $cli_login_email;  
+            private $cli_senha;      
+            private $cli_telefone;     
             private $cli_data_nasc;
-
             private $cli_status;
-
-            private $cli_idGoogle;
-
-            private $cli_id_facebook;
-            
+            private $cli_id_google;
+            private $cli_id_facebook;      
             private $cli_pontos_fidelidade;
-
-            private $cli_dt_alteracao_fone;
-            
+            private $cli_dt_alteracao_fone;      
             private $cli_fk_empresa;
 
 
@@ -74,7 +61,7 @@
             }
 
             function getIdGoogle(){
-                return $this->cli_idGoogle;
+                return $this->cli_id_google;
             }
 
             function getPontosFidelidade(){
@@ -88,9 +75,6 @@
             function getDtAlteracaoFone(){
                 return $this->cli_dt_alteracao_fone;
             }
-
-
-
             
             function setPkId($cli_pk_id){
                 $this->cli_pk_id = $cli_pk_id;
@@ -116,7 +100,6 @@
                 $this->cli_login_email = $cli_login_email;
             }
             
-
             function setSenha($cli_senha){
                 $this->cli_senha = $cli_senha;
             }
@@ -129,8 +112,8 @@
                 $this->cli_status= $cli_status;
             }
 
-            function setIdGoogle($cli_idGoogle){
-                $this->cli_idGoogle = $cli_idGoogle;
+            function setIdGoogle($cli_id_google){
+                $this->cli_id_google = $cli_id_google;
             }
 
             function setIdFacebook($cli_id_facebook){
@@ -154,7 +137,7 @@
                 $this->cli_sobrenome=$cli_sobrenome;
                 $this->cli_cpf=$cli_cpf;
                 $this->cli_data_nasc=$cli_data_nasc;
-                $this->cli_login=$cli_login;
+                $this->cli_login_email=$cli_login;
                 $this->cli_senha=$cli_senha;
                 $this->cli_telefone=$cli_telefone;
                 $this->cli_status=$cli_status;

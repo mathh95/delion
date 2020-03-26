@@ -18,7 +18,7 @@ if ($enderecos != -1){
 
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Endereços</h1>
+		<h1 >Lista de Endereços</h1>
 		<tr>
     		<th width='10%' style='text-align: center;'>Rua</th>
     		<th width='10%' style='text-align: center;'>Número</th>

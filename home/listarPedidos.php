@@ -80,7 +80,7 @@
 											<td style='text-align: center;' name='data'>".$pedido->getData()->format('H:i')."h</td>
 											<td style='text-align: center;' name='valor'>R$ ".$pedido->getTotal()."</td>";
 											if($pedido->getStatus() == 1){
-												echo "<td style='text-align: center;' name='status'>Recebido</td>";
+												echo "<td style='text-align: center;' name='status'>Enviado</td>";
 											}
 											else if($pedido->getStatus() == 2){
 												$dateHoraPrint = date_create($pedido->getHora_print());

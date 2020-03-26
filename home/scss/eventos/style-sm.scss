@@ -44,15 +44,19 @@ body{
     > .solicitar-evento {
         padding-top: 25px;
         padding-bottom: 5px;
+        height: auto;
         > .solicitacao {
             @include make-sm-column(12);
-            height: 320px;
+            height: auto;
             margin-bottom: 15px;
-            > div:nth-child(1){
+            margin-left: auto;
+            margin-right: auto;
+            > div.titulo-eventos{
                 height: 50px;
-                border: 1px solid #000000;
+                border: 2px solid $vermelho_forte;
                 border-left: 0px;
                 border-right: 0px;
+                margin-bottom: 10px;
                 > h2 {
                     font-family: $font_main_bold;
                     font-size: 17px;
@@ -61,197 +65,60 @@ body{
                     margin-bottom: 15px;
                 }
             }
-            > div:nth-child(2) {
+            > div.col-sm{
+                @include make-sm-column(12);
                 > form {
-                    > div:nth-child(1){
+                    display: inline-flex;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+                    text-indent: 10px;
+                    text-align: center;
+                    > div{
                         @include make-sm-column(12);
                         padding-left: 0px;
                         padding-right: 0px;
-                        height: 30px;
+                        height: 20px;
                         margin-top: 4px;
-                        > div:nth-child(1) {
-                            @include make-sm-column(7);
-                            padding-left: 0px;
-                            > input {
-                                height: 36px;
-                                width: 100%;
-                                border: 1px solid #000000;
-                                text-indent: 10px;
-                                outline: none;
-                            }
-                        }
-                        > div:nth-child(2) {
-                            @include make-sm-column(5);
-                            padding-right: 0px;
-                            > input {
-                                height: 36px;
-                                width: 100%;
-                                border: 1px solid #000000;
-                                text-indent: 10px;
-                                outline: none;
-                            }
-                        }
-                    } 
-                    > div:nth-child(2){
-                        @include make-sm-column(12);
-                        padding-left: 0px;
-                        padding-right: 0px;
-                        height: 30px;
-                        margin-top: 4px;
-                        > div:nth-child(1){
-                            @include make-sm-column(7);
-                            padding-left: 0px;
-                            margin-top: 5px;
-                            > div:nth-child(1){
-                                > input {
-                                    height: 36px;
-                                    width: 100%;
-                                    border: 1px solid #000000;
-                                    text-indent: 10px;
-                                    outline: none;
-                                }
-                            }
-                            > div:nth-child(2){
-                                margin-top: 3px;
-                                > input {
-                                    height: 36px;
-                                    width: 100%;
-                                    border: 1px solid #000000;
-                                    text-indent: 5px;
-                                    outline: none;
-                                }
-                            }
-                        }
-                        > div:nth-child(2){
-                            @include make-sm-column(5);
-                            padding-right: 0px;
-                            margin-top: 5px;
-                            > div:nth-child(1){
-                                height: 36px;
-                                width: 100%;
-                                border: 1px solid #000000;
-                                > div{
-                                    @include make-sm-column(6);
-                                    margin-top: 4px;
-                                    padding-top: 3px;
-                                    padding-left: 12px;
-                                }
-                                > input {
-                                    @include make-sm-column(6);
-                                    text-indent: 10px;
-                                    width: 65px;
-                                    padding-left: 0px;
-                                    border: none;
-                                    margin-top: 4px;
-                                    padding-top: 3px;
-                                    padding-bottom: 2px;
-                                    padding-right: 12px;
-                                    text-align: right;
-                                    outline: none;
-                                }
-                            }
-                            > div:nth-child(2){
-                                height: 36px;
-                                width: 100%;
-                                border: 1px solid #000000;
-                                margin-top: 3px;
-                                > div{
-                                    @include make-sm-column(6);
-                                    margin-top: 4px;
-                                    padding-top: 3px;
-                                    padding-left: 12px;
-                                }
-                                > input {
-                                    @include make-sm-column(6);
-                                    text-indent: 10px;
-                                    width: 65px;
-                                    padding-left: 0px;
-                                    border: none;
-                                    margin-top: 4px;
-                                    padding-top: 3px;
-                                    padding-bottom: 2px;
-                                    padding-right: 12px;
-                                    text-align: right;
-                                    outline: none;
-                                }
-                            }
-                        }
+                        
+                        
                     }
-                    > div:nth-child(3){
-                        @include make-sm-column(12);
-                        padding-left: 0px;
-                        padding-right: 0px;
-                        height: 149px;
-                        margin-top: 53px;
-                        border: 1px solid #000000;
-                        border-left: 0px;
-                        border-right: 0px;
-                        border-top: 0px;
-                        > div:nth-child(1){
-                            @include make-sm-column(7);
-                            padding-left: 0px;
-                            > textarea {
-                                width: 100%;
-                                height: 145px;
-                                border: 1px solid #000000;
-                                text-indent: 10px;
-                                resize: none;
-                                outline: none;
-                            }
-                        }
-
-                        > div:nth-child(2){
-                            @include make-sm-column(5);
-                            padding-right: 0px;
-                            > div {
-                                height: 36px;
-                                width: 100%;
-                                border: 1px solid #000000;
-                                > div {
-                                    @include make-sm-column(6);
-                                    width: 70% !important;
-                                    margin-top: 4px;
-                                    padding-top: 3px;
-                                    padding-left: 10px;
-                                }
-                                > input{
-                                    @include make-sm-column(6);
-                                    text-indent: 10px;
-                                    padding-left: 0px;
-                                    border: none;
-                                    margin-top: 4px;
-                                    padding-top: 3px;
-                                    padding-bottom: 2px;
-                                    padding-right: 8px;
-                                    text-align: right;
-                                    width: 30% !important;
-                                    outline: none;
-                                }
-                            }
-                            > img {
-                                @include img-responsive();
-                                @include center-block();
-                                padding: 10px 0px;
-                                max-width: 74%; 
-                            }
-                            > button {
-                                width: 100%;
-                                height: 34px;
-                                border: none;
-                                background-color: #be392a;
-                                color: #FFFFFF;
-                                font-family: $font_main_bold;
-                                font-size: 15px;
-                                text-align: center;
-                                margin-top: 75px;
-                            }
-                        }
+                    input{
+                        @include make-sm-column(7);
+                        outline: none;
+                        border: 2px solid $vermelho_forte;
+                        margin-bottom: 10px;
+                        margin-left: auto;
+                        margin-right: auto;
                     }
+                    textarea{
+                        outline: none;
+                        border: 2px solid $vermelho_forte;
+                        @include make-sm-column(7);
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+                    
+                    button{
+                        @include make-sm-column(7);
+                        background-color: $vermelho_forte;
+                        font-weight: bold;
+                        color: #ffffff;
+                        margin-top: 10px;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+                    
                 }
-            } 
+            }
+            >div.texto-eventos{
+                font-weight: bold;
+                h5{
+                    font-weight: bold;
+                }
+            }  
         }
         > .imagem{
-            @include make-sm-column(12);
+            @include make-sm-column(5);
             > img {
                 @include img-responsive();
                 @include center-block();

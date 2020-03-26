@@ -24,7 +24,7 @@
 
     $formaPgt = $controle->selectId($_GET['cod']);
 
-    //usado para coloração customizada da página seleciona na navbar
+    //usado para coloração customizada da página selecionada na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 
 ?>
@@ -68,7 +68,7 @@
 
                             <small>Tipo de Forma de Pagamento: </small>
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-pencil-alt"></i></span>
                                 <input class="form-control" placeholder="Tipo de forma de Pagamento" name="tipoFormaPgt" required autofocus id ="tipoForma" type="text" value="<?= $formaPgt->getNome();?>">
                                 <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $formaPgt->getPkId();?>">
                             </div>

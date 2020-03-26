@@ -42,6 +42,15 @@ class Mask{
 		$str = preg_replace('/_+/', ' ', $str);
 		return $str;
 	}
+
+
+	function rmMaskCpf($cpf){
+		//Remove mascara
+		$cpf_int = str_replace('-', '', $cpf);
+		$cpf_int = preg_replace('/[^A-Za-z0-9\-]/', '', $cpf_int);
+		
+		return $cpf_int;
+	}
 }
 
 

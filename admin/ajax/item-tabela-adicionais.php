@@ -14,7 +14,7 @@ if(in_array('combo', $permissao)){
 	
 	echo "<table class='table' id='tbUsuarios' style='text-align = center;'>
 	<thead>
-		<h1 class=\"page-header\">Lista de Adicionais</h1>
+		<h1 >Lista de Adicionais</h1>
 		<tr>
     		<th width='33%' style='text-align: center;'>Nome</th>
 			<th width='33%' style='text-align: center;'>Preco</th>

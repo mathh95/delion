@@ -95,8 +95,8 @@
         }
 
         function selectAll(){
-            $imagens = array();
             try{
+            $imagens = array();
                 $stmte = $this->pdo->prepare("SELECT * FROM tb_imagem");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
@@ -108,9 +108,13 @@
                             $imagem->setPagina($result->ima_pagina);
                             array_push($imagens, $imagem);
                         }
+                    }else{
+                        return NULL;
                     }
+                    return $imagens;
+                }else{
+                    return NULL;
                 }
-                return $imagens;
             }
             catch(PDOException $e){
                 echo $e->getMessage();

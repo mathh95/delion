@@ -1,3 +1,15 @@
+<?php
+
+include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
+
+session_start();
+
+if(isset($_SESSION['usuarioID'])){
+    header("Location: ../sistema.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -6,6 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="robots" content="noindex" />
     <title>Área Administrativa</title>
     <link href="../vendor/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
@@ -14,7 +27,7 @@
     <link rel="stylesheet" href="../dist/css/main.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="center-block login-box">
             <img src="../img/Kionux_1.jpg" alt="" />
             <h1>Área Administrativa Delion Café</h1>

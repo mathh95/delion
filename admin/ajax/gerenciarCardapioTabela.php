@@ -28,9 +28,11 @@ if(in_array('cardapio', $permissao)){
 		$flag_servindo = $_POST['producao'];
 	}
 
-	echo "<table class='table table-responsive table-striped table-hover' id='tbCardapio' 			style='text-align = center;'>
+	echo "
+		<div class='table-responsive'>
+		<table class='table table-striped table-hover' id='tbCardapio' 			style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Gerenciar Cardapio</h1>
+			<h1 >Gerenciar Cardapio</h1>
 			<tr>
 				<th width='30%' style='text-align: left;'>Item</th>
 				<th width='10%' style='text-align: center;'>Preço</th>
@@ -93,11 +95,11 @@ if(in_array('cardapio', $permissao)){
 					//serviço
 					if($item->getFlag_servindo() == 1){
 
-						echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-servindo.php?op=pausar&cod=".$item->getPkId()."'><button type='button' class='btn btn-kionux' style='width: 100px'><i class='fa fa-pause'></i> Pausar</button></a></td>";
+						echo "<td style='text-align: center;' name='status'><button type='button' onclick=\"pausarItem(".$item->getPkId().");\" class='btn btn-kionux' style='width: 100px'><i class='fa fa-pause'></i> Pausar</button></td>";
 					
 					}else{
 						//Ativa o item
-						echo "<td style='text-align: center;' name='status'><a href='../../ajax/alterar-servindo.php?op=ativar&cod=".$item->getPkId()."'><button type='button' class='btn btn-kionux' style='width: 100px'><i class='fa fa-play'></i> Ativar</button></a></td>";
+						echo "<td style='text-align: center;' name='status'><button type='button' onclick=\"ativarItem(".$item->getPkId().");\" class='btn btn-kionux' style='width: 100px'><i class='fa fa-play'></i> Ativar</button></a></td>";
 		
 					}
 
@@ -111,7 +113,8 @@ if(in_array('cardapio', $permissao)){
 		/*Sem PERMISSÃO*/
 	}
 
-echo "</tbody></table>";
+echo "</tbody></table>
+</div>";
 
 //Modals fotos dos itens
 //itens por categoria ordenados

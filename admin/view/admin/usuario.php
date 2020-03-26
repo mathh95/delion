@@ -16,7 +16,7 @@
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-    //usado para coloração customizada da página seleciona na navbar
+    //usado para coloração customizada da página selecionada na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 
 ?>
@@ -290,6 +290,30 @@
                                         </label>
                                     </li>
 
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="gerenciar_fidelidade" name="permissoes[]" value="gerenciar_fidelidade"> Gerenciar Fidelidade
+
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="gerenciar_fornecedor" name="permissoes[]" value="gerenciar_fornecedor"> Gerenciar Fornecedor
+
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="gerenciar_composicao" name="permissoes[]" value="gerenciar_composicao"> Gerenciar Composição
+
+                                        </label>
+                                    </li>
+                                
                                 </ul>
 
                             </div>

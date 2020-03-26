@@ -19,7 +19,6 @@
 		}
 		$nome= addslashes(htmlspecialchars($_POST['nome']));
 		$preco = addslashes(htmlspecialchars($_POST['preco']));
-		$desconto = addslashes(htmlspecialchars($_POST['desconto']));
 		if(isset($_POST['flag_ativo']) && !empty($_POST['flag_ativo'])){
 			$flag_ativo = 1;
 		}else{
@@ -27,7 +26,7 @@
 		}
 	
 		$adicional= new adicional();
-		$adicional->construct($nome, $preco, $desconto, $flag_ativo);
+		$adicional->construct($nome, $preco, $flag_ativo);
 		/*echo "<pre>";
 		var_dump($cardapio);
 		echo "</pre>";

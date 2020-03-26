@@ -1,4 +1,5 @@
 <?php
+    include_once ROOTPATH."/config.php";
     include_once MODELPATH."/adicional.php";
 
     class controlerAdicional {
@@ -64,8 +65,7 @@
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
                             $adicional->setPkId($result->adi_pk_id);
                             $adicional->setNome($result->adi_nome);
-                            $adicional->setPreco($result->adi_preco);
-                            $adicional->setDesconto($result->adi_desconto);  
+                            $adicional->setPreco($result->adi_preco); 
                             $adicional->setFlag_ativo($result->adi_flag_ativo); 
                         }
                     }
@@ -102,7 +102,6 @@
                             $adicional->setPkId($result->adi_pk_id);
                             $adicional->setNome($result->adi_nome);
                             $adicional->setPreco($result->adi_preco);
-                            $adicional->setDesconto($result->adi_desconto);
                             $adicional->setFlag_ativo($result->adi_flag_ativo);
                             array_push($adicionais, $adicional);
                         }
@@ -114,6 +113,21 @@
                 echo $e->getMessage();
             }
         }
+
+        function selectAllF(){
+            $array_adicionais = array();
+
+            $sql = "SELECT * FROM tb_adicional";
+
+            $sql = $this->pdo->query($sql);
+
+            if($sql -> rowCount() > 0){
+                $array_adicionais = $sql->fetchAll();
+            }
+
+            return $array_adicionais;
+        }
+
 
         function buscarVariosId($itens){
             $array = array();
@@ -127,6 +141,10 @@
             }
 
             return $array;
+        }
+        
+        function __construct($pdo){
+            $this->pdo=$pdo;
         }
     }
 ?>

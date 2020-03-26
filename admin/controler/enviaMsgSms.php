@@ -12,7 +12,7 @@
 	include_once MODELPATH."/sms_mensagem.php";
 	include_once CONTROLLERPATH."/controlSmsMensagem.php";
 
-	include_once HOMEPATH."home/utils/InfoBip.php";
+	include_once HOMEPATH."home/utils/IaGente.php";
 	include_once HELPERPATH."/mask.php";
 
 	$mask = new Mask;
@@ -44,30 +44,25 @@
 		$sms_mensagem->construct($msg_cleaned, $descricao);
 		$cod_sms_mensagem = $control_sms->insert($sms_mensagem);
 		
-		$enviados = 0;
-
-		$info_bip = new InfoBip();
+		$ia_gente = new IaGente();
+		$arr_telefones_int = array();
 		foreach ($arr_key_cli as $key){
 			
 			$telefone_int = $mask->rmMaskPhone($arr_telefones_cli[$key]);
 
-			$res_envio = $info_bip->enviaMsgSMS($telefone_int, $msg_cleaned);
-			
-			// var_dump($res_envio);
-
-			if($res_envio){
-
-				$control_sms->insertSmsCli($cod_sms_mensagem, $arr_cod_cli[$key]);
-				$enviados++;
-				
-			}
+			array_push($arr_telefones_int, $telefone_int);
 		}
 		
-		if($enviados == $qtd_clientes){
-			//sms s enviados set to 1
-			msgRedireciona('SMS enviado!', 'Todas Mensagens enviadas!', 1, '../view/admin/enviarSms.php');
-		}else if($enviados){
+		$telefones_int = implode(',', $arr_telefones_int);
 
+		$res_envio = $ia_gente->enviaSMSLote($telefones_int, $msg_cleaned);
+		
+		if($res_envio == "OK"){
+
+			$control_sms->insertSmsCli($cod_sms_mensagem, $arr_cod_cli[$key]);
+
+			msgRedireciona('SMS enviado!', 'Todas Mensagens enviadas!', 1, '../view/admin/enviarSms.php');
+			
 		}else{
 			header('Location: ' . $_SERVER['HTTP_REFERER']);			
 		}

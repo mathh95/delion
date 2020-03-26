@@ -26,7 +26,7 @@ $banners = $controle->selectAllMini();
 
 		<thead>
 
-			<h1 class=\"page-header\">Lista de Banner</h1>
+			<h1 >Lista de Banner</h1>
 
 			<tr>
 
@@ -78,7 +78,7 @@ $banners = $controle->selectAllMini();
 
 		<thead>
 
-			<h1 class=\"page-header\">Lista de Banner</h1>
+			<h1 >Lista de Banner</h1>
 
 			<tr>
 

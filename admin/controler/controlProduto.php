@@ -7,6 +7,7 @@
 
     class controlerProduto {
         private $pdo;
+
         function insert($produto){
 
             try{
@@ -29,8 +30,10 @@
 
                 
                 $executa = $stmte->execute();
+                $hipr_fk_produto = $this->pdo->lastInsertId();
+
                 if($executa){
-                    return 1;
+                    return $hipr_fk_produto;
                 }
                else{
                     return -1;
@@ -98,6 +101,30 @@
             }
         }
 
+        function updateFidelidade($pk_id, $pts_resgate_fidelidade, $fk_fidelidade){
+
+            try{
+                $stmte =$this->pdo->prepare("UPDATE tb_produto SET pro_pts_resgate_fidelidade=:pts_resgate_fidelidade, pro_fk_fidelidade=:fk_fidelidade
+                WHERE pro_pk_id=:pk_id");
+
+                $stmte->bindParam(":pk_id", $pk_id, PDO::PARAM_INT);
+                $stmte->bindParam(":pts_resgate_fidelidade", $pts_resgate_fidelidade, PDO::PARAM_STR);
+                $stmte->bindParam(":fk_fidelidade", $fk_fidelidade, PDO::PARAM_INT);
+                $executa = $stmte->execute();
+                
+                if($executa){
+                    return 1;
+                }
+                else{
+                    return -1;
+                }
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
 
         function buscarVariosId($itens){
             $array = array();
@@ -109,6 +136,41 @@
 
             if($sql -> rowCount() > 0){
                 $array = $sql->fetchAll();
+            }
+
+            return $array;
+        }
+
+        function selectAllHistorico(){
+            $array = array();
+
+            $sql = "SELECT *
+            FROM tb_historico_produto
+            ORDER BY hipr_data ASC";
+            
+            $sql = $this->pdo->query($sql);
+
+            if($sql -> rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+
+            return $array;
+        }
+
+        function selectHistoricoByFkPro($fk_produto){
+            $array = array();
+
+            $stmte = $this->pdo->prepare("SELECT *
+            FROM tb_historico_produto
+            WHERE hipr_fk_produto =:fk_produto
+            ORDER BY hipr_data ASC");
+
+            $stmte->bindParam(":fk_produto", $fk_produto);
+
+            if($stmte->execute()){
+                if($stmte->rowCount() > 0){
+                    $array = $stmte->fetchAll();
+                }
             }
 
             return $array;
@@ -142,6 +204,7 @@
                         $produto->setPrioridade($result->pro_flag_prioridade);
                         $produto->setDelivery($result->pro_flag_delivery);
                         $produto->setPosicao($result->pro_posicao);
+                        $produto->setAdicional($result->pro_arr_adicional);
                         $produto->setDias_semana($result->pro_arr_dias_semana);
 
                         $produto->setCategoria($result->pro_fk_categoria);
@@ -153,6 +216,105 @@
                 }
 
                 return $produto;
+            }
+            catch(PDOException $e){
+
+                echo $e->getMessage();
+            }
+        }
+
+        function selectAllByFidelidade($fk_fidelidade = 1){
+            $produtos = array();
+            try{
+
+                $stmte = $this->pdo->prepare("SELECT *
+                FROM tb_produto AS PRO
+                INNER JOIN tb_fidelidade AS FID
+                ON PRO.pro_fk_fidelidade = :fk_fidelidade
+                ORDER BY pro_pts_resgate_fidelidade ASC");
+
+                $stmte->bindParam(":fk_fidelidade", $fk_fidelidade , PDO::PARAM_INT);
+
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                        
+                            $produto = new produto();
+
+                            $produto->setPkId($result->pro_pk_id);
+                            $produto->setNome($result->pro_nome);
+                            $produto->setPreco($result->pro_preco);
+                            $produto->setDesconto($result->pro_desconto);
+                            $produto->setDescricao($result->pro_descricao);
+                            $produto->setFoto($result->pro_foto);
+                            $produto->setFlag_ativo($result->pro_flag_ativo);
+                            $produto->setFlag_servindo($result->pro_flag_servindo);
+                            $produto->setPrioridade($result->pro_flag_prioridade);
+                            $produto->setDelivery($result->pro_flag_delivery);
+                            $produto->setPosicao($result->pro_posicao);
+                            $produto->setDias_semana($result->pro_arr_dias_semana);
+                            $produto->setPtsResgateFidelidade($result->pro_pts_resgate_fidelidade);
+
+                            $produto->setCategoria($result->pro_fk_categoria);
+
+                            array_push($produtos, $produto);
+
+                        }
+                    }else{
+                        return NULL;
+                    }
+                    return $produtos;
+                }else{
+                    return NULL;
+                }
+
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+        function selectAllByPtsResgate($pts_resgate_fidelidade){
+            $produtos = array();
+            try{
+
+                $stmte = $this->pdo->prepare("SELECT *
+                FROM tb_produto AS PRO
+                INNER JOIN tb_fidelidade AS FID
+                ON PRO.pro_pts_resgate_fidelidade = :pts_resgate_fidelidade
+                ORDER BY pro_pts_resgate_fidelidade ASC");
+
+                $stmte->bindParam(":pts_resgate_fidelidade", $pts_resgate_fidelidade , PDO::PARAM_INT);
+
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                        
+                            $produto = new produto();
+
+                            $produto->setPkId($result->pro_pk_id);
+                            $produto->setNome($result->pro_nome);
+                            $produto->setPreco($result->pro_preco);
+                            $produto->setDesconto($result->pro_desconto);
+                            $produto->setDescricao($result->pro_descricao);
+                            $produto->setFoto($result->pro_foto);
+                            $produto->setFlag_ativo($result->pro_flag_ativo);
+                            $produto->setFlag_servindo($result->pro_flag_servindo);
+                            $produto->setPrioridade($result->pro_flag_prioridade);
+                            $produto->setDelivery($result->pro_flag_delivery);
+                            $produto->setPosicao($result->pro_posicao);
+                            $produto->setDias_semana($result->pro_arr_dias_semana);
+                            $produto->setPtsResgateFidelidade($result->pro_pts_resgate_fidelidade);
+
+                            $produto->setCategoria($result->pro_fk_categoria);
+
+                            array_push($produtos, $produto);
+
+                        }
+                    }
+                }
+
+                return $produtos;
             }
             catch(PDOException $e){
 
@@ -302,6 +464,22 @@
         function delete($pk_id){
             try{
                 $stmt = $this->pdo->prepare("DELETE FROM tb_produto WHERE $pk_id = :pk_id");
+                $stmt->bindParam(":pk_id", $pk_id , PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
+        function deleteFidelidade($pk_id){
+            try{
+                $stmt = $this->pdo->prepare("UPDATE tb_produto
+                SET pro_fk_fidelidade = null, pro_pts_resgate_fidelidade = null
+                WHERE pro_pk_id = :pk_id");
+
                 $stmt->bindParam(":pk_id", $pk_id , PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;
@@ -664,7 +842,11 @@
                 $stmte = $this->pdo->prepare("SELECT *
                 FROM tb_produto AS A
                 LEFT JOIN tb_categoria AS B
-                ON A.pro_fk_categoria = B.cat_pk_id");
+                ON A.pro_fk_categoria = B.cat_pk_id
+                LEFT JOIN tb_composicao
+                ON pro_pk_id = com_fk_produto
+                ORDER BY pro_nome ASC");
+
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
@@ -680,15 +862,22 @@
                             $produto->setPrioridade($result->pro_flag_prioridade);
                             $produto->setDelivery($result->pro_flag_delivery);
                             $produto->setPosicao($result->pro_posicao);
+                            $produto->setAdicional($result->pro_arr_adicional);
                             $produto->setDias_semana($result->pro_arr_dias_semana);
+                            $produto->setCategoria($result->cat_nome);
                             
                             //atribuição por referencia
-                            $produto->setCategoria($result->cat_nome);
+                            $produto->pk_composicao = $result->com_pk_id;
+
                             array_push($produtos, $produto);
                         }
+                    }else{
+                        return NULL;
                     }
+                    return $produtos;
+                }else{
+                    return NULL;
                 }
-                return $produtos;
             }
             catch(PDOException $e){
                 echo $e->getMessage();
@@ -875,6 +1064,27 @@
                 return $result->produtos;
             }
 
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
+        function insertHistoricoProduto($cod_produto, $produto){
+            try{
+                $stmte =$this->pdo->prepare("INSERT INTO tb_historico_produto SET hipr_valor = :valor, hipr_data = NOW(), hipr_fk_produto = :cod_produto");
+
+                $stmte->bindValue(":valor", $produto->getPreco(), PDO::PARAM_INT);
+                $stmte->bindValue(":cod_produto", $cod_produto);
+
+                $executa = $stmte->execute();
+
+                if($executa){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }
             catch(PDOException $e){
                 echo $e->getMessage();
                 return -1;

@@ -34,7 +34,7 @@
     $controle = new controlerProduto($_SG['link']);
     $produto = $controle->selectById($_GET['cod']);
 
-    $adicionalObj = json_decode($produto->getAdicional());
+    // $adicionais_associados = json_decode($produto->getAdicional());
     $controleAdicional = new controlerAdicional($_SG['link']);
 
     $adicionais = $controleAdicional->selectAll();
@@ -42,7 +42,7 @@
     $controleFaixaHorario = new controlerFaixaHorario($_SG['link']);
     
     
-    //usado para coloração customizada da página seleciona na navbar
+    //usado para coloração customizada da página selecionada na navbar
     $arquivo_pai = basename(__FILE__, '.php');
     
     
@@ -59,14 +59,6 @@
     </head>
 
     <body>
-
-        <!--[if lt IE 8]>
-
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-
-        <![endif]-->
-
-        <!-- Add your site or application content here -->
 
         <?php include_once "./header.php" ?>
 
@@ -181,112 +173,102 @@
                                 </div>
                             
                             <small>Informar se o Produto estará disponivel para ser Servido:</small>
+                            <div class="checkbox">
 
-                                <div class="checkbox">
+                                <label>
+                                    <?php if ($produto->getFlag_servindo()==1){?>
+                                        <input type="checkbox" id="servindo" name="servindo" value="1" checked>Servindo
+                                        <?php }else{ ?>
+                                        <input type="checkbox" id="servindo" name="servindo" value="1">Servindo
+                                    <?php }?>  
+                                                        
+                                
+                                </label>
 
-                                    <label>
-                                        <?php if ($produto->getFlag_servindo()==1){?>
-                                            <input type="checkbox" id="servindo" name="servindo" value="1" checked>Servindo
-                                            <?php }else{ ?>
-                                            <input type="checkbox" id="servindo" name="servindo" value="1">Servindo
-                                        <?php }?>  
-                                                            
-                                    
-                                    </label>
+                            </div>
+                            
 
-                                </div>
-                               
+                            <small>Dias em que o Item Estará Disponível:</small>
 
-                                <small>Dias em que o Item Estará Disponível:</small>
+                            <div class="checkbox checkbox-dias">
 
-                                <div class="checkbox">
+                                <!-- Domingo -->
+                                <label>
+                                    <input type="checkbox" id="domingo" name="dias[]" value="1"/>Dom &nbsp;
+                                </label>
 
-                                    <!-- Domingo -->
-                                    <label>
-                                        <input type="checkbox" id="domingo" name="dias[]" value="1"/>Dom &nbsp;
-                                    </label>
+                                <!-- Segunda -->
+                                <label>
+                                    <input type="checkbox" id="segunda" name="dias[]" value="2"/>Seg &nbsp;
+                                </label>
+                                <!-- Terça -->
+                                <label>
+                                    <input type="checkbox" id="terca" name="dias[]" value="3"/>Ter &nbsp;                             
+                                </label>
+                                <!-- Quarta -->
+                                <label>
+                                    <input type="checkbox" id="quarta" name="dias[]" value="4"/>Qua &nbsp;
+                                </label>
+                                <!-- Quinta -->
+                                <label>
+                                    <input type="checkbox" id="quinta" name="dias[]" value="5"/>Qui &nbsp;                              
+                                </label>
+                                <!-- Sexta -->
+                                <label>
+                                    <input type="checkbox" id="sexta" name="dias[]" value="6"/>Sex &nbsp;
+                                </label>
+                                <!-- Sábado -->
+                                <label>
+                                    <input type="checkbox" id="sabado" name="dias[]" value="7"/>Sáb  &nbsp;                             
+                                </label>
+                                
 
-                                    <!-- Segunda -->
-                                    <label>
-                                        <input type="checkbox" id="segunda" name="dias[]" value="2"/>Seg &nbsp;
-                                    </label>
-                                    <!-- Terça -->
-                                    <label>
-                                        <input type="checkbox" id="terca" name="dias[]" value="3"/>Ter &nbsp;                             
-                                    </label>
-                                    <!-- Quarta -->
-                                    <label>
-                                        <input type="checkbox" id="quarta" name="dias[]" value="4"/>Qua &nbsp;
-                                    </label>
-                                    <!-- Quinta -->
-                                    <label>
-                                        <input type="checkbox" id="quinta" name="dias[]" value="5"/>Qui &nbsp;                              
-                                    </label>
-                                    <!-- Sexta -->
-                                    <label>
-                                        <input type="checkbox" id="sexta" name="dias[]" value="6"/>Sex &nbsp;
-                                    </label>
-                                    <!-- Sábado -->
-                                    <label>
-                                        <input type="checkbox" id="sabado" name="dias[]" value="7"/>Sáb  &nbsp;                             
-                                    </label>
-                                  
-
-                                </div>
-                                            
-                                <br>
-                                <div class="checkbox">
-                                    <select class="form-control" name="faixa_horario" id="faixa_horario">
-
-                                        <option value="">Faixa de Horário</option>
-                                        <?php
-                                            $faixas_horario = $controleFaixaHorario->selectAll();
-                                            foreach ($faixas_horario as $faixa) {
-                                                $ini = date("H:i", strtotime($faixa->getInicio()));
-                                                $final = date("H:i", strtotime($faixa->getFinal()));
-                                                $txt = $ini."h - ".$final."h";
-                                                echo "<option value='".$faixa->getPkId()."' id='".$faixa->getPkId()."'>".$txt."</option>";
-                                            }  
-                                        ?>
-                                    </select>
-                                    
-                                    <br><br>
-                                </div>
+                            </div>           
                             <br>
+
+                            <div>
+
+                                <div class="col-md-7">
+                                <select class="form-control" name="faixa_horario" id="faixa_horario">
+
+                                    <option value="">Faixa de Horário</option>
+                                    <?php
+                                        $faixas_horario = $controleFaixaHorario->selectAll();
+                                        foreach ($faixas_horario as $faixa) {
+                                            $ini = date("H:i", strtotime($faixa->getInicio()));
+                                            $final = date("H:i", strtotime($faixa->getFinal()));
+                                            $txt = $ini."h - ".$final."h";
+                                            echo "<option value='".$faixa->getPkId()."' id='".$faixa->getPkId()."'>".$txt."</option>";
+                                        }  
+                                    ?>
+                                </select>
+                                </div>
+                                        
+                                <div class="col-md-5">
+                                    <button type="button" class="btn btn-info" onclick="window.location='gerenciarFaixaHorarios.php'">Gerenciar Horários&nbsp;<i class="far fa-clock"></i></button>
+                                </div>  
+                                
+                            </div>
                             <br>
 
                             <small>Quais são os adicionais disponiveis para este produto:</small>
 
                             <input type="hidden" value="<?=count($adicionais)?>" name="quantidadeAdicionais">
-
                             <br>
-                            
+        
                             <div>
                             
                                 <ul>
-
+                                    <div class="checkbox-adicionais">
                                     <?php 
-                                        $i = 1;
                                         foreach($adicionais as $adicional){
-                                    ?>
-                                        <li>
-                                            
-                                            <?php 
-                                                if(!empty($adicionalObj)){
-                                                    if(in_array($adicional->getPkId(), $adicionalObj)){
-                                                        echo "<input checked type='checkbox' name='".$i."adicional' value='".$adicional->getPkId()."'>".$adicional->getNome();
-                                                    }else{
-                                                        echo "<input type='checkbox' name='".$i."adicional' value='".$adicional->getPkId()."'>".$adicional->getNome();
-                                                    }
-                                                }else{
-                                                    echo "<input type='checkbox' name='".$i."adicional' value='".$adicional->getPkId()."'>".$adicional->getNome();
-                                                }
-                                            ?>
+                                            echo "
+                                                <li>
+                                                    <input type='checkbox' name='adicional[]' value='".$adicional->getPkId()."'>".$adicional->getNome().
+                                                "</li>";
+                                        }?>
 
-                                        </li>
-
-                                    <?php $i++; }?>
-
+                                    </div>
                                 </ul>
                             
                             </div>
@@ -374,15 +356,20 @@
                 var categoria = '<?= $produto->getCategoria() ?>';
                 var faixa_horario = '<?=$produto->getFkFaixaHorario()?>';
                 var dias = '<?= $produto->getDias_semana() ?>';
-                var ativo = '<?= $produto->getFlag_ativo() ?>';
+                var ativo = '<?= $produto->getFlag_ativo() ?>'
+                var adicionais = '<?= $produto->getAdicional()?>';
                 
                 if(dias) dias = JSON.parse(dias);
-                console.log(categoria);
+
+                if(adicionais) adicionais = JSON.parse(adicionais);
 
 
                 //dia -> 1 == domingo...7 == sábado
                 for(let dia of dias){
-                    $(".checkbox :checkbox[value="+dia+"]").prop("checked", "true");
+                    $(".checkbox-dias :checkbox[value="+dia+"]").prop("checked", "true");
+                }
+                for(let adicional of adicionais){
+                    $(".checkbox-adicionais :checkbox[value="+adicional+"]").prop("checked", "true");
                 }
 
                 if (ativo == 1){
@@ -393,7 +380,6 @@
                 if(faixa_horario) $('#' + faixa_horario).attr('selected', true);
             });      
             
-
             </script>
 
     </body>

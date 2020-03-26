@@ -58,7 +58,7 @@
 		if($controle->updateFuncionamento($empresa)> -1){
 			msgRedireciona('Alteração Realizada!','Horários alterados com sucesso!',1,'../view/admin/empresaHorarios.php');
 		}else{
-			alertJSVoltarPagina('Erro!','Erro ao alterar horários!',2);
+			alertJSVoltarPagina(' !','Erro ao alterar horários!',2);
 			$empresa->show();
 		}
 	}else{

@@ -18,6 +18,8 @@
         private $pro_arr_dias_semana;
         private $pro_posicao;
         private $pro_categoria;
+        private $pro_pts_resgate_fidelidade;
+        private $pro_fk_fidelidade;
         
         //dependentes
         private $pro_fk_faixa_horario;
@@ -86,6 +88,14 @@
             return $this->pro_fk_faixa_horario;
         }
 
+        function getPtsResgateFidelidade(){
+            return $this->pro_pts_resgate_fidelidade;
+        }
+
+        function getFkFidelidade(){
+            return $this->pro_fk_fidelidade;
+        }
+
 
         
 
@@ -145,6 +155,14 @@
 
         function setFkFaixaHorario($pro_fk_faixa_horario){
             $this->pro_fk_faixa_horario=$pro_fk_faixa_horario;
+        }
+
+        function setPtsResgateFidelidade($pro_pts_resgate_fidelidade){
+            $this->pro_pts_resgate_fidelidade=$pro_pts_resgate_fidelidade;
+        }
+
+        function setFkFidelidade($pro_fk_fidelidade){
+            $this->pro_fk_fidelidade=$pro_fk_fidelidade;
         }
 
 
