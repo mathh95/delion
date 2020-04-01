@@ -272,6 +272,7 @@ class controlerCarrinho{
                 while($result = $stmt->fetch(PDO::FETCH_OBJ)){
                     $pedido_produto = new pedido_produto();
                     $pedido_produto->setFkProduto($result->pepr_fk_produto);
+                    $pedido_produto->setFkPedido($result->pepr_fk_pedido);
                     $pedido_produto->setQuantidade($result->pepr_quantidade);
                     $pedido_produto->setObservacao($result->pepr_observacao);
                     $pedido_produto->setPreco($result->pepr_preco);

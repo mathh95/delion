@@ -75,6 +75,8 @@
                 }
             }
 
+            // var_dump($array_vendas_diaria);
+            // exit;
 
             $x_data_venda = array();
             $y_total_dia = array();
@@ -86,6 +88,8 @@
         //Construção do Gráfico de Faturamento Bruto
         //Conta para o lucro Preço de custo - Valor Total 
 
+
+
     ?>
 
         <div class="row">
@@ -96,7 +100,7 @@
                         <ul class='nav nav-tabs'>
                             <li class='active'><a data-toggle='tab' href='#home'>Número de pedidos</a></li>
                             <li><a data-toggle='tab' href='#bruto'>Faturamento Bruto</a></li>
-                            <li><a data-toggle='tab' href='#liquido'>Faturamento Líquido</a></li>
+                            <!-- <li><a data-toggle='tab' href='#liquido'>Faturamento Líquido</a></li> -->
                         </ul>
                         <div class='tab-content'>
                             <div id='home' class='tab-pane fade in active'>
@@ -107,10 +111,10 @@
                                 <h3>Faturamento Bruto por Dia</h3>
                                 <div id='faturamento_bruto' style='width:1100px;height:500px;'></div>
                             </div>
-                            <div id='liquido' class='tab-pane fade'>
+                            <!-- <div id='liquido' class='tab-pane fade'>
                                 <h3>Faturamento Líquido por Dia</h3>
                                 <div id='faturamento_liquido' style='width:1100px;height:500px;'></div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
             </div>
@@ -142,18 +146,18 @@
             margin: { t: 0 } }, config );
 
             //
-            grafico_faturamento_liquido = document.getElementById('faturamento_bruto');
-            Plotly.newPlot( grafico_faturamento_liquido, [{
+            grafico_faturamento_bruto = document.getElementById('faturamento_bruto');
+            Plotly.newPlot( grafico_faturamento_bruto, [{
             x: x_data_venda,
             y: y_total_dia }], {
             margin: { t: 0 } }, config );
 
             //
-            grafico_faturamento_bruto = document.getElementById('faturamento_liquido');
-            Plotly.newPlot( grafico_faturamento_bruto, [{
-            x: [1, 2, 3, 4, 5],
-            y: [1, 4, 8, 1, 10] }], {
-            margin: { t: 0 } }, config );
+            // grafico_faturamento_bruto = document.getElementById('faturamento_liquido');
+            // Plotly.newPlot( grafico_faturamento_bruto, [{
+            // x: [1, 2, 3, 4, 5],
+            // y: [1, 4, 8, 1, 10] }], {
+            // margin: { t: 0 } }, config );
 
 
     </script>

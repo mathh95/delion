@@ -334,6 +334,27 @@ include_once CONTROLLERPATH."/seguranca.php";
             }
         }
 
+        function selectFkProduto($cod_produto){
+            // $composicoes = array();
+            $cod_produto = $cod_produto;
+            try{
+                $stmt=$this->pdo->prepare("SELECT * FROM tb_composicao WHERE com_fk_produto = :cod_produto");
+
+                $stmt->bindParam(":cod_produto", $cod_produto, PDO::PARAM_INT);
+
+                if($stmt->execute()){
+                    if($stmt->rowCount() > 0){
+                        $result = $stmt->fetchAll();
+                    }else{
+                        return -1;
+                    }
+                    return $result;
+                }
+            }
+            catch(PDOException $e){
+                return $e->getMessage();
+            }
+    }
 
         function delete(){
             try{
