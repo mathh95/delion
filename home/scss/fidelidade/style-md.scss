@@ -12,3 +12,424 @@
     font-family: "Century Gothic Bold";
     src: url("../fonts/gothicb.ttf");
 }
+
+body{
+    font-family: $font_main;
+    height: auto;
+    width: 100%;
+    padding: 0;
+    overflow-x: hidden;
+    header{
+        background-color: $vermelho_forte;
+        .container{
+            margin: 0;
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+            >.logo-delion{
+                padding: 10px;
+                width: 100%;
+                img{
+                    width: 26%;
+                    max-width: 65px;
+                    max-height: 65px;
+                }
+            }
+            >.voltar{
+                width: 10%;
+                padding-top: 30px;
+                font-weight: bold;
+                
+                
+                a{
+                    text-decoration: none;
+                    color: #FFF;
+                    font-size: 18px;
+                    vertical-align: middle;
+                }
+
+                i{
+                    font-size: 28px;
+                }
+            }
+        }    
+    }
+    .banner-red{
+        justify-content: center;
+        text-align: center;
+        background-color: $vermelho_fraco;
+        padding: 20px;
+        .top-banner-red{
+            width: 100%;
+            color: #ffffff;
+            font-weight: bold;
+           .container-title-logo{
+               text-align: center;
+               display: inline-flex;
+               flex-direction: row;
+               justify-content: center;
+
+               h1{
+                    padding-top: 30px;
+                    font-weight: bold;
+                    float: left;
+                }
+
+                .logo-wrapper{
+                    vertical-align: middle;
+                    height: 72px;
+                    margin-top: 45px;
+                    width: 100%;
+                    max-width: 72px;
+                    max-height: 72px;
+                    #logo{
+                        width: 100%;
+                        
+                        
+                    }
+                }    
+           }
+           .container-footer{
+               text-align: center;
+               justify-content: center;
+               .ponto_fidelidade{
+                width: 100%;
+                max-width: 250px;
+                max-height: 60px;
+               }
+           }
+            
+            p{
+                width: 100%;
+                margin: 0;
+                padding: 10px;
+            }
+            
+            button{
+                font-weight: bold;
+                font-size: 25px;
+                padding: 20px;
+                border-radius: 15px;
+            }
+            
+        }
+    }
+    .vantagens{
+        background-color: #00c2c4;
+        text-align: center;
+        height: auto;
+        width: 100%;
+        
+        .title-center{
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 40px;
+            
+        }
+        .lista-vantagens{
+            justify-content: center;
+            display: inline-flex;
+            .item-vantagem{
+                width: 25%;
+                .img-wrapper{
+                    height: auto;
+                    margin: 0;
+                    padding: 10px;
+                    img{
+                        width: 80%;
+                        height: auto;
+                        border-radius: 45%;
+                        padding: 30px;
+
+                        
+                    }
+                }
+                .descricao{
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+            }
+        }
+        .subtitulo-vantagens{
+            padding-top: 30px;
+            padding: 10px;
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 30px;
+        }
+    }
+    .pre-premios{
+        width: 100%;
+        display: inline-flex;
+        .img-wrapper{
+            width: 50%;
+            img{
+                height: auto;
+                width: 100%;
+                border-radius: 30px;
+                padding: 20px;
+            }
+        }
+        div{
+            padding: 0;
+            >.titulo-premios{
+                font-weight: bold;
+                color: #ffffff;
+                font-size: 30px;
+                text-align: center;
+                padding: 60px;
+            }
+        }
+    }
+    .programa-pontos{
+        width: 100%;
+        background-color: #feaf0a;
+        text-align: center;
+        height: auto;
+        padding: 0;
+        .titulo-pontos{
+            font-weight: bold;
+            color: #8f4b00;
+            font-size: 30px;
+            padding: 20px;
+        }
+
+        .btn-wrapper{
+            justify-content: center;
+            height: auto;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            width: 100%;
+            height: auto;
+
+            >button{
+                background-color:#feaf0a;
+                border: 2px solid #cd760e;
+                border-radius: 10px;
+                color: #ffffff;
+                margin: 10px;
+                width: 120px;
+                span{
+                    font-weight: bold;
+                    font-size: 38px;
+                    color: #ffffff;
+                }
+            }
+            button:hover{
+                background-color:#ffc549;
+            }
+            button:focus{
+                outline: 0;
+                background-color:#ca8734;
+            }
+        }
+        .produtos-pontos{
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            padding: 30px;
+            .produto{
+                height: auto;
+                border-radius: 20px;
+                img{
+                    width: 100%;
+                    padding: 10px;
+                    border-radius: 15px;
+                }
+                h2{
+                    font-weight: bold;
+                    color: #FFFFFF;
+                    margin-top: -20px;
+                    padding-bottom: 20px;
+                    font-size: 20px;
+                }
+            }
+        }
+        
+    }
+
+    .funcionamento-programa{
+        width: 100%;
+        height: auto;
+        background-color: #00c2c4;
+        margin-bottom: -15px;
+
+        .titulo-funcionamento{
+            color: #FFFFFF;
+            font-size: 30px;
+            font-weight: bold;
+            padding: 20px;
+        }
+
+        .lista-regras{
+            justify-content: center;
+            display: inline-flex;
+            width: 100%;
+            height: auto;
+            flex-direction: row;
+            .item{
+                .icone-wrapper{
+                    background-image: url(../../img/selo-vermelho.png);
+                    height: 210px;
+                    position: relative;
+                    text-align: center;
+                    width: 210px;
+                    background-size: 100% 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    .desc{
+                        line-height: 17px;
+                        font-size: 15px;
+                        .titulo-desc{
+                            font-weight: bold;
+                            color: #FFFFFF;
+                        }
+
+                        color: #FFFFFF;
+                       
+                    }
+                }
+            }
+        }
+    }
+}
+
+//SASS da tela de resgate fidelidade !!!!!
+.main{
+    background-color: rgb(236, 230, 230);
+    height: auto;
+    width: 100%;
+    .resgate-main{
+        width: 100%;
+        height: auto;
+        padding-bottom: 40px;
+
+        h2{
+            font-weight: bold;
+        }
+
+        >.pontos-info{
+            >.pontos-wrapper{
+                padding-top: 5px;
+
+                p{
+                    >span{
+                        color: red;
+                    }
+                }
+            }
+        }
+
+        .tabela-produtos{
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 30px;
+            .produtos-titulo{
+                padding-bottom: 20px;
+                font-weight: bold;
+            }
+            .btn-wrapper-resgate{
+                .btn-light{
+                    margin: 5px;
+                    margin-right: 5px;
+                    outline: none;
+                    border-radius: 50px;
+                    background-color: #fff;
+                    border: 2px solid #aeaeae;
+                    >span{
+                        font-weight: bold;
+                        color: #aeaeae;
+                    }
+                }
+
+                .btn-light.active{
+                    border-radius: 50px;
+                    background-color: #fff;
+                    border: 2px solid $vermelho_forte;
+                    >span{
+                        font-weight: bold;
+                        color: $vermelho_forte;
+                    }
+                }
+
+                .btn-light:focus{
+                    border-radius: 50px;
+                    background-color: #fff;
+                    border: 2px solid $vermelho_forte;
+                    >span{
+                        font-weight: bold;
+                        color: $vermelho_forte;
+                    }
+                }
+            }
+
+            .produtos-resgate-wrapper{
+                width: 100%;
+                flex-wrap: wrap;
+                display: inline-flex;
+                .produto-resgate{
+                    width: 25%;
+                    height: auto;
+                    padding: 20px;
+                    text-align: center;
+                    img{
+                        width: 100%;
+                        height: auto;
+                        border-radius: 20px;
+                    }
+                    h4{
+                        text-align: center;
+                        font-weight: bold;
+                        min-height: 57px;
+                    }
+                    p{
+                        color: $vermelho_forte;
+                    }
+
+                    .botoes-qtd{
+                        button{
+                            background-color: #000000;
+                            color: #ffffff;
+                            font-weight: bold;
+                            font-size: 17px;
+                            border: 0;
+                            border-radius: 5px;
+                            width: 25px;
+                            outline: 0;
+                        }
+                        input{
+                            width: 20px;
+                            border-radius: 5px;
+                            color: $vermelho_forte;
+                            text-align: center;
+                            font-weight: bold;
+                            font-size: 18px;
+                            border: 0;
+                        }
+                    }
+                }
+            }
+            .botoes-resgate{
+                text-align: right;
+                padding-top: 20px;
+                
+
+                button{
+                    font-weight: bold;
+                    font-size: 17px;
+                    padding: 10px;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                }
+                .btn-secondary{
+                    background-color: #9c9b9b;
+                    color: #ffffff;
+                }
+                
+            }
+        }
+    }
+}

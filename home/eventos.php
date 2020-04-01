@@ -51,77 +51,56 @@ session_start();
 
 	<div class="container solicitar-evento">
 
-		<div class="solicitacao hidden-xs visible-sm-* visible-md-* visible-lg-* visible-xl-*">
+		<div class="row solicitacao visible-xs-* visible-sm-* visible-md-* visible-lg-* visible-xl-* form-group">
 
-			<div>
-				<h2>Solicitação de Evento</h2>
+			<div class="titulo-eventos">
+				<h2><i class="fas fa-bookmark"></i> Solicitação de orçamento </h2>
 			</div>
 
-			<div>
+			<div class="col-sm campos-evento">
 
 				<form method="POST" action="ajax/enviaEmail.php" class="form-horizontal form-contato">
 
-					<div>
+						
 
-						<div>
-							<input name="nome" type="text" required placeholder="Nome">
-						</div>
+						<input name="telefone" type="text" required placeholder="Fone/Whatsapp" class="telefone form-control">
 
-						<div>
-							<input name="telefone" type="text" required placeholder="Fone" class="telefone">
-						</div>
+						<input type="email" required name="email" placeholder="E-mail" class="form-control">
 
-					</div>
+						
+						<textarea rows="3" class="form-control" name="descricao" placeholder="Descrição" maxlength="300"></textarea>
 
-					<div>
-						<div>
 
-							<div>
-								<input type="email" required name="email" placeholder="E-mail">
-							</div>
 
-							<div>
-								<input type="date" min="<?= date('Y-m-d');?>" name="data" class="calendario" value="<?= date('Y-m-d');?>">
-							</div>
-
-						</div>
-
-						<div>
-
-							<div>
-								<div>Início</div>
-								<input type="text" class="timepicker-inicio" name="horaInicio"/>
-							</div>
-
-							<div>
-								<div>Término</div>
-								<input type="text" class="timepicker-termino" name="horaFim"/>
-							</div>
-
-						</div>
-
-					</div>
-
-					<div>
-						<div>
-							<textarea rows="3" name="descricao" placeholder="Descrição" maxlength="300"></textarea>
-						</div>
-
-						<div>
-							<div>
-								<div>Convidados</div>
-
-								<input name="convidados" type="number" required value="1" min="1" max="99">
-
-							</div>
-
-							<img src="img/evento_logo.png" alt="" class="hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
-
-							<button>ENVIAR</button>
-						</div>
-					</div>
-					<input type="hidden" value="[Evento] - Solicitação de Evento" name="assunto">
+						<button class="form-control">ENVIAR</button>
+						<input type="hidden" value="[Evento] - Solicitação de Evento" name="assunto">
 				</form>
+				
+			</div>
+			<div class="col-sm texto-eventos">
+				<h5>Salão Climatizado para 80 pessoas</h5>
+				<ul>
+					<li>Reuniões Familiares.</li>
+					<li>Confraternizações.</li>
+					<li>Aniversários.</li>
+					<li>Coquetéis.</li>
+					<li>Palestras.</li>
+					<li>Vernissages.</li>
+				</ul>
+				<p>Preencha o formulário ao lado para solicitar seu orçamento.</p>
+			</div>
+			<div class="col-sm slider main-carousel">
+				<img src="img/Evento_img2.jpg" alt="torta" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img3.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img4.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img5.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img6.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img7.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img8.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img9.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img10.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img11.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
+				<img src="img/Evento_img12.jpg" alt="imagem evento 2" class=" carousel-cell hidden-xs hidden-sm hidden-md visible-lg-* visible-xl-*">
 			</div>
 		</div>
 
@@ -176,7 +155,24 @@ session_start();
 	<script type="text/javascript" src="js/wickedpicker.js"></script>
 	<script type="text/javascript" src="js/maskedinput.js"></script>
 
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+	<script src="https://unpkg.com/flickity-fade@1/flickity-fade.js"></script>
+
 	<script>
+
+
+		//flickity.js para slider da imagem da pagina de eventos
+		$('.main-carousel').flickity({
+				fade: true,
+				autoPlay: 3000,
+				cellAlign: 'left',
+				contain: true,
+				prevNextButtons: false,
+				pageDots: false,
+				imagesLoaded: true,
+				lazyLoad: false
+			});
 
     	$(document).ready(function(){
 

@@ -148,10 +148,11 @@
         }
 
         function selectAll(){
-            $usuarios = array();
             try{
+            $usuarios = array();
                 $stmte = $this->pdo->prepare("SELECT * FROM tb_usuario");
-                if($stmte->execute()){
+                $executa = $stmte->execute();
+                if($executa){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
                             $usuario= new usuario();
@@ -165,14 +166,20 @@
                             $usuario->setPermissao($result->usu_permissao);
                             array_push($usuarios, $usuario);
                         }
+                    }else{
+                        return NULL;
+                    }
+                        return $usuarios;
+                    }else{
+                        return NULL;
                     }
                 }
-                return $usuarios;
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    return NULL;
+                }
             }
-            catch(PDOException $e){
-                echo $e->getMessage();
-            }
-        }
+
 
         function countUsuario(){
             try{

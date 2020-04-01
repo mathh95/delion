@@ -64,9 +64,7 @@ foreach ($categorias as $key_cat => $categoria) {
         
         // verifica se item disponível hoje e agora
         if(
-            $item->getDias_semana() &&
-            in_array($hoje, json_decode($item->getDias_semana())) &&
-            ($hora_atual >= $item->getProduto_horas_inicio() && $hora_atual < $item->getProduto_horas_final())
+            $item->getFlag_ativo()
         ){
 
             $categoria_com_itens++;
@@ -76,7 +74,7 @@ foreach ($categorias as $key_cat => $categoria) {
 
                 <div class='imagem'>
                     
-                    <img class='img-responsive' title='".$item->getNome()."' alt='".$item->getNome()."' src='../admin/".$item->getFoto()."' onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                    <img class='img-responsive' title='".$item->getNome()." - Delivery Foz do Iguaçu' alt='".$item->getNome()."' src='../admin/".$item->getFoto()."' onerror='this.src=\"/home/img/default_produto.jpg\"'>
                 </div>
 
                 <div class='descricao'>
@@ -87,11 +85,26 @@ foreach ($categorias as $key_cat => $categoria) {
                     <div class='textoDelivery'> Delivery: ". $item->getDsDelivery()."</div>
                 
                     <div id='preco-add' class='pull-right'>
-                        <strong  class='preco'>R$ ".$item->getPreco()."</strong>
-                        <button id='addCarrinho' data-url='ajax/add-carrinho.php' data-cod='".$item->getPkId()."' class='btn btn-default'>Adicionar</button>
-                    </div>
+                        <strong  class='preco'>R$ ".$item->getPreco()."</strong>";
+                        
+                        //se disponível habilita compra
+                        if(
+                            $item->getDias_semana() &&
+                            in_array($hoje, json_decode($item->getDias_semana())) &&
+                            ($hora_atual >= $item->getProduto_horas_inicio() &&
+                            $hora_atual < $item->getProduto_horas_final()) &&
+                            $item->getFlag_servindo()
+                        ){
+                            
+                            echo "<button id='addCarrinho' data-cod='".$item->getPkId()."' class='btn btn-default' data-src_image='../admin/".$item->getFoto()."' data-arr_adicionais='".$item->getAdicional()."'>Adicionar</button>";
+
+                        }else{
+                            echo "<button id='addCarrinho' data-cod='".$item->getPkId()."' class='btn btn-default' disabled title='Indísponível 👩‍🍳'>Indisponível 👩‍🍳</button>";
+                        }
+
+                    echo "</div>
+
                     <br>
-                    
                 </div>
             </div>";
         }
@@ -100,5 +113,4 @@ foreach ($categorias as $key_cat => $categoria) {
     if($categoria_com_itens == 0){
         echo '<div style="text-align:center; padding-bottom:10px;">Itens indisponíveis no momento! <i class="far fa-surprise"></i></div>';
     }
-
 }

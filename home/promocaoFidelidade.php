@@ -1,27 +1,14 @@
 <?php
-    session_start();
+    //session_start();
 
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
-    include_once CONTROLLERPATH."/seguranca.php";
-    include_once "../admin/controler/conexao.php";
-    include_once "controler/controlEmpresa.php";
-    include_once "controler/controlBanner.php";
-    include_once "controler/controlImagem.php";
+    include_once CONTROLLERPATH."/conexao.php";
+    include_once "./controler/controlProduto.php";
+    include_once MODELPATH."/produto.php";
 
-    $_SESSION['permissaoPagina']=0;
 
-    protegePagina("cross_call");
-
-    $controleEmpresa=new controlerEmpresa(conecta());
-    $empresa = $controleEmpresa->select(1,2);
-
-    $controleBanner=new controlerBanner(conecta());
-    $miniBanners = $controleBanner->selectAllMini();
-    $banners = $controleBanner->selectAll();
-
-    $controleImagem=new controlerImagem(conecta());
-    $imagens = $controleImagem->selectAll();
-
+    $controle_produto = new controlerProduto(conecta());
+    
     //configuração de acesso ao WhatsApp 
     // include "./whats-config.php";
 ?>
@@ -32,12 +19,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Programa de Fidelidade - Delion Café</title>
+    <title>Delion Café - Delivery Foz do Iguaçu | Programa de Fidelidade</title>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<meta name="description" content="Participe do nosso programa de fidelidade. Suas compras valem pontos que podem ser trocados por delícias do nosso cardápio!">
+	<meta name="keywords" content="Salgados, Doces, Bolos, Lanches, Bebidas, Sobremesas, Fidelidade, Pontos, Prêmios">
+	<meta name="robots" content="">
+	<meta name="revisit-after" content="1 day">
+	<meta name="language" content="Portuguese">
+	<meta name="generator" content="N/A">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="format-detection" content="telephone=no">
+    
 
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -51,16 +47,18 @@
 
 </head>
 <body>
-    <header class="container-fluid">
-        <div class="container">
-            <div class="logo">
-                <img src="/home/img/Logo.png">
-            </div>
-            <div class="voltar">
-                <a href="index.php"><i class="fas fa-home"></i></a>
-            </div>
-        </div>
-    </header>
+
+<head>
+	<title>Delion Café - Delivery Foz do Iguaçu | Fidelidade</title>
+	
+</head>
+    <?php
+		include_once "./header.php";
+	?>
+
+	<?php
+		include_once "./navbar.php";
+	?>
 
 
     <div class="container-fluid banner-red">
@@ -79,7 +77,7 @@
                     <p style="font-size:24px;">Aqui suas compras viram pontos, e seus pontos viram brindes deliciosos.</p>
                     <img class="ponto_fidelidade" src="/home/img/fidelidade_pontos.png">
                     <p>A cada R$1,00 em compras você acumula 1 ponto.</p>
-                    <button type="button" class="btn btn-success" onclick="location = '/home/login.php'">FAÇA PARTE</button>
+                    <button type="button" class="btn btn-success" onclick="location = '/home/cadastroCliente.php'">FAÇA PARTE</button>
                 </div>
                 
 
@@ -152,254 +150,225 @@
             </div>
 
             <div class="btn-wrapper btn-toolbar">
-                <button type="button" class="30pts btn btn-warning">
+                <button type="button" class="30pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-30pts">
                     <span>30</span><br>
                     pontos
                 </button>
 
-                <button  type="button" class="50pts btn btn-warning">
+                <button type="button" class="50pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-50pts">
                     <span>50</span><br>
                     pontos
                 </button>
 
-                <button type="button" class="80pts btn btn-warning">
+                <button type="button" class="80pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-80pts">
                     <span>80</span><br>
                     pontos
                 </button >
 
-                <button type="button" class="90pts btn btn-warning">
+                <button type="button" class="90pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-90pts">
                     <span>90</span><br>
                     pontos
                 </button>
 
-                <button type="button" class="120pts btn btn-warning">
+                <button type="button" class="120pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-120pts">
                     <span>120</span><br>
                     pontos
                 </button>
 
-                <button type="button" class="200pts btn btn-warning">
+                <button type="button" class="200pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-200pts">
                     <span>200</span><br>
                     pontos
                 </button>
 
-                <button type="button" class="220pts btn btn-warning">
+                <button type="button" class="220pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-220pts">
                     <span>220</span><br>
                     pontos
                 </button>
 
-                <button type="button" class="250pts btn btn-warning">
+                <button type="button" class="250pts btn-pts btn btn-warning"
+                data-link_class_produtos="produto-250pts">
                     <span>250</span><br>
                     pontos
                 </button>
             </div>
 
+
+
+
             <div class="produtos-pontos produto-30pts" style="display: none;">
 
                 <!-- Produtos botao 30 pontos -->
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE AAA123123</h2>
-                </div>
+                <?php
+                
+                $produtos = $controle_produto->selectAllByPtsResgate(30);
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE AAA123123</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE AAA123123</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE AAA123123</h2>
-                </div>
+                ?>
 
             </div>
             
             <div class="produtos-pontos produto-50pts" style="display: none;">
 
                 <!-- Produtos botao 50 pontos -->
+                <?php
+                
+                $produtos = $controle_produto->selectAllByPtsResgate(50);
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 2</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 2</h2>
-                </div>
+                ?>
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 2</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 2</h2>
-                </div>
 
             </div>
 
             <div class="produtos-pontos produto-80pts" style="display: none;">
 
                 <!-- Produtos botao 80 pontos -->
+                <?php
+                
+                $produtos = $controle_produto->selectAllByPtsResgate(80);
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 80</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 80</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 80</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 80</h2>
-                </div>
+                ?>
 
             </div>
 
             <div class="produtos-pontos produto-90pts" style="display: none;">
 
                 <!-- Produtos botao 90 pontos -->
+                <?php
+                
+                $produtos = $controle_produto->selectAllByPtsResgate(90);
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 90</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 90</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 90</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 90</h2>
-                </div>
+                ?>
 
             </div>
 
             <div class="produtos-pontos produto-120pts" style="display: none;">
 
                 <!-- Produtos botao 120 pontos -->
+                <?php
+                
+                $produtos = $controle_produto->selectAllByPtsResgate(120);
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 120</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 120</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 120</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 120</h2>
-                </div>
+                ?>
 
             </div>
 
             <div class="produtos-pontos produto-200pts" style="display: none;">
 
                 <!-- Produtos botao 200 pontos -->
+                <?php
+                
+                $produtos = $controle_produto->selectAllByPtsResgate(200);
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 200</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 200</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 200</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 200</h2>
-                </div>
+                ?>
 
             </div>
             
             <div class="produtos-pontos produto-220pts" style="display:none;">
                 <!-- Produtos botao 220 pontos -->
+                <?php
+                
+                $produtos = $controle_produto->selectAllByPtsResgate(220);
 
-                <div class="produto" >
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 220</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 220</h2>
-                </div>
+                ?>
 
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 220</h2>
-                </div>
-
-                <div class="produto">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 220</h2>
-                </div>
 
             </div>
 
             <div class="produtos-pontos produto-250pts" style="display:none;">
                 <!-- Produtos botao 250 pontos -->
+                <?php
+                
+                $produtos = $controle_produto->selectAllByPtsResgate(250);
 
-                <div class="produto ">
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 250</h2>
-                </div>
+                foreach($produtos as $produto){
+                    echo "
+                    <div class='produto'>
+                        <img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}'  onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                        <h2>{$produto->getNome()}</h2>
+                    </div>
+                    ";
+                }
 
-                <div class="produto " >
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 250</h2>
-                </div>
-
-                <div class="produto" >
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 250</h2>
-                </div>
-
-                <div class="produto " >
-                    <img src="/home/img/torta.png" alt="torta">
-                    <h2>TORTA TESTE 250</h2>
-                </div>
+                ?>
 
             </div>
 
         </div>
     </div>
+
+
+
+
+
 
     <div class="container-fluid funcionamento-programa">
         <div class="container">
@@ -474,53 +443,13 @@
 
 <script>
 
-            $( ".30pts" ).click(function() {
+            $( ".btn-pts" ).click(function() {
+                link_class_produtos = $(this).data("link_class_produtos");
                 $( ".produtos-pontos" ).hide();
-                $( ".produto-30pts" ).slideToggle();
+                $('.'+link_class_produtos).slideToggle();
                 
             });
             
-            $( ".50pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-50pts" ).slideToggle();
-                
-            });
-            $( ".80pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-80pts" ).slideToggle();
-                
-            });
-
-            $( ".90pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-90pts" ).slideToggle();
-            });
-
-            $( ".120pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-120pts" ).slideToggle();
-            });
-
-            $( ".200pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-200pts" ).slideToggle();
-
-            });
-
-            $( ".220pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-220pts" ).slideToggle();
-
-            });
-
-            $( ".250pts" ).click(function() {
-                $( ".produtos-pontos" ).hide();
-                $( ".produto-250pts" ).slideToggle();
-            });
-
-
-
-
     </script>
 </body>
 </html>

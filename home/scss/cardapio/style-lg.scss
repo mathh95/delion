@@ -14,6 +14,51 @@
 }
 
 body,html{
+    .swal2-container {
+        z-index: 9999;
+        #swal2-content{
+            height: auto;
+            .adicionais-wrapper{
+                height: auto;
+                ul{
+                    width: 100%;
+                    margin-left: auto;
+                    margin-right: auto;
+                    li{
+                        width: 100%;
+                        float: left;
+                        padding: 10px;
+                        .qtd-adicionais{
+                            float:left;
+                            margin-left: 30px;
+                            button{
+                                background-color: #000000;
+                                color: #ffffff;
+                                font-weight: bold;
+                                font-size: 17px;
+                                border: 0;
+                                border-radius: 5px;
+                                width: 25px;
+                                outline: 0;
+                            }
+                            input.field{
+                                width: 20px;
+                                border-radius: 5px;
+                                color: $vermelho_forte;
+                                text-align: center;
+                                font-weight: bold;
+                                font-size: 18px;
+                                border: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+      }
+      .swal2-popup{
+        font-size: 14px;
+      }
     #navbar-cardapio{
             height: 30px;
             position: sticky;
@@ -25,19 +70,26 @@ body,html{
             // padding-bottom: 20px;
             // padding-top: 15px;
             width: 100%;
-            // @include make-lg-column(12);
+            // overflow-x: auto;
+            // overflow-y: auto;
+            transition: all ease 750ms;
             > .menu-lateral {
-                
                 // @include make-lg-column(12);
                 background-color: #ffffff;
                 width: 100%;
                 height: auto;
                 display: inline-flex;
                 flex-direction: row;
+                // position: sticky;
+                // z-index: 9999;
                 justify-content: center;
                 >ul.nav.nav-pills{
                         padding-left: 40px;
-                    >li{ 
+                        // white-space: nowrap;
+                        // transition: all ease 750ms;
+                        // display: inline-flex;
+                    >li{
+                        // display: inline-block; 
                         a.nav-link {
                             cursor: pointer; 
                             width: 100%;
@@ -215,7 +267,7 @@ body,html{
             > .descricao {
                 @include make-lg-column(12);
                 // padding-left: 0px;
-                // padding-right: 0px;
+                padding-right: 0px;
                 display: flex;
                 justify-content: space-between;
                 > .titulo {
@@ -238,6 +290,7 @@ body,html{
                 }
                 >#preco-add{
                     @include make-lg-column(6);
+                    padding-right: 0px;
                 }
                 >#preco-add>.preco{
                     @include make-lg-column(6);

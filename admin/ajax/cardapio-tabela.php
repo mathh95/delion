@@ -33,27 +33,29 @@ isset($_POST['categoria'])){
 	$permissao =  json_decode($usuarioPermissao->getPermissao());
 	if(in_array('cardapio', $permissao)){ 
 	
-		echo "<table class='table table-responsive' id='tbCardapio' style='text-align = center;'>
-		<thead>
-			<h1 class=\"page-header\">Lista de cardapio</h1>
-			<tr>
-	    		<th width='14%' style='text-align: center;'>Item</th>
-				<th width='14%' style='text-align: center;'>Nome</th>
-				<th width='8%' style='text-align: center;'>Preço</th>
-				<th width='8%' style='text-align:center;'>Desconto</th>
-	    		<th width='14%' style='text-align: center;'>Descrição</th>
-	    		<th width='8%' style='text-align: center;'>Categoria</th>
-				<th width='8%' style='text-align: center;'>Situação</th>
-				<th width='8%' style='text-align: center;'>Prioridade</th>
-				<th width='8%' style='text-align:center;'>Delivery</th>
-	            <th width='14%' style='text-align: center;'>Editar</th>
-	            <th width='14%' style='text-align: center;'>Apagar</th>
-	        </tr>
-		<tbody>";
+		echo "
+			<div class='table-responsive'>
+				<table class='table' id='tbCardapio' style='text-align = center;'>
+				<thead>
+					<h1 >Cardápio</h1>";
+
+			if(isset($cardapios)){
+				echo "<tr>
+						<th width='14%' style='text-align: center;'>Item</th>
+						<th width='14%' style='text-align: center;'>Nome</th>
+						<th width='8%' style='text-align: center;'>Preço</th>
+						<th width='8%' style='text-align:center;'>Desconto</th>
+						<th width='14%' style='text-align: center;'>Descrição</th>
+						<th width='8%' style='text-align: center;'>Categoria</th>
+						<th width='8%' style='text-align: center;'>Situação</th>
+						<th width='8%' style='text-align: center;'>Prioridade</th>
+						<th width='8%' style='text-align:center;'>Delivery</th>
+						<th width='14%' style='text-align: center;'>Editar</th>
+						<th width='14%' style='text-align: center;'>Apagar</th>
+					</tr>
+				<tbody>";
 	
 		foreach ($cardapios as $cardapio) {
-			$mensagem='Cardápio excluído com sucesso!';
-			$titulo='Excluir';
 			echo "<tr name='resutaldo' id='status".$cardapio->getPkId()."'>
 			 	<td style='text-align: center;' name='cardapio'><img src='../../".$cardapio->getFoto()."' style='max-height: 100px' alt='' class='img-thumbnail'/></td>
 				<td style='text-align: center;' name='nome'>".$cardapio->getNome()."</td>
@@ -68,35 +70,13 @@ isset($_POST['categoria'])){
 			 	<td style='text-align: center;' name='status'><button type='button' onclick=\"removeCardapio(".$cardapio->getPkId().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i> Desativar</button></td>
 			</tr>";
 		}
-	}else{
-		echo "<table class='table table-responsive' id='tbCardapio' style='text-align = center;'>
-		<thead>
-			<h1 class=\"page-header\">Lista de cardapio</h1>
-			<tr>
-	    		<th width='14%' style='text-align: center;'>Item</th>
-				<th width='14%' style='text-align: center;'>Nome</th>
-				<th width='14%' style='text-align: center;'>Preço</th>
-	    		<th width='14%' style='text-align: center;'>Descrição</th>
-	    		<th width='12%' style='text-align: center;'>Categoria</th>
-				<th width='12%' style='text-align: center;'>Situação</th>
-				<th width='12%' style='text-align: center;'>Prioridade</th>
-				<th width='12%' style='text-align: center;'>Delivery</th>
-	        </tr>
-		<tbody>";
-	
-		foreach ($cardapios as &$cardapio) {
-			echo "<tr name='resutaldo' id='status".$cardapio->getPkId()."'>
-			 	<td style='text-align: center;' name='cardapio'><img src='../../".$cardapio->getFoto()."' style='max-height: 100px' alt='' class='img-thumbnail'/></td>
-				<td style='text-align: center;' name='nome'>".$cardapio->getNome()."</td>
-				<td style='text-align: center;' name='preco'>".$cardapio->getPreco()."</td>
-			 	<td style='text-align: center;' name='descricao'>".substr(html_entity_decode($cardapio->getDescricao()), 0, 200)."</td>
-			 	<td style='text-align: center;' name='categoria'>".$cardapio->getCategoria()."</td>
-				<td style='text-align: center;' name='flag_ativo'>".$cardapio->getDsAtivo()."</td>
-				<td style='text-align: center;' name='prioridade'>".$cardapio->getDsPrioridade()."</td>
-				<td style='text-align: center;' name='delivery'>".$cardapio->getDsDelivery()."</td>
-			</tr>";
+		}else{
+			echo "<h3>SEM RESULTADOS 😕</h3>";
 		}
+	}else{
+		echo "<h3>SEM PERMISSÃO 😕</h3>";
 	}
 
-echo "</tbody></table>";
+echo "</tbody></table>
+		</div>";
 ?>

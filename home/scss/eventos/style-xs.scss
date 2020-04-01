@@ -44,6 +44,77 @@ body{
     > .solicitar-evento {
         padding-top: 25px;
         padding-bottom: 5px;
+        height: auto;
+        width: 100%;
+        min-height: 500px;
+        
+        position: relative;
+        > .solicitacao {
+            @include make-xs-column(12);
+            height: auto;
+            margin-bottom: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            > div.titulo-eventos{
+                height: 50px;
+                border: 2px solid $vermelho_forte;
+                border-left: 0px;
+                border-right: 0px;
+                margin-bottom: 10px;
+                > h2 {
+                    font-family: $font_main_bold;
+                    font-size: 17px;
+                    text-align: center;
+                    margin-top: 15px;
+                    margin-bottom: 15px;
+                }
+            }
+            > div.col-sm{
+                @include make-xs-column(12);
+                // max-width: 198px;
+                padding: 0;
+                > form {
+                    display: flex;
+                    // flex-wrap: wrap;
+                    flex-direction: column;
+                    text-indent: 10px;
+                    > div{
+                        @include make-xs-column(12);
+                        padding-left: 0px;
+                        padding-right: 0px;
+                        height: 20px;
+                        margin-top: 4px;
+                        
+                        
+                    }
+                    input{
+                        outline: none;
+                        border: 2px solid $vermelho_forte;
+                        margin-bottom: 10px;
+                    }
+                    textarea{
+                        outline: none;
+                        border: 2px solid $vermelho_forte;
+                    }
+                    
+                    button{
+                        background-color: $vermelho_forte;
+                        font-weight: bold;
+                        color: #ffffff;
+                        margin-top: 10px;
+                    }
+                    
+                    
+                }
+            } 
+            >div.texto-eventos{
+                font-weight: bold;
+                h5{
+                    font-weight: bold;
+                }
+            } 
+        }
+        
         > .imagem{
             @include make-xs-column(12);
             > img {
@@ -56,7 +127,7 @@ body{
     > .eventos {
         padding-bottom: 20px;
         > .evento {
-            @include make-xs-column(12);
+            @include make-xs-column(4);
             padding-bottom: 5px;
             padding-top: 5px;
             > .imagem {

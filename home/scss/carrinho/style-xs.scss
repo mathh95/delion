@@ -230,6 +230,52 @@ body{
                     display: none;
                 }
             }
+            > .ladoDireito-wrapper{
+                text-align: center;
+
+                .direito-filho{
+                    width: 100%;
+                    text-align: center;
+                    >.obs_nome_produto{
+                        width: 100%;
+                        margin: 0;
+                    }
+                    
+                    >.obs_desc_produto{
+                        width: 100%;
+                        height: auto;
+                    }
+
+                    >.obs_input{
+                        width: 80%;
+                        margin: auto;
+                        font-size: 16px;
+                    }
+
+                    .editar{
+                        margin-top: 10px;
+                        .btn-primary{
+                            background-color: $vermelho_fraco;
+                            border-color: $vermelho_forte;
+                            width: 80%;
+                            margin: auto;
+                        }
+                    }
+
+                    .salvar{
+                        .btn-success{
+                            background-color: $vermelho_fraco;
+                            border-color: $vermelho_forte;
+                            width: 80%;
+                            margin: auto;
+                        }
+                    }
+                }
+            }
+            .adicionais_subtitle{
+                font-size: 12px;
+                margin: 0;
+            }
             textarea:focus {
                 border-color: $vermelho_fraco;
                 box-shadow: 0 0 0 0.2rem rgba(210, 39, 48, 0.25);
@@ -315,13 +361,6 @@ body{
                 text-align: center;
                 #infoDelivery{
                     margin-top: 5px;
-                    
-                }
-                #infoDeliverySemEndereco{
-                    display: block;
-                    width: 60%;
-                    padding-right: 10px !important;
-                    padding-left: 10px !important;
                 }
                 #infoBalcao{
                     margin-top: 5px;
@@ -359,6 +398,9 @@ body{
                         }
                     }
                 }
+            }
+            #infoDeliverySemEndereco{
+                margin-left: 10px;
             }
         } 
     }

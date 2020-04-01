@@ -25,6 +25,10 @@
 	$controleImagem = new controlerImagem(conecta());
 
 	$imagens = $controleImagem->selectAll();
+	
+    $controleAdicional = new controlerAdicional(conecta());
+	$adicionais = $controleAdicional->selectAllF();
+	
 
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
@@ -33,7 +37,21 @@
 <!DOCTYPE html>
 
 <html lang="pt-br">
-
+<head>
+	<title>Delion Café - Delivery Foz do Iguaçu | Cardápio</title>
+	<meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<meta name="description" content="Espaço gastronômico casual com produtos seletos de confeitaria, salgados tradicionais e cafés especiais.">
+	<meta name="keywords" content="Salgados, Sonhos, Doces, Bolos, Buffet, Almoço, Lanches, Bebidas, Sobremesas, Jantar, Marmita.">
+	<meta name="robots" content="">
+	<meta name="revisit-after" content="1 day">
+	<meta name="language" content="Portuguese">
+	<meta name="generator" content="N/A">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="format-detection" content="telephone=no">
+	
+</head>
 <?php
 	include_once "./head.php";
 ?>
@@ -49,6 +67,11 @@
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/cardapio/style-lg.css"/>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.8.2/dist/sweetalert2.all.min.js" integrity="sha256-VkcwHXtZS2ZHfHSFSP8r1AzueZi37jGMPeHv4OfV1Cg=" crossorigin="anonymous"></script>
 
 
 </head>
@@ -139,6 +162,7 @@
 
 	<script>
 
+
 		$(document).ready(function(){
     		doRefresh();
 		});
@@ -188,89 +212,6 @@
 		});
 
 
-		// var categorias = $('.categoria')
-		// , menu_lateral = $('.menu-lateral')
-		// , menu_lateral_height = menu_lateral.outerHeight();
-
-		// $(window).on('scroll', function () {
-		// 	var cur_pos = $(this).scrollTop();
-			
-		// 	categorias.each(function() {
-		// 		var top = $(this).offset().top - menu_lateral_height,
-		// 		bottom = top + $(this).outerHeight();
-				
-		// 		if (cur_pos >= top && cur_pos <= bottom) {
-
-		// 			menu_lateral.find('a').removeClass('active');
-		// 			// categorias.removeClass('active');
-		// 			$(this).addClass('active');
-		// 			console.log($(this).attr('id'));
-		// 			menu_lateral.find('a[href="#categoria'+$(this).attr('id')+'"]').addClass('active');
-		// 			// console.log('a[href="#'+$('categoria'+this).attr('id')+'"]');
-		// 		}
-		// 	});
-		// });
-
-
-		// $(document).ready(function(){
-		// 	$(".menu").animate({scrollCenter: "li.active"}, 400);
-		// });
-
-		// $(window).on('load', function() {
-		// 	$(".menu").scrollCenter("li.active", 400);
-		// });
-		
-
-		// setTimeout( function(){
-			 
-		// 	window.scrollTo( screen.width/2, screen.height/2 );
-  		// }  , 500 );
-
-		// $(window).scroll(function (event) {
-    	// 	var scroll = $(window).scrollTop();
-		// 	$(".menu").scrollCenter("li.active", 400);
-		// });
-		// $(".a").on('click', function(){
-		// 	$(".menu").scrollCenter("li.active", 400);
-		// });
-
-		// $(document).ready(function() { 
-		// 	$(window).load(function() { 
-		// 		$(".menu").scrollCenter("li.active", 400);
-		// 	});
-		// });
-
-		// window.addEventListener("DOMContentLoaded", function(){
-		// 	$(".menu").scrollCenter("li.active", 400);
-		// });
-					
-					
-
-		// jQuery.fn.scrollCenter = function(elem, speed) {
-
-		// 	var active = jQuery(this).find(elem); // find the active element
-		// 	var activeWidth = active.width() / 2; // get active width center
-
-		// 	var pos = active.position().left + activeWidth; //get left position of active li + center position
-		// 	var elpos = jQuery(this).scrollLeft(); // get current scroll position
-		// 	var elW = jQuery(this).width(); //get div width
-		// 	pos = pos + elpos - elW / 2; // for center position if you want adjust then change this
-
-		// jQuery(this).animate({
-		// 	scrollLeft: pos
-		// }, speed == undefined ? 1000 : speed);
-		// return this;
-		// };
-
-		// jQuery.fn.scrollCenterORI = function(elem, speed) {
-		// jQuery(this).animate({
-		// 	scrollLeft: jQuery(this).scrollLeft() - jQuery(this).offset().left + jQuery(elem).offset().left
-		// }, speed == undefined ? 1000 : speed);
-		// return this;
-		// };
-
-
-
 		var qtd_carrinho = "<?= isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : ''?>";
 		function displayBarraCarrinho(){
 			
@@ -285,37 +226,129 @@
 		});
 
 
+		//Todos adicionais
+		var adicionais = JSON.parse('<?php echo json_encode($adicionais); ?>');
+		// console.log(adicionais);
+
+		$(document).on('click', '.add', function () {
+			$(this).prev().val(+$(this).prev().val() + 1);
+		});
+		$(document).on('click', '.sub', function () {
+			if ($(this).next().val() > 0){
+				$(this).next().val(+$(this).next().val() - 1);
+			}
+		});
+		
 		$(document).on("click", "#addCarrinho", function(){
-			var url = $(this).data('url');
+
 			var qtd = $('#spanCarrinho').text();
 			var id = $(this).data('cod');
-			
+			var src = $(this).data('src_image');
+
 			const nomeItem = $('#tituloNome'+id).text();
-			swal({
-				title: "Alguma Observação?",
-				text: `${nomeItem}`,
-				content: "input",
-				icon: "info",
-				button: 'Prosseguir'
+
+			//Adicionais relacionados ao produto
+			var adicionais_produto = $(this).data('arr_adicionais');
+			if(!adicionais_produto){
+				var adicionais_produto = [];
+			}
+			
+			//Atribui os adicionais a um array.
+			var array_adicionais =[];
+			adicionais.forEach(function(value, key){
+				var id_aux = value['adi_pk_id'];
+				array_adicionais[id_aux] = [value['adi_nome'], value['adi_preco']];
+			});
+
+			//Verifica se existe adicionais, se não apenas exibe input de observação.
+			var div_complemento = "";
+			if(adicionais_produto !== [] && adicionais_produto.length > 0 
+			&& adicionais_produto.length !== null && adicionais_produto !== '' && adicionais_produto){
+				div_complemento += `<h4 style='font-weight: bold;'>Algum complemento?</h4>`;
+			}else{
+				div_complemento += `<h4 style='font-weight: bold;'></h4>`
+			}
+			
+			//Atribui o elemento com os adicionais na janela do sweetalert a variavel
+			var adicionais_html = "";
+			adicionais_produto.forEach(function(pk_id, chave){
+				adicionais_html += `
+				<li>
+					<div class="qtd-adicionais">
+						<button type="button" id="sub" class="sub">-</button>
+						<input 
+							type="text" value="0" name='qtd-adic[]' class="field qtd-adic" readonly
+							data-id='${pk_id}' data-nome='${array_adicionais[pk_id][0]}' data-preco='${array_adicionais[pk_id][1]}'
+						/>
+						<button type="button" id="add" class="add">+</button>
+						${array_adicionais[pk_id][0]} - R$ ${array_adicionais[pk_id][1]}
+					</div>
+				</li>`
+			})
+			let html = `
+			<br>
+			<div class='imagem'>
+                    
+                    <img class='img-responsive'  src='${src}' onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                </div>
+			<div class='adicionais-wrapper'>
+				${div_complemento}
+					<ul style="list-style-type: none;">
+						${adicionais_html}
+					</ul> 
+				
+			</div>
+			<div>
+				<h4 style='font-weight: bold;padding-top:10px;'>Alguma observação?</h4>
+			</div>
+			`;
+			
+			
+
+			Swal.fire({
+				input: 'text',
+				inputPlaceholder: 'Exemplo: Sem queijo...',
+				html: html
+				
+				
 			})
 			.then((observacaoItem) => {
-				$.ajax({type: 'GET', url: url, data: {observacaoItem: observacaoItem, id: id},
+
+				//Adicionais selecionados do Produto
+				var adicionais_selecionados = [];
+
+				$('.qtd-adic').each(function(){
+					if($(this).val() > 0){
+						adicionais_selecionados.push 
+							([
+								$(this).data('id'),
+								$(this).data('nome'),
+								$(this).data('preco'),
+								$(this).val()
+							]);
+					}
+				})
+
+				$.ajax({
+					type: 'GET',
+					url: 'ajax/add-carrinho.php',
+					data: {observacaoItem: observacaoItem['value'], id: id, adicionais_selecionados: adicionais_selecionados},
 					success:function(resObs){
 						$("#spanCarrinho").html(resObs);
 						$("#spanCarrinho-navbar").html(resObs);
 						$("#spanCarrinho-barra").html(resObs);
-						
+
 						if(qtd == resObs){
-							swal({
-								title: "Item já Adicionado!",
+							Swal.fire({
+								title: "Item já Adicionado! 😋",
 								text: "Consulte o carrinho...",
 								icon: "warning",
 								timer: 1100,
 								buttons: false
 							});
 						}else{
-							swal({
-								title: "Item Adicionado!",
+							Swal.fire({
+								title: "Item Adicionado! 😋",
 								text: "Consulte o carrinho...",
 								icon: "success",
 								timer: 1000,
@@ -328,8 +361,6 @@
 					}
 				});
 			});
-
-			$(".swal-content__input").attr("placeholder", "Exemplo: Sem queijo...");
 		});
 
 		function buscar (pagina, busca, tipo){
@@ -345,29 +376,6 @@
 			});
 		}
 
-		function adicionaCombo(item){
-
-			adicionais = new Array();
-			var largura = $(window).width();
-			$("input[type=checkbox][name='adicional']:checked").each(function(){
-    			adicionais.push($(this).val());
-			});
-
-			$.ajax({
-				type:'POST',
-				url:'ajax/add-combo.php',
-				data:{item:item, adicionais:adicionais},
-				success:function(res){
-					$("#spanCombo").html(res);
-					if(largura <= 767){
-						$("#myModalC"+item).modal('hide');
-					}else{
-						$("#myModal"+item).modal('hide');
-					}
-				}
-			});
-		}
-
 		
 		function fecharModal(idCardapio){
 			var largura = $(window).width();
@@ -377,6 +385,8 @@
 				$("#myModal"+idCardapio).modal('hide');
 			}
 		}
+
+		
 
 	</script>
 

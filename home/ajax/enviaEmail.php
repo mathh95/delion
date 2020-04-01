@@ -90,10 +90,10 @@ try{
 	$mail->Body = $msg;
 	$mail->send();
 
-	$html .= "<script>swal('Email enviado!!', 'Entraremos em contato :)', 'success').then((value) => {window.location='/home/cardapio.php'});</script>";
+	$html .= "<script>swal('Email enviado!!', 'Entraremos em contato 🤝', 'success').then((value) => {window.location='/home/cardapio.php'});</script>";
 
 } catch (Exception $e) {
-	$html .= "<script>swal('Tivemos um problema aqui :/', 'tente novamente :)', 'warning').then((value) => {window.history.back()});</script>;</script>";
+	$html .= "<script>swal('Tivemos um problema aqui...😕', 'tente novamente.', 'warning').then((value) => {window.history.back()});</script>;</script>";
 
 	// echo $mail->ErrorInfo;
 }

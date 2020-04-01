@@ -6,7 +6,7 @@
 
     function conecta(){
 
-        $bd= new banco();
+        $bd = new banco();
 
         try {
 

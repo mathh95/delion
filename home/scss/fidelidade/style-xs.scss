@@ -27,11 +27,13 @@ body{
             display: flex;
             justify-content: space-evenly;
             width: 100%;
-            >.logo{
+            >.logo-delion{
                 padding: 10px;
                 width: 100%;
                 img{
                     width: 26%;
+                    max-width: 65px;
+                    max-height: 65px;
                 }
             }
             >.voltar{
@@ -79,8 +81,11 @@ body{
                     height: 72px;
                     margin-top: 55px;
                     width: 100%;
+                    max-width: 72px;
+                    max-height: 72px;
                     #logo{
                         width: 100%;
+                        
                         
                     }
                 }    
@@ -90,6 +95,8 @@ body{
                justify-content: center;
                .ponto_fidelidade{
                 width: 100%;
+                max-width: 190px;
+                max-height: 40px;
                }
            }
             
@@ -181,6 +188,7 @@ body{
         background-color: #feaf0a;
         text-align: center;
         height: auto;
+        padding: 0;
         .titulo-pontos{
             font-weight: bold;
             color: #8f4b00;
@@ -189,12 +197,13 @@ body{
         }
 
         .btn-wrapper{
-            text-align: center;
+            justify-content: center;
             height: auto;
             display: flex;
+            flex-wrap: wrap;
             margin: 0 auto;
-            padding: 20px;
             width: 100%;
+            height: auto;
 
             >button{
                 background-color:#feaf0a;
@@ -218,20 +227,25 @@ body{
             }
         }
         .produtos-pontos{
-            display: inline-flex;
-            justify-content: space-evenly;
-            flex-direction: row;
+            display: flex;
+            justify-content: center;
+            // flex-wrap: wrap;
+            flex-direction: column;
+            padding: 20px;
             .produto{
                 height: auto;
                 border-radius: 20px;
                 img{
-                    width: 90%;
+                    width: 60%;
                     padding: 10px;
                     border-radius: 15px;
                 }
                 h2{
                     font-weight: bold;
                     color: #FFFFFF;
+                    margin-top: -20px;
+                    padding-bottom: 20px;
+                    font-size: 15px;
                 }
             }
         }
@@ -281,6 +295,152 @@ body{
                         color: #FFFFFF;
                        
                     }
+                }
+            }
+        }
+    }
+}
+//SASS da pagina de resgate da fidelidade!!!
+
+.main{
+    background-color: rgb(236, 230, 230);
+    height: auto;
+    width: 100%;
+    .resgate-main{
+        width: 100%;
+        height: auto;
+        padding-bottom: 40px;
+
+        h2{
+            font-weight: bold;
+        }
+
+        >.pontos-info{
+            >.pontos-wrapper{
+                padding-top: 5px;
+
+                p{
+                    >span{
+                        color: red;
+                    }
+                }
+            }
+        }
+
+        .tabela-produtos{
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 30px;
+            .produtos-titulo{
+                padding-bottom: 20px;
+                font-weight: bold;
+            }
+            .btn-wrapper-resgate{
+                display: inline-flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                .btn-light{
+                    margin: 5px;
+                    margin-right: 5px;
+                    outline: none;
+                    border-radius: 50px;
+                    background-color: #fff;
+                    border: 2px solid #aeaeae;
+                    >span{
+                        font-weight: bold;
+                        color: #aeaeae;
+                    }
+                }
+
+                .btn-light.active{
+                    border-radius: 50px;
+                    background-color: #fff;
+                    border: 2px solid $vermelho_forte;
+                    >span{
+                        font-weight: bold;
+                        color: $vermelho_forte;
+                    }
+                }
+
+                .btn-light:focus{
+                    border-radius: 50px;
+                    background-color: #fff;
+                    border: 2px solid $vermelho_forte;
+                    >span{
+                        font-weight: bold;
+                        color: $vermelho_forte;
+                    }
+                }
+            }
+
+            .produtos-resgate-wrapper{
+                width: 100%;
+                justify-content: space-around;
+                display: inline-flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                text-align: center;
+                .produto-resgate{
+                    width: 100%;
+                    height: auto;
+                    padding: 20px;
+                    text-align: center;
+                    
+                    img{
+                        width: 100%;
+                        height: auto;
+                        border-radius: 20px;
+                    }
+                    h4{
+                        font-weight: bold;
+                        min-height: 57px;
+                    }
+                    p{
+                        color: $vermelho_forte;
+                    }
+
+                    .botoes-qtd{
+                        button{
+                            background-color: #000000;
+                            color: #ffffff;
+                            font-weight: bold;
+                            font-size: 17px;
+                            border: 0;
+                            border-radius: 5px;
+                            width: 25px;
+                            outline: 0;
+                        }
+                        input{
+                            width: 20px;
+                            border-radius: 5px;
+                            color: $vermelho_forte;
+                            text-align: center;
+                            font-weight: bold;
+                            font-size: 18px;
+                            border: 0;
+                        }
+                    }
+                }
+            }
+            .botoes-resgate{
+                text-align: center;
+                padding-top: 20px;
+                
+
+                button{
+                    font-weight: bold;
+                    font-size: 17px;
+                    padding: 10px;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                }
+                .btn-secondary{
+                    background-color: #9c9b9b;
+                    color: #ffffff;
+                }
+                
+                .btn-success{
+                    margin-top: 10px;
                 }
             }
         }

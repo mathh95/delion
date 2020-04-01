@@ -1,18 +1,18 @@
 <?php 
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
     include_once MODELPATH."/cliente.php";
-    include_once MODELPATH."/sms_verificacao.php";
-    include_once "controlCliente.php";
-    include_once "controlSmsVerificacao.php";
     include_once CONTROLLERPATH."/seguranca.php";
-    include_once "../lib/alert.php";
+
+    include_once MODELPATH."/sms_verificacao.php";
+    include_once "controlSmsVerificacao.php";
+    include_once "controlCliente.php";
+    
     include_once "../utils/VerificaCpf.php";
     include_once "../utils/VerificaTelefone.php";
-    include_once "../utils/InfoBip.php";
+    include_once "../utils/IaGente.php";
     include_once "../utils/GoogleRecaptcha.php";
     include_once HELPERPATH."/mask.php";
-
-    $mask = new Mask;
+    include_once "../lib/alert.php";
 
     if (isset($_POST) and !empty($_POST)){
 
@@ -181,7 +181,7 @@
 
                 $erros = verificaCadastro($erros, $nome, $sobrenome, $cpf, $data_nasc, $telefone, $login, $senha, $senha2);
                 
-                $info_bip = new InfoBip();
+                $ia_gente = new IaGente();
                 $control_sms = new controlSmsVerificacao($_SG['link']);
                 
             }else{
@@ -200,6 +200,7 @@
                 $_POST['is_verificacao_cadastro'] == 1)
             {
                 
+                $mask = new Mask;
                 $telefone_int = $mask->rmMaskPhone($telefone);
                 $cod_sms = rand(1112, 9998);
                 
@@ -209,7 +210,7 @@
                 
                 $result = $control_sms->insert($sms);
                 if($result < 0){
-                    echo "Erro ao salvar SMS :/";
+                    echo "Erro ao salvar SMS 😕";
                     return;
                 }
                 
@@ -217,14 +218,16 @@
                 $telefone_int = "55".$telefone_int;
 
                 //envia SMS
-                $res_envio = $info_bip->enviaVerificacaoSMS($telefone_int, $cod_sms);
+                $res_envio = $ia_gente->enviaVerificacaoSMS($telefone_int, $cod_sms);
                 
-                if($res_envio){
+                if($res_envio == "OK"){
                     echo "verificado";
                 }else{
-                    echo "Erro ao enviar SMS :/...contate o suporte.";
+                    echo "Erro ao enviar SMS 😕...contate o suporte.";
                 }
             
+
+                
             //Cadastro do Cliente
             } else if(isset($_POST['is_cadastro']) && $_POST['is_cadastro'] == 1){
                 
@@ -236,6 +239,7 @@
                     return;
                 }
                 
+                $mask = new Mask;
                 $telefone_int = $mask->rmMaskPhone($telefone);
                 
                 //verifica código SMS
@@ -265,21 +269,25 @@
                     echo "inserido";
                 }else if($result == -2){
                     //login duplicado
-                    echo "Erro no cadastro :/";
+                    echo "Erro no cadastro 😕";
                 }else{
-                    echo "Erro no cadastro :/...entre em contato com o suporte.";
+                    echo "Erro no cadastro 😕...entre em contato com o suporte.";
                 }
             }
 
             return;
 
         }else{
-            echo "Erro :/ Ação não definida!";
+            echo "Erro 😕, Ação não definida!";
         }
 
     }else{
         echo -1;
     }
+
+
+
+
 
     function verificaCadastro($erros, $nome, $sobrenome, $cpf, $data_nasc, $telefone, $login, $senha, $senha2){
 
@@ -363,16 +371,17 @@
         }
 
         //valida telefone
+        $mask = new Mask;
         $telefone_int = $mask->rmMaskPhone($telefone);
 
         if(strlen($telefone_int) == 0){
             echo "O Campo Telefone precisa ser preenchido.\n";                
             $erros ++;
         }else if(strlen($telefone_int) < 11){
-            echo "O Telefone precisa ter 11 números, código de área seguido número.\n";
+            echo "O Telefone precisa ter 11 números, código de área seguido do número.\n";
             $erros ++;
         }else if(strlen($telefone_int) > 11){
-            echo "O Telefone precisa ter 11 números, código de área seguido número.\n";
+            echo "O Telefone precisa ter 11 números, código de área seguido do número.\n";
             $erros ++;
         }
 

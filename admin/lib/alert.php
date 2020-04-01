@@ -94,11 +94,11 @@ function alertJSVoltarPagina($titulo,$msg,$tipo) {
     $html = $html."</head>";
 	$html = $html."<body>";
     $html = $html."<script >
-			msgVoltar('Informação','".$msg."',$tipo);
-		</script>";
+            msgVoltar('Informação','".$msg."',$tipo);
+             </script>";
     $html = $html."</body>";
-
-	echo utf8_decode(utf8_encode($html));
+    
+    echo utf8_decode(utf8_encode($html));
 }
 
 /*
@@ -123,9 +123,13 @@ function msgRedireciona($titulo,$msg,$tipo,$pagina) {
 	$html = $html."<body>";
     $html = $html."<script >
 			msgRedireciona('".$titulo."','".$msg."',$tipo,'".$pagina."');
-		</script>";
+        ";
+        $html = $html." setTimeout(function () {
+            window.location.href = '".$pagina."';
+         }, 700);
+         </script>";
     $html = $html."</body>";
 
-	echo utf8_decode(utf8_encode($html));
+    echo utf8_decode(utf8_encode($html));
 }
 ?>

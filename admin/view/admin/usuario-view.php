@@ -12,7 +12,7 @@
 
     protegePagina();
 
-    //usado para coloração customizada da página seleciona na navbar
+    //usado para coloração customizada da página selecionada na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 
 ?>
@@ -313,6 +313,30 @@
                                         <label>
 
                                             <input type="checkbox" id="enviar_sms" name="permissoes[]" value="enviar_sms">Enviar SMS
+
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="gerenciar_fidelidade" name="permissoes[]" value="gerenciar_fidelidade"> Gerenciar Fidelidade
+
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="gerenciar_fornecedor" name="permissoes[]" value="gerenciar_fornecedor"> Gerenciar Fornecedor
+
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="gerenciar_composicao" name="permissoes[]" value="gerenciar_composicao"> Gerenciar Composição do Produto
 
                                         </label>
                                     </li>

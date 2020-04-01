@@ -14,9 +14,11 @@ $envios = $controle->selectAll();
 	$permissao =  json_decode($usuarioPermissao->getPermissao());
 	if(in_array('enviar_sms', $permissao)){
 	
-		echo "<table class='table table-responsive' style='text-align = center;'>
-		<thead>
-			<h1 class=\"page-header\">Sms Enviados</h1>
+		echo "
+		<div class='table-responsive'>
+			<table class='table' style='text-align = center;'>
+			<thead>
+			<h1 >Sms Enviados</h1>
 			<tr>
 	    		<th width='25%' style='text-align: center;'>Código</th>
 	    		<th width='25%' style='text-align: center;'>Mensagem Enviada</th>
@@ -36,6 +38,7 @@ $envios = $controle->selectAll();
 		}
 	}
 
-echo "</tbody></table>";
+echo "</tbody></table>
+	</div>";
 
 ?>

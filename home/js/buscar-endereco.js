@@ -156,45 +156,26 @@ function autoCompletarAlterar(endereco, rua, bairro, cep, cidade) {
     });
 }
 
-//cod_endereco, flag (combo/carrinho)
-function selecionarEndereco(endereco, flag) {
-    // console.log(endereco);
-    // console.log(flag);
-
-    //flag 1 == combo
-    if (flag == 1) {
-        var url = "ajax/validaEnd.php";
-        $.ajax({
-
-            type: 'GET',
-
-            url: url,
-
-            data: { endereco: endereco },
-
-            success: function (resultado) {
-                swal("Endereço selecionado!", "Por favor, confirme seu pedido novamente!", "success").then((value) => { window.location = '/home/combo.php' });
-            }
-
-        });
+//cod_endereco
+function selecionarEndereco(endereco) {
     
     //pedido    
-    } else {
+    var url = "ajax/validaEnd.php";
+    $.ajax({
 
-        var url = "ajax/validaEnd.php";
-        $.ajax({
+        type: 'GET',
+        url: url,
+        data: { endereco: endereco },
 
-            type: 'GET',
+        success: function (res) {
 
-            url: url,
-
-            data: { endereco: endereco },
-
-            success: function (resultado) {
-                swal("Endereço selecionado!", "Por favor, confirme seu pedido novamente!", "success").then((value) => { window.location = '/home/carrinho.php' });
-            }
-
-        });
-
-    }
+            swal({
+                title: "Endereco selecionado!",
+                text: "Confirme seu pedido 🙂",
+                icon: "success",
+                timer: 1100,
+                buttons: false
+            }).then((value) => {window.location="/home/carrinho.php"});
+        }
+    });
 }

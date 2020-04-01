@@ -5,19 +5,11 @@
 
 	include_once "controler/controlEmpresa.php";
 
-	include_once "controler/controlBanner.php";
-
 	include_once "controler/controlImagem.php";
 
 	$controleEmpresa=new controlerEmpresa(conecta());
 
 	$empresa = $controleEmpresa->select(1,2);
-
-	$controleBanner=new controlerBanner(conecta());
-
-	$miniBanners = $controleBanner->selectAllMini();
-
-	$banners = $controleBanner->selectAll();
 
 	$controleImagem=new controlerImagem(conecta());
 
@@ -31,13 +23,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<?php
-	include_once "./head.php";
-?>
 <head>
+	<title>Delion Café - Delivery Foz do Iguaçu | Restaurante e Cafeteria</title>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Delion Café</title>
+	<meta name="description" content="Espaço gastronômico casual com produtos seletos de confeitaria, salgados tradicionais e cafés especiais.">
+	<meta name="keywords" content="Salgados, Sonhos, Doces, Bolos, Buffet, Almoço, Lanches, Bebidas, Sobremesas, Jantar, Eventos, Fidelidade, Marmita, Aniversários, Palestras">
+	<meta name="robots" content="">
+	<meta name="revisit-after" content="1 day">
+	<meta name="language" content="Portuguese">
+	<meta name="generator" content="N/A">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta name="format-detection" content="telephone=no">
 
@@ -49,9 +45,6 @@
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/index/style-lg.css"/>
 
-	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-
-	<link rel="stylesheet" href="https://unpkg.com/flickity-fade@1/flickity-fade.css">
 
 
 	
@@ -61,7 +54,18 @@
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+
+
 </head>
+
+<?php
+	include_once "./head.php";
+?>
+
+
+
 
 <body>
 
@@ -129,10 +133,10 @@
 			foreach ($imagens as $imagem){
 				$pagina = json_decode($imagem->getPagina());
 
-				if (in_array('homeQuemSomos', $pagina) && ($i < 2)) {
+				if (in_array('homeCardapio', $pagina) && ($i < 2)) {
 					echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-14  thumb-home'>
-					<a class='thumbnail' href='sobre.php'>
-						<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='quem somos'>
+					<a class='thumbnail' href='cardapio.php'>
+						<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='cardapio'>
 					</a>
 				</div>";
 				
@@ -173,7 +177,7 @@
 
 					if (in_array('homeFidelidade', $pagina) && ($i < 2)) {
 						echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-14  thumb-home'>
-						<a class='thumbnail' href='fidelidade.php'>
+						<a class='thumbnail' href='promocaoFidelidade.php'>
 							<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='eventos'>
 						</a>
 					</div>";
@@ -210,7 +214,7 @@
 				</li>
 
 				<li>
-					<a href="/home/fidelidade.php">Programa de Fidelidade</a>
+					<a href="/home/promocaoFidelidade.php">Programa de Fidelidade</a>
 				</li>
 			</ul>
 			
@@ -256,27 +260,10 @@
 		</div>
 
 </footer>
-<div class="container-fluid rodape">
 
-    <div class="container">
-
-        <div>Todos os direitos reservados a Delion Café</div>
-
-        <div>
-
-            <div>Desenvolvido por Kionux Soluções em Internet <a href="http://www.kionux.com.br"><img src="img/kionuxsite.png" alt=""></a></div>
-
-        </div>
-
-    </div>
-
-</div>
-			
-	<?php
-		// include_once "./whats-config.php";
-		// include_once "./footer.php";
-	?>
-
+<?php
+	include_once "./rodapeKionux.php";
+?>
 
 	<!-- Modal -->
 	<div class="modal fade" id="cepModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -363,25 +350,49 @@ async defer></script>
 <script src="./js/google-geolocation.js"></script>
 
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 
 <script src=https://unpkg.com/sweetalert/dist/sweetalert.min.js></script>
 
-<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-
-<script src="https://unpkg.com/flickity-fade@1/flickity-fade.js"></script>
 
 
 <script>
 
-	$('.main-carousel').flickity({
+
+$(document).ready(function(){
+
+	$('.main-carousel').slick({
+
+		slidesToShow: 1,
+
+		slidesToScroll: 1,
+
+		autoplay: true,
+
+		autoplaySpeed: 5000,
+
+		arrows: false,
+
+		speed: 800,
+
 		fade: true,
-		autoPlay: 5000,
-		cellAlign: 'left',
-		contain: true,
-		prevNextButtons: false,
-		pageDots: false
+
+		dots: false
+
 	});
 
+});
+	//flickity.js para slider da home page na imagem do topo
+	// $('.main-carousel').flickity({
+	// 	fade: true,
+	// 	autoPlay: 5000,
+	// 	cellAlign: 'left',
+	// 	contain: true,
+	// 	prevNextButtons: false,
+	// 	pageDots: false
+	// });
+	//modal cep
 	$("#cepModal").on("shown.bs.modal", function () {
 		$("#street_number").focus();
 	});
@@ -419,7 +430,7 @@ async defer></script>
 				},
 				error: function(err){
 					console.log(err);
-					//swal("Erro :/", "Entre em contato com o suporte." , "error");
+					//swal("Erro 😕", "Entre em contato com o suporte." , "error");
 				}
 			});
 		}

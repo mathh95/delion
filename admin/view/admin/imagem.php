@@ -16,7 +16,7 @@
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-    //usado para coloração customizada da página seleciona na navbar
+    //usado para coloração customizada da página selecionada na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 
 ?>
@@ -54,7 +54,7 @@
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-pencil-alt"></i></span>
 
                                 <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text">
 
@@ -103,7 +103,7 @@
                                         <label>
 
                                             <!-- <input type="checkbox" id="contato" name="paginas[]" value="contato">Contato -->
-                                            <input type="checkbox" id="homeQuemSomos" name="paginas[]" value="homeQuemSomos">[Homepage] - (Imagem) Quem Somos <small><span style="color:red">*Proporção sugerida 460[largura] x 460[altura] </span><br/></small>
+                                            <input type="checkbox" id="homeCardapio" name="paginas[]" value="homeCardapio">[Homepage] - (Imagem) Cardápio <small><span style="color:red">*Proporção sugerida 460[largura] x 460[altura] </span><br/></small>
 
                                         </label>
 

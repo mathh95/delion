@@ -1,8 +1,7 @@
 <?php
 
-
-
-
+include_once "controler/controlEmpresa.php";
+	
 $controle = new controlerEmpresa(conecta());
 $empresa = $controle->selectAll();
 
@@ -43,14 +42,13 @@ $empresa = $controle->selectAll();
 				</li>
 
 				<li>
-					<a href="#">Programa de Fidelidade</a>
+					<a href="programaFidelidade.php">Programa de Fidelidade</a>
 				</li>
 			</ul>
 			
-			
-			
-			
 		</div>
+
+		
 		<div class="row center">
 
 			<ul>
@@ -67,7 +65,7 @@ $empresa = $controle->selectAll();
 				</li>
 
 				<li>
-					<a href="#">Trabalhe Conosco</a>
+					<a href="contato.php">Trabalhe Conosco</a>
 				</li>
 			</ul>
 		</div>
@@ -90,21 +88,9 @@ $empresa = $controle->selectAll();
 
 </footer>
 
-<div class="container-fluid rodape">
-
-    <div class="container">
-
-        <div>Todos os direitos reservados a Delion Café</div>
-
-        <div>
-
-            <div><a style="text-decoration:none; color:black;" href="http://www.kionux.com.br">Desenvolvido por Kionux Soluções em Internet <img src="img/kionuxsite.png" alt="Rodapé"></a></div>
-
-        </div>
-
-    </div>
-
-</div>
+<?php
+	include_once "./rodapeKionux.php";
+?>
 
 <!-- <div class="whatsapp">
 
@@ -115,7 +101,6 @@ $empresa = $controle->selectAll();
     </a>
 
 </div> -->
-
 
 
 
@@ -179,16 +164,24 @@ $empresa = $controle->selectAll();
         });
     }
 
-    function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-            swal("Deslogado!", "Obrigado pela visita!!", "error").then((value) => {window.location="/home/logout.php"});
-        });
-    }
-
 
     function deslogar(){
-        swal("Deslogado!", "Obrigado pela visita!!", "error").then((value) => {window.location="/home/logout.php"});
+
+		swal({
+			title: "Deslogado!",
+			text: "Obrigado pela visita 😕...",
+			icon: "info",
+			timer: 1100,
+			buttons: false
+		}).then((value) => {
+			//Google sign out
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function () {
+				// console.log('Google signed out.');
+			});
+
+			window.location = "/home/logout.php";
+		});
     }
 
     $(document).ready(function(){

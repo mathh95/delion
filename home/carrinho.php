@@ -3,16 +3,13 @@
 	session_start();
 
 	include_once "../admin/controler/conexao.php";
-
 	include_once "controler/controlEmpresa.php";
-
 	include_once "controler/controlCategoria.php";
-
 	include_once "controler/controlImagem.php";
 
-	$controleEmpresa=new controlerEmpresa(conecta());
+	$controleEmpresa = new controlerEmpresa(conecta());
 
-	$controleCategoria=new controlerCategoria(conecta());
+	$controleCategoria = new controlerCategoria(conecta());
 
 	$empresa = $controleEmpresa->select(1,2);
 
@@ -27,6 +24,21 @@
 
 <html lang="pt-br">
 
+
+<head>
+	<title>Delion Café - Delivery Foz do Iguaçu | Carrinho</title>
+	<meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<meta name="description" content="Espaço gastronômico casual com produtos seletos de confeitaria, salgados tradicionais e cafés especiais.">
+	<meta name="keywords" content="Salgados, Sonhos, Doces, Bolos, Buffet, Almoço, Lanches, Bebidas, Sobremesas, Jantar, Marmita">
+	<meta name="robots" content="">
+	<meta name="revisit-after" content="1 day">
+	<meta name="language" content="Portuguese">
+	<meta name="generator" content="N/A">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="format-detection" content="telephone=no">
+</head>
 <?php
 	include_once "./head.php";
 ?>
@@ -58,8 +70,8 @@
 		include_once "./navbar.php";
 	?>
 
-
-	<div class="container itens">
+	</div>
+	<div class="container itens" id="container-itens">
 
 	<!-- Ajax -->
 
@@ -71,6 +83,53 @@
 	?>
 
 	<script>
+	
+
+	$(document).on("click", ".editar", function() {
+		var obs_id = $(this).data('obsid');
+		var obs_txt = $('.observ'+obs_id).data('observacao');
+
+		$('#editar'+obs_id).hide();
+		$('#salvar'+obs_id).show();
+		$('#obs_desc'+obs_id).hide();
+		$('#obs_input'+obs_id).show();
+		$('#obs_input'+obs_id).val(obs_txt);
+	});
+
+	$(document).on("click", ".salvar", function() {
+		var obs_id = $(this).data('obsid');
+		var obs_editado = $('#obs_input'+obs_id).val();
+		
+
+		$('#salvar'+obs_id).hide();
+		$('#editar'+obs_id).show();
+		$('#obs_input'+obs_id).hide();
+		$('#obs_desc'+obs_id).text(obs_editado);
+		$('#obs_desc'+obs_id).show();
+
+		$.ajax({
+
+			type: 'GET',
+			url: 'ajax/editar-carrinho.php',
+			data: {obs_editado : obs_editado, obs_id: obs_id},
+				success:function(resultado){
+
+				}
+			});
+		
+	});
+
+
+	
+
+	// $(document).ready(function(){
+	// 	if(('.obs-input').is(":focus")){
+	// 		window.setInterval(function(){
+	// 		location.reload();
+    //     }, 600000);
+	// 	}
+	// })
+
 
 		$(document).ready(function () {
 			loadItens();
@@ -81,7 +140,7 @@
 				type: 'GET',
 				url: 'ajax/buscar-carrinho.php',
 				success: function (resultado) {
-					$(".itens").html(resultado);
+					$("#container-itens").html(resultado);
 				},
 				error: function(err){
 					console.log(err);
@@ -89,6 +148,10 @@
 			});
 		}
 		
+		//Auto Reload carrinho
+		window.setInterval(function(){
+			location.reload();
+        }, 60000);//1 minuto
 
 		$(document).on("change", "#formaPagamento", function(){
 
@@ -98,8 +161,9 @@
 				type: 'POST',
 				url: 'ajax/pag-carrinho.php',
 				data: {pag:pag},
-
-				success: function (resultado) {}
+				success: function (resultado) {
+					
+				}
 			});
 		});
 

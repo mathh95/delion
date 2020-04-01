@@ -36,14 +36,13 @@
 
 		$fk_categoria = addslashes(htmlspecialchars($_POST['categoria']));
 
-		$adicional = array();
-		for ($i=1; $i <= $_POST['quantidadeAdicionais']; $i++){
-			if(isset($_POST[$i."adicional"]) && !empty($_POST[$i."adicional"])){
-				array_push($adicional, addslashes(htmlspecialchars($_POST[$i."adicional"])));
-			}
+		if(isset($_POST['adicional'])){
+			$arr_adicionais = $_POST['adicional'];
+			$arr_adicionais = json_encode($arr_adicionais);
+		}else{
+			$arr_adicionais = NULL;
 		}
 
-		$adicional = json_encode($adicional);
 
 		if(isset($_POST['dias'])){
 			$arr_dias = $_POST['dias'];
@@ -65,7 +64,9 @@
 		$flag_servindo = (isset($_POST['servindo'])||!empty($_POST['servindo'])) && $_POST['servindo'] == 1 ? 1 : 0 ;
 		
 		$produto = new produto();
-		$produto->constructFkFaixa($nome, $preco, $desconto, $descricao, $foto, $fk_categoria, $flag_ativo, $flag_servindo, $prioridade, $delivery, $adicional, $arr_dias_semana, $fk_faixa_horario);
+		$produto->constructFkFaixa($nome, $preco, $desconto, $descricao, 
+									$foto, $fk_categoria, $flag_ativo, $flag_servindo, $prioridade, $delivery, 
+									$arr_adicionais, $arr_dias_semana, $fk_faixa_horario);
 
 
 		$produto->setPkId($pk_id);
@@ -74,6 +75,7 @@
 		$result = $controle->update($produto);
 
 		if($result > -1 ){
+			$controle->insertHistoricoProduto($pk_id,$produto);
 			msgRedireciona('Alteração Realizada!','Produto alterado com sucesso!',1,'../view/admin/cardapioLista.php');
 		}else{
 			alertJSVoltarPagina('Erro!','Erro ao alterar Produto!',2);

@@ -12,7 +12,7 @@ $banners = $controle->selectAll();
 	
 		echo "<table class='table table-responsive' id='tbBanner' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Lista de Banner</h1>
+			<h1 >Lista de Banner</h1>
 			<tr>
 	    		<th width='25%' style='text-align: center;'>Banner</th>
 	    		<th width='15%' style='text-align: center;'>Nome</th>
@@ -38,7 +38,7 @@ $banners = $controle->selectAll();
 	}else{
 		echo "<table class='table table-responsive' id='tbBanner' style='text-align = center;'>
 		<thead>
-			<h1 class=\"page-header\">Lista de Banner</h1>
+			<h1 >Lista de Banner</h1>
 			<tr>
 	    		<th width='40%' style='text-align: center;'>Banner</th>
 	    		<th width='15%' style='text-align: center;'>Nome</th>

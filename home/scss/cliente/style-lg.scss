@@ -63,6 +63,12 @@ body{
         justify-content: center;
         
         > .solicitacao {
+            #cadastro-fidelidade-form{
+
+                h4{
+                    text-align:center;
+                }
+            }
             @include make-lg-column(6);
             height: auto;
             width: 100%;

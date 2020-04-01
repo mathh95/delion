@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 
 include_once CONTROLLERPATH."/controlerGerenciaSite.php";
 
@@ -7,6 +8,10 @@ include_once MODELPATH."/gerencia_site.php";
 
 ?>
 
+=======
+    include_once "./controler/controlEmpresa.php";
+?>
+>>>>>>> dev
 <head>
     <meta charset="utf-8">
 
@@ -82,7 +87,14 @@ include_once MODELPATH."/gerencia_site.php";
                 <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
                 <!-- <i style="color:white;" class="fas fa-shopping-cart fa-lg"></i>  -->
 
-                <span style="background-color:white; color:black;" class="badge" id="spanCarrinho"><?php echo (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']):'0';?></span>
+                <span style="background-color:white; color:black;" class="badge" id="spanCarrinho">
+                    <?php
+                        $qtd = (isset($_SESSION['carrinho']))?count($_SESSION['carrinho']): 0;
+                        $qtd += (isset($_SESSION['carrinho_resgate']))?count($_SESSION['carrinho_resgate']): 0;
+                        
+                        echo $qtd;
+                    ?>
+                </span>
             </a>
         </div>     
 

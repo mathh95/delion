@@ -35,11 +35,18 @@ $_SESSION['valor_entrega_valido'] = 0;
 $_SESSION['delivery_price_calculado'] = 0;
 $_SESSION['minimo_taxa_gratis'] = 99999;
 
+
 if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     //ordenados com base na inserção/add carrinho
     $itens = $_SESSION['carrinho'];
+    // var_dump($itens);
+    // exit;
     $itensObservacao = $_SESSION['observacao'];
     $itensQtd = $_SESSION['qtd'];
+
+    if(isset($_SESSION['adicionais_selecionados']) && !empty($_SESSION['adicionais_selecionados'])){
+        $itensAdicional = $_SESSION['adicionais_selecionados'];
+    }
 
     $itens_fliped = array_flip($itens);
 
@@ -84,7 +91,6 @@ if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     $_SESSION['observacao'] = $itens_obs;
     $_SESSION['qtd'] = $itens_qtd;
 
-
 } else {
     $_SESSION['carrinho'] = array();
     $_SESSION['qtd'] = array();
@@ -93,9 +99,28 @@ if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     $itensObservacao = $_SESSION['observacao'];
 }
 
-if (count($itens) > 0) {
 
-    $itens = $cardapio->buscarVariosId($itens);
+if(isset($_SESSION['carrinho_resgate']) && !empty($_SESSION['carrinho_resgate'])) {
+    $itens_resgate = $_SESSION['carrinho_resgate'];
+}else{
+    $itens_resgate = array();
+}
+
+if (count($itens) > 0 || count($itens_resgate) > 0) {
+
+    if(count($itens)) $itens = $cardapio->buscarVariosId($itens);
+
+    
+    if(count($itens_resgate) > 0){
+        $itens_resgate = array_keys($itens_resgate);
+        $itens_resgate = $cardapio->buscarVariosId($itens_resgate);
+    }
+
+    // var_dump($itens);
+    // echo "<br>";
+    // var_dump($itens_resgate);
+
+    
     ?>
     <script type="text/javascript" src="js/buscar-carrinho.js"></script>
     <h1 class="text-center">Carrinho</h1>
@@ -107,9 +132,8 @@ if (count($itens) > 0) {
                     <th>Produto</th>
                     <th id="precoUnitario">Preço Unitário</th>
                     <th>Subtotal</th>
-
-                    <th>Quantidade</th>
                     <th id="deliveryTabela">Delivery</th>
+                    <th>Quantidade</th>
                 </tr>
             </thead>
             <tbody>
@@ -125,89 +149,231 @@ if (count($itens) > 0) {
                     
                     $_SESSION['item_indisponivel'] = 0;
                     
-                    foreach ($itens as $key => $item) { ?>
-
-                    <?php
+                    foreach ($itens as $key => $item) {
 
                     // verifica se item adicionado está disponível
                     if(
                         $item['pro_arr_dias_semana'] &&
                         in_array($hoje, json_decode($item['pro_arr_dias_semana'])) &&
-                        ($hora_atual >= $item['faho_inicio'] && $hora_atual < $item['faho_final'])
+                        ($hora_atual >= $item['faho_inicio'] &&
+                        $hora_atual < $item['faho_final']) &&
+                        $item['pro_flag_ativo']
                     ){
-                    ?>
+
+                ?>
                     
                     <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
 
-                        <td class="text-uppercase nomeProdutoTabela">
+                        <td class="nomeProdutoTabela">
                         <span class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" data-qtd="<?= $_SESSION['qtd'][$key] ?>">
                             <span id="qtde-text<?= $i ?>"><?= $_SESSION['qtd'][$key] ?></span>
                         </span>
                             <span class="qtde-x">x</span> &nbsp;  
-                            <strong><?= $item['pro_nome'] ?></strong>
-                        </td>
-                        <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
-                        <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?=  number_format(($item['pro_preco'] * $_SESSION['qtd'][$key]), 2); ?></strong></td>
-                            <td class="quantidadeProdutoTabela">
-                                <i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt fa-lg btn iconeRemoverProdutoTabela"></i>
-                                <i id="removerUnidade" data-toggle="tooltip" title="Remove 1!" data-linha="<?= $i ?>" class="fas fa-minus fa-lg btn iconeExcluirProdutoTabela"></i>
-                                <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1!" data-linha="<?= $i ?>" class="fas fa-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
-                            </td>
-                        <td class="nomeProdutoDisponivel">
-                        <strong>
-                        <?php
-                            if ($item['pro_flag_delivery'] == 1) {
-                                echo "Disponível";
-                            } else {
-                                echo "Não disponível";
-                                $delivery_indisponivel = $delivery_indisponivel + 1;
+                            <strong class="text-uppercase"><?= $item['pro_nome'] ?></strong>
+                            
+                            <?php   
+                            $valor_adicional_item = 0;
+                            if(!empty($itensAdicional) && isset($itensAdicional[$item['pro_pk_id']])){
+
+                                foreach($itensAdicional[$item['pro_pk_id']] as $item_adc){
+
+                                    //preço * qtd_adicional
+                                    $adc_precofinal = ($item_adc[2] * $item_adc[3]);
+                                    $adc_precofinal_format = number_format($adc_precofinal, 2, ',', ' ');
+
+                                    $valor_adicional_item += $adc_precofinal;
+
+                                    if(!empty($item_adc) && $item_adc !== ''){
+                                        echo "<p class='adicionais_subtitle text-lowecase'> + ".$item_adc[3]." x ".$item_adc[1]." - R$ ".$adc_precofinal_format." </p>";
+                                        
+                                    }
+                                }
                             }
-                        ?>
-                        </strong>
+                            ?>
+                            
                         </td>
+
+
+                        <?php
+                            $subtotal_item = $item['pro_preco'] * $_SESSION['qtd'][$key];
+                            $subtotal_item += $valor_adicional_item;
+                            $subtotal_item_txt = number_format($subtotal_item, '2', ',', ' ');
+                        ?>
+                        <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2, ',', ' '); ?></strong></td>
+                        <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong>R$ <?= $subtotal_item_txt ?></strong></td>
+
+                        <td class="nomeProdutoDisponivel">
+                            <strong>
+                            <?php
+                                if ($item['pro_flag_delivery'] == 1) {
+                                    echo "Disponível";
+                                } else {
+                                    echo "Não disponível";
+                                    $delivery_indisponivel = $delivery_indisponivel + 1;
+                                }
+                            ?>
+                            </strong>
+                        </td>
+
+                        <td class="quantidadeProdutoTabela">
+                            <i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt fa-lg btn iconeRemoverProdutoTabela"></i>
+                            <i id="removerUnidade" data-toggle="tooltip" title="Remove 1!" data-linha="<?= $i ?>" class="fas fa-minus fa-lg btn iconeExcluirProdutoTabela"></i>
+                            <i id="adicionarUnidade" data-toggle="tooltip" title="Adicione 1!" data-linha="<?= $i ?>" class="fas fa-plus fa-lg btn iconeAdicionarProdutoTabela"></i>
+                        </td>
+                        
                     </tr>
                     
                     <?php
                     
                     }else{//else do if disponivel
                     
-                    ?>
+                        ?>
 
                         <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
-                            <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
+                            
+                        
                             <td class="text-uppercase nomeProdutoTabela"><strong><?= $item['pro_nome'] ?></strong></td>
-                            <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
 
+                            <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong>R$ <?= number_format($item['pro_preco'], 2); ?></strong></td>
+                        
                             <td style="text-align: center;" colspan="3">
                                 Item indisponível no momento! <i class="far fa-surprise"></i>
                             </td>
+                        
+                            <td><i id="removeItem" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
                             
                             <!-- valor utilizado ao remover item -->
                             <input style="display:none;" id="qtdUnidade<?= $i ?>" type="text" value=<?= $_SESSION['qtd'][$key] ?> readonly="true">
                             
                         </tr>
-                    <?php
 
+                <?php
 
-                    if ($item['pro_flag_delivery'] != 1) {
-                        $delivery_indisponivel = $delivery_indisponivel + 1;
-                    }
+                        if ($item['pro_flag_delivery'] != 1) {
+                            $delivery_indisponivel = $delivery_indisponivel + 1;
+                        }
 
-                    //Item indisponível presente no carrinho
-                    $_SESSION['item_indisponivel'] = 1;
+                        //Item indisponível presente no carrinho
+                        $_SESSION['item_indisponivel'] = 1;
                         
                     }//end else
 
-                    $i++;
-                    $totalCarrinho += $item['pro_preco'] * $_SESSION['qtd'][$key];
 
-                    }//foreach
+                    $i++;
+                    $totalCarrinho += $subtotal_item;
+
+                    }//end foreach
+
+
+
+
+
+
+
+                    /************** Itens/Carrinho de Resgate ***********/
+                    foreach ($itens_resgate as $key => $item) {
+
+                    $qtd_aux = $_SESSION['carrinho_resgate'][$item['pro_pk_id']]['qtd'];
+                    
+                    // verifica se item adicionado está disponível
+                    if(
+                        $item['pro_arr_dias_semana'] &&
+                        in_array($hoje, json_decode($item['pro_arr_dias_semana'])) &&
+                        ($hora_atual >= $item['faho_inicio'] &&
+                        $hora_atual < $item['faho_final']) &&
+                        $item['pro_flag_ativo']
+                    ){
+
+                ?>
+                    
+                    <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
+
+                        <td class="text-uppercase nomeProdutoTabela">
+                        <span class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" data-qtd="<?= $qtd_aux ?>">
+                            <span id="qtde-text<?= $i ?>"><?= $qtd_aux ?></span>
+                        </span>
+                            <span class="qtde-x">x</span> &nbsp;  
+                            <strong><?= $item['pro_nome'] ?></strong>
+                        </td>
+
+                        <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong><i class="far fa-gem"></i> <?= $item['pro_pts_resgate_fidelidade']; ?></strong></td>
+
+                        <td class="subtotalProdutoTabela" id="subtotal<?= $i ?>"><strong><i class="far fa-gem"></i> <?=  $item['pro_pts_resgate_fidelidade'] * $qtd_aux + 0 ?></strong></td>
+
+                        <td class="nomeProdutoDisponivel">
+                            <strong>
+                            <?php
+                                if ($item['pro_flag_delivery'] == 1) {
+                                    echo "Disponível";
+                                } else {
+                                    echo "Não disponível";
+                                    $delivery_indisponivel = $delivery_indisponivel + 1;
+                                }
+                            ?>
+                            </strong>
+                        </td>
+
+                        <td style="min-width:137px;" class="quantidadeProdutoTabela">
+                            <i style="padding-left: 0;" id="removeItemResgate" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt fa-lg btn iconeRemoverProdutoTabela"></i>
+                        </td>
+                        
+                    </tr>
+                    
+                    <?php
+                    
+                    }else{//else do if disponivel
+                    
+                        ?>
+
+                        <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
+                            
+                            <td class="text-uppercase nomeProdutoTabela">
+                            <span class="quantidadeItemTabela" id="qtdUnidade<?= $i ?>" name="quantidade" type="text" data-qtd="<?= $qtd_aux ?>">
+                                <span id="qtde-text<?= $i ?>"><?= $qtd_aux ?></span>
+                            </span>
+                                <span class="qtde-x">x</span> &nbsp;  
+                                <strong><?= $item['pro_nome'] ?></strong>
+                            </td>
+
+                            <td class="precoProdutoTabela" id="preco<?= $i ?>" data-preco="<?= $item['pro_preco'] ?>"><strong><i class="far fa-gem"></i> <?= $item['pro_pts_resgate_fidelidade']; ?></strong></td>
+                        
+                            <td style="text-align: center;">
+                                Item indisponível no momento! <i class="far fa-surprise"></i>
+                            </td>
+                            
+                            <td><i id="removeItemResgate" data-toggle="tooltip" title="Remover item!" data-linha="<?= $i ?>" class="fas fa-trash-alt btn iconeRemoverProdutoTabela"></i></td>
+                            
+                            <!-- valor utilizado ao remover item -->
+                            <input style="display:none;" id="qtdUnidade<?= $i ?>" type="text" value=<?= $qtd_aux ?> readonly="true">
+                            
+                        </tr>
+
+                        <?php
+
+                        if ($item['pro_flag_delivery'] != 1) {
+                            $delivery_indisponivel = $delivery_indisponivel + 1;
+                        }
+
+                        //Item indisponível presente no carrinho
+                        $_SESSION['item_indisponivel'] = 1;
+                        
+                    }//end else
+
+                    }//end foreach
+
+
+
+
 
                     $_SESSION['valor_subtotal'] = $totalCarrinho;
                     $_SESSION['delivery_indisponivel'] = $delivery_indisponivel;
                     ?>
             </tbody>
+
         </table>
+
+
+
                 <!-- Verificação para mostrar a mensagem se o delivery não está disponivel -->
                 <?php
                 if($delivery_indisponivel > 0){?>
@@ -217,27 +383,54 @@ if (count($itens) > 0) {
                 <?php } ?>
                 
                 <!-- Observações -->                  
-                <div class="ladoDireito row" style="padding-left: 10px">
+                <div class="ladoDireito row ladoDireito-wrapper" style=" margin: 0;">
                         <table class="tabela_itens table">
                             
                             <?php
-                            if($_SESSION['observacao'][$key] != ""){
+
+                            if(
+                                isset($_SESSION['observacao'][$key])
+                                && $_SESSION['observacao'][$key] != ""
+                            ){
                             // var_dump($_SESSION['observacao']);
                                echo "<strong><p style='padding-left:6px'>Observações</p></strong>";
                             }
                             ?>
                             <!-- <strong><p>Observações</p></strong> -->
                                 <?php
-                                $i = 0;
+                                
                                 foreach ($itens as $key => $item) :
 
                                     $obs = $itens_obs[$key];
+
                                 ?>               
                                 
-                                <div id="idLinhaObs<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class="ladoDireito row">    
+                                <div id="idLinhaObs<?= $key ?>" data-id="<?= $item['pro_pk_id'] ?>" class="direito-filho" >    
                                     <?php
                                     if(!empty($obs)){ ?>
-                                        <span data-linha="<?= $i ?>" style="padding-left: 22px; width: 200px; font-size: 13px; border:none !important"><b><?= $item['pro_nome'] ?></b> : <?= $obs?></span>
+                                        <div data-linha="<?= $key ?>" style=" font-size: 16px; border:none !important" 
+                                        class="observ<?= $key?> obs_nome_produto" data-observacao="<?= $obs?>">
+                                            <b>
+                                                <?= $item['pro_nome'] ?>
+                                            </b> : </div>
+                                            <div class="obs_desc_produto" id="obs_desc<?=$key?>" style="font-size:16px;"> <?= $obs?></div>
+                                            <input class="obs_input form-control" name="observacao" id="obs_input<?=$key?>" style=" outline: 0;display: none;">
+                                            <a class="editar" title="Editar Observação" id="editar<?=$key?>" data-obsid="<?=$key?>">
+                                                <button class="btn btn-primary">
+                                                    <i class="fas fa-edit" style="color: #FFFFFF;">
+                                                    </i>
+                                                </button>
+                                            </a>
+
+                                            <a class="salvar" title="Salvar Observação" id="salvar<?=$key?>" data-obsid="<?=$key?>" style="display: none;">
+                                                <button class="btn btn-success">
+                                                    <i class="fas fa-save" style="color: #FFFFFF;">
+                                                    </i>
+                                                </button>
+                                            </a>
+
+                                            
+                                        
                                     <?php 
                                     }?>
                                 </div>
@@ -443,7 +636,7 @@ if (count($itens) > 0) {
                     }else{
                         //info de entrega
                         echo "<div style='margin-top:10px;' id='infoDelivery'>";
-                        echo "<span id='infoDeliverySemEndereco'><i class='fas fa-info-circle'></i>&nbsp;Selecione um Endereço cadastrado, ao Finalizar o Pedido.</span>";
+                        echo "<span id='infoDeliverySemEndereco'><i class='fas fa-info-circle'></i>&nbsp;Selecione o Endereço ao Finalizar o Pedido.</span>";
                         echo "</div>";
                     }
 
@@ -475,7 +668,7 @@ if (count($itens) > 0) {
 
                     //info de entrega
                     echo "<div style='display:none;' style='margin-top:10px;' id='infoDelivery'>";
-                    echo "<span><i class='fas fa-info-circle'></i>&nbsp;Selecione um Endereço cadastrado ao Finalizar o Pedido.</span>";
+                    echo "<span><i class='fas fa-info-circle'></i>&nbsp;Selecione o Endereço ao Finalizar o Pedido.</span>";
                     echo "</div>";
 
 
@@ -537,7 +730,7 @@ if (count($itens) > 0) {
                 if($_SESSION['entrega_valida'] && $_SESSION['is_delivery_home']){
                     echo "<div id='infoPercurso'>";
                     echo "<br><i class='fas fa-road'></i>&nbsp;Distância da entrega: " . $dist_km . " km <br>";
-                    echo "<i class='far fa-clock'></i>&nbsp;Estimativa de preparo/entrega: " . $_SESSION['delivery_time']." mins</div>";
+                    echo "<i class='far fa-clock'></i>&nbsp;Estimativa p/ entrega: " . $_SESSION['delivery_time']." mins</div>";
                 }
 
                 //Variaveis passadas pra control do carrinho
@@ -570,6 +763,8 @@ if (count($itens) > 0) {
 
 
 <?php
+
+//Carrinho Vazio!
 } else {
     echo "<div class='container row carrinhoVazio' style='margin:20px;'>
     <div class='imagemCarrinhoVazio'>

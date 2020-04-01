@@ -1,6 +1,6 @@
 <?php
 session_start();
 
-header("Location: ./view/login.html");
+header("Location: ./view/login.php");
 
 ?>

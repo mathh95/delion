@@ -20,7 +20,7 @@
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-    //usado para coloração customizada da página seleciona na navbar
+    //usado para coloração customizada da página selecionada na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 
 ?>
@@ -63,7 +63,7 @@
 
                             <h5>Tipo de Forma de Pagamento: </h5>
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-pencil-alt"></i></span>
                                 <input class="form-control" placeholder="Ex: Débito" name="tipoFormaPgt" required autofocus id ="tipoForma" type="text">
                             </div>
 

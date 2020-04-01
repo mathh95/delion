@@ -11,10 +11,11 @@
             try{
                 $stmte =$this->pdo->prepare("INSERT INTO tb_faixa_horario(faho_inicio, faho_final, faho_nome)
                 VALUES (:faho_inicio, :faho_final, :faho_nome)");
-                $stmte->bindParam("faho_inicio", $faixa_horario->getInicio(), PDO::PARAM_STR);
-                $stmte->bindParam("faho_final", $faixa_horario->getFinal(), PDO::PARAM_STR);
-                $stmte->bindParam("faho_nome", $faixa_horario->getIcone(), PDO::PARAM_STR);
+                $stmte->bindParam(":faho_inicio", $faixa_horario->getInicio(), PDO::PARAM_STR);
+                $stmte->bindParam(":faho_final", $faixa_horario->getFinal(), PDO::PARAM_STR);
+                $stmte->bindParam(":faho_nome", $faixa_horario->getNome(), PDO::PARAM_STR);
                 $executa = $stmte->execute();
+
                 if($executa){
                     return 1;
                 }
@@ -31,11 +32,13 @@
         function update($faixa_horario){
             try{
                 $stmte =$this->pdo->prepare("UPDATE tb_faixa_horario SET faho_inicio=:inicio, faho_final=:final, faho_nome=:nome WHERE faho_pk_id=:pk_id");
+
                 $stmte->bindParam(":pk_id", $faixa_horario->getPkId() , PDO::PARAM_INT);
-                $stmte->bindParam("faho_inicio", $faixa_horario->getInicio(), PDO::PARAM_STR);
-                $stmte->bindParam("faho_final", $faixa_horario->getFinal(), PDO::PARAM_STR);
-                $stmte->bindParam("faho_nome", $faixa_horario->getNome(), PDO::PARAM_STR);
+                $stmte->bindParam(":inicio", $faixa_horario->getInicio(), PDO::PARAM_STR);
+                $stmte->bindParam(":final", $faixa_horario->getFinal(), PDO::PARAM_STR);
+                $stmte->bindParam(":nome", $faixa_horario->getNome(), PDO::PARAM_STR);
                 $executa = $stmte->execute();
+
                 if($executa){
                     return 1;
                 }

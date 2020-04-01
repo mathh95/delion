@@ -14,6 +14,7 @@
             echo 'Nada foi postado.';
         }
         $tipoFormaPgt= addslashes(htmlspecialchars($_POST['tipoFormaPgt']));
+        
         if(isset($_POST['flag_ativo']) && !empty($_POST['flag_ativo'])){
             $flag_ativo = 1;    //ativo
         }else{

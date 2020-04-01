@@ -25,7 +25,7 @@
 
     $empresa = $controle->selectAll();
 
-    //usado para coloração customizada da página seleciona na navbar
+    //usado para coloração customizada da página selecionada na navbar
     $arquivo_pai = basename(__FILE__, '.php');
 
 ?>
@@ -188,7 +188,7 @@
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-whatsapp"></i></span>
+                                <span class="input-group-addon"><i class="fab fa-whatsapp"></i></span>
 
                                 <input class="form-control" placeholder="" name="whats" id="whats" value="<?=  $empresa->getWhats(); ?>"  type="text">
 
@@ -212,7 +212,7 @@
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-facebook-official"></i></span>
+                                <span class="input-group-addon"><i class="fab fa-facebook-f"></i></span>
 
                                 <input class="form-control" placeholder="" name="facebook" value="<?=  $empresa->getFacebook(); ?>"  type="text">
 
@@ -224,7 +224,7 @@
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-instagram"></i></span>
+                                <span class="input-group-addon"><i class="fab fa-instagram"></i></span>
 
                                 <input class="form-control" placeholder="" name="instagram" value="<?=  $empresa->getInstagram(); ?>"  type="text">
 
@@ -236,7 +236,7 @@
 
                             <div class="input-group">
 
-                                <span class="input-group-addon"><i class="fa fa-pinterest-p"></i></span>
+                                <span class="input-group-addon"><i class="fab fa-pinterest-p"></i></span>
 
                                 <input class="form-control" placeholder="" name="pinterest" value="<?=  $empresa->getPinterest(); ?>"  type="text">
 
