@@ -850,7 +850,7 @@
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $produto= new produto();
+                            $produto = new produto();
                             $produto->setPkId($result->pro_pk_id);
                             $produto->setNome($result->pro_nome);
                             $produto->setPreco($result->pro_preco);
