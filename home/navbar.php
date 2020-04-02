@@ -1,3 +1,10 @@
+<?php
+
+include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+
+include_once MODELPATH."/gerencia_site.php";
+?>
+
 <head>
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 0px) and (max-width: 767px)" href="css/navbar/style-xs.css"/>
 
@@ -7,14 +14,25 @@
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/navbar/style-lg.css"/>
 </head>
+<?php 
+    $controle=new controlerGerenciarSite($_SG['link']);
+    $config1 = $controle->select(3,2);
+	$corSec = $config1->getCorSecundaria();
 
-<div id="navegacao">
+	// echo "<pre>";
+    // print_r($config1);
+    // echo "</pre>";
+	
+	// var_dump($config);
+	// exit;
+?>
+<div id="navegacao" style="background: <?= $corSec?>" >
 
 	<div class="container">
 
 		<div id="navegacao__content">
 
-			<nav class="navbar navbar-default">
+			<nav class="navbar navbar-default" style="background: <?= $corSec?>">
 
 		  		<div class="container-fluid">
 

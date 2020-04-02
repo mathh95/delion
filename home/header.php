@@ -18,21 +18,29 @@ include_once "./controler/controlEmpresa.php";
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/header/style-lg.css"/>
 </head>
 
-<header class="container-fluid">
+<?php 
+    $controle=new controlerGerenciarSite($_SG['link']);
+    $config = $controle->select(3,2);
+    $corPrim = $config->getCorPrimaria();
+    
+?>
+
+<header class="container-fluid" style="background-color: <?=$corPrim?>">
 
     <div class="container">
 
         <div class="logo">
             
         <?php
-            $controle=new controlerGerenciarSite($_SG['link']);
-
+            
+            
             // Mudar questão do select mais tarde
-            $config = $controle->select(1,2);
+            
 
             $imagemLink = $config->getFoto();
 
         ?>
+  
 
 
             <!-- <a href="index.php"><img src="/home/img/Logo.png"></a> -->

@@ -69,7 +69,7 @@ class controlerGerenciarSite{
                             $config->setNome($result->geren_nome);
                             $config->setFoto($result->geren_ima_foto);
                             $config->setCorPrimaria($result->geren_cor_primaria);
-                            $config->getCorSecundaria($result->geren_cor_secundaria);
+                            $config->setCorSecundaria($result->geren_cor_secundaria);
                         }
                     }
                 }
