@@ -19,7 +19,9 @@
 
         $cor_primaria= addslashes(htmlspecialchars($_POST['cor_primaria']));
 
-        $cor_secundaria= addslashes(htmlspecialchars($_POST['cor_secundaria']));
+		$cor_secundaria= addslashes(htmlspecialchars($_POST['cor_secundaria']));
+		
+		$flag_ativo = 0;
 
 		if (!empty($_FILES['arquivo']['name'])) {
 	   		$foto = upload("arquivo");
@@ -28,7 +30,7 @@
 		}
 
 		$config= new gerencia_site();
-		$config->construct($nome, $foto, $cor_primaria, $cor_secundaria);
+		$config->construct($nome, $foto, $flag_ativo, $cor_primaria, $flag_ativo, $cor_secundaria);
 		$controle=new controlerGerenciarSite($_SG['link']);
 		
 		if($controle->insert($config)> -1){

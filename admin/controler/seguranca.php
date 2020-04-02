@@ -98,10 +98,12 @@
                     }
                 }
             }
-            if($_SESSION['permissaoPagina']!=$_SESSION['usuarioNivel']){
-            // echo "Permissão requisitada =".$_SESSION['permissaoPagina']." Permissão apresentada=".$_SESSION['usuarioNivel'];
-                expulsaVisitante();
-            }else{
+            if(isset($_SESSION['permissaoPagina']) && isset($_SESSION['usuarioNivel'])){
+                if($_SESSION['permissaoPagina']!=$_SESSION['usuarioNivel']){
+                // echo "Permissão requisitada =".$_SESSION['permissaoPagina']." Permissão apresentada=".$_SESSION['usuarioNivel'];
+                    expulsaVisitante();
+                }else{
+                }
             }
         }else{
             //possível verificação sem necessidade de login
@@ -112,12 +114,12 @@
     */
     function expulsaVisitante() {
         global $_SG;
-        echo "Visitante expluso";
+        // echo "Visitante expluso";
         // Manda pra tela de login
         session_destroy();
         // Remove as variáveis da sessão (caso elas existam)
         unset($_SESSION['usuarioID'], $_SESSION['usuarioNome'], $_SESSION['usuarioLogin'], $_SESSION['usuarioSenha']);
         
-        header("Location: /admin/view/login.php");
+        // header("Location: /admin/view/login.php");
     }
 ?>

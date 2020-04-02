@@ -8,10 +8,11 @@ class controlerGerenciarSite{
     private $pdo;
         function insert($config){
                 try{
-                    $stmte =$this->pdo->prepare("INSERT INTO tb_gerencia_site(geren_nome, geren_ima_foto, geren_cor_primaria, geren_cor_secundaria)
-                    VALUES (:nome, :foto, :cor_primaria, :cor_secundaria)");
+                    $stmte =$this->pdo->prepare("INSERT INTO tb_gerencia_site(geren_nome, geren_ima_foto, geren_flag_ativo ,geren_cor_primaria, geren_cor_secundaria)
+                    VALUES (:nome, :foto, :flag_ativo, :cor_primaria, :cor_secundaria)");
                     $stmte->bindParam("nome", $config->getNome(), PDO::PARAM_STR);
                     $stmte->bindParam("foto", $config->getFoto(), PDO::PARAM_STR);
+                    $stmte->bindParam("flag_ativo", $config->getFlag_ativo(), PDO::PARAM_INT);
                     $stmte->bindParam("cor_primaria", $config->getCorPrimaria(), PDO::PARAM_STR);
                     $stmte->bindParam("cor_secundaria", $config->getCorSecundaria(), PDO::PARAM_STR);
                     $executa = $stmte->execute();
@@ -50,7 +51,32 @@ class controlerGerenciarSite{
                 return -1;
             }
         }
+        
+        function desativaAllConfig($parametro){
+            try{
+                $stmt = $this->pdo->prepare("UPDATE tb_gerencia_site SET geren_flag_ativo = 0 WHERE geren_pk_id <> :parametro");
+                $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
 
+        function ativaConfig($parametro){
+            try{
+                $stmt = $this->pdo->prepare("UPDATE tb_gerencia_site SET geren_flag_ativo = 1 WHERE geren_pk_id = :parametro");
+                $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
 
         function select($parametro,$modo){
             $config= new gerencia_site();
@@ -68,6 +94,7 @@ class controlerGerenciarSite{
                             $config->setPkId($result->geren_pk_id);
                             $config->setNome($result->geren_nome);
                             $config->setFoto($result->geren_ima_foto);
+                            $config->setFlag_ativo($result->geren_flag_ativo);
                             $config->setCorPrimaria($result->geren_cor_primaria);
                             $config->getCorSecundaria($result->geren_cor_secundaria);
                         }
@@ -106,6 +133,7 @@ class controlerGerenciarSite{
                             $config->setPkId($result->geren_pk_id);
                             $config->setNome($result->geren_nome);
                             $config->setFoto($result->geren_ima_foto);
+                            $config->setFlag_ativo($result->geren_flag_ativo);
                             $config->setCorPrimaria($result->geren_cor_primaria);
                             $config->setCorSecundaria($result->geren_cor_secundaria);
                             array_push($configs, $config);
