@@ -96,7 +96,7 @@ class controlerGerenciarSite{
                             $config->setFoto($result->geren_ima_foto);
                             $config->setFlag_ativo($result->geren_flag_ativo);
                             $config->setCorPrimaria($result->geren_cor_primaria);
-                            $config->getCorSecundaria($result->geren_cor_secundaria);
+                            $config->setCorSecundaria($result->geren_cor_secundaria);
                         }
                     }
                 }

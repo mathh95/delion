@@ -8,6 +8,13 @@ include_once MODELPATH."/gerencia_site.php";
 $controle = new controlerEmpresa(conecta());
 $empresa = $controle->selectAll();
 
+$controle=new controlerGerenciarSite($_SG['link']);
+    $config1 = $controle->select(3,2);
+	$corSec = $config1->getCorSecundaria();
+
+	$config = $controle->select(3,2);
+    $corPrim = $config->getCorPrimaria();
+
 ?>
 
 <head>
@@ -26,7 +33,7 @@ $empresa = $controle->selectAll();
 
 <footer class="footer container-fluid">
 
-		<div class="navbar-social navbar-collapse">
+		<div class="navbar-social navbar-collapse" style="background-color: <?= $corSec?>">
 			<a href="https://www.facebook.com"><i class="fab fa-facebook"></i></a>
 			<a href="https://www.instagram.com"><i class=" fab fa-instagram"></i></a>
 		</div>
