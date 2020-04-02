@@ -3,7 +3,6 @@
 include_once "controler/controlEmpresa.php";
 
 include_once CONTROLLERPATH."/controlerGerenciaSite.php";
-
 include_once MODELPATH."/gerencia_site.php";
 	
 $controle = new controlerEmpresa(conecta());
@@ -80,8 +79,20 @@ $controle=new controlerGerenciarSite($_SG['link']);
 				</li>
 			</ul>
 		</div>
+		
+		<?php
+            $controle=new controlerGerenciarSite($_SG['link']);
+
+            // Mudar questão do select mais tarde
+            $config = $controle->select(1,2);
+
+            $imagemLink = $config->getFoto();
+
+        ?>
+
+
 		<div class="row right">
-		    <img src="/home/img/logo_branca.png" alt="logo delion branca" style="width:93px;height:140px;">
+		    <img src=/admin/<?= $imagemLink ?> style="width:93px;height:140px;">
 			
 			<div class="endereco-footer">
 				<p class="bold-text"><b>

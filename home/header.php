@@ -1,10 +1,7 @@
 <?php
-
-include_once CONTROLLERPATH."/controlerGerenciaSite.php";
-
-include_once MODELPATH."/gerencia_site.php";
-
-include_once "./controler/controlEmpresa.php";
+    include_once "./controler/controlEmpresa.php";
+    include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+    include_once MODELPATH."/gerencia_site.php";
 ?>
 <head>
     <meta charset="utf-8">
