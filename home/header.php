@@ -21,8 +21,8 @@
     $imagemLink = $config->getFoto();
     
         if(empty($imagemLink)){
-            $imagemLink = "home/img/Logo.png";
-            $corPrim = "#C6151F";
+            $imagemLink = "home/img/Logo_branca.png";
+            $corPrim = "#D22730";
         }else{
             $imagemLink = "admin/".$imagemLink;
             $corPrim = $config->getCorPrimaria();

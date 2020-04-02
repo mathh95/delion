@@ -19,7 +19,7 @@ include_once MODELPATH."/gerencia_site.php";
 	$status = $config->getFlag_ativo();
 
 		if(empty($status)){
-			$corSec = "#D22730";
+			$corSec = "#C6151F";
 		}else{
 			$corSec = $config->getCorSecundaria();
 		}

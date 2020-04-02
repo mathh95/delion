@@ -36,7 +36,7 @@ $controle=new controlerGerenciarSite($_SG['link']);
 </head>
 
 
-<footer class="footer container-fluid" style="background-color: <?= $corPrim?>>
+<footer class="footer container-fluid" style="background-color: <?= $corPrim?>">
 
 		<div class="navbar-social navbar-collapse" style="background-color: <?= $corSec?>">
 			<a href="https://www.facebook.com"><i class="fab fa-facebook"></i></a>
