@@ -14,14 +14,11 @@ $controle=new controlerGerenciarSite($_SG['link']);
 
 		if(empty($corSec)){
 			$corSec = "#C6151F";
+			$corPrim = "D22730";
 		}else{
 			$corSec = $config->getCorSecundaria();
+			$corPrim = $config->getCorPrimaria();
 		}
-	
-
-
-	$config = $controle->select(3,2);
-    $corPrim = $config->getCorPrimaria();
 
 ?>
 
@@ -39,7 +36,7 @@ $controle=new controlerGerenciarSite($_SG['link']);
 </head>
 
 
-<footer class="footer container-fluid">
+<footer class="footer container-fluid" style="background-color: <?= $corPrim?>>
 
 		<div class="navbar-social navbar-collapse" style="background-color: <?= $corSec?>">
 			<a href="https://www.facebook.com"><i class="fab fa-facebook"></i></a>
@@ -101,8 +98,6 @@ $controle=new controlerGerenciarSite($_SG['link']);
 					$imagemLink = $config->getFoto();
 					$imagemLink = "admin/".$imagemLink;
 				}
-
-
 
         ?>
 
