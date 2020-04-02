@@ -30,7 +30,7 @@
 		}
 
 		$config= new gerencia_site();
-		$config->construct($nome, $foto, $flag_ativo, $cor_primaria, $flag_ativo, $cor_secundaria);
+		$config->construct($nome, $foto, $flag_ativo, $cor_primaria, $cor_secundaria);
 		$controle=new controlerGerenciarSite($_SG['link']);
 		
 		if($controle->insert($config)> -1){

@@ -17,32 +17,27 @@
 
 <?php 
     $controle=new controlerGerenciarSite($_SG['link']);
-    $config = $controle->select(3,2);
-    $corPrim = $config->getCorPrimaria();
+    $config = $controle->selectConfigValida();
+    $imagemLink = $config->getFoto();
     
+        if(empty($imagemLink)){
+            $imagemLink = "home/img/Logo.png";
+            $corPrim = "#C6151F";
+        }else{
+            $imagemLink = "admin/".$imagemLink;
+            $corPrim = $config->getCorPrimaria();
+        }
+
 ?>
 
-<header class="container-fluid" style="background-color: <?=$corPrim?>">
+<header class="container-fluid" style="background-color: <?= $corPrim ?>">
 
     <div class="container">
 
         <div class="logo">
-            
-        <?php
-            
-            
-            // Mudar questão do select mais tarde
-            
-
-            $imagemLink = $config->getFoto();
-
-        ?>
-  
-
-
             <!-- <a href="index.php"><img src="/home/img/Logo.png"></a> -->
-            <a href="index.php"><img src=/admin/<?= $imagemLink ?>></a>
-
+            
+            <a href="index.php"><img src="/<?= $imagemLink ?>"></a>
 
         </div>
         

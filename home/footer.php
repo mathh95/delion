@@ -9,8 +9,16 @@ $controle = new controlerEmpresa(conecta());
 $empresa = $controle->selectAll();
 
 $controle=new controlerGerenciarSite($_SG['link']);
-    $config1 = $controle->select(3,2);
-	$corSec = $config1->getCorSecundaria();
+	$config = $controle->selectConfigValida();
+	$corSec = $config->getCorSecundaria();
+
+		if(empty($corSec)){
+			$corSec = "#C6151F";
+		}else{
+			$corSec = $config->getCorSecundaria();
+		}
+	
+
 
 	$config = $controle->select(3,2);
     $corPrim = $config->getCorPrimaria();
@@ -84,15 +92,23 @@ $controle=new controlerGerenciarSite($_SG['link']);
             $controle=new controlerGerenciarSite($_SG['link']);
 
             // Mudar questão do select mais tarde
-            $config = $controle->select(1,2);
+            $config = $controle->selectConfigValida();
+			$imagemLink = $config->getFoto();
 
-            $imagemLink = $config->getFoto();
+				if(empty($imagemLink)){
+					$imagemLink = "home/img/logo_branca.png";
+				}else{
+					$imagemLink = $config->getFoto();
+					$imagemLink = "admin/".$imagemLink;
+				}
+
+
 
         ?>
 
 
 		<div class="row right">
-		    <img src=/admin/<?= $imagemLink ?> style="width:93px;height:140px;">
+		    <img src=/<?= $imagemLink ?> style="width:93px;height:140px;">
 			
 			<div class="endereco-footer">
 				<p class="bold-text"><b>

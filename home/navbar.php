@@ -1,7 +1,6 @@
 <?php
 
 include_once CONTROLLERPATH."/controlerGerenciaSite.php";
-
 include_once MODELPATH."/gerencia_site.php";
 ?>
 
@@ -16,15 +15,15 @@ include_once MODELPATH."/gerencia_site.php";
 </head>
 <?php 
     $controle=new controlerGerenciarSite($_SG['link']);
-    $config1 = $controle->select(3,2);
-	$corSec = $config1->getCorSecundaria();
+    $config = $controle->selectConfigValida();
+	$status = $config->getFlag_ativo();
 
-	// echo "<pre>";
-    // print_r($config1);
-    // echo "</pre>";
-	
-	// var_dump($config);
-	// exit;
+		if(empty($status)){
+			$corSec = "#D22730";
+		}else{
+			$corSec = $config->getCorSecundaria();
+		}
+
 ?>
 <div id="navegacao" style="background: <?= $corSec?>" >
 

@@ -78,6 +78,19 @@ class controlerGerenciarSite{
             }
         }
 
+        function desativaOneConfig($parametro){
+            try{
+                $stmt = $this->pdo->prepare("UPDATE tb_gerencia_site SET geren_flag_ativo = 0 WHERE geren_pk_id = :parametro");
+                $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
         function select($parametro,$modo){
             $config= new gerencia_site();
             try{
@@ -107,6 +120,29 @@ class controlerGerenciarSite{
             }
         }
 
+        function selectConfigValida(){
+            $config = new gerencia_site();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_gerencia_site WHERE geren_flag_ativo LIKE 1");
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                            $config->setPkId($result->geren_pk_id);
+                            $config->setNome($result->geren_nome);
+                            $config->setFoto($result->geren_ima_foto);
+                            $config->setFlag_ativo($result->geren_flag_ativo);
+                            $config->setCorPrimaria($result->geren_cor_primaria);
+                            $config->setCorSecundaria($result->geren_cor_secundaria);
+                        }
+                    }
+                }
+                return $config;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
 
         function delete($parametro){
             try{

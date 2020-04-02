@@ -39,9 +39,9 @@ $configs = $controle->selectAll();
 				<td style='text-align: center;' name='corSecundaria'>".$config->getCorSecundaria()."</td>
 				<td style='text-align: center;' name='corSecundaria'>".$status."</td>";
 				if($config->getFlag_ativo() == 1){
-					echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='../../ajax/ativar_config_site.php?cod=".$config->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Desativar</button></a></td>";
+					echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='../../ajax/desativa-config-site.php?cod=".$config->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Desativar</button></a></td>";
 				}else{
-					echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='../../ajax/ativar_config_site.php?cod=".$config->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Ativar</button></a></td>";
+					echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='../../ajax/ativar-config-site.php?cod=".$config->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Ativar</button></a></td>";
 				}
 				
 				echo "<td style='text-align: center;' name='status'  ><button type='button' onclick=\"removeImagem(".$config->getPkId().",'../".$config->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i> Excluir</button></td>
