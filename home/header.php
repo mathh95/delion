@@ -20,12 +20,16 @@
     $config = $controle->selectConfigValida();
     $imagemLink = $config->getFoto();
     
+    
         if(empty($imagemLink)){
             $imagemLink = "home/img/Logo_branca.png";
             $corPrim = "#D22730";
+            $corSec = "#C6151F";
+
         }else{
             $imagemLink = "admin/".$imagemLink;
             $corPrim = $config->getCorPrimaria();
+            $corSec = $config->getCorSecundaria();
         }
 
 ?>
@@ -76,7 +80,7 @@
 
         </div>
         <div class="active carrinho">
-            <a data-toggle="tooltip" title="Carrinho." href="carrinho.php">
+            <a data-toggle="tooltip" title="Carrinho." href="carrinho.php" style="border-bottom: 4px solid <?= $corSec?>;">
             
                 <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
                 <!-- <i style="color:white;" class="fas fa-shopping-cart fa-lg"></i>  -->

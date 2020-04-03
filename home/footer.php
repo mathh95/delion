@@ -14,7 +14,7 @@ $controle=new controlerGerenciarSite($_SG['link']);
 
 		if(empty($corSec)){
 			$corSec = "#C6151F";
-			$corPrim = "D22730";
+			$corPrim = "#D22730";
 		}else{
 			$corSec = $config->getCorSecundaria();
 			$corPrim = $config->getCorPrimaria();

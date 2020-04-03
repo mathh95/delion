@@ -14,6 +14,21 @@
 	$controleEmpresa = new controlerEmpresa(conecta());
 	$empresa = $controleEmpresa->select(1,2);
 
+	include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+	include_once MODELPATH."/gerencia_site.php";
+
+	$controle=new controlerGerenciarSite($_SG['link']);
+	$config = $controle->selectConfigValida();
+	$corSec = $config->getCorSecundaria();
+
+		if(empty($corSec)){
+			$corSec = "#C6151F";
+			$corPrim = "D22730";
+		}else{
+			$corSec = $config->getCorSecundaria();
+			$corPrim = $config->getCorPrimaria();
+		}
+
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
 
@@ -60,7 +75,7 @@
 
 					<p>Login (e-mail)</p>
 
-        			<input class="form-control" name="login" type="email" required placeholder="delion@mail.com" autofocus>
+        			<input class="form-control" name="login" type="email" required placeholder="delion@mail.com" autofocus style="border: 2px solid <?= $corSec?>;">
 
     			</div>
 
@@ -68,7 +83,7 @@
 
 					<p>Senha</p>
 
-        			<input class="form-control" name="senha" type="password" required placeholder="******">
+        			<input class="form-control" name="senha" type="password" required placeholder="******" style="border: 2px solid <?= $corSec?>;">
 
 				</div>
 
@@ -76,10 +91,10 @@
 				<span><a href="./recuperarSenha.php"><b>Esqueci minha senha</b></a><br><br></span>
 
 
-				<button type="submit">ENTRAR</button>
+				<button type="submit" style="background-color: <?= $corSec?>;">ENTRAR</button>
 				
 				
-				<a href="cadastroCliente.php"><button class="botao-cadastro" type="button">CADASTRAR</button></a>						
+				<a href="cadastroCliente.php"><button class="botao-cadastro" type="button" style="background-color: <?= $corSec?>;">CADASTRAR</button></a>						
 
 			</form>
 

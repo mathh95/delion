@@ -15,6 +15,8 @@ include_once "../../admin/model/forma_pgto.php";
 include_once "../controler/controlEmpresa.php";
 include_once "../../admin/model/entrega.php";
 include_once "../../admin/controler/controlEntrega.php";
+include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+include_once MODELPATH."/gerencia_site.php";
 include_once "../controler/controlEndereco.php";
 include_once "../utils/GoogleServices.php";
 
@@ -25,6 +27,20 @@ $controlEndereco = new controlEndereco(conecta());
 
 $controlFormaPgt = new controlerFormaPgt($_SG['link']);
 $formasPgt = $controlFormaPgt->selectAll();
+
+//Esquema de cores do gerenciar site
+$controle=new controlerGerenciarSite($_SG['link']);
+	$config = $controle->selectConfigValida();
+	$corSec = $config->getCorSecundaria();
+
+		if(empty($corSec)){
+			$corSec = "#C6151F";
+			$corPrim = "#D22730";
+		}else{
+			$corSec = $config->getCorSecundaria();
+			$corPrim = $config->getCorPrimaria();
+		}
+
 
 $_SESSION['delivery'] = -1;
 $_SESSION['forma_pagamento'] = $formasPgt[0]->getPkId();
@@ -128,7 +144,7 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
     <div class="container-fluid row carrinho  ">
         <table class="tabela_itens table ">
             <thead>
-                <tr id="cabecalhoTabela">
+                <tr id="cabecalhoTabela" style="background-color: <?= $corPrim?>; border-bottom-color: <?= $corSec?>;">
                     <th>Produto</th>
                     <th id="precoUnitario">Preço Unitário</th>
                     <th>Subtotal</th>
@@ -416,14 +432,14 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                                             <div class="obs_desc_produto" id="obs_desc<?=$key?>" style="font-size:16px;"> <?= $obs?></div>
                                             <input class="obs_input form-control" name="observacao" id="obs_input<?=$key?>" style=" outline: 0;display: none;">
                                             <a class="editar" title="Editar Observação" id="editar<?=$key?>" data-obsid="<?=$key?>">
-                                                <button class="btn btn-primary">
+                                                <button class="btn btn-primary" style="background-color: <?=$corPrim?>; border-color: <?= $corSec?>;">
                                                     <i class="fas fa-edit" style="color: #FFFFFF;">
                                                     </i>
                                                 </button>
                                             </a>
 
                                             <a class="salvar" title="Salvar Observação" id="salvar<?=$key?>" data-obsid="<?=$key?>" style="display: none;">
-                                                <button class="btn btn-success">
+                                                <button class="btn btn-success" style="background-color: <?=$corPrim?>; border-color: <?= $corSec?>;">
                                                     <i class="fas fa-save" style="color: #FFFFFF;">
                                                     </i>
                                                 </button>
@@ -496,10 +512,10 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                     //delivery active
                     echo "
                     <div class='btn-group btn-group-toggle' data-toggle='buttons'>
-                    <label class='btn btn-danger tipo-entrega active' id='delivery'>
+                    <label class='btn btn-danger tipo-entrega active' id='delivery' style='background-color: ".$corSec.";border-color:".$corSec."'>
                         <input type='radio' name='delivery' autocomplete='off'> Delivery&nbsp;<i class='fas fa-shipping-fast'></i>
                     </label>
-                    <label class='btn btn-danger tipo-entrega' id='balcao'>
+                    <label class='btn btn-danger tipo-entrega' id='balcao' style='background-color: ".$corPrim.";border-color:".$corSec."'>
                         <input type='radio' name='balcao' autocomplete='off'> Balcão&nbsp;<i class='fas fa-store'></i>
                     </label>
                     </div>";
@@ -658,10 +674,10 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                     //balcão active
                     echo "
                     <div class='btn-group btn-group-toggle' data-toggle='buttons'>
-                    <label class='btn btn-danger tipo-entrega' id='delivery'>
+                    <label class='btn btn-danger tipo-entrega' id='delivery' style='background-color: ".$corPrim.";border-color:".$corSec."'>
                         <input type='radio' name='delivery' autocomplete='off'> Delivery&nbsp;<i class='fas fa-shipping-fast'></i>
                         </label>
-                    <label class='btn btn-danger tipo-entrega active' id='balcao'>
+                    <label class='btn btn-danger tipo-entrega active' id='balcao' style='background-color: ".$corSec.";border-color:".$corSec."'>
                         <input type='radio' name='balcao' autocomplete='off'> Balcão&nbsp;<i class='fas fa-store'></i>
                     </label>
                     </div>";
@@ -692,7 +708,7 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                         <strong><p>Cupom</p></strong> 
                         <div class='form-inline'>                            
                             <input class='form-control' type='text' name='codigocupom' id='codigocupom' placeholder='Insira o código aqui...'>
-                            <a class='botaoAdicionarCupom' onclick='adicionarCupom()'><button id='adicionarCupom' class='btn btn-danger'>Adicionar&nbsp;<i class='fa fa-ticket-alt fa-adjust'></i></button></a>    
+                            <a class='botaoAdicionarCupom' onclick='adicionarCupom()'><button id='adicionarCupom' class='btn btn-danger' style='background-color: ".$corPrim.";border-color:".$corSec."'>Adicionar&nbsp;<i class='fa fa-ticket-alt fa-adjust'></i></button></a>    
                         </div>
                     </div>";
                 } else {
@@ -700,7 +716,7 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                         <strong><p>Cupom</p></strong> 
                         <div class='form-inline'>
                             <input class='form-control' type='text' name='codigocupomrem' id='codigocupomrem' value='Cupom Adicionado!' disabled>
-                            <a class='botaoAdicionarCupom' onclick='removerCupom()'><button id='removerCupom' class='btn btn-danger'>Remover Cupom&nbsp;<i class='fas fa-trash-alt fa-adjust'></i></button></a> 
+                            <a class='botaoAdicionarCupom' onclick='removerCupom()'><button id='removerCupom' class='btn btn-danger' style='background-color: ".$corPrim.";border-color:".$corSec."'>Remover Cupom&nbsp;<i class='fas fa-trash-alt fa-adjust'></i></button></a> 
                         </div>  
                     </div>";
                 }
@@ -752,8 +768,8 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                     <strong><p id='total'> Total: R$ <span id='valor_total'>" . number_format($_SESSION['valor_total'], 2) . "</span></p></strong>
                     
                     <div class='linhaBotao'>
-                        <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
-                        <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()'><button class='btn btn-danger'>Esvaziar Carrinho <i class='fas fa-trash-alt'></i></button></a>
+                        <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn' style='background-color: ".$corPrim.";border-color:".$corSec."'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
+                        <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()'><button class='btn btn-danger' style='background-color: ".$corPrim.";border-color:".$corSec."'>Esvaziar Carrinho <i class='fas fa-trash-alt'></i></button></a>
                     </div>
                     </div>
                     </div>";

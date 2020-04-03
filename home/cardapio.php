@@ -15,6 +15,9 @@
 
 	include_once MODELPATH."/adicional.php";
 
+	include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+	include_once MODELPATH."/gerencia_site.php";
+
 	$controleEmpresa = new controlerEmpresa(conecta());
 
 	$controleCategoria = new controlerCategoria(conecta());
@@ -28,6 +31,18 @@
 	
     $controleAdicional = new controlerAdicional(conecta());
 	$adicionais = $controleAdicional->selectAllF();
+
+	$controle=new controlerGerenciarSite($_SG['link']);
+	$config = $controle->selectConfigValida();
+	$corSec = $config->getCorSecundaria();
+
+		if(empty($corSec)){
+			$corSec = "#C6151F";
+			$corPrim = "#D22730";
+		}else{
+			$corSec = $config->getCorSecundaria();
+			$corPrim = $config->getCorPrimaria();
+		}
 	
 
 	//configuração de acesso ao WhatsApp 
@@ -100,13 +115,13 @@
 				
 				if($key == 0){	
 					echo "
-						<li class='nav-item active'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()."'>
-							<div>".$categoria->getNome()."</div>
+						<li class='nav-item active'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()."' style='border-bottom: 2px solid ".$corSec.";' onMouseOver='this.style.borderBottomColor=".$corSec."'>
+							<div style='color:".$corSec."'>".$categoria->getNome()."</div>
 						</a></li>";
 				}else{
 					echo "
-						<li class='nav-item '><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()."'>
-							<div>".$categoria->getNome()."</div>
+						<li class='nav-item'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()."' >
+							<div style='color:".$corSec."'>".$categoria->getNome()."</div>
 						</a></li>";
 				}
 
@@ -386,6 +401,9 @@
 			}
 		}
 
+		function onHover(elem){
+
+		}
 		
 
 	</script>
