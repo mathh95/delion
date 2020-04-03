@@ -105,7 +105,7 @@
 
                     $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                    if (in_array('imagem', $permissao)){ ?>
+                    if (in_array('gerenciar_site', $permissao)){ ?>
 
                         <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Salvar</button>
 

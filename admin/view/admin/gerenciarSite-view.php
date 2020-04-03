@@ -160,7 +160,7 @@
 
                         if (in_array('cliente', $permissao)){ ?>
 
-                            <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Alterar</button>
+                            <button type="gerenciar_site" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Alterar</button>
 
                         <?php } ?>
 

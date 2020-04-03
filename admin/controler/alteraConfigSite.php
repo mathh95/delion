@@ -10,7 +10,7 @@
 	include_once "../lib/alert.php";
 	include_once "upload.php";
 
-	if (in_array('cardapio', json_decode($_SESSION['permissao']))) {
+	if (in_array('gerenciar_site', json_decode($_SESSION['permissao']))) {
 		if (!isset($_POST)||empty($_POST)){
 			echo 'Nada foi postado.';
 		}

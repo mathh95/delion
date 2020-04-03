@@ -341,6 +341,14 @@
                                         </label>
                                     </li>
 
+                                    <li>
+                                        <label>
+
+                                            <input type="checkbox" id="gerenciar_site" name="permissoes[]" value="gerenciar_site"> Gerenciar Site
+
+                                        </label>
+                                    </li>
+
                                 </ul>
 
                             </div>

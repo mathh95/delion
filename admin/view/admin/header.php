@@ -540,7 +540,7 @@
                             
                             $permissao = json_decode($usuarioPermissao->getPermissao());
                                      
-                            if(in_array('enviar_sms', $permissao)){ ?>
+                            if(in_array('gerenciar_site', $permissao)){ ?>
     
                             <li class="dropdown
     

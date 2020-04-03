@@ -8,7 +8,7 @@ protegePagina();
 $controle=new controlerGerenciarSite($_SG['link']);
 $configs = $controle->selectAll();
 	$permissao =  json_decode($usuarioPermissao->getPermissao());
-	if(in_array('imagem', $permissao)){ 
+	if(in_array('gerenciar_site', $permissao)){ 
 	
 		echo "<table class='table table-responsive' id='tbImagem' style='text-align = center;'>
 		<thead>
