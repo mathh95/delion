@@ -87,7 +87,7 @@
 
         <div class="container-fluid">
 
-            <form class="form-horizontal" id="form-cadastro-cliente" method="post" action="../../controler/alteraConfigSite.php">
+            <form class="form-horizontal" id="form-cadastro-cliente" method="POST" enctype="multipart/form-data" action="../../controler/alteraConfigSite.php">
 
                 <div class="col-md-12">
 
@@ -105,7 +105,7 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
                                 <input class="form-control" placeholder="Nome" name="nome" value="<?=$config->getNome(); ?>" required autofocus type="text">
                                 <input type="text" class="form-control"  style="display:none" id="cod" name="cod" maxlength="50" value="<?=  $config->getPkId(); ?>" >
-                                <input class="form-control" name="imagem" id ="imagem" type="hidden" value="<?= $config->getFoto();?>">
+                                <input class="form-control" name="imagem" id ="imagem" type="hidden" value="../<?=  $config->getFotoAbsoluto();?>">
                             </div>
 
                             <br>
@@ -158,9 +158,9 @@
 
                         $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                        if (in_array('cliente', $permissao)){ ?>
+                        if (in_array('gerenciar_site', $permissao)){ ?>
 
-                            <button type="gerenciar_site" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Alterar</button>
+                            <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Alterar</button>
 
                         <?php } ?>
 

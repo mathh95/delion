@@ -22,28 +22,18 @@
         $status = 0;
 
 		if (!empty($_FILES['arquivo']['name'])) {
-
-			$anexo = ADMINPATH."/".addslashes(htmlspecialchars($_POST['imagem']));
-
-			if(file_exists($anexo)) unlink($anexo);
-
 			$foto = upload("arquivo");
-		}else{
+	 	}else{
 			$foto = addslashes(htmlspecialchars($_POST['imagem']));
-		}
+	 	}
 
-        $config = new gerencia_site();
-        $config->setPkId($cod_config);
-        $config->setNome($nome);
-        $config->setFoto($foto);
-        $config->setFlag_ativo($status);
-        $config->setCorPrimaria($cor_primaria);
-        $config->setCorSecundaria($cor_secundaria);
-		$controle = new controlerGerenciarSite($_SG['link']);
-
+		$config= new gerencia_site();
+		$config->construct($nome, $foto, $status, $cor_primaria, $cor_secundaria);
+		$config->setPkId($cod_config);
+		$controle=new controlerGerenciarSite($_SG['link']);
 		$result = $controle->update($config);
 
-		if($result > -1 ){
+		if($controle->update($config) > -1 ){
 			msgRedireciona('Alteração Realizada!','Configuração do Site Alterada com sucesso!',1,'../view/admin/gerenciarSiteLista.php');
 		}else{
 			alertJSVoltarPagina('Erro!','Erro ao alterar a Configuração do Site!',2);

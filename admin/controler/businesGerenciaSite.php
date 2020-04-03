@@ -34,7 +34,7 @@
 		$controle=new controlerGerenciarSite($_SG['link']);
 		
 		if($controle->insert($config)> -1){
-			msgRedireciona('Cadastro Realizado!','Configuração cadastrada com sucesso!',1,'../view/admin/gerenciarSite.php');
+			msgRedireciona('Cadastro Realizado!','Configuração cadastrada com sucesso!',1,'../view/admin/gerenciarSiteLista.php');
 		}else{
 			alertJSVoltarPagina('Erro!','Erro ao cadastrar configuração!',2);
 			$config->show();
