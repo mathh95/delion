@@ -32,10 +32,11 @@ class controlerGerenciarSite{
 
         function update($config){
             try{
-                $stmte =$this->pdo->prepare("UPDATE tb_gerencia_site SET geren_nome=:nome, geren_ima_foto=:foto, geren_cor_primaria=:cor_primaria, garen_cor_secundaria=:cor_secundaria WHERE geren_pk_id=:cod_geren");
+                $stmte =$this->pdo->prepare("UPDATE tb_gerencia_site SET geren_nome=:nome, geren_ima_foto=:foto, geren_flag_ativo=:flag_ativo,geren_cor_primaria=:cor_primaria, geren_cor_secundaria=:cor_secundaria WHERE geren_pk_id=:cod_geren");
                 $stmte->bindParam("cod_geren", $config->getPkId(), PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $config->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":foto", $config->getFoto(), PDO::PARAM_STR);
+                $stmte->bindParam(":flag_ativo", $config->getFlag_ativo(), PDO::PARAM_INT);
                 $stmte->bindParam(":cor_primaria", $config->getCorPrimaria(), PDO::PARAM_STR);
                 $stmte->bindParam(":cor_secundaria", $config->getCorSecundaria(), PDO::PARAM_STR);
                 $executa = $stmte->execute();
@@ -143,6 +144,7 @@ class controlerGerenciarSite{
                 return -1;
             }
         }
+
 
         function delete($parametro){
             try{

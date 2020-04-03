@@ -84,7 +84,7 @@
 
                             <small>Logo do Site:<br/> 
 
-                               <span style="color:red">(Utilizar uma imagem no formato (.png) ou (.jpg). ) </span>
+                               <span style="color:red">(Utilizar uma imagem no tamanho 53[largura] x 80[altura]. Formato (.png) ou (.jpg).)</span>
 
                             </small>
 

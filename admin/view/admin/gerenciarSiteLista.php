@@ -32,16 +32,16 @@
     <?php include VIEWPATH."/rodape.html" ?>
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
-        function removeImagem(imagem,foto){
-            msgConfirmacao('Confirmação','Deseja Realmente remover a imagem?',
+        function removeConfig(config){
+            msgConfirmacao('Confirmação','Deseja Realmente remover a configuração?',
                 function(linha){
-                    var url ='../../ajax/excluir-imagem.php?imagem='+imagem+'&foto='+foto;
+                    var url ='../../ajax/excluir-config-site.php?cod='+config;
                     $.get(url, function(dataReturn) {
                         if (dataReturn > 0) {
-                            msgGenerico("Excluir!","Imagem excluída com sucesso!",1,function(){});
-                            $("#status"+imagem).remove();
+                            msgGenerico("Excluir!","Configuração excluída com sucesso!",1,function(){});
+                            $("#status"+config).remove();
                         }else{
-                            msgGenerico("Erro!","Não foi possível excluir o imagem!",2,function(){});
+                            msgGenerico("Erro!","Não foi possível excluir a configuração!",2,function(){});
                         }
                     });  
                 },

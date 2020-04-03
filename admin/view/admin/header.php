@@ -2,6 +2,8 @@
 
     include_once MODELPATH."/usuario.php";
 
+    include_once CONTROLLERPATH."/controlUsuario.php";
+
     protegePagina();
 
     $controleUsuario = new controlerUsuario($_SG['link']);
