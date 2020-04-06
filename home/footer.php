@@ -103,7 +103,7 @@ $controle=new controlerGerenciarSite($_SG['link']);
 
 
 		<div class="row right">
-		    <img src=/<?= $imagemLink ?> style="width:120px;height:140px;">
+		    <img src=/<?= $imagemLink ?> style="width:95px;height:140px;">
 			
 			<div class="endereco-footer">
 				<p class="bold-text"><b>
