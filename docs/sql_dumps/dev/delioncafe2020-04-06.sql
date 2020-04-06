@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_empresa` (
   `emp_taxa_conversao_fidelidade` DECIMAL(2,1) NULL,
   PRIMARY KEY (`emp_pk_id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -67,14 +67,14 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_sms_verificacao` (
   `smve_verificado` TINYINT(1) NOT NULL DEFAULT 0,
   `smve_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`smve_pk_id`),
-  INDEX `fk_tb_sms_verificacao_tb_empresa1_idx` (`smve_fk_empresa` ASC) VISIBLE,
+  INDEX `fk_tb_sms_verificacao_tb_empresa1_idx` (`smve_fk_empresa` ASC) ,
   CONSTRAINT `fk_tb_sms_verificacao_tb_empresa1`
     FOREIGN KEY (`smve_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -89,14 +89,14 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_adicional` (
   `adi_flag_ativo` TINYINT(1) NOT NULL DEFAULT 0,
   `adi_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`adi_pk_id`),
-  INDEX `fk_tb_adicional_tb_empresa1_idx` (`adi_fk_empresa` ASC) VISIBLE,
+  INDEX `fk_tb_adicional_tb_empresa1_idx` (`adi_fk_empresa` ASC) ,
   CONSTRAINT `fk_tb_adicional_tb_empresa1`
     FOREIGN KEY (`adi_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_tipo_avaliacao` (
   `tiva_flag_ativo` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`tiva_pk_id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -125,8 +125,8 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_avaliacao` (
   `ava_fk_tipo_avaliacao` INT(11) NOT NULL,
   `ava_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`ava_pk_id`),
-  INDEX `ava_fk_tipo_avaliacao` (`ava_fk_tipo_avaliacao` ASC) VISIBLE,
-  INDEX `fk_tb_avaliacao_tb_empresa1_idx` (`ava_fk_empresa` ASC) VISIBLE,
+  INDEX `ava_fk_tipo_avaliacao` (`ava_fk_tipo_avaliacao` ASC) ,
+  INDEX `fk_tb_avaliacao_tb_empresa1_idx` (`ava_fk_empresa` ASC) ,
   CONSTRAINT `tb_avaliacao_ibfk_1`
     FOREIGN KEY (`ava_fk_tipo_avaliacao`)
     REFERENCES `delioncafe`.`tb_tipo_avaliacao` (`tiva_pk_id`),
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_avaliacao` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -151,14 +151,14 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_categoria` (
   `cat_posicao` TINYINT(4) NOT NULL,
   `cat_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`cat_pk_id`),
-  INDEX `fk_tb_categoria_tb_empresa1_idx` (`cat_fk_empresa` ASC) VISIBLE,
+  INDEX `fk_tb_categoria_tb_empresa1_idx` (`cat_fk_empresa` ASC) ,
   CONSTRAINT `fk_tb_categoria_tb_empresa1`
     FOREIGN KEY (`cat_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_fidelidade` (
   `fid_taxa_conversao_pts` DECIMAL(2,1) NOT NULL,
   `fid_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`fid_pk_id`),
-  INDEX `fk_tb_fidelidade_tb_empresa1_idx` (`fid_fk_empresa` ASC) VISIBLE,
+  INDEX `fk_tb_fidelidade_tb_empresa1_idx` (`fid_fk_empresa` ASC) ,
   CONSTRAINT `fk_tb_fidelidade_tb_empresa1`
     FOREIGN KEY (`fid_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
@@ -219,10 +219,10 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_produto` (
   `pro_fk_faixa_horario` INT(11) NULL,
   `pro_fk_fidelidade` INT(11) NULL,
   PRIMARY KEY (`pro_pk_id`),
-  INDEX `fk_tb_cardapio_tb_empresa1_idx` (`pro_fk_empresa` ASC) VISIBLE,
-  INDEX `fk_tb_produto_tb_categoria1_idx` (`pro_fk_categoria` ASC) VISIBLE,
-  INDEX `fk_tb_produto_tb_faixa_horario1_idx` (`pro_fk_faixa_horario` ASC) VISIBLE,
-  INDEX `fk_tb_produto_tb_fidelidade1_idx` (`pro_fk_fidelidade` ASC) VISIBLE,
+  INDEX `fk_tb_cardapio_tb_empresa1_idx` (`pro_fk_empresa` ASC) ,
+  INDEX `fk_tb_produto_tb_categoria1_idx` (`pro_fk_categoria` ASC) ,
+  INDEX `fk_tb_produto_tb_faixa_horario1_idx` (`pro_fk_faixa_horario` ASC) ,
+  INDEX `fk_tb_produto_tb_fidelidade1_idx` (`pro_fk_fidelidade` ASC) ,
   CONSTRAINT `fk_tb_cardapio_tb_empresa1`
     FOREIGN KEY (`pro_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
@@ -244,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_produto` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -268,16 +268,16 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_cliente` (
   `cli_dt_alteracao_fone` DATE NULL,
   `cli_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`cli_pk_id`),
-  INDEX `fk_tb_cliente_tb_empresa1_idx` (`cli_fk_empresa` ASC) VISIBLE,
-  UNIQUE INDEX `cli_cpf_UNIQUE` (`cli_cpf` ASC) VISIBLE,
-  UNIQUE INDEX `cli_login_email_UNIQUE` (`cli_login_email` ASC) VISIBLE,
+  INDEX `fk_tb_cliente_tb_empresa1_idx` (`cli_fk_empresa` ASC) ,
+  UNIQUE INDEX `cli_cpf_UNIQUE` (`cli_cpf` ASC) ,
+  UNIQUE INDEX `cli_login_email_UNIQUE` (`cli_login_email` ASC) ,
   CONSTRAINT `fk_tb_cliente_tb_empresa1`
     FOREIGN KEY (`cli_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -292,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_sms` (
   `sms_data_envio` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (`sms_pk_id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -305,8 +305,8 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`rl_cliente_sms` (
   `clsm_fk_sms_mensagem` INT(11) NOT NULL,
   `clsm_fk_cliente` INT(11) NOT NULL,
   PRIMARY KEY (`clsm_pk_id`),
-  INDEX `clsm_fk_sms_mensagem` (`clsm_fk_sms_mensagem` ASC) VISIBLE,
-  INDEX `clsm_fk_cliente` (`clsm_fk_cliente` ASC) VISIBLE,
+  INDEX `clsm_fk_sms_mensagem` (`clsm_fk_sms_mensagem` ASC) ,
+  INDEX `clsm_fk_cliente` (`clsm_fk_cliente` ASC) ,
   CONSTRAINT `tb_cliente_sms_ibfk_1`
     FOREIGN KEY (`clsm_fk_sms_mensagem`)
     REFERENCES `delioncafe`.`tb_sms` (`sms_pk_id`),
@@ -314,7 +314,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`rl_cliente_sms` (
     FOREIGN KEY (`clsm_fk_cliente`)
     REFERENCES `delioncafe`.`tb_cliente` (`cli_pk_id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -334,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_cupom` (
   `cup_valor_minimo` DECIMAL(6,2) NULL DEFAULT NULL,
   PRIMARY KEY (`cup_pk_id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -361,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_estado` (
   `es_sigla` VARCHAR(45) NOT NULL,
   `es_fk_pais` INT(11) NULL,
   PRIMARY KEY (`es_pk_id`),
-  INDEX `fk_tb_estado_tb_pais1_idx` (`es_fk_pais` ASC) VISIBLE,
+  INDEX `fk_tb_estado_tb_pais1_idx` (`es_fk_pais` ASC) ,
   CONSTRAINT `fk_tb_estado_tb_pais1`
     FOREIGN KEY (`es_fk_pais`)
     REFERENCES `delioncafe`.`tb_pais` (`pa_pk_id`)
@@ -380,7 +380,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_cidade` (
   `ci_cidade` VARCHAR(60) NOT NULL,
   `ci_fk_estado` INT(11) NULL,
   PRIMARY KEY (`ci_pk_id`),
-  INDEX `fk_tb_cidade_tb_estado1_idx` (`ci_fk_estado` ASC) VISIBLE,
+  INDEX `fk_tb_cidade_tb_estado1_idx` (`ci_fk_estado` ASC) ,
   CONSTRAINT `fk_tb_cidade_tb_estado1`
     FOREIGN KEY (`ci_fk_estado`)
     REFERENCES `delioncafe`.`tb_estado` (`es_pk_id`)
@@ -401,15 +401,15 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_endereco` (
   `end_bairro` VARCHAR(100) NOT NULL,
   `end_fk_cidade` INT(11) NOT NULL,
   PRIMARY KEY (`end_pk_id`),
-  INDEX `fk_tb_endereco_tb_cidade1_idx` (`end_fk_cidade` ASC) VISIBLE,
-  UNIQUE INDEX `end_cep_UNIQUE` (`end_cep` ASC) VISIBLE,
+  INDEX `fk_tb_endereco_tb_cidade1_idx` (`end_fk_cidade` ASC) ,
+  UNIQUE INDEX `end_cep_UNIQUE` (`end_cep` ASC) ,
   CONSTRAINT `fk_tb_endereco_tb_cidade1`
     FOREIGN KEY (`end_fk_cidade`)
     REFERENCES `delioncafe`.`tb_cidade` (`ci_pk_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -427,14 +427,14 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_entrega` (
   `ent_flag_ativo` TINYINT(1) NOT NULL,
   `ent_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`ent_pk_id`),
-  INDEX `fk_tb_entrega_tb_empresa1_idx` (`ent_fk_empresa` ASC) VISIBLE,
+  INDEX `fk_tb_entrega_tb_empresa1_idx` (`ent_fk_empresa` ASC) ,
   CONSTRAINT `fk_tb_entrega_tb_empresa1`
     FOREIGN KEY (`ent_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -450,7 +450,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_evento` (
   `eve_foto` VARCHAR(255) NOT NULL,
   `eve_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`eve_pk_id`),
-  INDEX `fk_tb_evento_tb_empresa1_idx` (`eve_fk_empresa` ASC) VISIBLE,
+  INDEX `fk_tb_evento_tb_empresa1_idx` (`eve_fk_empresa` ASC) ,
   CONSTRAINT `fk_tb_evento_tb_empresa1`
     FOREIGN KEY (`eve_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
@@ -470,14 +470,14 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_forma_pgto` (
   `fopg_flag_ativo` TINYINT(1) UNSIGNED NOT NULL,
   `fopg_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`fopg_pk_id`),
-  INDEX `fk_tb_forma_pgto_tb_empresa1_idx` (`fopg_fk_empresa` ASC) VISIBLE,
+  INDEX `fk_tb_forma_pgto_tb_empresa1_idx` (`fopg_fk_empresa` ASC) ,
   CONSTRAINT `fk_tb_forma_pgto_tb_empresa1`
     FOREIGN KEY (`fopg_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -492,14 +492,14 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_imagem` (
   `ima_pagina` VARCHAR(255) NOT NULL,
   `ima_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`ima_pk_id`),
-  INDEX `fk_tb_imagem_tb_empresa1_idx` (`ima_fk_empresa` ASC) VISIBLE,
+  INDEX `fk_tb_imagem_tb_empresa1_idx` (`ima_fk_empresa` ASC) ,
   CONSTRAINT `fk_tb_imagem_tb_empresa1`
     FOREIGN KEY (`ima_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -529,8 +529,8 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`rl_endereco_cliente` (
   `encl_fk_endereco` INT(11) NOT NULL,
   `encl_fk_cliente` INT(11) NULL,
   PRIMARY KEY (`encl_pk_id`),
-  INDEX `fk_tb_endereco_has_tb_cliente_tb_cliente1_idx` (`encl_fk_cliente` ASC) VISIBLE,
-  INDEX `fk_tb_endereco_has_tb_cliente_tb_endereco1_idx` (`encl_fk_endereco` ASC) VISIBLE,
+  INDEX `fk_tb_endereco_has_tb_cliente_tb_cliente1_idx` (`encl_fk_cliente` ASC) ,
+  INDEX `fk_tb_endereco_has_tb_cliente_tb_endereco1_idx` (`encl_fk_endereco` ASC) ,
   CONSTRAINT `fk_tb_endereco_has_tb_cliente_tb_endereco1`
     FOREIGN KEY (`encl_fk_endereco`)
     REFERENCES `delioncafe`.`tb_endereco` (`end_pk_id`)
@@ -542,7 +542,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`rl_endereco_cliente` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -570,12 +570,12 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_pedido` (
   `ped_fk_cupom` INT(11) NULL,
   `ped_fk_endereco_cliente` INT(11) NULL,
   PRIMARY KEY (`ped_pk_id`),
-  INDEX `fk_tb_pedido_tb_empresa1_idx` (`ped_fk_empresa` ASC) VISIBLE,
-  INDEX `fk_tb_pedido_tb_cliente1_idx` (`ped_fk_cliente` ASC) VISIBLE,
-  INDEX `fk_tb_pedido_tb_origem_pedido1_idx` (`ped_fk_origem_pedido` ASC) VISIBLE,
-  INDEX `fk_tb_pedido_tb_forma_pgto1_idx` (`ped_fk_forma_pgto` ASC) VISIBLE,
-  INDEX `fk_tb_pedido_tb_cupom1_idx` (`ped_fk_cupom` ASC) VISIBLE,
-  INDEX `fk_tb_pedido_rl_endereco_cliente1_idx` (`ped_fk_endereco_cliente` ASC) VISIBLE,
+  INDEX `fk_tb_pedido_tb_empresa1_idx` (`ped_fk_empresa` ASC) ,
+  INDEX `fk_tb_pedido_tb_cliente1_idx` (`ped_fk_cliente` ASC) ,
+  INDEX `fk_tb_pedido_tb_origem_pedido1_idx` (`ped_fk_origem_pedido` ASC) ,
+  INDEX `fk_tb_pedido_tb_forma_pgto1_idx` (`ped_fk_forma_pgto` ASC) ,
+  INDEX `fk_tb_pedido_tb_cupom1_idx` (`ped_fk_cupom` ASC) ,
+  INDEX `fk_tb_pedido_rl_endereco_cliente1_idx` (`ped_fk_endereco_cliente` ASC) ,
   CONSTRAINT `fk_tb_pedido_tb_empresa1`
     FOREIGN KEY (`ped_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
@@ -607,7 +607,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_pedido` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -622,12 +622,12 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_recupera_senha` (
   `res_data_expiracao` DATETIME NOT NULL,
   `res_fk_cliente` INT(11) NOT NULL,
   PRIMARY KEY (`res_pk_id`),
-  INDEX `res_fk_cliente` (`res_fk_cliente` ASC) VISIBLE,
+  INDEX `res_fk_cliente` (`res_fk_cliente` ASC) ,
   CONSTRAINT `tb_recupera_senha_ibfk_1`
     FOREIGN KEY (`res_fk_cliente`)
     REFERENCES `delioncafe`.`tb_cliente` (`cli_pk_id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -646,14 +646,14 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_usuario` (
   `usu_permissao` MEDIUMTEXT NOT NULL,
   `usu_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`usu_pk_id`),
-  INDEX `fk_tb_usuario_tb_empresa1_idx` (`usu_fk_empresa` ASC) VISIBLE,
+  INDEX `fk_tb_usuario_tb_empresa1_idx` (`usu_fk_empresa` ASC) ,
   CONSTRAINT `fk_tb_usuario_tb_empresa1`
     FOREIGN KEY (`usu_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -670,8 +670,8 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`rl_pedido_produto` (
   `pepr_pts_resgate_fidelidade` SMALLINT(4) NULL,
   `pepr_observacao` VARCHAR(255) NULL,
   `pepr_arr_adicionais` VARCHAR(255) NULL,
-  INDEX `fk_tb_produto_has_tb_pedido_tb_pedido1_idx` (`pepr_fk_pedido` ASC) VISIBLE,
-  INDEX `fk_tb_produto_has_tb_pedido_tb_produto1_idx` (`pepr_fk_produto` ASC) VISIBLE,
+  INDEX `fk_tb_produto_has_tb_pedido_tb_pedido1_idx` (`pepr_fk_pedido` ASC) ,
+  INDEX `fk_tb_produto_has_tb_pedido_tb_produto1_idx` (`pepr_fk_produto` ASC) ,
   PRIMARY KEY (`pepr_pk_id`, `pepr_fk_produto`, `pepr_fk_pedido`),
   CONSTRAINT `fk_tb_produto_has_tb_pedido_tb_produto1`
     FOREIGN KEY (`pepr_fk_produto`)
@@ -684,7 +684,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`rl_pedido_produto` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -698,8 +698,8 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`rl_cliente_cupom` (
   `clcu_fk_cupom` INT(11) NOT NULL,
   `clcu_ultimo_uso` DATETIME NOT NULL,
   PRIMARY KEY (`clcu_pk_id`, `clcu_fk_cliente`, `clcu_fk_cupom`),
-  INDEX `fk_tb_cliente_has_tb_cupom_tb_cupom1_idx` (`clcu_fk_cupom` ASC) VISIBLE,
-  INDEX `fk_tb_cliente_has_tb_cupom_tb_cliente1_idx` (`clcu_fk_cliente` ASC) VISIBLE,
+  INDEX `fk_tb_cliente_has_tb_cupom_tb_cupom1_idx` (`clcu_fk_cupom` ASC) ,
+  INDEX `fk_tb_cliente_has_tb_cupom_tb_cliente1_idx` (`clcu_fk_cliente` ASC) ,
   CONSTRAINT `fk_tb_cliente_has_tb_cupom_tb_cliente1`
     FOREIGN KEY (`clcu_fk_cliente`)
     REFERENCES `delioncafe`.`tb_cliente` (`cli_pk_id`)
@@ -711,7 +711,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`rl_cliente_cupom` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -725,7 +725,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_tipo_fornecedor` (
   `tifo_flag_ativo` TINYINT(1) NOT NULL DEFAULT 1,
   `tifo_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`tifo_pk_id`),
-  INDEX `fk_tb_tipo_fornecedor_tb_empresa1_idx` (`tifo_fk_empresa` ASC) VISIBLE,
+  INDEX `fk_tb_tipo_fornecedor_tb_empresa1_idx` (`tifo_fk_empresa` ASC) ,
   CONSTRAINT `fk_tb_tipo_fornecedor_tb_empresa1`
     FOREIGN KEY (`tifo_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
@@ -750,8 +750,8 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_fornecedor` (
   `for_fk_empresa` INT(1) NULL,
   `for_fk_tipo_fornecedor` INT(1) NOT NULL,
   PRIMARY KEY (`for_pk_id`),
-  INDEX `fk_tb_fornecedor_tb_empresa1_idx` (`for_fk_empresa` ASC) VISIBLE,
-  INDEX `fk_tb_fornecedor_tb_tipo_fornecedor1_idx` (`for_fk_tipo_fornecedor` ASC) VISIBLE,
+  INDEX `fk_tb_fornecedor_tb_empresa1_idx` (`for_fk_empresa` ASC) ,
+  INDEX `fk_tb_fornecedor_tb_tipo_fornecedor1_idx` (`for_fk_tipo_fornecedor` ASC) ,
   CONSTRAINT `fk_tb_fornecedor_tb_empresa1`
     FOREIGN KEY (`for_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
@@ -778,7 +778,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_pedido_fornecedor` (
   `pefo_dt_pedido` DATE NOT NULL,
   `pefo_fk_fornecedor` INT NULL,
   PRIMARY KEY (`pefo_pk_id`),
-  INDEX `fk_tb_pedido_fornecedor_tb_fornecedor1_idx` (`pefo_fk_fornecedor` ASC) VISIBLE,
+  INDEX `fk_tb_pedido_fornecedor_tb_fornecedor1_idx` (`pefo_fk_fornecedor` ASC) ,
   CONSTRAINT `fk_tb_pedido_fornecedor_tb_fornecedor1`
     FOREIGN KEY (`pefo_fk_fornecedor`)
     REFERENCES `delioncafe`.`tb_fornecedor` (`for_pk_id`)
@@ -799,7 +799,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_ingrediente` (
   `igr_valor` DECIMAL(6,2) NOT NULL,
   `igr_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`igr_pk_id`),
-  INDEX `fk_tb_igrediente_tb_empresa1_idx` (`igr_fk_empresa` ASC) VISIBLE,
+  INDEX `fk_tb_igrediente_tb_empresa1_idx` (`igr_fk_empresa` ASC) ,
   CONSTRAINT `fk_tb_igrediente_tb_empresa1`
     FOREIGN KEY (`igr_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
@@ -818,7 +818,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_composicao` (
   `com_fk_produto` INT(11) NOT NULL,
   `com_valor_extra` DECIMAL(6,2) NULL,
   PRIMARY KEY (`com_pk_id`, `com_fk_produto`),
-  INDEX `fk_tb_composicao_tb_produto1_idx` (`com_fk_produto` ASC) VISIBLE,
+  INDEX `fk_tb_composicao_tb_produto1_idx` (`com_fk_produto` ASC) ,
   CONSTRAINT `fk_tb_composicao_tb_produto1`
     FOREIGN KEY (`com_fk_produto`)
     REFERENCES `delioncafe`.`tb_produto` (`pro_pk_id`)
@@ -838,8 +838,8 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`rl_composicao_ingrediente` (
   `coig_fk_ingrediente` INT NOT NULL,
   `coig_qtde_utilizada` DECIMAL(10,4) NOT NULL,
   PRIMARY KEY (`coig_pk_id`, `coig_fk_composicao`, `coig_fk_ingrediente`),
-  INDEX `fk_tb_composicao_has_tb_igredientes_tb_igredientes1_idx` (`coig_fk_ingrediente` ASC) VISIBLE,
-  INDEX `fk_tb_composicao_has_tb_igredientes_tb_composicao1_idx` (`coig_fk_composicao` ASC) VISIBLE,
+  INDEX `fk_tb_composicao_has_tb_igredientes_tb_igredientes1_idx` (`coig_fk_ingrediente` ASC) ,
+  INDEX `fk_tb_composicao_has_tb_igredientes_tb_composicao1_idx` (`coig_fk_composicao` ASC) ,
   CONSTRAINT `fk_tb_composicao_has_tb_igredientes_tb_composicao1`
     FOREIGN KEY (`coig_fk_composicao`)
     REFERENCES `delioncafe`.`tb_composicao` (`com_pk_id`)
@@ -863,7 +863,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_historico_ingrediente` (
   `higr_valor` DECIMAL(6,2) NOT NULL,
   `higr_data` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `higr_fk_ingrediente` INT NOT NULL,
-  INDEX `fk_tb_historico_igrediente_tb_igrediente1_idx` (`higr_fk_ingrediente` ASC) VISIBLE,
+  INDEX `fk_tb_historico_igrediente_tb_igrediente1_idx` (`higr_fk_ingrediente` ASC) ,
   PRIMARY KEY (`higr_pk_id`),
   CONSTRAINT `fk_tb_historico_igrediente_tb_igrediente1`
     FOREIGN KEY (`higr_fk_ingrediente`)
@@ -884,7 +884,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_historico_produto` (
   `hipr_data` DATETIME NOT NULL,
   `hipr_fk_produto` INT NOT NULL,
   PRIMARY KEY (`hipr_pk_id`),
-  INDEX `fk_tb_historico_produto_tb_produto1_idx` (`hipr_fk_produto` ASC) VISIBLE,
+  INDEX `fk_tb_historico_produto_tb_produto1_idx` (`hipr_fk_produto` ASC) ,
   CONSTRAINT `fk_tb_historico_produto_tb_produto1`
     FOREIGN KEY (`hipr_fk_produto`)
     REFERENCES `delioncafe`.`tb_produto` (`pro_pk_id`)
@@ -907,7 +907,7 @@ CREATE TABLE IF NOT EXISTS `delioncafe`.`tb_gerencia_site` (
   `gesi_cor_secundaria` VARCHAR(10) NOT NULL,
   `gesi_fk_empresa` INT(11) NULL,
   PRIMARY KEY (`gesi_pk_id`),
-  INDEX `fk_tb_gerencia_site_tb_empresa1_idx` (`gesi_fk_empresa` ASC) VISIBLE,
+  INDEX `fk_tb_gerencia_site_tb_empresa1_idx` (`gesi_fk_empresa` ASC) ,
   CONSTRAINT `fk_tb_gerencia_site_tb_empresa1`
     FOREIGN KEY (`gesi_fk_empresa`)
     REFERENCES `delioncafe`.`tb_empresa` (`emp_pk_id`)
