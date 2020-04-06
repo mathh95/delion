@@ -10,6 +10,11 @@
 
 	include_once "controler/controlImagem.php";
 
+	include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+
+	include_once MODELPATH."/gerencia_site.php";
+
+
 	$controleEmpresa=new controlerEmpresa(conecta());
 
 	$empresa = $controleEmpresa->select(1,2);
@@ -20,6 +25,19 @@
 
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
+
+	//Esquema de cores do gerenciar site
+	$controle=new controlerGerenciarSite($_SG['link']);
+	$config = $controle->selectConfigValida();
+	$corSec = $config->getCorSecundaria();
+
+		if(empty($corSec)){
+			$corSec = "#C6151F";
+			$corPrim = "#D22730";
+		}else{
+			$corSec = $config->getCorSecundaria();
+			$corPrim = $config->getCorPrimaria();
+		}
 ?>
 
 <!DOCTYPE html>
@@ -73,27 +91,27 @@
 
 				<div>
 
-					<input name="nome" type="text" required placeholder="Nome">
+					<input name="nome" type="text" required placeholder="Nome" style="border: 2px solid <?= $corSec ?>;">
 
 				</div>
 
 				<div>
 
-					<input name="email" type="mail" required placeholder="E-mail">
+					<input name="email" type="mail" required placeholder="E-mail" style="border: 2px solid <?= $corSec ?>;">
 
 				</div>
 
 				<div>
 
-					<input name="sobre" type="text" required placeholder="Assunto">
+					<input name="sobre" type="text" required placeholder="Assunto" style="border: 2px solid <?= $corSec ?>;">
 
 				</div>
 
-				<textarea rows="3" name="observacao" placeholder="Mensagem" maxlength="300"></textarea>
+				<textarea rows="3" name="observacao" placeholder="Mensagem" maxlength="300" style="border: 2px solid <?= $corSec ?>;"></textarea>
 
 				<input name="assunto" type="hidden" value="Contato">
 
-				<button>ENVIAR</button>
+				<button style="background-color:<?= $corSec ?>;">ENVIAR</button>
 
 			</form>
 

@@ -16,6 +16,10 @@
 	
 	include_once "controler/segurancaCliente.php";
 
+	include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+
+	include_once MODELPATH."/gerencia_site.php";
+
 	protegeCliente();
 
 	$controleEmpresa=new controlerEmpresa(conecta());
@@ -28,6 +32,20 @@
 
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
+
+	//Esquema de cores do gerenciar site
+	$controle=new controlerGerenciarSite($_SG['link']);
+	$config = $controle->selectConfigValida();
+	$corSec = $config->getCorSecundaria();
+
+		if(empty($corSec)){
+			$corSec = "#C6151F";
+			$corPrim = "#D22730";
+		}else{
+			$corSec = $config->getCorSecundaria();
+			$corPrim = $config->getCorPrimaria();
+		}
+
 
 ?>
 
@@ -73,7 +91,7 @@
 						
 						<p>Nome:</p>
 
-						<input class="form-control" name="nome" type="text" minlength="3" maxlength="30" required value="<?php echo $_SESSION['nome'];?>"autofocus>
+						<input class="form-control" name="nome" type="text" minlength="3" maxlength="30" required value="<?php echo $_SESSION['nome'];?>"autofocus style="border: 2px solid <?=$corSec?>;">
 
 					</div>
 					
@@ -81,7 +99,7 @@
 						
 						<p>Sobrenome:</p>
 
-						<input class="form-control" name="sobrenome" type="text" minlength="3" maxlength="30" required value="<?php echo $_SESSION['sobrenome'];?>">
+						<input class="form-control" name="sobrenome" type="text" minlength="3" maxlength="30" required value="<?php echo $_SESSION['sobrenome'];?>" style="border: 2px solid <?=$corSec?>;">
 
 					</div>
 				</div>
@@ -90,7 +108,7 @@
 
 					<p>Login (e-mail):</p>
 
-        			<input name="login" class="form-control" type="text" minlength="4" maxlength="40" required placeholder="Login" value="<?php echo $_SESSION['login'];?>">
+        			<input name="login" class="form-control" type="text" minlength="4" maxlength="40" required placeholder="Login" value="<?php echo $_SESSION['login'];?>" style="border: 2px solid <?=$corSec?>;">
 
 				</div>
 				
@@ -98,12 +116,12 @@
 
 					<p>Celular:</p>
 
-					<input class="form-control telefone" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999" value="<?php echo $_SESSION['telefone'];?>">
+					<input class="form-control telefone" name="telefone" type="text" minlength="8" maxlength="16" required placeholder="(45) 9 9999-9999" value="<?php echo $_SESSION['telefone'];?>" style="border: 2px solid <?=$corSec?>;">
 
 				</div>
 				<div class="col-md-12 col-sm-12 col-xs-12">
 
-    				<button class="btn-alterar-cadastro" type="submit">ALTERAR</button>
+    				<button class="btn-alterar-cadastro" type="submit" style="background-color: <?= $corSec?>;">ALTERAR</button>
 				</div>
 
 			</form>

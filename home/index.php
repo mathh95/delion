@@ -192,8 +192,10 @@
 	</div>
 
 	
-
-	<footer class=" container footer container-fluid">
+	<?php
+		include_once "./footer.php";
+	?>
+	<!-- <footer class=" container footer container-fluid">
 
 		<div class="navbar-social navbar-collapse">
 			<a href="https://www.facebook.com/delioncafe" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -259,7 +261,7 @@
 			
 		</div>
 
-</footer>
+	</footer> -->
 
 <?php
 	include_once "./rodapeKionux.php";
@@ -330,9 +332,7 @@
 		</div>
 	</div>
 
-	<?php
-		// include_once "./footer.php";
-	?>
+	
 
 </body>
 		

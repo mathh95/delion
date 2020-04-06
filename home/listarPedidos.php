@@ -65,7 +65,7 @@
 							<div class=\"pull-right\">
 								<a href=\"cliente.php\" class=\"btn btn-default\"><i class=\"fa fa-arrow-left\"></i> Voltar</a>
 							</div class=\"pull-right\">
-							<tr id=\"cabecalhoTabela\">
+							<tr id=\"cabecalhoTabela\" style='background-color:".$corPrim.";border-bottom-color: ".$corSec.";'>
 								<th width='20%' style='text-align: center;'>Data</th>
 								<th width='10%' style='text-align: center;'>Hora do Pedido</th>
 								<th width='15%' style='text-align: center;'>Valor</th>

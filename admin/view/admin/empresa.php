@@ -113,11 +113,24 @@
 
                             <div class="input-group">
 
+<<<<<<< HEAD
                                 <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
                                 <input class="form-control" placeholder="" name="nome" value="<?=  $empresa->getNome(); ?>"  type="text">
 
                             </div>
+=======
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                                <input class="form-control" placeholder="" name="nome" value="<?=  $empresa->getNome(); ?>"  type="text">
+
+                                <input class="form-control" style="display: none;" placeholder="" name="cod_empresa" value="<?=  $empresa->getPkId(); ?>"  type="text">
+
+                            </div>
+
+                            <br>
+
+>>>>>>> 3e015d8b9f48141260550b6ed4c2046ecf8140e8
                             
                             <br>
 
