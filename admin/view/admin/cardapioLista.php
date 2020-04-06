@@ -84,7 +84,7 @@
                 </div>
             </div>
     </div>
-    <?php include VIEWPATH."/rodape.html" ?>
+    <?php include VIEWPATH."/rodape.php" ?>
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
         $('#tabela-pedido tbody tr').length;

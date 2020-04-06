@@ -150,7 +150,7 @@
 
         
 
-        <?php include VIEWPATH."/rodape.html" ?>
+        <?php include VIEWPATH."/rodape.php" ?>
 
         <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 

@@ -214,7 +214,7 @@ foreach ($itens as $key => $item) {
 
     </div>
 
-    <?php include VIEWPATH . "/rodape.html" ?>
+    <?php include VIEWPATH . "/rodape.php" ?>
 
 </body>
 

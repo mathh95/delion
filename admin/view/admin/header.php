@@ -4,11 +4,19 @@
 
     include_once CONTROLLERPATH."/controlUsuario.php";
 
+    include_once CONTROLLERPATH."/controlEmpresa.php";
+
+    include_once MODELPATH."/empresa.php";
+
     protegePagina();
 
     $controleUsuario = new controlerUsuario($_SG['link']);
 
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
+
+    $controleEmpresa = new controlerEmpresa($_SG['link']);
+
+    $empresa = $controleEmpresa->selectAll();
 ?>
 <head>
     <?php include VIEWPATH."/cabecalho.html" ?>
@@ -23,7 +31,7 @@
 
             <div class="col-md-8 col-md-offset-2">
 
-                <h1><a style="text-decoration:none;" href="empresaHorarios.php">Área Administrativa | <?= EMPRESA ?> <i class="fa fa-coffee"></i></a></h1>
+                <h1><a style="text-decoration:none;" href="empresaHorarios.php">Área Administrativa | <?= $empresa->getNome() ?> <i class="fa fa-coffee"></i></a></h1>
 
             </div>
 

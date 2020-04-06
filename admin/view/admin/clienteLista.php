@@ -74,6 +74,6 @@
     </script>
 </body>
 
-<?php include VIEWPATH."/rodape.html" ?>
+<?php include VIEWPATH."/rodape.php" ?>
 
 </html>

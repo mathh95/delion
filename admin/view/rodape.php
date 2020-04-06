@@ -1,11 +1,10 @@
 <link rel="stylesheet" type="text/css" href="/admin/css/rodape.css"/>
 
-
 <div class="rodape">
 
     <div class="container">
 
-        <div class="direito-delion">Todos os direitos reservados a Delion Café</div>
+        <div class="direito-delion">Todos os direitos reservados a <?= $empresa->getNome() ?></div>
 
         <div>
 

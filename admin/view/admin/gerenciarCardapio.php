@@ -79,7 +79,7 @@
 
             
     </div>
-    <?php include VIEWPATH."/rodape.html" ?>
+    <?php include VIEWPATH."/rodape.php" ?>
 
     <!-- Modal Ordenação -->
 	<div class="modal fade" id="ordenacaoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

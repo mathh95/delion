@@ -13,6 +13,7 @@
 		if (!isset($_POST)||empty($_POST)){
 			echo 'Nada foi postado.';
 		}
+		$nome= addslashes(htmlspecialchars($_POST['nome']));
 		$descricao = addslashes(htmlspecialchars($_POST['descricao']));
 		$historia = addslashes(htmlspecialchars($_POST['historia']));
 		$endereco = addslashes(htmlspecialchars($_POST['endereco']));
@@ -34,7 +35,7 @@
 		
 
 		$empresa= new empresa();
-		$empresa->construct(NULL, $descricao, $historia, $endereco, $bairro, $cidade, $estado, $cep, $fone, $whats, $email, $facebook, $instagram, $pinterest, $foto);
+		$empresa->construct($nome, $descricao, $historia, $endereco, $bairro, $cidade, $estado, $cep, $fone, $whats, $email, $facebook, $instagram, $pinterest, $foto);
 
 		$empresa->setPkId($cod_empresa);
 		$controle=new controlerEmpresa($_SG['link']);

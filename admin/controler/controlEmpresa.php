@@ -39,9 +39,10 @@
         }
         function update($empresa){
             try{
-                $stmte =$this->pdo->prepare("UPDATE tb_empresa SET emp_descricao=:descricao, emp_historia=:historia, emp_endereco=:endereco, emp_bairro=:bairro, emp_cidade=:cidade, emp_estado=:estado, emp_cep=:cep, emp_fone=:fone, emp_whats=:whats, emp_email=:email, emp_facebook=:facebook, emp_instagram=:instagram, emp_pinterest=:pinterest, emp_foto=:foto WHERE emp_pk_id=:cod_empresa");
+                $stmte =$this->pdo->prepare("UPDATE tb_empresa SET emp_nome=:nome, emp_descricao=:descricao, emp_historia=:historia, emp_endereco=:endereco, emp_bairro=:bairro, emp_cidade=:cidade, emp_estado=:estado, emp_cep=:cep, emp_fone=:fone, emp_whats=:whats, emp_email=:email, emp_facebook=:facebook, emp_instagram=:instagram, emp_pinterest=:pinterest, emp_foto=:foto WHERE emp_pk_id=:cod_empresa");
 
                 $stmte->bindParam(":cod_empresa", $empresa->getPkId() , PDO::PARAM_INT);
+                $stmte->bindParam(":nome", $empresa->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":descricao", $empresa->getDescricao(), PDO::PARAM_STR);
                 $stmte->bindParam(":historia", $empresa->getHistoria(), PDO::PARAM_STR);
                 $stmte->bindParam(":endereco", $empresa->getEndereco(), PDO::PARAM_STR);

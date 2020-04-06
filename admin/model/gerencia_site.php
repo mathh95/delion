@@ -4,86 +4,86 @@
     */
     class gerencia_site{
 
-        private $geren_pk_id;
-        private $geren_nome;
-        private $geren_ima_foto;
-        private $geren_flag_ativo;
-        private $geren_cor_primaria;
-        private $geren_cor_secundaria;
+        private $gesi_pk_id;
+        private $gesi_nome;
+        private $gesi_ima_foto;
+        private $gesi_flag_ativo;
+        private $gesi_cor_primaria;
+        private $gesi_cor_secundaria;
 
 
         function getPkId(){
-            return $this->geren_pk_id;
+            return $this->gesi_pk_id;
         }
 
         function getNome(){
-            return $this->geren_nome;
+            return $this->gesi_nome;
         }
 
         function getFotoAbsoluto(){
-            return $this->geren_ima_foto;
+            return $this->gesi_ima_foto;
         }
 
         function getFoto(){
-            $pos = strpos($this->geren_ima_foto, "upload");
-            return substr($this->geren_ima_foto, $pos);
+            $pos = strpos($this->gesi_ima_foto, "upload");
+            return substr($this->gesi_ima_foto, $pos);
         }
 
         function getFlag_ativo(){
-            return $this->geren_flag_ativo;
+            return $this->gesi_flag_ativo;
         }
 
         function getCorPrimaria(){
-            return $this->geren_cor_primaria;
+            return $this->gesi_cor_primaria;
         }
 
         function getCorSecundaria(){
-            return $this->geren_cor_secundaria;
+            return $this->gesi_cor_secundaria;
         }
 
-        function setPkId($geren_pk_id){
-            $this->geren_pk_id=$geren_pk_id;
+        function setPkId($gesi_pk_id){
+            $this->gesi_pk_id=$gesi_pk_id;
         }
 
-        function setNome($geren_nome){
-            $this->geren_nome=$geren_nome;
+        function setNome($gesi_nome){
+            $this->gesi_nome=$gesi_nome;
         }
 
-        function setFoto($geren_ima_foto){
-            $this->geren_ima_foto=$geren_ima_foto;
+        function setFoto($gesi_ima_foto){
+            $this->gesi_ima_foto=$gesi_ima_foto;
         }
 
-        function setFlag_ativo($geren_flag_ativo){
-            $this->geren_flag_ativo=$geren_flag_ativo;
+        function setFlag_ativo($gesi_flag_ativo){
+            $this->gesi_flag_ativo=$gesi_flag_ativo;
         }
 
-        function setCorPrimaria($geren_cor_primaria){
-            $this->geren_cor_primaria=$geren_cor_primaria;
+        function setCorPrimaria($gesi_cor_primaria){
+            $this->gesi_cor_primaria=$gesi_cor_primaria;
         }
 
-        function setCorSecundaria($geren_cor_secundaria){
-            $this->geren_cor_secundaria=$geren_cor_secundaria;
+        function setCorSecundaria($gesi_cor_secundaria){
+            $this->gesi_cor_secundaria=$gesi_cor_secundaria;
         }
 
         function __construct(){
             
         }
 
-        function construct($geren_nome,$geren_ima_foto,$geren_flag_ativo,$geren_cor_primaria,$geren_cor_secundaria){
-            $this->geren_nome=$geren_nome;
-            $this->geren_ima_foto=$geren_ima_foto;
-            $this->geren_flag_ativo=$geren_flag_ativo;
-            $this->geren_cor_primaria=$geren_cor_primaria;
-            $this->geren_cor_secundaria=$geren_cor_secundaria;
+        function construct($gesi_nome,$gesi_ima_foto,$gesi_flag_ativo,$gesi_cor_primaria,$gesi_cor_secundaria){
+            $this->gesi_nome=$gesi_nome;
+            $this->gesi_ima_foto=$gesi_ima_foto;
+            $this->gesi_flag_ativo=$gesi_flag_ativo;
+            $this->gesi_cor_primaria=$gesi_cor_primaria;
+            $this->gesi_cor_secundaria=$gesi_cor_secundaria;
         }
 
         function show(){
-            echo "Código da configuração".$this->geren_pk_id."<br>";
-            echo "Nome da configuração".$this->geren_pk_id."<br>";
-            echo "Foto".$this->geren_ima_foto."<br>";
-            echo "Flag Ativo".$this->geren_flag_ativo."<br>";
-            echo "Cor Primária".$this->geren_cor_primaria."<br>";
-            echo "Cor Segundária".$this->geren_cor_secundaria."<br>";
+            echo "Código da configuração".$this->gesi_pk_id."<br>";
+            echo "Nome da configuração".$this->gesi_pk_id."<br>";
+            echo "Foto".$this->gesi_ima_foto."<br>";
+            echo "Flag Ativo".$this->gesi_flag_ativo."<br>";
+            echo "Cor Primária".$this->gesi_cor_primaria."<br>";
+            echo "Cor Segundária".$this->gesi_cor_secundaria."<br>";
         }
 
     }

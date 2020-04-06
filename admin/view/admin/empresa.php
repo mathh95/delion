@@ -64,7 +64,7 @@
                         <div class="col-md-5">
 
                             <h3>Dados da Empresa</h3>
-
+                        
                             <br>
 
                             <small>Sobre a Empresa: </small>
@@ -109,7 +109,18 @@
 
                             <br>
 
+                            <small>Nome da Empresa:</small>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+
+                                <input class="form-control" placeholder="" name="nome" value="<?=  $empresa->getNome(); ?>"  type="text">
+
+                            </div>
                             
+                            <br>
+
                             <small>Endereço:</small>
 
                             <div class="input-group">
@@ -274,7 +285,7 @@
 
         
 
-        <?php include VIEWPATH."/rodape.html" ?>
+        <?php include VIEWPATH."/rodape.php" ?>
 
         <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 

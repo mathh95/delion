@@ -77,7 +77,7 @@ $arquivo_pai = basename(__FILE__, '.php');
         </div>
     </div>
 
-    <?php include VIEWPATH . "/rodape.html" ?>
+    <?php include VIEWPATH . "/rodape.php" ?>
 
     <!-- Modal impressão -->
     <div class="modal fade" id="printMenuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

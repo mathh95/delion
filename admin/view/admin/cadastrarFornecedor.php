@@ -198,7 +198,7 @@
 
         
 
-        <?php include VIEWPATH."/rodape.html" ?>
+        <?php include VIEWPATH."/rodape.php" ?>
 
 
         <script type="text/javascript" src="../../js/maskedinput.js"></script>

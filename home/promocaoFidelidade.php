@@ -13,6 +13,7 @@
     // include "./whats-config.php";
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,6 +62,21 @@
 	?>
 
 
+<?php 
+    $controle=new controlerGerenciarSite($_SG['link']);
+    $config = $controle->selectConfigValida();
+    $imagemLink = $config->getFoto();
+    
+    
+        if(empty($imagemLink)){
+            $imagemLink = "home/img/Logo_branca.png";
+
+        }else{
+            $imagemLink = "admin/".$imagemLink;
+        }
+
+?>
+
     <div class="container-fluid banner-red">
         <div class="container">
             <div class="col-sm-6 text-center top-banner-red">
@@ -69,7 +85,7 @@
                         <h1>Programa fidelidade</h1>
                     </div>
                     <div class="logo-wrapper">
-                        <img id="logo" src="/home/img/Logo.png">
+                        <img id="logo" src="/<?= $imagemLink ?>">
                     </div>
                     
                 </div>

@@ -80,7 +80,7 @@ error_reporting(E_ALL);
         <?php include "../../ajax/cupom-tabela.php"; ?>
     </div>
 
-    <?php include VIEWPATH."/rodape.html" ?>
+    <?php include VIEWPATH."/rodape.php" ?>
 
     
     <script src="../../js/alert.js"></script>

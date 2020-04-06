@@ -1,8 +1,9 @@
+
 <div class="container-fluid rodape">
 
     <div class="container">
 
-        <div>Todos os direitos reservados a Delion Café</div>
+        <div>Todos os direitos reservados a <?= $empresa->getNome() ?></div>
 
         <div>
 

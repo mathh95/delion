@@ -8,7 +8,7 @@ class controlerGerenciarSite{
     private $pdo;
         function insert($config){
                 try{
-                    $stmte =$this->pdo->prepare("INSERT INTO tb_gerencia_site(geren_nome, geren_ima_foto, geren_flag_ativo ,geren_cor_primaria, geren_cor_secundaria)
+                    $stmte =$this->pdo->prepare("INSERT INTO tb_gerencia_site(gesi_nome, gesi_ima_foto, gesi_flag_ativo ,gesi_cor_primaria, gesi_cor_secundaria)
                     VALUES (:nome, :foto, :flag_ativo, :cor_primaria, :cor_secundaria)");
                     $stmte->bindParam("nome", $config->getNome(), PDO::PARAM_STR);
                     $stmte->bindParam("foto", $config->getFoto(), PDO::PARAM_STR);
@@ -32,7 +32,7 @@ class controlerGerenciarSite{
 
         function update($config){
             try{
-                $stmte =$this->pdo->prepare("UPDATE tb_gerencia_site SET geren_nome=:nome, geren_ima_foto=:foto, geren_flag_ativo=:flag_ativo,geren_cor_primaria=:cor_primaria, geren_cor_secundaria=:cor_secundaria WHERE geren_pk_id=:cod_geren");
+                $stmte =$this->pdo->prepare("UPDATE tb_gerencia_site SET gesi_nome=:nome, gesi_ima_foto=:foto, gesi_flag_ativo=:flag_ativo,gesi_cor_primaria=:cor_primaria, gesi_cor_secundaria=:cor_secundaria WHERE gesi_pk_id=:cod_geren");
                 $stmte->bindParam("cod_geren", $config->getPkId(), PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $config->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":foto", $config->getFoto(), PDO::PARAM_STR);
@@ -55,7 +55,7 @@ class controlerGerenciarSite{
         
         function desativaAllConfig($parametro){
             try{
-                $stmt = $this->pdo->prepare("UPDATE tb_gerencia_site SET geren_flag_ativo = 0 WHERE geren_pk_id <> :parametro");
+                $stmt = $this->pdo->prepare("UPDATE tb_gerencia_site SET gesi_flag_ativo = 0 WHERE gesi_pk_id <> :parametro");
                 $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;
@@ -68,7 +68,7 @@ class controlerGerenciarSite{
 
         function ativaConfig($parametro){
             try{
-                $stmt = $this->pdo->prepare("UPDATE tb_gerencia_site SET geren_flag_ativo = 1 WHERE geren_pk_id = :parametro");
+                $stmt = $this->pdo->prepare("UPDATE tb_gerencia_site SET gesi_flag_ativo = 1 WHERE gesi_pk_id = :parametro");
                 $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;
@@ -81,7 +81,7 @@ class controlerGerenciarSite{
 
         function desativaOneConfig($parametro){
             try{
-                $stmt = $this->pdo->prepare("UPDATE tb_gerencia_site SET geren_flag_ativo = 0 WHERE geren_pk_id = :parametro");
+                $stmt = $this->pdo->prepare("UPDATE tb_gerencia_site SET gesi_flag_ativo = 0 WHERE gesi_pk_id = :parametro");
                 $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;
@@ -99,18 +99,18 @@ class controlerGerenciarSite{
                     $stmte = $this->pdo->prepare("SELECT * FROM tb_gerencia_site WHERE geren_nome LIKE :parametro");
                     $stmte->bindParam(":parametro", $parametro . "%" , PDO::PARAM_STR);
                 }elseif ($modo==2) {
-                    $stmte = $this->pdo->prepare("SELECT * FROM tb_gerencia_site WHERE geren_pk_id = :parametro");
+                    $stmte = $this->pdo->prepare("SELECT * FROM tb_gerencia_site WHERE gesi_pk_id = :parametro");
                     $stmte->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 }
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $config->setPkId($result->geren_pk_id);
-                            $config->setNome($result->geren_nome);
-                            $config->setFoto($result->geren_ima_foto);
-                            $config->setFlag_ativo($result->geren_flag_ativo);
-                            $config->setCorPrimaria($result->geren_cor_primaria);
-                            $config->setCorSecundaria($result->geren_cor_secundaria);
+                            $config->setPkId($result->gesi_pk_id);
+                            $config->setNome($result->gesi_nome);
+                            $config->setFoto($result->gesi_ima_foto);
+                            $config->setFlag_ativo($result->gesi_flag_ativo);
+                            $config->setCorPrimaria($result->gesi_cor_primaria);
+                            $config->setCorSecundaria($result->gesi_cor_secundaria);
                         }
                     }
                 }
@@ -124,16 +124,16 @@ class controlerGerenciarSite{
         function selectConfigValida(){
             $config = new gerencia_site();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM tb_gerencia_site WHERE geren_flag_ativo LIKE 1");
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_gerencia_site WHERE gesi_flag_ativo LIKE 1");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
-                            $config->setPkId($result->geren_pk_id);
-                            $config->setNome($result->geren_nome);
-                            $config->setFoto($result->geren_ima_foto);
-                            $config->setFlag_ativo($result->geren_flag_ativo);
-                            $config->setCorPrimaria($result->geren_cor_primaria);
-                            $config->setCorSecundaria($result->geren_cor_secundaria);
+                            $config->setPkId($result->gesi_pk_id);
+                            $config->setNome($result->gesi_nome);
+                            $config->setFoto($result->gesi_ima_foto);
+                            $config->setFlag_ativo($result->gesi_flag_ativo);
+                            $config->setCorPrimaria($result->gesi_cor_primaria);
+                            $config->setCorSecundaria($result->gesi_cor_secundaria);
                         }
                     }
                 }
@@ -148,7 +148,7 @@ class controlerGerenciarSite{
 
         function delete($parametro){
             try{
-                $stmt = $this->pdo->prepare("DELETE FROM tb_gerencia_site WHERE geren_pk_id = :parametro");
+                $stmt = $this->pdo->prepare("DELETE FROM tb_gerencia_site WHERE gesi_pk_id = :parametro");
                 $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;
@@ -168,12 +168,12 @@ class controlerGerenciarSite{
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
                             $config= new gerencia_site();
-                            $config->setPkId($result->geren_pk_id);
-                            $config->setNome($result->geren_nome);
-                            $config->setFoto($result->geren_ima_foto);
-                            $config->setFlag_ativo($result->geren_flag_ativo);
-                            $config->setCorPrimaria($result->geren_cor_primaria);
-                            $config->setCorSecundaria($result->geren_cor_secundaria);
+                            $config->setPkId($result->gesi_pk_id);
+                            $config->setNome($result->gesi_nome);
+                            $config->setFoto($result->gesi_ima_foto);
+                            $config->setFlag_ativo($result->gesi_flag_ativo);
+                            $config->setCorPrimaria($result->gesi_cor_primaria);
+                            $config->setCorSecundaria($result->gesi_cor_secundaria);
                             array_push($configs, $config);
                         }
                     }

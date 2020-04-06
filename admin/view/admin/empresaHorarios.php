@@ -265,7 +265,7 @@
 
         
 
-        <?php include VIEWPATH."/rodape.html" ?>
+        <?php include VIEWPATH."/rodape.php" ?>
 
     </body>
 

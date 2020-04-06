@@ -240,7 +240,7 @@ $arquivo_pai = basename(__FILE__, '.php');
 
 
 
-    <?php include VIEWPATH . "/rodape.html" ?>
+    <?php include VIEWPATH . "/rodape.php" ?>
 
 </body>
 

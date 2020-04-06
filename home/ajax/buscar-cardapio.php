@@ -11,6 +11,7 @@ include_once "../controler/controlAdicional.php";
 include_once CONTROLLERPATH."/controlerGerenciaSite.php";
 include_once MODELPATH."/gerencia_site.php";
 include_once MODELPATH."/adicional.php";
+// include_once "../header.php";
 
 include_once "../lib/alert.php";
 
