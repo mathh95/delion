@@ -144,7 +144,7 @@
 	
 		<a href="#top">
 
-			<i class="far fa-caret-square-up"></i>
+			<i class="far fa-caret-square-up" style="color: <?=$corSec?>"></i>
 
 		</a>
 

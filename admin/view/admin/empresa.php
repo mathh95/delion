@@ -109,6 +109,20 @@
 
                             <br>
 
+                            <small>Nome da Empresa:</small>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                                <input class="form-control" placeholder="" name="nome" value="<?=  $empresa->getNome(); ?>"  type="text">
+
+                                <input class="form-control" style="display: none;" placeholder="" name="cod_empresa" value="<?=  $empresa->getPkId(); ?>"  type="text">
+
+                            </div>
+
+                            <br>
+
                             
                             <small>Endereço:</small>
 

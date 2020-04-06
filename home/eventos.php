@@ -5,6 +5,9 @@ session_start();
 	include_once "controler/controlEmpresa.php";
 	include_once "controler/controlEvento.php";
 
+	include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+	include_once MODELPATH."/gerencia_site.php";
+
 	$controleEmpresa = new controlerEmpresa(conecta());
 	$empresa = $controleEmpresa->select(1,2);
 
@@ -13,6 +16,19 @@ session_start();
 	$novoEventos = $controleEvento->selectAllNovo();
 
 	setlocale (LC_TIME, 'ptb');
+	
+	//Esquema de cores do gerenciar site
+	$controle=new controlerGerenciarSite($_SG['link']);
+	$config = $controle->selectConfigValida();
+	$corSec = $config->getCorSecundaria();
+
+		if(empty($corSec)){
+			$corSec = "#C6151F";
+			$corPrim = "#D22730";
+		}else{
+			$corSec = $config->getCorSecundaria();
+			$corPrim = $config->getCorPrimaria();
+		}
 
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
@@ -53,7 +69,7 @@ session_start();
 
 		<div class="row solicitacao visible-xs-* visible-sm-* visible-md-* visible-lg-* visible-xl-* form-group">
 
-			<div class="titulo-eventos">
+			<div class="titulo-eventos" style="border-top: 2px solid <?= $corSec ?>; border-bottom: 2px solid <?= $corSec ?>;" >
 				<h2><i class="fas fa-bookmark"></i> Solicitação de orçamento </h2>
 			</div>
 
@@ -63,16 +79,16 @@ session_start();
 
 						
 
-						<input name="telefone" type="text" required placeholder="Fone/Whatsapp" class="telefone form-control">
+						<input name="telefone" type="text" required placeholder="Fone/Whatsapp" class="telefone form-control" style="border: 2px solid <?= $corSec ?>;">
 
-						<input type="email" required name="email" placeholder="E-mail" class="form-control">
+						<input type="email" required name="email" placeholder="E-mail" class="form-control" style="border: 2px solid <?= $corSec ?>;">
 
 						
-						<textarea rows="3" class="form-control" name="descricao" placeholder="Descrição" maxlength="300"></textarea>
+						<textarea rows="3" class="form-control" name="descricao" placeholder="Descrição" maxlength="300" style="border: 2px solid <?= $corSec ?>;"></textarea>
 
 
 
-						<button class="form-control">ENVIAR</button>
+						<button class="form-control" style="background-color:<?= $corSec ?>;">ENVIAR</button>
 						<input type="hidden" value="[Evento] - Solicitação de Evento" name="assunto">
 				</form>
 				

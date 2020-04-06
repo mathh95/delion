@@ -5,6 +5,8 @@
 	include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
 	include_once "../admin/controler/conexao.php";
 	include_once "controler/controlEmpresa.php";
+	include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+	include_once MODELPATH."/gerencia_site.php";
 
 	$controleEmpresa = new controlerEmpresa(conecta());
 	$empresa = $controleEmpresa->select(1,2);
@@ -13,6 +15,19 @@
 
 	//configuração de acesso ao WhatsApp
 	//include "./whats-config.php";
+
+	//Esquema de cores do gerenciar site
+	$controle=new controlerGerenciarSite($_SG['link']);
+	$config = $controle->selectConfigValida();
+	$corSec = $config->getCorSecundaria();
+
+		if(empty($corSec)){
+			$corSec = "#C6151F";
+			$corPrim = "#D22730";
+		}else{
+			$corSec = $config->getCorSecundaria();
+			$corPrim = $config->getCorPrimaria();
+		}
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +71,7 @@
 						
 						<p>Nome*</p>
 
-						<input class="form-control" name="nome" type="text" minlength="3" maxlength="30" required placeholder="Delion" autofocus>
+						<input class="form-control" name="nome" type="text" minlength="3" maxlength="30" required placeholder="Delion" autofocus style="border: 2px solid <?=$corSec?>;">
 
 					</div>
 					
@@ -64,7 +79,7 @@
 						
 						<p>Sobrenome*</p>
 
-						<input class="form-control" name="sobrenome" type="text" minlength="3" maxlength="30" required placeholder="Oliveira">
+						<input class="form-control" name="sobrenome" type="text" minlength="3" maxlength="30" required placeholder="Oliveira" style="border: 2px solid <?=$corSec?>;">
 
 					</div>
 				</div>
@@ -73,7 +88,7 @@
 
 					<p>CPF*</p>
 
-        			<input class="form-control cpf" name="cpf" type="text" minlength="11" maxlength="14" required placeholder="999.999.999-99">
+        			<input class="form-control cpf" name="cpf" type="text" minlength="11" maxlength="14" required placeholder="999.999.999-99" style="border: 2px solid <?=$corSec?>;">
 
 				</div>
 
@@ -87,7 +102,7 @@
 						$max = date('Y-m-d', strtotime($current.'-12 year'));
 
 						echo '
-						<input class="form-control data_nasc" name="data_nasc" type="date" minlength="8" maxlength="10" min="'.$min.'" max="'.$max.'" required>
+						<input class="form-control data_nasc" name="data_nasc" type="date" minlength="8" maxlength="10" min="'.$min.'" max="'.$max.'" required style="border: 2px solid '.$corSec.';">
 						';
 					?>
 
@@ -97,7 +112,7 @@
 					
 					<p>Celular*</p>
 
-					<input class="form-control telefone" name="telefone" type="text" minlength="15" maxlength="15" required placeholder="(45) 9 9999-9999">
+					<input class="form-control telefone" name="telefone" type="text" minlength="15" maxlength="15" required placeholder="(45) 9 9999-9999" style="border: 2px solid <?=$corSec?>;">
 
 				</div>
 
@@ -105,7 +120,7 @@
 
 					<p>Login (e-mail)*</p>
 
-        			<input class="form-control" name="login" type="email" minlength="4" maxlength="40" required placeholder="delion@mail.com">
+        			<input class="form-control" name="login" type="email" minlength="4" maxlength="40" required placeholder="delion@mail.com" style="border: 2px solid <?=$corSec?>;">
 
 				</div>
 
@@ -113,7 +128,7 @@
 
 					<p>Senha*</p>
 
-					<input class="form-control" name="senha" type="password" minlength="4" maxlength="40" required placeholder="******">
+					<input class="form-control" name="senha" type="password" minlength="4" maxlength="40" required placeholder="******" style="border: 2px solid <?=$corSec?>;">
 
 				</div>
 
@@ -121,13 +136,13 @@
 
 					<p>Confirmar Senha*</p>
 
-					<input class="form-control" name="senha2" type="password" minlength="4" maxlength="40" required placeholder="******">
+					<input class="form-control" name="senha2" type="password" minlength="4" maxlength="40" required placeholder="******" style="border: 2px solid <?=$corSec?>;">
 
 				</div>
 				
 				<div class="col-md-12 col-sm-12 col-xs-12">
 
-					<button type="submit" id="cadastrar">CADASTRAR</button>
+					<button type="submit" id="cadastrar" style="background-color: <?= $corSec?>;">CADASTRAR</button>
 					
 				</div>
 

@@ -57,7 +57,7 @@ $controle=new controlerGerenciarSite($_SG['link']);
 				</li>
 
 				<li>
-					<a href="programaFidelidade.php">Programa de Fidelidade</a>
+					<a href="promocaoFidelidade.php">Programa de Fidelidade</a>
 				</li>
 			</ul>
 			
@@ -103,7 +103,7 @@ $controle=new controlerGerenciarSite($_SG['link']);
 
 
 		<div class="row right">
-		    <img src=/<?= $imagemLink ?> style="width:93px;height:140px;">
+		    <img src=/<?= $imagemLink ?> style="width:120px;height:140px;">
 			
 			<div class="endereco-footer">
 				<p class="bold-text"><b>

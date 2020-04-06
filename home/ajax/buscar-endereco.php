@@ -9,7 +9,23 @@ date_default_timezone_set('America/Sao_Paulo');
 include_once "../../admin/controler/conexao.php";
 include_once "../controler/controlEndereco.php";
 
+include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+include_once MODELPATH."/gerencia_site.php";
+
 $controleEndereco = new controlEndereco(conecta());
+
+//Esquema de cores do gerenciar site
+$controle=new controlerGerenciarSite($_SG['link']);
+$config = $controle->selectConfigValida();
+$corSec = $config->getCorSecundaria();
+
+    if(empty($corSec)){
+        $corSec = "#C6151F";
+        $corPrim = "#D22730";
+    }else{
+        $corSec = $config->getCorSecundaria();
+        $corPrim = $config->getCorPrimaria();
+    }
 
 
 $_SESSION['tipoEndereco'] = $_GET['tipo'];
@@ -39,11 +55,11 @@ if ($tipo == 'ativo') {
             
             if($flag_selecionar_end){
 
-                echo "<div class='item'>
+                echo "<div class='item' style='border-color: ".$corSec.";' >
                     <button class='btn btn-lg btn-success pull-right' onclick='selecionarEndereco(". $endereco->getPkId() .")'> SELECIONAR </button>";
             
             }else{
-                echo "<div class='item'>
+                echo "<div class='item' style='border-color: ".$corSec.";'>
                     <button class='btn btn-danger pull-right' title='Excluir!' onclick='excluirEndereco(" . $endereco->getPkId() . ")' > X </button>
                     <button class='btn btn-warning pull-right' onclick='alterarEndereco(" . $endereco->getPkId() . ")' > ALTERAR </button>";
             }
@@ -73,7 +89,7 @@ if ($tipo == 'ativo') {
     } else {
         echo "<p> Lista de endereços excluidos: </p>";
         foreach ($enderecos as $endereco) {
-            echo "<div class='item'>
+            echo "<div class='item' style='border-color: ".$corSec.";'>
                         <label> Rua: <strong>" . $endereco->getRua() . "</strong></label>
                         <button class='btn pull-right' onclick='ativarEndereco(" . $endereco->getCodEndereco() . ")' > Restaurar </button>
                         <div>

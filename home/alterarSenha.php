@@ -15,6 +15,10 @@
 	
 	include_once "controler/segurancaCliente.php";
 
+	include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+
+	include_once MODELPATH."/gerencia_site.php";
+
 	protegeCliente();
 
 	$controleEmpresa=new controlerEmpresa(conecta());
@@ -27,6 +31,19 @@
 
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
+
+	//Esquema de cores do gerenciar site
+	$controle=new controlerGerenciarSite($_SG['link']);
+	$config = $controle->selectConfigValida();
+	$corSec = $config->getCorSecundaria();
+
+		if(empty($corSec)){
+			$corSec = "#C6151F";
+			$corPrim = "#D22730";
+		}else{
+			$corSec = $config->getCorSecundaria();
+			$corPrim = $config->getCorPrimaria();
+		}
 ?>
 
 <!DOCTYPE html>
@@ -64,33 +81,33 @@
 				
 				<p>Alterar senha</p>
 					
-                <input name="cod_cliente" type="hidden" value="<?php echo $_SESSION['cod_cliente'];?>">
+                <input name="cod_cliente" type="hidden" value="<?php echo $_SESSION['cod_cliente'];?>" style="border: 2px solid <?=$corSec?>;">
 				
 				<div>
 
 					<p>Senha antiga:</p>
 
-        			<input name="senha" type="password" minlength="4" maxlength="40" required placeholder="******">
+        			<input name="senha" type="password" minlength="4" maxlength="40" required placeholder="******" style="border: 2px solid <?=$corSec?>;">
 
     			</div>
                 <div>
 
 					<p>Nova senha:</p>
 
-                    <input name="novaSenha" type="password" required minlength="4" maxlength="40" placeholder="******">
+                    <input name="novaSenha" type="password" required minlength="4" maxlength="40" placeholder="******" style="border: 2px solid <?=$corSec?>;">
 
                 </div>
     			<div>
 
 					<p>Confirmar nova senha:</p>
 
-        			<input name="confirma" type="password" required minlength="4" maxlength="40" placeholder="******">
+        			<input name="confirma" type="password" required minlength="4" maxlength="40" placeholder="******" style="border: 2px solid <?=$corSec?>;">
 
     			</div>
 
 				<div>
 
-    				<button type="submit">ALTERAR</button>
+    				<button type="submit" style="background-color: <?= $corSec?>;">ALTERAR</button>
 				
 				</div>
 

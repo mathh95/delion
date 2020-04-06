@@ -8,6 +8,8 @@ session_start();
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
 	include_once MODELPATH."/cliente.php";
 	include_once "controler/segurancaCliente.php";
+	include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+	include_once MODELPATH."/gerencia_site.php";
 
 	protegeCliente();
 
@@ -19,6 +21,19 @@ session_start();
 
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
+
+	//Esquema de cores do gerenciar site
+	$controle=new controlerGerenciarSite($_SG['link']);
+	$config = $controle->selectConfigValida();
+	$corSec = $config->getCorSecundaria();
+
+		if(empty($corSec)){
+			$corSec = "#C6151F";
+			$corPrim = "#D22730";
+		}else{
+			$corSec = $config->getCorSecundaria();
+			$corPrim = $config->getCorPrimaria();
+		}
 
 ?>
 
@@ -58,19 +73,19 @@ session_start();
 			<p><i class="fas fa-crown"></i> Sua Área</p>	
 
 			<div >
-				<a href="endereco.php"><button class="botao-esquerda"  type="submit">ENDEREÇOS CADASTRADOS</button></a>
+				<a href="endereco.php"><button class="botao-esquerda"  type="submit" style="background-color: <?= $corSec?>;">ENDEREÇOS CADASTRADOS</button></a>
 			</div>
 
 			<div>
-				<a href="listarPedidos.php"><button class="botao-esquerda" type="submit">LISTAR PEDIDOS</button></a>
+				<a href="listarPedidos.php"><button class="botao-esquerda" type="submit" style="background-color: <?= $corSec?>;">LISTAR PEDIDOS</button></a>
 			</div>
 
 			<div>
-				<a href="alterarCliente.php"><button class="botao-esquerda">ALTERAR DADOS</button></a>
+				<a href="alterarCliente.php"><button class="botao-esquerda" style="background-color: <?= $corSec?>;">ALTERAR DADOS</button></a>
 			</div>
 
 			<div>
-				<a href="alterarSenha.php"><button class="botao-esquerda" type="submit">ALTERAR SENHA</button></a>
+				<a href="alterarSenha.php"><button class="botao-esquerda" type="submit" style="background-color: <?= $corSec?>;">ALTERAR SENHA</button></a>
 			</div>
 
 
