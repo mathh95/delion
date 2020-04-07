@@ -19,6 +19,7 @@ include_once CONTROLLERPATH."/controlerGerenciaSite.php";
 include_once MODELPATH."/gerencia_site.php";
 include_once "../controler/controlEndereco.php";
 include_once "../utils/GoogleServices.php";
+include_once "../configuracaoCores.php";
 
 
 $itens = array();
@@ -27,19 +28,6 @@ $controlEndereco = new controlEndereco(conecta());
 
 $controlFormaPgt = new controlerFormaPgt($_SG['link']);
 $formasPgt = $controlFormaPgt->selectAll();
-
-//Esquema de cores do gerenciar site
-$controle=new controlerGerenciarSite($_SG['link']);
-	$config = $controle->selectConfigValida();
-	$corSec = $config->getCorSecundaria();
-
-		if(empty($corSec)){
-			$corSec = "#C6151F";
-			$corPrim = "#D22730";
-		}else{
-			$corSec = $config->getCorSecundaria();
-			$corPrim = $config->getCorPrimaria();
-		}
 
 
 $_SESSION['delivery'] = -1;

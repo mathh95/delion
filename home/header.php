@@ -1,7 +1,6 @@
 <?php
     include_once "./controler/controlEmpresa.php";
-    include_once CONTROLLERPATH."/controlerGerenciaSite.php";
-    include_once MODELPATH."/gerencia_site.php";
+    include_once "configuracaoCores.php";
 ?>
 <head>
     <meta charset="utf-8">
@@ -14,25 +13,6 @@
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/header/style-lg.css"/>
 </head>
-
-<?php 
-    $controle=new controlerGerenciarSite($_SG['link']);
-    $config = $controle->selectConfigValida();
-    $imagemLink = $config->getFoto();
-    
-    
-        if(empty($imagemLink)){
-            $imagemLink = "home/img/Logo_branca.png";
-            $corPrim = "#D22730";
-            $corSec = "#C6151F";
-
-        }else{
-            $imagemLink = "admin/".$imagemLink;
-            $corPrim = $config->getCorPrimaria();
-            $corSec = $config->getCorSecundaria();
-        }
-
-?>
 
 <header class="container-fluid" style="background-color: <?= $corPrim ?>">
 

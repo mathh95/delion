@@ -1,24 +1,7 @@
 <?php
 
-include_once "controler/controlEmpresa.php";
-
-include_once CONTROLLERPATH."/controlerGerenciaSite.php";
-include_once MODELPATH."/gerencia_site.php";
-	
-$controle = new controlerEmpresa(conecta());
-$empresa = $controle->selectAll();
-
-$controle=new controlerGerenciarSite($_SG['link']);
-	$config = $controle->selectConfigValida();
-	$corSec = $config->getCorSecundaria();
-
-		if(empty($corSec)){
-			$corSec = "#C6151F";
-			$corPrim = "#D22730";
-		}else{
-			$corSec = $config->getCorSecundaria();
-			$corPrim = $config->getCorPrimaria();
-		}
+	include_once "controler/controlEmpresa.php";
+	include_once "configuracaoCores.php";
 
 ?>
 

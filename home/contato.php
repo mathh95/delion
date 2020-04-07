@@ -10,9 +10,7 @@
 
 	include_once "controler/controlImagem.php";
 
-	include_once CONTROLLERPATH."/controlerGerenciaSite.php";
-
-	include_once MODELPATH."/gerencia_site.php";
+	include_once "configuracaoCores.php";
 
 
 	$controleEmpresa=new controlerEmpresa(conecta());
@@ -25,19 +23,6 @@
 
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
-
-	//Esquema de cores do gerenciar site
-	$controle=new controlerGerenciarSite($_SG['link']);
-	$config = $controle->selectConfigValida();
-	$corSec = $config->getCorSecundaria();
-
-		if(empty($corSec)){
-			$corSec = "#C6151F";
-			$corPrim = "#D22730";
-		}else{
-			$corSec = $config->getCorSecundaria();
-			$corPrim = $config->getCorPrimaria();
-		}
 ?>
 
 <!DOCTYPE html>

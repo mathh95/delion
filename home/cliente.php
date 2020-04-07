@@ -8,8 +8,7 @@ session_start();
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
 	include_once MODELPATH."/cliente.php";
 	include_once "controler/segurancaCliente.php";
-	include_once CONTROLLERPATH."/controlerGerenciaSite.php";
-	include_once MODELPATH."/gerencia_site.php";
+	include_once "configuracaoCores.php";
 
 	protegeCliente();
 
@@ -21,20 +20,6 @@ session_start();
 
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
-
-	//Esquema de cores do gerenciar site
-	$controle=new controlerGerenciarSite($_SG['link']);
-	$config = $controle->selectConfigValida();
-	$corSec = $config->getCorSecundaria();
-
-		if(empty($corSec)){
-			$corSec = "#C6151F";
-			$corPrim = "#D22730";
-		}else{
-			$corSec = $config->getCorSecundaria();
-			$corPrim = $config->getCorPrimaria();
-		}
-
 ?>
 
 <!DOCTYPE html>

@@ -11,7 +11,7 @@ include_once "../controler/controlAdicional.php";
 include_once CONTROLLERPATH."/controlerGerenciaSite.php";
 include_once MODELPATH."/gerencia_site.php";
 include_once MODELPATH."/adicional.php";
-// include_once "../header.php";
+include_once "../configuracaoCores.php";
 
 include_once "../lib/alert.php";
 
@@ -34,19 +34,6 @@ if (isset($_GET['delivery']) && !empty($_GET['delivery'])) {
 } else {
     $delivery = false;
 }
-//Esquema de cores do gerenciar site
-$controle=new controlerGerenciarSite($_SG['link']);
-	$config = $controle->selectConfigValida();
-	$corSec = $config->getCorSecundaria();
-
-		if(empty($corSec)){
-			$corSec = "#C6151F";
-			$corPrim = "#D22730";
-		}else{
-			$corSec = $config->getCorSecundaria();
-			$corPrim = $config->getCorPrimaria();
-		}
-
 
 //para Paginação
 // if ($delivery == true ){
