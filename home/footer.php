@@ -86,8 +86,9 @@
 
 
 		<div class="row right">
-		    <img src=/<?= $imagemLink ?> style="width:95px;height:140px;">
-			
+			<div class="logo">
+		    	<img src=/<?= $imagemLink ?>>
+			</div>
 			<div class="endereco-footer">
 				<p class="bold-text"><b>
 					<?= $empresa->getEndereco(); ?><br>

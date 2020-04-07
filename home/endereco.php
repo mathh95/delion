@@ -58,7 +58,7 @@
                 <p>Opções</p>
             </div>	
             <div>
-                <button onclick="cadastrarEndereco()">CADASTRAR NOVO ENDEREÇO</button>
+                <button onclick="cadastrarEndereco()" style="background-color: <?=$corSec?>">CADASTRAR NOVO ENDEREÇO</button>
             </div> 
 	
             <div class="listar">

@@ -7,6 +7,8 @@ date_default_timezone_set('America/Sao_Paulo');
 include_once "../../admin/controler/conexao.php";
 include_once "../controler/controlEndereco.php";
 
+include_once "../configuracaoCores.php";
+
 $cod_cliente = $_SESSION['cod_cliente'];
 
 
@@ -64,38 +66,38 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
             <div>
                 <div class='cadastro-form'>
                     <label>Cep*</label>
-                    <input class='inputs-pequenos' name='cep' type='text' id='cep' required placeholder='cep' autofocus  value='".$cep."'>
+                    <input class='inputs-pequenos' name='cep' type='text' id='cep' required placeholder='cep' autofocus  value='".$cep."' style='border: 2px solid ".$corSec.";'>
                 </div>
                 <div class='cadastro-form'>
                     <label>Cidade*</label>
-                    <input class='inputs-pequenos' name='cidade' type='text' required placeholder='Cidade' value='".$cidade."' style='background-color:#ccc;' readonly>
+                    <input class='inputs-pequenos' name='cidade' type='text' required placeholder='Cidade' value='".$cidade."' style='background-color:#ccc; border: 2px solid ".$corSec.";' readonly>
                 </div>
             </div>
             <div>
                 <label>Rua*</label>
-                <input name='rua' type='text' required placeholder='rua' value='".$rua."' style='background-color:#ccc;' readonly>
+                <input name='rua' type='text' required placeholder='rua' value='".$rua."' style='background-color:#ccc; border: 2px solid ".$corSec.";' readonly>
             </div>
             <div>
                 <div class='cadastro-form'>
                     <label>Número*</label>
-                    <input class='inputs-pequenos' name='numero' type='text' required placeholder='numero' value='".$endereco_cliente->getNumero()."'>
+                    <input class='inputs-pequenos' name='numero' type='text' required placeholder='numero' value='".$endereco_cliente->getNumero()."' style='border: 2px solid ".$corSec.";'>
                 </div>
                 <div class='cadastro-form'>
                     <label>Bairro*</label>
-                    <input class='inputs-pequenos' name='bairro' type='text' required placeholder='bairro' value='".$bairro."' style='background-color:#ccc;' readonly>
+                    <input class='inputs-pequenos' name='bairro' type='text' required placeholder='bairro' value='".$bairro."' style='background-color:#ccc; border: 2px solid ".$corSec.";' readonly>
                 </div>
             </div>
             <div>
                 <label>Complemento</label>
-                <input name='complemento' type='text' placeholder='complemento' value='".$endereco_cliente->getComplemento()."'>
+                <input name='complemento' type='text' placeholder='complemento' value='".$endereco_cliente->getComplemento()."' style='border: 2px solid ".$corSec.";'>
             </div>
             <div>
                 <label>Referência</label>
-                <input name='referencia' type='text' placeholder='Referência' value='".$endereco_cliente->getReferencia()."'>
+                <input name='referencia' type='text' placeholder='Referência' value='".$endereco_cliente->getReferencia()."' style='border: 2px solid ".$corSec.";'>
             </div>
 
-                <button style='float:left;' onclick='window.history.go(0); return false;'>VOLTAR</button>
-                <button type='submit'>ALTERAR</button>
+                <button style='float:left; background-color:".$corSec.";' onclick='window.history.go(0); return false;'>VOLTAR</button>
+                <button type='submit' style='background-color:".$corSec.";'>ALTERAR</button>
             </form>
 
             <div class='listar'>
@@ -141,39 +143,39 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
     <div>
         <div class='cadastro-form'>
             <label>Cep*</label>
-            <input class='inputs-pequenos cep' name='cep' type='text' id='cep' required placeholder='CEP' autofocus value='".$cep."'>
+            <input class='inputs-pequenos cep' name='cep' type='text' id='cep' required placeholder='CEP' autofocus value='".$cep."' style='border: 2px solid ".$corSec.";'>
         </div>
         <div class='cadastro-form'>
             <label>Cidade*</label>
-            <input class='inputs-pequenos' name='cidade' type='text' required placeholder='Cidade' value='".$cidade."' style='background-color:#ccc;' readonly>
+            <input class='inputs-pequenos' name='cidade' type='text' required placeholder='Cidade' value='".$cidade."' style='background-color:#ccc; border: 2px solid ".$corSec.";' readonly>
         </div>
     </div>
     <div>
         <label>Logradouro*</label>
-        <input name='rua' type='text' required placeholder='Rua' value='".$rua."' style='background-color:#ccc;' readonly>
+        <input name='rua' type='text' required placeholder='Rua' value='".$rua."' style='background-color:#ccc; border: 2px solid ".$corSec.";' readonly>
     </div>
     <div>
         <div class='cadastro-form'>
             <label>Número*</label>
-            <input class='inputs-pequenos' name='numero' type='text' required placeholder='Número' value=''>
+            <input class='inputs-pequenos' name='numero' type='text' required placeholder='Número' value='' style='border: 2px solid ".$corSec.";'>
         </div>
         <div class='cadastro-form'>
             <label>Bairro*</label>
-            <input class='inputs-pequenos' name='bairro' type='text' required placeholder='Bairro' value='".$bairro."' style='background-color:#ccc;' readonly>
+            <input class='inputs-pequenos' name='bairro' type='text' required placeholder='Bairro' value='".$bairro."' style='background-color:#ccc; border: 2px solid ".$corSec.";' readonly>
         </div>
     </div>
     <div>
         <label>Complemento</label>
-        <input name='complemento' type='text' placeholder='Complemento' value=''>
+        <input name='complemento' type='text' placeholder='Complemento' value='' style='border: 2px solid ".$corSec.";'>
     </div>
 
     <div>
         <label>Referência</label>
-        <input name='referencia' type='text' placeholder='Referência' value=''>
+        <input name='referencia' type='text' placeholder='Referência' value='' style='border: 2px solid ".$corSec.";'>
     </div>
 
-    <button style='float:left;' onclick='window.history.go(0); return false;'>VOLTAR</button>
-    <button type='submit'>SALVAR</button>
+    <button style='float:left; background-color:".$corSec.";' onclick='window.history.go(0); return false;'>VOLTAR</button>
+    <button type='submit' style='background-color:".$corSec.";'>SALVAR</button>
                     
     </form>
 

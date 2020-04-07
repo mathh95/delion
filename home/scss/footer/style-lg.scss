@@ -79,12 +79,17 @@ body {
 				@include make-lg-column-offset(1);
                 padding-top: 30px;
                 margin: 0 !important;
-                width: 33.3%;
-				display: flex;
-                img{
-                    @include img-responsive();
-					@include center-block();
-                    float: center;
+                // width: 33.3%;
+                display: flex;
+                .logo{
+                    width: 20%;
+                    height: auto;
+                    margin-top: 18px;
+                    img{
+                        @include img-responsive();
+                        @include center-block();
+                        float: center;
+                    }
                 }
                 >div.endereco-footer{
                     padding: 20px;

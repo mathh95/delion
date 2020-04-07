@@ -94,5 +94,10 @@
         }
         
     ?>
-    
+    <?php 
+        echo '<script>
+            const corPrimaria = "'.$corPrim.'";
+            const corSecundaria = "'.$corSec.'";
+        </script>';
+    ?>
 </header>

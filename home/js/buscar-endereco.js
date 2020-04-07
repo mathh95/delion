@@ -9,7 +9,7 @@ function loadEnderecos(flag_selecionar_end){
         data: { tipo: 'ativo', is_selecao_end: flag_selecionar_end },
         success: function (resultado) {
             $(".lista").html(resultado);
-            html = "<button onclick='listarInativos()'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
+            html = "<button onclick='listarInativos()' style='background-color: "+corSecundaria+";'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
             $('.listar').html(html);
         }
     });
@@ -22,7 +22,7 @@ function listarAtivos() {
         data: { tipo: 'ativo' },
         success: function (resultado) {
             $(".lista").html(resultado);
-            html = "<button onclick='listarInativos()'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
+            html = "<button onclick='listarInativos()' style='background-color: "+corSecundaria+";'>LISTAR ENDEREÇOS EXCLUIDOS</button>";
             $('.listar').html(html);
         }
     });
@@ -35,7 +35,7 @@ function listarInativos() {
         data: { tipo: 'inativo' },
         success: function (resultado) {
             $(".lista").html(resultado);
-            html = "<button  onclick='listarAtivos()'>LISTAR ENDEREÇOS ATIVOS</button>"
+            html = "<button  onclick='listarAtivos()' style='background-color: "+corSecundaria+";'>LISTAR ENDEREÇOS ATIVOS</button>"
             $('.listar').html(html);
         }
     });
@@ -48,7 +48,7 @@ function cadastrarEndereco() {
         url: 'ajax/salvar-endereco.php',
         success: function (resultado) {
             $(".opcoes").html(resultado);
-            html = "<button onclick='listarInativos()'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
+            html = "<button onclick='listarInativos()' style='background-color: "+corSecundaria+";'>LISTAR ENDEREÇOS EXCLUIDOS </button>"
             $('.listar').html(html);
         }
     });
@@ -61,7 +61,7 @@ function alterarEndereco(endereco) {
         data: { endereco: endereco },
         success: function (resultado) {
             $(".opcoes").html(resultado);
-            html = "<button onclick='listarInativos()'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
+            html = "<button onclick='listarInativos()' style='background-color: "+corSecundaria+";'>LISTAR ENDEREÇOS EXCLUIDOS </button>"
             $('.listar').html(html);
         }
     });
@@ -111,7 +111,7 @@ function reloadEnderecosAtivos() {
         data: { tipo: 'ativo' },
         success: function (resultado) {
             $('.lista').html(resultado);
-            html = "<button onclick='listarInativos()'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
+            html = "<button onclick='listarInativos()' style='background-color: "+corSecundaria+";'>LISTAR ENDEREÇOS EXCLUIDOS</button>"
             $('.listar').html(html);
         }
     });
@@ -124,7 +124,7 @@ function reloadEnderecosInativos() {
         data: { tipo: 'inativo' },
         success: function (resultado) {
             $('.lista').html(resultado);
-            html = "<button onclick='listarAtivos()'>LISTAR ENDEREÇOS ATIVOS</button>"
+            html = "<button onclick='listarAtivos()' style='background-color: "+corSecundaria+";'>LISTAR ENDEREÇOS ATIVOS</button>"
             $('.listar').html(html);
         }
     });
@@ -137,7 +137,7 @@ function autoCompletar(rua, bairro, cep, cidade) {
         data: { rua: rua, bairro: bairro, cep: cep, cidade: cidade },
         success: function (resultado) {
             $('.opcoes').html(resultado);
-            html = "<button onclick='listarAtivos()'>LISTAR ENDEREÇOS ATIVOS</button>"
+            html = "<button onclick='listarAtivos()' style='background-color: "+corSecundaria+";'>LISTAR ENDEREÇOS ATIVOS</button>"
             $('.listar').html(html);
         }
     });
@@ -150,7 +150,7 @@ function autoCompletarAlterar(endereco, rua, bairro, cep, cidade) {
         data: { endereco: endereco, rua: rua, bairro: bairro, cep: cep, cidade: cidade },
         success: function (resultado) {
             $('.opcoes').html(resultado);
-            html = "<button onclick='listarAtivos()'>LISTAR ENDEREÇOS ATIVOS</button>"
+            html = "<button onclick='listarAtivos()' style='background-color: "+corSecundaria+";'>LISTAR ENDEREÇOS ATIVOS</button>"
             $('.listar').html(html);
         }
     });
