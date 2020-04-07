@@ -8,24 +8,9 @@ date_default_timezone_set('America/Sao_Paulo');
 
 include_once "../../admin/controler/conexao.php";
 include_once "../controler/controlEndereco.php";
-
-include_once CONTROLLERPATH."/controlerGerenciaSite.php";
-include_once MODELPATH."/gerencia_site.php";
+include_once "../configuracaoCores.php";
 
 $controleEndereco = new controlEndereco(conecta());
-
-//Esquema de cores do gerenciar site
-$controle=new controlerGerenciarSite($_SG['link']);
-$config = $controle->selectConfigValida();
-$corSec = $config->getCorSecundaria();
-
-    if(empty($corSec)){
-        $corSec = "#C6151F";
-        $corPrim = "#D22730";
-    }else{
-        $corSec = $config->getCorSecundaria();
-        $corPrim = $config->getCorPrimaria();
-    }
 
 
 $_SESSION['tipoEndereco'] = $_GET['tipo'];
