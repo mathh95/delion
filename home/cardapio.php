@@ -121,7 +121,7 @@
 		</div>
 </nav>
 
-	<div class="container produtos" id="container-produtos" data-spy="scroll" data-target=".menu-lateral" data-offset-top="-200">
+	<div class="container produtos" id="container-produtos" data-spy="scroll" data-target=".menu-lateral" data-offset="10">
 		
 
 	</div>
@@ -196,10 +196,13 @@
 
 
 		//Scrollspy para deixar active a categoria atual.
-		$('body').scrollspy({ target: '#navbar-cardapio' });
-		$('[data-spy="scroll"]').each(function () {
-			var $spy = $(this).scrollspy('refresh')
+		$('body').scrollspy({ 
+			target: '#navbar-cardapio',
+			offset: 50 
 		});
+		// $('[data-spy="scroll"]').each(function () {
+		// 	var $spy = $(this).scrollspy('refresh')
+		// });
 
 		// Scroll p/ Categoria selecionada
 		$(document).ready(function() {
@@ -212,6 +215,11 @@
 				return false;
 			});
 		});
+		//Scroll horizontal dos itens do menu de categorias 
+		$("#navbar-cardapio").on('activate.bs.scrollspy', event => {
+			$(event.target).find('a')[0].scrollIntoView();
+		});
+
 
 
 		var qtd_carrinho = "<?= isset($_SESSION['carrinho']) ? count($_SESSION['carrinho']) : ''?>";
