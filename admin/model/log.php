@@ -43,7 +43,7 @@ class log {
 		$this->data=$data;
 	}
 
-	function construtor($,$usuario,$texto){
+	function construtor($app,$usuario,$texto){
 		$this->app=$app;
 		$this->usuario=$usuario;
 		$this->texto=$texto;

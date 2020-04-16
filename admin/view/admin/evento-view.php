@@ -142,7 +142,7 @@
 
                     <div class="pull-right">
 
-                        <a href="EventoLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Voltar</a>
+                        <a href="eventoLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Voltar</a>
 
                     </div>
 

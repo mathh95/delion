@@ -227,22 +227,22 @@
             });
         });
 
-        $('#pesquisa,#producao').on('change', function(){
-            var filtro = $("#pesquisa").val();
-            var producao = $("#producao").val();
-            var url = '../../ajax/gerenciarCardapioTabela.php';
-            $.ajax({
-                type: 'POST',
+        // $('#pesquisa,#producao').on('change', function(){
+        //     var filtro = $("#pesquisa").val();
+        //     var producao = $("#producao").val();
+        //     var url = '../../ajax/gerenciarCardapioTabela.php';
+        //     $.ajax({
+        //         type: 'POST',
 
-                url: url,
+        //         url: url,
 
-                data: {filtro:filtro, producao:producao},
+        //         data: {filtro:filtro, producao:producao},
 
-                success:function(res){
-                    $("#tabela-cardapio").html(res);
-                }
-            });
-        });
+        //         success:function(res){
+        //             $("#tabela-cardapio").html(res);
+        //         }
+        //     });
+        // });
 
         //Reload Page 
         function doRefresh(){

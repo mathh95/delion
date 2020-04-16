@@ -928,7 +928,7 @@
                 FROM tb_produto AS PRO
                 LEFT JOIN tb_categoria AS CAT
                 ON PRO.pro_fk_categoria = CAT.cat_pk_id
-                WHERE PRO.pro_fk_categoria = :fk_categoria AND PRO.pro_flag_ativo = 1
+                WHERE PRO.pro_fk_categoria = :fk_categoria
                 ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
 
                 $stmte->bindValue(":fk_categoria", $fk_categoria , PDO::PARAM_INT);

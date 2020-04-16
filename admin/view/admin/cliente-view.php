@@ -167,7 +167,7 @@
 
                         <div class="pull-right">
 
-                            <a href="clienteLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Voltar</a>
+                            <a href="clienteLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Alterar</a>
 
                         </div>
 

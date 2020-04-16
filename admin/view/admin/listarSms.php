@@ -34,6 +34,22 @@ $arquivo_pai = basename(__FILE__, '.php');
         </div>
     </div>
 
+    <div class="col-md-12">
+
+        <div class="pull-left">
+
+        <?php
+
+            $permissao =  json_decode($usuarioPermissao->getPermissao());
+
+            if (in_array('enviar_sms', $permissao)){ ?>
+                
+                <a href="default.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Voltar</a>
+
+            <?php } ?>
+
+            </div>
+        </div>
 
     <?php include VIEWPATH . "/rodape.html" ?>
 

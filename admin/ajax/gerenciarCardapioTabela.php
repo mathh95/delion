@@ -77,35 +77,60 @@ if(in_array('cardapio', $permissao)){
 			}	
 			
 			foreach ($itens as $key_item => $item){		
+				
+				if($item->getDsAtivo() == 'Ativo'){
+					echo "<tr name='resutaldo' id='status".$item->getPkId()."'>
+						<td style='text-align: left;' name='nome'>"
+							.$item->getNome().
+							"&nbsp;<span style='cursor: pointer; font-size: 20px; top: 4px;' class='glyphicon glyphicon-camera glyphicon' aria-hidden='true' data-toggle='modal' data-target='#itemModal".$item->getPkId()."'></span>	
 	
-				$mensagem='Cardápio excluído com sucesso!';
-				$titulo='Excluir';
+						</td>
+						<td style='text-align: center;' name='preco'>R$ ".$item->getPreco()."</td>
+						<td style='text-align: center;' name='flag_ativo'>".$item->getDsAtivo()."</td>
+						<td style='text-align: center;' name='prioridade'>".$item->getDsPrioridade()."</td>
+						<td style='text-align: center;' name='delivery'>".$item->getDsDelivery()."</td>";
+	
+						//serviço
+						if($item->getFlag_servindo() == 1){
+	
+							echo "<td style='text-align: center;' name='status'><button type='button' onclick=\"pausarItem(".$item->getPkId().");\" class='btn btn-kionux' style='width: 100px'><i class='fa fa-pause'></i> Pausar</button></td>";
+						
+						}else{
+							//Ativa o item
+							echo "<td style='text-align: center;' name='status'><button type='button' onclick=\"ativarItem(".$item->getPkId().");\" class='btn btn-kionux' style='width: 100px'><i class='fa fa-play'></i> Ativar</button></a></td>";
 			
-				echo "<tr name='resutaldo' id='status".$item->getPkId()."'>
-					<td style='text-align: left;' name='nome'>"
+						}
+	
+						echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='produto-view.php?cod=".$item->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
+	
+					echo "</tr>";
+				}else{
+					echo "<tr name='resutaldo' id='status".$item->getPkId()."'>
+					<td style='text-align: left; color:red' name='nome'>"
 						.$item->getNome().
 						"&nbsp;<span style='cursor: pointer; font-size: 20px; top: 4px;' class='glyphicon glyphicon-camera glyphicon' aria-hidden='true' data-toggle='modal' data-target='#itemModal".$item->getPkId()."'></span>	
 
 					</td>
-					<td style='text-align: center;' name='preco'>R$ ".$item->getPreco()."</td>
-					<td style='text-align: center;' name='flag_ativo'>".$item->getDsAtivo()."</td>
-					<td style='text-align: center;' name='prioridade'>".$item->getDsPrioridade()."</td>
-					<td style='text-align: center;' name='delivery'>".$item->getDsDelivery()."</td>";
+					<td style='text-align: center; color:red' name='preco'>R$ ".$item->getPreco()."</td>
+					<td style='text-align: center; color:red' name='flag_ativo'>".$item->getDsAtivo()."</td>
+					<td style='text-align: center; color:red' name='prioridade'>".$item->getDsPrioridade()."</td>
+					<td style='text-align: center; color:red' name='delivery'>".$item->getDsDelivery()."</td>";
 
 					//serviço
 					if($item->getFlag_servindo() == 1){
 
-						echo "<td style='text-align: center;' name='status'><button type='button' onclick=\"pausarItem(".$item->getPkId().");\" class='btn btn-kionux' style='width: 100px'><i class='fa fa-pause'></i> Pausar</button></td>";
+						echo "<td style='text-align: center; color:red' name='status'><button type='button' onclick=\"pausarItem(".$item->getPkId().");\" class='btn btn-kionux' style='width: 100px'><i class='fa fa-pause'></i> Pausar</button></td>";
 					
 					}else{
 						//Ativa o item
-						echo "<td style='text-align: center;' name='status'><button type='button' onclick=\"ativarItem(".$item->getPkId().");\" class='btn btn-kionux' style='width: 100px'><i class='fa fa-play'></i> Ativar</button></a></td>";
+						echo "<td style='text-align: center;color:red' name='status'><button type='button' onclick=\"ativarItem(".$item->getPkId().");\" class='btn btn-kionux' style='width: 100px'><i class='fa fa-play'></i> Ativar</button></a></td>";
 		
 					}
 
-					echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='produto-view.php?cod=".$item->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
+					echo "<td style='text-align: center; color:red' name='editar'><a style='font-size: 20px;' href='produto-view.php?cod=".$item->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
 
 				echo "</tr>";
+				}
 			}
 		}
 	}else{

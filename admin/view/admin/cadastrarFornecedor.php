@@ -185,6 +185,8 @@
 
                             <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
 
+                            <button type="reset" class="btn btn-kionux" onclick="window.history.back()"><i class="fas fa-arrow-left"></i> Sair sem Cadastrar</button>
+
                         </div>
                         
 
