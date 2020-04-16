@@ -102,8 +102,6 @@
 
                     <div class="pull-right">
 
-                    <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
-
                     <a href="formaPgtLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Cadastrar</a>
 
                     </div>
