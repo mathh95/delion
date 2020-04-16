@@ -279,6 +279,12 @@
                         <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Alterar</button>
 
                     <?php } ?>
+                    
+                    </div>
+
+                    <div class="pull-right">
+
+                    <a href="default.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Alterar</a>
 
                     </div>
 

@@ -243,7 +243,7 @@
 
                 <div class="col-md-5">
                     <br>
-                    <div class="pull-right">
+                    <div class="pull-left">
 
                     <?php
 
@@ -254,6 +254,12 @@
                         <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Salvar</button>
 
                     <?php } ?>
+
+                    </div>
+
+                    <div class="pull-right">
+
+                    <a href="default.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Salvar</a>
 
                     </div>
 

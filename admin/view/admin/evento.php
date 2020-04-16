@@ -46,7 +46,7 @@
 
                         <div class="col-md-5">
 
-                            <h3>Dados do Evento</h3>
+                            <h3>Cadastrar Evento</h3>
 
                             <br>
 
@@ -126,7 +126,7 @@
 
                     <div class="pull-right">
 
-                    <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
+                    <a href="eventoLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Salvar</a>
 
                     </div>
 

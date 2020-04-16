@@ -206,7 +206,7 @@ foreach ($itens as $key => $item) {
                     </div>
 
                     <div class="col-md-3">
-                        <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
+                        <a href="composicaoLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Cadastrar</a>
                     </div>
                 </div>
         </form>

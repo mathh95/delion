@@ -119,17 +119,29 @@
 
                         </div>
 
-                        <div class="col-lg-4">
-                            <!-- Button Salvar -->
+                        <div class="col-md-5">
+
+                            <div class="pull-left">
+
                             <?php
-                                $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                                if (in_array('cardapio', $permissao)) { ?>
+                            $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                                    <div><button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Salvar</button></div>
+                            if (in_array('cardapio', $permissao)){ ?>
+
+                                <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Salvar</button>
 
                             <?php } ?>
-                        </div>
+
+                            </div>
+
+                            <div class="pull-right">
+
+                            <a href="cardapioLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Salvar</a>
+
+                            </div>
+
+                            </div>
                     </form>
                 </div>
             </div>

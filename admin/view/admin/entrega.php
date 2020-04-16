@@ -144,16 +144,19 @@ $arquivo_pai = basename(__FILE__, '.php');
                     </table>
                 </div>
                 
-                <div class="col-lg-4">
+                <div class="col-lg-5">
                     <!-- Button Salvar -->
                     <?php
-                        $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                        if (in_array('info_entrega', $permissao)) { ?>
+                    $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                            <div><button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Salvar</button></div>
+                    if (in_array('info_entrega', $permissao)){ ?>
+
+                        <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Salvar</button>
 
                     <?php } ?>
+
+                    <a href="default.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Cadastrar</a>
                 </div>
 
             </form>

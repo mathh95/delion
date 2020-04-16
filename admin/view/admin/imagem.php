@@ -46,7 +46,7 @@
 
                         <div class="col-md-5">
 
-                            <h3>Dados da imagem</h3>
+                            <h3>Cadastrar Imagem</h3>
 
                             <br>
 
@@ -192,7 +192,7 @@
 
                     <div class="pull-right">
 
-                    <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
+                    <a href="imagemLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Salvar</a>
 
                     </div>
 

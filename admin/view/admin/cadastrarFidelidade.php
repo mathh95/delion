@@ -101,25 +101,25 @@
                     <br>
                     <br>
 
-                    <div class="col-md-3">
+                    <div class="col-md-5">
 
                         <div class="pull-left">
 
-                        <?php
+                            <?php
 
-                        $permissao =  json_decode($usuarioPermissao->getPermissao());
+                            $permissao =  json_decode($usuarioPermissao->getPermissao());
 
-                        if (in_array('gerenciar_fidelidade', $permissao)){ ?>
+                                if (in_array('gerenciar_fidelidade', $permissao)){ ?>
 
-                            <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Salvar</button>
+                                    <button type="submit" class="btn btn-kionux"><i class="fa fa-floppy-o"></i> Salvar</button>
 
-                        <?php } ?>
+                                <?php } ?>
 
                         </div>
 
                         <div class="pull-right">
 
-                        <button type="reset" class="btn btn-kionux"><i class="fa fa-eraser"></i> Limpar Formulário</button>
+                            <a href="listarFidelidade.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Cadastrar</a>
 
                         </div>
 
