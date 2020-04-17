@@ -680,7 +680,7 @@
 
                         <h2>
                             <a href="../../controler/logout.php" style='font-size: 15px'><i class="fas fa-sign-out-alt"></i>&nbsp;SAIR&nbsp;</a>
-                            <a href="alteraSenha.php" style='font-size: 15px'><i class="fa fa-cog"></i>&nbsp;ALTERAR SENHA&nbsp;</a>
+                            <a href="alteraSenha.php" style='font-size: 15px'><i class="fa fa-cog"></i>&nbsp;ALTERAR SENHA&nbsp;&nbsp;&nbsp;&nbsp;</a>
                         </h2>
 
                     </div>

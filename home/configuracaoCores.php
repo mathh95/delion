@@ -13,7 +13,7 @@ include_once MODELPATH."/gerencia_site.php";
     $imagemLink = $config->getFoto();
     
     
-        if(empty($imagemLink)){
+        if(empty($imagemLink) && !isset($imagemLink)){
             $imagemLink = "home/img/Logo_branca.png";
             $corPrim = "#D22730";
             $corSec = "#C6151F";

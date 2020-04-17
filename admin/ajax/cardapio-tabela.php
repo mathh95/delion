@@ -51,7 +51,8 @@ isset($_POST['categoria'])){
 						<th width='8%' style='text-align: center;'>Prioridade</th>
 						<th width='8%' style='text-align:center;'>Delivery</th>
 						<th width='14%' style='text-align: center;'>Editar</th>
-						<th width='14%' style='text-align: center;'>Apagar</th>
+						<th width='14%' style='text-align: center;'>Desativar</th>
+						<th width='14%' style='text-align: center;'>Excluir</th>
 					</tr>
 				<tbody>";
 	
@@ -67,7 +68,8 @@ isset($_POST['categoria'])){
 				<td style='text-align: center;' name='prioridade'>".$cardapio->getDsPrioridade()."</td>
 				<td style='text-align: center;' name='delivery'>".$cardapio->getDsDelivery()."</td>
 			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='produto-view.php?cod=".$cardapio->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>
-			 	<td style='text-align: center;' name='status'><button type='button' onclick=\"removeCardapio(".$cardapio->getPkId().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i> Desativar</button></td>
+				<td style='text-align: center;' name='status'><button type='button' onclick=\"desativaCardapio(".$cardapio->getPkId().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i> Desativar</button></td>
+				<td style='text-align: center;' name='remove'><button type='button' onclick=\"removeCardapio(".$cardapio->getPkId().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i> Excluir</button></td>
 			</tr>";
 		}
 		}else{

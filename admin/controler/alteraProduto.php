@@ -62,12 +62,15 @@
 		$delivery = (isset($_POST['delivery'])||!empty($_POST['delivery'])) && $_POST['delivery'] == 1 ? 1 : 0 ;
 
 		$flag_servindo = (isset($_POST['servindo'])||!empty($_POST['servindo'])) && $_POST['servindo'] == 1 ? 1 : 0 ;
+
+		$flag_deletado = 0;
 		
 		$produto = new produto();
-		$produto->constructFkFaixa($nome, $preco, $desconto, $descricao, 
-									$foto, $fk_categoria, $flag_ativo, $flag_servindo, $prioridade, $delivery, 
-									$arr_adicionais, $arr_dias_semana, $fk_faixa_horario);
+		// $produto->constructFkFaixa($nome, $preco, $desconto, $descricao, 
+		// 							$foto, $fk_categoria, $flag_ativo, $flag_servindo, $prioridade, $delivery, 
+		// 							$arr_adicionais, $arr_dias_semana, $fk_faixa_horario);
 
+		$produto->constructFkFaixa($nome, $preco, $desconto, $descricao, $foto, $fk_categoria, $flag_deletado ,$flag_ativo, $flag_servindo, $prioridade, $delivery, $arr_adicional, $arr_dias_semana, $fk_faixa_horario);
 
 		$produto->setPkId($pk_id);
 		$controle = new controlerProduto($_SG['link']);

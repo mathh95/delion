@@ -85,18 +85,47 @@
             </div>
     </div>
     <?php include VIEWPATH."/rodape.php" ?>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>		
+    <script src="../../vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="../../dist/js/sb-admin-2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
+
+    <script src="../../vendor/bootstrap3/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="../../dist/js/plugins.js"></script>
+    <script src="../../dist/js/main.js"></script>
+
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
-        $('#tabela-pedido tbody tr').length;
+        // $('#tabela-pedido tbody tr').length;
         function removeCardapio(cardapio,foto){
-            msgConfirmacao('Confirmação','Deseja Realmente remover o item cardápio?',
+            msgConfirmacao('Confirmação','Confirmar a exclusão?',
                 function(linha){
-                    var url ='../../ajax/desativa-produto.php?pk_id='+cardapio+'&foto='+foto;
+                    var url ='../../ajax/excluir-produto.php?cod_cardapio=' + cardapio + '&foto=' + foto;
                     $.get(url, function(dataReturn) {
                         console.log(dataReturn);
                         if (dataReturn > 0) {
                             msgGenerico("Excluir!","Item do cardápio excluido com sucesso!",1,function(){});
                             $("#status"+cardapio).remove();
+                        }else{
+                            msgGenerico("Erro!","Não foi possível excluir a cardapio!",2,function(){});
+                        }
+                    });  
+                },
+                function(){}
+            );
+        }
+
+        function desativaCardapio(cardapio,foto){
+            msgConfirmacao('Confirmação','Deseja Realmente deixar o item indisponivel?',
+                function(linha){
+                    var url ='../../ajax/desativa-produto.php?cod_cardapio='+cardapio+'&foto='+foto;
+                    $.get(url, function(dataReturn) {
+                        console.log(dataReturn);
+                        if (dataReturn > 0) {
+                            msgGenerico("Excluir!","Item do cardápio excluido com sucesso!",1,function(){});
+                            location.reload();
                         }else{
                             msgGenerico("Erro!","Não foi possível excluir a cardapio!",2,function(){});
                         }

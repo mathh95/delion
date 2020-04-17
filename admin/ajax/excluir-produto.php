@@ -14,7 +14,7 @@
 		$foto = $_GET['foto'];
 		if($foto != "../") unlink($foto);
 
-		$result = $controle->desativa($pro_pk_id);
+		$result = $controle->delete($pro_pk_id);
 		echo $result;
 		
 	}else{

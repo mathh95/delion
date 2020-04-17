@@ -57,7 +57,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 			//todos os itens ordenados
 			}else{
-				$itens = $controle_cardapio->selectByCategoriaByPos(
+				$itens = $controle_cardapio->selectPrint(
 					$categoria->getPkId()
 				);
 			}	

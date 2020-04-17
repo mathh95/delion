@@ -10,6 +10,7 @@
         private $pro_desconto;
         private $pro_descricao;
         private $pro_foto;
+        private $pro_flag_deletado;
         private $pro_flag_ativo;
         private $pro_flag_servindo;
         private $pro_prioridade;
@@ -52,7 +53,9 @@
         function getCategoria(){
             return $this->pro_categoria;
         }
-        
+        function getFlag_deletado(){
+            return $this->pro_flag_deletado;
+        }
         function getFlag_ativo(){
             return $this->pro_flag_ativo;
         }
@@ -119,6 +122,9 @@
         }
         function setCategoria($pro_categoria){
             $this->pro_categoria=$pro_categoria;
+        }
+        function setFlag_deletado($pro_flag_deletado){
+            $this->pro_flag_deletado=$pro_flag_deletado;
         }
         function setFlag_ativo($pro_flag_ativo){
             $this->pro_flag_ativo=$pro_flag_ativo;
@@ -207,13 +213,14 @@
             $this->pro_horas_final=$pro_horas_final;
         }
 
-        function constructFkFaixa($pro_nome, $pro_preco, $pro_desconto, $pro_descricao,$pro_foto, $pro_categoria, $pro_flag_ativo, $pro_flag_servindo,$pro_prioridade,$pro_delivery, $pro_adicional, $pro_arr_dias_semana, $pro_fk_faixa_horario){
+        function constructFkFaixa($pro_nome, $pro_preco, $pro_desconto, $pro_descricao,$pro_foto, $pro_categoria, $pro_flag_deletado, $pro_flag_ativo, $pro_flag_servindo,$pro_prioridade,$pro_delivery, $pro_adicional, $pro_arr_dias_semana, $pro_fk_faixa_horario){
             $this->pro_nome=$pro_nome;
             $this->pro_preco=$pro_preco;
             $this->pro_desconto=$pro_desconto;
             $this->pro_descricao=$pro_descricao;
             $this->pro_foto=$pro_foto;
             $this->pro_categoria=$pro_categoria;
+            $this->pro_flag_deletado=$pro_flag_deletado;
             $this->pro_flag_ativo=$pro_flag_ativo;
             $this->pro_flag_servindo=$pro_flag_servindo;
             $this->pro_prioridade=$pro_prioridade;

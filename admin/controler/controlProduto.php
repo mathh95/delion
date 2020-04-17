@@ -11,11 +11,12 @@
         function insert($produto){
 
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO tb_produto(pro_nome, pro_preco, pro_flag_ativo, pro_flag_servindo,  pro_foto, pro_descricao, pro_flag_prioridade, pro_flag_delivery, pro_desconto, pro_arr_adicional, pro_arr_dias_semana, pro_fk_categoria, pro_fk_faixa_horario)
-                VALUES (:nome, :preco, :flag_ativo, :flag_servindo, :foto, :descricao, :flag_prioridade, :flag_delivery, :desconto, :arr_adicional, :arr_dias_semana, :fk_categoria, :fk_faixa_horario)" );
+                $stmte =$this->pdo->prepare("INSERT INTO tb_produto(pro_nome, pro_preco, pro_flag_deletado, pro_flag_ativo, pro_flag_servindo,  pro_foto, pro_descricao, pro_flag_prioridade, pro_flag_delivery, pro_desconto, pro_arr_adicional, pro_arr_dias_semana, pro_fk_categoria, pro_fk_faixa_horario)
+                VALUES (:nome, :preco, :flag_deletado, :flag_ativo, :flag_servindo, :foto, :descricao, :flag_prioridade, :flag_delivery, :desconto, :arr_adicional, :arr_dias_semana, :fk_categoria, :fk_faixa_horario)" );
 
                 $stmte->bindParam(":nome", $produto->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $produto->getPreco(), PDO::PARAM_STR);
+                $stmte->bindParam(":flag_deletado", $produto->getFlag_deletado(), PDO::PARAM_INT);
                 $stmte->bindParam(":flag_ativo", $produto->getFlag_ativo(), PDO::PARAM_INT);
                 $stmte->bindParam(":flag_servindo", $produto->getFlag_servindo(), PDO::PARAM_INT);
                 $stmte->bindParam(":foto", $produto->getFoto(), PDO::PARAM_STR);
@@ -44,14 +45,14 @@
            }
         }
 
-
         function update($produto){
             try{
 
-                $stmte = $this->pdo->prepare("UPDATE tb_produto SET pro_nome=:nome, pro_preco=:preco, pro_flag_ativo=:flag_ativo, pro_flag_servindo=:flag_servindo, pro_foto=:foto, pro_descricao=:descricao, pro_flag_prioridade=:flag_prioridade, pro_flag_delivery=:flag_delivery, pro_desconto=:desconto, pro_arr_adicional=:arr_adicional, pro_arr_dias_semana=:arr_dias_semana, pro_fk_categoria=:fk_categoria, pro_fk_faixa_horario=:fk_faixa_horario WHERE pro_pk_id=:pk_id");
+                $stmte = $this->pdo->prepare("UPDATE tb_produto SET pro_nome=:nome, pro_preco=:preco, pro_flag_deletado=:flag_deletado, pro_flag_ativo=:flag_ativo, pro_flag_servindo=:flag_servindo, pro_foto=:foto, pro_descricao=:descricao, pro_flag_prioridade=:flag_prioridade, pro_flag_delivery=:flag_delivery, pro_desconto=:desconto, pro_arr_adicional=:arr_adicional, pro_arr_dias_semana=:arr_dias_semana, pro_fk_categoria=:fk_categoria, pro_fk_faixa_horario=:fk_faixa_horario WHERE pro_pk_id=:pk_id");
 
                 $stmte->bindParam(":nome", $produto->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $produto->getPreco(), PDO::PARAM_STR);
+                $stmte->bindParam(":flag_deletado", $produto->getFlag_deletado(), PDO::PARAM_INT);
                 $stmte->bindParam(":flag_ativo", $produto->getFlag_ativo(), PDO::PARAM_INT);
                 $stmte->bindParam(":flag_servindo", $produto->getFlag_servindo(), PDO::PARAM_INT);
                 $stmte->bindParam(":foto", $produto->getFoto(), PDO::PARAM_STR);
@@ -124,7 +125,6 @@
                 return -1;
             }
         }
-
 
         function buscarVariosId($itens){
             $array = array();
@@ -463,7 +463,7 @@
 
         function delete($pk_id){
             try{
-                $stmt = $this->pdo->prepare("DELETE FROM tb_produto WHERE $pk_id = :pk_id");
+                $stmt = $this->pdo->prepare("UPDATE tb_produto SET pro_flag_deletado = 1 WHERE pro_pk_id = :pk_id");
                 $stmt->bindParam(":pk_id", $pk_id , PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;
@@ -558,7 +558,10 @@
                 LEFT JOIN
                 tb_categoria AS CAT
                 ON PRO.pro_fk_categoria = CAT.cat_pk_id
-                WHERE PRO.pro_nome LIKE :parametro AND PRO.pro_flag_ativo LIKE :flag_ativo AND PRO.pro_flag_servindo LIKE :flag_servindo AND PRO.pro_flag_delivery LIKE :delivery AND PRO.pro_flag_prioridade LIKE :prioridade AND CAT.cat_nome LIKE :categoria");
+                WHERE PRO.pro_nome LIKE :parametro AND PRO.pro_flag_ativo LIKE :flag_ativo 
+                AND PRO.pro_flag_servindo LIKE :flag_servindo AND PRO.pro_flag_delivery LIKE :delivery 
+                AND PRO.pro_flag_prioridade LIKE :prioridade AND CAT.cat_nome LIKE :categoria
+                AND PRO.pro_flag_deletado = 0");
 
                 $stmte->bindValue(":parametro","%".$parametro."%");
                 $stmte->bindValue(":flag_ativo","%" .$flag_ativo);
@@ -845,6 +848,7 @@
                 ON A.pro_fk_categoria = B.cat_pk_id
                 LEFT JOIN tb_composicao
                 ON pro_pk_id = com_fk_produto
+                WHERE pro_flag_deletado = 0
                 ORDER BY pro_nome ASC");
 
                 if($stmte->execute()){
@@ -857,6 +861,7 @@
                             $produto->setDesconto($result->pro_desconto);
                             $produto->setDescricao($result->pro_descricao);
                             $produto->setFoto($result->pro_foto);
+                            $produto->setFlag_deletado($result->pro_flag_deletado);
                             $produto->setFlag_ativo($result->pro_flag_ativo);
                             $produto->setFlag_servindo($result->pro_flag_servindo);
                             $produto->setPrioridade($result->pro_flag_prioridade);
@@ -929,6 +934,49 @@
                 LEFT JOIN tb_categoria AS CAT
                 ON PRO.pro_fk_categoria = CAT.cat_pk_id
                 WHERE PRO.pro_fk_categoria = :fk_categoria
+                AND PRO.pro_flag_deletado = 0
+                ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
+
+                $stmte->bindValue(":fk_categoria", $fk_categoria , PDO::PARAM_INT);
+
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                            $produto= new produto();
+                            $produto->setPkId($result->pro_pk_id);
+                            $produto->setNome($result->pro_nome);
+                            $produto->setPreco($result->pro_preco);
+                            $produto->setDesconto($result->pro_desconto);
+                            $produto->setDescricao($result->pro_descricao);
+                            $produto->setFoto($result->pro_foto);
+                            $produto->setFlag_ativo($result->pro_flag_ativo);
+                            $produto->setFlag_servindo($result->pro_flag_servindo);
+                            $produto->setPrioridade($result->pro_flag_prioridade);
+                            $produto->setDelivery($result->pro_flag_delivery);
+                            $produto->setPosicao($result->pro_posicao);
+                            $produto->setDias_semana($result->pro_arr_dias_semana);
+
+                            $produto->categoria = $result->cat_nome;
+                            array_push($produtos, $produto);
+                        }
+                    }
+                }
+                return $produtos;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+        function selectPrint($fk_categoria){
+            $produtos = array();
+            try{
+                $stmte = $this->pdo->prepare("SELECT *
+                FROM tb_produto AS PRO
+                LEFT JOIN tb_categoria AS CAT
+                ON PRO.pro_fk_categoria = CAT.cat_pk_id
+                WHERE PRO.pro_fk_categoria = :fk_categoria AND PRO.pro_flag_ativo = 1
+                AND PRO.pro_flag_deletado = 0
                 ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
 
                 $stmte->bindValue(":fk_categoria", $fk_categoria , PDO::PARAM_INT);
@@ -969,13 +1017,15 @@
                     $stmte = $this->pdo->prepare("SELECT *
                     FROM tb_produto AS PRO
                     LEFT JOIN tb_categoria AS CAT
-                    ON PRO.pro_fk_categoria = CAT.cat_pk_id WHERE PRO.pro_fk_categoria = :fk_categoria AND PRO.pro_descricao LIKE :filtro ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
+                    ON PRO.pro_fk_categoria = CAT.cat_pk_id WHERE PRO.pro_fk_categoria = :fk_categoria AND PRO.pro_descricao LIKE :filtro AND PRO.pro_flag_deletado = 0
+                    ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
                 }else{
                     $stmte = $this->pdo->prepare("SELECT *
                     FROM tb_produto AS PRO
                     LEFT JOIN tb_categoria AS CAT
                     ON PRO.pro_fk_categoria = CAT.cat_pk_id
-                    WHERE PRO.pro_fk_categoria = :fk_categoria AND PRO.pro_descricao LIKE :filtro AND PRO.pro_flag_servindo = :flag_servindo ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
+                    WHERE PRO.pro_fk_categoria = :fk_categoria AND PRO.pro_descricao LIKE :filtro AND PRO.pro_flag_servindo = :flag_servindo AND PRO.pro_flag_deletado = 0
+                    ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
                     $stmte->bindValue(":flag_servindo", $flag_servindo , PDO::PARAM_INT);
                 }
                 
@@ -1048,8 +1098,6 @@
                 echo $e->getMessage();
             }
         }
-
-        
 
         function countProdutos(){
 
