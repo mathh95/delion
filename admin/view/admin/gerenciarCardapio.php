@@ -81,6 +81,8 @@
     </div>
     <?php include VIEWPATH."/rodape.php" ?>
 
+
+
     <!-- Modal Ordenação -->
 	<div class="modal fade" id="ordenacaoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog modal-lg" role="document">
@@ -122,8 +124,17 @@
                             <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir
                         </button>
                     </div>
-                
+                    <div class="searchbar">
+                        <div class="mini-divs"> 
+                        <label> Selecionar Impressão </label>
+                            <select class="form-control" id="flag_busca">
+                                <option value='0'>ITENS ATIVOS</option>
+                                <option value='1'>TODOS OS ITENS</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
+
 				<div style="height:400px; overflow-y: auto;" class="modal-body" id="printModalCardapio">
                     <div class="row" style="margin-left:0px!important">
                         <?php include "../../ajax/imprimirCardapio.php";?>
@@ -133,6 +144,16 @@
 		</div>
     </div>
     
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>		
+    <script src="../../vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="../../dist/js/sb-admin-2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
+
+    <script src="../../vendor/bootstrap3/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="../../dist/js/plugins.js"></script>
+    <script src="../../dist/js/main.js"></script>
 
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
@@ -326,6 +347,23 @@
             });
 
         });
+
+        $('#flag_busca').on('change', function(){
+            var flag_busca = $("#flag_busca").val();
+            var url = '../../ajax/imprimirCardapio.php';
+            $.ajax({
+                type: 'POST',
+
+                url: url,
+
+                data: {flag_busca:flag_busca},
+
+                success:function(res){
+                    $("#printModalCardapio").html(res);
+                }
+            });
+        });
+
     </script>
 
 </body>

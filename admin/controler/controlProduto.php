@@ -975,7 +975,51 @@
                 FROM tb_produto AS PRO
                 LEFT JOIN tb_categoria AS CAT
                 ON PRO.pro_fk_categoria = CAT.cat_pk_id
-                WHERE PRO.pro_fk_categoria = :fk_categoria AND PRO.pro_flag_ativo = 1
+                WHERE PRO.pro_fk_categoria = :fk_categoria
+                AND PRO.pro_flag_deletado = 0
+                AND PRO.pro_flag_ativo = 1
+                ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
+
+                $stmte->bindValue(":fk_categoria", $fk_categoria , PDO::PARAM_INT);
+
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                            $produto= new produto();
+                            $produto->setPkId($result->pro_pk_id);
+                            $produto->setNome($result->pro_nome);
+                            $produto->setPreco($result->pro_preco);
+                            $produto->setDesconto($result->pro_desconto);
+                            $produto->setDescricao($result->pro_descricao);
+                            $produto->setFoto($result->pro_foto);
+                            $produto->setFlag_ativo($result->pro_flag_ativo);
+                            $produto->setFlag_servindo($result->pro_flag_servindo);
+                            $produto->setPrioridade($result->pro_flag_prioridade);
+                            $produto->setDelivery($result->pro_flag_delivery);
+                            $produto->setPosicao($result->pro_posicao);
+                            $produto->setDias_semana($result->pro_arr_dias_semana);
+
+                            $produto->categoria = $result->cat_nome;
+                            array_push($produtos, $produto);
+                        }
+                    }
+                }
+                return $produtos;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+
+        function selectPrintAll($fk_categoria){
+            $produtos = array();
+            try{
+                $stmte = $this->pdo->prepare("SELECT *
+                FROM tb_produto AS PRO
+                LEFT JOIN tb_categoria AS CAT
+                ON PRO.pro_fk_categoria = CAT.cat_pk_id
+                WHERE PRO.pro_fk_categoria = :fk_categoria
                 AND PRO.pro_flag_deletado = 0
                 ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
 
@@ -1013,7 +1057,7 @@
         function selectByCategoriaFilterPos($fk_categoria, $filtro ,$flag_servindo){
             $produtos = array();
             try{
-                if($flag_servindo == null){
+                if($flag_servindo == null && $flag_ativo == null){
                     $stmte = $this->pdo->prepare("SELECT *
                     FROM tb_produto AS PRO
                     LEFT JOIN tb_categoria AS CAT

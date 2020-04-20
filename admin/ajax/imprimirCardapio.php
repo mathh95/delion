@@ -19,6 +19,11 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 	// $cardapios = $controle->selectAllByPos();
 	// $qtd_cardapios = sizeof($cardapios);
 	
+	//Pra nao dar problema com o POST
+	if(!isset($_POST['flag_busca'])){
+		$_POST['flag_busca'] = 0;
+	}
+
 	$permissao =  json_decode($usuarioPermissao->getPermissao());
 	if(in_array('cardapio', $permissao)){
 		
@@ -56,10 +61,19 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 				);
 
 			//todos os itens ordenados
-			}else{
-				$itens = $controle_cardapio->selectPrint(
-					$categoria->getPkId()
-				);
+			}else{	
+					//Busca apenas os ativos
+					if($_POST['flag_busca'] == 0){
+						$itens = $controle_cardapio->selectPrint(
+							$categoria->getPkId()
+						);
+
+					}else{
+						//Busca todos
+						$itens = $controle_cardapio->selectPrintAll(
+							$categoria->getPkId()
+						);
+					}
 			}	
 			
 			foreach ($itens as $key_item => $item){		
