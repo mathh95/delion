@@ -560,7 +560,7 @@
                 ON PRO.pro_fk_categoria = CAT.cat_pk_id
                 WHERE PRO.pro_nome LIKE :parametro AND PRO.pro_flag_ativo LIKE :flag_ativo 
                 AND PRO.pro_flag_servindo LIKE :flag_servindo AND PRO.pro_flag_delivery LIKE :delivery 
-                AND PRO.pro_flag_prioridade LIKE :prioridade AND CAT.cat_nome LIKE :categoria
+                AND PRO.pro_flag_prioridade LIKE :prioridade AND PRO.pro_fk_categoria = :categoria
                 AND PRO.pro_flag_deletado = 0");
 
                 $stmte->bindValue(":parametro","%".$parametro."%");
@@ -568,7 +568,7 @@
                 $stmte->bindValue(":flag_servindo","%" .$flag_servindo);
                 $stmte->bindValue(":delivery","%".$delivery);
                 $stmte->bindValue(":prioridade","%".$prioridade);
-                $stmte->bindValue(":categoria","%".$categoria."%");
+                $stmte->bindValue(":categoria", $categoria);
 
                 $produtos = array();
                 if($stmte->execute()){
@@ -1021,6 +1021,7 @@
                 ON PRO.pro_fk_categoria = CAT.cat_pk_id
                 WHERE PRO.pro_fk_categoria = :fk_categoria
                 AND PRO.pro_flag_deletado = 0
+
                 ORDER BY CAT.cat_posicao ASC, PRO.pro_posicao ASC");
 
                 $stmte->bindValue(":fk_categoria", $fk_categoria , PDO::PARAM_INT);

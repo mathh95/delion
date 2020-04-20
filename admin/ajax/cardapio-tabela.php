@@ -11,6 +11,10 @@ protegePagina();
 $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
+if(!isset($_POST['categoria'])){
+	$_POST['categoria'] = 0;
+}
+
 $controle=new controlerProduto($_SG['link']);
 if((isset($_POST['nome']) && 
 !empty($_POST['nome'])) || 
@@ -18,7 +22,7 @@ isset($_POST['flag']) ||
 isset($_POST['delivery']) || 
 isset($_POST['producao']) || 
 isset($_POST['prioridade']) || 
-isset($_POST['categoria'])){
+isset($_POST['categoria']) && $_POST['categoria'] != 0){
 
 	$nome = $_POST['nome'];
 	$flag_ativo= $_POST['flag'];
@@ -26,7 +30,14 @@ isset($_POST['categoria'])){
 	$delivery=$_POST['delivery'];
 	$prioridade=$_POST['prioridade'];
 	$categoria=$_POST['categoria'];
+
 	$cardapios = $controle->filter($nome, $flag_ativo, $flag_servindo, $delivery, $prioridade, $categoria);
+
+		if($categoria == '0'){
+			$cardapios = $controle->selectAll();
+		}
+
+
 }else{
 	$cardapios = $controle->selectAll();
 }

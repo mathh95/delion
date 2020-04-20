@@ -71,8 +71,9 @@
                     <option value=''>TODOS</option>
                     <?php
                     foreach ($categorias as $categoria) {
+                        $cod_categoria = $categoria->getPkid();
                         $nome = $categoria->getNome();
-                        echo "<option value=".$nome.">".$nome."</option>";
+                        echo "<option value=".$cod_categoria.">".$nome."</option>";
                     }
                     ?>
                 </select>
@@ -141,7 +142,11 @@
             var producao = $("#producao").val();
             var delivery = $("#delivery").val();
             var prioridade = $("#prioridade").val();
-            var categoria = $("#categoria").val();
+            if($("#categoria").val() == ""){
+                var categoria = 0;
+            }else{
+                var categoria = $("#categoria").val();
+            }
             var url = '../../ajax/cardapio-tabela.php';
             $.ajax({
                 type: 'POST',
