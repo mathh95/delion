@@ -26,11 +26,25 @@
         $formaPgt->construct($tipoFormaPgt, $flag_ativo);
 
         $controle= new controlerFormaPgt($_SG['link']);
-        if($controle->insert($formaPgt)> -1){
-            msgRedireciona('Cadastro Realizado!','Forma de Pagamento cadastrada!',1,'../view/admin/formaPgt.php');
+
+        $verificador = $controle->verificaIgual($tipoFormaPgt);
+		$nomeComp = $verificador->getNome();
+		$nomeCadastro = $tipoFormaPgt;
+
+		$nomeComp = trim(strtolower($nomeComp));
+		$nomeCadastro = trim(strtolower($nomeCadastro));
+
+		$verificacaoNome = strcmp($nomeComp, $nomeCadastro);
+
+        if($verificacaoNome != 0){
+            if($controle->insert($formaPgt)> -1){
+                msgRedireciona('Cadastro Realizado!','Forma de Pagamento cadastrada!',1,'../view/admin/formaPgt.php');
+            }else{
+                alertJSVoltarPagina('Erro','Erro ao cadastrar forma de pagamento!',2);
+                // $formaPgt->show();
+            }
         }else{
-            alertJSVoltarPagina('Erro','Erro ao cadastrar forma de pagamento!',2);
-            // $formaPgt->show();
+            alertJSVoltarPagina('Erro!','Forma de Pagamento já cadastrada!',2);
         }
     }else{
         expulsaVisitante();

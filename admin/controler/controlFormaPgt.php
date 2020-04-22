@@ -73,6 +73,27 @@
 
         }
 
+        function verificaIgual($parametro){
+            $formaPgt = new forma_pgto();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_forma_pgto WHERE fopg_nome = :parametro");
+                $stmte->bindValue(":parametro", $parametro, PDO::PARAM_STR);
+                if($stmte->execute()){
+                        if($stmte->rowCount() > 0){
+                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                                $formaPgt->setPkId($result->fopg_pk_id);
+                                $formaPgt->setNome($result->fopg_nome);
+                            }
+                        }
+                }
+                return $formaPgt;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+
         function delete($parametro){
             try{
                 $stmt = $this->pdo->prepare("UPDATE tb_forma_pgto SET fopg_flag_ativo = 0 WHERE fopg_pk_id = :parametro");
