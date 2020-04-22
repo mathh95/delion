@@ -78,6 +78,26 @@
             }
         }
 
+        function verificaIgual($parametro){
+            $adicional = new adicional();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_adicional WHERE adi_nome = :parametro");
+                $stmte->bindValue(":parametro", $parametro, PDO::PARAM_STR);
+                if($stmte->execute()){
+                        if($stmte->rowCount() > 0){
+                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                                $adicional->setPkId($result->adi_pk_id);
+                                $adicional->setNome($result->adi_nome);
+                            }
+                        }
+                }
+                return $adicional;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
         function filter($parametro, $flag_ativo, $delivery, $prioridade){
             try{
                 $stmte = $this->pdo->prepare("SELECT *

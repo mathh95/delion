@@ -26,17 +26,32 @@
 		}
 	
 		$adicional= new adicional();
+
 		$adicional->construct($nome, $preco, $flag_ativo);
 		/*echo "<pre>";
 		var_dump($cardapio);
 		echo "</pre>";
 		die();*/
 		$controle=new controlerAdicional($_SG['link']);
-		if($controle->insert($adicional)> -1){
-			msgRedireciona('Cadastro Realizado!','Item adicional cadastrado com sucesso!',1,'../view/admin/adicional.php');
+
+		$verificador = $controle->verificaIgual($nome);
+		$nomeComp = $verificador->getNome();
+		$nomeCadastro = $nome;
+
+		$nomeComp = trim(strtolower($nomeComp));
+		$nomeCadastro = trim(strtolower($nomeCadastro));
+
+		$verificacaoNome = strcmp($nomeComp, $nomeCadastro);
+
+		if($verificacaoNome != 0){
+			if($controle->insert($adicional)> -1){
+				msgRedireciona('Cadastro Realizado!','Item adicional cadastrado com sucesso!',1,'../view/admin/adicional.php');
+			}else{
+				alertJSVoltarPagina('Erro!','Erro ao cadastrar item adicional!',2);
+				// $adicional->show();
+			}
 		}else{
-			alertJSVoltarPagina('Erro!','Erro ao cadastrar item adicional!',2);
-			// $adicional->show();
+			alertJSVoltarPagina('Erro!','Adicional já cadastrado!',2);
 		}
 	}else{
 		expulsaVisitante();
