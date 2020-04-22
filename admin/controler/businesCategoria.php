@@ -21,11 +21,25 @@
 		$categoria= new categoria();
 		$categoria->construct($nome, $icone);
 		$controle=new controlerCategoria($_SG['link']);
-		if($controle->insert($categoria)> -1){
-			msgRedireciona('Cadastro Realizado!','Categoria cadastrado com sucesso!',1,'../view/admin/categoria.php');
+		$verificador = $controle->verificaIgual($nome);
+		$nomeComp = $verificador->getNome();
+		$nomeCadastro = $nome;
+
+		$nomeComp = trim(strtolower($nomeComp));
+		$nomeCadastro = trim(strtolower($nomeCadastro));
+
+
+		$verificacaoNome = strcmp($nomeComp, $nomeCadastro);
+
+		if($verificacaoNome != 0){
+			if($controle->insert($categoria)> -1){
+				msgRedireciona('Cadastro Realizado!','Categoria cadastrado com sucesso!',1,'../view/admin/categoria.php');
+			}else{
+				alertJSVoltarPagina('Erro!','Erro ao cadastrar item do categoria!',2);
+				$categoria->show();
+			}
 		}else{
-			alertJSVoltarPagina('Erro!','Erro ao cadastrar item do categoria!',2);
-			$categoria->show();
+			alertJSVoltarPagina('Erro!','Categoria já cadastrada!',2);
 		}
 	}else{
 		expulsaVisitante();

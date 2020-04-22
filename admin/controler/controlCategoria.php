@@ -9,11 +9,11 @@
 
         function insert($categoria){
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO tb_categoria(cat_nome, cat_icone, cat_posicao)
-                VALUES (:cat_nome, :cat_icone, 0)");
-                $stmte->bindParam("cat_nome", $categoria->getNome(), PDO::PARAM_STR);
-                $stmte->bindParam("cat_icone", $categoria->getIcone(), PDO::PARAM_STR);
-                $executa = $stmte->execute();
+                    $stmte =$this->pdo->prepare("INSERT INTO tb_categoria(cat_nome, cat_icone, cat_posicao)
+                    VALUES (:cat_nome, :cat_icone, 0)");
+                    $stmte->bindParam("cat_nome", $categoria->getNome(), PDO::PARAM_STR);
+                    $stmte->bindParam("cat_icone", $categoria->getIcone(), PDO::PARAM_STR);
+                    $executa = $stmte->execute();
                 
                 if($executa){
                     return 1;
@@ -66,6 +66,28 @@
             catch(PDOException $e){
                 echo $e->getMessage();
                 return -1;
+            }
+        }
+
+
+        function verificaIgual($parametro){
+            $categoria= new categoria();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_categoria WHERE cat_nome = :parametro");
+                $stmte->bindValue(":parametro", $parametro, PDO::PARAM_STR);
+                if($stmte->execute()){
+                        if($stmte->rowCount() > 0){
+                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                                $categoria->setPkId($result->cat_pk_id);
+                                $categoria->setNome($result->cat_nome);
+                                $categoria->setIcone($result->cat_icone);
+                            }
+                        }
+                }
+                return $categoria;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
             }
         }
 
