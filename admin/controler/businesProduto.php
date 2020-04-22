@@ -62,15 +62,32 @@
 				
 		$controle = new controlerProduto($_SG['link']);
 		
-		$cod_produto = $controle->insert($produto);
+		$verificador = $controle->verificaIgual($nome);
+		$nomeComp = $verificador->getNome();
+		$nomeCadastro = $nome;
 
-		if( $cod_produto > -1){
-			$controle->insertHistoricoProduto($cod_produto,$produto);
-			msgRedireciona('Cadastro Realizado!','Produto cadastrado com sucesso!',1,'../view/admin/produto.php');
+		$nomeComp = trim(strtolower($nomeComp));
+		$nomeCadastro = trim(strtolower($nomeCadastro));
 
+
+		$verificacaoNome = strcmp($nomeComp, $nomeCadastro);
+
+		// var_dump($verificacaoNome);
+		// exit;
+
+		if($verificacaoNome != 0){
+			$cod_produto = $controle->insert($produto);
+
+			if( $cod_produto > -1){
+				$controle->insertHistoricoProduto($cod_produto,$produto);
+				msgRedireciona('Cadastro Realizado!','Produto cadastrado com sucesso!',1,'../view/admin/produto.php');
+
+			}else{
+				alertJSVoltarPagina('Erro!', 'Erro ao inserir Produto',2);
+				$produto->show();
+			}
 		}else{
-			alertJSVoltarPagina('Erro!', 'Erro ao inserir Produto',2);
-			$produto->show();
+			alertJSVoltarPagina('Erro!','Produto já cadastrado!',2);
 		}
 	}else{
 		expulsaVisitante();

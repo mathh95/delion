@@ -777,6 +777,25 @@
             }
         }
 
+        function verificaIgual($parametro){
+            $produto= new produto();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_produto WHERE pro_nome = :parametro");
+                $stmte->bindValue(":parametro", $parametro, PDO::PARAM_STR);
+                if($stmte->execute()){
+                        if($stmte->rowCount() > 0){
+                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                                $produto->setPkId($result->pro_pk_id);
+                                $produto->setNome($result->pro_nome);
+                            }
+                        }
+                }
+                return $produto;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
 
         function selectPaginadoCategoria($parametro,$offset, $por_pagina, $delivery){
 
