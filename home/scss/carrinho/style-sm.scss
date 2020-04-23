@@ -234,15 +234,8 @@ body{
                 @include make-sm-column(6);
                 padding-bottom: 10px;
                 float:left !important;
-                p {
-                    font-size: 15px;
-                    font-family: "Century Gothic Bold";
-                }
-                .botaoAdicionarCupom button {
-                    background-color: $vermelho_fraco;
-                    border-color: $vermelho_forte;
-                    color: #ffffff;
-                }
+                
+                
                 >.btn-group-toggle{
                     margin-top:10px;
                     > .btn{
@@ -270,9 +263,25 @@ body{
                 }
                 
             }
+            .meio{
+                p {
+                    font-size: 15px;
+                    font-family: "Century Gothic Regular";
+                }
+                .botaoAdicionarCupom button {
+                    background-color: $vermelho_fraco;
+                    border-color: $vermelho_forte;
+                    color: #ffffff;
+                }
+                #total{
+                    font-size: 27px;
+                }
+
+            }
             >.ladoDireito{
                 float:right !important;
-                padding-right: 60px !important;
+                padding-right: 70px !important;
+                padding-left: 0 !important;
                 @include make-md-column(6);
 
                 #infoDelivery{

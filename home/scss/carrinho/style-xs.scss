@@ -357,7 +357,26 @@ body{
                     }
                 }
             }
+            .meio{
+                p{
+                    @include make-xs-column(12);
+                    text-align: center;
+                    font-size: 18px;
+                    font-family: "Century Gothic Regular";
+                    margin-top: 10px;
+                    margin-bottom: 0;
+                }
+                .botaoCupom{
+                    margin-bottom: 10px;
+                }
+                #total{
+                    font-size: 30px;
+                    margin-bottom: 20px;
+                }
+            }
             >.ladoDireito{
+                margin: 0;
+                width: 100%;
                 text-align: center;
                 #infoDelivery{
                     margin-top: 5px;
@@ -397,6 +416,11 @@ body{
                             border-color:$vermelho_forte;
                         }
                     }
+                }
+                div.forma-pgt{
+                    padding-left: 40px !important;
+                    padding-right: 40px !important;
+                    margin-bottom: 10px;
                 }
             }
             #infoDeliverySemEndereco{
