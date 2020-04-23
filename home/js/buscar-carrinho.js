@@ -1,3 +1,4 @@
+
 $(document).on('click', '.tipo-entrega', function(){
 
     $('.tipo-entrega').removeClass('active');
@@ -213,8 +214,10 @@ $(document).on("click", "#removeItem", function(){
             $("#valor_taxa_entrega").html(taxaEntrega.toFixed(2));
             if(totalDesc < 0){
                 $("#valor_total").html("0.00");
+                atualizaFormaPgt(0);
             }else{
                 $("#valor_total").html(totalCorrigido.toFixed(2));
+                atualizaFormaPgt(totalCorrigido.toFixed(2));
             }
 
             $("#valor_subTotal").html(totalCarr.toFixed(2));
@@ -271,8 +274,10 @@ $(document).on("click", "#adicionarUnidade", function(){
             $("#valor_desconto").html(valorCup.toFixed(2));
             if(totalDesc < 0){
                 $("#valor_total").html("0.00");
+                atualizaFormaPgt(0);
             }else{
                 $("#valor_total").html(totalCorrigido.toFixed(2));
+                atualizaFormaPgt(totalCorrigido.toFixed(2));
             }
         },
         error: function(err){
@@ -324,8 +329,10 @@ $(document).on("click", "#removerUnidade", function(){
                 $("#valor_desconto").html(valorCup.toFixed(2));
                 if(totalDesc < 0){
                     $("#valor_total").html("0.00");
+                    atualizaFormaPgt(0);
                 }else{
                     $("#valor_total").html(totalCorrigido.toFixed(2));
+                    atualizaFormaPgt(totalCorrigido.toFixed(2));
                 }
             },
             error: function(err){
@@ -355,6 +362,9 @@ $(document).on("click", "#removerUnidade", function(){
             }
         });
     }
+
+
+
 });
 
 $(document).ready(function(){

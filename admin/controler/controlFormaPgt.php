@@ -1,5 +1,6 @@
 <?php
     include_once ROOTPATH. "/config.php";
+    // include_once "../../admin/model/forma_pgto.php";
     include_once MODELPATH. "/forma_pgto.php";
     include_once "seguranca.php";
 

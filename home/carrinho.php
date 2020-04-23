@@ -167,6 +167,23 @@
 			});
 		});
 
+
+		function atualizaFormaPgt(valorAtualizado){
+
+			$.ajax({
+				type: 'GET',
+				url: 'ajax/pag-formaPgt.php',
+				data: {valorAtualizado:valorAtualizado},
+				success: function (resultado) {
+					$("#formaPagamento").html(resultado);
+				}
+			});
+		}
+
+		$( document ).ready(function() {
+			atualizaFormaPgt(<?php number_format($_SESSION['valor_total'], 2) ?>);
+		})
+
 	</script>
 
 </body>

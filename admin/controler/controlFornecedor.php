@@ -96,6 +96,26 @@
             }
         } 
 
+        function verificaIgual($parametro){
+            $fornecedor = new fornecedor();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_fornecedor WHERE for_cnpj = :parametro");
+                $stmte->bindValue(":parametro", $parametro, PDO::PARAM_STR);
+                if($stmte->execute()){
+                        if($stmte->rowCount() > 0){
+                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                                $fornecedor->setPkId($result->for_pk_id);
+                                $fornecedor->setCnpj($result->for_cnpj);
+                            }
+                        }
+                }
+                return $fornecedor;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
         function delete($parametro){
             try{
                 $stmt = $this->pdo->prepare("DELETE FROM tb_fornecedor WHERE for_pk_id = :parametro");

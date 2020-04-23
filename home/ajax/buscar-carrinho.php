@@ -720,7 +720,7 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                             <?php
                                 foreach ($formasPgt as $formaPgt) {
                                     if ($formaPgt->getFlag_ativo() == 1) {
-                                        echo "<option value ='" . $formaPgt->getPkId() . "'>" . $formaPgt->getNome() . "</option>";
+                                        echo "<option value ='" . $formaPgt->getPkId() . "'>" . $formaPgt->getNome()  ."</option>";
                                     }
                                 }
                             ?>
@@ -764,7 +764,7 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                 ?>
         </div>
     </div>
-
+    
 
 <?php
 

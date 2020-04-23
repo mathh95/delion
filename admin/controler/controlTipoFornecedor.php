@@ -77,6 +77,27 @@ protegePagina();
             }
         }
 
+        function verificaIgual($parametro){
+            $tipo_fornecedor = new tipo_fornecedor();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_tipo_fornecedor WHERE tifo_nome = :parametro");
+                $stmte->bindValue(":parametro", $parametro, PDO::PARAM_STR);
+                if($stmte->execute()){
+                        if($stmte->rowCount() > 0){
+                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                                $tipo_fornecedor->setPkId($result->tifo_pk_id);
+                                $tipo_fornecedor->setNome($result->tifo_nome);
+                            }
+                        }
+                }
+                return $tipo_fornecedor;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+
         function delete($parametro){
             try{
                 $stmt = $this->pdo->prepare("DELETE FROM tb_tipo_fornecedor WHERE for_pk_id = :parametro");

@@ -24,11 +24,25 @@
         $tipoFornecedor->construct($tipo,$flag_ativo);
 
         $controle= new controlerTipoFornecedor($_SG['link']);
-        if($controle->insert($tipoFornecedor)> -1){
-            msgRedireciona('Cadastro Realizado!','Tipo de fornecedor cadastrado!',1,'../view/admin/tipoFornecedorLista.php');
+
+        $verificador = $controle->verificaIgual($tipo);
+		$nomeComp = $verificador->getNome();
+		$nomeCadastro = $tipo;
+
+		$nomeComp = trim(strtolower($nomeComp));
+		$nomeCadastro = trim(strtolower($nomeCadastro));
+
+		$verificacaoNome = strcmp($nomeComp, $nomeCadastro);
+
+        if($verificacaoNome != 0){
+            if($controle->insert($tipoFornecedor)> -1){
+                msgRedireciona('Cadastro Realizado!','Tipo de fornecedor cadastrado!',1,'../view/admin/tipoFornecedorLista.php');
+            }else{
+                alertJSVoltarPagina('Erro','Erro ao cadastrar tipo de fornecedor!',2);
+                $tipoFornecedor->show();
+            }
         }else{
-            alertJSVoltarPagina('Erro','Erro ao cadastrar tipo de fornecedor!',2);
-            $tipoFornecedor->show();
+            alertJSVoltarPagina('Erro!','Fornecedor já cadastrado!',2);
         }
     }else {
         expulsaVisitante();

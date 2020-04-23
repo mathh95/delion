@@ -25,11 +25,25 @@
         $fornecedor->construct($nome,$cnpj,$telefone,$qtdias,$endereco,$referencia,$tipoFornecedor);
 
         $controle= new controlerFornecedor($_SG['link']);
-        if($controle->insert($fornecedor) > -1){
-            msgRedireciona('Cadastro Realizado!','Fornecedor cadastrado!',1,'../view/admin/fornecedoresLista.php');
+
+        $verificador = $controle->verificaIgual($cnpj);
+		$nomeComp = $verificador->getCnpj();
+		$nomeCadastro = $cnpj;
+
+		$nomeComp = trim(strtolower($nomeComp));
+		$nomeCadastro = trim(strtolower($nomeCadastro));
+
+		$verificacaoNome = strcmp($nomeComp, $nomeCadastro);
+
+        if($verificacaoNome != 0){
+            if($controle->insert($fornecedor) > -1){
+                msgRedireciona('Cadastro Realizado!','Fornecedor cadastrado!',1,'../view/admin/fornecedoresLista.php');
+            }else{
+                alertJSVoltarPagina('Erro','Erro ao cadastrar fornecedor!',2);
+                $fornecedor->show();
+            }
         }else{
-            alertJSVoltarPagina('Erro','Erro ao cadastrar fornecedor!',2);
-            $fornecedor->show();
+            alertJSVoltarPagina('Erro!','Fornecedor já cadastrado!',2);
         }
 
     }
