@@ -234,6 +234,7 @@ class controlerCarrinho{
                         $pedido->setHora_delivery($result->ped_hora_delivery);
                         $pedido->setHora_retirada($result->ped_hora_retirada);
                         $pedido->setFKCliente($result->cli_nome);//texto em campo de fk
+                        $pedido->setFkFormaPgt($result->ped_fk_forma_pgto);
 
                         $pedido->telefone=($result->cli_telefone);
                         $pedido->numero=($result->encl_numero);
@@ -337,6 +338,8 @@ class controlerCarrinho{
                     $pedido->setHora_delivery($result->ped_hora_delivery);
                     $pedido->setHora_retirada($result->ped_hora_retirada);
                     $pedido->setFKCliente($result->cli_nome);//texto em campo de fk
+                    $pedido->setFkFormaPgt($result->ped_fk_forma_pgto);
+
 
                     $pedido->telefone=($result->cli_telefone);
                     $pedido->numero=($result->encl_numero);
@@ -465,6 +468,7 @@ class controlerCarrinho{
                     $pedido->setSubtotal($result->ped_subtotal);
                     $pedido->setStatus($result->ped_status);
                     $pedido->setFKOrigemPedido($result->ped_fk_origem_pedido);
+                    $pedido->setFkFormaPgt($result->ped_fk_forma_pgto);
 
                     $pedido->cliente=($result->cli_nome);
                     $pedido->telefone=($result->cli_telefone);

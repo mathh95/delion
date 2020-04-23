@@ -83,6 +83,7 @@ if(isset($_POST['nome']) || isset($_POST['menor']) || isset($_POST['maior']) || 
 }
 
 
+
 $permissao =  json_decode($usuarioPermissao->getPermissao());	
 
 if ($pedidos == -1){
@@ -169,6 +170,10 @@ if ($pedidos == -1){
 
 		foreach ($pedidos as $pedido) {
 			
+				// var_dump($pedido);
+				// exit;
+
+
 			$array = $pedido->getPkId();
 
 			echo 
@@ -249,10 +254,14 @@ if ($pedidos == -1){
 										$custo_adc = 0;
 										if($item->arr_adicionais){
 											$adicionais = json_decode($item->arr_adicionais);
-
-											foreach($adicionais as $a){
-												$txt_adc = "<br> + ".$a[3]."x ".$a[1];
-												$custo_adc += $a[3] * $a[2];
+											
+											if($adicionais != ""){
+												foreach($adicionais as $a){
+													$txt_adc = "<br> + ".$a[3]."x ".$a[1];
+													$custo_adc += $a[3] * $a[2];
+												}
+											}else{
+												$adicionais = NULL;
 											}
 										}
 
@@ -289,7 +298,12 @@ foreach ($pedidos as $pedido) {
 
 	$entrega = date('H:i', strtotime($pedido->getData()->format('H:i')." +30 minutes"));
 	$formaPgt = $controlFormaPgt->selectId($pedido->getFkFormaPgt());
+	// $formaPgt = $controlFormaPgt->selectAll();
 	$itens = $control_carrinho->selectItens($pedido->getPkId());
+
+
+	// var_dump($pedido->getFkFormaPgt());
+	// exit;
 
 	$formaPgtDin = "Dinheiro";	//quando o cod da forma de pagamento for igual a zero
 
@@ -336,9 +350,23 @@ foreach ($pedidos as $pedido) {
 						}
 
 						if($formaPgt->getPkId() == NULL){
-							echo "<br><label for='recipient-name' class='control-label'>"." Forma Pagamento: <b>".$formaPgtDin."</b></label>";
+							// echo "<br><label for='recipient-name' class='control-label'>"." Forma Pagamento: <b>".$formaPgtDin."</b></label>";
 						}else{
-							echo "<br><label for='recipient-name' class='control-label'>"." Forma Pagamento: ".$formaPgt->getPkId()."</label>";
+							if(strpos($formaPgt->getNome(),"2x")){
+								$valorDividido = $pedido->getTotal();
+								$valorDividido = $valorDividido / 2;
+								$parcela = "2x";
+								// echo "<br><label for='recipient-name' class='control-label'>"." Forma Pagamento: ".$formaPgt->getNome()."  R$" .$valorDividido."</label>";
+							}
+							else if(strpos($formaPgt->getNome(),"3x")){
+								$valorDividido = $pedido->getTotal();
+								$valorDividido = $valorDividido / 3;
+								$parcela = "3x";
+								// echo "<br><label for='recipient-name' class='control-label'>"." Forma Pagamento: ".$formaPgt->getNome()."  R$" .$valorDividido. "</label>";
+							}
+							else{
+								// echo "<br><label for='recipient-name' class='control-label'>"." Forma Pagamento: ".$formaPgt->getNome()."</label>";
+							}
 						}
 						
 						echo "<br><label for='recipient-name' class='control-label'>"." Observações do Pedido: </label>";
@@ -371,14 +399,18 @@ foreach ($pedidos as $pedido) {
 							$custo_adc_val = 0;
 							if($item->arr_adicionais){
 								$adicionais = json_decode($item->arr_adicionais);
-
-								foreach($adicionais as $a){
-									$txt_adc = "<br> + ".$a[3]."x ".$a[1];
-									$custo_adc_val += $a[3] * $a[2];
+							
+							if($adicionais != ""){
+									foreach($adicionais as $a){
+										$txt_adc = "<br> + ".$a[3]."x ".$a[1];
+										$custo_adc_val += $a[3] * $a[2];
+									}
+									
+									$subtotal_item += $custo_adc_val;
+								}else{
+									$adicionais = NULL;
 								}
-
-								$subtotal_item += $custo_adc_val;
-							}
+							}	
 
 							$subtotal_item = number_format(
 								$subtotal_item,
@@ -419,9 +451,11 @@ foreach ($pedidos as $pedido) {
 							<label for='recipient-name' class='control-label'>+--------------------------------------------------------------------+</label>
 							<br><label for='recipient-name' class='control-label'>"." Subtotal:        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspR$ &nbsp".$pedido->getSubtotal()."</label>
 							<br><label for='recipient-name' class='control-label'>"." Taxa de entrega: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspR$ &nbsp".$pedido->getTaxa_entrega()."</label>
-							<br><label for='recipient-name' class='control-label'>"." Desconto Cupom:  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspR$ &nbsp".$pedido->getDesconto()."</label>
+							<br><label for='recipient-name' class='control-label'>"." Desconto Cupom:  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspR$ &nbsp".$pedido->getDesconto()."</label>
 							<br><label for='recipient-name' class='control-label'>"."<b> Total:           &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspR$ &nbsp".$pedido->getTotal()."</b></label>
-							<br><label for='recipient-name' class='control-label'>+--------------------------------------------------------------------+</label>
+							<br><label for='recipient-name' class='control-label'>"."<b> Pagamento Parcelado:           &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp".$formaPgt->getNome()."  R$".number_format($valorDividido, 2, ",", " ") ."</b></label>";
+
+							echo "<br><label for='recipient-name' class='control-label'>+--------------------------------------------------------------------+</label>
 						</div>
 					</form>
 					

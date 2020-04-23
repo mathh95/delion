@@ -50,13 +50,13 @@
             }
         }
 
-        function selectId($fopg_pk_id){
+        function selectId($parametro){
 
             $formaPgt = new forma_pgto();
 
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM tb_forma_pgto WHERE fopg_pk_id = :fopg_pk_id");
-                $stmte->bindParam(":fopg_pk_id",$fopg_pk_id, PDO::PARAM_INT);
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_forma_pgto WHERE fopg_pk_id = :parametro");
+                $stmte->bindParam(":parametro",$parametro, PDO::PARAM_INT);
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
