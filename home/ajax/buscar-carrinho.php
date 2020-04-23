@@ -690,28 +690,60 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
 
                 //meio
                 echo "<div class='meio ladoEsquerdo'>";
+               
+                //Variaveis passadas pra control do carrinho
+                $_SESSION['delivery_price_var'] = $_SESSION['delivery_price'];
+                $_SESSION['delivery_time_var'] = $_SESSION['delivery_time'];
+                $_SESSION['valor_cupom_var'] = $_SESSION['valor_cupom'];
 
-                if ($_SESSION['valor_cupom'] == 0) {
-                    echo "<div class='botaoCupom'>
-                        <strong><p>Cupom</p></strong> 
-                        <div class='form-inline'>                            
-                            <input class='form-control' type='text' name='codigocupom' id='codigocupom' placeholder='Insira o código aqui...'>
-                            <a class='botaoAdicionarCupom' onclick='adicionarCupom()'><button id='adicionarCupom' class='btn btn-danger' style='background-color: ".$corPrim.";border-color:".$corSec."'>Adicionar&nbsp;<i class='fa fa-ticket-alt fa-adjust'></i></button></a>    
-                        </div>
-                    </div>";
-                } else {
-                    echo "<div class='botaoCupom'>
-                        <strong><p>Cupom</p></strong> 
-                        <div class='form-inline'>
-                            <input class='form-control' type='text' name='codigocupomrem' id='codigocupomrem' value='Cupom Adicionado!' disabled>
-                            <a class='botaoAdicionarCupom' onclick='removerCupom()'><button id='removerCupom' class='btn btn-danger' style='background-color: ".$corPrim.";border-color:".$corSec."'>Remover Cupom&nbsp;<i class='fas fa-trash-alt fa-adjust'></i></button></a> 
-                        </div>  
-                    </div>";
-                }
+                $val_desconto = number_format($_SESSION['valor_cupom'], 2);
+                if(!is_numeric($val_desconto)) $val_desconto = number_format(0, 2);
 
+                echo "<p id='subTotal' class='' >Subtotal: + R$ <span id='valor_subTotal'>" . number_format($_SESSION['valor_subtotal'], 2) . " </span></p>
+                    <p id='entrega'>Taxa de Entrega: + R$ <span id='valor_taxa_entrega'>" . number_format($_SESSION['delivery_price'], 2) . "</span></p>
+                    <p id='desconto'>Desconto: - R$ <span id='valor_desconto'> " . $val_desconto . "</span></p>";
+
+                    if ($_SESSION['valor_cupom'] == 0) {
+                        echo "<div class='botaoCupom'>
+                            <strong><p>Cupom</p></strong> 
+                            <div class='form-inline'>                            
+                                <input class='form-control' type='text' name='codigocupom' id='codigocupom' placeholder='Digite o código'>
+                                <a class='botaoAdicionarCupom' onclick='adicionarCupom()'><button id='adicionarCupom' class='btn btn-danger' style='background-color: ".$corPrim.";border-color:".$corSec."'>Confirma&nbsp;</button></a>    
+                            </div>
+                        </div>";
+                    } else {
+                        echo "<div class='botaoCupom'>
+                            <strong><p>Cupom</p></strong> 
+                            <div class='form-inline'>
+                                <input class='form-control' type='text' name='codigocupomrem' id='codigocupomrem' value='Cupom Adicionado!' disabled>
+                                <a class='botaoAdicionarCupom' onclick='removerCupom()'><button id='removerCupom' class='btn btn-danger' style='background-color: ".$corPrim.";border-color:".$corSec."'>Remover Cupom&nbsp;</button></a> 
+                            </div>  
+                        </div>";
+                    }
+                
+                echo "<strong><p id='total'> Total: R$ <span id='valor_total'>" . number_format($_SESSION['valor_total'], 2) . "</span></p></strong>";
+                
                 ?>
                 
-                <div class="forma-pgt row">
+                <?php
+                
+                //Info de Entrega
+                if($_SESSION['entrega_valida'] && $_SESSION['is_delivery_home']){
+                    echo "<div id='infoPercurso'>";
+                    echo "<br><i class='fas fa-road'></i>&nbsp;Distância da entrega: " . $dist_km . " km <br>";
+                    echo "<i class='far fa-clock'></i>&nbsp;Estimativa p/ entrega: " . $_SESSION['delivery_time']." mins</div>";
+                }
+
+                
+
+                echo "</div>";
+
+                
+                
+                //Lado direito
+                echo "
+                    <div class='ladoDireito row'>"; ?>
+                    <div class="forma-pgt row">
                     <div class=" select-formapgt col-xs-12 col-sm-6 col-md-8 col-lg-10">
                         <strong>
                         <p>Forma de Pagamento</p>
@@ -727,37 +759,11 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                         </select>
                     </div>
                 </div>
-                
                 <?php
-                
-                //Info de Entrega
-                if($_SESSION['entrega_valida'] && $_SESSION['is_delivery_home']){
-                    echo "<div id='infoPercurso'>";
-                    echo "<br><i class='fas fa-road'></i>&nbsp;Distância da entrega: " . $dist_km . " km <br>";
-                    echo "<i class='far fa-clock'></i>&nbsp;Estimativa p/ entrega: " . $_SESSION['delivery_time']." mins</div>";
-                }
-
-                //Variaveis passadas pra control do carrinho
-                $_SESSION['delivery_price_var'] = $_SESSION['delivery_price'];
-                $_SESSION['delivery_time_var'] = $_SESSION['delivery_time'];
-                $_SESSION['valor_cupom_var'] = $_SESSION['valor_cupom'];
-
-                echo "</div>";
-
-                
-                $val_desconto = number_format($_SESSION['valor_cupom'], 2);
-                if(!is_numeric($val_desconto)) $val_desconto = number_format(0, 2);
-                //Lado direito
-                echo "
-                    <div class='ladoDireito row'>
-                    <p id='subTotal' class='' >Subtotal: + R$ <span id='valor_subTotal'>" . number_format($_SESSION['valor_subtotal'], 2) . " </span></p>
-                    <p id='entrega'>Taxa de Entrega: + R$ <span id='valor_taxa_entrega'>" . number_format($_SESSION['delivery_price'], 2) . "</span></p>
-                    <p id='desconto'>Desconto: - R$ <span id='valor_desconto'> " . $val_desconto . "</span></p> 
-                    <strong><p id='total'> Total: R$ <span id='valor_total'>" . number_format($_SESSION['valor_total'], 2) . "</span></p></strong>
                     
-                    <div class='linhaBotao'>
-                        <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn' style='background-color: ".$corPrim.";border-color:".$corSec."'>Finalizar Pedido <i class='far fa-envelope fa-adjust'></i></button></a>
-                        <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()'><button class='btn btn-danger' style='background-color: ".$corPrim.";border-color:".$corSec."'>Esvaziar Carrinho <i class='fas fa-trash-alt'></i></button></a>
+                   echo "<div class='linhaBotao'>
+                        <a class='botaoCarrinhoEnviar' href='../home/controler/validaPedido.php'><button id='finalizar' class='btn' style='background-color: ".$corPrim.";border-color:".$corSec."'>Finalizar Pedido</button></a>
+                        <a class='botaoCarrinhoEsvaziar' onclick='esvaziar()'><button class='btn btn-danger' style='background-color: ".$corPrim.";border-color:".$corSec."'>Esvaziar Carrinho </button></a>
                     </div>
                     </div>
                     </div>";
