@@ -15,11 +15,11 @@ include_once "../../admin/model/forma_pgto.php";
 include_once "../controler/controlEmpresa.php";
 include_once "../../admin/model/entrega.php";
 include_once "../../admin/controler/controlEntrega.php";
-include_once CONTROLLERPATH."/controlerGerenciaSite.php";
-include_once MODELPATH."/gerencia_site.php";
+// include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+// include_once MODELPATH."/gerencia_site.php";
 include_once "../controler/controlEndereco.php";
 include_once "../utils/GoogleServices.php";
-include_once "../configuracaoCores.php";
+// include_once "../configuracaoCores.php";
 
 
 $itens = array();
@@ -39,6 +39,8 @@ $_SESSION['valor_entrega_valido'] = 0;
 $_SESSION['delivery_price_calculado'] = 0;
 $_SESSION['minimo_taxa_gratis'] = 99999;
 
+$corPrim = "#D22730";
+$corSec = "#C6151F";
 
 if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     //ordenados com base na inserção/add carrinho
@@ -689,7 +691,7 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
 
 
                 //meio
-                echo "<div class='meio ladoEsquerdo'>";
+                echo "<div class='meio ladoEsquerdo' id='container_subtotal'>";
                
                 //Variaveis passadas pra control do carrinho
                 $_SESSION['delivery_price_var'] = $_SESSION['delivery_price'];

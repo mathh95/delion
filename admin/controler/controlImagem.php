@@ -81,6 +81,27 @@
             }
         }
 
+        function verificaIgual($parametro){
+            $imagem= new imagem();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_imagem WHERE ima_nome = :parametro");
+                $stmte->bindValue(":parametro", $parametro, PDO::PARAM_STR);
+                if($stmte->execute()){
+                        if($stmte->rowCount() > 0){
+                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                                $imagem->setPkId($result->ima_pk_id);
+                                $imagem->setNome($result->ima_nome);
+                            }
+                        }
+                }
+                return $imagem;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+
         function delete($parametro){
             try{
                 $stmt = $this->pdo->prepare("DELETE FROM tb_imagem WHERE ima_pk_id = :parametro");

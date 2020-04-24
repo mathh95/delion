@@ -28,11 +28,25 @@
 		$usuario= new usuario();
 		$usuario->construct($nome,$login,$senha,$email,"0",$cod_perfil, $arr_permissoes);
 		$controle=new controlerUsuario($_SG['link']);
-		if($controle->insert($usuario)> -1){
-			msgRedireciona('Cadastro Realizado!','Usuário cadastrado com sucesso!',1,'../view/admin/usuario.php');
+
+		$verificador = $controle->verificaIgual($login);
+		$nomeComp = $verificador->getLogin();
+		$nomeCadastro = $login;
+
+		$nomeComp = trim(strtolower($nomeComp));
+		$nomeCadastro = trim(strtolower($nomeCadastro));
+
+		$verificacaoNome = strcmp($nomeComp, $nomeCadastro);
+
+        if($verificacaoNome != 0){
+				if($controle->insert($usuario)> -1){
+					msgRedireciona('Cadastro Realizado!','Usuário cadastrado com sucesso!',1,'../view/admin/usuario.php');
+				}else{
+					alertJSVoltarPagina('Erro!','Erro ao cadastrar usuário!',2);
+					$usuario->show();
+				}
 		}else{
-			alertJSVoltarPagina('Erro!','Erro ao cadastrar usuário!',2);
-			$usuario->show();
+			alertJSVoltarPagina('Erro!','Já existe um usuário com esse login!',2);
 		}
 	}else{
 		expulsaVisitante();

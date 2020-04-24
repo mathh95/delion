@@ -560,7 +560,7 @@
                 ON PRO.pro_fk_categoria = CAT.cat_pk_id
                 WHERE PRO.pro_nome LIKE :parametro AND PRO.pro_flag_ativo LIKE :flag_ativo 
                 AND PRO.pro_flag_servindo LIKE :flag_servindo AND PRO.pro_flag_delivery LIKE :delivery 
-                AND PRO.pro_flag_prioridade LIKE :prioridade AND PRO.pro_fk_categoria = :categoria
+                AND PRO.pro_flag_prioridade LIKE :prioridade AND CAT.cat_pk_id LIKE :categoria
                 AND PRO.pro_flag_deletado = 0");
 
                 $stmte->bindValue(":parametro","%".$parametro."%");
@@ -568,7 +568,7 @@
                 $stmte->bindValue(":flag_servindo","%" .$flag_servindo);
                 $stmte->bindValue(":delivery","%".$delivery);
                 $stmte->bindValue(":prioridade","%".$prioridade);
-                $stmte->bindValue(":categoria", $categoria);
+                $stmte->bindValue(":categoria","%".$categoria."%");
 
                 $produtos = array();
                 if($stmte->execute()){
@@ -1077,7 +1077,7 @@
         function selectByCategoriaFilterPos($fk_categoria, $filtro ,$flag_servindo){
             $produtos = array();
             try{
-                if($flag_servindo == null && $flag_ativo == null){
+                if($flag_servindo == null){
                     $stmte = $this->pdo->prepare("SELECT *
                     FROM tb_produto AS PRO
                     LEFT JOIN tb_categoria AS CAT

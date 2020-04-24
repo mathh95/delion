@@ -1,3 +1,4 @@
+  
 <?php
 include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 include_once CONTROLLERPATH."/controlUsuario.php";
@@ -11,10 +12,6 @@ protegePagina();
 $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
-if(!isset($_POST['categoria'])){
-	$_POST['categoria'] = 0;
-}
-
 $controle=new controlerProduto($_SG['link']);
 if((isset($_POST['nome']) && 
 !empty($_POST['nome'])) || 
@@ -22,7 +19,7 @@ isset($_POST['flag']) ||
 isset($_POST['delivery']) || 
 isset($_POST['producao']) || 
 isset($_POST['prioridade']) || 
-isset($_POST['categoria']) && $_POST['categoria'] != 0){
+isset($_POST['categoria'])){
 
 	$nome = $_POST['nome'];
 	$flag_ativo= $_POST['flag'];
@@ -30,14 +27,7 @@ isset($_POST['categoria']) && $_POST['categoria'] != 0){
 	$delivery=$_POST['delivery'];
 	$prioridade=$_POST['prioridade'];
 	$categoria=$_POST['categoria'];
-
 	$cardapios = $controle->filter($nome, $flag_ativo, $flag_servindo, $delivery, $prioridade, $categoria);
-
-		if($categoria == '0'){
-			$cardapios = $controle->selectAll();
-		}
-
-
 }else{
 	$cardapios = $controle->selectAll();
 }
@@ -62,8 +52,7 @@ isset($_POST['categoria']) && $_POST['categoria'] != 0){
 						<th width='8%' style='text-align: center;'>Prioridade</th>
 						<th width='8%' style='text-align:center;'>Delivery</th>
 						<th width='14%' style='text-align: center;'>Editar</th>
-						<th width='14%' style='text-align: center;'>Desativar</th>
-						<th width='14%' style='text-align: center;'>Excluir</th>
+						<th width='14%' style='text-align: center;'>Apagar</th>
 					</tr>
 				<tbody>";
 	
@@ -79,8 +68,7 @@ isset($_POST['categoria']) && $_POST['categoria'] != 0){
 				<td style='text-align: center;' name='prioridade'>".$cardapio->getDsPrioridade()."</td>
 				<td style='text-align: center;' name='delivery'>".$cardapio->getDsDelivery()."</td>
 			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='produto-view.php?cod=".$cardapio->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>
-				<td style='text-align: center;' name='status'><button type='button' onclick=\"desativaCardapio(".$cardapio->getPkId().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i> Desativar</button></td>
-				<td style='text-align: center;' name='remove'><button type='button' onclick=\"removeCardapio(".$cardapio->getPkId().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i> Excluir</button></td>
+			 	<td style='text-align: center;' name='status'><button type='button' onclick=\"removeCardapio(".$cardapio->getPkId().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i> Desativar</button></td>
 			</tr>";
 		}
 		}else{
@@ -93,3 +81,4 @@ isset($_POST['categoria']) && $_POST['categoria'] != 0){
 echo "</tbody></table>
 		</div>";
 ?>
+

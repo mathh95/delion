@@ -32,12 +32,25 @@
 		$imagem= new imagem();
 		$imagem->construct($nome, $foto, $arr_paginas);
 		$controle=new controlerImagem($_SG['link']);
-		
-		if($controle->insert($imagem)> -1){
-			msgRedireciona('Cadastro Realizado!','Imagem cadastrada com sucesso!',1,'../view/admin/imagem.php');
+
+		$verificador = $controle->verificaIgual($nome);
+		$nomeComp = $verificador->getNome();
+		$nomeCadastro = $nome;
+
+		$nomeComp = trim(strtolower($nomeComp));
+		$nomeCadastro = trim(strtolower($nomeCadastro));
+
+		$verificacaoNome = strcmp($nomeComp, $nomeCadastro);
+
+        if($verificacaoNome != 0){
+			if($controle->insert($imagem)> -1){
+				msgRedireciona('Cadastro Realizado!','Imagem cadastrada com sucesso!',1,'../view/admin/imagem.php');
+			}else{
+				alertJSVoltarPagina('Erro!','Erro ao cadastrar imagem!',2);
+				$imagem->show();
+			}
 		}else{
-			alertJSVoltarPagina('Erro!','Erro ao cadastrar imagem!',2);
-			$imagem->show();
+			alertJSVoltarPagina('Erro!','Imagem já cadastrada com esse nome!',2);
 		}
 	}else{
 		expulsaVisitante();

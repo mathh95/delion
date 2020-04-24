@@ -141,6 +141,7 @@
 				url: 'ajax/buscar-carrinho.php',
 				success: function (resultado) {
 					$("#container-itens").html(resultado);
+					atualizaFormaPgt();
 				},
 				error: function(err){
 					console.log(err);
@@ -149,9 +150,17 @@
 		}
 		
 		//Auto Reload carrinho
+		// window.setInterval(function(){
+		// 	location.reload();
+        // }, 60000);//1 minuto
+
 		window.setInterval(function(){
-			location.reload();
-        }, 60000);//1 minuto
+			$(".tabela_itens tbody").load(window.location.origin+"/home/ajax/buscar-carrinho.php"+" .tabela_itens tbody tr");
+			$("#container_subtotal").load(window.location.origin+"/home/ajax/buscar-carrinho.php"+" #container_subtotal > *");
+			atualizaFormaPgt();
+		}, 5000);
+
+		 
 
 		$(document).on("change", "#formaPagamento", function(){
 
@@ -168,21 +177,16 @@
 		});
 
 
-		function atualizaFormaPgt(valorAtualizado){
+		function atualizaFormaPgt(){
 
 			$.ajax({
 				type: 'GET',
 				url: 'ajax/pag-formaPgt.php',
-				data: {valorAtualizado:valorAtualizado},
 				success: function (resultado) {
 					$("#formaPagamento").html(resultado);
 				}
 			});
 		}
-
-		$( document ).ready(function() {
-			atualizaFormaPgt(<?php number_format($_SESSION['valor_total'], 2) ?>);
-		})
 
 	</script>
 

@@ -86,12 +86,14 @@
             </div>
     </div>
     <?php include VIEWPATH."/rodape.php" ?>
+    
     <script src="../../js/jquery-3.4.1.min.js"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>		
     <script src="../../vendor/metisMenu/metisMenu.min.js"></script>
     <script src="../../dist/js/sb-admin-2.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
+
 
     <script src="../../vendor/bootstrap3/js/ie10-viewport-bug-workaround.js"></script>
     <script src="../../dist/js/plugins.js"></script>
@@ -142,11 +144,10 @@
             var producao = $("#producao").val();
             var delivery = $("#delivery").val();
             var prioridade = $("#prioridade").val();
-            if($("#categoria").val() == ""){
-                var categoria = 0;
-            }else{
-                var categoria = $("#categoria").val();
-            }
+            var categoria = $("#categoria").val();
+
+            console.log(categoria);
+
             var url = '../../ajax/cardapio-tabela.php';
             $.ajax({
                 type: 'POST',

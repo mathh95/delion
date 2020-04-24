@@ -94,6 +94,26 @@
             }
         }
 
+        function verificaIgual($parametro){
+            $usuario= new usuario();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_usuario WHERE usu_login = :parametro");
+                $stmte->bindValue(":parametro", $parametro, PDO::PARAM_STR);
+                if($stmte->execute()){
+                        if($stmte->rowCount() > 0){
+                            while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                                $usuario->setCod_usuario($result->usu_pk_id);
+                                $usuario->setLogin($result->usu_login);
+                            }
+                        }
+                }
+                return $usuario;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
         function delete($cod_usuario){
             try{
                 $block=1;

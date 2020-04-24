@@ -8,10 +8,10 @@ $formasPgt = $controlFormaPgt->selectAll();
 $formaPgtFiltro = array();
 
 
-    if(!isset($_GET['valorAtualizado'])){
-        $valorAtualizado = number_format($_SESSION['valor_total'], 2);
+    if(!isset($_SESSION['valor_total'])){
+        $valorAtualizado = 0;
     }else{
-        $valorAtualizado = $_GET['valorAtualizado'];
+        $valorAtualizado = number_format($_SESSION['valor_total'], 2);
     }
 
 $valorAtualizado = floatval($valorAtualizado);
