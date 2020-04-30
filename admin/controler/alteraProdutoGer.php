@@ -79,7 +79,7 @@
 
 		if($result > -1 ){
 			$controle->insertHistoricoProduto($pk_id,$produto);
-			msgRedireciona('Alteração Realizada!','Produto alterado com sucesso!',1,'../view/admin/cardapioLista.php');
+			msgRedireciona('Alteração Realizada!','Produto alterado com sucesso!',1,'../view/admin/gerenciarCardapio.php');
 		}else{
 			alertJSVoltarPagina('Erro!','Erro ao alterar Produto!',2);
 			$produto->show();

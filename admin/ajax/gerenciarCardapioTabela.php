@@ -101,7 +101,7 @@ if(in_array('cardapio', $permissao)){
 			
 						}
 	
-						echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='produto-view.php?cod=".$item->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
+						echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='gerencia-produto-view.php?cod=".$item->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
 	
 					echo "</tr>";
 				}else{
