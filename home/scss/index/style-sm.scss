@@ -210,7 +210,6 @@ body, html{
         flex-flow: wrap;
         color: #ffffff;
         padding: 0;
-        font-family: $font_main;
         
             >div.navbar-social.navbar-collapse{
                 width: 100%;
@@ -247,7 +246,7 @@ body, html{
                 margin: 0 !important;
                 padding: 30px;
                 @include make-sm-column(3);
-				@include make-sm-column-offset(1);
+                @include make-sm-column-offset(1);
                 ul {
                     list-style-type: none;
                     a{
@@ -264,7 +263,7 @@ body, html{
                 margin-left: 0 !important;
                 img{
                     @include img-responsive();
-					@include center-block();
+                    @include center-block();
                     float: center;
                     position: relative;
                 }
@@ -280,7 +279,7 @@ body, html{
                 
                 
             }
-    }
+    }         
 
     > .rodape {
         height: 35px;

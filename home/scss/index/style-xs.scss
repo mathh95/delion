@@ -225,7 +225,7 @@ body, html{
                 }
             }
             >div.row.left{
-
+                display:none;
                 position: relative;
                 width: 100%;
                 text-decoration: none;
@@ -239,6 +239,7 @@ body, html{
                 }
             }
             >div.row.center{
+                display: none;
                 position: relative;
                 width: 100%;
                 ul {
@@ -252,6 +253,7 @@ body, html{
                 
             }
             >div.row.right{
+                display: none;
                 @include make-lg-column(3);
 				@include make-lg-column-offset(1);
                 width: 100%;

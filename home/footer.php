@@ -156,13 +156,7 @@
     //     }
     // });
 
-    $(document).ready(function() {
-        var largura = $(window).width();
-        if(largura >= 1200){
-            $('#myModal').modal('show');
-        }
-
-    });
+    
 
     $(".navbar-toggle li a").click(function() {
         if ( !$(this).parent().hasClass('dropdown') ) {
@@ -170,10 +164,7 @@
         }
     });
 
-    function fechar(){
-        $('#myModal').modal('hide');
-    }
-
+   
 
     function onLoad() {
         gapi.load('auth2', function() {
