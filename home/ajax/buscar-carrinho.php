@@ -19,7 +19,7 @@ include_once "../../admin/controler/controlEntrega.php";
 // include_once MODELPATH."/gerencia_site.php";
 include_once "../controler/controlEndereco.php";
 include_once "../utils/GoogleServices.php";
-// include_once ".././configuracaoCores.php";
+// include_once "../configuracaoCores.php";
 
 
 $itens = array();
