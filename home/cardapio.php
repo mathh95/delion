@@ -15,7 +15,7 @@
 
 	include_once MODELPATH."/adicional.php";
 
-	include_once "configuracaoCores.php";
+	include_once "./configuracaoCores.php";
 
 	$controleEmpresa = new controlerEmpresa(conecta());
 

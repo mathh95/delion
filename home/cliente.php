@@ -8,7 +8,7 @@ session_start();
     include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
 	include_once MODELPATH."/cliente.php";
 	include_once "controler/segurancaCliente.php";
-	include_once "configuracaoCores.php";
+	include_once "./configuracaoCores.php";
 
 	protegeCliente();
 

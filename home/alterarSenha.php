@@ -15,7 +15,7 @@
 	
 	include_once "controler/segurancaCliente.php";
 
-	include_once "configuracaoCores.php";
+	include_once "./configuracaoCores.php";
 
 	protegeCliente();
 

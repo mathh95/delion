@@ -10,7 +10,7 @@
 
 	include_once "../admin/controler/conexao.php";
 	include_once "controler/controlEmpresa.php";
-	include_once "configuracaoCores.php";
+	include_once "./configuracaoCores.php";
 
 	$controleEmpresa = new controlerEmpresa(conecta());
 	$empresa = $controleEmpresa->select(1,2);

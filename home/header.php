@@ -1,6 +1,6 @@
 <?php
     include_once "./controler/controlEmpresa.php";
-    include_once "configuracaoCores.php";
+    include_once "./configuracaoCores.php";
 ?>
 <head>
     <meta charset="utf-8">

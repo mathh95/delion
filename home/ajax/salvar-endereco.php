@@ -7,7 +7,7 @@ date_default_timezone_set('America/Sao_Paulo');
 include_once "../../admin/controler/conexao.php";
 include_once "../controler/controlEndereco.php";
 
-include_once "../configuracaoCores.php";
+include_once ".././configuracaoCores.php";
 
 $cod_cliente = $_SESSION['cod_cliente'];
 

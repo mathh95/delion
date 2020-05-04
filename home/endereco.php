@@ -6,7 +6,7 @@
 
 	include_once "controler/controlEmpresa.php";
 
-	include_once "configuracaoCores.php";
+	include_once "./configuracaoCores.php";
 
     $controleEmpresa=new controlerEmpresa(conecta()); 
 
