@@ -19,9 +19,8 @@
     <div class="container">
 
         <div class="logo">
-            <!-- <a href="index.php"><img src="/home/img/Logo.png"></a> -->
-            
-            <a href="index.php"><img src="/<?= $imagemLink ?>"></a>
+
+            <a href="index.php"><img src="/home/img/Logo.png"></a>
 
         </div>
         
