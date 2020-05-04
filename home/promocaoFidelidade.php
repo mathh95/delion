@@ -68,12 +68,7 @@
     $imagemLink = $config->getFoto();
     
     
-        if(empty($imagemLink)){
-            $imagemLink = "home/img/Logo_branca.png";
-
-        }else{
-            $imagemLink = "admin/".$imagemLink;
-        }
+       
 
 ?>
 
@@ -85,7 +80,7 @@
                         <h1>Programa fidelidade</h1>
                     </div>
                     <div class="logo-wrapper">
-                        <img id="logo" src="/<?= $imagemLink ?>">
+                        <img id="logo" src="/home/img/Logo_branca.png">
                     </div>
                     
                 </div>
