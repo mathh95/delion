@@ -5,8 +5,8 @@
 	include_once $_SERVER['DOCUMENT_ROOT']."/config.php"; 
 	include_once "../admin/controler/conexao.php";
 	include_once "controler/controlEmpresa.php";
-	include_once CONTROLLERPATH."/controlerGerenciaSite.php";
-	include_once MODELPATH."/gerencia_site.php";
+	// include_once CONTROLLERPATH."/controlerGerenciaSite.php";
+	// include_once MODELPATH."/gerencia_site.php";
 
 	$controleEmpresa = new controlerEmpresa(conecta());
 	$empresa = $controleEmpresa->select(1,2);
@@ -17,17 +17,20 @@
 	//include "./whats-config.php";
 
 	//Esquema de cores do gerenciar site
-	$controle=new controlerGerenciarSite($_SG['link']);
-	$config = $controle->selectConfigValida();
-	$corSec = $config->getCorSecundaria();
+	// $controle=new controlerGerenciarSite($_SG['link']);
+	// $config = $controle->selectConfigValida();
+	// $corSec = $config->getCorSecundaria();
 
-		if(empty($corSec)){
-			$corSec = "#C6151F";
-			$corPrim = "#D22730";
-		}else{
-			$corSec = $config->getCorSecundaria();
-			$corPrim = $config->getCorPrimaria();
-		}
+	// 	if(empty($corSec)){
+	// 		$corSec = "#C6151F";
+	// 		$corPrim = "#D22730";
+	// 	}else{
+	// 		$corSec = $config->getCorSecundaria();
+	// 		$corPrim = $config->getCorPrimaria();
+	// 	}
+
+		$corSec = "#C6151F";
+		$corPrim = "#D22730";
 ?>
 
 <!DOCTYPE html>

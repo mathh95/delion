@@ -364,6 +364,7 @@
                                 $cliente->setData_nasc($result->cli_data_nasc);
                                 $cliente->setTelefone($result->cli_telefone);
                                 $cliente->setStatus($result->cli_status);
+                                $cliente->setPontosFidelidade($result->cli_pontos_fidelidade);
                                 array_push($clientes,$cliente);
                             }
                         }else{
@@ -670,9 +671,9 @@
 
                 $clientes= array();
                 try{
-                    $parametro= "%" . $parametro . "%";
                     $stmt=$this->pdo->prepare("SELECT * FROM tb_cliente WHERE cli_nome LIKE :parametro OR cli_login_email LIKE :login OR cli_telefone LIKE :telefone");
-                    $stmt->bindParam(":parametro", $parametro, PDO::PARAM_STR);
+                    
+                    $stmte->bindValue(":parametro","%".$parametro."%");
                     $stmt->bindParam(":login", $parametro, PDO::PARAM_STR);
                     $stmt->bindValue(":telefone", $parametro);    
                     $executa=$stmt->execute();
