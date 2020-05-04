@@ -14,14 +14,14 @@
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/header/style-lg.css"/>
 </head>
 
-<header class="container-fluid" style="background-color: <?= $corPrim ?>">
+<header class="container-fluid">
 
     <div class="container">
 
         <div class="logo">
-            <!-- <a href="index.php"><img src="/home/img/Logo.png"></a> -->
+            <a href="index.php"><img src="/home/img/Logo.png"></a>
             
-            <a href="index.php"><img src="/<?= $imagemLink ?>"></a>
+            <!-- <a href="index.php"><img src="/"></a> -->
 
         </div>
         
@@ -60,7 +60,7 @@
 
         </div>
         <div class="active carrinho">
-            <a data-toggle="tooltip" title="Carrinho." href="carrinho.php" style="border-bottom: 4px solid <?= $corSec?>;">
+            <a data-toggle="tooltip" title="Carrinho." href="carrinho.php">
             
                 <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
                 <!-- <i style="color:white;" class="fas fa-shopping-cart fa-lg"></i>  -->
