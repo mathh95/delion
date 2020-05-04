@@ -50,6 +50,7 @@ if(in_array('cliente', $permissao)){
 					<th width='12%' style='text-align: center;'>Pontos de Fidelidade</th>
 					<th width='15%' style='text-align: center;'>Status</th>
 					<th width='12%' style='text-align: center;'>Editar</th>
+					<th width='12%' style='text-align: center;'>Detalhes</th>
 					<th width='12%' style='text-align: center;'>Apagar</th>
 				</tr>
 			<tbody>";
@@ -92,6 +93,7 @@ if(in_array('cliente', $permissao)){
 			<td style='text-align: center;' name='ptFidelidade'>".$ptFidelidade."</td>
 			<td style='text-align: center;' name='telefone'>".$status."</td>
 			<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='cliente-view.php?cod=".$cliente->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
+			<td style='text-align: center;' name='detalhes'><a style='font-size: 20px;' href='cliente-info.php?cod=".$cliente->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>&nbsp;Detalhes</button></a></td>
 			<td style='text-align: center;' name='status' ><button type='button' onclick=\"removeCliente(".$cliente->getPkId().");\" class='btn btn-kionux'><i class='fa fa-remove'></i>&nbsp;Desativar</button></td>
 		</tr>";
 		}
