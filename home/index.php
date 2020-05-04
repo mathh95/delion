@@ -7,9 +7,6 @@
 
 	include_once "controler/controlImagem.php";
 
-	include_once "controler/controlEmpresa.php";
-	include_once "configuracaoCores.php";
-
 	$controleEmpresa=new controlerEmpresa(conecta());
 
 	$empresa = $controleEmpresa->select(1,2);
@@ -194,92 +191,9 @@
 
 	</div>
 
-	<footer class="footer container-fluid" style="background-color: <?= $corPrim?>">
+	
 
-		<div class="navbar-social navbar-collapse" style="background-color: <?= $corSec?>">
-			<a href="https://www.facebook.com"><i class="fab fa-facebook"></i></a>
-			<a href="https://www.instagram.com"><i class=" fab fa-instagram"></i></a>
-		</div>
-
-		<div class="row left">
-			<ul>
-				<li>
-					<p class="bold-text"><b>Navegue</b></p>
-				</li>
-				<li>
-					<a href="sobre.php">Quem Somos</a>
-				</li>
-
-				<li>
-					<a href="eventos.php">Eventos</a>
-				</li>
-
-				<li>
-					<a href="promocaoFidelidade.php">Programa de Fidelidade</a>
-				</li>
-			</ul>
-			
-		</div>
-
-		
-		<div class="row center">
-
-			<ul>
-				<li>
-					<p class="bold-text"><b>A Empresa</b></p>
-				</li>
-
-				<li>
-					<a href="historia.php">História</a>
-				</li>
-
-				<li>
-					<a href="localizacao.php">Localização</a>
-				</li>
-
-				<li>
-					<a href="contato.php">Trabalhe Conosco</a>
-				</li>
-			</ul>
-		</div>
-		
-		<?php
-            $controle=new controlerGerenciarSite($_SG['link']);
-
-            // Mudar questão do select mais tarde
-            $config = $controle->selectConfigValida();
-			$imagemLink = $config->getFoto();
-
-				if(empty($imagemLink)){
-					$imagemLink = "home/img/logo_branca.png";
-				}else{
-					$imagemLink = $config->getFoto();
-					$imagemLink = "admin/".$imagemLink;
-				}
-
-        ?>
-
-
-		<div class="row right">
-			<div class="logo">
-		    	<img src=/<?= $imagemLink ?>>
-			</div>
-			<div class="endereco-footer">
-				<p class="bold-text"><b>
-					<?= $empresa->getEndereco(); ?><br>
-					<?= $empresa->getBairro(); ?> <br>  
-                    <?= $empresa->getCidade(); ?> - <?= $empresa->getEstado();?><br>
-                    CEP: <?=$empresa->getCep(); ?><br>
-                    Fone: <?= $empresa->getFone(); ?>
-				</b></p>
-			</div>
-			
-			
-			
-		</div>
-
-</footer>
-	<!-- <footer class=" container footer container-fluid">
+	<footer class=" container footer container-fluid">
 
 		<div class="navbar-social navbar-collapse">
 			<a href="https://www.facebook.com/delioncafe" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -345,7 +259,7 @@
 			
 		</div>
 
-	</footer> -->
+	</footer>
 
 <?php
 	include_once "./rodapeKionux.php";
@@ -480,7 +394,7 @@ $(document).ready(function(){
 	$("#cepModal").on("shown.bs.modal", function () {
 		$("#street_number").focus();
 	});
-	function fechar(){
+	 function fechar(){
         $('#myModal').modal('hide');
     }
 	$(document).ready(function() {
