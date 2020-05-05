@@ -122,7 +122,7 @@
 		</div>
 </nav>
 
-	<div class="container produtos" id="container-produtos" data-spy="scroll" data-target=".menu-lateral" data-offset="10">
+	<div class="container produtos" id="container-produtos" data-spy="scroll" data-target=".menu-lateral" data-offset="120px">
 		
 
 	</div>
@@ -198,8 +198,7 @@
 
 		//Scrollspy para deixar active a categoria atual.
 		$('body').scrollspy({ 
-			target: '#navbar-cardapio',
-			offset: 50 
+			target: '#navbar-cardapio'
 		});
 		// $('[data-spy="scroll"]').each(function () {
 		// 	var $spy = $(this).scrollspy('refresh')
@@ -212,13 +211,15 @@
 				if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
 				if (target.length == 0) target = $('html');
 				$('html, body').animate({ scrollTop: target.offset().top }, 600);
-				
 				return false;
 			});
 		});
 		//Scroll horizontal dos itens do menu de categorias 
 		$("#navbar-cardapio").on('activate.bs.scrollspy', event => {
-			$(event.target).find('a')[0].scrollIntoView();
+			let telaW = (window.innerWidth/2);
+			let elementoW = ($(event.target)[0].offsetWidth/2); 
+			$('#navbar-cardapio > div')[0].scrollLeft = ($(event.target)[0].offsetLeft - telaW)+ elementoW;
+			
 		});
 
 
