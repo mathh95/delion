@@ -2,7 +2,7 @@
 include_once MODELPATH."/gerencia_site.php";
 include_once "seguranca.php";
 
-protegePagina();
+protegePagina("cross_call");
 
 class controlerGerenciarSite{
     private $pdo;
