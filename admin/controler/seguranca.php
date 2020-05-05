@@ -116,10 +116,12 @@
         global $_SG;
         // echo "Visitante expluso";
         // Manda pra tela de login
-        session_destroy();
+        if (session_id()) {
+            session_destroy();
+        }
         // Remove as variáveis da sessão (caso elas existam)
         unset($_SESSION['usuarioID'], $_SESSION['usuarioNome'], $_SESSION['usuarioLogin'], $_SESSION['usuarioSenha']);
         
-        // header("Location: /admin/view/login.php");
+        header("Location: /admin/view/login.php");
     }
 ?>
