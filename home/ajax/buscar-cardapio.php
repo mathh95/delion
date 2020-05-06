@@ -13,9 +13,13 @@ include_once MODELPATH."/gerencia_site.php";
 include_once MODELPATH."/adicional.php";
 include_once "../configuracaoCores.php";
 
+include_once CONTROLLERPATH ."/controlFaixaHorario.php";
+
 include_once "../lib/alert.php";
 
 $controleAdicional = new controlerAdicional(conecta());
+
+$controle_faixa_horario = new controlerFaixaHorario(conecta());
 
 
 if(isset($_GET['search']) && !empty($_GET['search'])){
@@ -66,7 +70,7 @@ foreach ($categorias as $key_cat => $categoria) {
     $categoria_com_itens = 0;
     foreach ($itens as $key_item => $item){
         
-        // verifica se item disponível hoje e agora
+        // verifica se item disponível
         if(
             $item->getFlag_ativo()
         ){
@@ -90,18 +94,41 @@ foreach ($categorias as $key_cat => $categoria) {
                 
                     <div id='preco-add' class='pull-right'>
                         <strong  class='preco'>R$ ".$item->getPreco()."</strong>";
-                        
-                        //se disponível habilita compra
-                        if(
-                            $item->getDias_semana() &&
-                            in_array($hoje, json_decode($item->getDias_semana())) &&
-                            ($hora_atual >= $item->getProduto_horas_inicio() &&
-                            $hora_atual < $item->getProduto_horas_final()) &&
-                            $item->getFlag_servindo()
-                        ){
-                            
-                            echo "<button id='addCarrinho' data-cod='".$item->getPkId()."' class='btn btn-default' data-src_image='../admin/".$item->getFoto()."' data-arr_adicionais='".$item->getAdicional()."' style='background-color:".$corSec."; border: 1px solid ".$corPrim."'>Adicionar</button>";
 
+
+                        $disponivel_agora = false;
+                        $arr_dias_disponiveis = $item->getDias_semana();
+
+                        $faixas_horario = $controle_faixa_horario->selectByFkProduto($item->getPkId());
+                        
+                        // Se disponível todos os horários
+                        if (count($faixas_horario) == 0) {
+                            $disponivel_agora = true;
+                        }
+                        // Se disponível agora(horário)
+                        foreach ($faixas_horario as $key_fh => $faixa) {
+                            
+                            if (
+                                ($hora_atual >= $faixa->getInicio() &&
+                                $hora_atual < $faixa->getFinal())
+                            ) {
+                                $disponivel_agora = true;
+                            }
+                        }
+                        // Se disponível hoje e agora(horário) 
+                        if (
+                            $arr_dias_disponiveis &&
+                            in_array($hoje, json_decode($arr_dias_disponiveis)) &&
+                            $item->getFlag_servindo() &&
+                            $disponivel_agora
+                        ) {
+                            $disponivel_agora = true;
+                        }else{
+                            $disponivel_agora = false;
+                        }
+                        
+                        if($disponivel_agora){
+                            echo "<button id='addCarrinho' data-cod='".$item->getPkId()."' class='btn btn-default' data-src_image='../admin/".$item->getFoto()."' data-arr_adicionais='".$item->getAdicional()."' style='background-color:".$corSec."; border: 1px solid ".$corPrim."'>Adicionar</button>";
                         }else{
                             echo "<button id='addCarrinho' data-cod='".$item->getPkId()."' class='btn btn-default' disabled title='Indísponível 👩‍🍳' style='background-color:".$corSec."; border: 1px solid ".$corPrim."'>Indisponível 👩‍🍳</button>";
                         }

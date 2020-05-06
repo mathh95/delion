@@ -19,7 +19,7 @@ include_once MODELPATH."/produto.php";
                 "SELECT *, FAHO.faho_inicio, FAHO.faho_final
                 FROM tb_produto AS PRO 
                 INNER JOIN tb_faixa_horario AS FAHO
-                ON PRO.pro_fk_faixa_horario = FAHO.faho_pk_id 
+                ON PRO.pro_pk_id = FAHO.faho_fk_produto 
                 WHERE pro_pk_id IN (".implode(',', $itens).")";
 
             $sql = $this->pdo->query($sql);
@@ -420,10 +420,9 @@ include_once MODELPATH."/produto.php";
             $produtos = array();
             try{
                 $stmte = $this->pdo->prepare(
-                    "SELECT PRO.pro_pk_id, PRO.pro_nome, PRO.pro_preco, PRO.pro_desconto, PRO.pro_descricao, PRO.pro_foto, PRO.pro_flag_ativo, PRO.pro_flag_servindo, PRO.pro_flag_prioridade, PRO.pro_posicao, PRO.pro_flag_delivery, PRO.pro_arr_dias_semana, PRO.pro_arr_adicional, CA.cat_nome, FAHO.faho_inicio, FAHO.faho_final
+                    "SELECT *
                     FROM tb_produto AS PRO 
                     INNER JOIN tb_categoria AS CA ON PRO.pro_fk_categoria = CA.cat_pk_id
-                    INNER JOIN tb_faixa_horario AS FAHO ON PRO.pro_fk_faixa_horario = FAHO.faho_pk_id
                     WHERE PRO.pro_fk_categoria = :cat_pk_id AND PRO.pro_flag_ativo = 1
                     ORDER BY CA.cat_posicao ASC, PRO.pro_posicao ASC");
 
@@ -447,8 +446,6 @@ include_once MODELPATH."/produto.php";
                             $produto->setDelivery($result->pro_flag_delivery);
                             $produto->setPosicao($result->pro_posicao);
                             $produto->setDias_semana($result->pro_arr_dias_semana);
-                            $produto->setProduto_horas_inicio($result->faho_inicio);
-                            $produto->setProduto_horas_final($result->faho_final);
                             $produto->setAdicional($result->pro_arr_adicional);
                             array_push($produtos, $produto);
                         }
@@ -509,7 +506,7 @@ include_once MODELPATH."/produto.php";
                 INNER JOIN tb_fidelidade AS FID
                 ON PRO.pro_pts_resgate_fidelidade = :pts_resgate_fidelidade
                 INNER JOIN tb_faixa_horario AS FAHO
-                ON PRO.pro_fk_faixa_horario = FAHO.faho_pk_id
+                ON PRO.pro_pk_id = FAHO.faho_fk_produto
                 ORDER BY pro_pts_resgate_fidelidade ASC");
 
                 $stmte->bindParam(":pts_resgate_fidelidade", $pts_resgate_fidelidade , PDO::PARAM_INT);

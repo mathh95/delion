@@ -1,4 +1,7 @@
 <?php
+    
+    date_default_timezone_set('America/Sao_Paulo');
+
     include_once ROOTPATH."/config.php";
     include_once MODELPATH."/produto.php";
     include_once "seguranca.php";
@@ -11,8 +14,8 @@
         function insert($produto){
 
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO tb_produto(pro_nome, pro_preco, pro_flag_deletado, pro_flag_ativo, pro_flag_servindo,  pro_foto, pro_descricao, pro_flag_prioridade, pro_flag_delivery, pro_desconto, pro_arr_adicional, pro_arr_dias_semana, pro_fk_categoria, pro_fk_faixa_horario)
-                VALUES (:nome, :preco, :flag_deletado, :flag_ativo, :flag_servindo, :foto, :descricao, :flag_prioridade, :flag_delivery, :desconto, :arr_adicional, :arr_dias_semana, :fk_categoria, :fk_faixa_horario)" );
+                $stmte =$this->pdo->prepare("INSERT INTO tb_produto(pro_nome, pro_preco, pro_flag_deletado, pro_flag_ativo, pro_flag_servindo,  pro_foto, pro_descricao, pro_flag_prioridade, pro_flag_delivery, pro_desconto, pro_arr_adicional, pro_arr_dias_semana, pro_fk_categoria)
+                VALUES (:nome, :preco, :flag_deletado, :flag_ativo, :flag_servindo, :foto, :descricao, :flag_prioridade, :flag_delivery, :desconto, :arr_adicional, :arr_dias_semana, :fk_categoria)" );
 
                 $stmte->bindParam(":nome", $produto->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $produto->getPreco(), PDO::PARAM_STR);
@@ -27,16 +30,40 @@
                 $stmte->bindParam(":arr_adicional", $produto->getAdicional(), PDO::PARAM_STR);
                 $stmte->bindParam(":arr_dias_semana", $produto->getDias_semana(), PDO::PARAM_STR);
                 $stmte->bindParam(":fk_categoria", $produto->getCategoria(), PDO::PARAM_INT);
-                $stmte->bindParam(":fk_faixa_horario", $produto->getFkFaixaHorario(), PDO::PARAM_INT);
-
                 
                 $executa = $stmte->execute();
-                $hipr_fk_produto = $this->pdo->lastInsertId();
+                $pk_produto = $this->pdo->lastInsertId();
 
                 if($executa){
-                    return $hipr_fk_produto;
-                }
-               else{
+
+                    // Insert turnos
+                    $inserted_faho = true;
+                    for ($i = 1; $i <= $produto->getNumeroTurnos(); $i++) {
+
+                        $i_aux = $i - 1;
+
+                        $faho_turno = $i;
+                        $faho_inicio = $produto->getProduto_horas_inicio()[$i_aux];
+                        $faho_final = $produto->getProduto_horas_final()[$i_aux];
+
+
+                        $stmte = $this->pdo->prepare("INSERT INTO tb_faixa_horario(faho_turno, faho_inicio, faho_final, faho_fk_produto)
+                        VALUES (:faho_turno, :faho_inicio, :faho_final, :faho_fk_produto)");
+                        $stmte->bindParam(":faho_turno", $faho_turno, PDO::PARAM_INT);
+                        $stmte->bindParam(":faho_inicio", $faho_inicio, PDO::PARAM_STR);
+                        $stmte->bindParam(":faho_final", $faho_final, PDO::PARAM_STR);
+                        $stmte->bindParam(":faho_fk_produto", $pk_produto);
+
+                        $inserted_faho = $stmte->execute();
+                    }
+
+                    if (!$inserted_faho) {
+                        return -1;
+                    }
+                    
+                    return $pk_produto;
+
+                }else{
                     return -1;
                 }
             }
@@ -182,8 +209,6 @@
 
                 $stmte = $this->pdo->prepare("SELECT *
                 FROM tb_produto AS PRO
-                LEFT JOIN tb_faixa_horario AS FAHO
-                ON PRO.pro_fk_faixa_horario = FAHO.faho_pk_id
                 WHERE pro_pk_id = :pk_id");
 
                 $stmte->bindParam(":pk_id", $pk_id , PDO::PARAM_INT);
@@ -209,9 +234,6 @@
 
                         $produto->setCategoria($result->pro_fk_categoria);
 
-                        $produto->setFkFaixaHorario($result->pro_fk_faixa_horario);
-                        $produto->setProduto_horas_inicio($result->faho_inicio);
-                        $produto->setProduto_horas_final($result->faho_final);
                     }
                 }
 
@@ -362,9 +384,6 @@
                             $produto->setPosicao($result->pro_posicao);
                             $produto->setDias_semana($result->pro_arr_dias_semana);
 
-                            $produto->setFkFaixaHorario($result->pro_fk_faixa_horario);
-                            $produto->setProduto_horas_inicio($result->faho_inicio);
-                            $produto->setProduto_horas_final($result->faho_final);
                             array_push($produtos, $produto);
                         }
                     }

@@ -3,7 +3,7 @@
 	protegePagina();
 
 	// mysql_set_charset('utf8');
-	// date_default_timezone_set('America/Sao_Paulo');
+	date_default_timezone_set('America/Sao_Paulo');
 
     include_once CONTROLLERPATH."/controlerGerenciaSite.php";
     include_once MODELPATH."/gerencia_site.php";
