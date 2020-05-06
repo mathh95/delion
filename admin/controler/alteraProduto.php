@@ -3,7 +3,7 @@
 	protegePagina();
 
 	// mysql_set_charset('utf8');
-	// date_default_timezone_set('America/Sao_Paulo');
+	date_default_timezone_set('America/Sao_Paulo');
 
 	include_once "controlProduto.php";
 	include_once "../model/produto.php";

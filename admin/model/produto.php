@@ -23,9 +23,9 @@
         private $pro_fk_fidelidade;
         
         //dependentes
-        private $pro_fk_faixa_horario;
-        private $pro_horas_inicio;
-        private $pro_horas_final;
+        private $pro_numero_turnos;
+        private $pro_arr_horas_inicio;
+        private $pro_arr_horas_final;
 
 
         function getPkId(){
@@ -75,21 +75,22 @@
             return $this->pro_arr_dias_semana;
         }
 
+        function getNumeroTurnos(){
+            return $this->pro_numero_turnos;
+        }
+
         function getProduto_horas_inicio(){
-            return $this->pro_horas_inicio;
+            return $this->pro_arr_horas_inicio;
         }
 
         function getProduto_horas_final(){
-            return $this->pro_horas_final;
+            return $this->pro_arr_horas_final;
         }
 
         function getPosicao(){
             return $this->pro_posicao;
         }
 
-        function getFkFaixaHorario(){
-            return $this->pro_fk_faixa_horario;
-        }
 
         function getPtsResgateFidelidade(){
             return $this->pro_pts_resgate_fidelidade;
@@ -147,20 +148,20 @@
         }
         
         
-        function setProduto_horas_inicio($pro_horas_inicio){
-            $this->pro_horas_inicio=$pro_horas_inicio;
+        function setNumeroTurnos($pro_numero_turnos){
+            $this->pro_numero_turnos=$pro_numero_turnos;
+        }
+
+        function setProduto_horas_inicio($pro_arr_horas_inicio){
+            $this->pro_arr_horas_inicio=$pro_arr_horas_inicio;
         }
         
-        function setProduto_horas_final($pro_horas_final){
-            $this->pro_horas_final=$pro_horas_final;
+        function setProduto_horas_final($pro_arr_horas_final){
+            $this->pro_arr_horas_final=$pro_arr_horas_final;
         }
         
         function setPosicao($pro_posicao){
             $this->pro_posicao=$pro_posicao;
-        }
-
-        function setFkFaixaHorario($pro_fk_faixa_horario){
-            $this->pro_fk_faixa_horario=$pro_fk_faixa_horario;
         }
 
         function setPtsResgateFidelidade($pro_pts_resgate_fidelidade){
@@ -195,7 +196,7 @@
         function __construct(){
         }
 
-        function construct($pro_nome, $pro_preco, $pro_desconto, $pro_descricao,$pro_foto, $pro_categoria, $pro_flag_ativo, $pro_flag_servindo,$pro_prioridade,$pro_delivery, $pro_adicional, $pro_arr_dias_semana, $pro_turno, $pro_horas_inicio, $pro_horas_final){
+        function construct($pro_nome, $pro_preco, $pro_desconto, $pro_descricao,$pro_foto, $pro_categoria, $pro_flag_ativo, $pro_flag_servindo,$pro_prioridade,$pro_delivery, $pro_adicional, $pro_arr_dias_semana, $pro_turno, $pro_arr_horas_inicio, $pro_arr_horas_final){
             $this->pro_nome=$pro_nome;
             $this->pro_preco=$pro_preco;
             $this->pro_desconto=$pro_desconto;
@@ -209,11 +210,11 @@
             $this->pro_adicional=$pro_adicional;
             $this->pro_arr_dias_semana=$pro_arr_dias_semana;
             $this->pro_turno=$pro_turno;
-            $this->pro_horas_inicio=$pro_horas_inicio;
-            $this->pro_horas_final=$pro_horas_final;
+            $this->pro_arr_horas_inicio=$pro_arr_horas_inicio;
+            $this->pro_arr_horas_final=$pro_arr_horas_final;
         }
 
-        function constructFkFaixa($pro_nome, $pro_preco, $pro_desconto, $pro_descricao,$pro_foto, $pro_categoria, $pro_flag_deletado, $pro_flag_ativo, $pro_flag_servindo,$pro_prioridade,$pro_delivery, $pro_adicional, $pro_arr_dias_semana, $pro_fk_faixa_horario){
+        function constructFaixas($pro_nome, $pro_preco, $pro_desconto, $pro_descricao,$pro_foto, $pro_categoria, $pro_flag_deletado, $pro_flag_ativo, $pro_flag_servindo, $pro_prioridade, $pro_delivery, $pro_adicional, $pro_arr_dias_semana, $faho_numero_turnos, $faho_arr_horas_inicio=array(), $faho_arr_horas_final=array()){
             $this->pro_nome=$pro_nome;
             $this->pro_preco=$pro_preco;
             $this->pro_desconto=$pro_desconto;
@@ -227,7 +228,10 @@
             $this->pro_delivery=$pro_delivery;
             $this->pro_adicional=$pro_adicional;
             $this->pro_arr_dias_semana=$pro_arr_dias_semana;
-            $this->pro_fk_faixa_horario=$pro_fk_faixa_horario;
+
+            $this->pro_numero_turnos = $faho_numero_turnos;
+            $this->pro_arr_horas_inicio = $faho_arr_horas_inicio;
+            $this->pro_arr_horas_final = $faho_arr_horas_final;
         }
 
 
@@ -241,8 +245,8 @@
             echo "Ativo:".$this->pro_flag_ativo."<br>";
             echo "Dias da semana: ".$this->pro_arr_dias_semana."<br>";
             echo "Turnos da semana: ".$this->pro_turno."<br>";
-            echo "Hora de Inicio do Turno: ".$this->pro_horas_inicio."<br>";
-            echo "Hora de Fim do Turno: ".$this->pro_horas_final."<br>";
+            echo "Hora de Inicio do Turno: ".$this->pro_arr_horas_inicio."<br>";
+            echo "Hora de Fim do Turno: ".$this->pro_arr_horas_final."<br>";
 
         }
     }

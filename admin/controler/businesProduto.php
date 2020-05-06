@@ -3,7 +3,7 @@
 	protegePagina();
 
 	// mysql_set_charset('utf8');
-	// date_default_timezone_set('America/Sao_Paulo');
+	date_default_timezone_set('America/Sao_Paulo');
 
 	include_once "controlProduto.php";
 	include_once "../lib/alert.php";
@@ -42,9 +42,7 @@
 		}else{
 			$arr_dias_semana = NULL;
 		}
-		
-		$fk_faixa_horario = addslashes(htmlspecialchars($_POST['faixa_horario']));
-		if($fk_faixa_horario == "") $fk_faixa_horario = null;
+
 
 		$flag_ativo = (isset($_POST['flag_ativo'])||!empty($_POST['flag_ativo'])) && $_POST['flag_ativo'] == 1 ? 1 : 0 ;
 
@@ -56,9 +54,13 @@
 
 		$flag_deletado = 0;
 
-		$produto = new produto();
-		$produto->constructFkFaixa($nome, $preco, $desconto, $descricao, $foto, $fk_categoria, $flag_deletado ,$flag_ativo, $flag_servindo, $prioridade, $delivery, $arr_adicional, $arr_dias_semana, $fk_faixa_horario);
+		// Turnos
+		$numero_turnos = $_POST['turno'];
+		$arr_faho_inicio = $_POST['faho_inicio'];
+		$arr_faho_final = $_POST['faho_final'];
 
+		$produto = new produto();
+		$produto->constructFaixas($nome, $preco, $desconto, $descricao, $foto, $fk_categoria, $flag_deletado ,$flag_ativo, $flag_servindo, $prioridade, $delivery, $arr_adicional, $arr_dias_semana, $numero_turnos, $arr_faho_inicio, $arr_faho_final);
 				
 		$controle = new controlerProduto($_SG['link']);
 		
@@ -81,7 +83,6 @@
 			if( $cod_produto > -1){
 				$controle->insertHistoricoProduto($cod_produto,$produto);
 				msgRedireciona('Cadastro Realizado!','Produto cadastrado com sucesso!',1,'../view/admin/produto.php');
-
 			}else{
 				alertJSVoltarPagina('Erro!', 'Erro ao inserir Produto',2);
 				$produto->show();
