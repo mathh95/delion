@@ -33,6 +33,7 @@
 
     $controle = new controlerProduto($_SG['link']);
     $produto = $controle->selectById($_GET['cod']);
+    $codPag = $_GET['codPag'];
 
     // $adicionais_associados = json_decode($produto->getAdicional());
     $controleAdicional = new controlerAdicional($_SG['link']);
@@ -87,6 +88,8 @@
 
                                 <input class="form-control" name="cod" id ="cod" type="hidden" value="<?= $produto->getPkId();?>">
 
+                                <input class="form-control" name="codPag" id ="codPag" type="hidden" value="<?= $codPag;?>">
+
                                 <input class="form-control" name="imagem" id ="imagem" type="hidden" value="<?= $produto->getFoto();?>">
 
                             </div>
@@ -99,7 +102,7 @@
 
                                 <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
 
-                                <input class="form-control" placeholder="Preço" name="preco" required id="preco" type="number" step="0.01" min="1" max="99" value="<?=$produto->getPreco(); ?>">
+                                <input class="form-control" placeholder="Preço" name="preco" required id="preco" type="number" step="0.01" min="0.1" max="99" value="<?=$produto->getPreco(); ?>">
 
                             </div>
 

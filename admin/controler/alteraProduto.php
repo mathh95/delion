@@ -19,6 +19,10 @@
 		$nome = addslashes(htmlspecialchars($_POST['nome']));
 		$preco = addslashes(htmlspecialchars($_POST['preco']));
 		$desconto = addslashes(htmlspecialchars($_POST['desconto']));
+		$codPag = addslashes(htmlspecialchars($_POST['codPag']));
+
+		// var_dump($codPag);
+		// exit;
 		if($desconto == "") $desconto = null;
 
 		$descricao = addslashes(htmlspecialchars($_POST['descricao']));
@@ -79,7 +83,11 @@
 
 		if($result > -1 ){
 			$controle->insertHistoricoProduto($pk_id,$produto);
-			msgRedireciona('Alteração Realizada!','Produto alterado com sucesso!',1,'../view/admin/cardapioLista.php');
+			if($codPag == 1){
+				msgRedireciona('Alteração Realizada!','Produto alterado com sucesso!',1,'../view/admin/cardapioLista.php');
+			}else{
+				msgRedireciona('Alteração Realizada!','Produto alterado com sucesso!',1,'../view/admin/gerenciarCardapio.php');
+			}
 		}else{
 			alertJSVoltarPagina('Erro!','Erro ao alterar Produto!',2);
 			$produto->show();

@@ -94,7 +94,7 @@
 
                                 <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
 
-                                <input class="form-control" placeholder="Preço" name="preco" required id="preco" type="number" step="0.01" min="1" max="999">
+                                <input class="form-control" placeholder="Preço" name="preco" required id="preco" type="number" step="0.01" min="0.1" max="999">
 
                             </div>
 
