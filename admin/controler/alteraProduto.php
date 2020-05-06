@@ -83,7 +83,7 @@
 
 		if($result > -1 ){
 			$controle->insertHistoricoProduto($pk_id,$produto);
-			if($codPag == 1){
+			if($codPag == "cardapioTabela"){
 				msgRedireciona('Alteração Realizada!','Produto alterado com sucesso!',1,'../view/admin/cardapioLista.php');
 			}else{
 				msgRedireciona('Alteração Realizada!','Produto alterado com sucesso!',1,'../view/admin/gerenciarCardapio.php');

@@ -15,7 +15,7 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 $controle_cardapio=new controlerProduto($_SG['link']);
 $controle_categoria=new controlerCategoria($_SG['link']);
 //Código da página para redirecionamento
-$pageCod = 2;
+$pageCod = "gerenciarTabela";
 
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());

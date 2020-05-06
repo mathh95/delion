@@ -13,7 +13,7 @@ $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 //Código da página para redirecionamento
-$pageCod = 1;
+$pageCod = "cardapioTabela";
 
 $controle=new controlerProduto($_SG['link']);
 if((isset($_POST['nome']) && 
