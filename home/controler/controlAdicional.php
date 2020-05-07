@@ -6,12 +6,12 @@
         private $pdo;
         function insert($adicional){
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO tb_adicional(adi_nome, adi_preco, adi_desconto, adi_flag_ativo)
-                VALUES (:nome, :preco, :desconto, :flag_ativo)");
+                $stmte =$this->pdo->prepare("INSERT INTO tb_adicional(adi_nome, adi_preco, adi_flag_ativo, adi_fk_categoria)
+                VALUES (:nome, :preco, :flag_ativo, :fk_categoria)");
                 $stmte->bindParam(":nome", $adicional->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $adicional->getPreco());
-                $stmte->bindParam(":desconto", $adicional->getDesconto());
                 $stmte->bindParam(":flag_ativo", $adicional->getFlag_ativo());
+                $stmte->bindParam(":fk_categoria", $adicional->getFkCategoria(), PDO::PARAM_INT);
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;

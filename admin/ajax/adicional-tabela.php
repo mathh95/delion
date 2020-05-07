@@ -25,6 +25,7 @@ if(in_array('adicional', $permissao)){
 					<th width='20%' style='text-align: center;'>Nome</th>
 					<th width='15%' style='text-align: center;'>Preço</th>
 					<th width='15%' style='text-align: center;'>Ativo</th>
+					<th width='15%' style='text-align: center;'>Categoria</th>
 				</tr>
 			<tbody>";
 			foreach ($adicionais as &$adicional) {
@@ -36,7 +37,15 @@ if(in_array('adicional', $permissao)){
 				echo "<tr name='resultado' id='status".$adicional->getPkId()."'>
 					<td style='text-align: center;' name='nome'>".$adicional->getNome()."</td>
 					<td style='text-align: center;' name='preco'>".$adicional->getPreco()."</td>
-				<td style='text-align: center;' name='flag_ativo'>".$flag."</td>
+					<td style='text-align: center;' name='flag_ativo'>".$flag."</td>";
+
+					if($adicional->getFkCategoria() == ""){
+						echo "<td style='text-align: center;' name='flag_ativo'>Sem Categoria</td>";
+					}else{
+						echo "<td style='text-align: center;' name='flag_ativo'>".$adicional->getFkCategoria()."</td>";
+						
+					}
+					echo "
 					<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='adicional-view.php?cod=".$adicional->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>&nbsp;&nbsp;Editar</button></a></td>
 					<td style='text-align: center;' name='status'><a href='../../ajax/excluir-adicional.php?cod=".$adicional->getPkId()."'><button type='button' class='btn btn-kionux'><i class='fa fa-remove'></i>&nbsp;&nbsp;Excluir</button></a></td>
 				</tr>";

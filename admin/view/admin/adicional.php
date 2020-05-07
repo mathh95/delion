@@ -12,13 +12,22 @@
 
     include_once MODELPATH."/adicional.php";
 
+    include_once CONTROLLERPATH . "/controlCategoria.php";
+
+    include_once MODELPATH . "/categoria.php";
+
+    
+    
     $_SESSION['permissaoPagina']=0;
-
+    
     protegePagina();
-
+    
     $controleUsuario = new controlerUsuario($_SG['link']);
-
+    
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
+
+    $controleCategoria = new controlerCategoria($_SG['link']);
+    $categorias = $controleCategoria->selectAll();
 
     //usado para coloração customizada da página selecionada na navbar
     $arquivo_pai = basename(__FILE__, '.php');
@@ -85,6 +94,22 @@
 
                             <br>
 
+                            <small>Categoria *: </small>
+
+                            <select class="form-control" name="categoria" id="categoria" required>
+
+                                <option value="">Selecionar Categoria</option>
+
+                                <?php
+
+                                foreach ($categorias as $categoria) {
+                                    echo "<option value='" . $categoria->getPkId() . "'>" . $categoria->getNome() . "</option>";
+                                }
+                                ?>
+
+                            </select>
+                            
+                            <br>
 
                             <small>Informar se o item está ativo:</small>
 

@@ -12,6 +12,10 @@
 
     include_once MODELPATH."/adicional.php";
 
+    include_once CONTROLLERPATH . "/controlCategoria.php";
+
+    include_once MODELPATH . "/categoria.php";
+
     $_SESSION['permissaoPagina']=0;
 
     protegePagina();
@@ -21,6 +25,9 @@
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
     $controle=new controlerAdicional($_SG['link']);
+
+    $controleCategoria = new controlerCategoria($_SG['link']);
+    $categorias = $controleCategoria->selectAll();
 
     $adicional = $controle->selectId($_GET['cod']);
 
@@ -90,6 +97,23 @@
 
                             </div>
 
+                            <br>
+
+                            <small>Categoria *: </small>
+
+                            <select class="form-control" name="categoria" id="categoria" required>
+
+                                <option value="">Selecionar Categoria</option>
+
+                                <?php
+
+                                foreach ($categorias as $categoria) {
+                                    echo "<option value='" . $categoria->getPkId() . "'>" . $categoria->getNome() . "</option>";
+                                }
+                                ?>
+
+                            </select>
+                            
                             <br>
 
 

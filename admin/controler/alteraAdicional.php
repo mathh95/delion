@@ -17,6 +17,7 @@
 		$cod_adicional= addslashes(htmlspecialchars($_POST['cod']));
 		$nome= addslashes(htmlspecialchars($_POST['nome']));
 		$preco = addslashes(htmlspecialchars($_POST['preco']));
+		$categoria = addslashes(htmlspecialchars($_POST['categoria']));
 		if(isset($_POST['flag_ativo']) && !empty($_POST['flag_ativo'])){
 			$flag_ativo = 1;
 		}else{
@@ -24,7 +25,7 @@
 		}
         
 		$adicional = new adicional();
-		$adicional->construct($nome, $preco, $flag_ativo);
+		$adicional->construct($nome, $preco, $flag_ativo, $categoria);
 
 		$adicional->setPkId($cod_adicional);
 		$controle = new controlerAdicional($_SG['link']);
