@@ -236,13 +236,13 @@
 
                                     <option value="">Faixa de Horário</option>
                                     <?php
-                                        $faixas_horario = $controleFaixaHorario->selectAll();
-                                        foreach ($faixas_horario as $faixa) {
-                                            $ini = date("H:i", strtotime($faixa->getInicio()));
-                                            $final = date("H:i", strtotime($faixa->getFinal()));
-                                            $txt = $ini."h - ".$final."h";
-                                            echo "<option value='".$faixa->getPkId()."' id='".$faixa->getPkId()."'>".$txt."</option>";
-                                        }  
+                                        // $faixas_horario = $controleFaixaHorario->selectAll();
+                                        // foreach ($faixas_horario as $faixa) {
+                                        //     $ini = date("H:i", strtotime($faixa->getInicio()));
+                                        //     $final = date("H:i", strtotime($faixa->getFinal()));
+                                        //     $txt = $ini."h - ".$final."h";
+                                        //     echo "<option value='".$faixa->getPkId()."' id='".$faixa->getPkId()."'>".$txt."</option>";
+                                        // }  
                                     ?>
                                 </select>
                                 </div>

@@ -14,12 +14,12 @@ include_once MODELPATH."/adicional.php";
 include_once "../configuracaoCores.php";
 
 include_once CONTROLLERPATH ."/controlFaixaHorario.php";
+$controle_faixa_horario = new controlerFaixaHorario(conecta());
 
 include_once "../lib/alert.php";
 
 $controleAdicional = new controlerAdicional(conecta());
 
-$controle_faixa_horario = new controlerFaixaHorario(conecta());
 
 
 if(isset($_GET['search']) && !empty($_GET['search'])){

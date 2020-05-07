@@ -16,10 +16,8 @@ include_once MODELPATH."/produto.php";
             $array = array();
 
             $sql = 
-                "SELECT *, FAHO.faho_inicio, FAHO.faho_final
-                FROM tb_produto AS PRO 
-                INNER JOIN tb_faixa_horario AS FAHO
-                ON PRO.pro_pk_id = FAHO.faho_fk_produto 
+                "SELECT *
+                FROM tb_produto AS PRO
                 WHERE pro_pk_id IN (".implode(',', $itens).")";
 
             $sql = $this->pdo->query($sql);
