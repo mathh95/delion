@@ -209,6 +209,7 @@
             $this->pro_delivery=$pro_delivery;
             $this->pro_adicional=$pro_adicional;
             $this->pro_arr_dias_semana=$pro_arr_dias_semana;
+            
             $this->pro_turno=$pro_turno;
             $this->pro_arr_horas_inicio=$pro_arr_horas_inicio;
             $this->pro_arr_horas_final=$pro_arr_horas_final;
