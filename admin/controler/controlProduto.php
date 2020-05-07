@@ -35,34 +35,7 @@
                 $pk_produto = $this->pdo->lastInsertId();
 
                 if($executa){
-
-                    // Insert turnos
-                    $inserted_faho = true;
-                    for ($i = 1; $i <= $produto->getNumeroTurnos(); $i++) {
-
-                        $i_aux = $i - 1;
-
-                        $faho_turno = $i;
-                        $faho_inicio = $produto->getProduto_horas_inicio()[$i_aux];
-                        $faho_final = $produto->getProduto_horas_final()[$i_aux];
-
-
-                        $stmte = $this->pdo->prepare("INSERT INTO tb_faixa_horario(faho_turno, faho_inicio, faho_final, faho_fk_produto)
-                        VALUES (:faho_turno, :faho_inicio, :faho_final, :faho_fk_produto)");
-                        $stmte->bindParam(":faho_turno", $faho_turno, PDO::PARAM_INT);
-                        $stmte->bindParam(":faho_inicio", $faho_inicio, PDO::PARAM_STR);
-                        $stmte->bindParam(":faho_final", $faho_final, PDO::PARAM_STR);
-                        $stmte->bindParam(":faho_fk_produto", $pk_produto);
-
-                        $inserted_faho = $stmte->execute();
-                    }
-
-                    if (!$inserted_faho) {
-                        return -1;
-                    }
-                    
                     return $pk_produto;
-
                 }else{
                     return -1;
                 }

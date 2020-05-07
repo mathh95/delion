@@ -29,6 +29,40 @@
            }
         }
 
+        function insertFaixas($fk_produto, $numero_turnos, $arr_faho_inicio, $arr_faho_final){
+
+            try{
+                // Insert turnos
+                $inserted_faho = true;
+                for ($i = 1; $i <= $numero_turnos; $i++) {
+
+                    $i_aux = $i - 1;
+
+                    $faho_turno = $i;
+                    $faho_inicio = $arr_faho_inicio[$i_aux];
+                    $faho_final = $arr_faho_final[$i_aux];
+
+
+                    $stmte = $this->pdo->prepare("INSERT INTO tb_faixa_horario(faho_turno, faho_inicio, faho_final, faho_fk_produto)
+                                VALUES (:faho_turno, :faho_inicio, :faho_final, :faho_fk_produto)");
+                    $stmte->bindParam(":faho_turno", $faho_turno, PDO::PARAM_INT);
+                    $stmte->bindParam(":faho_inicio", $faho_inicio, PDO::PARAM_STR);
+                    $stmte->bindParam(":faho_final", $faho_final, PDO::PARAM_STR);
+                    $stmte->bindParam(":faho_fk_produto", $fk_produto);
+
+                    $inserted_faho = $stmte->execute();
+                }
+
+                if (!$inserted_faho) {
+                    return -1;
+                }              
+            }
+           catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+           }
+        }
+
         function update($faixa_horario){
             try{
                 $stmte =$this->pdo->prepare("UPDATE tb_faixa_horario SET faho_inicio=:inicio, faho_final=:final, faho_turno=:tuno WHERE faho_pk_id=:pk_id");
@@ -120,6 +154,19 @@
             try{
                 $stmt = $this->pdo->prepare("DELETE FROM tb_faixa_horario WHERE faho_pk_id = :parametro");
                 $stmt->bindParam(":parametro", $parametro , PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                return -1;
+            }
+        }
+
+        function deleteByFkProduto($fk_produto){
+            try{
+                $stmt = $this->pdo->prepare("DELETE FROM tb_faixa_horario WHERE faho_fk_produto = :fk_produto");
+                $stmt->bindParam(":fk_produto", $fk_produto , PDO::PARAM_INT);
                 $stmt->execute();
                 return 1;
             }

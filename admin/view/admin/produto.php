@@ -259,6 +259,7 @@ $arquivo_pai = basename(__FILE__, '.php');
 
                     <br>
                     <br>
+                    
                     <div class="col-md-7">
 
                         <small>Quais adicionais estarão disponiveis para esse produto:</small>
@@ -332,19 +333,12 @@ $arquivo_pai = basename(__FILE__, '.php');
         tinymce.init({
             selector: 'textarea',
             plugins: [
-
                 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-
                 'searchreplace wordcount visualblocks visualchars code fullscreen',
-
                 'insertdatetime media nonbreaking save table contextmenu directionality',
-
                 'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc help'
-
             ],
-
             toolbar1: 'undo redo | insert | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link |  forecolor backcolor '
-
         });
 
         $('.turnos').hide();
