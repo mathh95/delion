@@ -418,10 +418,10 @@ include_once MODELPATH."/produto.php";
             $produtos = array();
             try{
                 $stmte = $this->pdo->prepare(
-                    "SELECT *
+                "SELECT *
                     FROM tb_produto AS PRO 
                     INNER JOIN tb_categoria AS CA ON PRO.pro_fk_categoria = CA.cat_pk_id
-                    WHERE PRO.pro_fk_categoria = :cat_pk_id AND PRO.pro_flag_ativo = 1
+                    WHERE PRO.pro_fk_categoria = :cat_pk_id AND PRO.pro_flag_ativo = 1 AND PRO.pro_flag_deletado = 0
                     ORDER BY CA.cat_posicao ASC, PRO.pro_posicao ASC");
 
                 $stmte->bindValue(":cat_pk_id", $cat_pk_id , PDO::PARAM_INT);
@@ -503,6 +503,7 @@ include_once MODELPATH."/produto.php";
                 FROM tb_produto AS PRO
                 INNER JOIN tb_fidelidade AS FID
                 ON PRO.pro_pts_resgate_fidelidade = :pts_resgate_fidelidade
+                WHERE PRO.pro_flag_deletado = 0
                 ORDER BY pro_pts_resgate_fidelidade ASC");
 
                 $stmte->bindParam(":pts_resgate_fidelidade", $pts_resgate_fidelidade , PDO::PARAM_INT);
