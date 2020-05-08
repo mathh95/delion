@@ -258,22 +258,24 @@ $arquivo_pai = basename(__FILE__, '.php');
                     </div>
 
                     <br>
-                    <br>
                     
-                    <div class="col-md-7">
+                    <div class="col-md-7 adicionais-checkbox">
 
                         <small>Quais adicionais estarão disponiveis para esse produto:</small>
                         <br>
+                        <div id="adicionais-checkbox-list">
+                            <?php
 
-                        <?php
+                                foreach ($adicionais as $adicional) { ?>
 
-                        foreach ($adicionais as $adicional) { ?>
+                                    <input type="checkbox" name="adicional[]" value="<?= $adicional->getPkId() ?>"> <?= $adicional->getNome() ?>
+                                    <br>
 
-                            <input type="checkbox" name="adicional[]" value="<?= $adicional->getPkId() ?>"> <?= $adicional->getNome() ?>
-                            <br>
-
-                        <?php } ?>
+                                <?php } ?>
+                        </div>
                     </div>
+                    
+                    <br>
 
                     <div class="col-md-7">
 
@@ -341,6 +343,16 @@ $arquivo_pai = basename(__FILE__, '.php');
             toolbar1: 'undo redo | insert | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link |  forecolor backcolor '
         });
 
+        $('.adicionais-checkbox').hide();
+        $('#categoria').on('change',function(e){
+            $.get('../../ajax/adicional-categoria.php', {id:$('#categoria option:checked').val()}, 
+            function(data){
+                $('.adicionais-checkbox').show();
+                $('#adicionais-checkbox-list').html(data);
+                console.log(data);
+            })
+        });
+
         $('.turnos').hide();
         $('#turno-selector').change(function() {
 
@@ -351,6 +363,8 @@ $arquivo_pai = basename(__FILE__, '.php');
                 $('#turno' + i).show();
             }
         });
+
+
     </script>
 
 </body>

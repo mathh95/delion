@@ -80,6 +80,31 @@
             }
         }
 
+        function selectAdiCategoria($parametro){
+            $adicionais = array();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_adicional WHERE adi_fk_categoria = :parametro");
+                $stmte->bindParam(":parametro", $parametro, PDO::PARAM_INT);
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                            $adicional = new adicional();
+                            $adicional->setPkId($result->adi_pk_id);
+                            $adicional->setNome($result->adi_nome);
+                            $adicional->setPreco($result->adi_preco);
+                            $adicional->setFlag_ativo($result->adi_flag_ativo);
+                            array_push($adicionais, $adicional);
+                        }
+                    }
+                }
+                return $adicionais;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+
         function verificaIgual($parametro){
             $adicional = new adicional();
             try{

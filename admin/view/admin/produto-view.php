@@ -38,7 +38,10 @@ $codPag = $_GET['codPag'];
 // $adicionais_associados = json_decode($produto->getAdicional());
 $controleAdicional = new controlerAdicional($_SG['link']);
 
-$adicionais = $controleAdicional->selectAll();
+$adicionais = $controleAdicional->selectAdiCategoria($produto->getCategoria());
+
+// var_dump($produto->getCategoria());
+// exit;
 
 $controleFaixaHorario = new controlerFaixaHorario($_SG['link']);
 $faixas_horario = $controleFaixaHorario->selectByFkProduto($_GET['cod']);
@@ -290,14 +293,13 @@ $arquivo_pai = basename(__FILE__, '.php');
                 <br>
                 <br>
 
-                <div class="col-md-7">
+                <div class="col-md-7 adicionais-checkbox">
                     <small>Quais são os adicionais disponiveis para este produto:</small>
 
                     <input type="hidden" value="<?= count($adicionais) ?>" name="quantidadeAdicionais">
                     <br>
 
-
-                    <div class="checkbox-adicionais">
+                    <div id="adicionais-checkbox-list" class="checkbox-adicionais">
                         <?php
                         foreach ($adicionais as $adicional) {
                             echo "
@@ -420,6 +422,17 @@ $arquivo_pai = basename(__FILE__, '.php');
 
             $("#turno-selector").val(numero_turnos).change();
         });
+
+        //adicionais
+        $('#categoria').on('change',function(e){
+        $.get('../../ajax/adicional-categoria.php', {id:$('#categoria option:checked').val()}, 
+        function(data){
+            $('.adicionais-checkbox').show();
+            $('#adicionais-checkbox-list').html(data);
+                console.log(data);
+            })
+        });
+
     </script>
 
 </body>
