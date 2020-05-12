@@ -154,7 +154,7 @@
 
                     <div class="pull-right">
 
-                    <a href="adicionalLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Alterar</a>
+                    <a href="adicionalLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair</a>
 
                     </div>
 

@@ -126,7 +126,7 @@
 
                     <div class="pull-right">
 
-                    <a href="eventoLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Salvar</a>
+                    <a href="eventoLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair</a>
 
                     </div>
 

@@ -92,7 +92,7 @@
 
                     <div class="pull-right">
 
-                    <a href="categoriaLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Cadastrar</a>
+                    <a href="categoriaLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair</a>
 
                     </div>
 
