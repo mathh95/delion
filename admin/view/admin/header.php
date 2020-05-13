@@ -286,8 +286,6 @@
 
                                     <li><a href="gerenciarCardapio.php">Gerenciar Cardápio</a></li>
 
-                                    <li><a href="gerenciarFaixaHorarios.php">Gerenciar Horários</a></li>
-
                                 </ul>
 
                             </li>

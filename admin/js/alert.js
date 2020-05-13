@@ -115,7 +115,7 @@ function msgConfirmacao(titulo,mensagem,funcaoSim,funcaoNao){
             btnCancelLabel: 'Não',
             btnCancelClass: 'btn-warning',
             btnOKLabel: 'Sim', 
-            btnOKClass: 'btn-success',
+            btnOKClass: 'btn-danger',
             callback: function(result) {
                 if(result) {
                     funcaoSim();

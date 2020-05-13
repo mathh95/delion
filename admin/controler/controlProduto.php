@@ -35,34 +35,7 @@
                 $pk_produto = $this->pdo->lastInsertId();
 
                 if($executa){
-
-                    // Insert turnos
-                    $inserted_faho = true;
-                    for ($i = 1; $i <= $produto->getNumeroTurnos(); $i++) {
-
-                        $i_aux = $i - 1;
-
-                        $faho_turno = $i;
-                        $faho_inicio = $produto->getProduto_horas_inicio()[$i_aux];
-                        $faho_final = $produto->getProduto_horas_final()[$i_aux];
-
-
-                        $stmte = $this->pdo->prepare("INSERT INTO tb_faixa_horario(faho_turno, faho_inicio, faho_final, faho_fk_produto)
-                        VALUES (:faho_turno, :faho_inicio, :faho_final, :faho_fk_produto)");
-                        $stmte->bindParam(":faho_turno", $faho_turno, PDO::PARAM_INT);
-                        $stmte->bindParam(":faho_inicio", $faho_inicio, PDO::PARAM_STR);
-                        $stmte->bindParam(":faho_final", $faho_final, PDO::PARAM_STR);
-                        $stmte->bindParam(":faho_fk_produto", $pk_produto);
-
-                        $inserted_faho = $stmte->execute();
-                    }
-
-                    if (!$inserted_faho) {
-                        return -1;
-                    }
-                    
                     return $pk_produto;
-
                 }else{
                     return -1;
                 }
@@ -75,7 +48,7 @@
         function update($produto){
             try{
 
-                $stmte = $this->pdo->prepare("UPDATE tb_produto SET pro_nome=:nome, pro_preco=:preco, pro_flag_deletado=:flag_deletado, pro_flag_ativo=:flag_ativo, pro_flag_servindo=:flag_servindo, pro_foto=:foto, pro_descricao=:descricao, pro_flag_prioridade=:flag_prioridade, pro_flag_delivery=:flag_delivery, pro_desconto=:desconto, pro_arr_adicional=:arr_adicional, pro_arr_dias_semana=:arr_dias_semana, pro_fk_categoria=:fk_categoria, pro_fk_faixa_horario=:fk_faixa_horario WHERE pro_pk_id=:pk_id");
+                $stmte = $this->pdo->prepare("UPDATE tb_produto SET pro_nome=:nome, pro_preco=:preco, pro_flag_deletado=:flag_deletado, pro_flag_ativo=:flag_ativo, pro_flag_servindo=:flag_servindo, pro_foto=:foto, pro_descricao=:descricao, pro_flag_prioridade=:flag_prioridade, pro_flag_delivery=:flag_delivery, pro_desconto=:desconto, pro_arr_adicional=:arr_adicional, pro_arr_dias_semana=:arr_dias_semana, pro_fk_categoria=:fk_categoria WHERE pro_pk_id=:pk_id");
 
                 $stmte->bindParam(":nome", $produto->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $produto->getPreco(), PDO::PARAM_STR);
@@ -90,7 +63,6 @@
                 $stmte->bindParam(":arr_adicional", $produto->getAdicional(), PDO::PARAM_STR);
                 $stmte->bindParam(":arr_dias_semana", $produto->getDias_semana(), PDO::PARAM_STR);
                 $stmte->bindParam(":fk_categoria", $produto->getCategoria(), PDO::PARAM_INT);
-                $stmte->bindParam(":fk_faixa_horario", $produto->getFkFaixaHorario(), PDO::PARAM_INT);
 
                 $stmte->bindParam(":pk_id", $produto->getPkId(), PDO::PARAM_INT);
 

@@ -209,12 +209,13 @@
             $this->pro_delivery=$pro_delivery;
             $this->pro_adicional=$pro_adicional;
             $this->pro_arr_dias_semana=$pro_arr_dias_semana;
+            
             $this->pro_turno=$pro_turno;
             $this->pro_arr_horas_inicio=$pro_arr_horas_inicio;
             $this->pro_arr_horas_final=$pro_arr_horas_final;
         }
 
-        function constructFaixas($pro_nome, $pro_preco, $pro_desconto, $pro_descricao,$pro_foto, $pro_categoria, $pro_flag_deletado, $pro_flag_ativo, $pro_flag_servindo, $pro_prioridade, $pro_delivery, $pro_adicional, $pro_arr_dias_semana, $faho_numero_turnos, $faho_arr_horas_inicio=array(), $faho_arr_horas_final=array()){
+        function constructFaixas($pro_nome, $pro_preco, $pro_desconto, $pro_descricao,$pro_foto, $pro_categoria, $pro_flag_deletado, $pro_flag_ativo, $pro_flag_servindo, $pro_prioridade, $pro_delivery, $pro_adicional, $pro_arr_dias_semana, $faho_numero_turnos=0, $faho_arr_horas_inicio=array(), $faho_arr_horas_final=array()){
             $this->pro_nome=$pro_nome;
             $this->pro_preco=$pro_preco;
             $this->pro_desconto=$pro_desconto;

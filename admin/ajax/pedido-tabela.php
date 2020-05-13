@@ -350,22 +350,19 @@ foreach ($pedidos as $pedido) {
 						}
 
 						if($formaPgt->getPkId() == NULL){
-							// echo "<br><label for='recipient-name' class='control-label'>"." Forma Pagamento: <b>".$formaPgtDin."</b></label>";
 						}else{
 							if(strpos($formaPgt->getNome(),"2x")){
 								$valorDividido = $pedido->getTotal();
 								$valorDividido = $valorDividido / 2;
 								$parcela = "2x";
-								// echo "<br><label for='recipient-name' class='control-label'>"." Forma Pagamento: ".$formaPgt->getNome()."  R$" .$valorDividido."</label>";
 							}
 							else if(strpos($formaPgt->getNome(),"3x")){
 								$valorDividido = $pedido->getTotal();
 								$valorDividido = $valorDividido / 3;
 								$parcela = "3x";
-								// echo "<br><label for='recipient-name' class='control-label'>"." Forma Pagamento: ".$formaPgt->getNome()."  R$" .$valorDividido. "</label>";
 							}
 							else{
-								// echo "<br><label for='recipient-name' class='control-label'>"." Forma Pagamento: ".$formaPgt->getNome()."</label>";
+								$valorDividido = $pedido->getTotal();
 							}
 						}
 						
