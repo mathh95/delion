@@ -355,7 +355,7 @@
 								title: "Item já Adicionado! 😋",
 								text: "Consulte o carrinho...",
 								icon: "warning",
-								timer: 1100,
+								timer: 3100,
 								buttons: false
 							});
 						}else{
@@ -363,7 +363,7 @@
 								title: "Item Adicionado! 😋",
 								text: "Consulte o carrinho...",
 								icon: "success",
-								timer: 1000,
+								timer: 3000,
 								buttons: false
 							});
 							//Exibe caso tenha mais de 0 itens no carrinho.

@@ -80,7 +80,7 @@
                         <h1>Programa fidelidade</h1>
                     </div>
                     <div class="logo-wrapper">
-                        <img id="logo" src="/home/img/Logo_branca.png">
+                        <img id="logo" src="/home/img/logo_branca.png">
                     </div>
                     
                 </div>
