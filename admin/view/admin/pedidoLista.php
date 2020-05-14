@@ -203,7 +203,7 @@ $arquivo_pai = basename(__FILE__, '.php');
                     var url ='../../ajax/alterar-pedido.php?pedido='+pedido+'&status='+status;
                     $.get(url, function(dataReturn) {
                         if (dataReturn > 0) {
-                            msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php" );
+                            msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php?page=1" );
                         }else{
                             msgGenerico("Erro!","Não foi possível alterar o status do pedido!",2,function(){});
                         }
@@ -218,7 +218,7 @@ $arquivo_pai = basename(__FILE__, '.php');
             var url ='../../ajax/alterar-pedido.php?pedido='+pedido+'&status='+status;
                         $.get(url, function(dataReturn) {
                             if (dataReturn == 1) {
-                                msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php" );
+                                msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php?page=1" );
                             }else{
                                 msgGenerico("Erro!",dataReturn,2,function(){});
                             }
@@ -229,7 +229,7 @@ $arquivo_pai = basename(__FILE__, '.php');
         //Erro com a entrega do pedido
         function erroDelivery(pedido,status){
             if(status == 3) {
-                msgRedireciona("Erro!","Esse pedido já saiu para a entrega!",1,"../../view/admin/pedidoLista.php" );
+                msgRedireciona("Erro!","Esse pedido já saiu para a entrega!",1,"../../view/admin/pedidoLista.php?page=1" );
             }else{
                 msgGenerico("Erro!","O pedido não foi impresso",2,function(){});
             }
@@ -238,7 +238,7 @@ $arquivo_pai = basename(__FILE__, '.php');
         //Erro com a retirada do pedido
         function erroRetirada(pedido,status){
             if(status == 3) {
-                msgRedireciona("Erro!","O pedido já foi entregue ao cliente!",1,"../../view/admin/pedidoLista.php" );
+                msgRedireciona("Erro!","O pedido já foi entregue ao cliente!",1,"../../view/admin/pedidoLista.php?page=1" );
             }else{
                 msgGenerico("Erro!","O pedido não foi impresso",2,function(){});
             }
@@ -247,7 +247,7 @@ $arquivo_pai = basename(__FILE__, '.php');
         //Erro na impressão
         function erroPrint(pedido,status){
             if(status == 3) {
-                msgRedireciona("Erro!","Pedido Entregue!",1,"../../view/admin/pedidoLista.php" );
+                msgRedireciona("Erro!","Pedido Entregue!",1,"../../view/admin/pedidoLista.php?page=1" );
             }else{
                 msgGenerico("Erro!","O pedido não foi impresso",2,function(){});
             }
@@ -265,7 +265,7 @@ $arquivo_pai = basename(__FILE__, '.php');
                         $.get(url, function(dataReturn) {
                             if (dataReturn == 1) {
                                 
-                                msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php" );
+                                msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php?page=1" );
                             }else{
                                 msgGenerico("Erro!",dataReturn,2,function(){});
                             }
@@ -287,7 +287,7 @@ $arquivo_pai = basename(__FILE__, '.php');
                         $.get(url, function(dataReturn) {
                             if (dataReturn == 1) {
                                 
-                                msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php" );
+                                msgRedireciona("Sucesso!","Status de pedido alterado!",1,"../../view/admin/pedidoLista.php?page=1" );
                             }else{
                                 msgGenerico("Erro!",dataReturn,2,function(){});
                             }
