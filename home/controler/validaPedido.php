@@ -273,10 +273,7 @@ if($checkcarrinho > 0 || $check_resgate > 0){
                                 // 'termina pedido vai pra area de endereço';
                                 $html.= "
                                 <script type='text/javascript'>
-                                setTimeout(function () {
-                                    swal('Selecione um endereço!', 'Estamos te direcionando para tela endereços...', 'info')
-                                    .then((value) => {});
-                                }, 200); window.location='/home/endereco.php?is_selecao_end=true'
+                                    window.location.href='/home/endereco.php?is_selecao_end=true'
                                 </script>
                                 </body>";
                                 echo $html;
@@ -287,10 +284,7 @@ if($checkcarrinho > 0 || $check_resgate > 0){
                         // 'pede pra logar e redireciona pra endereço e depois para pedido';
                         $html.= "
                         <script type='text/javascript'>
-                        setTimeout(function () {
-                            swal('É preciso estar logado para efetuar um pedido!', 'Estamos te mandando para tela de login, após disso, mandaremos para a tela de endereço.', 'error')
-                            .then((value) => {});
-                         }, 200); window.location='/home/login.php'
+                            window.location.href='/home/login.php'
                         </script></body>";
                         echo $html;
                     }
@@ -358,10 +352,7 @@ if($checkcarrinho > 0 || $check_resgate > 0){
                     }else {
                         /* 'pede pra logar e termina pedido'; */
                         $html.= "<script type='text/javascript'>
-                        setTimeout(function () {
-                            swal('É preciso estar logado para efetuar um pedido!', 'Estamos te mandando para tela de login...', 'error')
-                            .then((value) => {});
-                         }, 200); window.location='/home/login.php'
+                            window.location.href='/home/login.php'
                         </script></body>";
                         echo $html;
                     }
