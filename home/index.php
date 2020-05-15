@@ -156,7 +156,7 @@
 
 					if (in_array('homeEventos', $pagina) && ($i < 2)) {
 						echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-14  thumb-home'>
-						<a class='thumbnail' href='eventos.php'>
+						<a class='thumbnail' href='login.php'>
 							<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='eventos'>
 						</a>
 					</div>";
