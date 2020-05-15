@@ -15,7 +15,15 @@
 
 	$categorias = $controleCategoria->selectAll();
 
-	if(!isset($_SESSION['data_nasc']) ||  $_SESSION['data_nasc'] == "") header("Location: /home/cadastroFidelidade.php?codPage=carrinho");
+	//Verifica se o usuario possui o cadastro completo
+	if(
+		isset($_SESSION['cod_cliente']) &&
+		(!isset($_SESSION['data_nasc']) ||  
+		$_SESSION['data_nasc'] == "")
+	){
+		header("Location: /home/cadastroFidelidade.php?codPage=carrinho");
+	}
+
 
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
