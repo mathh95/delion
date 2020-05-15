@@ -55,8 +55,7 @@
 
 			<form method="POST" id="cadastro-fidelidade-form" onsubmit="return false;" >
 				
-				<!-- <p><i class='far fa-gem'></i> Programa Fidelidade</p> -->
-				<h4>É necessário completar o Cadastro. Aproveite!</h4>
+				<h4> Complete seu Cadastro! E obtenha vantagens <i class='far fa-gem'></i></h4>
 
     			<div class="col-md-12 col-sm-12 col-xs-12">
 
@@ -128,18 +127,67 @@
 		}else if(data[2].value == ""){
 			return;
 		}else{
-			atualizarCliente(data);
+			verificaCadastro(data);
 		}
 	});
 
 	//Insere cliente após verificação de dados e SMS
-	function atualizarCliente(data){
-
+	function verificaCadastro(data){
 		$.post({
-			url: 'controler/finalizarCadastroCliente.php',
+			url: 'controler/finalizarCadastroCliente.php?verificacaoCadastro=true',
 			data: data,
-			success: function(res){
-				if(res.includes("atualizado")){
+			success: function(resultado){
+
+				if(resultado.includes("verificado")){
+				
+					getCodigoSms(data);
+
+				}else{
+					swal("Erro ao completar o cadastro 😕", resultado , "error");
+				}
+			},
+			error: function(resultado){
+				console.log(resultado);
+				swal("Erro 😕", "Entre em contato com o suporte." , "error");
+			}
+		});
+	}
+
+	function getCodigoSms(data){
+		swal({
+			title: 'SMS Enviado!',
+			text: 'Insira o código recebido abaixo.',
+			content: "input",
+			button: 'Prosseguir'
+		})
+		.then(cod_sms => {
+			if (!cod_sms) throw null;
+			if (cod_sms.length < 4){
+				swal("Código inválido!", "warning");
+			}else{
+				//adiciona token ao array POST
+				data.push({name: "codigo_sms", value: cod_sms});
+				inserirCliente(data);
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			if (err) {
+				swal("Erro 😕 código inválido", err , "error");
+			} else {
+				swal.stopLoading();
+				swal.close();
+			}
+		});
+	}
+
+	function inserirCliente(data){
+		$.post({
+			url: 'controler/finalizarCadastroCliente.php?verificacaoSMS=true',
+			data: data,
+			success: function(resultado){
+				console.log(resultado);
+				if(resultado.includes("atualizado")){
 					swal({
 						title: 'Cadastrado!',
 						text: 'Aproveite! 😄.',
@@ -155,11 +203,11 @@
 					});
 
 				}else{
-					swal("Erro 😕", res , "error");
+					swal("Erro 😕", resultado , "error");
 				}
 			},
-			error: function(res){
-				console.log(res);
+			error: function(resultado){
+				console.log(resultado);
 				swal("Erro 😕", "Entre em contato com o suporte." , "error");
 			}
 		});

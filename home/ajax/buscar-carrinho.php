@@ -47,6 +47,7 @@ $corSec = "#C6151F";
 if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     //ordenados com base na inserção/add carrinho
     $itens = $_SESSION['carrinho'];
+
     // var_dump($itens);
     // exit;
     $itensObservacao = $_SESSION['observacao'];
@@ -100,6 +101,9 @@ if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     $_SESSION['qtd'] = $itens_qtd;
 
 } else {
+    // if(!isset($_SESSION['data_nasc']) ||  $_SESSION['data_nasc'] == "") 
+    // header("Location: /home/cadastroFidelidade.php?codPage=carrinho");
+
     $_SESSION['carrinho'] = array();
     $_SESSION['qtd'] = array();
     $_SESSION['observacao'] = array();

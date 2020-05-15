@@ -241,7 +241,6 @@
 	}
 
 	function getCodigoSms(data){
-
 		swal({
 			title: 'SMS Enviado!',
 			text: 'Insira o código recebido abaixo.',
@@ -265,7 +264,6 @@
 					{
 						//adiciona token ao array POST
 						data.push({name: "grecaptcha_token_cadastrar", value: token});
-
 						data.push({name: "codigo_sms", value: cod_sms});
 						data.push({name: "is_cadastro", value: "1"});
 
