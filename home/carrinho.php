@@ -15,6 +15,8 @@
 
 	$categorias = $controleCategoria->selectAll();
 
+	if(!isset($_SESSION['data_nasc']) ||  $_SESSION['data_nasc'] == "") header("Location: /home/cadastroFidelidade.php?codPage=carrinho");
+
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
 
@@ -178,12 +180,17 @@
 
 
 		function atualizaFormaPgt(){
+			let formaPgtSelect = $("#formaPagamento").val();
 
 			$.ajax({
 				type: 'GET',
 				url: 'ajax/pag-formaPgt.php',
 				success: function (resultado) {
 					$("#formaPagamento").html(resultado);
+					$("#formaPagamento").val(formaPgtSelect);
+					if($("#formaPagamento").val() == null){
+						$("#formaPagamento").val(1);
+					}
 				}
 			});
 		}

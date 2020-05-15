@@ -7,13 +7,18 @@
 	include_once "../admin/controler/conexao.php";
 	include_once "controler/controlEmpresa.php";
 	include_once "controler/controlImagem.php";
+	
 
 	//configuração de acesso ao WhatsApp
 	//include "./whats-config.php";
+	
+	// $codPage = $_GET['codPage'];
 
 	//Verifica se usuário já habilidato para o Programa
 	if($_SESSION['data_nasc'] != "") header("Location: /home/resgateFidelidade.php");
 	//var_dump($_SESSION);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -50,8 +55,8 @@
 
 			<form method="POST" id="cadastro-fidelidade-form" onsubmit="return false;" >
 				
-				<p><i class='far fa-gem'></i> Programa Fidelidade</p>
-				<h4>Complete o Cadastro e aproveite!</h4>
+				<!-- <p><i class='far fa-gem'></i> Programa Fidelidade</p> -->
+				<h4>É necessário completar o Cadastro. Aproveite!</h4>
 
     			<div class="col-md-12 col-sm-12 col-xs-12">
 
@@ -142,7 +147,11 @@
 						timer: 1000
 					})
 					.then(value => {
-						window.location = "/home/resgateFidelidade.php";
+						if(getParams(window.location.href)["codPage"] == "carrinho"){
+							window.location = "/home/carrinho.php";
+						}else{
+							window.location = "/home/resgateFidelidade.php";
+						}
 					});
 
 				}else{
@@ -175,6 +184,28 @@
 			element.mask("(99) 9999-9999?9");  
 		}  
 	});
+
+	/**
+	 * Get the URL parameters
+	 * source: https://css-tricks.com/snippets/javascript/get-url-variables/
+	 * @param  {String} url The URL
+	 * @return {Object}     The URL parameters
+	 */
+		var getParams = function (url) {
+			var params = {};
+			var parser = document.createElement('a');
+			parser.href = url;
+			var query = parser.search.substring(1);
+			var vars = query.split('&');
+			for (var i = 0; i < vars.length; i++) {
+				var pair = vars[i].split('=');
+				params[pair[0]] = decodeURIComponent(pair[1]);
+			}
+			return params;
+		};
+		
+		// console.log(getParams(window.location.href)["codPage"]);
+
 
 	</script>
 
