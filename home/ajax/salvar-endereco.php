@@ -186,6 +186,9 @@ if(isset($_GET['endereco']) && !empty($_GET['endereco'])){
     //autocompletar default
     echo "
     <script>
+    $(document).ready(function(){
+        $('.cep').mask('00000-000');
+    });
     $('#cep').on('change paste keyup', function() {
         var cep = $(this).val();
         var cep = cep.replace(/\D/g, '');

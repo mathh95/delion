@@ -75,6 +75,7 @@
 
 	<script type="text/javascript" src="js/wickedpicker.js"></script>
 	<script type="text/javascript" src="js/maskedinput.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha256-Kg2zTcFO9LXOc7IwcBx1YeUBJmekycsnTsq2RuFHSZU=" crossorigin="anonymous"></script>
 
 	<script type="text/javascript" src="js/buscar-endereco.js"></script>
 	<script> 
@@ -83,7 +84,7 @@
 	</script>
 
 	<script>
-
+		
 		$(".navbar-toggle li a").click(function() {
 			if ( !$(this).parent().hasClass('dropdown') ) {
 				$(".navbar-collapse").collapse('hide');

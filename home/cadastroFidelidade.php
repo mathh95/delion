@@ -110,7 +110,8 @@
 	?>
 
 	<script type="text/javascript" src="js/wickedpicker.js"></script>
-	<script type="text/javascript" src="js/maskedinput.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha256-Kg2zTcFO9LXOc7IwcBx1YeUBJmekycsnTsq2RuFHSZU=" crossorigin="anonymous"></script>
+
 
 	<script>
 
@@ -215,23 +216,10 @@
 
 	$(document).ready(function(){
 		$(".cpf").mask("999.999.999-99");
-		// $(".telefone").mask("(45) 99999-9999)");
+		$(".telefone").mask("(45) 99999-9999");
 	});
 
-	$("input.telefone").mask("(99) ?9 9999-9999").focusout(function (event) {  
-
-		var target, phone, element;  
-		target = (event.currentTarget) ? event.currentTarget : event.srcElement;  
-		phone = target.value.replace(/\D/g, '');
-		element = $(target);  
-		element.unmask();  
-
-		if(phone.length > 10) {  
-			element.mask("(99) 99999-999?9");  
-		} else {  
-			element.mask("(99) 9999-9999?9");  
-		}  
-	});
+	
 
 	/**
 	 * Get the URL parameters
