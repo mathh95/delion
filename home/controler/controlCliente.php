@@ -56,12 +56,12 @@
                     $id_google = $cliente->getIdGoogle();
                     $status = $cliente->getStatus();
 
-                    $stmt = $this->pdo->prepare("INSERT INTO tb_cliente(cli_nome, cli_sobrenome, cli_login_email, cli_status, cli_id_google) VALUES (:nome, :login, :status, :id_google)");
-                    $stmt->bindValue(":nome", $nome);
-                    $stmt->bindValue(":sobrenome", $sobrenome);
-                    $stmt->bindValue(":login", $login);
-                    $stmt->bindValue(":status", $status);
-                    $stmt->bindValue(":id_google", $id_google);
+                    $stmt = $this->pdo->prepare("INSERT INTO tb_cliente(cli_nome, cli_sobrenome, cli_login_email, cli_status, cli_id_google) VALUES (:nome, :sobrenome, :login, :status, :id_google)");
+                    $stmt->bindValue(":nome", $nome, PDO::PARAM_STR);
+                    $stmt->bindValue(":sobrenome", $sobrenome, PDO::PARAM_STR);
+                    $stmt->bindValue(":login", $login, PDO::PARAM_STR);
+                    $stmt->bindValue(":status", $status, PDO::PARAM_INT);
+                    $stmt->bindValue(":id_google", $id_google, PDO::PARAM_STR);
 
                     $executa = $stmt->execute();
 
