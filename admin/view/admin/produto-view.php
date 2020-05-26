@@ -317,10 +317,14 @@ $arquivo_pai = basename(__FILE__, '.php');
                     <br>
                     <img src="../../<?= $produto->getFoto(); ?>" alt='' class='img-thumbnail img-responsive' />
 
+                </div>
+                
+                <div class="col-md-7">
 
                     <small>Foto: <span style="color:red">(Utilizar uma imagem no tamanho 525[largura] x 320[altura]. Formato (.png) ou (.jpg).)</span></small>
                     <input type="file" name="arquivo" id="arquivo">
                     <br>
+                    
                 </div>
 
                 <div class="col-md-7">

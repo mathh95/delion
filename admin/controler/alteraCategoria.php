@@ -15,11 +15,25 @@
 		}
 		$cod_categoria= addslashes(htmlspecialchars($_POST['cod']));
 		$nome= addslashes(htmlspecialchars($_POST['nome']));
+
+		// if (!empty($_FILES['arquivo']['name'])) {
+	   	// 	$icone = upload("arquivo");
+		// }else{
+		// 	$icone = "";
+		// }
+
 		if (!empty($_FILES['arquivo']['name'])) {
-	   		$icone = upload("arquivo");
+
+			$anexo = ADMINPATH."/".addslashes(htmlspecialchars($_POST['imagem']));
+	
+			if(file_exists($anexo)) unlink($anexo);
+	
+			$icone = upload("arquivo");
 		}else{
-			$icone = "";
+			$icone = addslashes(htmlspecialchars($_POST['imagem']));
 		}
+
+
 		$categoria= new categoria();
 		$categoria->construct($nome, $icone);
 		$categoria->setPkId($cod_categoria);
