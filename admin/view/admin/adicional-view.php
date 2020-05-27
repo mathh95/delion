@@ -108,7 +108,7 @@
                                 <?php
 
                                 foreach ($categorias as $categoria) {
-                                    echo "<option value='" . $categoria->getPkId() . "'>" . $categoria->getNome() . "</option>";
+                                    echo "<option value='" . $categoria->getPkId() . "' id='" . $categoria->getPkId() . "'>" . $categoria->getNome() . "</option>";
                                 }
                                 ?>
 
@@ -122,7 +122,7 @@
 
                                     <label>
 
-                                        <input type="checkbox" id="ativo" <?=($adicional->getFlag_ativo() == 1)?"checked":""?>name="flag_ativo" value="1">Ativo
+                                    <input type="checkbox" id="ativo" <?= ($adicional->getFlag_ativo() == 1) ? "checked" : "" ?> name="flag_ativo" value="1">Ativo
 
                                     </label>
 
@@ -169,19 +169,26 @@
         <?php include VIEWPATH."/rodape.php" ?>
 
         <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-
+        
         <script>
-            var ativo =   <?=$adicional->getFlag_ativo();?>
 
             $( document ).ready(function() {
+                var ativo =   <?=$adicional->getFlag_ativo();?>
+                var categoria = '<?= $adicional->getCategoria() ?>';
 
+
+                //Arruma o checkbox do adicional ativo
                 if (ativo == 1) {
-
                     $('#ativo').attr('checked', true);
-
                 }
 
-            })
+                //Deixa a categoria correta selecionada
+                if (categoria) $('#' + categoria).attr('selected', true);
+
+            });
+
+
+
         </script>
 
     </body>
