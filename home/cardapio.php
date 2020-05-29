@@ -103,7 +103,7 @@
 
 				if($key == 0){	
 					echo "
-						<li class='nav-item active'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()."' style='border-bottom: 2px solid ".$corSec.";' onMouseOver='this.style.borderBottomColor=".$corSec."'>
+						<li class='nav-item active'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()." onMouseOver='this.style.borderBottomColor=".$corSec."'>
 							<div style='color:".$corSec."'>".$categoria->getNome()."</div>
 						</a></li>";
 				}else{
