@@ -12,6 +12,8 @@ include_once MODELPATH."/gerencia_site.php";
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 992px) and (max-width: 1199px)" href="css/navbar/style-md.css"/>
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/navbar/style-lg.css"/>
+
+	<script data-ad-client="ca-pub-9260777931961803" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <?php 
     $controle=new controlerGerenciarSite($_SG['link']);
