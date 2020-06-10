@@ -3,10 +3,14 @@ include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
 include_once CONTROLLERPATH."/seguranca.php";
 include_once CONTROLLERPATH."/controlSubCat.php";
 include_once MODELPATH."/subcat.php";
+include_once CONTROLLERPATH."/controlCategoria.php";
+include_once MODELPATH."/categoria.php";
 protegePagina();
 
 $controle=new controlerSubCat($_SG['link']);
 $subcategorias = $controle->selectAll();
+
+$controlCategoria= new controlerCategoria($_SG['link']);
 
 	$permissao =  json_decode($usuarioPermissao->getPermissao());
 	if(in_array('categoria', $permissao)){
@@ -27,10 +31,11 @@ $subcategorias = $controle->selectAll();
 				<tbody>";
 	
 		foreach ($subcategorias as &$subcategoria) {
+			$categoria = $controlCategoria->select($subcategoria->getFkcategoria(),2);
 			echo "<tr name='resutaldo' id='status".$subcategoria->getPkId()."'>
 				<td style='text-align: center;' name='nome'>".$subcategoria->getNome()."</td>
 			 	<td style='text-align: center;' name='icone'><img src='../../".$subcategoria->getIcone()."' style='max-height: 50px; background-color: #BE392A;' alt='' class='img-thumbnail'/></td>
-				<td style='text-align: center;' name='categoria'>".$subcategoria->getFkcategoria()."</td> 
+				<td style='text-align: center;' name='categoria'>".$categoria->getNome()."</td> 
 				<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='subcat-view.php?cod=".$subcategoria->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i>&nbsp;Editar</button></a></td>
 			 	<td style='text-align: center;' name='status'  ><button type='button' onclick=\"removeCategoria(".$subcategoria->getPkId().",'../".$subcategoria->getIconeAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i>&nbsp;Excluir</button></td>
 			</tr>";
