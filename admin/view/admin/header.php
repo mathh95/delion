@@ -259,6 +259,36 @@
 
                             </li>
 
+                            <li class="dropdown
+
+                            <?php
+                                //verifica qual opção do menu está selecionada (arquivo aberto) e, atribui design diferenciado
+                                if(strpos($arquivo_pai, 'subcat') !== false){
+                                    echo 'active';
+                                }
+                            ?>
+                            ">
+                            <?php } ?>
+
+                            <?php
+
+                            $permissao = json_decode($usuarioPermissao->getPermissao());
+
+                            if(in_array('categoria', $permissao)){ ?>
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Subcategoria <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+
+                                <li><a href="subcat.php">Cadastro</a></li>
+
+                                <li><a href="subcatLista.php">Listar</a></li>
+
+                            </ul>
+
+                            </li>
+
+
                            <li class="dropdown
 
                                 <?php

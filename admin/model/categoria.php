@@ -41,11 +41,14 @@
         }
 
         function __construct(){
+
         }
+
         function construct($cat_nome, $cat_icone){
             $this->cat_nome=$cat_nome;
             $this->cat_icone=$cat_icone;
         }
+
         function show(){
             echo "Código do categoria:".$this->cat_pk_id."<br>";
             echo "Nome:".$this->cat_nome."<br>";
