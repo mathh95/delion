@@ -18,8 +18,13 @@
 		}else{
 			$icone = "";
 		}
+		if(isset($_POST['flag_ativo']) && !empty($_POST['flag_ativo'])){
+			$flag_ativo = 1;
+		}else{
+			$flag_ativo = 2;
+		}
 		$categoria= new categoria();
-		$categoria->construct($nome, $icone);
+		$categoria->construct($nome, $icone, $flag_ativo);
 		$controle=new controlerCategoria($_SG['link']);
 		$verificador = $controle->verificaIgual($nome);
 		$nomeComp = $verificador->getNome();

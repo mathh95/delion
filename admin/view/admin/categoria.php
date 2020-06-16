@@ -59,6 +59,20 @@
                                 <input class="form-control" placeholder="Nome" name="nome" required autofocus id ="nome" type="text" maxlength="30">
 
                             </div>
+                            
+                            <br>
+                            
+                            <small>Informar se a categoria está ativa:</small>
+
+                            <div class="checkbox">
+
+                                <label>
+
+                                    <input type="checkbox" id="ativo" name="flag_ativo" value="1">Ativo
+
+                                </label>
+
+                            </div>
 
                             <br>
 

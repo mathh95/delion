@@ -117,7 +117,7 @@
 
                     <div class="pull-right">
 
-                    <a href="categoriaLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair</a>
+                    <a href="subcatLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair</a>
 
                     </div>
 

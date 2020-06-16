@@ -80,6 +80,17 @@
 
                             <br>
 
+                            <small>Informar se o item está ativo:</small>
+                                <div class="checkbox">
+
+                                    <label>
+
+                                    <input type="checkbox" id="ativo" <?= ($categoria->getFlag_ativo() == 1) ? "checked" : "" ?> name="flag_ativo" value="1">Ativo
+
+                                    </label>
+
+                                </div>
+
                             <br>
 
                             <small style="color:red">Selecione uma imagem caso queira substituir a imagem já existente.</small>
@@ -124,9 +135,23 @@
 
         </div>
 
-        
-
         <?php include VIEWPATH."/rodape.php" ?>
+
+        <script>
+
+            $( document ).ready(function() {
+                var ativo =   <?=$categoria->getFlag_ativo();?>
+
+                //Arruma o checkbox do adicional ativo
+                if (ativo == 1) {
+                    $('#ativo').attr('checked', true);
+                }
+
+            });
+
+
+        </script>
+
 
     </body>
 

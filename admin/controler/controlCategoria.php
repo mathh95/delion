@@ -9,10 +9,11 @@
 
         function insert($categoria){
             try{
-                    $stmte =$this->pdo->prepare("INSERT INTO tb_categoria(cat_nome, cat_icone, cat_posicao)
-                    VALUES (:cat_nome, :cat_icone, 0)");
+                    $stmte =$this->pdo->prepare("INSERT INTO tb_categoria(cat_nome, cat_icone, cat_posicao, cat_flag_ativo)
+                    VALUES (:cat_nome, :cat_icone, 0, :cat_flag_ativo)");
                     $stmte->bindParam("cat_nome", $categoria->getNome(), PDO::PARAM_STR);
                     $stmte->bindParam("cat_icone", $categoria->getIcone(), PDO::PARAM_STR);
+                    $stmte->bindParam("cat_flag_ativo", $categoria->getFlag_ativo(), PDO::PARAM_INT);
                     $executa = $stmte->execute();
                 
                 if($executa){
@@ -30,10 +31,11 @@
 
         function update($categoria){
             try{
-                $stmte =$this->pdo->prepare("UPDATE tb_categoria SET cat_nome=:nome, cat_icone=:icone WHERE cat_pk_id=:cod_categoria");
+                $stmte =$this->pdo->prepare("UPDATE tb_categoria SET cat_nome=:nome, cat_icone=:icone, cat_flag_ativo=:flag_ativo WHERE cat_pk_id=:cod_categoria");
                 $stmte->bindParam(":cod_categoria", $categoria->getPkId() , PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $categoria->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":icone", $categoria->getIcone(), PDO::PARAM_STR);
+                $stmte->bindParam(":flag_ativo", $categoria->getFlag_ativo(), PDO::PARAM_INT);
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;
@@ -111,6 +113,7 @@
                             $categoria->setPkId($result->cat_pk_id);
                             $categoria->setNome($result->cat_nome);
                             $categoria->setIcone($result->cat_icone);
+                            $categoria->setFlag_ativo($result->cat_flag_ativo);
                         }
                     }
                 }
@@ -169,6 +172,7 @@
                             $categoria->setNome($result->cat_nome);
                             $categoria->setIcone($result->cat_icone);
                             $categoria->setPosicao($result->cat_posicao);
+                            $categoria->setFlag_ativo($result->cat_flag_ativo);
                             array_push($categorias, $categoria);
                         }
                     }else{

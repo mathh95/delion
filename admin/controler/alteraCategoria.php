@@ -32,10 +32,14 @@
 		}else{
 			$icone = addslashes(htmlspecialchars($_POST['imagem']));
 		}
-
+		if(isset($_POST['flag_ativo']) && !empty($_POST['flag_ativo'])){
+			$flag_ativo = 1;
+		}else{
+			$flag_ativo = 0;
+		}
 
 		$categoria= new categoria();
-		$categoria->construct($nome, $icone);
+		$categoria->construct($nome, $icone, $flag_ativo);
 		$categoria->setPkId($cod_categoria);
 		$controle=new controlerCategoria($_SG['link']);
 
