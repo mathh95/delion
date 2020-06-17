@@ -67,7 +67,7 @@
         function selectAllByPos(){
             $categorias = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM tb_categoria ORDER BY cat_posicao ASC");
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_categoria WHERE cat_flag_ativo = 1 ORDER BY cat_posicao ASC");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
@@ -76,6 +76,7 @@
                             $categoria->setNome($result->cat_nome);
                             $categoria->setIcone($result->cat_icone);
                             $categoria->setPosicao($result->cat_posicao);
+                            $categoria->setFlag_ativo($result->cat_flag_ativo);
                             array_push($categorias, $categoria);
                         }
                     }
