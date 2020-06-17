@@ -105,6 +105,20 @@ body{
                             }
                     }
                 }
+                ul.dropdown-categoria{
+                    display: none;
+                    position: absolute;
+                    list-style-type: none;
+                    text-align: center;
+                    color: $vermelho_forte;
+                    background-color: #ffffff;
+                    padding: 10px;
+                    border-radius: 10px;
+                    >li{
+                        // display: block;
+                        text-align: center;
+                    }
+                }
                     >li.nav-item.active a{
                             background-color: #D7CEC7;
                             text-decoration: none;

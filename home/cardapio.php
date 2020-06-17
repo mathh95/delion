@@ -107,11 +107,19 @@
 					echo "
 						<li class='nav-item active'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()." onMouseOver='this.style.borderBottomColor=".$corSec."'>
 							<div style='color:".$corSec."'>".$categoria->getNome()."</div>
+							<ul class='dropdown-categoria'>
+								<li>Teste Sub 1</li>
+								<li>Teste Sub 2</li>
+							</ul>
 						</a></li>";
 				}else{
 					echo "
 						<li class='nav-item'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()."' >
 							<div style='color:".$corSec."'>".$categoria->getNome()."</div>
+							<ul class='dropdown-categoria'>
+								<li>Teste Sub 1</li>
+								<li>Teste Sub 2</li>
+							</ul>
 						</a></li>";
 				}
 
