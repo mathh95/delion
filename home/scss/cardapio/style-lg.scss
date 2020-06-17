@@ -135,7 +135,10 @@ body,html{
                         background-color: #ffffff;
                         padding: 10px;
                         border-radius: 10px;
+                        // box-shadow: 2px 2px #888888;
+                        width: 120px;
                         >li{
+                            padding: 10px;
                             // display: block;
                             text-align: center;
                         }
