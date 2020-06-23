@@ -333,6 +333,16 @@ body,html{
                     height: 40px;
                     float: right;
                 }
+                #addCarrinhoPizza{
+                    @include make-lg-column(6);
+                    background-color: $vermelho_fraco;
+                    border: 1px solid $vermelho_forte;
+                    color:#fff;
+                    margin-top: 1%;
+                    margin-bottom: 10px;
+                    height: 40px;
+                    float: right;
+                }
                 #addCombo{
                     width: 167px;   
                     background-color: $vermelho_fraco;

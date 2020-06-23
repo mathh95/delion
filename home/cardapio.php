@@ -260,7 +260,175 @@
 				$(this).next().val(+$(this).next().val() - 1);
 			}
 		});
+		$(document).on("click", "#addCarrinhoPizza", function(){
+			
+			var qtd = $('#spanCarrinho').text();
+			var id = $(this).data('cod');
+			var src = $(this).data('src_image');
+
+			const nomeItem = $('#tituloNome'+id).text();
+
+			//Adicionais relacionados ao produto
+			var adicionais_produto = $(this).data('arr_adicionais');
+			if(!adicionais_produto){
+				var adicionais_produto = [];
+			}
+			
+			//Atribui os adicionais a um array.
+			var array_adicionais =[];
+			adicionais.forEach(function(value, key){
+				var id_aux = value['adi_pk_id'];
+				array_adicionais[id_aux] = [value['adi_nome'], value['adi_preco']];
+			});
+
+			const inputOptions = new Promise((resolve) => {
+				setTimeout(() => {
+					resolve({
+					'Pequena': ' Pequena',
+					'Média': ' Média',
+					'Grande': ' Grande'
+					})
+				}, 1000)
+				})
+
+				const inputOptions1 = new Promise((resolve) => {
+				setTimeout(() => {
+					resolve({
+					'Sem borda': 'Sem borda',
+					'Catupiry': 'Catupiry',
+					'Cheddar': 'Cheddar'
+					})
+				}, 1000)
+				})
+
+			//Verifica se existe adicionais, se não apenas exibe input de observação.
+			var div_complemento = "";
+			if(adicionais_produto !== [] && adicionais_produto.length > 0 
+			&& adicionais_produto.length !== null && adicionais_produto !== '' && adicionais_produto){
+				div_complemento += `<h4 style='font-weight: bold;'>Algum complemento?</h4>`;
+			}else{
+				div_complemento += `<h4 style='font-weight: bold;'></h4>`
+			}
+			
+			//Atribui o elemento com os adicionais na janela do sweetalert a variavel
+			var adicionais_html = "";
+			adicionais_produto.forEach(function(pk_id, chave){
+				adicionais_html += `
+				<li>
+					<div class="qtd-adicionais">
+						<button type="button" id="sub" class="sub">-</button>
+						<input 
+							type="text" value="0" name='qtd-adic[]' class="field qtd-adic" readonly
+							data-id='${pk_id}' data-nome='${array_adicionais[pk_id][0]}' data-preco='${array_adicionais[pk_id][1]}'
+						/>
+						<button type="button" id="add" class="add">+</button>
+						${array_adicionais[pk_id][0]} - R$ ${array_adicionais[pk_id][1]}
+					</div>
+				</li>`
+			})
+			let html = `
+			<br>
+			<div class='imagem'>
+                    
+                    <img class='img-responsive'  src='${src}' onerror='this.src=\"/home/img/default_produto.jpg\"'>
+                </div>
+			<div class='adicionais-wrapper'>
+				${div_complemento}
+					<ul style="list-style-type: none;">
+						${adicionais_html}
+					</ul> 
+				
+			</div>
+			<div>
+				<h4 style='font-weight: bold;padding-top:10px;'>Selecione a borda de sua pizza</h4>
+				<form>
+					<div>
+						<input type="radio" id="semborda"
+						name="borda" value="semborda">
+						<label for="semborda">Sem recheio</label>
+
+						<input type="radio" id="cheddar"
+						name="borda" value="cheddar">
+						<label for="cheddar">Cheddar</label>
+
+						<input type="radio" id="catupiry"
+						name="borda" value="catupiry">
+						<label for="catupiry">Catupiry</label>
+					</div>
+				</form>
+					<h4 style='font-weight: bold;padding-top:10px;'>Selecione o tamanho de sua pizza</h4>
+			`;
+
+			
+			
+
+			Swal.fire({
+				input: 'text',
+				inputPlaceholder: 'Exemplo: Sem queijo...',
+				html: html,
+				input: 'radio',
+				inputOptions: inputOptions,
+				inputValidator: (value) => {
+					if (!value) {
+					return 'Escolha um tamanho e borda!'
+					}
+				}
+				
+				
+				
+			})
+			.then((observacaoItem) => {
+
+				//Adicionais selecionados do Produto
+				var adicionais_selecionados = [];
+
+				$('.qtd-adic').each(function(){
+					if($(this).val() > 0){
+						adicionais_selecionados.push 
+							([
+								$(this).data('id'),
+								$(this).data('nome'),
+								$(this).data('preco'),
+								$(this).val()
+							]);
+					}
+				})
+
+				$.ajax({
+					type: 'GET',
+					url: 'ajax/add-carrinho.php',
+					data: {observacaoItem: observacaoItem['value'], id: id, adicionais_selecionados: adicionais_selecionados},
+					success:function(resObs){
+						$("#spanCarrinho").html(resObs);
+						$("#spanCarrinho-navbar").html(resObs);
+						$("#spanCarrinho-barra").html(resObs);
+
+						if(qtd == resObs){
+							Swal.fire({
+								title: "Item já Adicionado! 😋",
+								text: "Consulte o carrinho...",
+								icon: "warning",
+								timer: 3100,
+								buttons: false
+							});
+						}else{
+							Swal.fire({
+								title: "Item Adicionado! 😋",
+								text: "Consulte o carrinho...",
+								icon: "success",
+								timer: 3000,
+								buttons: false
+							});
+							//Exibe caso tenha mais de 0 itens no carrinho.
+							qtd_carrinho++; 
+							displayBarraCarrinho();
+						}
+					}
+				});
+			});
+
 		
+		});
 		$(document).on("click", "#addCarrinho", function(){
 
 			var qtd = $('#spanCarrinho').text();
