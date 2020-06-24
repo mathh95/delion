@@ -81,8 +81,6 @@
     </div>
     <?php include VIEWPATH."/rodape.php" ?>
 
-
-
     <!-- Modal Ordenação -->
 	<div class="modal fade" id="ordenacaoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog modal-lg" role="document">

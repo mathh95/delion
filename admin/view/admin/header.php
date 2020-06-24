@@ -286,8 +286,6 @@
 
                                     <li><a href="gerenciarCardapio.php">Gerenciar Cardápio</a></li>
 
-                                    <li><a href="gerenciarFaixaHorarios.php">Gerenciar Horários</a></li>
-
                                 </ul>
 
                             </li>
@@ -432,7 +430,7 @@
                             <ul class="dropdown-menu">
                                 <!-- <li><a href="pedidoWpp.php">Novo Pedido Whatsapp</a></li> -->
                                 <!-- <li><a href="pedidoWppLista.php">Listar Pedidos</a></li> -->
-                                <li><a href="pedidoLista.php">Listar Pedidos</a></li>
+                                <li><a href="pedidoLista.php?page=1">Listar Pedidos</a></li>
                                 <!-- <li><a href="clienteListaWpp.php">Listar Clientes Whatsapp</a></li> -->
                             </ul>
                             <?php } ?>

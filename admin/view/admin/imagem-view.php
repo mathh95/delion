@@ -46,17 +46,7 @@
 
             $imagem = $controle->select($_GET['cod'], 2);
 
-            $paginas=json_decode($imagem->getPagina());
-
-            $p="[";
-
-            foreach ($paginas as $pagina) {
-
-                $p.='"'.$pagina.'",';
-
-            }
-
-            $p.="]";
+            $paginas= $imagem->getPagina();
 
         ?>
 
@@ -103,7 +93,101 @@
                                <span style="color:red">(Utilizar uma imagem no formato (.png) ou (.jpg). ) </span>
 
                             </small>
-                            <input type="file" name="arquivo" id ="arquivo" required="">
+                            <input type="file" name="arquivo" id ="arquivo">
+
+                            <br>
+
+                            <div class="checkbox" style="font-size: 14px" hidden>
+
+                                <ul>
+
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="homeTopo" name="paginas[]" value="homeTopo">[Homepage] - (Imagem) Topo <small><span style="color:red">*Proporção sugerida 1410[largura] x 500[altura] </span><br/></small>
+
+                                        </label>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="homeLogo" name="paginas[]" value="homeLogo">[Homepage] - (Imagem) Logo Topo <small><span style="color:red">*Proporção sugerida 230[largura] x 230[altura] </span><br/></small>
+
+                                        </label>
+
+                                    </li>
+
+                                    <li style="white-space: nowrap">
+
+                                        <label>
+
+                                            <!-- <input type="checkbox" id="contato" name="paginas[]" value="contato">Contato -->
+                                            <input type="checkbox" id="homeCardapio" name="paginas[]" value="homeCardapio">[Homepage] - (Imagem) Cardápio <small><span style="color:red">*Proporção sugerida 460[largura] x 460[altura] </span><br/></small>
+
+                                        </label>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label>
+
+                                            <!-- <input type="checkbox" id="popUp" name="paginas[]" value="popUp">Pop Up inicial -->
+                                            <input type="checkbox" id="homeEventos" name="paginas[]" value="homeEventos">[Homepage] - (Imagem) Eventos <small><span style="color:red">*Proporção sugerida 460[largura] x 460[altura] </span><br/></small>
+
+                                        </label>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label>
+
+                                            <!-- <input type="checkbox" id="homeQuemSomos" name="paginas[]" value="homeQuemSomos">Quem Somos -->
+                                            <input type="checkbox" id="homeFidelidade" name="paginas[]" value="homeFidelidade">[Homepage] - (Imagem) Fidelidade <small><span style="color:red">*Proporção sugerida 460[largura] x 460[altura] </span><br/></small>
+
+                                        </label>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label>
+
+                                        <input type="checkbox" id="contato" name="paginas[]" value="contato">[Contato] - (Imagem) Contato <small><span style="color:red">*Proporção sugerida 567[largura] x 319[altura] </span><br/></small> 
+
+                                        </label>
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="sobre" name="paginas[]" value="sobre">[Sobre] - (Imagem) Sobre <small><span style="color:red">*Proporção sugerida 668[largura] x 287[altura] </span><br/></small>
+
+                                        </label>
+
+                                    </li>
+
+                                        <li>
+
+                                        <label>
+
+                                            <input type="checkbox" id="historia" name="paginas[]" value="historia">[História] - (Imagem) História <small><span style="color:red">*Proporção sugerida 567[largura] x 319[altura] </span><br/></small>
+
+                                        </label>
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
 
                             <br>
 
@@ -131,7 +215,7 @@
 
                     <div class="pull-right">
 
-                        <a href="imagemLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Salvar</a>
+                        <a href="imagemLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair</a>
 
                     </div>
 
@@ -141,10 +225,21 @@
 
         </div>
 
-        
-
         <?php include VIEWPATH."/rodape.php" ?>
+        
+        <script>
 
+        var paginas = <?= $paginas ?>;
+        // console.log(permissoes);
+        $( document ).ready(function() {
+
+            for(let p of paginas){
+                $('#' + p).attr('checked', true);
+            }
+
+        });
+
+        </script>
 
     </body>
 

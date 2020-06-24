@@ -45,18 +45,13 @@
 
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 1200px)" href="css/index/style-lg.css"/>
 
-
-
-	
-
-
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
-
+	<script data-ad-client="ca-pub-9260777931961803" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 </head>
 
@@ -156,7 +151,7 @@
 
 					if (in_array('homeEventos', $pagina) && ($i < 2)) {
 						echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-14  thumb-home'>
-						<a class='thumbnail' href='eventos.php'>
+						<a class='thumbnail' href='login.php'>
 							<img class='img-responsive' src='/admin/".$imagem->getFoto()."' alt='eventos'>
 						</a>
 					</div>";

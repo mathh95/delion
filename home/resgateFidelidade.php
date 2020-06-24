@@ -10,6 +10,9 @@
 	include_once MODELPATH."/produto.php";
 	include_once MODELPATH."/cliente.php";
 
+	include_once CONTROLLERPATH . "/controlFaixaHorario.php";
+	$controle_faixa_horario = new controlerFaixaHorario(conecta());
+
 	$control_cliente = new controlCliente(conecta());
 	$controle_produto = new controlerProduto(conecta());
 	
@@ -102,7 +105,7 @@
 					$is_hide = "";
 					foreach($array_pontos as $pontos){
 						
-						$produtos = $controle_produto->selectAllByPtsResgate($pontos);
+						$itens = $controle_produto->selectAllByPtsResgate($pontos);
 						
 						
 						if($pontos != 30) $is_hide = 'style="display:none;"';
@@ -112,43 +115,70 @@
 
 						$flag_displayed = false;
 
-						foreach($produtos as $produto){
+						foreach($itens as $item){
 
 							if(
-								$produto->getFlag_ativo()
+								$item->getFlag_ativo()
 							){
 
 								echo "
 								<div class='produto-resgate'>
-									<img src='../admin/{$produto->getFoto()}' alt='{$produto->getNome()}' onerror='this.src=\"/home/img/default_produto.jpg\"'>
-									<h4>{$produto->getNome()} </h4>
+									<img src='../admin/{$item->getFoto()}' alt='{$item->getNome()}' onerror='this.src=\"/home/img/default_produto.jpg\"'>
+									<h4>{$item->getNome()} </h4>
 									<p>{$pontos} pontos</p>";
 
-									if(
-										$produto->getDias_semana() &&
-										in_array($hoje, json_decode($produto->getDias_semana())) &&
-										($hora_atual >= $produto->getProduto_horas_inicio() &&
-										$hora_atual < $produto->getProduto_horas_final()) &&
-										$produto->getFlag_servindo()
-									){
+								// Disponibilidade
+								$disponivel_agora = false;
+								$arr_dias_disponiveis = $item->getDias_semana();
+
+								$faixas_horario = $controle_faixa_horario->selectByFkProduto($item->getPkId());
+
+								// Se disponível todos os horários
+								if (count($faixas_horario) == 0) {
+									$disponivel_agora = true;
+								}
+								// Se disponível agora(horário)
+								foreach ($faixas_horario as $key_fh => $faixa) {
+
+									if (
+										($hora_atual >= $faixa->getInicio() &&
+											$hora_atual < $faixa->getFinal())
+									) {
+										$disponivel_agora = true;
+									}
+								}
+								// Se disponível hoje e agora(horário) 
+								if (
+									$arr_dias_disponiveis &&
+									in_array($hoje, json_decode($arr_dias_disponiveis)) &&
+									$item->getFlag_servindo() &&
+									$disponivel_agora
+								) {
+									$disponivel_agora = true;
+								} else {
+									$disponivel_agora = false;
+								}
+
+								if ($disponivel_agora) {
+
 
 									echo
 									"<div class='botoes-qtd'>
 
 										<button
 											type='button' id='sub'
-											data-cod_produto='{$produto->getPkId()}'
-											data-pontos='{$produto->getPtsResgateFidelidade()}'
+											data-cod_produto='{$item->getPkId()}'
+											data-pontos='{$item->getPtsResgateFidelidade()}'
 											class='sub'>-
 										</button>
 										
-										<input id='qtd-{$produto->getPkId()}' type='text' value='0' class='field' disabled />
+										<input id='qtd-{$item->getPkId()}' type='text' value='0' class='field' disabled />
 										
 										<button
 											type='button' id='add'
-											data-cod_produto='{$produto->getPkId()}'
-											data-pontos='{$produto->getPtsResgateFidelidade()}'
-											data-nome_produto='{$produto->getNome()}' class='add'>+
+											data-cod_produto='{$item->getPkId()}'
+											data-pontos='{$item->getPtsResgateFidelidade()}'
+											data-nome_produto='{$item->getNome()}' class='add'>+
 										</button>
 
 									</div>";

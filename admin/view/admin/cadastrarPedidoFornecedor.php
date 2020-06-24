@@ -154,7 +154,7 @@
 
                         <div class="pull-right">
 
-                            <a href="default.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Cadastrar</a>
+                            <a href="default.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair</a>
 
                         </div>
                         

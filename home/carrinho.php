@@ -15,6 +15,16 @@
 
 	$categorias = $controleCategoria->selectAll();
 
+	//Verifica se o usuario possui o cadastro completo
+	if(
+		isset($_SESSION['cod_cliente']) &&
+		(!isset($_SESSION['data_nasc']) ||  
+		$_SESSION['data_nasc'] == "")
+	){
+		header("Location: /home/cadastroFidelidade.php?codPage=carrinho");
+	}
+
+
 	//configuração de acesso ao WhatsApp 
 	//include "./whats-config.php";
 
@@ -38,6 +48,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta name="format-detection" content="telephone=no">
+
+	<script data-ad-client="ca-pub-9260777931961803" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <?php
 	include_once "./head.php";
@@ -178,12 +190,17 @@
 
 
 		function atualizaFormaPgt(){
+			let formaPgtSelect = $("#formaPagamento").val();
 
 			$.ajax({
 				type: 'GET',
 				url: 'ajax/pag-formaPgt.php',
 				success: function (resultado) {
 					$("#formaPagamento").html(resultado);
+					$("#formaPagamento").val(formaPgtSelect);
+					if($("#formaPagamento").val() == null){
+						$("#formaPagamento").val(1);
+					}
 				}
 			});
 		}

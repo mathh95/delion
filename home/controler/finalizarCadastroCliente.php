@@ -7,24 +7,87 @@
     include_once "../lib/alert.php";
     include_once "../utils/VerificaCpf.php";
     include_once "../utils/VerificaTelefone.php";
+    include_once "../utils/IaGente.php";
     include_once HELPERPATH."/mask.php";
+    include_once MODELPATH."/sms_verificacao.php";
+    include_once "controlSmsVerificacao.php";
 
-    if (isset($_POST) and !empty($_POST)){
+    if (isset($_POST) and !empty($_POST) ){
+        if(isset($_GET['verificacaoCadastro']) && !empty($_GET['verificacaoCadastro'])){
+            $cod_cliente = $_SESSION['cod_cliente'];
+            $cpf = addslashes(htmlspecialchars($_POST['cpf']));
+            $data_nasc = addslashes(htmlspecialchars($_POST['data_nasc']));
+            $telefone = addslashes(htmlspecialchars($_POST['telefone']));
+            
+            $ia_gente = new IaGente();
+            $control_sms = new controlSmsVerificacao($_SG['link']);
 
-        $cod_cliente = $_SESSION['cod_cliente'];
-        $cpf = addslashes(htmlspecialchars($_POST['cpf']));
-        $data_nasc = addslashes(htmlspecialchars($_POST['data_nasc']));
-        $telefone = addslashes(htmlspecialchars($_POST['telefone']));
-        
-        $erros = verifica($cpf, $data_nasc, $telefone);
-        if($erros > 0){
-            echo "Campos inválidos!";
-        }else{
+            $erros = verifica($cpf, $data_nasc, $telefone);
+            if($erros > 0){
+                echo "Campos inválidos!";
+            }else{
+    
+                $mask = new Mask;
+                $telefone_int = $mask->rmMaskPhone($telefone);
+    
+                //Gera o código p/ enviar o sms
+                $cod_sms = rand(1112, 9998);
+                    
+                //salva informações de verificação
+                $sms = new smsVerificacao;
+                $sms->construct($telefone_int, $cod_sms);
+                    
+                $result = $control_sms->insert($sms);
+                if($result < 0){
+                    echo "Erro ao salvar SMS 😕";
+                    return;
+                }
+                    
+                //add Código país para envio
+                $telefone_int = "55".$telefone_int;
+    
+                //envia SMS
+                $res_envio = $ia_gente->enviaVerificacaoSMS($telefone_int, $cod_sms);
+                    
+                if($res_envio == "OK"){
+                    echo "verificado_enviado";
+                }else{
+                    echo "Erro ao enviar SMS 😕...contate o suporte.";
+                }
+            }
+        }
+        //Verificação do SMS e cadastro do usuário
+        else if(isset($_GET['verificacaoSMS']) && !empty($_GET['verificacaoSMS'])){
 
+            $ia_gente = new IaGente();
+            $control_sms = new controlSmsVerificacao($_SG['link']);
+
+            $cod_cliente = $_SESSION['cod_cliente'];
+            $cpf = addslashes(htmlspecialchars($_POST['cpf']));
+            $data_nasc = addslashes(htmlspecialchars($_POST['data_nasc']));
+            $telefone = addslashes(htmlspecialchars($_POST['telefone']));
+            $cod_inserido = addslashes(htmlspecialchars($_POST['codigo_sms']));
+            
+            if(strlen($cod_inserido) < 4 || strlen($cod_inserido) > 4){
+                echo "Código inválido!";
+                return;
+            }
+            
             $mask = new Mask;
             $telefone_int = $mask->rmMaskPhone($telefone);
-            $cpf_int = $mask->rmMaskCpf($cpf);
+            
+            //verifica código SMS
+            $res_sms = $control_sms->selectByTelefoneCodigo($telefone_int, $cod_inserido);
 
+            if($res_sms->getCod_sms() == ""){
+                echo "Código inválido!";
+                return;
+            }else{
+                $control_sms->updateVerificado($res_sms->getCod_sms());
+            }
+
+            $cpf_int = $mask->rmMaskCpf($cpf);
+    
             $cliente = new cliente;
             $cliente->setPkId($cod_cliente);
             $cliente->setCpf($cpf_int);
@@ -33,17 +96,19 @@
 
             $control = new controlCliente($_SG['link']);
             $result = $control->completarCadastro($cliente);
-            
+
             if($result > 0){
                 $_SESSION['data_nasc'] = $data_nasc;
                 $_SESSION['telefone'] = $telefone_int;
-
+    
                 echo "atualizado";
             }else{
                 echo "Erro no cadastro 😕";
             }
+        
         }
     }
+
 
     function verifica($cpf, $data_nasc, $telefone){
 
@@ -72,6 +137,8 @@
          //valida telefone
         $mask = new Mask;
         $telefone_int = $mask->rmMaskPhone($telefone);
+
+
 
         if(strlen($telefone_int) == 0){
             echo "O Campo Telefone precisa ser preenchido.\n";                

@@ -21,6 +21,8 @@ include_once "../controler/controlEndereco.php";
 include_once "../utils/GoogleServices.php";
 // include_once "../configuracaoCores.php";
 
+include_once CONTROLLERPATH . "/controlFaixaHorario.php";
+$controle_faixa_horario = new controlerFaixaHorario(conecta());
 
 $itens = array();
 $cardapio = new controlerProduto(conecta());
@@ -45,6 +47,7 @@ $corSec = "#C6151F";
 if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     //ordenados com base na inserção/add carrinho
     $itens = $_SESSION['carrinho'];
+
     // var_dump($itens);
     // exit;
     $itensObservacao = $_SESSION['observacao'];
@@ -98,6 +101,9 @@ if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
     $_SESSION['qtd'] = $itens_qtd;
 
 } else {
+    // if(!isset($_SESSION['data_nasc']) ||  $_SESSION['data_nasc'] == "") 
+    // header("Location: /home/cadastroFidelidade.php?codPage=carrinho");
+
     $_SESSION['carrinho'] = array();
     $_SESSION['qtd'] = array();
     $_SESSION['observacao'] = array();
@@ -157,15 +163,42 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                     
                     foreach ($itens as $key => $item) {
 
-                    // verifica se item adicionado está disponível
-                    if(
-                        $item['pro_arr_dias_semana'] &&
-                        in_array($hoje, json_decode($item['pro_arr_dias_semana'])) &&
-                        ($hora_atual >= $item['faho_inicio'] &&
-                        $hora_atual < $item['faho_final']) &&
-                        $item['pro_flag_ativo']
-                    ){
+                        // !!!Verificação espelhada no Carrinho Resgate abaixo
+                        $disponivel_agora = false;
+                        $arr_dias_disponiveis = $item['pro_arr_dias_semana'];
 
+                        $faixas_horario = $controle_faixa_horario->selectByFkProduto($item['pro_pk_id']);
+
+                        // Se disponível todos os horários
+                        if (count($faixas_horario) == 0) {
+                            $disponivel_agora = true;
+                        }
+                        // Se disponível agora(horário)
+                        foreach ($faixas_horario as $key_fh => $faixa) {
+
+                            if (
+                                ($hora_atual >= $faixa->getInicio() &&
+                                    $hora_atual < $faixa->getFinal())
+                            ) {
+                                $disponivel_agora = true;
+                            }
+                        }
+                        // Se disponível hoje e agora(horário) 
+                        if (
+                            $arr_dias_disponiveis &&
+                            in_array($hoje, json_decode($arr_dias_disponiveis)) &&
+                            $item['pro_flag_ativo'] &&
+                            $item['pro_flag_servindo'] &&
+                            $disponivel_agora
+                        ) {
+                            $disponivel_agora = true;
+                        } else {
+                            $disponivel_agora = false;
+                        }
+
+                        // verifica se item adicionado está disponível
+                        if ($disponivel_agora) {
+                    
                 ?>
                     
                     <tr id="idLinha<?= $i ?>" data-id="<?= $item['pro_pk_id'] ?>" class=<?= ($item['pro_flag_delivery'] == 1) ? "disponivel" : "danger" ?> >
@@ -282,13 +315,40 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                     $qtd_aux = $_SESSION['carrinho_resgate'][$item['pro_pk_id']]['qtd'];
                     
                     // verifica se item adicionado está disponível
-                    if(
-                        $item['pro_arr_dias_semana'] &&
-                        in_array($hoje, json_decode($item['pro_arr_dias_semana'])) &&
-                        ($hora_atual >= $item['faho_inicio'] &&
-                        $hora_atual < $item['faho_final']) &&
-                        $item['pro_flag_ativo']
-                    ){
+                    $disponivel_agora = false;
+                    $arr_dias_disponiveis = $item['pro_arr_dias_semana'];
+
+                    $faixas_horario = $controle_faixa_horario->selectByFkProduto($item['pro_pk_id']);
+
+                    // Se disponível todos os horários
+                    if (count($faixas_horario) == 0) {
+                        $disponivel_agora = true;
+                    }
+                    // Se disponível agora(horário)
+                    foreach ($faixas_horario as $key_fh => $faixa) {
+
+                        if (
+                            ($hora_atual >= $faixa->getInicio() &&
+                                $hora_atual < $faixa->getFinal())
+                        ) {
+                            $disponivel_agora = true;
+                        }
+                    }
+                    // Se disponível hoje e agora(horário) 
+                    if (
+                        $arr_dias_disponiveis &&
+                        in_array($hoje, json_decode($arr_dias_disponiveis)) &&
+                        $item['pro_flag_ativo'] &&
+                        $item['pro_flag_servindo'] &&
+                        $disponivel_agora
+                    ) {
+                        $disponivel_agora = true;
+                    } else {
+                        $disponivel_agora = false;
+                    }
+
+                    // verifica se item adicionado está disponível
+                    if ($disponivel_agora) {
 
                 ?>
                     

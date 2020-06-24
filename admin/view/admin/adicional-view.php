@@ -12,6 +12,10 @@
 
     include_once MODELPATH."/adicional.php";
 
+    include_once CONTROLLERPATH . "/controlCategoria.php";
+
+    include_once MODELPATH . "/categoria.php";
+
     $_SESSION['permissaoPagina']=0;
 
     protegePagina();
@@ -21,6 +25,9 @@
     $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
     $controle=new controlerAdicional($_SG['link']);
+
+    $controleCategoria = new controlerCategoria($_SG['link']);
+    $categorias = $controleCategoria->selectAll();
 
     $adicional = $controle->selectId($_GET['cod']);
 
@@ -92,13 +99,30 @@
 
                             <br>
 
+                            <small>Categoria *: </small>
+
+                            <select class="form-control" name="categoria" id="categoria" required>
+
+                                <option value="">Selecionar Categoria</option>
+
+                                <?php
+
+                                foreach ($categorias as $categoria) {
+                                    echo "<option value='" . $categoria->getPkId() . "' id='" . $categoria->getPkId() . "'>" . $categoria->getNome() . "</option>";
+                                }
+                                ?>
+
+                            </select>
+                            
+                            <br>
+
 
                             <small>Informar se o item está ativo:</small>
                                 <div class="checkbox">
 
                                     <label>
 
-                                        <input type="checkbox" id="ativo" <?=($adicional->getFlag_ativo() == 1)?"checked":""?>name="flag_ativo" value="1">Ativo
+                                    <input type="checkbox" id="ativo" <?= ($adicional->getFlag_ativo() == 1) ? "checked" : "" ?> name="flag_ativo" value="1">Ativo
 
                                     </label>
 
@@ -130,7 +154,7 @@
 
                     <div class="pull-right">
 
-                    <a href="adicionalLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Alterar</a>
+                    <a href="adicionalLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair</a>
 
                     </div>
 
@@ -145,19 +169,26 @@
         <?php include VIEWPATH."/rodape.php" ?>
 
         <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-
+        
         <script>
-            var ativo =   <?=$adicional->getFlag_ativo();?>
 
             $( document ).ready(function() {
+                var ativo =   <?=$adicional->getFlag_ativo();?>
+                var categoria = '<?= $adicional->getCategoria() ?>';
 
+
+                //Arruma o checkbox do adicional ativo
                 if (ativo == 1) {
-
                     $('#ativo').attr('checked', true);
-
                 }
 
-            })
+                //Deixa a categoria correta selecionada
+                if (categoria) $('#' + categoria).attr('selected', true);
+
+            });
+
+
+
         </script>
 
     </body>

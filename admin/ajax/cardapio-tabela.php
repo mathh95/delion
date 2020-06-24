@@ -12,6 +12,9 @@ protegePagina();
 $controleUsuario = new controlerUsuario($_SG['link']);
 $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
+//Código da página para redirecionamento
+$pageCod = "cardapioTabela";
+
 $controle=new controlerProduto($_SG['link']);
 if((isset($_POST['nome']) && 
 !empty($_POST['nome'])) || 
@@ -67,8 +70,8 @@ isset($_POST['categoria'])){
 				<td style='text-align: center;' name='flag_ativo'>".$cardapio->getDsAtivo()."</td>
 				<td style='text-align: center;' name='prioridade'>".$cardapio->getDsPrioridade()."</td>
 				<td style='text-align: center;' name='delivery'>".$cardapio->getDsDelivery()."</td>
-			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='produto-view.php?cod=".$cardapio->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>
-			 	<td style='text-align: center;' name='status'><button type='button' onclick=\"removeCardapio(".$cardapio->getPkId().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i> Desativar</button></td>
+			 	<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='produto-view.php?cod=".$cardapio->getPkId()."&codPag=".$pageCod."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>
+			 	<td style='text-align: center;' name='status'><button type='button' onclick=\"removeCardapio(".$cardapio->getPkId().",'../".$cardapio->getFotoAbsoluto()."');\" class='btn btn-kionux'><i class='fa fa-remove'></i> Excluir</button></td>
 			</tr>";
 		}
 		}else{

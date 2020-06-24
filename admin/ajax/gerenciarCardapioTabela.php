@@ -14,6 +14,9 @@ $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
 
 $controle_cardapio=new controlerProduto($_SG['link']);
 $controle_categoria=new controlerCategoria($_SG['link']);
+//Código da página para redirecionamento
+$pageCod = "gerenciarTabela";
+
 
 $permissao =  json_decode($usuarioPermissao->getPermissao());
 if(in_array('cardapio', $permissao)){ 
@@ -101,7 +104,7 @@ if(in_array('cardapio', $permissao)){
 			
 						}
 	
-						echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='gerencia-produto-view.php?cod=".$item->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
+						echo "<td style='text-align: center;' name='editar'><a style='font-size: 20px;' href='produto-view.php?cod=".$item->getPkId()."&codPag=".$pageCod."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
 	
 					echo "</tr>";
 				}else{
@@ -127,7 +130,7 @@ if(in_array('cardapio', $permissao)){
 		
 					}
 
-					echo "<td style='text-align: center; color:red' name='editar'><a style='font-size: 20px;' href='produto-view.php?cod=".$item->getPkId()."'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
+					echo "<td style='text-align: center; color:red' name='editar'><a style='font-size: 20px;'><button class='btn btn-kionux'><i class='fa fa-edit'></i> Editar</button></a></td>";
 
 				echo "</tr>";
 				}

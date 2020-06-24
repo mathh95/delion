@@ -52,6 +52,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta name="format-detection" content="telephone=no">
+
+	<script data-ad-client="ca-pub-9260777931961803" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	
 </head>
 <?php
@@ -103,7 +105,7 @@
 
 				if($key == 0){	
 					echo "
-						<li class='nav-item active'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()."' style='border-bottom: 2px solid ".$corSec.";' onMouseOver='this.style.borderBottomColor=".$corSec."'>
+						<li class='nav-item active'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()." onMouseOver='this.style.borderBottomColor=".$corSec."'>
 							<div style='color:".$corSec."'>".$categoria->getNome()."</div>
 						</a></li>";
 				}else{
@@ -355,7 +357,7 @@
 								title: "Item já Adicionado! 😋",
 								text: "Consulte o carrinho...",
 								icon: "warning",
-								timer: 1100,
+								timer: 3100,
 								buttons: false
 							});
 						}else{
@@ -363,7 +365,7 @@
 								title: "Item Adicionado! 😋",
 								text: "Consulte o carrinho...",
 								icon: "success",
-								timer: 1000,
+								timer: 3000,
 								buttons: false
 							});
 							//Exibe caso tenha mais de 0 itens no carrinho.

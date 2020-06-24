@@ -128,7 +128,7 @@
 
                                     <button id="enviar_msg" type="submit" class="btn btn-kionux"><i class="fas fa-paper-plane"></i></i> Enviar</button>
                                     
-                                    <a href="default.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair sem Enviar</a>
+                                    <a href="default.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair</a>
 
                                 <?php } ?>
 

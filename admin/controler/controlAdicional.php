@@ -9,16 +9,17 @@
         private $pdo;
         function insert($adicional){
             try{
-                $stmte =$this->pdo->prepare("INSERT INTO tb_adicional(adi_nome, adi_preco, adi_flag_ativo)
-                VALUES (:nome, :preco, :flag_ativo)");
+                $stmte =$this->pdo->prepare("INSERT INTO tb_adicional(adi_nome, adi_preco, adi_flag_ativo, adi_fk_categoria)
+                VALUES (:nome, :preco, :flag_ativo, :fk_categoria)");
                 $stmte->bindParam(":nome", $adicional->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $adicional->getPreco());
                 $stmte->bindParam(":flag_ativo", $adicional->getFlag_ativo());
+                $stmte->bindParam(":fk_categoria", $adicional->getFkCategoria(), PDO::PARAM_INT);
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;
                 }
-               else{
+                else{
                     return -1;
                 }
             }
@@ -30,11 +31,12 @@
 
         function update($adicional){
             try{
-                $stmte =$this->pdo->prepare("UPDATE tb_adicional SET adi_nome=:nome, adi_preco=:preco, adi_flag_ativo = :flag_ativo WHERE adi_pk_id=:cod_adicional");
+                $stmte =$this->pdo->prepare("UPDATE tb_adicional SET adi_nome=:nome, adi_preco=:preco, adi_flag_ativo = :flag_ativo, adi_fk_categoria = :categoria WHERE adi_pk_id=:cod_adicional");
                 $stmte->bindParam(":cod_adicional", $adicional->getPkId() , PDO::PARAM_INT);
                 $stmte->bindParam(":nome", $adicional->getNome(), PDO::PARAM_STR);
                 $stmte->bindParam(":preco", $adicional->getPreco());
                 $stmte->bindParam(":flag_ativo", $adicional->getFlag_ativo());
+                $stmte->bindParam(":categoria", $adicional->getFkCategoria());
                 $executa = $stmte->execute();
                 if($executa){
                     return 1;
@@ -77,6 +79,31 @@
                 echo $e->getMessage();
             }
         }
+
+        function selectAdiCategoria($parametro){
+            $adicionais = array();
+            try{
+                $stmte = $this->pdo->prepare("SELECT * FROM tb_adicional WHERE adi_fk_categoria = :parametro");
+                $stmte->bindParam(":parametro", $parametro, PDO::PARAM_INT);
+                if($stmte->execute()){
+                    if($stmte->rowCount() > 0){
+                        while($result = $stmte->fetch(PDO::FETCH_OBJ)){
+                            $adicional = new adicional();
+                            $adicional->setPkId($result->adi_pk_id);
+                            $adicional->setNome($result->adi_nome);
+                            $adicional->setPreco($result->adi_preco);
+                            $adicional->setFlag_ativo($result->adi_flag_ativo);
+                            array_push($adicionais, $adicional);
+                        }
+                    }
+                }
+                return $adicionais;
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
 
         function verificaIgual($parametro){
             $adicional = new adicional();
@@ -159,7 +186,10 @@
         function selectAll(){
             $adicionais = array();
             try{
-                $stmte = $this->pdo->prepare("SELECT * FROM tb_adicional");
+                $stmte = $this->pdo->prepare("SELECT * 
+                FROM tb_adicional AS ADI
+                LEFT JOIN tb_categoria AS CAT
+                ON ADI.adi_fk_categoria = CAT.cat_pk_id");
                 if($stmte->execute()){
                     if($stmte->rowCount() > 0){
                         while($result = $stmte->fetch(PDO::FETCH_OBJ)){
@@ -168,6 +198,7 @@
                             $adicional->setNome($result->adi_nome);
                             $adicional->setPreco($result->adi_preco);
                             $adicional->setFlag_ativo($result->adi_flag_ativo);
+                            $adicional->setFkCategoria($result->cat_nome);
                             array_push($adicionais, $adicional);
                         }
                     }else{

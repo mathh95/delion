@@ -381,7 +381,7 @@
 
                         <div class="pull-right">
 
-                            <a href="usuariosLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Voltar</a>
+                            <a href="usuariosLista.php" class="btn btn-kionux"><i class="fa fa-arrow-left"></i> Sair</a>
                             
                         </div>
 
@@ -393,21 +393,7 @@
 
         </div>
 
-        
-
-        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-
-        <script>window.jQuery || document.write('<script src="../../dist/js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
-
-        <script src="../../vendor/bootstrap3/js/bootstrap.min.js"></script>
-
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-
-        <script src="../../vendor/bootstrap3/js/ie10-viewport-bug-workaround.js"></script>
-
-        <script src="../../dist/js/plugins.js"></script>
-
-        <script src="../../dist/js/main.js"></script>
+        <?php include VIEWPATH."/rodape.php" ?>
 
         <script>
 

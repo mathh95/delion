@@ -221,7 +221,7 @@
                 $res_envio = $ia_gente->enviaVerificacaoSMS($telefone_int, $cod_sms);
                 
                 if($res_envio == "OK"){
-                    echo "verificado";
+                    echo "verificado_enviado";
                 }else{
                     echo "Erro ao enviar SMS 😕...contate o suporte.";
                 }

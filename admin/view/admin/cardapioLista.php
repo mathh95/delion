@@ -1,39 +1,41 @@
 <?php
-    include_once $_SERVER['DOCUMENT_ROOT']."/config.php";
-    include_once CONTROLLERPATH."/controlUsuario.php";
-    include_once MODELPATH."/usuario.php";
-    include_once CONTROLLERPATH."/seguranca.php";
-    include_once CONTROLLERPATH."/controlProduto.php";
-    include_once CONTROLLERPATH."/controlCategoria.php";
-    include_once MODELPATH."/produto.php";
-    $_SESSION['permissaoPagina']=0;
-    protegePagina();
-    $controleUsuario = new controlerUsuario($_SG['link']);
-    $usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
-    $controleCategoria = new controlerCategoria($_SG['link']);
-    $categorias = $controleCategoria->selectAll();
+include_once $_SERVER['DOCUMENT_ROOT'] . "/config.php";
+include_once CONTROLLERPATH . "/controlUsuario.php";
+include_once MODELPATH . "/usuario.php";
+include_once CONTROLLERPATH . "/seguranca.php";
+include_once CONTROLLERPATH . "/controlProduto.php";
+include_once CONTROLLERPATH . "/controlCategoria.php";
+include_once MODELPATH . "/produto.php";
+$_SESSION['permissaoPagina'] = 0;
+protegePagina();
+$controleUsuario = new controlerUsuario($_SG['link']);
+$usuarioPermissao = $controleUsuario->select($_SESSION['usuarioID'], 2);
+$controleCategoria = new controlerCategoria($_SG['link']);
+$categorias = $controleCategoria->selectAll();
 
-    //usado para coloração customizada da página selecionada na navbar
-    $arquivo_pai = basename(__FILE__, '.php');
-    
+//usado para coloração customizada da página selecionada na navbar
+$arquivo_pai = basename(__FILE__, '.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <?php include VIEWPATH."/cabecalho.html" ?>
+    <?php include VIEWPATH . "/cabecalho.html" ?>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
+
 <body>
-    
+
     <?php include_once "./header.php" ?>
 
     <div class="container-fluid">
         <div class="searchbar">
-            <div class="mini-divs"> 
+            <div class="mini-divs">
                 <label>Filtro por nome: </label>
                 <input id="pesquisa" class="form-control" type="text" required placeholder="Nome para pesquisa">
             </div>
-            <div class="mini-divs"> 
+            <div class="mini-divs">
                 <label> Situação </label>
                 <select class="form-control" id="flag">
                     <option value=''>TODOS</option>
@@ -41,7 +43,7 @@
                     <option value='1'>ATIVO</option>
                 </select>
             </div>
-            <div class="mini-divs"> 
+            <div class="mini-divs">
                 <label> Em produção </label>
                 <select class="form-control" id="producao">
                     <option value=''>TODOS</option>
@@ -49,7 +51,7 @@
                     <option value='1'>SERVINDO</option>
                 </select>
             </div>
-            <div class="mini-divs"> 
+            <div class="mini-divs">
                 <label> Delivery </label>
                 <select class="form-control" id="delivery">
                     <option value=''>TODOS</option>
@@ -57,7 +59,7 @@
                     <option value='1'>DISPONÍVEL</option>
                 </select>
             </div>
-            <div class="mini-divs"> 
+            <div class="mini-divs">
                 <label> Prioridade </label>
                 <select class="form-control" id="prioridade">
                     <option value=''>TODOS</option>
@@ -65,7 +67,7 @@
                     <option value='1'>PRIORITÁRIO</option>
                 </select>
             </div>
-            <div class="mini-divs"> 
+            <div class="mini-divs">
                 <label> Categoria </label>
                 <select class="form-control" id="categoria">
                     <option value=''>TODOS</option>
@@ -73,60 +75,68 @@
                     foreach ($categorias as $categoria) {
                         $cod_categoria = $categoria->getPkid();
                         $nome = $categoria->getNome();
-                        echo "<option value=".$cod_categoria.">".$nome."</option>";
+                        echo "<option value=" . $cod_categoria . ">" . $nome . "</option>";
                     }
                     ?>
                 </select>
             </div>
         </div>
-            <div class="row">
-                <div id="tabela-cardapio" class="col-lg-12">
-                    <?php include "../../ajax/cardapio-tabela.php";?>
-                </div>
+        <div class="row">
+            <div id="tabela-cardapio" class="col-lg-12">
+                <?php include "../../ajax/cardapio-tabela.php"; ?>
             </div>
+        </div>
     </div>
-    <?php include VIEWPATH."/rodape.php" ?>
+    <?php include VIEWPATH . "/rodape.php" ?>
 
     <script src="../../js/alert.js"></script>
     <script type="text/javascript">
         // $('#tabela-pedido tbody tr').length;
-        function removeCardapio(cardapio,foto){
-            msgConfirmacao('Confirmação','Confirmar a exclusão?',
-                function(linha){
-                    var url ='../../ajax/excluir-produto.php?cod_cardapio=' + cardapio + '&foto=' + foto;
-                    $.get(url, function(dataReturn) {
-                        console.log(dataReturn);
-                        if (dataReturn > 0) {
-                            msgGenerico("Excluir!","Item do cardápio excluido com sucesso!",1,function(){});
-                            $("#status"+cardapio).remove();
-                        }else{
-                            msgGenerico("Erro!","Não foi possível excluir a cardapio!",2,function(){});
-                        }
-                    });  
+        function removeCardapio(cardapio, foto) {
+            msgConfirmacao('⚠ Confirmação', '⚠ Tem certeza que deseja EXCLUIR este item?',
+                function(linha) {
+
+                    msgConfirmacao('⚠ Confirmação', '⚠ Tem certeza MESMO?!',
+                        function(linha) {
+                            var url = '../../ajax/excluir-produto.php?cod_cardapio=' + cardapio + '&foto=' + foto;
+                            $.get(url, function(dataReturn) {
+                                console.log(dataReturn);
+                                if (dataReturn > 0) {
+                                    msgGenerico("Excluir!", "Item do cardápio excluido com sucesso!", 1, function() {});
+                                    $("#status" + cardapio).remove();
+                                } else {
+                                    msgGenerico("Erro!", "Não foi possível excluir a cardapio!", 2, function() {});
+                                }
+                            });
+                        },
+                        function() {}
+                    );
+
+
                 },
-                function(){}
+                function() {}
             );
         }
 
-        function desativaCardapio(cardapio,foto){
-            msgConfirmacao('Confirmação','Deseja Realmente deixar o item indisponivel?',
-                function(linha){
-                    var url ='../../ajax/desativa-produto.php?cod_cardapio='+cardapio+'&foto='+foto;
+        function desativaCardapio(cardapio, foto) {
+            msgConfirmacao('Confirmação', 'Deseja Realmente deixar o item indisponivel?',
+                function(linha) {
+                    var url = '../../ajax/desativa-produto.php?cod_cardapio=' + cardapio + '&foto=' + foto;
                     $.get(url, function(dataReturn) {
                         console.log(dataReturn);
                         if (dataReturn > 0) {
-                            msgGenerico("Excluir!","Item do cardápio excluido com sucesso!",1,function(){});
+                            msgGenerico("Excluir!", "Item do cardápio excluido com sucesso!", 1, function() {});
                             location.reload();
-                        }else{
-                            msgGenerico("Erro!","Não foi possível excluir a cardapio!",2,function(){});
+                        } else {
+                            msgGenerico("Erro!", "Não foi possível excluir a cardapio!", 2, function() {});
                         }
-                    });  
+                    });
                 },
-                function(){}
+                function() {}
             );
         }
-        
-        $('#pesquisa,#flag,#producao,#delivery,#prioridade,#categoria').on('change paste keyup', function(){
+
+        $('#pesquisa,#flag,#producao,#delivery,#prioridade,#categoria').on('change paste keyup', function() {
             var nome = $("#pesquisa").val();
             var flag = $("#flag").val();
             var producao = $("#producao").val();
@@ -142,13 +152,21 @@
 
                 url: url,
 
-                data: {nome:nome, flag:flag, producao:producao ,delivery:delivery, prioridade:prioridade, categoria:categoria},
+                data: {
+                    nome: nome,
+                    flag: flag,
+                    producao: producao,
+                    delivery: delivery,
+                    prioridade: prioridade,
+                    categoria: categoria
+                },
 
-                success:function(res){
+                success: function(res) {
                     $("#tabela-cardapio").html(res);
                 }
             });
         });
     </script>
 </body>
+
 </html>
