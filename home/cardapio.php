@@ -13,6 +13,8 @@
 
 	include_once "controler/controlAdicional.php";
 
+	include_once "controler/controlSubcategoria.php";
+
 	include_once MODELPATH."/adicional.php";
 
 	include_once "./configuracaoCores.php";
@@ -20,6 +22,8 @@
 	$controleEmpresa = new controlerEmpresa(conecta());
 
 	$controleCategoria = new controlerCategoria(conecta());
+
+	$controleSubcategoria = new controlerSubcategoria(conecta());
 
 	$empresa = $controleEmpresa->select(1,2);
 
@@ -100,30 +104,45 @@
 		<?php 
 			$categorias = $controleCategoria->selectAllByPos();
 
+			//seleciona a(s) subcategoria(s) daquela categoria
+
+
+
 			foreach ($categorias as $key => $categoria) {
 				$corSec = "#C6151F";
 
-				if($key == 0){	
+				if($key == 0){
+				//seleciona a(s) subcategoria(s) daquela categoria
+				// $subcategorias = $controleSubcategoria->selectSubCatAssociada($categoria->getPkId());
+				// var_dump($subcategorias);
+				// exit;
 					echo "
 						<li class='nav-item active'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()." onMouseOver='this.style.borderBottomColor=".$corSec."'>
 							<div style='color:".$corSec."'>".$categoria->getNome()."</div>
-							<ul class='dropdown-categoria'>
-								<li>Teste Sub 1</li>
-								<li>Teste Sub 2</li>
-							</ul>
+							<ul class='dropdown-categoria'>";
+								$subcategorias = $controleSubcategoria->selectSubCatAssociada($categoria->getPkId());
+								foreach($subcategorias as $subcategoria){
+									echo "<li>".$subcategoria->getNome()."</li>";
+								}
+							echo "</ul>
 						</a></li>";
 				}else{
+					// $subcategorias = $controleSubcategoria->selectSubCatAssociada($categoria->getPkId());
+					// var_dump($subcategorias);
 					echo "
 						<li class='nav-item'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()."' >
 							<div style='color:".$corSec."'>".$categoria->getNome()."</div>
-							<ul class='dropdown-categoria'>
-								<li>Teste Sub 1</li>
-								<li>Teste Sub 2</li>
-							</ul>
+							<ul class='dropdown-categoria'>";
+								$subcategorias = $controleSubcategoria->selectSubCatAssociada($categoria->getPkId());
+								foreach($subcategorias as $subcategoria){
+									echo "<li>".$subcategoria->getNome()."</li>";
+								}
+							echo "</ul>
 						</a></li>";
 				}
-
+				
 			}
+							// exit;
 
 		?>
 		</ul>

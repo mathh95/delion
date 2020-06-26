@@ -131,10 +131,10 @@ foreach ($categorias as $key_cat => $categoria) {
                 //     echo "<button id='addCarrinho' data-cod='".$item->getPkId()."' class='btn btn-default' data-src_image='../admin/".$item->getFoto()."' data-arr_adicionais='".$item->getAdicional()."' style='background-color:".$corSec."; border: 1px solid ".$corPrim."'>Adicionar</button>";
                     
                 // }
-                        if($disponivel_agora && $item->getPkId() == 353){
+                        if($disponivel_agora && $item->getPkId() == 356){
                             echo "<button id='addCarrinhoPizza' data-cod='".$item->getPkId()."' class='btn btn-default' data-src_image='../admin/".$item->getFoto()."' data-arr_adicionais='".$item->getAdicional()."' style='background-color:".$corSec."; border: 1px solid ".$corPrim."'>Adicionar</button>";
                         }
-                        else if ($disponivel_agora && $item->getPkId() != 353){
+                        else if ($disponivel_agora && $item->getPkId() != 356){
                             echo "<button id='addCarrinho' data-cod='".$item->getPkId()."' class='btn btn-default' data-src_image='../admin/".$item->getFoto()."' data-arr_adicionais='".$item->getAdicional()."' style='background-color:".$corSec."; border: 1px solid ".$corPrim."'>Adicionar</button>";
 
                         }
