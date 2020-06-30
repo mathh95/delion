@@ -95,6 +95,9 @@
 												$dataHoraDelivery = date_create($pedido->getHora_delivery());
 												echo "<td style='text-align: center;' name='status'>".date_format($dataHoraDelivery, "H:i")."h - Saiu para Entrega</td>";
 											}
+											else if($pedido->getStatus() == 4){//quando o pedido foi cancelado
+												echo "<td style='text-align: center;' name='status'> Pedido cancelado pelo Administrador</td>";
+											}
 
 											echo "<td style='text-align: center;' name='editar'><a href='pedido.php?cod=".$pedido->getPkId()."'><button class='btn btn-default'>Itens</button></a></td>
 										</tr>";  

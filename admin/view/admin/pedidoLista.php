@@ -226,6 +226,30 @@ $arquivo_pai = basename(__FILE__, '.php');
             console.log("Botao clicado");
         }
 
+        //Cancela o pedido
+        function cancelaPedido(pedido,status){
+                if((status == 1) || (status == 2)){
+                msgConfirmacao('Confirmação','Deseja Realmente cancelar o pedido?',
+                    function(linha){
+                        var url ='../../ajax/cancelar-pedido.php?pedido='+pedido+'&status='+status;
+                        $.get(url, function(dataReturn) {
+                            if (dataReturn == 1) {
+                                
+                                msgRedireciona("Sucesso!","Pedido Cancelado!",1,"../../view/admin/pedidoLista.php?page=1" );
+                            }else{
+                                msgGenerico("Erro!",dataReturn,2,function(){});
+                            }
+                        });  
+                    },
+                    function(){}
+                );
+            }else if(status == 4){
+                msgRedireciona("Erro !","Esse pedido já está cancelado!",1,"../../view/admin/pedidoLista.php?page=1" );
+            }else if(status == 3){
+                msgRedireciona("Erro !","Esse pedido já foi retirado!",1,"../../view/admin/pedidoLista.php?page=1" );
+            }
+        } 
+
         //Erro com a entrega do pedido
         function erroDelivery(pedido,status){
             if(status == 3) {
@@ -277,13 +301,13 @@ $arquivo_pai = basename(__FILE__, '.php');
         } 
 
         //Muda o status do pedido para retirado
-        function alterarStatusRetirado(pedido,status){
+        function alterarStatusRetirado(pedido,status,cliente,total){
                 //Segundo caso: Se o status do pedido for igual a 2
                 //Vai alterar ele apenas para ENTREGA
                 if(status-1 == 2){
                 msgConfirmacao('Confirmação','O Cliente retirou o pedido?',
                     function(linha){
-                        var url ='../../ajax/alterar-pedidoRet.php?pedido='+pedido+'&status='+status;
+                        var url ='../../ajax/alterar-pedidoRet.php?pedido='+pedido+'&status='+status+'&cliente='+cliente+'&total='+total;
                         $.get(url, function(dataReturn) {
                             if (dataReturn == 1) {
                                 
