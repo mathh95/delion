@@ -136,7 +136,7 @@ class controlerCarrinho{
         }
 
         //++ pontos de fidelidade em Cliente
-        if($fidelidade_valida){
+        if($pts_utilizados != 0){
             $sql = $this->pdo->prepare("UPDATE tb_cliente
             SET cli_pontos_fidelidade = IFNULL(cli_pontos_fidelidade, 0) + :operacao_fidelidade
             WHERE cli_pk_id = :cli_pk_id");
@@ -149,8 +149,6 @@ class controlerCarrinho{
 
         return TRUE;
     }
-
-
 
     function selectPedido($fk_cliente){
         $parametro = $fk_cliente;
@@ -243,6 +241,7 @@ class controlerCarrinho{
                         $pedido->rua=($result->end_logradouro);
                         $pedido->cep=($result->end_cep);
                         $pedido->origem_pedido=($result->orpe_origem);
+                        $pedido->codigo_cliente=($result->ped_fk_cliente);
 
                         array_push($pedidos,$pedido);
                     }
@@ -524,7 +523,11 @@ class controlerCarrinho{
         }
     }
 
-    function alteraStatusPedidoRetirada($cod_pedido,$status){
+    function alteraStatusPedidoRetirada($cod_pedido,$status,$cliente,$valor_desconto){
+        $fidelidade_valida = TRUE;
+        $operacao_fidelidade = $valor_desconto;
+        $cli_pk_id = $cliente;
+
         try{
             if($status == "3"){
                 date_default_timezone_set('America/Bahia');
@@ -535,7 +538,20 @@ class controlerCarrinho{
                 $stmt->bindParam(":hora_retirada", $hora_retirada, PDO::PARAM_STR);
                 $stmt->bindParam(":parametro",$parametro,PDO::PARAM_INT);
                 $stmt->execute();
+
+                if($fidelidade_valida){
+                    $sql = $this->pdo->prepare("UPDATE tb_cliente
+                    SET cli_pontos_fidelidade = IFNULL(cli_pontos_fidelidade, 0) + :operacao_fidelidade
+                    WHERE cli_pk_id = :cli_pk_id");
+        
+                    $sql->bindValue(":cli_pk_id", $cli_pk_id);
+                    $sql->bindValue(":operacao_fidelidade", $operacao_fidelidade);
+        
+                    if(!$sql->execute()) return FALSE;
+                }
+
                 return 1;
+
             }else{
                 return 0;
             }
@@ -543,6 +559,25 @@ class controlerCarrinho{
             return $e->getMessage();
         }
     }
+
+    function cancelarPedido($cod_pedido, $status){
+        try{
+            if($status != 4){
+                
+                $parametro=$cod_pedido;
+
+                $stmt=$this->pdo->prepare("UPDATE tb_pedido SET ped_status= 4 WHERE ped_pk_id=:parametro");
+                $stmt->bindParam(":parametro",$parametro,PDO::PARAM_INT);
+                $stmt->execute();
+                return 1;
+            }else {
+                return 0;
+            }
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
+
 
 }
 ?>

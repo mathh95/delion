@@ -6,11 +6,9 @@
 	protegePagina();
 	if (in_array('pedido', json_decode($_SESSION['permissao']))) {
         $cod_pedido = $_GET['pedido'];
-		$status= $_GET['status'];
-		$cliente = $_GET['cliente'];
-		$valor_desconto = $_GET['total'];
+        $status= $_GET['status'];
 		$controle=new controlerCarrinho($_SG['link']);
-		$result=$controle->alteraStatusPedidoRetirada($cod_pedido,$status,$cliente,$valor_desconto);
+		$result=$controle->cancelarPedido($cod_pedido,$status);
 		echo "$result";
 	}else{
 		expulsaVisitante();

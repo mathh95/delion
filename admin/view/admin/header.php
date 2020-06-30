@@ -18,10 +18,6 @@
 
     $empresa = $controleEmpresa->selectAll();
 ?>
-<head>
-    <?php include VIEWPATH."/cabecalho.html" ?>
-</head>
-
 
 <header>
 

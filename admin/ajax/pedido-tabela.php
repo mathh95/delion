@@ -163,7 +163,7 @@ if ($pedidos == -1){
 			<th width='10%' style='text-align: center;'>Nome Cliente</th>
 			<th width='7%' style='text-align: center;'>Valor Total</th>
 			<th width='20%' style='text-align: center;'>Local Entrega</th>
-			<th width='15%' style='text-align: center;' colspan='3'>Operações</th>
+			<th width='15%' style='text-align: center;' colspan='4'>Operações</th>
 		</thead>
 		<tbody>";
 		
@@ -176,24 +176,47 @@ if ($pedidos == -1){
 
 			$array = $pedido->getPkId();
 
-			echo 
-			"<tr name='resultado' id='status".$pedido->getPkId()."' 							data-cod_pedido='".$pedido->getPkId()."'>
 
-				<td style='text-align: center;' name='cod_pedido'>".$pedido->getPkId()."</td>
-
-				<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
-
-				<td style='text-align: center;' name='data'>".$pedido->getData()->format('H:i')."</td>
-				<td style='text-align: center;' name='cliente'>".$pedido->getCliente()."</td>
-
-				<td style='text-align: center;' name='valor'>R$ ".$pedido->getTotal()."</td>";
-
+            
+            if($pedido->getStatus() == 4){
+                echo
+			    "<tr name='resultado' id='status".$pedido->getPkId()."'data-cod_pedido='".$pedido->getPkId()."'>
+				<td style='text-align: center; color:red;' name='cod_pedido'>".$pedido->getPkId()."</td>
+				<td style='text-align: center; color:red;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
+				<td style='text-align: center; color:red;' name='data'>".$pedido->getData()->format('H:i')."</td>
+				<td style='text-align: center; color:red;' name='cliente'>".$pedido->getCliente()."</td>
+                <td style='text-align: center; color:red;' name='valor'>R$ ".$pedido->getTotal()."</td>";
+                
+                if($pedido->rua == NULL){
+					echo "<td style='text-align: center; color:red;' name='rua'>Balcão</td>";
+				}else{
+					echo "<td style='text-align: center; color:red;' name='rua'>".$pedido->rua.", ".$pedido->numero." - ".$pedido->bairro."</td>";
+                }
+                
+                echo
+				"<div id='buttonbar'>
+					<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-danger' data-toggle='modal' data-target='#modalPedido".$pedido->getPkId()."' data-id='".$pedido->getPkId()."' disabled><i class='fa fa-print'></i> Imprimir</button></a></td>";
 
 				if($pedido->rua == NULL){
-					echo "<td style='text-align: center;' name='rua'>Balcão</td>";
+					echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button class='btn btn-success' disabled><i class='fas fa-store'></i> Retirado</button></a></td>";
 				}else{
-					echo "<td style='text-align: center;' name='rua'>".$pedido->rua.", ".$pedido->numero." - ".$pedido->bairro."</td>";
-				}
+					echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button class='btn btn-success' disabled><i class='fa fa-truck'></i> Delivery</button></a></td>";
+				}					
+                
+            }else{
+                echo
+			    "<tr name='resultado' id='status".$pedido->getPkId()."'data-cod_pedido='".$pedido->getPkId()."'>
+				<td style='text-align: center;' name='cod_pedido'>".$pedido->getPkId()."</td>
+				<td style='text-align: center;' name='cliente'>".$pedido->getData()->format('d/m/Y')."</td>
+				<td style='text-align: center;' name='data'>".$pedido->getData()->format('H:i')."</td>
+				<td style='text-align: center;' name='cliente'>".$pedido->getCliente()."</td>
+				<td style='text-align: center;' name='valor'>R$ ".$pedido->getTotal()."</td>";
+                if($pedido->rua == NULL){
+                    echo "<td style='text-align: center;' name='rua'>Balcão</td>";
+                }else{
+                    echo "<td style='text-align: center;' name='rua'>".$pedido->rua.", ".$pedido->numero." - ".$pedido->bairro."</td>";
+                }
+            }
 				
 				//Não foi impresso nem saiu para entrega
 				if($pedido->getStatus()==1){
@@ -217,7 +240,7 @@ if ($pedidos == -1){
 						<td style='text-align: center;' name='imprime'><a style='font-size: 10px;'><button class='btn btn-warning' data-toggle='modal' data-target='#modalPedido".$pedido->getPkId()."' data-id='".$pedido->getPkId()."'><i class='fa fa-print'></i> Imprimir</button></a></td>";
 
 					if($pedido->rua == NULL){	
-						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick='alterarStatusRetirado(".$pedido->getPkId().",3)' class='btn btn-primary' disable><i class='fas fa-store'></i> Retirado</button></a></td>";
+						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick='alterarStatusRetirado(".$pedido->getPkId().",3,".$pedido->codigo_cliente.",".$pedido->getSubtotal().")' class='btn btn-primary' disable><i class='fas fa-store'></i> Retirado</button></a></td>";
 					}else{
 						echo "<td style='text-align: center;' name='delivery'><a style='font-size: 10px;'><button onclick='alterarStatusDelivery(".$pedido->getPkId().",3)' class='btn btn-primary' disable><i class='fa fa-truck'></i> Delivery</button></a></td>";
 					}
@@ -283,7 +306,8 @@ if ($pedidos == -1){
 							</span>
 						</div>
 					</a>
-				</td>
+                </td>
+                <td style='text-align: center;' name='cancelar'><a style='font-size: 10px;'><button onclick='cancelaPedido(".$pedido->getPkId().",".$pedido->getStatus().")' class='btn btn-danger'><i class='fa fa-ban'></i> Cancelar</button></a></td>
 			</div>
 		</tr>";
 
