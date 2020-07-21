@@ -223,7 +223,7 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
                                     $valor_adicional_item += $adc_precofinal;
 
                                     if(!empty($item_adc) && $item_adc !== ''){
-                                        echo "<p class='adicionais_subtitle text-lowecase'> + ".$item_adc[3]." x ".$item_adc[1]." - R$ ".$adc_precofinal_format." </p>";
+                                        echo "<b><p class='adicionais_subtitle text-lowecase'> + ".$item_adc[3]." x ".$item_adc[1]." - R$ ".$adc_precofinal_format." </p></b>";
                                         
                                     }
                                 }

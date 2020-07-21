@@ -112,33 +112,47 @@
 				$corSec = "#C6151F";
 
 				if($key == 0){
+					$subcategorias = $controleSubcategoria->selectSubCatAssociada($categoria->getPkId());
+
 				//seleciona a(s) subcategoria(s) daquela categoria
 				// $subcategorias = $controleSubcategoria->selectSubCatAssociada($categoria->getPkId());
 				// var_dump($subcategorias);
 				// exit;
 					echo "
 						<li class='nav-item active'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()." onMouseOver='this.style.borderBottomColor=".$corSec."'>
-							<div style='color:".$corSec."'>".$categoria->getNome()."</div>
-							<ul class='dropdown-categoria'>";
-								$subcategorias = $controleSubcategoria->selectSubCatAssociada($categoria->getPkId());
-								foreach($subcategorias as $subcategoria){
-									echo "<li>".$subcategoria->getNome()."</li>";
+							<div style='color:".$corSec."'>".$categoria->getNome()."</div>";
+							if($subcategorias !== 0 && !empty($subcategorias)){
+								echo "<ul class='dropdown-categoria'>";
+										foreach($subcategorias as $subcategoria){
+											echo "<li>".$subcategoria->getNome()."</li>";
+										}
+									echo "</ul>";
+								}else{
+									echo " ";
+										
 								}
-							echo "</ul>
-						</a></li>";
+							echo "</a></li>";
 				}else{
+
+					$subcategorias = $controleSubcategoria->selectSubCatAssociada($categoria->getPkId());
+
 					// $subcategorias = $controleSubcategoria->selectSubCatAssociada($categoria->getPkId());
 					// var_dump($subcategorias);
+					// exit;
 					echo "
 						<li class='nav-item'><a class= 'nav-link item-categoria' href='#categoria".$categoria->getPkId()."' id='".$categoria->getPkId()."' >
-							<div style='color:".$corSec."'>".$categoria->getNome()."</div>
-							<ul class='dropdown-categoria'>";
-								$subcategorias = $controleSubcategoria->selectSubCatAssociada($categoria->getPkId());
+							<div style='color:".$corSec."'>".$categoria->getNome()."</div>";
+						if($subcategorias !== 0 && !empty($subcategorias)){
+						echo "<ul class='dropdown-categoria'>";
 								foreach($subcategorias as $subcategoria){
 									echo "<li>".$subcategoria->getNome()."</li>";
 								}
-							echo "</ul>
-						</a></li>";
+							echo "</ul>";
+						}else{
+							echo " ";
+								
+						}
+					echo "</a></li>";
 				}
 				
 			}
@@ -271,6 +285,12 @@
 		var adicionais = JSON.parse('<?php echo json_encode($adicionais); ?>');
 		// console.log(adicionais);
 
+		
+			$('.qtd-adicionais').change(function () {
+				if($('#qtd-adic').is(':checked')){ 
+					$(this).prev().val(+$(this).prev().val() + 1);
+				}
+			});
 		$(document).on('click', '.add', function () {
 			$(this).prev().val(+$(this).prev().val() + 1);
 		});
@@ -301,30 +321,20 @@
 			});
 
 			const inputOptions = new Promise((resolve) => {
-				setTimeout(() => {
 					resolve({
-					'Pequena': ' Pequena',
-					'Média': ' Média',
-					'Grande': ' Grande'
+					'Pizza Pequena': ' Pequena',
+					'Pizza Média': ' Média',
+					'Pizza Grande': ' Grande'
 					})
-				}, 1000)
 				})
 
-				const inputOptions1 = new Promise((resolve) => {
-				setTimeout(() => {
-					resolve({
-					'Sem borda': 'Sem borda',
-					'Catupiry': 'Catupiry',
-					'Cheddar': 'Cheddar'
-					})
-				}, 1000)
-				})
 
 			//Verifica se existe adicionais, se não apenas exibe input de observação.
 			var div_complemento = "";
 			if(adicionais_produto !== [] && adicionais_produto.length > 0 
 			&& adicionais_produto.length !== null && adicionais_produto !== '' && adicionais_produto){
-				div_complemento += `<h4 style='font-weight: bold;'>Algum complemento?</h4>`;
+				div_complemento += `<h4 style='font-weight: bold;'>Selecione a borda de sua pizza</h4>
+									<p style='color:red; font-size: 14px;'>Escolha uma borda para continuar</p>`;
 			}else{
 				div_complemento += `<h4 style='font-weight: bold;'></h4>`
 			}
@@ -335,12 +345,12 @@
 				adicionais_html += `
 				<li>
 					<div class="qtd-adicionais">
-						<button type="button" id="sub" class="sub">-</button>
+						
 						<input 
-							type="text" value="0" name='qtd-adic[]' class="field qtd-adic" readonly
+							type="radio" value="0" name='borda-adic[]' class="field borda-adic"
 							data-id='${pk_id}' data-nome='${array_adicionais[pk_id][0]}' data-preco='${array_adicionais[pk_id][1]}'
 						/>
-						<button type="button" id="add" class="add">+</button>
+						
 						${array_adicionais[pk_id][0]} - R$ ${array_adicionais[pk_id][1]}
 					</div>
 				</li>`
@@ -359,22 +369,7 @@
 				
 			</div>
 			<div>
-				<h4 style='font-weight: bold;padding-top:10px;'>Selecione a borda de sua pizza</h4>
-				<form>
-					<div>
-						<input type="radio" id="semborda"
-						name="borda" value="semborda">
-						<label for="semborda">Sem recheio</label>
-
-						<input type="radio" id="cheddar"
-						name="borda" value="cheddar">
-						<label for="cheddar">Cheddar</label>
-
-						<input type="radio" id="catupiry"
-						name="borda" value="catupiry">
-						<label for="catupiry">Catupiry</label>
-					</div>
-				</form>
+				
 					<h4 style='font-weight: bold;padding-top:10px;'>Selecione o tamanho de sua pizza</h4>
 			`;
 
@@ -392,26 +387,20 @@
 					return 'Escolha um tamanho e borda!'
 					}
 				}
-				
-				
-				
+					
 			})
 			.then((observacaoItem) => {
-
+		
 				//Adicionais selecionados do Produto
 				var adicionais_selecionados = [];
 
-				$('.qtd-adic').each(function(){
-					if($(this).val() > 0){
-						adicionais_selecionados.push 
-							([
-								$(this).data('id'),
-								$(this).data('nome'),
-								$(this).data('preco'),
-								$(this).val()
-							]);
-					}
-				})
+				var checked = $('.borda-adic:checked');
+				adicionais_selecionados.push ([
+					checked.data('id'),
+					checked.data('nome'),
+					checked.data('preco'),
+					1
+				]);
 
 				$.ajax({
 					type: 'GET',
@@ -448,6 +437,9 @@
 
 		
 		});
+
+		
+
 		$(document).on("click", "#addCarrinho", function(){
 
 			var qtd = $('#spanCarrinho').text();
