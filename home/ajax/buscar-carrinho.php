@@ -216,16 +216,21 @@ if (count($itens) > 0 || count($itens_resgate) > 0) {
 
                                 foreach($itensAdicional[$item['pro_pk_id']] as $item_adc){
 
-                                    //preço * qtd_adicional
-                                    $adc_precofinal = ($item_adc[2] * $item_adc[3]);
-                                    $adc_precofinal_format = number_format($adc_precofinal, 2, ',', ' ');
+                                    //Verificação pro caso da pizza
+                                    if($item_adc[2] != ""){
+                                        //preço * qtd_adicional
+                                        $adc_precofinal = ($item_adc[2] * $item_adc[3]);
+                                        $adc_precofinal_format = number_format($adc_precofinal, 2, ',', ' ');
+    
+                                        $valor_adicional_item += $adc_precofinal;
+    
+                                        if(!empty($item_adc) && $item_adc !== ''){
+                                            echo "<b><p class='adicionais_subtitle text-lowecase'> + ".$item_adc[3]." x ".$item_adc[1]." - R$ ".$adc_precofinal_format." </p></b>";
+                                            
+                                        }
 
-                                    $valor_adicional_item += $adc_precofinal;
-
-                                    if(!empty($item_adc) && $item_adc !== ''){
-                                        echo "<b><p class='adicionais_subtitle text-lowecase'> + ".$item_adc[3]." x ".$item_adc[1]." - R$ ".$adc_precofinal_format." </p></b>";
-                                        
                                     }
+
                                 }
                             }
                             ?>
